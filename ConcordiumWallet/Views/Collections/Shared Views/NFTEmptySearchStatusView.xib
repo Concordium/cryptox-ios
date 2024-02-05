@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="NFTEmptSearchStatusView" customModule="Concordium_ID" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Nothing found]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XBX-Qv-U7O">
+                    <rect key="frame" x="20" y="348" width="374" height="29"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                    <color key="textColor" name="buttonText"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="nft.import.emptysearch.message"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="www.xxx.xxx" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iJd-tO-fwp">
+                    <rect key="frame" x="20" y="385" width="374" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" name="grey_secondary"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="XBX-Qv-U7O" secondAttribute="trailing" constant="20" id="IOd-np-aGv"/>
+                <constraint firstItem="XBX-Qv-U7O" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="MBt-lA-PCM"/>
+                <constraint firstItem="iJd-tO-fwp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="YSt-Q4-RCR"/>
+                <constraint firstItem="XBX-Qv-U7O" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" multiplier="1:1.25" id="sBz-Ao-ei9"/>
+                <constraint firstItem="iJd-tO-fwp" firstAttribute="top" secondItem="XBX-Qv-U7O" secondAttribute="bottom" constant="8" id="uHA-gb-6qm"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="iJd-tO-fwp" secondAttribute="trailing" constant="20" id="y78-bZ-UvD"/>
+            </constraints>
+            <connections>
+                <outlet property="infoLabel" destination="iJd-tO-fwp" id="hVD-Pf-hYp"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="119"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="buttonText">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="grey_secondary">
+            <color red="0.72549019607843135" green="0.74117647058823533" blue="0.77647058823529413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

@@ -1,0 +1,12 @@
+body {
+    font-family: -apple-system;
+    font-size: 14px;
+    font-weight: 400;
+    background-color: #333333;
+    color: white;
+    padding: 1em;
+}
+
+p {
+    text-align: left;
+}

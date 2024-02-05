@@ -1,0 +1,1318 @@
+/* 
+  Localizable.strings
+  ConcordiumWallet
+
+  Created by Concordium on 13/02/2020.
+  Copyright © 2020 concordium. All rights reserved.
+*/
+
+ok = "OK"; /*  */
+yes = "Yes"; /*  */
+no = "No"; /*  */
+close = "Close"; /*  */
+start = "Start"; /*  */
+accounts_tab_title = "Accounts"; /*  */
+collections_tab_title = "NFT"; /*  */
+identities_tab_title = "Identities"; /*  */
+more_tab_title = "More"; /*  */
+identity_provider_list_title = "Initial account creation"; /*  */
+passcode_selection_title = "Select Passcode"; /*  */
+add_identity_data = "Reveal Identity Data";
+
+"identityProviders.subtitle" = "The third step:\nChoosing an identity provider";
+"identityProviders.details" =  "As mentioned, the identity provider will verify your identity using a government issued identity document, some identity attributes you provide, and a selfie.\n\nYou can pick one from the list below. To read more about them before deciding, click the links below.";
+"errorAlert.title" = "An error occurred";
+"errorAlert.okButton" = "OK";
+"errorAlert.cancelButton" = "Cancel";
+"errorAlert.continueButton" = "Continue";
+"errorAlert.open.settings" = "Open settings";
+"warningAlert.dontShowAgainButton" = "Don't show again";
+"warningAlert.title" = "Warning";
+"warningAlert.transactionMemo.title" = "Transaction messages";
+"warningAlert.transactionMemo.text" = "Transaction memos are public and visible to everyone on the blockchain. Any memo sent with a transaction are permament, and will be visible forever, so be careful what you write in the memo. \n\n Adding a memo will increase the transaction fee.";
+"viewError.wrongPassword" = "Incorrect Password! Please try again.";
+"viewError.genericError" = "An error occured. Please try again.";
+"viewError.userCancelled" = "User cancelled";
+"viewError.networkCommunicationError" = "Cannot connect to server. Please check your internet connection and try again.";
+"viewError.internalServerError" = "Cannot establish communication with the server. Please try again later.";
+"viewError.invalidName" = "The name cannot be empty, or start or end with a space.";
+"viewError.duplicateRecipient" = "This account was not added to the address book, as it was already saved as ";
+"viewError.passwordChangeFailed" = "An error occured while changing password";
+"viewError.jailbroken" = "This iPhone might be jailbroken. Using this iPhone is not safe.";
+"view.error.cameraAccessDenied" = "Camera access has been denied, and must be enabled in the Settings app to continue";
+"keychain.popup.button.enterpassword" = "Enter Password";
+"keychain.popup.button.enterpasscode" = "Enter Passcode";
+"selectPassword.button.useFullPassword" = "Use full password instead";
+"selectPassword.button.continue" = "Continue";
+"selectPassword.passcode.title" = "Select Passcode";
+"selectPassword.passcode.descriptiveText" = "Select a 6-digit passcode to secure your wallet.";
+"selectPassword.cautionText.note" = "Note:";
+"selectPassword.passcode2.title" = "Re-enter Passcode";
+"selectPassword.passcode2.descriptiveText" = "Re-enter your 6-digit passcode to secure your wallet";
+"selectPassword.password.title" = "Select Password";
+"selectPassword.password.descriptiveText" = "Select a password with at least\n6 characters.";
+"selectPassword.password2.title" = "Re-enter Password";
+"selectPassword.password2.descriptiveText" = "Re-enter your password to secure your wallet.";
+"selectExportPassword.password.title" = "Select Export Password";
+"selectExportPassword.password.descriptiveText" = "Select an export password. The password will be needed to access the exported data in a secure way.";
+"selectExportPassword.password2.title" = "Re-enter Export Password";
+"selectExportPassword.password2.descriptiveText" = "Re-enter your export password.";
+"requestExportPassword.password.title" = "Enter Export Password";
+"requestExportPassword.password.descriptiveText" = "Enter the export password created when exporting the file";
+"import.passwordError" = "Invalid password or import file corrupted";
+"import.environmentError" = "Files exported on Concordium Mainnet, TestNet or StageNet are not compatible with the other chains. Please import on the correct chain.";
+"import.noIdentitiesError" = "The file imported did not contain any identities. This indicates a corrupted backup file.";
+"import.noUserCreated" = "Please create password first. Then try again.";
+"import.not.accepted.privacy" = "You need to accept Terms and Conditions and Privacy policy first";
+"import.importing.title" = "Importing...";
+"import.importing.subtitle" = "Please hold on a moment,\nwhile the import is finishing";
+"import.successful.title" = "Import Successful";
+"import.successful.subtitle" = "You have successfully imported:";
+"import.report.alreadyExistedPostfix" = " (Already existed)";
+"import.report.recipientAccountsAlreadyExisted" = "recipient accounts were not imported, as they already existed";
+"import.report.recipientAccountsFailed" = "recipient accounts failed import";
+"import.report.failedPostfix" = " (Failed)";
+"import.report.accountsTitle" = "Accounts:";
+"import.report.accountsReadonlyTitle" = "Accounts found on chain:";
+"import.report.addressBookTitle" = "Address Book:";
+"import.report.recipientAccountsTitle" = "Recipient Accounts:";
+"selectPassword.biometrics.title.title" = "Enable Biometrics";
+"selectPassword.biometrics.title.details" = "Enable biometrics for more cinvenient login";
+"selectPassword.biometrics.title.faceId" = "Enable FaceID";
+"selectPassword.biometrics.title.touchId" = "Enable TouchID";
+"selectPassword.biometrics.infoText.faceIdText" = "Enable FaceID for more convenient login.";
+"selectPassword.biometrics.infoText.touchIdText" = "Enable TouchID for more convenient login.";
+"selectPassword.biometrics.enableButton.faceIdText" = "Enable FaceID";
+"selectPassword.biometrics.enableButton.touchIdText" = "Enable TouchID";
+"selectPassword.biometrics.continueButton.text" = "Continue without";
+"login.passcode.title" = "Enter Passcode";
+"login.password.title" = "Enter Password";
+"selectPassword.entryMismatch" = "Entries do not match! Please try again.";
+"identities.createIdentity" = "Create identity";
+"accounts.totalBalanceTitleLabel" = "Wallet total";
+"accounts.createNewAccount" = "Submit account";
+"accounts.createNewIdentity" = "Create identity";
+"accounts.noAccountsMessage" = "You have no accounts yet.";
+"accounts.noIdentityMessage" = "You need to create an identity\nbefore creating an account.";
+"accounts.balance" = "Balance";
+"accounts.shieldedbalance" = "Shielded Balance";
+"accounts.atdisposal" = "At disposal:";
+"accounts.staked" = "- Staked";
+"account.accounttotal" = "Account Total";
+"accounts.initial" = "(Initial)";
+"accounts.overview.atdisposal" = "At disposal";
+"accounts.overview.staked" = "Staked";
+"accounts.totalatdisposal" = "Total currently at disposal";
+
+
+"accounts.shieldedamount" = "Shield amount";
+"accounts.unshieldedamount" = "Unshield amount";
+"accounts.amountwillbeshielded" = "Amount will be shielded";
+"accounts.amountwillbeunshielded" = "Amount will be unshielded";
+
+"accounts.backupwarning.text" = "Please, make backup your data";
+
+"backupwarning.title" = "Backup is important";
+"backupwarning.message" = "It is necessary to restore your data. Please, make backup.";
+"backupwarning.button.ok" = "Export your data";
+"backupwarning.export.message.nothing" = "Nothing to export";
+
+"backupwarning.remove.title" = "Delete! Be careful";
+"backupwarning.remove.message" = "Are you sure? This action can not be changed!";
+"backupwarning.remove.button.ok" = "Delete your data";
+
+"gettingstarted.title" = "Getting started";
+"gettingstarted.subtitle" = "Are you new here?";
+"gettingstarted.details" = "If this is your first time using the Concordium blockchain, you must create an initial account. \n\nIn case this is not your first time around, you must import existing accounts to get access to them.\n\nHow would you like to continue?";
+"gettingstarted.newaccount" = "I want to create my initial account";
+"gettingstarted.importaccount" = "I want to import existing accounts";
+
+
+
+"initialaccountinfo.title" = "Initial account creation";
+"initialaccountinfo.subtitle" = "The initial account";
+"initialaccountinfo.details" = "On the following pages you will be guided through the three-step process of requesting an initial account and an identity:\n\n1. Naming your initial account.\n2. Naming your identity.\n3. Requesting the initial account and identity\nfrom a provider of your choice.";
+"initialaccountinfo.firstidentity.details" = "The initial account is an account created by an identity provider of your choice. This account is created at the same time as you request an identity from an identity provider. You will have to request both the identity and the initial account, before you can start using the Concordium block-chain.\n\nOn the following pages you will be guided through the three-step process of requesting the initial account and an identity:\n\n1. Naming your initial account.\n2. Naming your identity.\n3. Requesting the initial account and identity\nfrom a provider of your choice.";
+
+
+"importinfo.title" = "Import";
+"importinfo.subtitle" = "How to import on iOS";
+"importinfo.details" = "On iOS, importing works by opening the media in which you keep your exported file. By using the sharing option built into iOS, you can choose to share the file with CryptoX Wallet. When doing this, CryptoX Wallet will ask you for the password chosen during export, followed by the import of your accounts, identities and address book.";
+
+
+
+"welcomeScreen.title" = "";
+"welcomeScreen.subtitle" = "Hi, there!";
+"welcomeScreen.subtitle2" = "Let’s get started!";
+"welcomeScreen.details" = "Before you can start using CryptoX Wallet, you have to set up your passcode and biometrics and either create your initial account or import one or more existing accounts.";
+"welcomeScreen.button" = "Continue";
+
+"termsAndConditionsScreen.title" = "";
+"termsAndConditionsScreen.subtitle" = "Terms and Conditions for CryptoX Wallet";
+"termsAndConditionsScreen.terms1.title" = "Effective from May 15th 2021";
+"termsAndConditionsScreen.terms1.title2" = "\n\nIntroduction\n\n";
+"termsAndConditionsScreen.terms2.details" = "CryptoX Wallet is a digital wallet that is offered worldwide by Pioneering Technology Ventures ApS. At pioneeringtechnologyventures.com, you can read about how the app works. Pioneering Technology Ventures ApS may continually change and/or adjust the functions of CryptoX Wallet. Pioneering Technology Ventures ApS’s terms and conditions apply to CryptoX Wallet users worldwide.\n\nThe wallet will register and use data about you. Pioneering Technology Ventures ApS will not register or use data about you.\n\n";
+"termsAndConditionsScreen.terms3.title" = "Terms and conditions for all services and functions\n\n";
+"termsAndConditionsScreen.terms4.subtitle" = "Parties to the agreement\n\n";
+"termsAndConditionsScreen.terms5.details" = "When you register with Pioneering Technology Ventures ApS, you enter into an agreement with:\n\nPioneering Technology Ventures ApS, Skraenten 8, 8900 Randers, Denmark. Reg no.: DK42753688. Our email address is contact@pioneeringtechnologyventures.com.\n\n";
+"termsAndConditionsScreen.terms6.title" = "What do you need in order to register with CryptoX Wallet\n\n";
+"termsAndConditionsScreen.terms7a.details" = "The following is required to register with CryptoX Wallet:\n\n";
+"termsAndConditionsScreen.terms7.paragraph1" = "•    Have a mobile device (e.g., smartphone or tablet). You can see which operating systems can be used at pioneeringtechventures.com.\n\n";
+"termsAndConditionsScreen.terms7.paragraph2" = "•    Verify your identity with an identity provider. The identity provider will know the identity of the initial account creator.\n\n";
+"termsAndConditionsScreen.terms7b.details" = "You must be at least 18 years old to register.\n\n";
+"termsAndConditionsScreen.terms8.title" = "Registering as a CryptoX Wallet user\n\n";
+"termsAndConditionsScreen.terms9.details" = "Before you can use CryptoX Wallet, you will need to create an initial account and register with an identity provider by following the instructions in the app. An identity provider is a third-party supplier and independent of Pioneering Technology Ventures ApS. The CryptoX Wallet stores data from the identity provider, but Pioneering Technology Ventures ApS does not.\n\nAfter you have created the initial account and registered with an identity provider, you can create additional accounts (‘regular accounts’) with which you will be able to carry out transactions.\n\nPlease note that you can only register one account as the initial account.\n\n";
+"termsAndConditionsScreen.terms10.title" = "Activation code and personal password\n\n";
+"termsAndConditionsScreen.terms11.details" = "When you register in CryptoX Wallet, you will need to create a personal passcode. If your mobile device supports it, you can subsequently activate your fingerprint or use facial recognition instead of the 6-digit password. You should be aware that all fingerprints/facial recognitions linked to your mobile device can be used to log on to CryptoX Wallet and use the functions. You are therefore obliged to ensure that you have only activated your own fingerprints and your own facial recognition if you want to use them instead of the 6-digit password for access to CryptoX Wallet. CryptoX Wallet does not store your fingerprints or facial recognition.\n\n";
+"termsAndConditionsScreen.terms12.title" = "Other obligations etc.\n\n";
+"termsAndConditionsScreen.terms13.details" = "You have a duty to ensure that the details you provide are correct and updated at any given time. Your CryptoX Wallet account is personal and may be used only by you. You must not disclose your passwords to others, write them down, or save them on your mobile device.\n\nCryptoX Wallet must not be used for illegal activities or purposes.\n\nYou must not use CryptoX Wallet in a way that harasses other CryptoX Wallet users.\n\nAll transaction requests are irreversible. You are yourself responsible for ensuring that the recipient of a transaction via CryptoX Wallet is the intended recipient, and you must verify that the transaction amount is correct. You are responsible for providing the correct account to persons and users who want to transfer funds to you.\n\nTo prevent unauthorized use of CryptoX Wallet, you must store your mobile device so that others cannot gain unauthorized access to it. If possible, you should lock your device with a password or keypad lock. Do not disclose the password to third parties.\n\nYou are obliged to verify your identity with an identity provider. The identity provider will know the identity of the initial account creator. Your identity can be revealed via the process of anonymity revocation, which can happen under stringent regulations, such as a court order.\n\nYou are solely responsible for safekeeping your passwords, PINs, account keys, encryption keys, identity, and any other codes you use to access the CryptoX Wallet or any information, GTU, or voucher. If you lose access to the Mobile Wallet, private keys, or identity, and you have not separately stored a backup of your accounts and the corresponding password(s), you acknowledge and agree that any GTU you have associated with that account will become inaccessible.\n\nPlease note: If you have chosen to use assistants based on speech recognition (e.g., Siri) or patterns of use, this means that information about your use of CryptoX Wallet, including recipients, amounts, and messages, is sent to the provider of the assistant. Your own use of any assistant determines what information is sent.\n\nCryptoX Wallet does not send any information.\n\n";
+"termsAndConditionsScreen.terms14.title" = "Term\n\n";
+"termsAndConditionsScreen.terms15.details" = "This agreement will apply between you and Pioneering Technology Ventures ApS from your download of the CryptoX Wallet, and until you have completely removed the CryptoX Wallet in its entirety from your device.\n\nThe section Pioneering Technology Ventures ApS’s liability for damages shall apply indefinitely.\n\n";
+"termsAndConditionsScreen.terms16.title" = "Fees and charges\n\n";
+"termsAndConditionsScreen.terms17.details" = "Pioneering Technology Ventures ApS currently does not charge any fee for registration with CryptoX Wallet. CryptoX Wallet does not charge a transaction fee; however, you have to pay a transaction fee for transactions on the blockchain.\n\nAny other costs and charges related to your use of the CryptoX Wallet shall be paid by you, including but not limited to costs to the identity provider, if any.\n\nIf we introduce new functions, features, products, or services, these may be subject to fees from the start without you receiving any notice of changed terms and conditions. You will always be informed about the fee before you register for the function, feature, product, or service.\n\n";
+"termsAndConditionsScreen.terms18.title" = "Changes\n\n";
+"termsAndConditionsScreen.terms19.details" = "You will be notified on pioneeringtechventures.com if we change the terms and conditions. We may change the terms and conditions without notice. You can read the terms and conditions at pioneeringtechventures.com, from which you can also print, download, or email them.\n\nIf you do not wish to be covered by the new terms and conditions, you must notify us before the new terms and conditions enter into force. If you notify us that you do not wish to be covered by the new terms and conditions, we will consider the CryptoX Wallet agreement to be terminated from the date on which the new terms and conditions enter into force. If we do not hear from you, we will regard it as your acceptance of the changes.\n\n";
+"termsAndConditionsScreen.terms20.title" = "Intellectual property rights and license\n\n";
+"termsAndConditionsScreen.terms22.details" = "Pioneering Technology Ventures ApS retains all right, title, and interest in and to all of Pioneering Technology Ventures ApS’s brands, logos, and trademarks, including, but not limited to, CryptoX Wallet and variations of the wording of the said brands, logos, and trademarks.\n\n";
+"termsAndConditionsScreen.terms23.subtitle" = "Our notification of unauthorized use and security threats\n\n";
+"termsAndConditionsScreen.terms24.details" = "We may issue information about general security threats through pioneeringtechventures.com and social media.\n\n";
+"termsAndConditionsScreen.terms25.title" = "Pioneering Technology Ventures ApS’s liability for damages\n\n";
+"termsAndConditionsScreen.terms26a.details" = "Pioneering Technology Ventures ApS is not liable for damages for late or defective performance of the CryptoX Wallet and/or our contractual obligations resulting from error or negligence.\n\nEven in areas in which stricter liability applies, Pioneering Technology Ventures ApS is not liable for losses arising from\n\n";
+"termsAndConditionsScreen.terms26.paragraph1" = "•    Breakdown of or lack of access to IT systems or damage to data in these systems attributable to any of the events listed below regardless of whether Pioneering Technology Ventures ApS or a third-party supplier is responsible for the operation of these systems, power failure, or breakdown of Pioneering Technology Ventures ApS’s power supply system or telecommunications, statutory intervention or administrative acts, acts of God, war, revolution, riot, civil unrest, sabotage, terrorism, or vandalism (including computer virus attacks or hacking).\n\n";
+"termsAndConditionsScreen.terms26.paragraph2" = "•    Strikes, lockouts, boycotts, or picketing, regardless of whether Pioneering Technology Ventures ApS or its organization is itself a party to or has started such an industrial dispute and regardless of its cause. This also applies if the dispute affects only parts of Pioneering Technology Ventures ApS.\n\n";
+"termsAndConditionsScreen.terms26.paragraph3" = "•    Other circumstances beyond or within the control of Pioneering Technology Ventures ApS.\n\n";
+"termsAndConditionsScreen.terms26b.details" = "Please be advised that Pioneering Technology Ventures ApS is not liable for any defects or deficiencies in the goods or services for which you pay using CryptoX Wallet, Pioneering Technology Ventures ApS accepts no liability for the fundraising campaigns to which you make contributions using CryptoX Wallet. If you have any complaints regarding the delivered goods, services, or fundraising campaigns, you must contact the seller and/or the fundraiser.\n\nPioneering Technology Ventures ApS does not undertake any liability for the conduct of the seller/fundraiser in general.\n\n";
+"termsAndConditionsScreen.terms27.title" = "Privacy\n\n";
+"termsAndConditionsScreen.terms28.details" = "Pioneering Technology Ventures ApS respects your privacy to the effect that Pioneering Technology Ventures ApS will not monitor, edit, or disclose any personal information about you or your account, including its contents or your use of the CryptoX Wallet, without your prior consent unless Pioneering Technology Ventures ApS in good faith beliefs that such action is necessary to: (i) comply with legal process or other legal requirements of any governmental authority; (ii) protect and defend the rights or property of Pioneering Technology Ventures ApS; (iii) enforce this Agreement; (iv) protect the interests of users of the CryptoX Wallet other than you or any other person; (v) operate or conduct maintenance and repair of CryptoX Wallet or Concordium’s services or equipment; or (vi) if your identity is revoked in accordance with the identity revocation process as required to comply with (i). You are assumed to have no expectation of privacy with respect to the Internet generally. Your IP address is transmitted and recorded with each message or other information you send from the CryptoX Wallet. When you create an identity with a third party supplier, you have entered an agreement directly with such a third supplier and such a third party supplier will store data about you and in this case, the third party supplier’s privacy policy and terms and conditions apply.\n\n";
+"termsAndConditionsScreen.terms29.title" = "Governing law and venue\n\n";
+"termsAndConditionsScreen.terms30.details" = "The agreement and any dispute arising out of the agreement are governed by Danish law and such disputes must be heard by Copenhagen District Court or the jurisdiction of the defendant’s domicile unless otherwise provided by absolute consumer rights in Denmark. This applies without consideration for rules in international private law which may lead to the application of other law than Danish law.\n\n";
+"termsAndConditionsScreen.terms31.title" = "Complaints\n\n";
+"termsAndConditionsScreen.terms32.details" = "You can always write to Pioneering Technology Ventures ApS if you disagree with us. In this way, we make sure that such disagreement is not based on a misunderstanding. The address is Pioneering Technology Ventures ApS, Skraenten 8, 8900 Randers, Denmark. Reg no.: DK42753688.\n\n";
+"termsAndConditionsScreen.terms33.title" = "New copy of these terms and conditions\n\n";
+"termsAndConditionsScreen.terms34.details" = "You can always find the latest version on pioneeringtechventures.com.\n\nYou can contact CryptoX Wallet support via contact@pioneeringtechventures.com.\n\n";
+"termsAndConditionsScreen.terms35.title" = "Acceptance\n\n";
+"termsAndConditionsScreen.terms36.details" = "The first time you open the CryptoX Wallet, you’ll be asked to set a check box confirming that you agree to these terms and conditions.";
+"termsAndConditionsScreen.button" = "Yes, I accept";
+
+"okay.gotit" = "Got it!";
+
+"createAccount.tooManyAccounts" = "You already have the maximum number of accounts for this identity.";
+
+"createNickname.initialaccount.title" = "Initial account creation";
+"createNickname.initialaccount.nicknameField.placeholder" = "Account name";
+"createNickname.initialaccount.subtitle" = "Set account name";
+"createNickname.initialaccount.details" = "What would you like to name your account?";
+"createNickname.initialaccount.button" = "Continue";
+
+
+"createNickname.account.title" = "New Account";
+"createNickname.account.nicknameField.placeholder" = "Account name";
+"createNickname.account.subtitle" = "Set account name";
+"createNickname.account.details" = "What would you like to name your account?";
+"createNickname.account.button" = "Next";
+
+"createNickname.identity.title" = "Initial account creation";
+"createNickname.identity.nicknameField.placeholder" = "Identity name";
+"createNickname.identity.subtitle" = "Setup identity name";
+"createNickname.identity.details" = "What would you like to name your identity?";
+"createNickname.identity.button" = "Continue to identity providers";
+
+"createNickname.next.title" = "Next";
+"Ok.thanks" = "Ok, thanks";
+"Ok" = "Ok";
+"accountConfirmed.submitted" = "Account submitted";
+"accountConfirmed.submittedMessage" = "This may take a few minutes to
+process on-chain.";
+"accountFailed.title" = "Account creation failed!";
+"accountFailed.tryLater" = "Please try again.";
+"accountDetails.failedMessage" = "Account creation failed in the process of creation";
+"accountDetails.committedMessage" = "Account creation in progress.\n\nYou can start using this account once it’s been finalized on the chain.";
+
+"accountDetails.retryAccountCreation.title" = "Retry account creation";
+"accountDetails.removeAccount.title" = "Remove account from wallet";
+"accountDetails.send" = "Send";
+"accountDetails.shield" = "Shield";
+"accountDetails.unshield" = "Unshield";
+"accountDetails.address" = "Address";
+"accountDetails.noTransfers" = "This balance has no transactions yet.";
+"accountDetails.noIdentities" = "This account has no revealed identity data.";
+"accountDetails.bakerId" = "Baker ID:";
+"accountDetails.transactionData" = "Transaction data";
+"identityFailed.title" = "Identity issuance failed!";
+"accountDetails.bakingstakelabel" = "Stake with baker %@";
+"accountDetails.passivevalue" = "Passive delegation";
+"accountDetails.bakerpoolvalue" = "Delegation with baker pool %d";
+
+
+"sendFund.pageTitle.send" = "Send Funds";
+"sendFund.pageTitle.shieldAmount" = "Shield Amount";
+"sendFund.pageTitle.unshieldAmount" = "Unshield Amount";
+"sendFund.buttonTitle.send" = "Send amount";
+"sendFund.buttonTitle.shieldAmount" = "Shield amount";
+"sendFund.buttonTitle.unshieldAmount" = "Unshield amount";
+"sendFund.sendshielded" = "Send shielded amount";
+"sendFund.selectRecipient" = "Select Recipient";
+"sendFund.feeMessageTitle" = "Estimated transaction fee:";
+"sendFund.feeMessageValue" = "%@ CCD";
+"sendFund.feeMessage" = "Estimated transaction fee: CCD";
+"sendFund.sendingToOwnAccountDisallowed" = "Recipient account is not allowed be the same as sending account";
+"sendFund.insufficientFunds" = "Insufficient funds";
+"sendFund.confirmation.shield" = "Are you sure you want to shield";
+"sendFund.confirmation.unshield" = "Are you sure you want to unshield";
+"sendFund.confirmation.transfer" = "Are you sure you want to transfer";
+"sendFund.confirmation.line2.to" = "to";
+"sendFund.confirmation.line3.fromAccount" = "from account: ";
+"sendFund.confirmation.line3.Account" = "Account: ";
+"sendFund.confirmation.line4.estimatedTransactionFee" = "Estimated transaction fee:";
+"sendFund.confirmation.buttonTitle" = "Yes, send funds";
+"sendFund.addMemo" = "";
+"sendFund.memo.text" = "Memo:\n %@";
+"sendFund.memo.textTitle" = "Memo:";
+"sendFund.memo.textValue" = "%@ CCD";
+"sendFund.addMemoButtonTitle" = "Add Memo";
+"sendFund.editMemoButtonTitle" = "Edit Memo";
+
+"addMemo.pageTitle" = "Add memo";
+"addMemo.pageSubTitle" = "What would you like to name your memo id?";
+"addMemo.memoText" = "Memo text";
+"addMemo.memoTitle" = "Enter your memo below.";
+"addMemo.memoTextViewPlaceholder" = "You can enter an optional memo here.";
+"addMemo.addMemoButtonTitle" = "Add memo to transfer";
+"addMemo.errorMessage" = "The memo cannot be empty, or start or end with a space.";
+
+"selectRecipient.title" = "Select recipient";
+"selectRecipient.searchRecipients" = "Search recipients";
+"selectRecipient.noDataTitle" = "No results";
+"selectRecipient.tryAgain" = "Please, try again";
+"accountAddress.share" = "Share";
+"accountAddress.copy" = "Copy";
+"accountAddress.title" = "Address";
+"accountAddress.toast.addressCopied" = "Address copied";
+
+"scanQr.title" = "Scan QR";
+"scanQr.unsupportedMessage.title" = "Scanning not supported";
+"scanQr.unsupportedMessage.message" = "Your device does not support scanning a code from an item. Please use a device with a camera.";
+"scanQr.invalidQr" = "Invalid QR code";
+"scanQr.toast.insufficientFunds" = "Insufficient funds. You must have minimum 5.5 CCD to proceed.";
+
+"addRecipient.title" = "New Recipient";
+"addRecipient.addressInvalid" = "Invalid account address";
+"addRecipient.recipientName" = "Recipient Name";
+"addRecipient.recipientAddress" = "Recipient Address";
+"addRecipient.errorLimit" = "The name should contain less than 45 characters.";
+"addRecipient.deleteCompleate" = "Recipient deleted successfully.";
+
+"recipient.alert.title" = "Delete recipient?";
+"recipient.alert.message" = "You are going to delete recipient. Are you sure?";
+
+"editAddress.title" = "Edit Address";
+
+"attributes.firstName" = "First Name";
+"attributes.countryOfResidence" = "Country of residence";
+"attributes.dob" = "Date of birth";
+"attributes.idDocExpiresAt" = "ID Valid to";
+"attributes.idDocIssuedAt" = "ID Valid from";
+"attributes.idDocIssuer" = "Identity Document Issuer";
+"attributes.idDocNo" = "Identity Document number";
+"attributes.idDocType" = "Identity Document Type";
+"attributes.lastName" = "Last Name";
+"attributes.nationality" = "Country of nationality";
+"attributes.sex" = "Sex";
+"attributes.taxIDNo" = "Tax ID number";
+"attributes.nationalIDNo" = "National ID number";
+
+"sex.notKnown" = "Not known";
+"Save" = "Save";
+
+"transactionConfirmed.submitted" = "Transaction submitted!";
+"shieldedtransactionConfirmed.submitted" = "Shielded transaction submitted!";
+"shielding.submitted" = "Shielding submitted!";
+"unshielding.submitted" = "Unshielding submitted!";
+
+"transactionFailed.title" = "Transaction error!";
+"TransactionsList.loading" = "Loading...";
+"transactions.shieledtransactionfee" = "Shielded transaction fee";
+"transaction.shieldedAmount" = "Shielded amount";
+"transaction.unshieldedAmount" = "Unshielded amount";
+
+"accountDetails.generalbalance" = "Balance";
+"accountDetails.generalshieldedbalance" = "Shielded Balance";
+
+"accountDetails.title" = "Transaction Details";
+"accountDetails.origin" = "Origin";
+"accountDetails.fromAddress" = "From Address: ";
+"accountDetails.transactionHash" = "Transaction Hash";
+"accountDetails.submitted" = "Submitted";
+"accountDetails.failed" = "Failed";
+"accountDetails.blockHash" = "Block Hash";
+"accountDetails.details" = "Details";
+"accountDetails.toAddress" = "To Address: ";
+"accountDetails.readonly" = "This account is imported without keys, and is read only";
+"accountDetails.memo" = "Memo";
+
+"more.addressBook" = "Address Book";
+"more.import" = "Import";
+"more.export" = "Export";
+"export.explainingTitleText" = "Here you can export your identities, accounts and the address book";
+"export.explainingText" = "The exported data includes private keys which give access to your identities and accounts. For this reason the data will be encrypted under a password that you will be asked to select during the process. It is important that you store the password safely and securely. The password will be needed for access to exported data (e.g. if you want to import an account into the CryptoX Wallet Client).";
+"export.button.continue" = "Continue";
+"export.unfinalizedAccounts" = "The following accounts are either failed or not ready on the chain, so they cannot be exported. \n";
+"more.export.subtitle" = "By pressing “Continue”,  you will be guided through setting up a new passcode.";
+"more.update" = "Update Passcode & Biometrics";
+"more.updatePasswordAndBiometrics.title" = "Update Passcode & Biometrics";
+"more.update.button.continue" = "Continue";
+"more.updatePasswordAndBiometrics.infoTitleText" = "Here you can update your passcode and biometrics";
+"more.update.error.nonFinalizedItems" = "All identities and accounts must be finalized before passcode can be changed. Please wait, then try again.";
+"more.updatePasswordAndBiometrics.infoText" = "By pressing Continue, you will be guided through setting up a new passcode. You will also get the option of enabling biometrics, or to continue without them.";
+"more.validateIdsAndAccounts" = "Validate IDs and Accounts";
+"more.validateIdsAndAccount.warningTitle" = "⚠️ Warning ⚠️";
+"more.validateIdsAndAccount.unusableIdentitiesFound" = "The keys for the following identities and accounts could not be found. Without the keys the identities and accounts cannot function. How would you like to proceed?\n";
+"more.validateIdsAndAccount.removeFromApp" = "Remove from app";
+"more.validateIdsAndAccount.remindLater" = "Remind me later";
+"more.validateIdsAndAccount.keep" = "Keep as read-only";
+"more.validateIdsAndAccount.identity" = "\nIdentity: %@\n";
+"more.validateIdsAndAccount.account" = "Account: %@\n";
+"more.validateIdsAndAccount.import" = "Import from backup";
+"more.validateIdsAndAccount.simpleWarningTitle" = "Warning";
+"more.validateIdsAndAccount.idsWithFunctioningAccounts" = "The following keyless identities have accounts that still function. These identities will be kept, but can’t be used. If you make an export, these identites and related accounts will not be included.";
+"more.validateIdsAndAccount.okay" = "Okay";
+"more.validateIdsAndAccount.confirmationtitle" = "⚠️ Are you sure? ⚠️";
+"more.validateIdsAndAccount.yesremoveFromApp" = "Yes, remove from app";
+"more.validateIdsAndAccount.confirmationtext" = "If you remove the affected identities and accounts from the app and you don’t have a backup, they cannot be added again later.\n\n\n This action should only be done if you are absolutely sure you can’t recover them, and want them removed from your wallet.\n\n Do you still want to remove them?";
+"more.validateIdsAndAccount.allOk.title" = "Success";
+"more.validateIdsAndAccount.allOk.description" = "All your identities and accounts are valid and functional.";
+"more.removeAccount" = "Remove Account";
+
+
+
+"more.about" = "About";
+"more.about.title" = "About";
+"more.about.support.title" = "Support";
+"more.about.support.text" = "If you encountered a problem, or need help with something, you can reach out to us via\ncontact@pioneeringtechventures.com";
+"more.about.website.title" = "Website";
+"more.about.website.text" = "For more info about CryptoX Wallet you can visit\npioneeringtechventures.com";
+"more.about.appVersion.title" = "App Version";
+
+"accountDetails.testnetGtuDropTitle" = "TESTNET CCD DROP";
+"accountDetails.testnetGtuDropMessage" = "On the Concordium Testnet, you can request 20000CCD to be deposited to an account to get you started";
+"accountDetails.testnetGtuDropButtonTitle" = "Request 20000 CCD";
+"accountDetails.transfers" = "Transfers";
+"accountDetails.identity_data" = "Identity data";
+
+
+"removeAccount.explainingTitleText" = "Here you can delete your accounts, data and the address book. Are you sure? This action can not be changed!";
+"removeAccount.explainingText" = "The exported data includes private keys which give access to your identities and accounts. For this reason the data will be encrypted under a password that you will be asked to select during the process. It is important that you store the password safely and securely. The password will be needed to access your exported data (e.g. if you want to import an account into the CryptoX Wallet Client).";
+
+"removeAccount.remove.button.title" = "Delete";
+"removeAccount.export.button.title" = "Export & Delete";
+
+
+"identityData.title" = "Identity";
+"accountConfirmed.title" = "New account";
+"identitySubmitted.title" = "Account";
+"identitySubmitted.heading" = "Request submitted!";
+"identitySubmitted.details"="It might take a little while for the identity provider to finish your request.";
+"identitySubmitted.text" = "Your identity object is currently being set-up.\n\nYou can start using your identity object once validation of your id has been completed by the identity provider.";
+"identitySubmitted.finish" = "Finish";
+"identitySubmitted.alert.title" = "Identity Issuance";
+"identitySubmitted.alert.message" = "Please check back in the app regularly, until the response from the identity provider has been received. It’s usually ready within 15 minutes, and can be retrieved for up to seven days.";
+"identitySubmitted.continue" = "Continue";
+
+"creationFailed.account" = "Account Creation";
+"creationFailed.identity" = "Identity Verification";
+"creationFailed.transfer" = "Send Funds";
+
+"identityStatus.pending" = "Verification in progress";
+"identityPage.pendingExplanation" = "The verification process has begun.\n\nYour identity object is currently being set-up.\nYou will be able to start using your identity object once it will be validated by the Identity provider you’ve chosen.";
+"identityStatus.failed" = "Verification failed";
+"identityDetails.identityStatus.failed" = "Failed to create";
+"identityDetails.deleteFailedButton.text" = "Remove from list";
+"identityCreation.dataCorrupted" = "An unknown error occurred creating identity. Please try again";
+"identityCreation.issuanceReference.text" = "Issuance reference:\n %@";
+"identityCreation.automaticAccountRemoval.text" = "The related initial account has been automatically removed.";
+
+"privacypolicy" = "Privacy Policy";
+
+"revealattributes.title" = "Reveal Identity Data?";
+"revealattributes.largeTitle" = "Reveal Identity";
+"revealattributes.details" = "You can choose to reveal a range of attributes on your account, e.g. your country of residence. Revealing attributes means that the information will be public on the Concordium blockchain, and that it cannot be hidden or deleted again. \n\n If you have no good reason for revealing attributes, we strongly recommend not revealing any.";
+"revealattributes.submitAccount" = "Submit account";
+"revealattributes.selectAttributes"= "Reveal account attributes";
+"identitymissingkeyserror.title" = "Missing keys";
+"identitymissingkeyserror.details" = "This identity does not have any keys, which means it cannot be used to create a new account.\n\nPlease choose another identity, or create a new one, to make a new account.";
+"identitymissingkeyserror.okay" = "Okay";
+
+"identityfailed.title" = "Identity issuance failed";
+"identityfailed.tryagain" = "Try again";
+"identityfailed.first.message" = "Something went wrong with the initial account creation. \n\n Please go back and try again.";
+"identityfailed.message" = "Something went wrong with the initial account creation.\n\nPlease go back and try again, or try at another time.";
+
+"identityfailed.copyreference" = "Copy reference";
+"identityfailed.contactsupport" = "Contact Support";
+
+"releaseschedule.title" = "Release Schedule";
+"releaseschedule.dateandtime" = "Release date and time";
+"releaseschedule.amount" = "Amount";
+"releaseschedule.lockedamount" = "Locked amount";
+"releaseschedule.nodata" = "No data";
+
+"transferfilters.title" = "Transfer Filters";
+"transferfilters.showrewards" = "Show rewards";
+"transferfilters.showfinalrewards" = "Show finalization rewards";
+
+"general.copied" = "Copied";
+
+"burgermenu.releaseschedule" = "Release Schedule";
+"burgermenu.transferfilters" = "Transfer Filters";
+
+"qrconnect.button.connect" = "Connect";
+"qrconnect.button.approve" = "Approve";
+"qrconnect.button.create" = "Create";
+"qrconnect.button.cancel" = "Cancel";
+"qrconnect.details" = "By clicking on ‘Connect’, you approve this website application to view your profile and public address.";
+
+"qrtransactiondata.title" = "Transaction data";
+"qrtransactiondata.subtitle" = "The data that connect with this transaction";
+"qrtransactiondata.error.title" = "Insufficient funds.";
+"qrtransactiondata.error.subtitle" = "You must have minimum %@ CCD to proceed.";
+"qrtransactiondata.error.noaccount.title" = "No account find for this wallet";
+
+"account.title.totalamount" = "Total amount";
+
+"gdpr.title" = "GDPR Rules";
+"gdpr.heading" = "If this is your first time using the Concordium blockchain you must create an initial account. In case this is not your first time around, you can also import already existing accounts.";
+"gdpr.details" = "If this is your first time using the Concordium blockchain you must create an initial account. In case this is not your first time around, you can also import already existing accounts.";
+"gdpr.button.ok" = "Agree Rules";
+"gdpr.button.cancel" = "Do not agree";
+
+"burgermenu.releaseschedule" = "Release Schedule";
+"burgermenu.transferfilters" = "Transfer Filters";
+
+"supportmail.copied" = "Reference text copied";
+"supportmail.subject" = "Issuance reference: %@";
+"supportmail.body" = "Hi! My identity issuance failed.\n\nHere is my info:\n\nIssuance reference:\n%@\n\nMobile Wallet version:\n%@ (%@) \n\nPlatform:\n\niOS: %@";
+
+"copyreference.info.text" = "You can copy the reference below, and then contact %@ at %@ \n\n Optional: Add Pioneering Technology Ventures as CC via %@";
+
+
+"accountfinalized.single.alert.title" = "Your new account is ready!";
+"accountfinalized.single.alert.message" = "Your new account %@ has been finalized, and is now ready for use.\n\nWe recommend keeping a back-up of all accounts. You can make one now below, or later via the More page.\n\nRemember to store your back-up securely.";
+"accountfinalized.multiple.alert.title" = "Your new accounts are ready!";
+"accountfinalized.multiple.alert.message" = "Your new accounts are now finalized, and ready for use.\n\nWe recommend keeping a back-up of all accounts. You can make one now below, or later via the More page.\n\nRemember to store your back-up securely.";
+"accountfinalized.alert.action.backup" = "Make backup";
+
+"accountfinalized.extrabackup.alert.title" = "⚠️ WARNING ⚠️";
+"accountfinalized.extrabackup.alert.message" = "Are you sure that you do not want to create a backup? You risk losing your CCDs.\n\nIf you lose your phone and do not have a backup you will no longer have access to your account(s) and will lose your CCDs.";
+"accountfinalized.extrabackup.alert.action.dismiss" = "Dismiss";
+
+"backupafterupdate.alert.title" = "Welcome back!";
+"backupafterupdate.alert.message" = "Did you make a backup of your identities and accounts recently?\n\nA backup file is the only way to restore private keys if you lose your phone or re-install the wallet. Without the private keys, you cannot access your accounts. Concordium cannot recover your private keys or export password and you will lose your CCDs. You should export a new backup file EVERY time a new account is created. Protect your export password.\n\nRemember to store the file named
+concordium-backup.concordiumwallet securely.";
+"backupafterupdate.alert.action.notnow" = "Not now";
+
+"transaction.approve.info.title" = "Transaction Fee Limit";
+"transaction.approve.info.message" = "Currently, there is a minimum threshold due to the way the network fee is calculated on the Concordium blockchain. The transaction fee limit is about %@ CCD.";
+
+
+"nft.header.title" = "Your NFTs";
+"nft.import.title" = "Import tokens";
+"nft.import.info" = "To add NFTs from a particular marketplace to your CryptoX wallet you have to enter the marketplace URL and name below.\nExample:\nURL: spaceseven.com\nName: Spaceseven";
+"nft.import.button.back" = "Back";
+"nft.import.button.retry" = "Try Again";
+
+"nft.import.url.title" = "Website URL";
+"nft.import.url.placeholder" = "Please enter url";
+"nft.import.name.title" = "Provider name";
+"nft.import.name.placeholder" = "Please enter provider name";
+
+"nft.import.empty.message" = "Tokens not found";
+
+"nft.import.error.message" = "Error occurred.\n Please try again.";
+
+"nft.import.emptysearch.message" = "Nothing found";
+"nft.import.emptysearch.info" = "By request ";
+
+
+"airdrop.success.title" = "Success";
+"airdrop.error.title" = "Error";
+"airdrop.error.message" = "Error occurred.\n Please try again.";
+"airdrop.connect.details" = "By clicking ‘Connect’ you confirm the registration for the airdrop campaign.";
+
+
+"earn.title" = "Earning rewards";
+"earn.button.baker" = "Continue to baker setup";
+"earn.button.delegation" = "Continue to delegation setup";
+
+"earn.desc.part1" = "There are two options for earning rewards on CryptoX Wallet: Baking and delegation.";
+"earn.desc.baking.header" = "Baking";
+"earn.desc.baking.text" = "As a baker you participate in the network by baking blocks on the Concordium network. This requires a minimum of %@ and access to a dedicated node.";
+"earn.desc.delegation.header" = "Delegation";
+"earn.desc.delegation.text" = "If you don't have access to your own node you may delegate your stake to one of the other bakers. There is no minimum amount of CCD required when delegating.";
+"earn.desc.part2" = "NOTE: A single account cannot both be a baker and delegator, but it is possible to stop one and change to the other.";
+
+
+/// After 2023 update
+"accounts.overview.readonly" = "Read-only";
+"accounts.overview.baking" = "Baking";
+"accounts.overview.delegating" = "Delegating";
+"accounts.overview.send" = "Send";
+"accounts.overview.receive" = "Receive";
+"accounts.overview.more" = "More";
+"accounts.overview.generaltotal" = "Balance total";
+"accounts.overview.shieldedtotal" = "Shieled balance total of %@";
+"accounts.overview.totalatdisposal" = "Total currently at disposal";
+
+
+"accounts.shieldedamount" = "Shield amount";
+"accounts.unshieldedamount" = "Unshield amount";
+"accounts.amountwillbeshielded" = "Amount will be shielded";
+"accounts.amountwillbeunshielded" = "Amount will be unshielded";
+
+"accounts.backupwarning.text" = "As your accounts are not backed up, you risk losing your tokens.";
+"accounts.identitywarning.text" = "Your identity %@ is still getting verified.";
+
+"accounts.alert.shiededtransactions.title" = "Shielded transaction received";
+"accounts.alert.shiededtransactions.message" = "Your account %@ has received a shielded transaction, and the shielded balance of %@ is currently hidden.\n\n
+You can show the shielded balance of the account via the option below, or later via the menu in the upper right corner of the account’s page.";
+"accounts.alert.shiededtransactions.show" = "Show shielded balance on %@";
+"accounts.alert.shiededtransactions.later" = "Don't show again";
+
+"onboardingcarousel.button.skip.text" = "Skip";
+"onboardingcarousel.button.next.text" = "Next";
+"onboardingcarousel.button.back.text" = "Back";
+"onboardingcarousel.button.continue.text" = "Continue";
+
+"onboardingcarousel.shieldedbalance.title" = "Shielded Balance";
+"onboardingcarousel.shieldedbalance.page1.title" = "Before you continue";
+"onboardingcarousel.shieldedbalance.page2.title" = "Before you continue";
+"onboardingcarousel.shieldedbalance.page3.title" = "The shielding transaction";
+"onboardingcarousel.shieldedbalance.page4.title" = "The shielded transfer";
+"onboardingcarousel.shieldedbalance.page5.title" = "The shielded transfer";
+"onboardingcarousel.shieldedbalance.page6.title" = "The unshielding transaction";
+"onboardingcarousel.shieldedbalance.page7.title" = "Before you continue";
+
+"onboardingcarousel.introflow.title" = "Introduction";
+"onboardingcarousel.introflow.page1.title" = "Welcome to CryptoX Wallet";
+"onboardingcarousel.introflow.page2.title" = "Verifying your identity";
+"onboardingcarousel.introflow.page3.title" = "The initial account";
+"onboardingcarousel.introflow.page4.title" = "Backup your private keys";
+"onboardingcarousel.introflow.page5.title" = "You are ready!";
+
+"onboardingcarousel.seedflow.title" = "Introduction";
+"onboardingcarousel.seedflow.page1.title" = "Welcome to CryptoX Wallet";
+"onboardingcarousel.seedflow.page2.title" = "A Concordium Identity";
+"onboardingcarousel.seedflow.page3.title" = "Getting verified";
+"onboardingcarousel.seedflow.page4.title" = "Your first account";
+
+
+
+"recoveryphrase.account.name" = "Account %d";
+"recoveryphrase.identity.name" = "Identity %d";
+
+"recoveryphrase.gettingstarted.navigationtitle" = "Getting started";
+"recoveryphrase.gettingstarted.title" = "Are you new to CryptoX Wallet?";
+"recoveryphrase.gettingstarted.new.title" = "I'm new!";
+"recoveryphrase.gettingstarted.new.body" = "If this is your first time using the Concordium blockchain, you can set up a fresh wallet. This includes:
+
+1. Your secret recovery phrase
+2. A brief introduction to CryptoX Wallet
+3. Your first Concordium identity
+4. You first Concordium account
+
+You will be guided through each step of the process.";
+"recoveryphrase.gettingstarted.new.buttontitle" = "Set up a fresh wallet";
+"recoveryphrase.gettingstarted.recover.title" = "I already have a wallet!";
+"recoveryphrase.gettingstarted.recover.body" = "If you previosly set up a CryptoX Wallet with a secret recovery phrase, you can restore your wallet here.";
+"recoveryphrase.gettingstarted.recover.buttontitle" = "Recover wallet";
+
+"recoveryphrase.onboarding.message" = "\nIt is now time to set up your secret recovery phrase.
+
+The secret recovery phrase is a series of 24 words that will grant you access to create accounts and identities on CryptoX Wallet.
+
+At the same time, it is also the only way to regain access to your accounts and identities if you lose your device or it breaks. This means that it is very important that you write it down and keep it somewhere safe. It it also very important that no one but you has access to the secret recovery phrase.
+
+CryptoX Wallet cannot recreate your secret recovery phrase or help you regain access to your accounts without it.
+
+If you lose your secret recovery phrase, you risk losing your accounts!";
+"recoveryphrase.onboarding.continue" = "Continue";
+
+"recoveryphrase.copyphrase.navigationtitle" = "Secret recovery phrase";
+"recoveryphrase.copyphrase.title" = "Please write all 24 words down in the right order.";
+"recoveryphrase.copyphrase.revealmessage" = "Tap to reveal your secret recovery phrase. Make sure no one else can see it.";
+"recoveryphrase.copyphrase.validationmessage" = "I confirm I have written down my 24 word secret recovery phrase.";
+"recoveryphrase.copyphrase.continue" = "Continue";
+
+"recoveryphrase.confirmphrase.navigationtitle" = "Secret recovery phrase";
+"recoveryphrase.confirmphrase.title" = "Pick the correct suggestion on the right, for each index.";
+"recoveryphrase.confirmphrase.validationerror" = "Incorrect secret recovery phrase. Please verify that each index has the right word.";
+
+"recoveryphrase.setupcomplete.navigationtitle" = "Secret recovery phrase";
+"recoveryphrase.setupcomplete.title" = "Your secret recovery phrase has been successfully setup!";
+"recoveryphrase.setupcomplete.continue" = "Continue";
+
+"recoveryphrase.recover.intro.navigationtitle" = "Recover wallet";
+"recoveryphrase.recover.intro.title" = "How to recover your wallet:";
+"recoveryphrase.recover.intro.body" = "There are two steps to recovering a wallet:
+
+1. Entering your secret recover phrase
+2. Recovering your accounts and identities
+
+The first step is manual process, in which you have to enter all your 24 words one by one.
+
+The second step is most often automatic, but in some cases you will have to make some additional inputs. We’ll get back to that.
+
+Let’s get to the secrect recovery phrase!";
+"recoveryphrase.recover.intro.continue" = "Continue";
+
+"recoveryphrase.recover.explanation.navigationtitle" = "Recover your wallet";
+
+"recoveryphrase.recover.input.navigationtitle" = "Your secret recovery phrase";
+"recoveryphrase.recover.input.title" = "Enter the correct word for each index.";
+"recoveryphrase.recover.input.clearall" = "Clear all";
+"recoveryphrase.recover.input.clearbelow" = "Clear below";
+"recoveryphrase.recover.input.validationerror" = "Invalid secret recovery phrase. Please verify that all words are entered correctly.";
+
+"recoveryphrase.recover.complete.navigationtitle" = "Your secret recovery phrase";
+"recoveryphrase.recover.complete.title" = "Your secret recovery phrase has been successfully entered! Tap continue to recover your accounts and identities.";
+"recoveryphrase.recover.complete.continue" = "Continue";
+
+
+"newidentities.seed.selectprovider.navigationtitle" = "Request a new identity";
+"identities.seed.selectprovider.navigationtitle" = "Your first identity";
+
+
+"identities.seed.status.navigationtitle" = "Your first identity";
+"identities.seed.status.title" = "Verification request submitted!";
+"identities.seed.status.body" = "Your request has been submitted with the identity provider. Now you just have to wait for a moment for them to process your submission. Once your identity is verified, you can create your first account.";
+"identities.seed.status.continue" = "Continue";
+"newidentities.seed.status.navigationtitle" = "Request a new identity";
+"newidentities.seed.status.body" = "Your request has been submitted with the identity provider. Now you just have to wait for a moment for them to process your submission. Once your identity is verified, you can use it to create accounts.";
+"newidentities.seed.status.continue" = "Finish";
+
+"identities.seed.shared.identitytitle" = "Identity %d";
+"identities.seed.shared.accounttitle" = "Account %d";
+"identities.seed.shared.expirationdate" = "Expires on %@";
+
+"identities.seed.submitaccount.navigationtitle" = "Your first account";
+"identities.seed.submitnewaccount.navigationtitle" = "Create new account";
+"identities.seed.submitaccount.title" = "Account submission";
+"identities.seed.submitaccount.body" = "Once the identity provider has verified your identity, you will be able to submit your first Concordium account. So hang on for a bit and wait for them to finish. You can also come back later to submit your account.
+
+When you have submitted your account, you will be taken to the wallet.";
+"identities.seed.submitnewaccount.body" = "Submit a new account for %@?";
+"identities.seed.submitaccount.total" = "Total";
+"identities.seed.submitaccount.atdisposal" = "At disposal";
+"identities.seed.submitaccount.submit" = "Submit account";
+
+"selectidentity.navigationtitle" = "Create new account";
+"selectidentity.title" = "Select identity to submit account with";
+
+
+"identityrecovery.status.navigationtitle" = "Recovering your accounts and identities";
+"identityrecovery.status.title.fetching" = "Recovering IDs and accounts";
+"identityrecovery.status.message.fetching" = "Scanning the Concordium blockchain. Hang on while we find your account and identities.";
+"identityrecovery.status.title.emptyResponse" = "Recovery finished";
+"identityrecovery.status.message.emptyResponse" = "Nothing new was found.";
+"identityrecovery.status.title.success" = "Recovery finished";
+"identityrecovery.status.message.success" = "You have successfully recovered:";
+"identitynewrecovery.status.message.success" = "The following has been recovered and added to the wallet:";
+"identityrecovery.status.title.partial" = "Recovery may be partial";
+"identityrecovery.status.message.partial" = "There was a problem contacting some identity providers. This means that some identities and accounts may not have been recovered. If you can see that something is missing, you can try to restart the recovery process, or you can try again later by starting the recovery process from the settings menu. The affected identity providers:\n%@\n\nYou have succesfully recovered:";
+"identitynewrecovery.status.message.partial" = "There was a problem contacting some identity providers. This means that some identities and accounts may not have been recovered. If you can see that something is missing, you can try to restart the recovery process, or you can try again later by starting the recovery process from the settings menu. The affected identity providers:\n%@\n\nThe following has been recovered and added to the wallet:";
+"identityrecovery.status.continuelong" = "Continue to wallet";
+"identityrecovery.status.continue" = "Continue";
+"identityrecovery.status.tryagain" = "Try again";
+"identityrecovery.status.changerecoveryphrase" = "Enter another recovery phrase";
+"identityrecovery.status.accountheader" = "Accounts:";
+
+"submittedaccount.navigationtitle" = "Create new account";
+"submittedaccount.title" = "Account submitted";
+"submittedaccount.body" = "Once it's finalized you can use the account from the account overview.";
+"submittedaccount.finish" = "Finish";
+
+
+"sendFund.pageTitle.send" = "Send Funds";
+"sendFund.pageTitle.shieldAmount" = "Shield Amount";
+"sendFund.pageTitle.unshieldAmount" = "Unshield Amount";
+"sendFund.buttonTitle.send" = "Send amount";
+"sendFund.buttonTitle.shieldAmount" = "Shield amount";
+"sendFund.buttonTitle.unshieldAmount" = "Unshield amount";
+"sendFund.sendshielded" = "Send shielded amount";
+"sendFund.feeMessage" = "Estimated transaction fee:
+Ͼ";
+"sendFund.addMemo" = "Optional: Add memo";
+"sendFund.pasteRecipient" = "Paste recipient address";
+
+"sendFund.sendingToOwnAccountDisallowed" = "Sender and recipient accounts cannot be the same";
+"sendFund.insufficientFunds" = "Insufficient funds";
+"sendFund.confirmation.shield" = "Are you sure you want to shield";
+"sendFund.confirmation.unshield" = "Are you sure you want to unshield";
+"sendFund.confirmation.transfer" = "Are you sure you want to transfer";
+"sendFund.confirmation.line2.to" = "to";
+"sendFund.confirmation.line3.fromAccount" = "from account: ";
+"sendFund.confirmation.line3.Account" = "Account: ";
+"sendFund.confirmation.line4.estimatedTransactionFee" = "Estimated transaction fee:\n";
+"sendFund.confirmation.buttonTitle" = "Send funds";
+"sendFund.memo.text" = "Memo:\n %@";
+
+"sendFund.balanceAtDisposal" = "Balance (at disposal)";
+"sendFund.shieldedBalance" = "Shielded balance";
+"sendFund.total" = "Total";
+"sendFund.atDisposal" = "At disposal";
+"sendFund.scanQr" = "Scan QR";
+"sendFund.addressBook" = "Address book";
+"sendFund.or" = "or";
+"sendFund.button.finish" = "Finish";
+
+"sendFund.warning.shield.title" = "Warning";
+"sendFund.warning.shield.message" = "You are about to shield more than 95% of your available balance.
+
+If you don’t have enough CCD at disposal on your balance, you might not be able to pay future transaction fees. If you don’t have enough funds to pay for fees, your CCDs cannot be unshielded or transferred.";
+"sendFund.warning.shield.continue" = "Continue anyway";
+"sendFund.warning.shield.newamount" = "Enter a new amount to shield";
+
+
+"delegation.pool.title.create" = "Register delegation";
+"delegation.pool.title.update" = "Update delegation";
+"delegation.pool.current" = "Current target %@";
+"delegation.pool.message" = "You can delegate to an open pool of your choice, or you can stake using passive delegation.";
+"delegation.pool.bottommessage.baker" = "If you don't already know which baker pool you want to delegate an amount to, you can look for one here:
+
+%@";
+"delegation.pool.mainnetstakinglink" = "https://ccdscan.io/staking";
+"delegation.pool.testnetstakinglink" = "https://testnet.ccdscan.io/staking";
+"delegation.pool.bottommessage.passive" = "Passive delegation is an alternative to delegation to a specific baker pool that has lower rewards. With passive delegation you do not have to worry about the uptime or quality of a baker node.
+
+For more info you can visit
+developer.concordium.software";
+
+"delegation.pool.baker" = "Baker";
+"delegation.pool.passive" = "Passive";
+"delegation.pool.idplaceholder.create" = "Enter baker pool ID";
+"delegation.pool.idplaceholder.update" = "Optional: New baker pool ID";
+"delegation.pool.invalidbakerid" = "Invalid target baker pool ID";
+"delegation.pool.closedpool" = "This pool is closed";
+
+"delegation.pool.sizewarning.title" = "Current delegation amount too large";
+"delegation.pool.sizewarning.message" = "Your current delegation amount will breach the new pool’s limits. To delegate to this pool you must first lower or stop your delegation and then wait for the cool-down to pass.";
+"delegation.pool.sizewarning.loweramount" = "Lower delegation amount and stay with current pool";
+"delegation.pool.sizewarning.stopdelegation" = "Stop current delegation";
+"delegation.pool.sizewarning.cancel" = "Cancel";
+
+"delegation.receipt.accounttodelegate" = "Delegating account";
+"delegation.receipt.accounttostop" = "Account to stop delegating";
+"delegation.receipt.delegationamount" = "Delegation amount";
+"delegation.receipt.tagetbakerpool" = "Target";
+
+"delegation.receipt.passivevalue" = "Passive delegation";
+"delegation.receipt.addedtodelegation" = "Added to delegation amount";
+"delegation.receipt.notaddedtodelegation" = "At disposal";
+
+"delegation.receiptconfirmation.title.update" = "Update delegation";
+"delegation.receiptconfirmation.title.create" = "Register delegation";
+"delegation.receiptconfirmation.title.remove" = "Remove delegation";
+"delegation.receiptconfirmation.registertext" = "This will lock your delegation amount. Amount is released after %@ from the time you remove or decrease your delegation.";
+"delegation.receiptconfirmation.loweringstake" = "You are about to submit a delegation transaction that lowers your delegation amount. It will take effect after %@ and the delegation amount cannot be changed during this period of time.";
+"delegation.receiptconfirmation.updatetext" = "Are you sure you want to make the following delegation?";
+"delegation.receipt.removedelegation" = "Are you sure you want to remove your delegation?";
+"delegation.receiptconfirmation.submit"  = "Submit delegation transaction";
+
+"delegation.receiptconfirmation.transactionfee" = "Estimated transaction fee: \n%@";
+"delegation.receipt.transactionfee" = "Transaction fee: \n%@";
+
+"delegation.receipt.updatedelegation" = "Transaction: Update delegation";
+"delegation.receipt.registerdelegation" = "Transaction: Register delegation";
+"delegation.receipt.removedelegationheader" = "Transaction: Remove delegation";
+"delegation.receiptlowering.title" = "Notice";
+"delegation.receiptlowering.message" = "Your decrease of the delegation amount will take effect at the next pay day after a cool-down of %@.
+
+Once the transaction has finalized, you can see the time of the release on the delegation status screen.";
+"delegation.receiptlowering.ok" = "Okay";
+
+"delegation.receiptnextpayday.title" = "Notice";
+"delegation.receiptnextpayday.message" = "Once your transaction has succesfully finalized, the delegation will take effect from the next pay day.";
+"delegation.receiptnextpayday.ok" = "Okay";
+
+"delegation.receiptremove.title" = "Notice";
+"delegation.receiptremove.message" = "Your delegation will stop at the next pay day after a cool-down of %@.
+
+Once the transaction has finalized, you can see the estimated time on the delegation status screen.";
+"delegation.receiptremove.ok" = "Okay";
+
+
+
+"delegation.loweringamountwarning.title" = "Important";
+"delegation.loweringamountwarning.message" = "Reducing the delegation amount will lock the total delegation amount for a cool-down period. No changes can be made to the amount during this period, and the withdrawal will not take effect before the cool-down is over.";
+"delegation.loweringamountwarning.change" = "Let me change my amount";
+"delegation.loweringamountwarning.fine" = "That’s fine";
+
+
+"delegation.morethan95.title" = "Warning";
+"delegation.morethan95.message" = "You are about to lock more than 95% of your total balance in a delegation stake.
+
+If you don’t have enough unlocked CCD at your disposal, you might not be able to pay future transaction fees. ";
+"delegation.morethan95.continue" = "Continue";
+"delegation.morethan95.newstake" = "Enter new delegation stake";
+
+"delegation.amountzero.title" = "Important";
+"delegation.amountzero.message" = "Setting your delegated amount to 0 will remove the delegation all together.
+
+Do you want to remove your delegation?";
+"delegation.amountzero.continue" = "Yes. Remove the delegation.";
+"delegation.amountzero.newstake" = "No. Set another value.";
+
+
+"delegation.nochanges.title" = "Notice";
+"delegation.nochanges.message" = "Your transaction contains no changes compared to the current delegation.";
+"delegation.nochanges.ok" = "Okay";
+
+"delegation.closewarning.title" = "Delegation update";
+"delegation.closewarning.message" = "The target pools of the following accounts will close soon. If you don’t actively change the target pool, your account will keep earning rewards as a passive delegator after the cool-down.
+
+You can however already change your target pool via the delegation status menu, if you would rather do that.
+
+Affected delegator accounts:\n%@";
+"delegation.closewarning.remindmeaction" = "Remind me next time I open the wallet";
+
+"baking.menu.updatebakerstake" = "Update baker stake";
+"baking.menu.updatepoolsettings" = "Update pool settings";
+"baking.menu.updatebakerkeys" = "Update baker keys";
+"baking.menu.stopbaking" = "Stop baking";
+
+"baking.inputamount.balance" = "Balance:";
+"baking.inputamount.bakerstake" = "Baker stake:";
+"baking.inputamount.bottommessage" = "Do you want to automatically add your baking rewards to your baker stake?";
+"baking.inputamount.createamount" = "Enter the amount you want to stake";
+"baking.inputamount.newamount" = "Enter your new total baker stake";
+"baking.inputamount.title.create" = "Register baker";
+"baking.inputamount.title.update" = "Update baker stake";
+"baking.inputamount.transactionfee" = "%@ - %@";
+"baking.inputamount.lockedamountmessage" = "The baker stake cannot be changed when it already has pending changes.";
+
+"baking.nochanges.title" = "Notice";
+"baking.nochanges.message" = "Your transaction contains no changes compared to the current delegation.";
+"baking.nochanges.ok" = "Okay";
+
+"baking.morethan95.title" = "Warning";
+"baking.morethan95.message" = "You are about to lock more than 95% of your total balance in a baker stake.
+
+If you don’t have enough unlocked CCD at your disposal, you might not be able to pay future transaction fees.";
+"baking.morethan95.continue" = "Continue";
+"baking.morethan95.newstake" = "Enter new baker stake";
+
+"baker.receiptconfirmation.title.update" = "Update baker stake";
+"baker.receiptconfirmation.loweringstake" = "You are about to submit a transaction that lowers your baker stake. Lowering your stake has a cool-down period, meaning it will not take effect immediately.
+
+The baker cannot be removed and the stake cannot be changed until the cool-down is over.";
+
+"baking.poolsettings.title.create" = "Register baker";
+"baking.poolsettings.title.update" = "Update pool settings";
+"baking.poolsettings.text.create" = "You have the option to open your baker as a pool for others to delegate their CCD to.
+
+If you choose to open your pool, other people will be able to delegate CCDs to your baking pool.
+
+You can also keep the pool closed, if you want only your own CCDs to be staked.";
+"baking.poolsettings.text.update" = "You have the option to open your baker as a pool for others to delegate their CCD to.
+
+If you choose to open your pool, other people will be able to delegate CCDs to your baking pool.
+
+If your pool is already open, you can also close it for new delegators, or you can close it for delegation completely.  ";
+"baking.poolsettings.current" = "Current status: %@";
+
+"baking.keeppoolclosed" = "Close for delegation";
+"baking.openfordelegators" = "Open for delegation";
+"baking.closedfornewdelegators" = "Close for new delegators";
+
+"baking.generatekeys.title" = "Register baker";
+"baking.generatekeys.info" = "Your new baker keys have been generated. Before you can continue, you must export and save them. The keys will have to be added to the baker node.";
+"baking.generatekeys.info.subtitle" = "NOTICE: Besides exporting the keys, you will have to finish and submit the transaction afterwards for the baker to be registered.";
+"baking.generatekeys.electionkey" = "Election verify key";
+"baking.generatekeys.signaturekey" = "Signature verify key";
+"baking.generatekeys.aggregationkey" = "Aggregation verify key";
+"baking.generatekeys.export" = "Export baker keys";
+"baking.generatekeys.notice.title" = "Notice";
+"baking.generatekeys.notice.message" = "This is your only chance to export and save the keys.\n\nThey cannot be recreated, so you will have to generate new keys and register them with a transaction, if you lose these.";
+"baking.updatekeys.title" = "Update baker keys";
+
+"baking.open" = "Open for delegation";
+"baking.closed" = "Closed for delegation";
+"baking.closedfornew" = "Closed for new delegation";
+"baking.metadata.current" = "Current URL: \n %@";
+"baking.metadata.placeholder" = "Paste your metadata URL here";
+
+"baking.metadata.title.create" = "Register baker";
+"baking.metadata.text.create" = "You can choose to add a URL with metadata about your baker. Leave it blank if you don’t have any.";
+
+"baking.metadata.text.create_more" = "You can read more about the metadata URL on
+developer.concordium.software";
+
+"baking.metadata.title.update" = "Update pool settings";
+"baking.metadata.text.update" = "If you want to set a new metadata URL, you can do so by pasting it below. It’s optional, so you can just leave it blank if you don’t want to make any changes.
+
+You can read more about the metadata URL on
+
+developer.concordium.software";
+
+"baking.receiptconfirmation.transactionfee" = "Estimated transaction fee:";
+"baking.receiptconfirmation.title.updatestake" = "Update baker stake";
+"baking.receiptconfirmation.updatebakerstake" = "Transaction: Update baker stake";
+"baking.receiptconfirmation.loweringstake" = "You are about to submit a transaction that lowers your baker stake. Lowering your stake has a cool-down period, meaning it will not take effect immediately.
+
+The baker cannot be removed and the stake cannot be changed until the cool-down is over.";
+"baking.receiptconfirmation.title.updatepool" = "Update pool settings";
+"baking.receiptconfirmation.updatebakerpool" = "Transaction: Update pool settings";
+"baking.receiptconfirmation.title.updatekeys" = "Update baker keys";
+"baking.receiptconfirmation.updatebakerkeys" = "Transaction: Update baker keys";
+"baking.receiptconfirmation.title.remove" = "Stop baking";
+"baking.receiptconfirmation.removetext" = "Are you sure you want to make the following transaction to stop baking?";
+"baking.receiptconfirmation.stopbaking" = "Transaction: Stop baking";
+"baking.receiptconfirmation.title.register" = "Register baker";
+"baking.receiptconfirmation.registertext" = "You are about to submit a register baker transaction that locks some of your funds in a stake. If you want to unlock the stake again, there will be a cool-down period.";
+"baking.receiptconfirmation.registerbaker" = "Transaction: Register baker";
+"baking.receiptconfirmation.submit" = "Submit baker transaction";
+
+"baking.receiptconfirmation.feewarning.title" = "Warning";
+"baking.receiptconfirmation.feewarning.message" = "You don’t have any funds on your balance to pay for the fee.";
+"baking.receiptconfirmation.feewarning.ok" = "Okay";
+
+"baking.receiptlowering.title" = "Notice";
+"baking.receiptlowering.message" = "Your decrease to the baker stake will take effect after a cool-down of %@.
+
+All other updates will take effect at the next pay day.";
+"baking.receiptlowering.ok" = "Okay";
+"baking.receiptupdatestake.title" = "Notice";
+"baking.receiptupdatestake.message" = "Once your transaction has succesfully finalized, the baker update will take effect from the next pay day.";
+"baking.receiptupdatestake.ok" = "Okay";
+"baking.receiptupdatepool.title" = "Notice";
+"baking.receiptupdatepool.message" = "Once your transaction has succesfully finalized, the pool settings update will take effect from the next pay day.";
+"baking.receiptupdatepool.ok" = "Okay";
+"baking.receiptupdatekeys.title" = "Notice";
+"baking.receiptupdatekeys.message" = "Once your transaction has succesfully finalized, the new baker keys will take effect from the next pay day.
+
+This means the node should be restarted with the new keys, as close to the next pay day as possible.";
+"baking.receiptupdatekeys.ok" = "Okay";
+"baking.receiptremove.title" = "Notice";
+"baking.receiptremove.message" = "Your baker will stop at the next pay day after a cool-down of %@.
+
+Once the transaction has finalized, you can see the estimated time on the baker status screen.";
+"baking.receiptremove.ok" = "Okay";
+"baking.receiptregister.title" = "Notice";
+"baking.receiptregister.message" = "Once your transaction has succesfully finalized, the baker registration will take effect from the next pay day.
+
+Remember to restart your node with the baker keys.";
+"baking.receiptregister.ok" = "Okay";
+"baking.cooldownperiod.format" = "%d days";
+
+"baking.receipt.bakeraccount" = "Baker account";
+"baking.receipt.accountcreate" = "Account to register as baker";
+"baking.receipt.accountupdate" = "Account to make baker update";
+"baking.receipt.accountstop" = "Account to stop baking";
+"baking.receipt.bakerid" = "Baker ID";
+"baking.receipt.bakeramount" = "Baker stake";
+"baking.receipt.poolstatus" = "Delegation pool status";
+"baking.receipt.bakerstake" = "Baker stake";
+"baking.receipt.metadataurl" = "Metadata URL";
+"baking.receipt.metadataurl.removed" = "Metadata URL removed";
+"baking.receipt.electionverifykey" = "Election verify key";
+"baking.receipt.signatureverifykey" = "Signature verify key";
+"baking.receipt.aggregationverifykey" = "Aggregation verify key";
+"baking.receipt.addedtostake" = "Added to stake";
+"baking.receipt.notaddedtostake" = "Added to disposable amount";
+
+
+
+"onboardingcarousel.registerbaker.title" = "Become a baker";
+"onboardingcarousel.registerbaker.page1.title" = "Become a baker";
+"onboardingcarousel.registerbaker.page2.title" = "The node";
+"onboardingcarousel.registerbaker.page3.title" = "Opening a pool";
+
+"onboardingcarousel.updatebaker.title" = "Baking";
+"onboardingcarousel.updatebaker.page1.title" = "Updating baker settings";
+"onboardingcarousel.updatebaker.page2.title" = "Update baker stake";
+"onboardingcarousel.updatebaker.page3.title" = "Update pool settings (1/2)";
+"onboardingcarousel.updatebaker.page4.title" = "Update pool settings (2/2)";
+"onboardingcarousel.updatebaker.page5.title" = "Update baker keys";
+
+"onboardingcarousel.removebaker.title" = "Baking";
+"onboardingcarousel.removebaker.page1.title" = "Stop baking";
+
+
+"onboardingcarousel.registerbaker.title" = "Become a baker";
+"onboardingcarousel.registerbaker.page1.title" = "Become a baker";
+"onboardingcarousel.registerbaker.page2.title" = "The node";
+"onboardingcarousel.registerbaker.page3.title" = "Opening a pool";
+
+"onboardingcarousel.updatebaker.title" = "Baking";
+"onboardingcarousel.updatebaker.page1.title" = "Updating baker settings";
+"onboardingcarousel.updatebaker.page2.title" = "Update baker stake";
+"onboardingcarousel.updatebaker.page3.title" = "Update pool settings (1/2)";
+"onboardingcarousel.updatebaker.page4.title" = "Update pool settings (2/2)";
+"onboardingcarousel.updatebaker.page5.title" = "Update baker keys";
+
+"onboardingcarousel.removebaker.title" = "Baking";
+"onboardingcarousel.removebaker.page1.title" = "Stop baking";
+
+
+"onboardingcarousel.registerbaker.title" = "Become a baker";
+"onboardingcarousel.registerbaker.page1.title" = "Become a baker";
+"onboardingcarousel.registerbaker.page2.title" = "The node";
+"onboardingcarousel.registerbaker.page3.title" = "Opening a pool";
+
+"onboardingcarousel.updatebaker.title" = "Baking";
+"onboardingcarousel.updatebaker.page1.title" = "Updating baker settings";
+"onboardingcarousel.updatebaker.page2.title" = "Update baker stake";
+"onboardingcarousel.updatebaker.page3.title" = "Update pool settings (1/2)";
+"onboardingcarousel.updatebaker.page4.title" = "Update pool settings (2/2)";
+"onboardingcarousel.updatebaker.page5.title" = "Update baker keys";
+
+"onboardingcarousel.removebaker.title" = "Baking";
+"onboardingcarousel.removebaker.page1.title" = "Stop baking";
+
+"onboardingcarousel.registerdelegation.title" = "Delegation";
+"onboardingcarousel.registerdelegation.page1.title" = "Delegation";
+"onboardingcarousel.registerdelegation.page2.title" = "Delegation models";
+"onboardingcarousel.registerdelegation.page3.title" = "Baker pools";
+"onboardingcarousel.registerdelegation.page4.title" = "Passive delegation";
+"onboardingcarousel.registerdelegation.page5.title" = "Pay days";
+"onboardingcarousel.registerdelegation.page6.title" = "Lock-in and cool-downs";
+"onboardingcarousel.registerdelegation.page7.title" = "The status page";
+
+"onboardingcarousel.updatedelegation.title" = "Delegation";
+"onboardingcarousel.updatedelegation.page1.title" = "Updating your delegation";
+"onboardingcarousel.updatedelegation.page2.title" = "Pay day updates";
+"onboardingcarousel.updatedelegation.page3.title" = "Updates with longer cool-downs";
+
+"onboardingcarousel.removedelegation.title" = "Delegation";
+"onboardingcarousel.removedelegation.page1.title" = "Stop your delegation";
+"onboardingcarousel.removedelegation.page2.title" = "Update during the cool-down period";
+
+"stake.inputamount.currentamounts" = "Current amounts on your account:";
+"stake.inputamount.continue" = "Continue";
+"stake.inputamount.yesrestake" = "Yes, restake";
+"stake.inputamount.norestake" = "No, don’t restake";
+"stake.inputamount.transactionfee" = "Estimated transaction fee: \n%@";
+"delegation.inputamount.bottommessage" = "Do you want to automatically add your delegation rewards to your delegated amount?";
+"delegation_input_info_message" = "If you choose to not restake your rewards, the amounts will be at disposal on your account balance at each pay day.";
+"stake.inputAmount.error.minAmount" = "Minimum stake: %@";
+"stake.inputAmount.error.maxAmount" = "Current maximum:  %@";
+"stake.inputAmount.error.funds" = "Insufficient funds";
+"stake.inputAmount.error.poolLimit" = "Pool limit will be breached";
+"stake.inputAmount.error.amountTooLarge" = "Your delegation amount is too large for this pool";
+"stake.inputAmount.amountlockedplaceholder" = "Amount locked";
+"stake.inputAmount.amountplaceholder" = "0.00";
+
+"more.reveal.seed.phrase" = "Show My Seed Phrase";
+"more.identities" = "Identities";
+"export.title" = "Export";
+"more.update.successfully" = "Passcode was successfully changed";
+"more.recovery" = "Recovery";
+"more.deleteAccount" = "Remove wallet";
+"more.deleteAccount.subtitle" = "Remove all sensitive data and private keys from this device";
+"accountFailed.errorMessage" = "Account create error";
+"accountFailed.buttonTitle" = "Recover identities";
+
+
+"delegation.inputamount.title.create" = "Register delegation";
+"delegation.inputamount.title.update" = "Update delegation";
+"delegation.inputamount.createamount" = "Enter the amount you want to delegate";
+"delegation.inputamount.optionalamount" = "Optional: Enter new delegation amount";
+"delegation.inputamount.lockedamountmessage" = "Delegation amount cannot be changed when it already has pending changes.";
+"delegation.inputamount.title.update" = "Update delegation";
+"delegation.inputamount.balance" = "Balance";
+"delegation.inputamount.delegationstake" = "Delegation";
+"delegation.inputamount.currentpool" = "Current pool";
+"delegation.inputamount.poollimit" = "Pool limit";
+
+"stake.receipt.transactionsubmitted" = "Transaction submitted!";
+"stake.receipt.finish" = "Finish";
+"stake.receipt.restake" = "Rewards will be";
+"stake.receipt.formattedaccount" = "%@\n\n%@";
+
+"delegation.status.title" = "Delegation status";
+"delegation.status.registered.header" = "Your delegation is registered.";
+"delegation.status.waiting.placeholder" = "Waiting for transaction to finalize";
+"delegation.status.waiting.header" = "Waiting for delegation transaction to finalize.";
+"delegation.status.registerbutton" = "Register delegation";
+"delegation.status.updatebutton" = "Update current delegation";
+"delegation.status.stopbutton" = "Stop delegation";
+"delegation.status.newamount" = "New delegation amount";
+"delegation.status.graceperiod" = "The following changes will take effect on %@";
+"delegation.status.delegationwillstop" = "The delegation will be stopped, and the delegation amount will be unlocked on the public balance of the account.";
+"delegation.status.deregisteredcooldown" = "This pool has been deregistered, and will stop baking on %@";
+"delegation.graceperiod.format" = "%d days";
+
+"recover.identityKey" = "identity";
+"recover.isNewlyCreatedKey" = "isNewlyCreated";
+
+
+"accountsettings.navigationtitle" = "Account settings";
+
+"renameaccount.title" = "Change account name";
+"renameaccount.message" = "You can enter the new account name here.";
+"renameaccount.cancel" = "Cancel";
+"renameaccount.save" = "Save";
+
+"burgermenu.releaseschedule" = "Release Schedule";
+"burgermenu.transferfilters" = "Transfer Filters";
+"burgermenu.showshieldedbalance" = "Show shielded balance";
+"burgermenu.hideshieldedbalance" = "Hide shielded balance";
+"burgermenu.decrypt" = "Decrypt";
+"burgermenu.exportprivatekey" = "Export Private Key";
+"burgermenu.exporttransactionlog" = "Export transaction logs";
+"burgermenu.renameaccount" = "Change account name";
+
+"exporttransactionlog.navigationtitle" = "Export transaction logs";
+"exporttransactionlog.save" = "Save transaction logs";
+"exporttransactionlog.done" = "Done";
+"exporttransactionlog.description" = "Transaction logs of an account can be generated and saved via %@\n\nIf your account contains a lot of transactions, it may take a moment for CCDScan to prepare the file. Once the logs are ready, they will be downloaded to your device as a CSV file. Please note that if the account has a lot of transactions, the file size can be quite large.\n\nYou can also visit %@ and manually generate your transaction logs from a desktop browser.";
+"exporttransactionlog.generating" = "Generating transaction logs, please hold on.";
+"exporttransactionlog.downloading" = "Downloading transaction logs.";
+"exporttransactionlog.saved" = "The transaction logs have been downloaded.";
+"exporttransactionlog.failed" = "The download failed.";
+"exporttransactionlog.downloaded" = "downloaded";
+"exporttransactionlog.save.completed" = "The transaction logs have been saved.";
+
+"exportprivatekey.navigationtitle" = "Export account keys";
+"exportprivatekey.title" = "\nHere you can export your private account keys.";
+"exportprivatekey.toprevealmessage" = "Make sure to keep the keys safe, because they can be used to access your accounts.";
+"exportprivatekey.downrevealmessage" = "Tap to reveal your private keys for %@.";
+"exportprivatekey.done" = "Done";
+"exportprivatekey.export" = "Export to file";
+"exportprivatekey.copied" = "Copied";
+"exportprivatekey.exported" = "File exported";
+"exportprivatekey.nokeys" = "The account does not contains keys";
+
+"exportedaccountprivatekeys.type" = "concordium-browser-wallet-account";
+
+"newaccount.title" = "Identity verified";
+"newaccount.message" = "%@ has been verified by the identity provider. You can now start using the identity to create accounts in the Concordium Wallet for Mobile.";
+"newaccount.create" = "Create account now";
+"newaccount.later" = "Later";
+
+
+"accounts" = "Accounts";
+"transactions" = "Transactions";
+"token" = "Token";
+"cis2token_detail_contract_address_title" = "Contract index, subindex";
+"transactions_empty_state_title" = "No transactions yet";
+
+"send_token_view_available_title" = "Currently available amounts";
+"send_token_view_token" = "Token:";
+
+"token_detail_remove_token_action_title" = "Remove Token";
+"send_all" = "Send all";
+"amount" = "Amount:";
+"to" = "to";
+"select_token" = "Select token";
+"connected_token" = "Connected tokens:";
+"main_scren_backup_warning_legacy_acount" = "Please make a backup of your wallet";
+
+
+"error_account_address_not_exists" = "Address not exist";
+
+"yay" = "Yay!";
+
+
+"recover_wallet_title" = "There are two ways to recovering a wallet:";
+"recover_wallet_seed_phrase_title" = "Recovering with a secret recovery phrase";
+"recover_wallet_seed_phrase_body" = "It starts from a manual process, in which you have to enter all your 24 words one by one. And after that recover your accounts and identities.";
+"recover_wallet_export_title" = "Recovering with my exported file";
+"recover_wallet_export_body" = "1. Find your exported file on your device.\n2. Click the sharing option.\n3. Choose the CryptoX.\n4. Enter the password.\n";
+
+"baking.status.title" = "Baker status";
+"baking.status.registered.header" = "Your baker is registered";
+"baking.status.waiting.header" = "Waiting for baker transaction to finalize";
+"baking.status.waiting.placeholder" = "Waiting for transaction to finalize";
+"baking.status.updatebutton" = "Update baker settings";
+"baking.status.pendingchange" = "The following changes will take effect on %@";
+"baking.status.removingbaker" = "The baker will be deregistered, and the stake will be unlocked on the public balance of the account.";
+"baking.status.reducingstake" = "Baker stake will be lowered to";
+
+
+"new_onboarding_welcome_title" = "Welcome to Concordium CryptoX wallet";
+"new_onboarding_safe_secure_title" = "Safe and Secure";
+"new_onboarding_safe_secure_subtitle" = "Trusted by thousands, CryptoX is a secure wallet making the Concordium blockchain accessible to all";
+"new_onboarding_manage_asssets_title" = "Easily manage digital assets";
+"new_onboarding_manage_asssets_subtitle" = "Store, spend and send digital assets like tokens, crypto, unique collectibles";
+"new_onboarding_unlimited_possibilities_title" = "Unlimited possibilities";
+"new_onboarding_unlimited_possibilities_subtitle" = "With CryptoX you can make transactions to invest, earn, sell, play games and more!";
+"new_onb_privacy_read" = "I have read and accept";
+"new_onb_terms" = "Terms and Conditions";
+"and" = "and";
+"new_onb_privacy" = "Privacy policy";
+"get_started_btn_title" = "Get started";
+"activate_account_btn_title" = "Activate account";
+"ask_ai_title" = "Ask our AI assistant anything";
+"ask_ai_subtitle" = "e.g “How do I stake my CCDs?”";
+"ask_ai_promt_placeholder" = "Type your prompt here...";
+"activate_account_and_get" = "Activate your account and get";
+"activate_account_and_get_v2" = "Activate your account and get access to all the features";
+"watch_video" = "Watch video";
+"activate_account_title" = "Activate account";
+"create_wallet_sheet" = "Create Wallet";
+"create_wallet_steps_title" = "You have to complete 3 easy steps to create your wallet:";
+"create_wallet_step_1_title" = "Create 6-digit passcode";
+"create_wallet_step_2_title" = "Save seed phrase";
+"create_wallet_step_3_title" = "Verify identity";
+"create_wallet_sheet_import_wallet" = "You can import your wallet with a secret seed phrase or a backup file";
+"import_wallet" = "Import Wallet";
+"enable_face_id_title" = "Enable Face ID for next time?";
+"enable_face_id_subtitle" = "After you log out now, you’ll be able to sin in faster when you come back";
+"enable_face_id_button_title" = "Enable Face ID";
+"enable_face_id_later_button_title" = "Set up later in Settings";
+"seed_phrase_title" = "Your seed phrase";
+"seed_phrase_subtitle" = "Your seed phrase is the access key to all the funds in your wallet. If you forget it you will lose access to your wallet(s). Keep it somewhere safe";
+"transcribe" = "Transcribe";
+"digital_copy" = "Digital copy";
+"screenshot" = "Screenshot";
+"seed_phrase_confirm_save" = "I have kept it somewhere safe";
+"continue_btn_title" = "Continue";
+"identity_verification_title" = "Identity verification";
+"indentity_verification_subtitle" = "Select a provider to verify your identity";
+"entity_status_approved_title" = "APPROVED";
+"entity_status_pending_title" = "PENDING";
+"entity_status_rejected_title" = "REJECTED";
+"new_identity_status_bottom_desription" = "Once your verification request will be approved you can create your first account";
+"create_account_btn_title" = "Create account";
+"got_it_btn_title" = "Got it";
+"submitted_verification_request_title" = "Verification request submitted!";
+"approved_verification_request_title" = "Verification request approved!";
+"submitted_verification_request_subtitle" = "Your request has been submitted to the identity provider. Please wait a moment your submission is processing";
+"approved_verification_request_subtitle" = "Your request has been approved by identity provider. Now you can create an account and start using your wallet";
+
+"something_went_wrong" = "Something went wrong";
+"import_wallet_flow_title" = "Import Wallet";
+"import_wallet_flow_subtitle" = "Select a way to import your wallet";
+"import_wallet_recover_phrase_title" = "Use recovery phrase";
+"import_wallet_recover_phrase_subtitle" = "Manually enter all your 24 words in order as it was presented to you";
+"import_wallet_export_phrase_title" = "Use exported file";
+"import_wallet_export_phrase_subtitle" = "Use your exported file from your device";
+"import_wallet_seed_phrase_title" = "Your recovery phrase";
+"import_wallet_seed_phrase_subtitle" = "Manually enter all your 24 words in order as it was presented to you";
+"recover_accounts_flow_title" = "Recover your account(s)";
+"recover_accounts_flow_subtitle" = "Recover your accounts and identities to connect them to your wallet";
+"recovered_accounts_flow_title" = "Your account(s)";
+"recovered_accounts_flow_subtitle" = "Recover your accounts and identities to connect them to your wallet";
+"recover_accounts_recover_button_title" = "Recover";
+"recover_accounts_connect_wallet_button_title" = "Connect wallet";
+
+"more.show.recovery.phrase.title" = "Show recovery phrase";
+"more.show.recovery.phrase.subtitle" = "Show you recovery seed phrase for this account";
+"more.remove.account.confirmation.title" = "Are you sure want to remove all account and related data?";
+"copy.to.clipoard" = "Copy to clipboard";
+"show.seed.phrase" = "Show seed phrase ";
+"add.token" = "Add token";
+
+"passcode.view.create.passcode.title" = "Create Passcode";
+"passcode.view.repeate.passcode.title" = "Confirm Passcode";
+"passcode.view.enter.passcode.title" = "Enter Passcode";
+"passcode.view.biometry.passcode.title" = "Enable Biometrics";
+
+"passcode.view.create.passcode.subtitle" = "6-digit passcode to secure your wallet. Remember it to enter the wallet again";
+"passcode.view.repeate.passcode.subtitle" = "It should be the same 6-digit passcode you entered in the previous step";
+"passcode.view.enter.passcode.subtitle" = "Enter your a 6-digit passcode";
+"passcode.view.biometry.passcode.subtitle" = "Enable biometrics for more convinient login";
+
+"[%@](https://pioneeringtechventures.com/privacy-policy)" = "[%@](https://pioneeringtechventures.com/privacy-policy)";
+"[%@](https://pioneeringtechventures.com/terms-and-conditions)" = "[%@](https://pioneeringtechventures.com/terms-and-conditions)";
+

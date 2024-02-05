@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="NFTEmptyStatusView" customModule="Concordium_ID" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Tokens not found]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FEU-bw-NGn">
+                    <rect key="frame" x="20" y="348" width="374" height="29"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                    <color key="textColor" name="buttonText"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="nft.import.empty.message"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="www.xxx.xxx" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UQC-2b-iLN">
+                    <rect key="frame" x="20" y="385" width="374" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" name="grey_secondary"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ifh-G2-Qky" customClass="FilledButton" customModule="Concordium_ID" customModuleProvider="target">
+                    <rect key="frame" x="18" y="760" width="378" height="62"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="62" id="hh0-pl-xO7"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="tintColor" name="deep_blue"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="[BACK]">
+                        <color key="titleColor" name="deep_blue"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="stringKeyNormal" value="nft.import.button.back"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="didBackTap" destination="iN0-l3-epB" eventType="touchDown" id="98w-SU-uT6"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="FEU-bw-NGn" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" multiplier="1:1.25" id="11Z-sW-YwK"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="ifh-G2-Qky" secondAttribute="bottom" constant="40" id="6pV-vn-brx"/>
+                <constraint firstItem="UQC-2b-iLN" firstAttribute="top" secondItem="FEU-bw-NGn" secondAttribute="bottom" constant="8" id="DkS-W5-Z3a"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ifh-G2-Qky" secondAttribute="trailing" constant="18" id="Gd2-Xi-Xx2"/>
+                <constraint firstItem="FEU-bw-NGn" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="GvS-2i-C9v"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="FEU-bw-NGn" secondAttribute="trailing" constant="20" id="Wcg-gR-qEb"/>
+                <constraint firstItem="FEU-bw-NGn" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="Y6s-y3-eBA"/>
+                <constraint firstItem="ifh-G2-Qky" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="18" id="gLJ-or-151"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="UQC-2b-iLN" secondAttribute="trailing" constant="20" id="jWa-XQ-1Wl"/>
+                <constraint firstItem="UQC-2b-iLN" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="vzD-qK-aSc"/>
+            </constraints>
+            <connections>
+                <outlet property="actionButton" destination="ifh-G2-Qky" id="ae2-9J-XU1"/>
+                <outlet property="infoLabel" destination="UQC-2b-iLN" id="8bg-jU-AI4"/>
+                <outlet property="titleLabel" destination="FEU-bw-NGn" id="ta4-tx-xWJ"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="45"/>
+        </view>
+    </objects>
+    <designables>
+        <designable name="ifh-G2-Qky">
+            <size key="intrinsicContentSize" width="59" height="34"/>
+        </designable>
+    </designables>
+    <resources>
+        <namedColor name="buttonText">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="deep_blue">
+            <color red="0.15299999713897705" green="0.20399999618530273" blue="0.31799998879432678" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="grey_secondary">
+            <color red="0.72549019607843135" green="0.74117647058823533" blue="0.77647058823529413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

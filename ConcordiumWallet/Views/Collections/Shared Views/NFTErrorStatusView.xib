@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="NFTErrorStatusView" customModule="Concordium_ID" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OgH-ad-S3R">
+                    <rect key="frame" x="18" y="335.5" width="378" height="57.5"/>
+                    <string key="text">Error occurred.
+Please try again.</string>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                    <color key="textColor" name="buttonText"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="nft.import.error.message"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WSc-al-HMI" customClass="FilledButton" customModule="Concordium_ID" customModuleProvider="target">
+                    <rect key="frame" x="18" y="760" width="378" height="62"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="62" id="Mbp-Oc-it0"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="tintColor" name="deep_blue"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="[Try Again]">
+                        <color key="titleColor" name="deep_blue"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="stringKeyNormal" value="nft.import.button.retry"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="didTapBack" destination="iN0-l3-epB" eventType="touchDown" id="ehO-5O-5s1"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="WSc-al-HMI" secondAttribute="trailing" constant="18" id="1Dh-eJ-aBL"/>
+                <constraint firstItem="OgH-ad-S3R" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="18" id="Jh9-YP-BcD"/>
+                <constraint firstItem="OgH-ad-S3R" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="ZKj-Zh-NVa"/>
+                <constraint firstItem="WSc-al-HMI" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="18" id="cnX-Or-Iit"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="WSc-al-HMI" secondAttribute="bottom" constant="40" id="iUY-sP-zPS"/>
+                <constraint firstAttribute="trailing" secondItem="OgH-ad-S3R" secondAttribute="trailing" constant="18" id="ijS-GA-3SJ"/>
+                <constraint firstItem="OgH-ad-S3R" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" multiplier="1:1.25" id="zYX-om-xjv"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="45"/>
+        </view>
+    </objects>
+    <designables>
+        <designable name="WSc-al-HMI">
+            <size key="intrinsicContentSize" width="88" height="34"/>
+        </designable>
+    </designables>
+    <resources>
+        <namedColor name="buttonText">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="deep_blue">
+            <color red="0.15299999713897705" green="0.20399999618530273" blue="0.31799998879432678" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
