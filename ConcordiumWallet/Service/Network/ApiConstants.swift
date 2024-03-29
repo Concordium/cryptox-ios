@@ -12,7 +12,7 @@ struct ApiConstants {
 #elseif MAINNET
     static let proxyUrl = URL(string: "https://wallet-proxy.mainnet.concordium.software")!
 #else //Staging
-    static let proxyUrl = URL(string: "https://wallet-proxy.testnet.concordium.com")!
+    static let proxyUrl = URL(string: "https://wallet-proxy.stagenet.concordium.com")!
 #endif
     
     #if TESTNET
