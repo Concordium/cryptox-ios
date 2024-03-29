@@ -3123,9 +3123,8 @@
 		08BFE2222A3B2DC4007A7B1E /* CIS2TokenTransferModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokenTransferModel.swift; sourceTree = "<group>"; };
 		08BFE2272A3C863F007A7B1E /* AccountTokensListPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTokensListPicker.swift; sourceTree = "<group>"; };
 		08BFE22C2A3C9320007A7B1E /* DecimalNumberTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalNumberTextField.swift; sourceTree = "<group>"; };
-		08C166562BB7372F00E61326 /* ProdMainNet copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ProdMainNet copy-Info.plist"; path = "/Users/maksymrachytskyy/Desktop/CtyptoX-Concordium/ProdMainNet copy-Info.plist"; sourceTree = "<absolute>"; };
 		08C169C22BB7396200E61326 /* ProdTestNet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProdTestNet.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		08C169C32BB7396200E61326 /* ProdMainNet copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ProdMainNet copy2-Info.plist"; path = "/Users/maksymrachytskyy/Desktop/CtyptoX-Concordium/ProdMainNet copy2-Info.plist"; sourceTree = "<absolute>"; };
+		08C169C42BB73E5700E61326 /* ProdTestNet-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ProdTestNet-Info.plist"; sourceTree = "<group>"; };
 		08D103DF2B5692A70057E844 /* RecoverAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverAccountsView.swift; sourceTree = "<group>"; };
 		08D103E32B56DF380057E844 /* PasscodeInputModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeInputModifier.swift; sourceTree = "<group>"; };
 		08E69C812A1D2183001CCA96 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
@@ -3620,6 +3619,7 @@
 				19C2E4C7C42CAF3BEBD66EF0 /* CryptoXStagingNet-Info.plist */,
 				0832EB472B34B8CA00BD2ECD /* Localizable.strings */,
 				19C2EA7E2D9873BD42EAEBF8 /* CryptoXTestNet-Info.plist */,
+				08C169C42BB73E5700E61326 /* ProdTestNet-Info.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -5308,8 +5308,6 @@
 				089E327F2A0BA07B002AE530 /* ConcordiumWallet-Briding-Header-File.h */,
 				D589F34F2794B96A003F2FBB /* mock */,
 				7FF07A6A23EADB1200F1FC04 /* Products */,
-				08C166562BB7372F00E61326 /* ProdMainNet copy-Info.plist */,
-				08C169C32BB7396200E61326 /* ProdMainNet copy2-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -8919,7 +8917,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "ProdMainNet copy2-Info.plist";
+				INFOPLIST_FILE = "ConcordiumWallet/Resources/ProdTestNet-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "CryptoX - Testnet Wallet";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -8951,7 +8949,7 @@
 				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "ProdMainNet copy2-Info.plist";
+				INFOPLIST_FILE = "ConcordiumWallet/Resources/ProdTestNet-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "CryptoX - Testnet Wallet";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
