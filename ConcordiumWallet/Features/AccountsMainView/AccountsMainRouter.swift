@@ -217,6 +217,10 @@ extension AccountsMainRouter {
 }
 
 extension AccountsMainRouter: WalletConnectServiceProtocol {
+    func showError(_ error: WalletConnectError) {
+        print("suka")
+    }
+    
     func showSessionRequest(with request: WalletConnectSign.Request) {
         let viewController = ClearSceneViewController(
             content: SessionRequestView(

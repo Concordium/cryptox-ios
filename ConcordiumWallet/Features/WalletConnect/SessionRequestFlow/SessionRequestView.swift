@@ -161,7 +161,7 @@ struct SessionRequestView: View {
         ZStack {
             Color.clear
             
-            VStack {
+            VStack(spacing: 8) {
                 Spacer()
                 
                 VStack(spacing: 0) {
@@ -258,7 +258,7 @@ struct SessionRequestView: View {
     }
     
     private func authRequestView() -> some View {
-        VStack {
+        VStack(alignment: .leading) {
             VStack(alignment: .leading) {
                 Text("Message")
                     .font(.system(size: 14, weight: .medium))
@@ -276,6 +276,7 @@ struct SessionRequestView: View {
             }
             .background(.clear)
         }
+        .frame(maxWidth: .infinity)
         .padding(16)
         .overlay(
             RoundedCorner(radius: 24, corners: .allCorners)

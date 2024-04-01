@@ -10,14 +10,32 @@ import SwiftUI
 import Web3Wallet
 import WalletConnectVerify
 
+enum WalletConnectError: Error {
+    case environmentMismatch, methodMismatch
+}
+
 final class SessionProposalViewModel: ObservableObject {
     let sessionProposal: Session.Proposal
-    let verified: Bool? = true
 
     @Published var selectedAccount: AccountEntity?
+    @Published var isAllowButtonDisabled: Bool = true
+    @Published var error: WalletConnectError?
     
     private let wallet: MobileWalletProtocol
     private let storageManager: StorageManagerProtocol
+    
+    var allowedRequestMethods = [
+        "sign_and_send_transaction",
+        "sign_message"
+    ]
+    
+    var currentChain: String {
+    #if MAINNET
+        "ccd:mainnet"
+    #else
+        "ccd:testnet"
+    #endif
+    }
     
     init(sessionProposal: Session.Proposal, wallet: MobileWalletProtocol, storageManager: StorageManagerProtocol) {
         self.wallet = wallet
@@ -25,6 +43,26 @@ final class SessionProposalViewModel: ObservableObject {
         self.storageManager = storageManager
         
         self.selectedAccount = self.accounts().first
+        
+        
+        let chains: [Blockchain] = sessionProposal.requiredNamespaces.compactMap { $0.value.chains }.flatMap { $0 }
+        // Check if proposal `Blockchain` is same as current app schema support
+        let isCorrectChain = chains.map(\.absoluteString).contains(currentChain)
+        
+        // Check if proposal contains allowed methods
+        let methods = sessionProposal.requiredNamespaces.compactMap { $0.value.methods }.flatMap { $0 }
+        let isCorrectMethods = methods.contains { method in
+            allowedRequestMethods.contains(method)
+        }
+        
+        switch (isCorrectChain, isCorrectMethods) {
+            case(true, true):
+                isAllowButtonDisabled = false
+            case (false, _):
+                error = .environmentMismatch
+            case (_, false):
+                error = .methodMismatch
+        }
     }
     
     func accounts() -> [AccountEntity] {
@@ -82,57 +120,75 @@ struct SessionProposalView: View {
                 VStack(alignment: .leading) {
                     CryptoImage(url: viewModel.sessionProposal.proposer.icons.compactMap(\.toURL).first, size: .medium)
                         .aspectRatio(contentMode: .fit)
-                    HStack {
-                        Text("Connect to \(viewModel.sessionProposal.proposer.name)?")
-                            .foregroundColor(.white)
-                            .font(.system(size: 28, weight: .semibold))
-                    }
+                    Text("Connect to \(viewModel.sessionProposal.proposer.name)?")
+                        .foregroundColor(.white)
+                        .font(.system(size: 28, weight: .semibold))
                     
-                    Text(viewModel.sessionProposal.proposer.url)
+                    Text(viewModel.sessionProposal.proposer.description)
                         .foregroundColor(.gray)
                         .font(.system(size: 13, weight: .regular))
                     
-                    HStack(spacing: 8) {
-                        if let selectedAccount = viewModel.selectedAccount {
-                            VStack(spacing: 14) {
-                                WCAccountCell(account: selectedAccount)
-                                HStack(spacing: 8) {
-                                    Text("Choose another account")
-                                        .foregroundColor(.white)
-                                        .font(.system(size: 14, weight: .medium))
-                                    Image("ico_arrow")
-                                    Spacer()
+                    VStack {
+                        HStack(spacing: 8) {
+                            if let selectedAccount = viewModel.selectedAccount {
+                                VStack(spacing: 14) {
+                                    WCAccountCell(account: selectedAccount)
+                                    HStack(spacing: 8) {
+                                        Text("Choose another account")
+                                            .foregroundColor(.white)
+                                            .font(.system(size: 14, weight: .medium))
+                                        Image("ico_arrow")
+                                        Spacer()
+                                    }
+                                }
+                            } else {
+                                Text("Tap to select account")
+                                    .frame(maxWidth: .infinity)
+                                    .padding(16)
+                                    .background(Color.clear)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .stroke(Color.white, lineWidth: 1)
+                                    )
+                            }
+                        }
+                        .onTapGesture {
+                            isPickerPresented = true
+                        }
+                        
+                        ScrollView {
+                            ForEach(viewModel.sessionProposal.requiredNamespaces.keys.sorted(), id: \.self) { chain in
+                                if let namespaces = viewModel.sessionProposal.requiredNamespaces[chain] {
+                                    sessionProposalView(namespaces: namespaces)
                                 }
                             }
-                        } else {
-                            Text("Tap to select account")
-                                .frame(maxWidth: .infinity)
-                                .padding(16)
-                                .background(Color.clear)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .stroke(Color.white, lineWidth: 1)
-                                )
                         }
+                        .frame(height: 250)
+                        .padding(.top, 12)
                     }
-                    .onTapGesture {
-                        isPickerPresented = true
-                    }
-                    
-                    ScrollView {
-                        ForEach(viewModel.sessionProposal.requiredNamespaces.keys.sorted(), id: \.self) { chain in
-                            if let namespaces = viewModel.sessionProposal.requiredNamespaces[chain] {
-                                sessionProposalView(namespaces: namespaces)
+                    .overlay {
+                        if let error = viewModel.error {
+                            ZStack {
+                                switch error {
+                                    case .environmentMismatch:
+                                        Text("The session proposal did not contain a valid namespace. Allowed namespaces are: \(viewModel.currentChain)")
+                                            .multilineTextAlignment(.center)
+                                    case .methodMismatch:
+                                        Text("The session proposal did not contain a allowed methods. Allowed methods are: \(viewModel.allowedRequestMethods.joined(separator: ","))")
+                                            .multilineTextAlignment(.center)
+                                }
                             }
+                            .padding()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .background(.thinMaterial)
+                            .cornerRadius(24)
                         }
                     }
-                    .frame(height: 250)
-                    .padding(.top, 12)
                     
                     HStack(spacing: 20) {
                         Button {
-                            Task(priority: .userInitiated) { await
-                                viewModel.onReject { dismiss() }
+                            Task(priority: .userInitiated) { 
+                                await viewModel.onReject { dismiss() }
                             }
                         } label: {
                             Text("Decline")
@@ -148,8 +204,8 @@ struct SessionProposalView: View {
                         }
                         
                         Button {
-                            Task(priority: .userInitiated) { await
-                                viewModel.onApprove { dismiss() }
+                            Task(priority: .userInitiated) { 
+                                await viewModel.onApprove { dismiss() }
                             }
                         } label: {
                             Text("Allow")
@@ -160,7 +216,8 @@ struct SessionProposalView: View {
                                 .background(viewModel.selectedAccount == nil ? .white.opacity(0.7) : .white)
                                 .clipShape(Capsule())
                         }
-                        .disabled(viewModel.selectedAccount == nil)
+                        .opacity(viewModel.isAllowButtonDisabled ? 0.7 : 1.0)
+                        .disabled(viewModel.isAllowButtonDisabled)
                     }
                     .padding(.top, 25)
                     .padding(.bottom, 24)
