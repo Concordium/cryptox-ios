@@ -10,19 +10,16 @@ import SwiftUI
 import Web3Wallet
 import WalletConnectVerify
 
-enum WalletConnectError: Error {
+enum SessionProposalError: Error {
     case environmentMismatch, methodMismatch
 }
 
 final class SessionProposalViewModel: ObservableObject {
     let sessionProposal: Session.Proposal
-
+    
     @Published var selectedAccount: AccountEntity?
     @Published var isAllowButtonDisabled: Bool = true
-    @Published var error: WalletConnectError?
-    
-    private let wallet: MobileWalletProtocol
-    private let storageManager: StorageManagerProtocol
+    @Published var error: SessionProposalError?
     
     var allowedRequestMethods = [
         "sign_and_send_transaction",
@@ -30,12 +27,15 @@ final class SessionProposalViewModel: ObservableObject {
     ]
     
     var currentChain: String {
-        #if MAINNET
-            "ccd:mainnet"
-        #else
-            "ccd:testnet"
-        #endif
+#if MAINNET
+        "ccd:mainnet"
+#else
+        "ccd:testnet"
+#endif
     }
+    
+    private let wallet: MobileWalletProtocol
+    private let storageManager: StorageManagerProtocol
     
     init(sessionProposal: Session.Proposal, wallet: MobileWalletProtocol, storageManager: StorageManagerProtocol) {
         self.wallet = wallet
@@ -70,7 +70,7 @@ final class SessionProposalViewModel: ObservableObject {
     }
     
     @MainActor
-    func onApprove(_ completion: (() -> Void)?) async {
+    func approveSessionRequest(_ completion: (() -> Void)?) async {
         let supportedMethods = Array(sessionProposal.requiredNamespaces.map { $0.value.methods }.first ?? [])
         let supportedEvents = Array(sessionProposal.requiredNamespaces.map { $0.value.events }.first ?? [])
         let supportedChains = Array((sessionProposal.requiredNamespaces.map { $0.value.chains }.first ?? [] )!)
@@ -90,9 +90,9 @@ final class SessionProposalViewModel: ObservableObject {
             logger.debugLog(error.localizedDescription)
         }
     }
-
+    
     @MainActor
-    func onReject(_ completion: (() -> Void)?) async {
+    func rejectSessionRequest(_ completion: (() -> Void)?) async {
         do {
             try await Web3Wallet.instance.reject(proposalId: sessionProposal.id, reason: .userRejected)
             completion?()
@@ -104,7 +104,7 @@ final class SessionProposalViewModel: ObservableObject {
 
 struct SessionProposalView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
-
+    
     @StateObject var viewModel: SessionProposalViewModel
     
     @State var isPickerPresented = false
@@ -129,32 +129,33 @@ struct SessionProposalView: View {
                         .font(.system(size: 13, weight: .regular))
                     
                     VStack {
-                        HStack(spacing: 8) {
-                            if let selectedAccount = viewModel.selectedAccount {
-                                VStack(spacing: 14) {
-                                    WCAccountCell(account: selectedAccount)
-                                    HStack(spacing: 8) {
-                                        Text("Choose another account")
-                                            .foregroundColor(.white)
-                                            .font(.system(size: 14, weight: .medium))
-                                        Image("ico_arrow")
-                                        Spacer()
-                                    }
-                                }
-                            } else {
-                                Text("Tap to select account")
-                                    .frame(maxWidth: .infinity)
-                                    .padding(16)
-                                    .background(Color.clear)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 20)
-                                            .stroke(Color.white, lineWidth: 1)
-                                    )
-                            }
-                        }
-                        .onTapGesture {
+                        Button(action: {
                             isPickerPresented = true
-                        }
+                        }, label: {
+                            HStack(spacing: 8) {
+                                if let selectedAccount = viewModel.selectedAccount {
+                                    VStack(spacing: 14) {
+                                        WCAccountCell(account: selectedAccount)
+                                        HStack(spacing: 8) {
+                                            Text("Choose another account")
+                                                .foregroundColor(.white)
+                                                .font(.system(size: 14, weight: .medium))
+                                            Image("ico_arrow")
+                                            Spacer()
+                                        }
+                                    }
+                                } else {
+                                    Text("Tap to select account")
+                                        .frame(maxWidth: .infinity)
+                                        .padding(16)
+                                        .background(Color.clear)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 20)
+                                                .stroke(Color.white, lineWidth: 1)
+                                        )
+                                }
+                            }
+                        })
                         
                         ScrollView {
                             ForEach(viewModel.sessionProposal.requiredNamespaces.keys.sorted(), id: \.self) { chain in
@@ -174,7 +175,7 @@ struct SessionProposalView: View {
                                         Text("The session proposal did not contain a valid namespace. Allowed namespaces are: \(viewModel.currentChain)")
                                             .multilineTextAlignment(.center)
                                     case .methodMismatch:
-                                        Text("The session proposal did not contain a allowed methods. Allowed methods are: \(viewModel.allowedRequestMethods.joined(separator: ","))")
+                                        Text("An unsupported method was requested, supported methods are: \(viewModel.allowedRequestMethods.joined(separator: ","))")
                                             .multilineTextAlignment(.center)
                                 }
                             }
@@ -187,8 +188,8 @@ struct SessionProposalView: View {
                     
                     HStack(spacing: 20) {
                         Button {
-                            Task(priority: .userInitiated) { 
-                                await viewModel.onReject { dismiss() }
+                            Task(priority: .userInitiated) {
+                                await viewModel.rejectSessionRequest { dismiss() }
                             }
                         } label: {
                             Text("Decline")
@@ -204,8 +205,8 @@ struct SessionProposalView: View {
                         }
                         
                         Button {
-                            Task(priority: .userInitiated) { 
-                                await viewModel.onApprove { dismiss() }
+                            Task(priority: .userInitiated) {
+                                await viewModel.approveSessionRequest { dismiss() }
                             }
                         } label: {
                             Text("Allow")
@@ -232,15 +233,20 @@ struct SessionProposalView: View {
         .edgesIgnoringSafeArea(.all)
         .sheet(isPresented: $isPickerPresented) {
             List(viewModel.accounts()) { item in
-                WCAccountCell(account: item)
-                    .onTapGesture {
-                        self.viewModel.selectedAccount = item
-                        self.isPickerPresented = false
-                    }
+                Button(action: {
+                    self.viewModel.selectedAccount = item
+                    self.isPickerPresented = false
+                }, label: {
+                    WCAccountCell(account: item)
+                })
+                .buttonStyle(.plain)
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
             }
+            .listStyle(.plain)
         }
     }
-
+    
     private func sessionProposalView(namespaces: ProposalNamespace) -> some View {
         VStack {
             VStack(alignment: .leading) {
@@ -274,7 +280,7 @@ struct SessionProposalView: View {
                                 Text("Events")
                                     .foregroundColor(.white)
                                     .font(.system(size: 14, weight: .medium))
-
+                                
                                 Spacer()
                             }
                             

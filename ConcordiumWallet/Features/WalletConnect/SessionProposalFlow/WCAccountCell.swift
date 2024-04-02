@@ -36,6 +36,7 @@ struct WCAccountCell: View {
                                 .minimumScaleFactor(0.7)
                             .multilineTextAlignment(.leading)
                             Text("CCD")
+                                .foregroundStyle(Color.black)
                                 .padding(.horizontal, 5)
                                 .padding(.vertical, 2)
                                 .background(Color.ccdBackground)
