@@ -218,7 +218,7 @@ extension AccountsMainRouter {
 
 extension AccountsMainRouter: WalletConnectServiceProtocol {
     func showError(_ error: WalletConnectError) {
-        print("suka")
+        print("fix")
     }
     
     func showSessionRequest(with request: WalletConnectSign.Request) {

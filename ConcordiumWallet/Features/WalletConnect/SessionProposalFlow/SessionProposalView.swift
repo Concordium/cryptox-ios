@@ -30,11 +30,11 @@ final class SessionProposalViewModel: ObservableObject {
     ]
     
     var currentChain: String {
-    #if MAINNET
-        "ccd:mainnet"
-    #else
-        "ccd:testnet"
-    #endif
+        #if MAINNET
+            "ccd:mainnet"
+        #else
+            "ccd:testnet"
+        #endif
     }
     
     init(sessionProposal: Session.Proposal, wallet: MobileWalletProtocol, storageManager: StorageManagerProtocol) {
