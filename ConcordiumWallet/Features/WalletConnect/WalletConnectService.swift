@@ -12,15 +12,9 @@ import SwiftUI
 import Combine
 import BigInt
 
-//enum WalletConnectError: Error {
-//    case environmentMismatch
-//}
-
 protocol WalletConnectServiceProtocol: AnyObject {
     func showSessionProposal(with proposal: Session.Proposal, context: VerifyContext?)
     func showSessionRequest(with request: Request)
-    
-    func showError(_ error: WalletConnectError)
 }
 
 final class WalletConnectService {

@@ -390,10 +390,6 @@ extension AccountsCoordinator {
 }
 
 extension AccountsCoordinator: WalletConnectServiceProtocol {
-    func showError(_ error: WalletConnectError) {
-        print("fix")
-    }
-    
     func showSessionRequest(with request: WalletConnectSign.Request) {
         let viewController = ClearSceneViewController(
             content: SessionRequestView(
