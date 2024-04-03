@@ -27,11 +27,11 @@ final class SessionProposalViewModel: ObservableObject {
     ]
     
     var currentChain: String {
-#if MAINNET
-        "ccd:mainnet"
-#else
-        "ccd:testnet"
-#endif
+        #if MAINNET
+            "ccd:mainnet"
+        #else
+            "ccd:testnet"
+        #endif
     }
     
     private let wallet: MobileWalletProtocol
@@ -51,8 +51,12 @@ final class SessionProposalViewModel: ObservableObject {
         
         // Check if proposal contains allowed methods
         let methods = sessionProposal.requiredNamespaces.compactMap { $0.value.methods }.flatMap { $0 }
-        let isCorrectMethods = methods.contains { method in
-            allowedRequestMethods.contains(method)
+        
+        var isCorrectMethods: Bool
+        if #available(iOS 16.0, *) {
+            isCorrectMethods = allowedRequestMethods.contains(methods)
+        } else {
+            isCorrectMethods = Set(allowedRequestMethods).isSuperset(of: Set(methods))
         }
         
         switch (isCorrectChain, isCorrectMethods) {
