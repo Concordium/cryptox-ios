@@ -1923,9 +1923,9 @@
 		08C169C62BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169C52BBFE1C900E61326 /* AnyPublisher+Extentions.swift */; };
 		08C169C72BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169C52BBFE1C900E61326 /* AnyPublisher+Extentions.swift */; };
 		08C169C82BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169C52BBFE1C900E61326 /* AnyPublisher+Extentions.swift */; };
-		08C169CB2BBFE2CD00E61326 /* WCRequestTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CA2BBFE2CD00E61326 /* WCRequestTransaction.swift */; };
-		08C169CC2BBFE2CD00E61326 /* WCRequestTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CA2BBFE2CD00E61326 /* WCRequestTransaction.swift */; };
-		08C169CD2BBFE2CD00E61326 /* WCRequestTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CA2BBFE2CD00E61326 /* WCRequestTransaction.swift */; };
+		08C169CB2BBFE2CD00E61326 /* ContractUpdateParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CA2BBFE2CD00E61326 /* ContractUpdateParams.swift */; };
+		08C169CC2BBFE2CD00E61326 /* ContractUpdateParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CA2BBFE2CD00E61326 /* ContractUpdateParams.swift */; };
+		08C169CD2BBFE2CD00E61326 /* ContractUpdateParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CA2BBFE2CD00E61326 /* ContractUpdateParams.swift */; };
 		08C169CF2BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CE2BC00C5F00E61326 /* SessionRequestViewModel.swift */; };
 		08C169D02BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CE2BC00C5F00E61326 /* SessionRequestViewModel.swift */; };
 		08C169D12BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CE2BC00C5F00E61326 /* SessionRequestViewModel.swift */; };
@@ -3144,7 +3144,7 @@
 		08C169C22BB7396200E61326 /* ProdTestNet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProdTestNet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08C169C42BB73E5700E61326 /* ProdTestNet-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ProdTestNet-Info.plist"; sourceTree = "<group>"; };
 		08C169C52BBFE1C900E61326 /* AnyPublisher+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPublisher+Extentions.swift"; sourceTree = "<group>"; };
-		08C169CA2BBFE2CD00E61326 /* WCRequestTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCRequestTransaction.swift; sourceTree = "<group>"; };
+		08C169CA2BBFE2CD00E61326 /* ContractUpdateParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractUpdateParams.swift; sourceTree = "<group>"; };
 		08C169CE2BC00C5F00E61326 /* SessionRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequestViewModel.swift; sourceTree = "<group>"; };
 		08C169D32BC0397600E61326 /* SignMessagePayloadToJsonInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignMessagePayloadToJsonInput.swift; sourceTree = "<group>"; };
 		08C169D72BC04A1E00E61326 /* SignMessageSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignMessageSignature.swift; sourceTree = "<group>"; };
@@ -5176,7 +5176,7 @@
 			isa = PBXGroup;
 			children = (
 				08C169D22BC0395600E61326 /* SignMessage */,
-				08C169CA2BBFE2CD00E61326 /* WCRequestTransaction.swift */,
+				08C169CA2BBFE2CD00E61326 /* ContractUpdateParams.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -7059,7 +7059,7 @@
 				08C167322BB7396200E61326 /* ErrorMapper.swift in Sources */,
 				08C167332BB7396200E61326 /* RecoveryPhraseSetupCompleteView.swift in Sources */,
 				08C167342BB7396200E61326 /* TransferEntity.swift in Sources */,
-				08C169CD2BBFE2CD00E61326 /* WCRequestTransaction.swift in Sources */,
+				08C169CD2BBFE2CD00E61326 /* ContractUpdateParams.swift in Sources */,
 				08C167352BB7396200E61326 /* DelegationCoordinator.swift in Sources */,
 				08C167362BB7396200E61326 /* StakeAmountInputValidator.swift in Sources */,
 				08C167372BB7396200E61326 /* LoadingIndicator.swift in Sources */,
@@ -7738,7 +7738,7 @@
 				D589F3192794B678003F2FBB /* ErrorMapper.swift in Sources */,
 				088FF0F12A0284A700042957 /* RecoveryPhraseSetupCompleteView.swift in Sources */,
 				D589F1A52794B5ED003F2FBB /* TransferEntity.swift in Sources */,
-				08C169CC2BBFE2CD00E61326 /* WCRequestTransaction.swift in Sources */,
+				08C169CC2BBFE2CD00E61326 /* ContractUpdateParams.swift in Sources */,
 				088FECCF2A0161CA00042957 /* DelegationCoordinator.swift in Sources */,
 				088FEE5A2A016BA600042957 /* StakeAmountInputValidator.swift in Sources */,
 				088FEE312A01687400042957 /* LoadingIndicator.swift in Sources */,
@@ -8417,7 +8417,7 @@
 				D589F1A32794B5ED003F2FBB /* TransferEntity.swift in Sources */,
 				088FECC92A0161C900042957 /* DelegationCoordinator.swift in Sources */,
 				088FEC852A015C8F00042957 /* EarnPresenter.swift in Sources */,
-				08C169CB2BBFE2CD00E61326 /* WCRequestTransaction.swift in Sources */,
+				08C169CB2BBFE2CD00E61326 /* ContractUpdateParams.swift in Sources */,
 				088FF0EB2A0284A600042957 /* RecoveryPhraseSetupCompleteView.swift in Sources */,
 				088FEE542A016BA500042957 /* StakeAmountInputValidator.swift in Sources */,
 				088FEE2F2A01687400042957 /* LoadingIndicator.swift in Sources */,

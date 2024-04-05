@@ -171,14 +171,14 @@ extension CIS2TokenTransferModel {
         return try await dependencyProvider
             .transactionsService()
             .getTransferCost(
-                transferType: .transferUpdate,
+                transferType: .update,
                 costParameters: [
-                    "amount":"0",
-                    "sender": account.address,
-                    "contractIndex": token.contractAddress.index,
-                    "contractSubindex": token.contractAddress.subindex,
-                    "receiveName": "\(token.contractName).transfer",
-                    "parameter": serializedTransferParams
+                    .amount("0"),
+                    .sender(account.address),
+                    .contractIndex(token.contractAddress.index),
+                    .contractSubindex(token.contractAddress.subindex),
+                    .receiveName("\(token.contractName).transfer"),
+                    .parameter(serializedTransferParams),
                 ]
             )
             .eraseToAnyPublisher()

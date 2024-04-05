@@ -11,7 +11,7 @@ import Foundation
 /// https://github.com/Concordium/concordium-base/tree/main/rust-bins/wallet-notes#create_account_transaction
 /// https://github.com/Concordium/concordium-base/blob/main/rust-bins/wallet-notes/files/2-create_account_transaction-input.json
 ///
-struct UpdateTxPayload: Codable {
+struct ContractUpdatePayload: Codable {
     let amount: String
     let address: ContractAddress1
     let receiveName: String
@@ -30,7 +30,7 @@ struct MakeUpdateTransferRequest: Codable {
     let nonce: Int
     let keys: AccountKeys
     let type: UpdateTxType
-    let payload: UpdateTxPayload
+    let payload: ContractUpdatePayload
     
     enum CodingKeys: String, CodingKey {
         case from = "from"
@@ -46,7 +46,7 @@ struct MakeUpdateTransferRequest: Codable {
         expiry: Int,
         nonce: Int,
         keys: AccountKeys,
-        payload: UpdateTxPayload,
+        payload: ContractUpdatePayload,
         type: UpdateTxType = .Update
     ) {
         self.from = from

@@ -534,7 +534,7 @@ extension MobileWallet {
             expiry: Int(expiry.timeIntervalSince1970),
             nonce: nonce.nonce,
             keys: privateAccountKeys,
-            payload: UpdateTxPayload(
+            payload: ContractUpdatePayload(
                 amount: String(amount),
                 address: contractAddress,
                 receiveName: receiveName,

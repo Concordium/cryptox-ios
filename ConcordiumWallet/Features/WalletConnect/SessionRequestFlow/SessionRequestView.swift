@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-
 struct SessionRequestView: View {
     @StateObject var viewModel: SessionRequestViewModel
     

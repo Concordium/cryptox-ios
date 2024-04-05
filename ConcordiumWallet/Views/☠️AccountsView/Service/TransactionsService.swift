@@ -12,8 +12,6 @@ protocol TransactionsServiceProtocol {
                          bakerKeys: GeneratedBakerKeys?,
                          requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error>
     func getTransactions(for account: AccountDataType, startingFrom: Transaction?) -> AnyPublisher<RemoteTransactions, Error>
-    func getTransferCost(transferType: TransferType, costParameters: [TransferCostParameter]) -> AnyPublisher<TransferCost, Error>
-    func getTransferCost(transferType: TransferType, costParameters: [String: CustomStringConvertible]) -> AnyPublisher<TransferCost, Error>
     func decryptEncryptedTransferAmounts(transactions: [Transaction],
                                          from account: AccountDataType,
                                          requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<[(String, Int)], Error>
@@ -22,6 +20,8 @@ protocol TransactionsServiceProtocol {
                          from account: AccountDataType,
                          contractAddress: ContractAddress1,
                          requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error>
+    
+    func getTransferCost(transferType: WalletProxyTransferType, costParameters: [TransferCostParameter]) -> AnyPublisher<TransferCost, Error>
 }
 
 extension TransactionsServiceProtocol {
@@ -36,10 +36,22 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
     var networkManager: NetworkManagerProtocol
     private let mobileWallet: MobileWalletProtocol
     private var storageManager: StorageManagerProtocol
+    
     init(networkManager: NetworkManagerProtocol, mobileWallet: MobileWalletProtocol, storageManager: StorageManagerProtocol) {
         self.networkManager = networkManager
         self.mobileWallet = mobileWallet
         self.storageManager = storageManager
+    }
+    
+    func getTransferCost(transferType: WalletProxyTransferType, costParameters: [TransferCostParameter]) -> AnyPublisher<TransferCost, Error> {
+        var params: [String: CustomStringConvertible?] = ["type": transferType.rawValue]
+        
+        costParameters.forEach { costParameter in
+            params[costParameter.name] = costParameter.value
+        }
+        
+        let request = ResourceRequest(url: ApiConstants.transferCost, parameters: params)
+        return networkManager.load(request)
     }
     
     func performTransfer(_ pTransfer: TransferDataType,
@@ -86,17 +98,6 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
         }
         let request = ResourceRequest(url: ApiConstants.accountTransactions.appendingPathComponent(account.address),
                                       parameters: params)
-        return networkManager.load(request)
-    }
-  
-    func getTransferCost(transferType: TransferType, costParameters: [TransferCostParameter]) -> AnyPublisher<TransferCost, Error> {
-        var params: [String: CustomStringConvertible?] = ["type": transferType.rawValue]
-        
-        costParameters.forEach { costParameter in
-            params[costParameter.name] = costParameter.value
-        }
-        
-        let request = ResourceRequest(url: ApiConstants.transferCost, parameters: params)
         return networkManager.load(request)
     }
     
@@ -595,9 +596,9 @@ extension TransactionsService {
 
 extension TransactionsServiceProtocol {
     func getBakingTransferCostRange(parameters: [TransferCostParameter]) -> AnyPublisher<TransferCostRange, Error> {
-        let minPublisher = getTransferCost(transferType: .registerBaker, costParameters: parameters + [.metadataSize(0)]).first()
-        let maxPublisher = getTransferCost(transferType: .registerBaker, costParameters: parameters + [.metadataSize(2048)]).first()
-        
+        let minPublisher = getTransferCost(transferType: WalletProxyTransferType.registerBaker, costParameters: parameters + [.metadataSize(0)]).first()
+        let maxPublisher = getTransferCost(transferType: WalletProxyTransferType.registerBaker, costParameters: parameters + [.metadataSize(2048)]).first()
+
         return minPublisher
             .zip(maxPublisher)
             .map { (min, max) in
@@ -657,27 +658,5 @@ extension TransactionsService {
         }
         .eraseToAnyPublisher()
         
-    }
-    
-    /*
-     https://wallet-proxy.testnet.concordium.com/v0/transactionCost?
-     type=update
-     &amount=0
-     &sender=4CXTwHLDzmnyJRyo3ueSXqgRc7mW9w7UxeyGPCtPJwwzCpu7oM
-     &contractIndex=2059
-     &contractSubindex=0
-     &receiveName=cis2_wCCD.transfer
-     &parameter=01000080b6dc0500a541fd61a235048f333dc4bcc1b50d2dd75e63c4f2f9815928bd1ac1dea96b42008393d52baebd8e2970543d1ebaae43c9282b935a50d863e5628ca9356c22d3530000
-     */
-    
-    func getTransferCost(transferType: TransferType, costParameters: [String: CustomStringConvertible]) -> AnyPublisher<TransferCost, Error> {
-        var params: [String: CustomStringConvertible?] = ["type": transferType.rawValue]
-        
-        costParameters.forEach { costParameter in
-            params[costParameter.key] = costParameter.value
-        }
-        
-        let request = ResourceRequest(url: ApiConstants.transferCost, parameters: params)
-        return networkManager.load(request)
     }
 }
