@@ -1926,6 +1926,18 @@
 		08C169CB2BBFE2CD00E61326 /* WCRequestTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CA2BBFE2CD00E61326 /* WCRequestTransaction.swift */; };
 		08C169CC2BBFE2CD00E61326 /* WCRequestTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CA2BBFE2CD00E61326 /* WCRequestTransaction.swift */; };
 		08C169CD2BBFE2CD00E61326 /* WCRequestTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CA2BBFE2CD00E61326 /* WCRequestTransaction.swift */; };
+		08C169CF2BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CE2BC00C5F00E61326 /* SessionRequestViewModel.swift */; };
+		08C169D02BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CE2BC00C5F00E61326 /* SessionRequestViewModel.swift */; };
+		08C169D12BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CE2BC00C5F00E61326 /* SessionRequestViewModel.swift */; };
+		08C169D42BC0397600E61326 /* SignMessagePayloadToJsonInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169D32BC0397600E61326 /* SignMessagePayloadToJsonInput.swift */; };
+		08C169D52BC0397600E61326 /* SignMessagePayloadToJsonInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169D32BC0397600E61326 /* SignMessagePayloadToJsonInput.swift */; };
+		08C169D62BC0397600E61326 /* SignMessagePayloadToJsonInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169D32BC0397600E61326 /* SignMessagePayloadToJsonInput.swift */; };
+		08C169D82BC04A1E00E61326 /* SignMessageSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169D72BC04A1E00E61326 /* SignMessageSignature.swift */; };
+		08C169D92BC04A1E00E61326 /* SignMessageSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169D72BC04A1E00E61326 /* SignMessageSignature.swift */; };
+		08C169DA2BC04A1E00E61326 /* SignMessageSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169D72BC04A1E00E61326 /* SignMessageSignature.swift */; };
+		08C169DC2BC04A8500E61326 /* SignMessagePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169DB2BC04A8500E61326 /* SignMessagePayload.swift */; };
+		08C169DD2BC04A8500E61326 /* SignMessagePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169DB2BC04A8500E61326 /* SignMessagePayload.swift */; };
+		08C169DE2BC04A8500E61326 /* SignMessagePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169DB2BC04A8500E61326 /* SignMessagePayload.swift */; };
 		08D103E02B5692A70057E844 /* RecoverAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D103DF2B5692A70057E844 /* RecoverAccountsView.swift */; };
 		08D103E12B5692A70057E844 /* RecoverAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D103DF2B5692A70057E844 /* RecoverAccountsView.swift */; };
 		08D103E42B56DF380057E844 /* PasscodeInputModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D103E32B56DF380057E844 /* PasscodeInputModifier.swift */; };
@@ -3133,6 +3145,10 @@
 		08C169C42BB73E5700E61326 /* ProdTestNet-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ProdTestNet-Info.plist"; sourceTree = "<group>"; };
 		08C169C52BBFE1C900E61326 /* AnyPublisher+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPublisher+Extentions.swift"; sourceTree = "<group>"; };
 		08C169CA2BBFE2CD00E61326 /* WCRequestTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCRequestTransaction.swift; sourceTree = "<group>"; };
+		08C169CE2BC00C5F00E61326 /* SessionRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequestViewModel.swift; sourceTree = "<group>"; };
+		08C169D32BC0397600E61326 /* SignMessagePayloadToJsonInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignMessagePayloadToJsonInput.swift; sourceTree = "<group>"; };
+		08C169D72BC04A1E00E61326 /* SignMessageSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignMessageSignature.swift; sourceTree = "<group>"; };
+		08C169DB2BC04A8500E61326 /* SignMessagePayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignMessagePayload.swift; sourceTree = "<group>"; };
 		08D103DF2B5692A70057E844 /* RecoverAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverAccountsView.swift; sourceTree = "<group>"; };
 		08D103E32B56DF380057E844 /* PasscodeInputModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeInputModifier.swift; sourceTree = "<group>"; };
 		08E69C812A1D2183001CCA96 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
@@ -4919,6 +4935,7 @@
 			isa = PBXGroup;
 			children = (
 				089B34412A17D69400F3CD90 /* SessionRequestView.swift */,
+				08C169CE2BC00C5F00E61326 /* SessionRequestViewModel.swift */,
 			);
 			path = SessionRequestFlow;
 			sourceTree = "<group>";
@@ -5158,9 +5175,20 @@
 		08C169C92BBFE28200E61326 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				08C169D22BC0395600E61326 /* SignMessage */,
 				08C169CA2BBFE2CD00E61326 /* WCRequestTransaction.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		08C169D22BC0395600E61326 /* SignMessage */ = {
+			isa = PBXGroup;
+			children = (
+				08C169D32BC0397600E61326 /* SignMessagePayloadToJsonInput.swift */,
+				08C169D72BC04A1E00E61326 /* SignMessageSignature.swift */,
+				08C169DB2BC04A8500E61326 /* SignMessagePayload.swift */,
+			);
+			path = SignMessage;
 			sourceTree = "<group>";
 		};
 		08D103E22B56DF2A0057E844 /* PasscodeInput */ = {
@@ -6837,6 +6865,7 @@
 				08C166742BB7396200E61326 /* Credential.swift in Sources */,
 				08C166752BB7396200E61326 /* AccountAddressQRViewController.swift in Sources */,
 				08C166762BB7396200E61326 /* IPInfo.swift in Sources */,
+				08C169D62BC0397600E61326 /* SignMessagePayloadToJsonInput.swift in Sources */,
 				08C166772BB7396200E61326 /* ImportStatusCell.swift in Sources */,
 				08C166782BB7396200E61326 /* Schedule.swift in Sources */,
 				08C166792BB7396200E61326 /* WidgetButton.swift in Sources */,
@@ -6922,6 +6951,7 @@
 				08C166C92BB7396200E61326 /* AppDelegate.swift in Sources */,
 				08C166CA2BB7396200E61326 /* AboutViewController.swift in Sources */,
 				08C166CB2BB7396200E61326 /* AppCoordinator.swift in Sources */,
+				08C169D12BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */,
 				08C166CC2BB7396200E61326 /* HapticFeedbackHelper.swift in Sources */,
 				08C166CD2BB7396200E61326 /* NFTProviderHeaderView.swift in Sources */,
 				08C166CE2BB7396200E61326 /* DelegationStatusPresenter.swift in Sources */,
@@ -6979,6 +7009,7 @@
 				08C167022BB7396200E61326 /* WebSocketService.swift in Sources */,
 				08C167032BB7396200E61326 /* RecoveryPhraseConfirmPhrasePresenter.swift in Sources */,
 				08C167042BB7396200E61326 /* AccNonce.swift in Sources */,
+				08C169DE2BC04A8500E61326 /* SignMessagePayload.swift in Sources */,
 				08C167052BB7396200E61326 /* NibLoadable.swift in Sources */,
 				08C167062BB7396200E61326 /* SelectIdentityProviderPresenter.swift in Sources */,
 				08C167072BB7396200E61326 /* BakerMetadataPresenter.swift in Sources */,
@@ -7235,6 +7266,7 @@
 				08C168002BB7396200E61326 /* BakerPoolGenerateKeyViewController.swift in Sources */,
 				08C168012BB7396200E61326 /* RecoveryPhraseCoordinator.swift in Sources */,
 				08C168022BB7396200E61326 /* CreationFailedViewController.swift in Sources */,
+				08C169DA2BC04A1E00E61326 /* SignMessageSignature.swift in Sources */,
 				08C168032BB7396200E61326 /* RecoveryPhraseGettingStartedView.swift in Sources */,
 				08C168042BB7396200E61326 /* SeedIdentityStatusView.swift in Sources */,
 				08C168052BB7396200E61326 /* StakeAmountInputViewController.swift in Sources */,
@@ -7512,6 +7544,7 @@
 				08A0461429FA99D300DACE1F /* Credential.swift in Sources */,
 				088FEDAB2A01675600042957 /* AccountAddressQRViewController.swift in Sources */,
 				08A045FA29FA99D200DACE1F /* IPInfo.swift in Sources */,
+				08C169D52BC0397600E61326 /* SignMessagePayloadToJsonInput.swift in Sources */,
 				088FF2282A02A89900042957 /* ImportStatusCell.swift in Sources */,
 				08A045E329FA99D200DACE1F /* Schedule.swift in Sources */,
 				7F85B7D3246A9AB600ED09B8 /* WidgetButton.swift in Sources */,
@@ -7597,6 +7630,7 @@
 				7F85B7F2246A9AB600ED09B8 /* AppDelegate.swift in Sources */,
 				088FF1FF2A02A76C00042957 /* AboutViewController.swift in Sources */,
 				7F85B7F4246A9AB600ED09B8 /* AppCoordinator.swift in Sources */,
+				08C169D02BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */,
 				D5F3BC73278E5FF0008DC894 /* HapticFeedbackHelper.swift in Sources */,
 				D5E6CC07290F4832009856B7 /* NFTProviderHeaderView.swift in Sources */,
 				088FECB02A0161B700042957 /* DelegationStatusPresenter.swift in Sources */,
@@ -7654,6 +7688,7 @@
 				FAF2C57126B00DBB00406A86 /* WebSocketService.swift in Sources */,
 				088FF1012A0284BD00042957 /* RecoveryPhraseConfirmPhrasePresenter.swift in Sources */,
 				08A045E229FA99D200DACE1F /* AccNonce.swift in Sources */,
+				08C169DD2BC04A8500E61326 /* SignMessagePayload.swift in Sources */,
 				52055F892552C1D90071F7CA /* NibLoadable.swift in Sources */,
 				088FEFF42A0271D500042957 /* SelectIdentityProviderPresenter.swift in Sources */,
 				088FED2C2A01630400042957 /* BakerMetadataPresenter.swift in Sources */,
@@ -7910,6 +7945,7 @@
 				088FED222A0162F100042957 /* BakerPoolGenerateKeyViewController.swift in Sources */,
 				088FF1302A0284FA00042957 /* RecoveryPhraseCoordinator.swift in Sources */,
 				088FEEBA2A026B8200042957 /* CreationFailedViewController.swift in Sources */,
+				08C169D92BC04A1E00E61326 /* SignMessageSignature.swift in Sources */,
 				088FF1282A0284F600042957 /* RecoveryPhraseGettingStartedView.swift in Sources */,
 				088FEFD42A0271AB00042957 /* SeedIdentityStatusView.swift in Sources */,
 				088FEE5B2A016BA600042957 /* StakeAmountInputViewController.swift in Sources */,
@@ -8187,6 +8223,7 @@
 				D5962CD9272170F800A757A5 /* TransactionDetailsView.swift in Sources */,
 				08A0457C29FA99D100DACE1F /* Credential.swift in Sources */,
 				088FEDA52A01675500042957 /* AccountAddressQRViewController.swift in Sources */,
+				08C169D42BC0397600E61326 /* SignMessagePayloadToJsonInput.swift in Sources */,
 				08A0456229FA99D100DACE1F /* IPInfo.swift in Sources */,
 				088FF2242A02A89800042957 /* ImportStatusCell.swift in Sources */,
 				08A0454B29FA99D100DACE1F /* Schedule.swift in Sources */,
@@ -8272,6 +8309,7 @@
 				088FF1FB2A02A76C00042957 /* AboutViewController.swift in Sources */,
 				D5FA3E77291343A10071A779 /* AirDropViewController.swift in Sources */,
 				D52D4F6F29184A9900C9A815 /* AirDropConnectView.swift in Sources */,
+				08C169CF2BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */,
 				D589F31B2794B678003F2FBB /* ResourceRequest.swift in Sources */,
 				067D766B23FC1B42002DEF67 /* LoginWarningLabel.swift in Sources */,
 				088FF2372A02A98F00042957 /* SelectRecipientViewController.swift in Sources */,
@@ -8329,6 +8367,7 @@
 				088FED282A01630300042957 /* BakerMetadataPresenter.swift in Sources */,
 				7FF07AC023EADBB100F1FC04 /* UIViewController+Additions.swift in Sources */,
 				088FF0FB2A0284BC00042957 /* RecoveryPhraseConfirmPhrasePresenter.swift in Sources */,
+				08C169DC2BC04A8500E61326 /* SignMessagePayload.swift in Sources */,
 				088FEFEE2A0271D400042957 /* SelectIdentityProviderPresenter.swift in Sources */,
 				088FF1C12A02A70700042957 /* ExportService.swift in Sources */,
 				088FEE842A025B9100042957 /* MaterialTabBar.swift in Sources */,
@@ -8585,6 +8624,7 @@
 				08FD0B822A7D31D9003774A6 /* GradienBackgroundModifier.swift in Sources */,
 				088FF1442A02867B00042957 /* AppSettingsService.swift in Sources */,
 				088FF0122A02726000042957 /* SeedAccountsService.swift in Sources */,
+				08C169D82BC04A1E00E61326 /* SignMessageSignature.swift in Sources */,
 				088FF12C2A0284F900042957 /* RecoveryPhraseCoordinator.swift in Sources */,
 				088FEEB82A026B8100042957 /* CreationFailedViewController.swift in Sources */,
 				088FF1222A0284F500042957 /* RecoveryPhraseGettingStartedView.swift in Sources */,

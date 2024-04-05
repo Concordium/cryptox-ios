@@ -29,3 +29,7 @@ struct WCRequestTransaction: Codable {
         payload = try JSONDecoder().decode(UpdateTxPayload.self, from: payloadString.data(using: .utf8) ?? Data())
     }
 }
+
+struct WCSignMessageTransaction: Codable {
+    let message: String
+}

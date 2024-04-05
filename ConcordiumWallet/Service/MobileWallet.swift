@@ -55,6 +55,8 @@ protocol MobileWalletProtocol {
     func verifyIdentitiesAndAccounts(pwHash: String) -> [(IdentityDataType?, [AccountDataType])]
     
     func isLegacyAccount() -> Bool
+    
+    func signMessage(for account: AccountDataType, message: String, requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<StringMessageSignatures, Error>
 }
 
 enum MobileWalletError: Error {
@@ -557,5 +559,16 @@ extension MobileWallet {
 extension MobileWallet {
     func isLegacyAccount() -> Bool {
         storageManager.getIdentities().filter { $0.seedIdentityObject != nil }.isEmpty
+    }
+}
+
+extension MobileWallet {
+    func signMessage(for account: AccountDataType, message: String, requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<StringMessageSignatures, Error> {
+        return requestPasswordDelegate.requestUserPassword(keychain: keychain).tryMap { (pwHash: String) in
+            let privateAccountKeys = try self.getPrivateAccountKeys(for: account, pwHash: pwHash).get()
+            let res = try self.walletFacade.signMessage(input: SignMessagePayloadToJsonInput(message: message, address: account.address, keys: privateAccountKeys))
+            return try JSONDecoder().decode(StringMessageSignatures.self, from: Data(res.utf8))
+        }
+        .eraseToAnyPublisher()
     }
 }
