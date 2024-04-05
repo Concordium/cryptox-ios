@@ -51,13 +51,16 @@ final class SessionProposalViewModel: ObservableObject {
         
         // Check if proposal contains allowed methods
         let methods = sessionProposal.requiredNamespaces.compactMap { $0.value.methods }.flatMap { $0 }
+        var isCorrectMethods: Bool = Set(allowedRequestMethods).isSuperset(of: Set(methods))
+
+        logger.debugLog("""
+            wc: session proposal
+            chains: \(chains)
+            methods: \(methods.joined(separator: ", "))
         
-        var isCorrectMethods: Bool
-        if #available(iOS 16.0, *) {
-            isCorrectMethods = allowedRequestMethods.contains(methods)
-        } else {
-            isCorrectMethods = Set(allowedRequestMethods).isSuperset(of: Set(methods))
-        }
+            isCorrectChain: \(isCorrectChain)
+            isCorrectMethods: \(isCorrectMethods)
+        """)
         
         switch (isCorrectChain, isCorrectMethods) {
             case(true, true):
@@ -179,7 +182,7 @@ struct SessionProposalView: View {
                                         Text("The session proposal did not contain a valid namespace. Allowed namespaces are: \(viewModel.currentChain)")
                                             .multilineTextAlignment(.center)
                                     case .methodMismatch:
-                                        Text("An unsupported method was requested, supported methods are: \(viewModel.allowedRequestMethods.joined(separator: ","))")
+                                        Text("An unsupported method was requested, supported methods are: \(viewModel.allowedRequestMethods.joined(separator: ", "))")
                                             .multilineTextAlignment(.center)
                                 }
                             }

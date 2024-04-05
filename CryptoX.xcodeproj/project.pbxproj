@@ -1920,6 +1920,12 @@
 		08C169BB2BB7396200E61326 /* shielded_balance_onboarding_en_7.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B345B2A1B9E6100F3CD90 /* shielded_balance_onboarding_en_7.html */; };
 		08C169BC2BB7396200E61326 /* 4.1.2.RX_backend_accBalance.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3642794B96B003F2FBB /* 4.1.2.RX_backend_accBalance.json */; };
 		08C169BD2BB7396200E61326 /* shielded_balance_onboarding_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B345A2A1B9E6100F3CD90 /* shielded_balance_onboarding_en_1.html */; };
+		08C169C62BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169C52BBFE1C900E61326 /* AnyPublisher+Extentions.swift */; };
+		08C169C72BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169C52BBFE1C900E61326 /* AnyPublisher+Extentions.swift */; };
+		08C169C82BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169C52BBFE1C900E61326 /* AnyPublisher+Extentions.swift */; };
+		08C169CB2BBFE2CD00E61326 /* WCRequestTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CA2BBFE2CD00E61326 /* WCRequestTransaction.swift */; };
+		08C169CC2BBFE2CD00E61326 /* WCRequestTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CA2BBFE2CD00E61326 /* WCRequestTransaction.swift */; };
+		08C169CD2BBFE2CD00E61326 /* WCRequestTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CA2BBFE2CD00E61326 /* WCRequestTransaction.swift */; };
 		08D103E02B5692A70057E844 /* RecoverAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D103DF2B5692A70057E844 /* RecoverAccountsView.swift */; };
 		08D103E12B5692A70057E844 /* RecoverAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D103DF2B5692A70057E844 /* RecoverAccountsView.swift */; };
 		08D103E42B56DF380057E844 /* PasscodeInputModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D103E32B56DF380057E844 /* PasscodeInputModifier.swift */; };
@@ -3125,12 +3131,11 @@
 		08BFE22C2A3C9320007A7B1E /* DecimalNumberTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalNumberTextField.swift; sourceTree = "<group>"; };
 		08C169C22BB7396200E61326 /* ProdTestNet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProdTestNet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08C169C42BB73E5700E61326 /* ProdTestNet-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ProdTestNet-Info.plist"; sourceTree = "<group>"; };
+		08C169C52BBFE1C900E61326 /* AnyPublisher+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPublisher+Extentions.swift"; sourceTree = "<group>"; };
+		08C169CA2BBFE2CD00E61326 /* WCRequestTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCRequestTransaction.swift; sourceTree = "<group>"; };
 		08D103DF2B5692A70057E844 /* RecoverAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverAccountsView.swift; sourceTree = "<group>"; };
 		08D103E32B56DF380057E844 /* PasscodeInputModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeInputModifier.swift; sourceTree = "<group>"; };
 		08E69C812A1D2183001CCA96 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
-		08E69C872A1E663F001CCA96 /* AccountDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailView.swift; sourceTree = "<group>"; };
-		08E69C8C2A1F4BAE001CCA96 /* AccountActionButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountActionButtons.swift; sourceTree = "<group>"; };
-		08E69C912A1F611F001CCA96 /* AccountDetailProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailProxy.swift; sourceTree = "<group>"; };
 		08E69C972A1FCAA5001CCA96 /* AccountTokensView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTokensView.swift; sourceTree = "<group>"; };
 		08E69C9C2A20D071001CCA96 /* ImportTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTokenView.swift; sourceTree = "<group>"; };
 		08E69CA12A20DADA001CCA96 /* CIS2TokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokenService.swift; sourceTree = "<group>"; };
@@ -4884,6 +4889,7 @@
 		089B340D2A163C3700F3CD90 /* WalletConnect */ = {
 			isa = PBXGroup;
 			children = (
+				08C169C92BBFE28200E61326 /* Models */,
 				089B34462A18D67000F3CD90 /* Shared */,
 				089B34402A17D67900F3CD90 /* SessionRequestFlow */,
 				089B341C2A16842C00F3CD90 /* SessionProposalFlow */,
@@ -5023,6 +5029,7 @@
 			children = (
 				08A0463729FAA62B00DACE1F /* String+Extensions.swift */,
 				08BC95132A30E4AF0058F1B9 /* AssetExtractor.swift */,
+				08C169C52BBFE1C900E61326 /* AnyPublisher+Extentions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -5148,6 +5155,14 @@
 			path = TransferTokenFlow;
 			sourceTree = "<group>";
 		};
+		08C169C92BBFE28200E61326 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				08C169CA2BBFE2CD00E61326 /* WCRequestTransaction.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		08D103E22B56DF2A0057E844 /* PasscodeInput */ = {
 			isa = PBXGroup;
 			children = (
@@ -5165,7 +5180,6 @@
 				08E69CC12A26279C001CCA96 /* TransactionListView.swift */,
 				08E69CB22A254570001CCA96 /* TokenFormatter.swift */,
 				08E69CB72A25FA73001CCA96 /* SegmentedPicker.swift */,
-				08E69CAC2A24CD6C001CCA96 /* OldAccountDetails */,
 			);
 			path = AccountDetail;
 			sourceTree = "<group>";
@@ -5176,16 +5190,6 @@
 				08E69C972A1FCAA5001CCA96 /* AccountTokensView.swift */,
 			);
 			path = AccountTokensView;
-			sourceTree = "<group>";
-		};
-		08E69CAC2A24CD6C001CCA96 /* OldAccountDetails */ = {
-			isa = PBXGroup;
-			children = (
-				08E69C912A1F611F001CCA96 /* AccountDetailProxy.swift */,
-				08E69C872A1E663F001CCA96 /* AccountDetailView.swift */,
-				08E69C8C2A1F4BAE001CCA96 /* AccountActionButtons.swift */,
-			);
-			path = OldAccountDetails;
 			sourceTree = "<group>";
 		};
 		08FD0B7D2A7D26EA003774A6 /* Components */ = {
@@ -7018,11 +7022,13 @@
 				08C1672D2BB7396200E61326 /* BaseTextfield.swift in Sources */,
 				08C1672E2BB7396200E61326 /* RecoveryIdentityResponse.swift in Sources */,
 				08C1672F2BB7396200E61326 /* CreateSeedIdentityViewModel.swift in Sources */,
+				08C169C82BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */,
 				08C167302BB7396200E61326 /* IconImageView.swift in Sources */,
 				08C167312BB7396200E61326 /* AttributeList.swift in Sources */,
 				08C167322BB7396200E61326 /* ErrorMapper.swift in Sources */,
 				08C167332BB7396200E61326 /* RecoveryPhraseSetupCompleteView.swift in Sources */,
 				08C167342BB7396200E61326 /* TransferEntity.swift in Sources */,
+				08C169CD2BBFE2CD00E61326 /* WCRequestTransaction.swift in Sources */,
 				08C167352BB7396200E61326 /* DelegationCoordinator.swift in Sources */,
 				08C167362BB7396200E61326 /* StakeAmountInputValidator.swift in Sources */,
 				08C167372BB7396200E61326 /* LoadingIndicator.swift in Sources */,
@@ -7691,11 +7697,13 @@
 				7F85B815246A9AB600ED09B8 /* BaseTextfield.swift in Sources */,
 				08A0449029FA987800DACE1F /* RecoveryIdentityResponse.swift in Sources */,
 				088FEFE52A0271C000042957 /* CreateSeedIdentityViewModel.swift in Sources */,
+				08C169C72BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */,
 				D5CACC4526E91B9100D3C3CF /* IconImageView.swift in Sources */,
 				08A045DB29FA99D200DACE1F /* AttributeList.swift in Sources */,
 				D589F3192794B678003F2FBB /* ErrorMapper.swift in Sources */,
 				088FF0F12A0284A700042957 /* RecoveryPhraseSetupCompleteView.swift in Sources */,
 				D589F1A52794B5ED003F2FBB /* TransferEntity.swift in Sources */,
+				08C169CC2BBFE2CD00E61326 /* WCRequestTransaction.swift in Sources */,
 				088FECCF2A0161CA00042957 /* DelegationCoordinator.swift in Sources */,
 				088FEE5A2A016BA600042957 /* StakeAmountInputValidator.swift in Sources */,
 				088FEE312A01687400042957 /* LoadingIndicator.swift in Sources */,
@@ -8364,11 +8372,13 @@
 				644BB67425DFB4220086ED48 /* main.swift in Sources */,
 				08A0454329FA99D100DACE1F /* AttributeList.swift in Sources */,
 				D589F3172794B678003F2FBB /* ErrorMapper.swift in Sources */,
+				08C169C62BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */,
 				C939821D240F8D7000C72FE2 /* RoundedCornerView.swift in Sources */,
 				088FEFDF2A0271BF00042957 /* CreateSeedIdentityViewModel.swift in Sources */,
 				D589F1A32794B5ED003F2FBB /* TransferEntity.swift in Sources */,
 				088FECC92A0161C900042957 /* DelegationCoordinator.swift in Sources */,
 				088FEC852A015C8F00042957 /* EarnPresenter.swift in Sources */,
+				08C169CB2BBFE2CD00E61326 /* WCRequestTransaction.swift in Sources */,
 				088FF0EB2A0284A600042957 /* RecoveryPhraseSetupCompleteView.swift in Sources */,
 				088FEE542A016BA500042957 /* StakeAmountInputValidator.swift in Sources */,
 				088FEE2F2A01687400042957 /* LoadingIndicator.swift in Sources */,
@@ -8933,7 +8943,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_GTU_DROP";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -8965,7 +8975,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

@@ -11,78 +11,108 @@ import Web3Wallet
 import WalletConnectVerify
 import Combine
 
+enum SessionRequstError: Error {
+    case environmentMismatch, accountNotFound
+}
+
 final class SessionRequestViewModel: ObservableObject {
     let sessionRequest: Request
+    
     @Published var verified: Bool? = true
     @Published var account: AccountEntity?
-    let params: WalletConnectParams?
-    
-    @Published var canSendTx: Bool = false
+    @Published var isSignButtonEnabled: Bool = false
     @Published var errorText: String?
     @Published var shouldRejectOnDismiss =  true
     
+    @Published var error: SessionRequstError?
+    
+    @Published var requestTransactionParameters: WCRequestTransaction?
+    
     var message: String {
         return String(describing: sessionRequest.params.value)
+    }
+    
+    var currentChain: String {
+#if MAINNET
+        "ccd:mainnet"
+#else
+        "ccd:testnet"
+#endif
     }
     
     private let transactionsService: TransactionsServiceProtocol
     private let storageManager: StorageManagerProtocol
     private var cancellables = [AnyCancellable]()
     private let passwordDelegate: RequestPasswordDelegate
-
+    
     init(
         sessionRequest: Request,
         transactionsService: TransactionsServiceProtocol,
         storageManager: StorageManagerProtocol,
         passwordDelegate: RequestPasswordDelegate = DummyRequestPasswordDelegate()
     ) {
-        let _params = try? sessionRequest.params.get(WalletConnectParams.self)
-        
         self.passwordDelegate = passwordDelegate
         self.transactionsService = transactionsService
         self.sessionRequest = sessionRequest
         self.storageManager = storageManager
-        self.params = _params
         
-        self.account = storageManager.getAccounts().first(where: { $0.address == _params?.sender }) as? AccountEntity
+        self.requestTransactionParameters = try? sessionRequest.params.get(WCRequestTransaction.self)
+        self.account = storageManager.getAccounts().first(where: { $0.address ==
+            requestTransactionParameters?.sender }) as? AccountEntity
         
-        guard let account = account else { return }
-        guard let params = params else { return }
+        guard sessionRequest.chainId.absoluteString == currentChain else {
+            error = .environmentMismatch
+            return
+        }
+        
+        guard let account = account else {
+            error = .accountNotFound
+            return
+        }
+        
+        guard let params = requestTransactionParameters else { return }
         
         Task {
-            let txCost = try? await transactionsService.getTransferCost(transferType: .simpleTransfer, costParameters: []).async()
-            DispatchQueue.main.async {
-                let totalBalance = account.forecastBalance
-                let amount = Int(params.payload.amount) ?? 0
-                let nrgCCDAmount = self.getNrgCCDAmount(
-                    nrgLimit: params.payload.maxContractExecutionEnergy,
-                    cost: txCost?.cost.floatValue ?? 0,
-                    energy: txCost?.energy.string.floatValue ?? 0
-                )
-                
-                let ccdAmount =  GTU(intValue: amount)
-                let ccdNetworkComission = GTU(displayValue: nrgCCDAmount.toString())
-                let ccdTotalAmount = GTU(intValue: ccdAmount.intValue + ccdNetworkComission.intValue)
-                let ccdTotalBalance = GTU(intValue: totalBalance)
-                
-                self.canSendTx = ccdTotalBalance.intValue > ccdTotalAmount.intValue
-                
-                if !self.canSendTx {
-                    self.errorText = String(format: "qrtransactiondata.error.subtitle".localized, ccdTotalAmount.displayValue())
-                } else {
-                    self.errorText = nil
-                }
-            }
+            try await updateSignButtonState(account: account, params: params)
         }
     }
     
     @MainActor
-    func onApprove(_ completion: () -> Void) async {
+    private func updateSignButtonState(account: AccountEntity, params: WCRequestTransaction) async throws {
+        let isBalanceValid = try await checkBalance(account: account, params: params)
+        
+        self.isSignButtonEnabled = isBalanceValid
+        
+        if !isBalanceValid {
+            self.errorText = String("Not enough CCDs on your account")
+        }
+    }
+    
+    @MainActor
+    func checkBalance(account: AccountEntity, params: WCRequestTransaction) async throws -> Bool {
+        let txCost = try await transactionsService.getTransferCost(transferType: .simpleTransfer, costParameters: []).async()
+        let nrgCCDAmount = self.getNrgCCDAmount(
+            nrgLimit: params.payload.maxContractExecutionEnergy,
+            cost: txCost.cost.floatValue,
+            energy: txCost.energy.string.floatValue
+        )
+        
+        let ccdAmount = GTU(displayValue: params.payload.amount)
+        let ccdNetworkComission = GTU(displayValue: nrgCCDAmount.toString())
+        let ccdTotalAmount = GTU(intValue: ccdAmount.intValue + ccdNetworkComission.intValue)
+        let ccdTotalBalance = GTU(intValue: account.forecastBalance)
+        
+        return ccdTotalBalance.intValue > ccdTotalAmount.intValue
+    }
+    
+    
+    @MainActor
+    func approveRequest(_ completion: () -> Void) async {
         self.shouldRejectOnDismiss = false
         self.errorText = nil
         
         do {
-            let result = try await sign(request: sessionRequest).singleOutput()
+            let result = try await createAndPerform(request: sessionRequest).singleOutput()
             try await Web3Wallet.instance.respond(
                 topic: sessionRequest.topic,
                 requestId: sessionRequest.id,
@@ -95,7 +125,7 @@ final class SessionRequestViewModel: ObservableObject {
     }
     
     @MainActor
-    func onReject(_ completion: () -> Void) async {
+    func rejectRequest(_ completion: () -> Void) async {
         do {
             try await Web3Wallet.instance.respond(
                 topic: sessionRequest.topic,
@@ -109,8 +139,8 @@ final class SessionRequestViewModel: ObservableObject {
     }
     
     @MainActor
-    private func sign(request: Request) async throws -> AnyPublisher<String?, Error> {
-        guard let params = try? request.params.get(WalletConnectParams.self) else {
+    private func createAndPerform(request: Request) async throws -> AnyPublisher<String?, Error> {
+        guard let params = try? request.params.get(WCRequestTransaction.self) else {
             return .fail(MobileWalletError.invalidArgument)
         }
         
@@ -122,19 +152,16 @@ final class SessionRequestViewModel: ObservableObject {
         transfer.toAddress = params.sender
         transfer.expiry = Date().addingTimeInterval(10 * 60)
         transfer.energy = params.payload.maxContractExecutionEnergy
-        
         transfer.receiveName = params.payload.receiveName
-        
         transfer.params = params.payload.message
-        
         transfer.contractAddressObject = ContractAddressObject()
         transfer.contractAddressObject.index = params.payload.address.index?.toString() ?? ""
         transfer.contractAddressObject.subindex = params.payload.address.subindex?.toString() ?? ""
-
+        
         guard let fromAccount = account else {
             return .fail(MobileWalletError.invalidArgument)
         }
-
+        
         return transactionsService
             .performTransferUpdate(transfer, from: fromAccount, contractAddress: params.payload.address, requestPasswordDelegate: passwordDelegate)
             .tryMap { transferDataType -> String? in
@@ -156,7 +183,7 @@ struct SessionRequestView: View {
     @StateObject var viewModel: SessionRequestViewModel
     
     @SwiftUI.Environment(\.dismiss) var dismiss
-
+    
     var body: some View {
         ZStack {
             Color.clear
@@ -178,18 +205,39 @@ struct SessionRequestView: View {
                         Spacer()
                     }
                     
-                    if let account = viewModel.account {
-                        Divider()
-                            .padding(.top, 12)
-                            .padding(.bottom, 12)
-                            .padding(.horizontal, -18)
+                    VStack(spacing: 8) {
+                        if let account = viewModel.account {
+                            Divider()
+                                .padding(.top, 12)
+                                .padding(.bottom, 12)
+                                .padding(.horizontal, -18)
+                            
+                            WCAccountCell(account: account)
+                                .padding(.bottom, 16)
+                        }
                         
-                        WCAccountCell(account: account)
-                            .padding(.bottom, 16)
+                        if viewModel.message != "[:]" {
+                            authRequestView()
+                        }
                     }
-                    
-                    if viewModel.message != "[:]" {
-                        authRequestView()
+                    .frame(minHeight: 100)
+                    .overlay {
+                        if let error = viewModel.error {
+                            ZStack {
+                                switch error {
+                                    case .environmentMismatch:
+                                        Text("The session proposal did not contain a valid namespace. Allowed namespaces are: \(viewModel.currentChain)")
+                                            .multilineTextAlignment(.center)
+                                    case .accountNotFound:
+                                        Text("Can't find apropriate acount to sign")
+                                            .multilineTextAlignment(.center)
+                                }
+                            }
+                            .padding()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .background(.thinMaterial)
+                            .cornerRadius(24)
+                        }
                     }
                     
                     if let errorText = viewModel.errorText {
@@ -207,7 +255,7 @@ struct SessionRequestView: View {
                     HStack(spacing: 20) {
                         Button {
                             Task(priority: .userInitiated) { await
-                                viewModel.onReject { dismiss() }
+                                viewModel.rejectRequest { dismiss() }
                             }
                         } label: {
                             Text("Decline")
@@ -224,7 +272,7 @@ struct SessionRequestView: View {
                         
                         Button {
                             Task(priority: .userInitiated) { await
-                                viewModel.onApprove { dismiss() }
+                                viewModel.approveRequest { dismiss() }
                             }
                         } label: {
                             Text("Sign")
@@ -235,7 +283,7 @@ struct SessionRequestView: View {
                                 .background(viewModel.account == nil ? .white.opacity(0.7) : .white)
                                 .clipShape(Capsule())
                         }
-                        .disabled(viewModel.account == nil || !viewModel.canSendTx)
+                        .disabled(viewModel.account == nil || !viewModel.isSignButtonEnabled)
                     }
                     .padding(.top, 25)
                     .padding(.bottom, 24)
@@ -251,7 +299,7 @@ struct SessionRequestView: View {
         .onDisappear {
             Task(priority: .userInitiated) {
                 if viewModel.shouldRejectOnDismiss {
-                    await viewModel.onReject {}
+                    await viewModel.rejectRequest {}
                 }
             }
         }
@@ -283,91 +331,4 @@ struct SessionRequestView: View {
                 .stroke(.white.opacity(0.3), lineWidth: 2)
         )
     }
-}
-
-struct WalletConnectParams: Codable {
-    struct Schema: Codable {
-        let type: String
-        let value: String
-    }
-    
-    let sender: String
-    let payload: UpdateTxPayload
-//    var schema: Schema?
-    
-    enum CodingKeys: String, CodingKey {
-        case sender, payload//, schema
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let payloadString = try container.decode(String.self, forKey: .payload)
-
-        sender = try container.decode(String.self, forKey: .sender)
-        payload = try JSONDecoder().decode(UpdateTxPayload.self, from: payloadString.data(using: .utf8) ?? Data())
-//        schema = try container.decodeIfPresent(Schema.self, forKey: .schema)
-    }
-}
-
-extension Publishers {
-    struct MissingOutputError: Error {}
-}
-
-extension Publisher {
-    func singleOutput() async throws -> Output {
-        for try await output in values {
-            // Since we're immediately returning upon receiving
-            // the first output value, that'll cancel our
-            // subscription to the current publisher:
-            return output
-        }
-
-        throw Publishers.MissingOutputError()
-    }
-}
-
-extension AnyPublisher {
-    func async() async throws -> Output {
-        try await withCheckedThrowingContinuation { continuation in
-            var cancellable: AnyCancellable?
-            
-            cancellable = first()
-                .sink { result in
-                    switch result {
-                    case .finished:
-                        break
-                    case let .failure(error):
-                        continuation.resume(throwing: error)
-                    }
-                    cancellable?.cancel()
-                } receiveValue: { value in
-                    continuation.resume(with: .success(value))
-                }
-        }
-    }
-}
-
-
-struct WRequestParams: Codable {
-    struct Payload: Codable {
-        struct Address: Codable {
-            let index: Int
-            let subindex: Int
-        }
-        
-        let amount: String
-        let address: Address
-        let receiveName: String
-        let maxContractExecutionEnergy: String
-        let message: String
-    }
-    
-    struct Schema: Codable {
-        let type: String
-        let value: String
-    }
-    
-    let payload: Payload
-    let sender: String
-    let type: String
 }
