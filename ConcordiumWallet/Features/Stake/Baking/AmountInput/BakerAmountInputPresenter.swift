@@ -112,14 +112,14 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
                 
                 if fetchRange {
                     return self.transactionService
-                        .getBakingTransferCostRange(parameters: costParameters)
+                        .getBakingTransferCostRange(parameters: costParameters ?? [])
                         .map { TransferCostOption.range($0) }
                         .showLoadingIndicator(in: self.view)
                         .asResult()
                         .eraseToAnyPublisher()
                 } else {
                     return self.transactionService
-                        .getTransferCost(transferType: self.dataHandler.transferType, costParameters: costParameters)
+                        .getTransferCost(transferType: self.dataHandler.transferType.toWalletProxyTransferType(), costParameters: costParameters)
                         .map { TransferCostOption.cost($0) }
                         .showLoadingIndicator(in: self.view)
                         .asResult()

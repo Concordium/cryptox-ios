@@ -122,6 +122,7 @@ extension AccountsMainViewModel {
 
         Publishers.MergeMany(pendingAccountStatusRequests)
             .collect()
+            .receive(on: DispatchQueue.main)
             .sink(
                 receiveError: { _ in },
                 receiveValue: { [weak self] in

@@ -292,7 +292,7 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
             name: "delegation.pool.sizewarning.stopdelegation".localized,
             completion: {
                 self.transactionService
-                    .getTransferCost(transferType: .removeDelegation, costParameters: [])
+                    .getTransferCost(transferType: WalletProxyTransferType.removeDelegation, costParameters: [])
                     .showLoadingIndicator(in: self.view)
                     .sink { error in
                         self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))

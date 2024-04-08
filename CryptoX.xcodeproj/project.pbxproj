@@ -1920,6 +1920,24 @@
 		08C169BB2BB7396200E61326 /* shielded_balance_onboarding_en_7.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B345B2A1B9E6100F3CD90 /* shielded_balance_onboarding_en_7.html */; };
 		08C169BC2BB7396200E61326 /* 4.1.2.RX_backend_accBalance.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3642794B96B003F2FBB /* 4.1.2.RX_backend_accBalance.json */; };
 		08C169BD2BB7396200E61326 /* shielded_balance_onboarding_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B345A2A1B9E6100F3CD90 /* shielded_balance_onboarding_en_1.html */; };
+		08C169C62BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169C52BBFE1C900E61326 /* AnyPublisher+Extentions.swift */; };
+		08C169C72BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169C52BBFE1C900E61326 /* AnyPublisher+Extentions.swift */; };
+		08C169C82BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169C52BBFE1C900E61326 /* AnyPublisher+Extentions.swift */; };
+		08C169CB2BBFE2CD00E61326 /* ContractUpdateParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CA2BBFE2CD00E61326 /* ContractUpdateParams.swift */; };
+		08C169CC2BBFE2CD00E61326 /* ContractUpdateParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CA2BBFE2CD00E61326 /* ContractUpdateParams.swift */; };
+		08C169CD2BBFE2CD00E61326 /* ContractUpdateParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CA2BBFE2CD00E61326 /* ContractUpdateParams.swift */; };
+		08C169CF2BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CE2BC00C5F00E61326 /* SessionRequestViewModel.swift */; };
+		08C169D02BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CE2BC00C5F00E61326 /* SessionRequestViewModel.swift */; };
+		08C169D12BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CE2BC00C5F00E61326 /* SessionRequestViewModel.swift */; };
+		08C169D42BC0397600E61326 /* SignMessagePayloadToJsonInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169D32BC0397600E61326 /* SignMessagePayloadToJsonInput.swift */; };
+		08C169D52BC0397600E61326 /* SignMessagePayloadToJsonInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169D32BC0397600E61326 /* SignMessagePayloadToJsonInput.swift */; };
+		08C169D62BC0397600E61326 /* SignMessagePayloadToJsonInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169D32BC0397600E61326 /* SignMessagePayloadToJsonInput.swift */; };
+		08C169D82BC04A1E00E61326 /* SignMessageSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169D72BC04A1E00E61326 /* SignMessageSignature.swift */; };
+		08C169D92BC04A1E00E61326 /* SignMessageSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169D72BC04A1E00E61326 /* SignMessageSignature.swift */; };
+		08C169DA2BC04A1E00E61326 /* SignMessageSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169D72BC04A1E00E61326 /* SignMessageSignature.swift */; };
+		08C169DC2BC04A8500E61326 /* SignMessagePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169DB2BC04A8500E61326 /* SignMessagePayload.swift */; };
+		08C169DD2BC04A8500E61326 /* SignMessagePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169DB2BC04A8500E61326 /* SignMessagePayload.swift */; };
+		08C169DE2BC04A8500E61326 /* SignMessagePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169DB2BC04A8500E61326 /* SignMessagePayload.swift */; };
 		08D103E02B5692A70057E844 /* RecoverAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D103DF2B5692A70057E844 /* RecoverAccountsView.swift */; };
 		08D103E12B5692A70057E844 /* RecoverAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D103DF2B5692A70057E844 /* RecoverAccountsView.swift */; };
 		08D103E42B56DF380057E844 /* PasscodeInputModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D103E32B56DF380057E844 /* PasscodeInputModifier.swift */; };
@@ -3125,12 +3143,15 @@
 		08BFE22C2A3C9320007A7B1E /* DecimalNumberTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalNumberTextField.swift; sourceTree = "<group>"; };
 		08C169C22BB7396200E61326 /* ProdTestNet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProdTestNet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08C169C42BB73E5700E61326 /* ProdTestNet-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ProdTestNet-Info.plist"; sourceTree = "<group>"; };
+		08C169C52BBFE1C900E61326 /* AnyPublisher+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPublisher+Extentions.swift"; sourceTree = "<group>"; };
+		08C169CA2BBFE2CD00E61326 /* ContractUpdateParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractUpdateParams.swift; sourceTree = "<group>"; };
+		08C169CE2BC00C5F00E61326 /* SessionRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequestViewModel.swift; sourceTree = "<group>"; };
+		08C169D32BC0397600E61326 /* SignMessagePayloadToJsonInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignMessagePayloadToJsonInput.swift; sourceTree = "<group>"; };
+		08C169D72BC04A1E00E61326 /* SignMessageSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignMessageSignature.swift; sourceTree = "<group>"; };
+		08C169DB2BC04A8500E61326 /* SignMessagePayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignMessagePayload.swift; sourceTree = "<group>"; };
 		08D103DF2B5692A70057E844 /* RecoverAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverAccountsView.swift; sourceTree = "<group>"; };
 		08D103E32B56DF380057E844 /* PasscodeInputModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeInputModifier.swift; sourceTree = "<group>"; };
 		08E69C812A1D2183001CCA96 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
-		08E69C872A1E663F001CCA96 /* AccountDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailView.swift; sourceTree = "<group>"; };
-		08E69C8C2A1F4BAE001CCA96 /* AccountActionButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountActionButtons.swift; sourceTree = "<group>"; };
-		08E69C912A1F611F001CCA96 /* AccountDetailProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailProxy.swift; sourceTree = "<group>"; };
 		08E69C972A1FCAA5001CCA96 /* AccountTokensView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTokensView.swift; sourceTree = "<group>"; };
 		08E69C9C2A20D071001CCA96 /* ImportTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTokenView.swift; sourceTree = "<group>"; };
 		08E69CA12A20DADA001CCA96 /* CIS2TokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokenService.swift; sourceTree = "<group>"; };
@@ -4884,6 +4905,7 @@
 		089B340D2A163C3700F3CD90 /* WalletConnect */ = {
 			isa = PBXGroup;
 			children = (
+				08C169C92BBFE28200E61326 /* Models */,
 				089B34462A18D67000F3CD90 /* Shared */,
 				089B34402A17D67900F3CD90 /* SessionRequestFlow */,
 				089B341C2A16842C00F3CD90 /* SessionProposalFlow */,
@@ -4913,6 +4935,7 @@
 			isa = PBXGroup;
 			children = (
 				089B34412A17D69400F3CD90 /* SessionRequestView.swift */,
+				08C169CE2BC00C5F00E61326 /* SessionRequestViewModel.swift */,
 			);
 			path = SessionRequestFlow;
 			sourceTree = "<group>";
@@ -5023,6 +5046,7 @@
 			children = (
 				08A0463729FAA62B00DACE1F /* String+Extensions.swift */,
 				08BC95132A30E4AF0058F1B9 /* AssetExtractor.swift */,
+				08C169C52BBFE1C900E61326 /* AnyPublisher+Extentions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -5148,6 +5172,25 @@
 			path = TransferTokenFlow;
 			sourceTree = "<group>";
 		};
+		08C169C92BBFE28200E61326 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				08C169D22BC0395600E61326 /* SignMessage */,
+				08C169CA2BBFE2CD00E61326 /* ContractUpdateParams.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		08C169D22BC0395600E61326 /* SignMessage */ = {
+			isa = PBXGroup;
+			children = (
+				08C169D32BC0397600E61326 /* SignMessagePayloadToJsonInput.swift */,
+				08C169D72BC04A1E00E61326 /* SignMessageSignature.swift */,
+				08C169DB2BC04A8500E61326 /* SignMessagePayload.swift */,
+			);
+			path = SignMessage;
+			sourceTree = "<group>";
+		};
 		08D103E22B56DF2A0057E844 /* PasscodeInput */ = {
 			isa = PBXGroup;
 			children = (
@@ -5165,7 +5208,6 @@
 				08E69CC12A26279C001CCA96 /* TransactionListView.swift */,
 				08E69CB22A254570001CCA96 /* TokenFormatter.swift */,
 				08E69CB72A25FA73001CCA96 /* SegmentedPicker.swift */,
-				08E69CAC2A24CD6C001CCA96 /* OldAccountDetails */,
 			);
 			path = AccountDetail;
 			sourceTree = "<group>";
@@ -5176,16 +5218,6 @@
 				08E69C972A1FCAA5001CCA96 /* AccountTokensView.swift */,
 			);
 			path = AccountTokensView;
-			sourceTree = "<group>";
-		};
-		08E69CAC2A24CD6C001CCA96 /* OldAccountDetails */ = {
-			isa = PBXGroup;
-			children = (
-				08E69C912A1F611F001CCA96 /* AccountDetailProxy.swift */,
-				08E69C872A1E663F001CCA96 /* AccountDetailView.swift */,
-				08E69C8C2A1F4BAE001CCA96 /* AccountActionButtons.swift */,
-			);
-			path = OldAccountDetails;
 			sourceTree = "<group>";
 		};
 		08FD0B7D2A7D26EA003774A6 /* Components */ = {
@@ -6833,6 +6865,7 @@
 				08C166742BB7396200E61326 /* Credential.swift in Sources */,
 				08C166752BB7396200E61326 /* AccountAddressQRViewController.swift in Sources */,
 				08C166762BB7396200E61326 /* IPInfo.swift in Sources */,
+				08C169D62BC0397600E61326 /* SignMessagePayloadToJsonInput.swift in Sources */,
 				08C166772BB7396200E61326 /* ImportStatusCell.swift in Sources */,
 				08C166782BB7396200E61326 /* Schedule.swift in Sources */,
 				08C166792BB7396200E61326 /* WidgetButton.swift in Sources */,
@@ -6918,6 +6951,7 @@
 				08C166C92BB7396200E61326 /* AppDelegate.swift in Sources */,
 				08C166CA2BB7396200E61326 /* AboutViewController.swift in Sources */,
 				08C166CB2BB7396200E61326 /* AppCoordinator.swift in Sources */,
+				08C169D12BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */,
 				08C166CC2BB7396200E61326 /* HapticFeedbackHelper.swift in Sources */,
 				08C166CD2BB7396200E61326 /* NFTProviderHeaderView.swift in Sources */,
 				08C166CE2BB7396200E61326 /* DelegationStatusPresenter.swift in Sources */,
@@ -6975,6 +7009,7 @@
 				08C167022BB7396200E61326 /* WebSocketService.swift in Sources */,
 				08C167032BB7396200E61326 /* RecoveryPhraseConfirmPhrasePresenter.swift in Sources */,
 				08C167042BB7396200E61326 /* AccNonce.swift in Sources */,
+				08C169DE2BC04A8500E61326 /* SignMessagePayload.swift in Sources */,
 				08C167052BB7396200E61326 /* NibLoadable.swift in Sources */,
 				08C167062BB7396200E61326 /* SelectIdentityProviderPresenter.swift in Sources */,
 				08C167072BB7396200E61326 /* BakerMetadataPresenter.swift in Sources */,
@@ -7018,11 +7053,13 @@
 				08C1672D2BB7396200E61326 /* BaseTextfield.swift in Sources */,
 				08C1672E2BB7396200E61326 /* RecoveryIdentityResponse.swift in Sources */,
 				08C1672F2BB7396200E61326 /* CreateSeedIdentityViewModel.swift in Sources */,
+				08C169C82BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */,
 				08C167302BB7396200E61326 /* IconImageView.swift in Sources */,
 				08C167312BB7396200E61326 /* AttributeList.swift in Sources */,
 				08C167322BB7396200E61326 /* ErrorMapper.swift in Sources */,
 				08C167332BB7396200E61326 /* RecoveryPhraseSetupCompleteView.swift in Sources */,
 				08C167342BB7396200E61326 /* TransferEntity.swift in Sources */,
+				08C169CD2BBFE2CD00E61326 /* ContractUpdateParams.swift in Sources */,
 				08C167352BB7396200E61326 /* DelegationCoordinator.swift in Sources */,
 				08C167362BB7396200E61326 /* StakeAmountInputValidator.swift in Sources */,
 				08C167372BB7396200E61326 /* LoadingIndicator.swift in Sources */,
@@ -7229,6 +7266,7 @@
 				08C168002BB7396200E61326 /* BakerPoolGenerateKeyViewController.swift in Sources */,
 				08C168012BB7396200E61326 /* RecoveryPhraseCoordinator.swift in Sources */,
 				08C168022BB7396200E61326 /* CreationFailedViewController.swift in Sources */,
+				08C169DA2BC04A1E00E61326 /* SignMessageSignature.swift in Sources */,
 				08C168032BB7396200E61326 /* RecoveryPhraseGettingStartedView.swift in Sources */,
 				08C168042BB7396200E61326 /* SeedIdentityStatusView.swift in Sources */,
 				08C168052BB7396200E61326 /* StakeAmountInputViewController.swift in Sources */,
@@ -7506,6 +7544,7 @@
 				08A0461429FA99D300DACE1F /* Credential.swift in Sources */,
 				088FEDAB2A01675600042957 /* AccountAddressQRViewController.swift in Sources */,
 				08A045FA29FA99D200DACE1F /* IPInfo.swift in Sources */,
+				08C169D52BC0397600E61326 /* SignMessagePayloadToJsonInput.swift in Sources */,
 				088FF2282A02A89900042957 /* ImportStatusCell.swift in Sources */,
 				08A045E329FA99D200DACE1F /* Schedule.swift in Sources */,
 				7F85B7D3246A9AB600ED09B8 /* WidgetButton.swift in Sources */,
@@ -7591,6 +7630,7 @@
 				7F85B7F2246A9AB600ED09B8 /* AppDelegate.swift in Sources */,
 				088FF1FF2A02A76C00042957 /* AboutViewController.swift in Sources */,
 				7F85B7F4246A9AB600ED09B8 /* AppCoordinator.swift in Sources */,
+				08C169D02BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */,
 				D5F3BC73278E5FF0008DC894 /* HapticFeedbackHelper.swift in Sources */,
 				D5E6CC07290F4832009856B7 /* NFTProviderHeaderView.swift in Sources */,
 				088FECB02A0161B700042957 /* DelegationStatusPresenter.swift in Sources */,
@@ -7648,6 +7688,7 @@
 				FAF2C57126B00DBB00406A86 /* WebSocketService.swift in Sources */,
 				088FF1012A0284BD00042957 /* RecoveryPhraseConfirmPhrasePresenter.swift in Sources */,
 				08A045E229FA99D200DACE1F /* AccNonce.swift in Sources */,
+				08C169DD2BC04A8500E61326 /* SignMessagePayload.swift in Sources */,
 				52055F892552C1D90071F7CA /* NibLoadable.swift in Sources */,
 				088FEFF42A0271D500042957 /* SelectIdentityProviderPresenter.swift in Sources */,
 				088FED2C2A01630400042957 /* BakerMetadataPresenter.swift in Sources */,
@@ -7691,11 +7732,13 @@
 				7F85B815246A9AB600ED09B8 /* BaseTextfield.swift in Sources */,
 				08A0449029FA987800DACE1F /* RecoveryIdentityResponse.swift in Sources */,
 				088FEFE52A0271C000042957 /* CreateSeedIdentityViewModel.swift in Sources */,
+				08C169C72BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */,
 				D5CACC4526E91B9100D3C3CF /* IconImageView.swift in Sources */,
 				08A045DB29FA99D200DACE1F /* AttributeList.swift in Sources */,
 				D589F3192794B678003F2FBB /* ErrorMapper.swift in Sources */,
 				088FF0F12A0284A700042957 /* RecoveryPhraseSetupCompleteView.swift in Sources */,
 				D589F1A52794B5ED003F2FBB /* TransferEntity.swift in Sources */,
+				08C169CC2BBFE2CD00E61326 /* ContractUpdateParams.swift in Sources */,
 				088FECCF2A0161CA00042957 /* DelegationCoordinator.swift in Sources */,
 				088FEE5A2A016BA600042957 /* StakeAmountInputValidator.swift in Sources */,
 				088FEE312A01687400042957 /* LoadingIndicator.swift in Sources */,
@@ -7902,6 +7945,7 @@
 				088FED222A0162F100042957 /* BakerPoolGenerateKeyViewController.swift in Sources */,
 				088FF1302A0284FA00042957 /* RecoveryPhraseCoordinator.swift in Sources */,
 				088FEEBA2A026B8200042957 /* CreationFailedViewController.swift in Sources */,
+				08C169D92BC04A1E00E61326 /* SignMessageSignature.swift in Sources */,
 				088FF1282A0284F600042957 /* RecoveryPhraseGettingStartedView.swift in Sources */,
 				088FEFD42A0271AB00042957 /* SeedIdentityStatusView.swift in Sources */,
 				088FEE5B2A016BA600042957 /* StakeAmountInputViewController.swift in Sources */,
@@ -8179,6 +8223,7 @@
 				D5962CD9272170F800A757A5 /* TransactionDetailsView.swift in Sources */,
 				08A0457C29FA99D100DACE1F /* Credential.swift in Sources */,
 				088FEDA52A01675500042957 /* AccountAddressQRViewController.swift in Sources */,
+				08C169D42BC0397600E61326 /* SignMessagePayloadToJsonInput.swift in Sources */,
 				08A0456229FA99D100DACE1F /* IPInfo.swift in Sources */,
 				088FF2242A02A89800042957 /* ImportStatusCell.swift in Sources */,
 				08A0454B29FA99D100DACE1F /* Schedule.swift in Sources */,
@@ -8264,6 +8309,7 @@
 				088FF1FB2A02A76C00042957 /* AboutViewController.swift in Sources */,
 				D5FA3E77291343A10071A779 /* AirDropViewController.swift in Sources */,
 				D52D4F6F29184A9900C9A815 /* AirDropConnectView.swift in Sources */,
+				08C169CF2BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */,
 				D589F31B2794B678003F2FBB /* ResourceRequest.swift in Sources */,
 				067D766B23FC1B42002DEF67 /* LoginWarningLabel.swift in Sources */,
 				088FF2372A02A98F00042957 /* SelectRecipientViewController.swift in Sources */,
@@ -8321,6 +8367,7 @@
 				088FED282A01630300042957 /* BakerMetadataPresenter.swift in Sources */,
 				7FF07AC023EADBB100F1FC04 /* UIViewController+Additions.swift in Sources */,
 				088FF0FB2A0284BC00042957 /* RecoveryPhraseConfirmPhrasePresenter.swift in Sources */,
+				08C169DC2BC04A8500E61326 /* SignMessagePayload.swift in Sources */,
 				088FEFEE2A0271D400042957 /* SelectIdentityProviderPresenter.swift in Sources */,
 				088FF1C12A02A70700042957 /* ExportService.swift in Sources */,
 				088FEE842A025B9100042957 /* MaterialTabBar.swift in Sources */,
@@ -8364,11 +8411,13 @@
 				644BB67425DFB4220086ED48 /* main.swift in Sources */,
 				08A0454329FA99D100DACE1F /* AttributeList.swift in Sources */,
 				D589F3172794B678003F2FBB /* ErrorMapper.swift in Sources */,
+				08C169C62BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */,
 				C939821D240F8D7000C72FE2 /* RoundedCornerView.swift in Sources */,
 				088FEFDF2A0271BF00042957 /* CreateSeedIdentityViewModel.swift in Sources */,
 				D589F1A32794B5ED003F2FBB /* TransferEntity.swift in Sources */,
 				088FECC92A0161C900042957 /* DelegationCoordinator.swift in Sources */,
 				088FEC852A015C8F00042957 /* EarnPresenter.swift in Sources */,
+				08C169CB2BBFE2CD00E61326 /* ContractUpdateParams.swift in Sources */,
 				088FF0EB2A0284A600042957 /* RecoveryPhraseSetupCompleteView.swift in Sources */,
 				088FEE542A016BA500042957 /* StakeAmountInputValidator.swift in Sources */,
 				088FEE2F2A01687400042957 /* LoadingIndicator.swift in Sources */,
@@ -8575,6 +8624,7 @@
 				08FD0B822A7D31D9003774A6 /* GradienBackgroundModifier.swift in Sources */,
 				088FF1442A02867B00042957 /* AppSettingsService.swift in Sources */,
 				088FF0122A02726000042957 /* SeedAccountsService.swift in Sources */,
+				08C169D82BC04A1E00E61326 /* SignMessageSignature.swift in Sources */,
 				088FF12C2A0284F900042957 /* RecoveryPhraseCoordinator.swift in Sources */,
 				088FEEB82A026B8100042957 /* CreationFailedViewController.swift in Sources */,
 				088FF1222A0284F500042957 /* RecoveryPhraseGettingStartedView.swift in Sources */,
@@ -8933,7 +8983,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_GTU_DROP";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -8965,7 +9015,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

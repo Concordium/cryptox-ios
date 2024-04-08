@@ -223,7 +223,8 @@ extension AccountsMainRouter: WalletConnectServiceProtocol {
                 viewModel: .init(
                     sessionRequest: request,
                     transactionsService: self.dependencyProvider.transactionsService(),
-                    storageManager: self.dependencyProvider.storageManager()
+                    storageManager: self.dependencyProvider.storageManager(), 
+                    mobileWallet: self.dependencyProvider.mobileWallet()
                 )
             )
         )

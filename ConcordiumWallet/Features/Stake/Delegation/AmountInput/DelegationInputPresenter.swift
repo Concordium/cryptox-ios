@@ -143,7 +143,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                 
                 return self.transactionService
                     .getTransferCost(
-                        transferType: self.dataHandler.transferType,
+                        transferType: self.dataHandler.transferType.toWalletProxyTransferType(),
                         costParameters: costParameters
                     )
                     .showLoadingIndicator(in: self.view)

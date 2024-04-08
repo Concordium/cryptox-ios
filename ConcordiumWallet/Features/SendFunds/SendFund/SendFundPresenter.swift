@@ -382,7 +382,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
     private func updateTransferCostEstimate() {
         dependencyProvider
             .transactionsService()
-            .getTransferCost(transferType: transferType.actualType, costParameters: TransferCostParameter.parametersForMemoSize(addedMemo?.size))
+            .getTransferCost(transferType: transferType.actualType.toWalletProxyTransferType(), costParameters: TransferCostParameter.parametersForMemoSize(addedMemo?.size))
             .sink(receiveError: { [weak self] (error) in
                 LegacyLogger.error(error)
                 self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
@@ -402,7 +402,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
 
         dependencyProvider
             .transactionsService()
-            .getTransferCost(transferType: transferType.actualType, costParameters: TransferCostParameter.parametersForMemoSize(addedMemo?.size))
+            .getTransferCost(transferType: transferType.actualType.toWalletProxyTransferType(), costParameters: TransferCostParameter.parametersForMemoSize(addedMemo?.size))
             .sink(receiveError: { [weak self] (error) in
                 LegacyLogger.error(error)
                 self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
