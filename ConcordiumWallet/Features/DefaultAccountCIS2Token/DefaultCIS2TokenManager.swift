@@ -13,9 +13,9 @@ final class DefaultCIS2TokenManager {
     @AppStorage("isRestoredDefaultCIS2Tokens") private var isRestoredDefaultCIS2Tokens = false
     
 #if STAGINGNET
-    static let defaultCI2TokensIds: [SmartContractAddress] = [.wccd, .ethArabella, .wbts, .usdcArabella, .usdtArabella]
+    static let defaultCI2TokensIds: [SmartContractAddress] = [.wccd, .euroe, .ethArabella, .wbts, .usdcArabella, .usdtArabella]
 #else
-    static let defaultCI2TokensIds: [SmartContractAddress] = [.wccd, .ethArabella, .wbts, .usdcArabella, .usdtArabella]
+    static let defaultCI2TokensIds: [SmartContractAddress] = [.wccd, .euroe, .ethArabella, .wbts, .usdcArabella, .usdtArabella]
 #endif
     
     private let storageManager: StorageManagerProtocol
@@ -107,5 +107,11 @@ extension SmartContractAddress {
     static let usdcArabella: SmartContractAddress = SmartContractAddress(index: 4516, subindex: 0)
 #else
     static let usdcArabella: SmartContractAddress = SmartContractAddress(index: 9339, subindex: 0)
+#endif
+    
+#if STAGINGNET
+    static let euroe: SmartContractAddress = SmartContractAddress(index: 7260, subindex: 0)
+#else
+    static let euroe: SmartContractAddress = SmartContractAddress(index: 9390, subindex: 0)
 #endif
 }
