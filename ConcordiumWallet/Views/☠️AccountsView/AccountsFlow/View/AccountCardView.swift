@@ -2,8 +2,8 @@
 //  AccountCardView.swift
 //  ConcordiumWallet
 //
-//  Created by Maksym Rachytskyy on 02.05.2023.
-//  Copyright © 2023 concordium. All rights reserved.
+//  Concordium on 05/11/2020.
+//  Copyright © 2020 concordium. All rights reserved.
 //
 
 import UIKit
@@ -20,12 +20,12 @@ enum AccountCardAction {
     case more
 }
 
-//enum AccountCardViewState {
-//    case basic
-//    case readonly
-//    case baking
-//    case delegating
-//}
+enum AccountCardViewState {
+    case basic
+    case readonly
+    case baking
+    case delegating
+}
 
 @IBDesignable
 class AccountCardView: UIView, NibLoadable {
@@ -41,7 +41,7 @@ class AccountCardView: UIView, NibLoadable {
     @IBOutlet weak private var stateLabel: UILabel!
     
     // Contained in totalView
-//    @IBOutlet weak private var totalLabel: UILabel!
+    @IBOutlet weak private var totalLabel: UILabel!
     @IBOutlet weak private var totalAmount: UILabel!
     @IBOutlet weak private var totalAmountLockImageView: UIImageView!
     
@@ -51,10 +51,7 @@ class AccountCardView: UIView, NibLoadable {
     
     @IBOutlet weak private var stackCardView: UIStackView!
     
-//    @IBOutlet weak private var buttonsHStackViewView: UIStackView!
-    
-    @IBOutlet weak var sendButton: UIButton!
-    @IBOutlet weak var qrButton: UIButton!
+    @IBOutlet weak private var buttonsHStackViewView: UIStackView!
     
     weak var delegate: AccountCardViewDelegate?
     
@@ -95,8 +92,11 @@ class AccountCardView: UIView, NibLoadable {
         
         let showLock = accountViewModel.totalLockStatus != .decrypted
         
-        self.qrButton.isEnabled = accountViewModel.areActionsEnabled
-        self.sendButton.isEnabled = accountViewModel.areActionsEnabled
+        if accountViewModel.areActionsEnabled {
+            buttonsHStackViewView.isHidden = false
+        } else {
+            buttonsHStackViewView.isHidden = true
+        }
         
         self.setup(accountName: accountViewModel.name,
                    accountOwner: accountViewModel.owner,
@@ -111,9 +111,9 @@ class AccountCardView: UIView, NibLoadable {
     private func setupStaticStrings(accountTotal: String,
                                     atDisposal: String
     ) {
-//        totalLabel.text = accountTotal
+        totalLabel.text = accountTotal
         atDisposalLabel.text = atDisposal
-//        buttonsHStackViewView.layer.masksToBounds = true
+        buttonsHStackViewView.layer.masksToBounds = true
     }
     
     private func setup(accountName: String?,
@@ -139,38 +139,38 @@ class AccountCardView: UIView, NibLoadable {
             hideLock()
         }
         
-        widget.backgroundColor = UIColor.clear
+        widget.applyConcordiumEdgeStyle(color: .primary)
+        widget.backgroundColor = UIColor.white
         self.stateLabel.isHidden = false
         self.stateImageView.isHidden = false
         self.stackCardView.alpha = 1
-        setTextFontColor(color: .deepBlue)
+        setTextFontColor(color: .black)
         switch state {
         case .basic:
             self.stateLabel.isHidden = true
             self.stateImageView.isHidden = true
         case .readonly:
-            
             self.stackCardView.alpha = 0.5
+            self.stateLabel.isHidden = false
             self.stateLabel.text = "accounts.overview.readonly".localized
+            self.stateImageView.contentMode = .right
             self.stateImageView.image = UIImage(named: "icon_read_only")
             setTextFontColor(color: .fadedText)
-            widget.backgroundColor = UIColor.clear
+            widget.applyConcordiumEdgeStyle(color: .fadedText)
+            widget.backgroundColor = UIColor.inactiveCard
         case .baking:
-            self.stateLabel.text = "accounts.overview.baking".localized
-            self.stateImageView.image = UIImage(named: "icon_bread")
+            self.stateLabel.isHidden = true
+            self.stateImageView.contentMode = .scaleAspectFit
+            self.stateImageView.image = UIImage(named: "icon_validate")
         case .delegating:
-            self.stateLabel.text = "accounts.overview.delegating".localized
+            self.stateLabel.isHidden = true
+            self.stateImageView.contentMode = .scaleAspectFit
             self.stateImageView.image = UIImage(named: "icon_delegate")
         }
-        
-        widget.clipsToBounds = true
-        widget.layer.cornerRadius = 24
-        
-        backgroundColor = .clear
     }
     
     private func setTextFontColor(color: UIColor) {
-        for label in [accountName, totalAmount, atDisposalLabel, atDisposalAmount] {
+        for label in [accountName, totalLabel, totalAmount, atDisposalLabel, atDisposalAmount] {
             label?.textColor = color
         }
     }
@@ -193,13 +193,13 @@ class AccountCardView: UIView, NibLoadable {
         delegate?.perform(action: .receive)
     }
 
-//    @IBAction func pressedEarn(_ sender: Any) {
-//        delegate?.perform(action: .earn)
-//    }
-//
-//    @IBAction private func pressedMore(sender: Any) {
-//        delegate?.perform(action: .more)
-//    }
+    @IBAction func pressedEarn(_ sender: Any) {
+        delegate?.perform(action: .earn)
+    }
+
+    @IBAction private func pressedMore(sender: Any) {
+        delegate?.perform(action: .more)
+    }
     
     // MARK: Helpers
     private func showLock() {
