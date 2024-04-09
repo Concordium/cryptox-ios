@@ -73,7 +73,7 @@ extension AccountDetailRouter: AccountDetailRoutable {
             token,
             account: account,
             storageManager: dependencyProvider.storageManager(),
-            onPop: { [weak navigationController] in
+            onDismiss: { [weak navigationController] in
                 navigationController?.popViewController(animated: true)
             })
         let view = CIS2TokenDetailView(viewModel: viewModel).environmentObject(self)

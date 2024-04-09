@@ -40,6 +40,7 @@ struct CIS2Token: Codable, Equatable {
             decimals: entity.decimals,
             description: entity.descr,
             thumbnail: CIS2TokenMetadata.Thumbnail(url: entity.thumbnail),
+            display: CIS2TokenMetadata.Thumbnail(url: entity.display),
             unique: false
         )
         self.contractAddress = .init(
@@ -57,7 +58,7 @@ struct CIS2TokenInfo: Codable {
     var isNotZero: Bool { totalSupply != "0" }
 }
 
-struct CIS2TokenBox: Codable {
+struct CIS2TokenInfoBox: Codable {
     let tokens: [CIS2TokenInfo]
 }
 
@@ -106,14 +107,24 @@ struct CIS2TokenMetadata: Codable {
     var decimals: Int? = 0
     var description: String?
     var thumbnail: Thumbnail?
+    var display: Thumbnail?
     var unique: Bool? = false
         
-    internal init(name: String = "", symbol: String = "", decimals: Int = 0, description: String = "", thumbnail: CIS2TokenMetadata.Thumbnail? = nil, unique: Bool = false) {
+    internal init(
+        name: String = "",
+        symbol: String = "",
+        decimals: Int = 0,
+        description: String = "",
+        thumbnail: CIS2TokenMetadata.Thumbnail? = nil,
+        display: CIS2TokenMetadata.Thumbnail? = nil,
+        unique: Bool = false
+    ) {
         self.name = name
         self.symbol = symbol
         self.decimals = decimals
         self.description = description
         self.thumbnail = thumbnail
+        self.display = display
         self.unique = unique
     }
 }
@@ -184,7 +195,7 @@ struct CIS2TokenService {
         let (data, _) = try await session.data(from: url)
         logger.debugLog("[CIS2Token] getCIS2Tokens response: \(String(data: data, encoding: .utf8))")
         
-        return try JSONDecoder().decode(CIS2TokenBox.self, from: data).tokens.filter(\.isNotZero)
+        return try JSONDecoder().decode(CIS2TokenInfoBox.self, from: data).tokens.filter(\.isNotZero)
     }
     
     /// `GET /v0/CIS2Tokens/{index}/{subindex}`: get the list of tokens on a given contract address.

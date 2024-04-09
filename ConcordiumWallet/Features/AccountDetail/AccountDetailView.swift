@@ -131,7 +131,7 @@ struct AccountDetailView: View {
 
     var body: some View {
         NavigationView {
-            ZStack{
+            ZStack {
                 LinearGradient(
                     colors: [Color(hex: 0x242427), Color(hex: 0x09090B)],
                     startPoint: .topLeading,
