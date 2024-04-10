@@ -128,7 +128,7 @@ private extension StakeReceiptViewModel {
         showsSubmitted = true
         text = nil
         buttonLabel = "stake.receipt.finish".localized
-        transactionFeeText = cost.displayValueWithCCDStroke()
+        transactionFeeText = String(format: "baking.receiptconfirmation.transactionfee".localized, cost.displayValueWithGStroke())
         switch type {
         case .updateStake:
             title = "baking.receiptconfirmation.title.updatestake".localized

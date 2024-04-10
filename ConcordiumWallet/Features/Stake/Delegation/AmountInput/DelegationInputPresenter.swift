@@ -164,7 +164,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                 let cost = transferCost.gtuCost
                 self.cost = cost
                 self.energy = transferCost.energy
-                self.viewModel.transactionFee = cost.displayValueWithCCDStroke()
+                self.viewModel.transactionFee = String(format: "stake.inputamount.transactionfee".localized, cost.displayValueWithGStroke())
             }
             .store(in: &cancellables)
         
@@ -230,7 +230,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                 return
             }
             if self.dataHandler.isNewAmountZero() {
-                self.transactionService.getTransferCost(transferType: .removeDelegation, costParameters: [])
+                self.transactionService.getTransferCost(transferType: WalletProxyTransferType.removeDelegation, costParameters: [])
                     .showLoadingIndicator(in: self.view).sink { [weak self] error in
                         self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
                     } receiveValue: {[weak self] transferCost in

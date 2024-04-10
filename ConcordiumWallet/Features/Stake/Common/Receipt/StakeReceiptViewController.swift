@@ -25,17 +25,14 @@ class StakeReceiptFactory {
 class StakeReceiptViewController: BaseViewController, StakeReceiptViewProtocol, Storyboarded {
 
     @IBOutlet weak var topTextLabel: UILabel!
-    @IBOutlet weak var submittedView: UIStackView!
+    @IBOutlet weak var submittedView: UIView!
     @IBOutlet weak var receiptHeaderView: UIView!
     @IBOutlet weak var receiptHeaderLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var transactionFeeLabel: UILabel!
-    @IBOutlet weak var receiptFooterHeaderView: UIStackView!
+    @IBOutlet weak var receiptFooterHeaderView: UIView!
     @IBOutlet weak var receiptFooterLabel: UILabel!
     @IBOutlet weak var nextButton: StandardButton!
-    @IBOutlet weak var feeTitleLabel: UILabel!
-    
-    @IBOutlet weak var regiterGeaderView: UIView!
     
     var dataSource: UITableViewDiffableDataSource<String, StakeRowViewModel>?
     
@@ -62,10 +59,10 @@ class StakeReceiptViewController: BaseViewController, StakeReceiptViewProtocol, 
         presenter.view = self
         presenter.viewDidLoad()
 //        showCloseButton()
-        feeTitleLabel.text = "baking.receiptconfirmation.transactionfee".localized
+        
     }
     func showCloseButton() {
-        let closeIcon = UIImage(named: "ico_close")
+        let closeIcon = UIImage(named: "close_icon")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action: #selector(self.closeButtonTapped))
     }
 
@@ -85,9 +82,9 @@ class StakeReceiptViewController: BaseViewController, StakeReceiptViewProtocol, 
                 guard let self = self else { return }
                 if let text = text {
                     self.topTextLabel.text = text
-                    self.regiterGeaderView.isHidden = false
+                    self.topTextLabel.isHidden = false
                 } else {
-                    self.regiterGeaderView.isHidden = true
+                    self.topTextLabel.isHidden = true
                 }
             })
             .store(in: &cancellables)

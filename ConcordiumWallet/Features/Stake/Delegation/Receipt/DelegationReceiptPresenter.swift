@@ -130,6 +130,5 @@ fileprivate extension StakeReceiptViewModel {
             receiptHeaderText = "delegation.receipt.registerdelegation".localized
         }
         transactionFeeText = String(format: "delegation.receiptconfirmation.transactionfee".localized, cost.displayValueWithGStroke())
-//        transactionFeeText = cost.displayValueWithCCDStroke()
     }
 }

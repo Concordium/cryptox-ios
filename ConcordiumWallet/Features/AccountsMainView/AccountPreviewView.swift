@@ -94,27 +94,13 @@ struct AccountPreviewView: View {
                                     .frame(width: 16, height: 16)
                             }
                         case .baking:
-                            HStack {
-                                Text("accounts.overview.baking".localized)
-                                    .foregroundColor(.blackAditional)
-                                    .font(.system(size: 13, weight: .light))
-                                Image("icon_bread")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 16, height: 16)
-                            }
+                            Image("icon_validate")
                         case .delegating:
-                            HStack {
-                                Text("accounts.overview.delegating".localized)
-                                    .foregroundColor(.blackAditional)
-                                    .font(.system(size: 13, weight: .light))
-                                Image("icon_delegate").resizable().frame(width: 16, height: 16)
-                            }
+                            Image("icon_delegate").resizable().frame(width: 16, height: 16)
                         case .basic: EmptyView()
                     }
                 }
                 
-//                Divider()
                 
                 VStack(alignment: .leading ,spacing: 10) {
 //                    HStack(spacing: 7) {

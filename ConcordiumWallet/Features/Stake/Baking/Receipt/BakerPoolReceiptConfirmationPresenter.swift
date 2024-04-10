@@ -63,7 +63,10 @@ class BakerPoolReceiptConfirmationPresenter: StakeReceiptPresenterProtocol {
                 let cost = GTU(intValue: Int(transferCost.cost) ?? 0)
                 self?.cost = cost
                 self?.energy = transferCost.energy
-                self?.viewModel.transactionFeeText = cost.displayValueWithCCDStroke()
+                self?.viewModel.transactionFeeText = String(
+                    format: "baking.receiptconfirmation.transactionfee".localized,
+                    cost.displayValueWithGStroke()
+                )
                 self?.displayFeeWarningIfNeeded()
             }
             .store(in: &cancellables)
