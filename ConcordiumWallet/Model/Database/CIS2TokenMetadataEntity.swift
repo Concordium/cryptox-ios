@@ -15,6 +15,7 @@ class CIS2TokenEntity: Object {
     @objc dynamic var decimals: Int = 0
     @objc dynamic var descr: String = ""
     @objc dynamic var thumbnail: String = ""
+    @objc dynamic var display: String = ""
     @objc dynamic var accountOwnerAddress: String = ""
     
     @objc dynamic var tokenId: String = ""
@@ -31,6 +32,7 @@ class CIS2TokenEntity: Object {
         self.decimals = token.metadata.decimals ?? 0
         self.descr = token.metadata.description ?? ""
         self.thumbnail = token.metadata.thumbnail?.url ?? ""
+        self.display = token.metadata.display?.url ?? ""
         self.accountOwnerAddress = address
         self.tokenId = token.tokenId
         self.contractName = token.contractName

@@ -13,8 +13,11 @@ final class CIS2TokenDetailViewModel: ObservableObject {
     let sceneTitle: String
     let tokenName: String
     let thumbnail: URL?
+    let display: URL?
     let contractAddress: String
     let ticker: String
+    let tokenId: String
+    let description: String?
     
     @Published var balance: String = "0.0"
 
@@ -23,24 +26,27 @@ final class CIS2TokenDetailViewModel: ObservableObject {
     let token: CIS2Token
     
     private let storageManager: StorageManagerProtocol
-    private let onPop: () -> Void
+    private let onDismiss: () -> Void
     
     init(
         _ token: CIS2Token,
         account: AccountDataType,
         storageManager: StorageManagerProtocol,
-        onPop: @escaping () -> Void
+        onDismiss: @escaping () -> Void
     ) {
-        self.onPop = onPop
+        self.onDismiss = onDismiss
         self.storageManager = storageManager
         self.token = token
         self.account = account
         self.sceneTitle = token.metadata.name ?? ""
         self.balance = "0.0"
         self.thumbnail = token.metadata.thumbnail?.url.toURL
+        self.display = token.metadata.display?.url.toURL
         self.tokenName = token.metadata.name ?? ""
         self.contractAddress = "\(token.contractAddress.index),\(token.contractAddress.subindex)"
         self.ticker = token.metadata.symbol ?? ""
+        self.tokenId = token.tokenId
+        self.description = token.metadata.description
     }
     
     @MainActor
@@ -51,14 +57,14 @@ final class CIS2TokenDetailViewModel: ObservableObject {
                 self.balance = TokenFormatter().string(from: BigDecimal(BigInt(stringLiteral: b.balance), token.metadata.decimals ?? 0))
             }
         } catch {
-            
+            logger.debugLog(error.localizedDescription)
         }
     }
     
     func removeToken() {
         do {
             try storageManager.removeCIS2Token(token: token, address: account.address)
-            self.onPop()
+            self.onDismiss()
         } catch {
             logger.debugLog(error.localizedDescription)
         }
@@ -70,7 +76,6 @@ struct CIS2TokenDetailView: View {
     @EnvironmentObject var router: AccountDetailRouter
     
     @State private var showingQR = false
-
     
     var body: some View {
         NavigationView {
@@ -79,111 +84,83 @@ struct CIS2TokenDetailView: View {
                     colors: [Color(hex: 0x242427), Color(hex: 0x09090B)],
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
-                ).ignoresSafeArea()
-                List {
-                    VStack(alignment: .leading) {
-                        HStack(spacing: 8) {
-                            Text(viewModel.balance)
-                                .foregroundColor(.white)
-                                .font(.system(size: 19, weight: .medium))
-                            CryptoImage(url: viewModel.thumbnail, size: .small)
-                                .aspectRatio(contentMode: .fit)
-                        }
-                        Text("accountDetails.generalbalance".localized)
-                            .foregroundColor(Color.greySecondary)
-                            .font(.system(size: 15, weight: .medium))
+                )
+                .ignoresSafeArea()
+                
+                ScrollView {
+                    LazyVStack {
+                        TokenPreviewHeaderView()
+                            .cornerRadius(24, corners: .allCorners)
                         
-                        Divider().background(Color.greyMain.opacity(0.2))
-                            .padding(.top, 12)
-                            .padding(.horizontal, -20)
-                        HStack {
-                            HStack {
-                                Spacer()
-                                Image("icon_transfer")
-                                    .renderingMode(.template)
-                                    .tint(Color.white)
-                                    .frame(width: 17, height: 17)
-                                Spacer()
-                            }.contentShape(Rectangle())
-                                .onTapGesture {
-                                    self.router.showSendTokenFlow(tokenType: .cis2(viewModel.token))
+                        VStack(alignment: .leading, spacing: 24) {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text(viewModel.tokenName)
+                                    .foregroundColor(Color.white)
+                                    .font(.system(size: 15, weight: .medium))
+                                CryptoImage(url: viewModel.display ?? viewModel.thumbnail, size: .custom(width: 300, height: 300))
+                                    .aspectRatio(contentMode: .fit)
+                                
+                            }
+                            HStack(spacing: 16) {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("cis2token_detail_contract_address_title".localized)
+                                        .foregroundColor(Color.blackAditional)
+                                        .font(.system(size: 14, weight: .medium))
+                                    Text(viewModel.contractAddress)
+                                        .foregroundColor(Color.white)
+                                        .font(.system(size: 14, weight: .medium))
                                 }
-            
-                            VerticalLine()
-                                .background(Color.greyMain)
-                                .opacity(0.2)
-                                .frame(width: 1)
+                                VerticalLine().background(Color.greyMain).opacity(0.2).padding(.vertical, 8)
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("token".localized)
+                                        .foregroundColor(Color.blackAditional)
+                                        .font(.system(size: 14, weight: .medium))
+                                    Text(viewModel.ticker)
+                                        .foregroundColor(Color.white)
+                                        .font(.system(size: 14, weight: .medium))
+                                }
+                            }
                             
-                            HStack {
-                                Spacer()
-                                Image("icon_scan")
-                                    .renderingMode(.template)
-                                    .tint(Color.white)
-                                    .frame(width: 17, height: 17)
-                                Spacer()
-                            }
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                showingQR.toggle()
-//                                self.router.showAccountAddressQR(viewModel.account)
+                            VStack(alignment: .leading, spacing: 8){
+                                if !viewModel.tokenId.isEmpty {
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text("Token ID".localized)
+                                            .foregroundColor(Color.blackAditional)
+                                            .font(.system(size: 14, weight: .medium))
+                                        Text(viewModel.tokenId)
+                                            .foregroundColor(Color.white)
+                                            .font(.system(size: 14, weight: .medium))
+                                    }
+                                }
+                                
+                                if let description = viewModel.description {
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text("Description".localized)
+                                            .foregroundColor(Color.blackAditional)
+                                            .font(.system(size: 14, weight: .medium))
+                                        Text(description)
+                                            .multilineTextAlignment(.leading)
+                                            .foregroundColor(Color.white)
+                                            .font(.system(size: 14, weight: .medium))
+                                    }
+                                }
                             }
                         }
+                        .padding(.horizontal, 20)
+                        .padding(.top, 20)
+                        .padding(.bottom, 12)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.clear)
+                        .overlay(
+                            RoundedCorner(radius: 24, corners: .allCorners)
+                                .stroke(Color.blackSecondary, lineWidth: 1)
+                        )
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.top, 20)
-                    .padding(.bottom, 12)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blackSecondary)
-                    .cornerRadius(24, corners: .allCorners)
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-                    
-                    VStack(alignment: .leading, spacing: 24) {
-                        HStack(spacing: 8) {
-                            CryptoImage(url: viewModel.thumbnail, size: .small)
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 18, height: 18, alignment: .center)
-                            Text(viewModel.tokenName)
-                                .foregroundColor(Color.white)
-                                .font(.system(size: 15, weight: .medium))
-                            Spacer()
-                        }
-                        HStack(spacing: 16) {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text("cis2token_detail_contract_address_title".localized)
-                                    .foregroundColor(Color.blackAditional)
-                                    .font(.system(size: 14, weight: .medium))
-                                Text(viewModel.contractAddress)
-                                    .foregroundColor(Color.white)
-                                    .font(.system(size: 14, weight: .medium))
-                            }
-                            VerticalLine().background(Color.greyMain).opacity(0.2).padding(.vertical, 8)
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text("token".localized)
-                                    .foregroundColor(Color.blackAditional)
-                                    .font(.system(size: 14, weight: .medium))
-                                Text(viewModel.ticker)
-                                    .foregroundColor(Color.white)
-                                    .font(.system(size: 14, weight: .medium))
-                            }
-                        }
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.top, 20)
-                    .padding(.bottom, 12)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.clear)
-                    .overlay(
-                        RoundedCorner(radius: 24, corners: .allCorners)
-                            .stroke(Color.blackSecondary, lineWidth: 1)
-                    )
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
+                    .padding(16)
                 }
 
             }
         }
-        .listStyle(.plain)
         .onAppear { Task { await viewModel.reload() } }
         .refreshable {
             Task { await viewModel.reload() }
@@ -200,5 +177,60 @@ struct CIS2TokenDetailView: View {
         .sheet(isPresented: $showingQR) {
             AccountQRView(account: viewModel.account)
         }
+    }
+    
+    private func TokenPreviewHeaderView() -> some View {
+        VStack(alignment: .leading) {
+            HStack(spacing: 8) {
+                Text(viewModel.balance)
+                    .foregroundColor(.white)
+                    .font(.system(size: 19, weight: .medium))
+                CryptoImage(url: viewModel.thumbnail, size: .small)
+                    .aspectRatio(contentMode: .fit)
+            }
+            Text("accountDetails.generalbalance".localized)
+                .foregroundColor(Color.greySecondary)
+                .font(.system(size: 15, weight: .medium))
+            
+            Divider().background(Color.greyMain.opacity(0.2))
+                .padding(.top, 12)
+                .padding(.horizontal, -20)
+            HStack {
+                HStack {
+                    Spacer()
+                    Image("icon_transfer")
+                        .renderingMode(.template)
+                        .tint(Color.white)
+                        .frame(width: 17, height: 17)
+                    Spacer()
+                }.contentShape(Rectangle())
+                    .onTapGesture {
+                        self.router.showSendTokenFlow(tokenType: .cis2(viewModel.token))
+                    }
+
+                VerticalLine()
+                    .background(Color.greyMain)
+                    .opacity(0.2)
+                    .frame(width: 1)
+                
+                HStack {
+                    Spacer()
+                    Image("icon_scan")
+                        .renderingMode(.template)
+                        .tint(Color.white)
+                        .frame(width: 17, height: 17)
+                    Spacer()
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    showingQR.toggle()
+                }
+            }
+        }
+        .padding(.horizontal, 20)
+        .padding(.top, 20)
+        .padding(.bottom, 12)
+        .frame(maxWidth: .infinity)
+        .background(Color.blackSecondary)
     }
 }

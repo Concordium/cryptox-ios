@@ -18,6 +18,9 @@
 		06AEE69123F4064A00D14834 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEE69023F4064A00D14834 /* BaseView.swift */; };
 		06AEE69323F4065800D14834 /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEE69223F4065800D14834 /* WidgetView.swift */; };
 		06D178A123F6D54900ABC904 /* BaseTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D178A023F6D54900ABC904 /* BaseTabBar.swift */; };
+		0800BC322BC56F1600EF7A47 /* CIS2Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0800BC312BC56F1600EF7A47 /* CIS2Service.swift */; };
+		0800BC332BC56F1600EF7A47 /* CIS2Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0800BC312BC56F1600EF7A47 /* CIS2Service.swift */; };
+		0800BC342BC56F1600EF7A47 /* CIS2Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0800BC312BC56F1600EF7A47 /* CIS2Service.swift */; };
 		080748182B58215F00990ADA /* MoreTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080748172B58215F00990ADA /* MoreTab.swift */; };
 		080748192B58215F00990ADA /* MoreTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080748172B58215F00990ADA /* MoreTab.swift */; };
 		0807481B2B59798200990ADA /* RevealSeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0807481A2B59798200990ADA /* RevealSeedPhraseView.swift */; };
@@ -2628,6 +2631,7 @@
 		06AEE69023F4064A00D14834 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		06AEE69223F4065800D14834 /* WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
 		06D178A023F6D54900ABC904 /* BaseTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBar.swift; sourceTree = "<group>"; };
+		0800BC312BC56F1600EF7A47 /* CIS2Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2Service.swift; sourceTree = "<group>"; };
 		080748172B58215F00990ADA /* MoreTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreTab.swift; sourceTree = "<group>"; };
 		0807481A2B59798200990ADA /* RevealSeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevealSeedPhraseView.swift; sourceTree = "<group>"; };
 		0807481D2B5979B400990ADA /* SeedPhrasePillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhrasePillView.swift; sourceTree = "<group>"; };
@@ -3679,6 +3683,15 @@
 				06D178A023F6D54900ABC904 /* BaseTabBar.swift */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		0800BC302BC455BB00EF7A47 /* CIS2TokenService */ = {
+			isa = PBXGroup;
+			children = (
+				08E69CA12A20DADA001CCA96 /* CIS2TokenService.swift */,
+				0800BC312BC56F1600EF7A47 /* CIS2Service.swift */,
+			);
+			path = CIS2TokenService;
 			sourceTree = "<group>";
 		};
 		080F351A2A0900020070D4EE /* AccountSubmitted */ = {
@@ -4985,8 +4998,8 @@
 		089B34892A1CC94C00F3CD90 /* CIS2TokenSupport */ = {
 			isa = PBXGroup;
 			children = (
+				0800BC302BC455BB00EF7A47 /* CIS2TokenService */,
 				08E69C9C2A20D071001CCA96 /* ImportTokenView.swift */,
-				08E69CA12A20DADA001CCA96 /* CIS2TokenService.swift */,
 				08E69CC62A265E1B001CCA96 /* CIS2TokenDetailView.swift */,
 			);
 			path = CIS2TokenSupport;
@@ -7166,6 +7179,7 @@
 				08C1679C2BB7396200E61326 /* RecoveryPhraseRecoverCompletePresenter.swift in Sources */,
 				08C1679D2BB7396200E61326 /* Encrypted.swift in Sources */,
 				08C1679E2BB7396200E61326 /* RequestPasswordPresenter.swift in Sources */,
+				0800BC342BC56F1600EF7A47 /* CIS2Service.swift in Sources */,
 				08C1679F2BB7396200E61326 /* SeedIdentityObjectWrapper.swift in Sources */,
 				08C167A02BB7396200E61326 /* GeneralFormatter.swift in Sources */,
 				08C167A12BB7396200E61326 /* SendFundViewController.swift in Sources */,
@@ -7845,6 +7859,7 @@
 				088FF0AD2A02845300042957 /* RecoveryPhraseRecoverCompletePresenter.swift in Sources */,
 				08A045EA29FA99D200DACE1F /* Encrypted.swift in Sources */,
 				088FF0632A02781C00042957 /* RequestPasswordPresenter.swift in Sources */,
+				0800BC332BC56F1600EF7A47 /* CIS2Service.swift in Sources */,
 				08A0448B29FA987800DACE1F /* SeedIdentityObjectWrapper.swift in Sources */,
 				7F85B843246A9AB600ED09B8 /* GeneralFormatter.swift in Sources */,
 				088FF2632A02AD0300042957 /* SendFundViewController.swift in Sources */,
@@ -8524,6 +8539,7 @@
 				08A0455229FA99D100DACE1F /* Encrypted.swift in Sources */,
 				08A0446F29FA987700DACE1F /* SeedIdentityObjectWrapper.swift in Sources */,
 				088FF0AB2A02845200042957 /* RecoveryPhraseRecoverCompletePresenter.swift in Sources */,
+				0800BC322BC56F1600EF7A47 /* CIS2Service.swift in Sources */,
 				088FF25F2A02AD0300042957 /* SendFundViewController.swift in Sources */,
 				088FEF532A0270AF00042957 /* ContactSupportButtonWidgetPresenter.swift in Sources */,
 				088FF0532A02781B00042957 /* RequestPasswordPresenter.swift in Sources */,
