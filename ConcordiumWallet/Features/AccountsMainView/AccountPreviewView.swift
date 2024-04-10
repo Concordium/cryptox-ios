@@ -8,13 +8,6 @@
 
 import SwiftUI
 
-enum AccountCardViewState {
-    case basic
-    case readonly
-    case baking
-    case delegating
-}
-
 final class AccountPreviewViewModel: Identifiable {
     var totalAmount: String
     var totalAtDisposalAmount: String

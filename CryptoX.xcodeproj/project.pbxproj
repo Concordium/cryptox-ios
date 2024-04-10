@@ -3224,7 +3224,6 @@
 		7FF07A8523EADB1500F1FC04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7FF07A9123EADBB100F1FC04 /* UIImage+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Additions.swift"; sourceTree = "<group>"; };
 		7FF07A9623EADBB100F1FC04 /* UIViewController+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additions.swift"; sourceTree = "<group>"; };
-		7FF07A9723EADBB100F1FC04 /* UIColor+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Additions.swift"; sourceTree = "<group>"; };
 		7FF07A9923EADBB100F1FC04 /* UIStackView+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStackView+extension.swift"; sourceTree = "<group>"; };
 		7FF07A9A23EADBB100F1FC04 /* UITableView+scroll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+scroll.swift"; sourceTree = "<group>"; };
 		7FF07A9C23EADBB100F1FC04 /* String+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Additions.swift"; sourceTree = "<group>"; };
@@ -5447,7 +5446,6 @@
 				D5E29754276C8D0F000DB102 /* SupportMailProtocol.swift */,
 				D54ABC2926E243B000F4E773 /* UIAlertAction+Color.swift */,
 				C9C097A42433163A00ACA35A /* UIButton+StoryboardLocalization.swift */,
-				7FF07A9723EADBB100F1FC04 /* UIColor+Additions.swift */,
 				6426D91B260C9F47007021BB /* UIDevice+JailBroken.swift */,
 				7FF07A9123EADBB100F1FC04 /* UIImage+Additions.swift */,
 				C924B2232430799400081E23 /* UILabel+localized.swift */,
