@@ -26,8 +26,8 @@ class BakerMetadataViewController: KeyboardDismissableBaseViewController, BakerM
     @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var currentValueLabel: UILabel!
     @IBOutlet weak var metadataTextField: UITextField!
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var moreLabel: UILabel!
     private var linkPressedListener: LinkPressedListener?
     
     private var cancellables = Set<AnyCancellable>()
@@ -51,7 +51,7 @@ class BakerMetadataViewController: KeyboardDismissableBaseViewController, BakerM
                                                      bottom: 10,
                                                      right: 0)
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: "ico_close"),
+            image: UIImage(named: "close_icon"),
             style: .plain,
             target: self,
             action: #selector(pressedClose)
@@ -61,9 +61,6 @@ class BakerMetadataViewController: KeyboardDismissableBaseViewController, BakerM
         
         presenter.view = self
         presenter.viewDidLoad()
-        
-        moreLabel.text = "baking.metadata.text.create_more".localized
-        linkPressedListener = moreLabel.addOnLinkPressedListener()
     }
 
     func bind(viewModel: BakerMetadataViewModel) {
@@ -88,6 +85,16 @@ class BakerMetadataViewController: KeyboardDismissableBaseViewController, BakerM
         metadataTextField.textPublisher
             .assignNoRetain(to: \.currentValue, on: viewModel)
             .store(in: &cancellables)
+    }
+    
+    override func keyboardWillShow(_ keyboardHeight: CGFloat) {
+        bottomConstraint.constant = -keyboardHeight
+        view.layoutIfNeeded()
+    }
+    
+    override func keyboardWillHide(_ keyboardHeight: CGFloat) {
+        bottomConstraint.constant = 0
+        view.layoutIfNeeded()
     }
     
     @IBAction func pressedContinue(_ sender: UIButton) {

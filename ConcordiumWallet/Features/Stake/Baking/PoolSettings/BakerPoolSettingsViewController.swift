@@ -28,7 +28,7 @@ class BakerPoolSettingsViewController: BaseViewController, BakerPoolSettingsView
     @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var currentValueLabel: UILabel!
     @IBOutlet weak var poolControl: UISegmentedControl!
-        
+    
     var poolSettingPublisher = PassthroughSubject<Int, Error>()
     
 	var presenter: BakerPoolSettingsPresenterProtocol
@@ -51,15 +51,15 @@ class BakerPoolSettingsViewController: BaseViewController, BakerPoolSettingsView
                                                      right: 0)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: "ico_close"),
+            image: UIImage(named: "close_icon"),
             style: .plain,
             target: self,
             action: #selector(pressedClose)
         )
         
         UILabel.appearance(whenContainedInInstancesOf: [UISegmentedControl.self]).numberOfLines = 0
-        poolControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.whiteMain], for: .normal)
-        poolControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.blackSecondary], for: .selected)
+        poolControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.whiteText], for: .normal)
+        poolControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
         poolControl.setTitle("baking.openfordelegators".localized, forSegmentAt: 0)
         poolControl.setTitle("baking.keeppoolclosed".localized, forSegmentAt: 1)
         

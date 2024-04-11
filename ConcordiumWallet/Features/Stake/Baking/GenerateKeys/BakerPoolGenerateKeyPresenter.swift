@@ -130,12 +130,12 @@ class BakerPoolGenerateKeyPresenter: BakerPoolGenerateKeyPresenterProtocol {
                         try self.exportService.deleteBakerKeys()
                         self.delegate?.finishedGeneratingKeys(dataHandler: self.dataHandler)
                     } catch {
-                        LegacyLogger.warn(error)
+//                        Logger.warn(error)
                         self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
                     }
                 })
             } catch {
-                LegacyLogger.error(error)
+//                Logger.error(error)
             }
         }
     }

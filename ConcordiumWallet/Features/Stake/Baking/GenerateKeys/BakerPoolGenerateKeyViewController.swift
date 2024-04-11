@@ -8,7 +8,6 @@
 
 import UIKit
 import Combine
-import SwiftUI
 
 // MARK: View
 protocol BakerPoolGenerateKeyViewProtocol: ShowAlert, Loadable {
@@ -34,12 +33,6 @@ class BakerPoolGenerateKeyViewController: BaseViewController, BakerPoolGenerateK
     @IBOutlet weak var aggregationKeyLabel: UILabel!
     @IBOutlet weak var aggregationContentLabel: UILabel!
     
-    @IBOutlet weak var headerContainerView: UIView!
-    @IBOutlet weak var dataContainerView: UIView!
-    
-    @IBOutlet weak var infoContainerView: UIView!
-    @IBOutlet weak var infoBakerLabel: UILabel!
-    
     private var cancellables = Set<AnyCancellable>()
     
     init?(coder: NSCoder, presenter: BakerPoolGenerateKeyPresenterProtocol) {
@@ -50,15 +43,6 @@ class BakerPoolGenerateKeyViewController: BaseViewController, BakerPoolGenerateK
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        dataContainerView.layer.cornerRadius = 24
-        dataContainerView.layer.borderWidth = 1
-        dataContainerView.layer.borderColor = UIColor(Color(red: 0.07, green: 0.38, blue: 1).opacity(0.12)).cgColor
-        infoContainerView.layer.borderWidth = 1
-        infoContainerView.layer.borderColor = UIColor.greenSecondary.cgColor
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +51,7 @@ class BakerPoolGenerateKeyViewController: BaseViewController, BakerPoolGenerateK
         presenter.viewDidLoad()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: "ico_close"),
+            image: UIImage(named: "close_icon"),
             style: .plain,
             target: self,
             action: #selector(pressedClose)
@@ -80,8 +64,6 @@ class BakerPoolGenerateKeyViewController: BaseViewController, BakerPoolGenerateK
         signatureContentLabel.font = Fonts.mono
         aggregationKeyLabel.font = Fonts.info
         aggregationContentLabel.font = Fonts.mono
-        
-        infoBakerLabel.text = "baking.generatekeys.info.subtitle".localized
     }
     
     func bind(viewModel: BakerPoolGenerateKeyViewModel) {

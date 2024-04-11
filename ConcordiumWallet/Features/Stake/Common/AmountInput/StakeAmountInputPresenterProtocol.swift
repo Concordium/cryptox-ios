@@ -20,9 +20,9 @@ enum StakeError: Error, Equatable {
     var localizedDescription: String {
         switch self {
         case .minimumAmount(let min):
-            return String(format: "stake.inputAmount.error.minAmount".localized, min.displayValueWithCCDStroke())
+            return String(format: "stake.inputAmount.error.minAmount".localized, min.displayValueWithGStroke())
         case .maximumAmount(let max):
-            return String(format: "stake.inputAmount.error.maxAmount".localized, max.displayValueWithCCDStroke())
+            return String(format: "stake.inputAmount.error.maxAmount".localized, max.displayValueWithGStroke())
         case .notEnoughFund:
             return "stake.inputAmount.error.funds".localized
         case let .poolLimitReached(_, _, isInCooldown):

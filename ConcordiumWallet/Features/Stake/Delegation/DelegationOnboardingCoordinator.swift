@@ -142,17 +142,16 @@ class DelegationOnboardingCoordinator: Coordinator {
         navigationController.pushViewController(onboardingCarouselViewController, animated: true)
     }
 }
-
 extension DelegationOnboardingCoordinator: OnboardingCarouselPresenterDelegate {
     func onboardingCarouselClosed() {
         self.navigationController.popViewController(animated: true)
         self.delegate?.closed()
     }
-
+    
     func onboardingCarouselSkiped() {
         self.delegate?.finished(mode: self.mode)
     }
-
+    
     func onboardingCarouselFinished() {
         self.delegate?.finished(mode: self.mode)
     }

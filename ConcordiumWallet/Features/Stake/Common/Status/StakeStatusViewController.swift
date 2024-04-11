@@ -36,7 +36,7 @@ class StakeStatusViewController: BaseViewController, StakeStatusViewProtocol, St
     @IBOutlet weak var stopWidgetButton: WidgetButton!
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var nextButton: StandardButton!
-        
+    
     var dataSource: UITableViewDiffableDataSource<String, StakeRowViewModel>?
     var presenter: StakeStatusPresenterProtocol
     
@@ -117,7 +117,7 @@ class StakeStatusViewController: BaseViewController, StakeStatusViewProtocol, St
     }
     
     func showCloseButton() {
-        let closeIcon = UIImage(named: "ico_close")
+        let closeIcon = UIImage(named: "close_icon")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action: #selector(self.closeButtonTapped))
     }
 

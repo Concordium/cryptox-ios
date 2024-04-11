@@ -111,6 +111,5 @@ fileprivate extension StakeReceiptViewModel {
             text = String(format: "delegation.receiptconfirmation.registertext".localized, gracePeriod)
         }
         transactionFeeText = String(format: "delegation.receiptconfirmation.transactionfee".localized, transferCost.displayValueWithGStroke())
-//        transactionFeeText = transferCost.displayValueWithCCDStroke()
     }
 }

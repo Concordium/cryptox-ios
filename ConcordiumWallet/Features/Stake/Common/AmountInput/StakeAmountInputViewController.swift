@@ -14,6 +14,7 @@ import CryptoKit
 protocol StakeAmountInputViewProtocol: Loadable, ShowAlert {
     func bind(viewModel: StakeAmountInputViewModel)
     var amountPublisher: AnyPublisher<String, Never> { get }
+    var restakeOptionPublisher: PassthroughSubject<Bool, Never> { get }
 }
 
 class StakeAmountInputFactory {
@@ -43,15 +44,12 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
     @IBOutlet weak var fourthBalanceValue: UILabel!
     
     @IBOutlet weak var bottomDescription: UILabel!
+    @IBOutlet weak var restakeController: UISegmentedControl!
     @IBOutlet weak var continueButton: StandardButton!
-    @IBOutlet weak var restakeSwitch: UISwitch!
     
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var restakeContentView: UIView!
-    @IBOutlet weak var restakeInfoView: UIView!
-    
-    var presenter: StakeAmountInputPresenterProtocol
+	var presenter: StakeAmountInputPresenterProtocol
     private var cancellables = Set<AnyCancellable>()
     
     private lazy var textFieldDelegate = GTUTextFieldDelegate { _, _ in }
@@ -59,6 +57,7 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
     var amountPublisher: AnyPublisher<String, Never> {
         return amountTextField.textPublisher
     }
+    var restakeOptionPublisher = PassthroughSubject<Bool, Never>()
     
     init?(coder: NSCoder, presenter: StakeAmountInputPresenterProtocol) {
         self.presenter = presenter
@@ -78,20 +77,20 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
                                                      right: 0)
         
         UILabel.appearance(whenContainedInInstancesOf: [UISegmentedControl.self]).numberOfLines = 0
-
+        restakeController.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.whiteText], for: .normal)
+        restakeController.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
+        restakeController.setTitle("stake.inputamount.yesrestake".localized, forSegmentAt: 0)
+        restakeController.setTitle("stake.inputamount.norestake".localized, forSegmentAt: 1)
+        
         amountTextField.delegate = textFieldDelegate
 
         presenter.view = self
         presenter.viewDidLoad()
         showCloseButton()
-        restakeContentView.layer.borderWidth = 1
-        restakeContentView.layer.borderColor = UIColor.blackSecondary.cgColor
-        restakeContentView.layer.cornerRadius = 24
-        restakeInfoView.layer.borderWidth = 1
-        restakeInfoView.layer.borderColor = UIColor.greenSecondary.cgColor
+        
     }
     func showCloseButton() {
-        let closeIcon = UIImage(named: "ico_close")
+        let closeIcon = UIImage(named: "close_icon")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action: #selector(self.closeButtonTapped))
     }
 
@@ -109,7 +108,7 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
         viewModel.$firstBalance.sink { [weak self] balanceVM in
             guard let self = self else { return }
             self.firstBalanceLabel.text = balanceVM.label
-            self.firstBalanceLabel.textColor = balanceVM.highlighted ? .errorText : .greySecondary
+            self.firstBalanceLabel.textColor = balanceVM.highlighted ? .errorText : .text
             self.firstBalanceValue.text = balanceVM.value
             self.firstBalanceValue.textColor = balanceVM.highlighted ? .errorText : .text
         }.store(in: &cancellables)
@@ -117,7 +116,7 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
         viewModel.$secondBalance.sink { [weak self] balanceVM in
             guard let self = self else { return }
             self.secondBalanceLabel.text = balanceVM.label
-            self.secondBalanceLabel.textColor = balanceVM.highlighted ? .errorText : .greySecondary
+            self.secondBalanceLabel.textColor = balanceVM.highlighted ? .errorText : .text
             self.secondBalanceValue.text = balanceVM.value
             self.secondBalanceValue.textColor = balanceVM.highlighted ? .errorText : .text
         }.store(in: &cancellables)
@@ -171,9 +170,13 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
                 self.amountTextField.textColor = .errorText
             } else {
                 self.errorLabel.isHidden = true
-                self.amountTextField.textColor = .blackSecondary
+                self.amountTextField.textColor = .primary
             }
         }.store(in: &cancellables)
+        
+        amountTextField.textPublisher
+            .assignNoRetain(to: \.amount, on: viewModel)
+            .store(in: &cancellables)
         
         amountTextField.textPublisher
             .first()
@@ -191,10 +194,14 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
             .store(in: &cancellables)
         
         viewModel.$isRestakeSelected.sink { [weak self] isRestakeSelected in
-            self?.restakeSwitch.isOn = isRestakeSelected
+            if isRestakeSelected {
+                self?.restakeController.selectedSegmentIndex = 0
+            } else {
+                self?.restakeController.selectedSegmentIndex = 1
+            }
         }.store(in: &cancellables)
         
-        restakeSwitch.publisher.map(\.isOn)
+        restakeOptionPublisher
             .assignNoRetain(to: \.isRestakeSelected, on: viewModel)
             .store(in: &cancellables)
         
@@ -205,16 +212,10 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
         
         viewModel.$isAmountLocked.sink { [weak self] isAmountLocked in
             if isAmountLocked {
-                self?.amountTextField.attributedPlaceholder = NSAttributedString(
-                    string: "stake.inputAmount.amountlockedplaceholder".localized,
-                    attributes: [NSAttributedString.Key.foregroundColor: UIColor.blackSecondary]
-                )
+                self?.amountTextField.placeholder = "stake.inputAmount.amountlockedplaceholder".localized
                 self?.amountTextField.isUserInteractionEnabled = false
             } else {
-                self?.amountTextField.attributedPlaceholder = NSAttributedString(
-                    string: "stake.inputAmount.amountplaceholder".localized,
-                    attributes: [NSAttributedString.Key.foregroundColor: UIColor.blackSecondary]
-                )
+                self?.amountTextField.placeholder = "stake.inputAmount.amountplaceholder".localized
                 self?.amountTextField.isUserInteractionEnabled = true
             }
         }.store(in: &cancellables)
@@ -228,6 +229,10 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
     override func keyboardWillHide(_ keyboardHeight: CGFloat) {
         bottomConstraint.constant = 0
         view.layoutIfNeeded()
+    }
+    
+    @IBAction func restakeValueChanged(_ sender: UISegmentedControl) {
+        restakeOptionPublisher.send(sender.selectedSegmentIndex == 0)
     }
     
     @IBAction func pressedContinue(_ sender: UIButton) {

@@ -65,8 +65,8 @@ class DelegationPoolSelectionViewController: KeyboardDismissableBaseViewControll
                                                      right: 0)
         
         UILabel.appearance(whenContainedInInstancesOf: [UISegmentedControl.self]).numberOfLines = 0
-        poolSelectionSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.7)], for: .normal)
-        poolSelectionSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.blackMain], for: .selected)
+        poolSelectionSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .normal)
+        poolSelectionSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.whiteText], for: .selected)
         poolSelectionSegmentedControl.setTitle("delegation.pool.baker".localized, forSegmentAt: 0)
         poolSelectionSegmentedControl.setTitle("delegation.pool.passive".localized, forSegmentAt: 1)
         linkListener = bottomLabel.addOnLinkPressedListener()
@@ -77,7 +77,7 @@ class DelegationPoolSelectionViewController: KeyboardDismissableBaseViewControll
         
     }
     func showCloseButton() {
-        let closeIcon = UIImage(named: "ico_close")
+        let closeIcon = UIImage(named: "close_icon")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action: #selector(self.closeButtonTapped))
     }
 
