@@ -59,7 +59,7 @@ final class IncomeRequestValidator {
             throw SessionRequstError.environmentMismatch(chain: sessionRequest.chainId.absoluteString)
         }
     
-        // Get `Account` associated with Wallet Conntect request
+        // Get `Account` associated with Wallet Connect request
         guard let account = storageManager.getAccounts().first(where: { $0.address == walletConnectAccount.address }) as? AccountEntity else {
             throw SessionRequstError.accountNotFound
         }
