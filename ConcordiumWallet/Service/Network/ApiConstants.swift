@@ -54,6 +54,8 @@ struct ApiConstants {
         static let tokens = proxyUrl.appendingPathComponent("/v0/CIS2Tokens")
         static let tokenMetadata = proxyUrl.appendingPathComponent("/v0/CIS2TokenMetadata")
         static let tokensBalance = proxyUrl.appendingPathComponent("/v0/CIS2TokenBalance")
+        static let cis2TokensMetadataV1 = proxyUrl.appendingPathComponent("v1/CIS2TokenMetadata")
+        static let cis2TokenBalanceV1 = proxyUrl.appendingPathComponent("v1/CIS2TokenBalance")
     }
 
     

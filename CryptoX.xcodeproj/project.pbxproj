@@ -1809,9 +1809,9 @@
 		08C169C62BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169C52BBFE1C900E61326 /* AnyPublisher+Extentions.swift */; };
 		08C169C72BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169C52BBFE1C900E61326 /* AnyPublisher+Extentions.swift */; };
 		08C169C82BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169C52BBFE1C900E61326 /* AnyPublisher+Extentions.swift */; };
-		08C169CB2BBFE2CD00E61326 /* ContractUpdateParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CA2BBFE2CD00E61326 /* ContractUpdateParams.swift */; };
-		08C169CC2BBFE2CD00E61326 /* ContractUpdateParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CA2BBFE2CD00E61326 /* ContractUpdateParams.swift */; };
-		08C169CD2BBFE2CD00E61326 /* ContractUpdateParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CA2BBFE2CD00E61326 /* ContractUpdateParams.swift */; };
+		08C169CB2BBFE2CD00E61326 /* ContractUpdateRequestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CA2BBFE2CD00E61326 /* ContractUpdateRequestParams.swift */; };
+		08C169CC2BBFE2CD00E61326 /* ContractUpdateRequestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CA2BBFE2CD00E61326 /* ContractUpdateRequestParams.swift */; };
+		08C169CD2BBFE2CD00E61326 /* ContractUpdateRequestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CA2BBFE2CD00E61326 /* ContractUpdateRequestParams.swift */; };
 		08C169CF2BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CE2BC00C5F00E61326 /* SessionRequestViewModel.swift */; };
 		08C169D02BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CE2BC00C5F00E61326 /* SessionRequestViewModel.swift */; };
 		08C169D12BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169CE2BC00C5F00E61326 /* SessionRequestViewModel.swift */; };
@@ -1957,6 +1957,27 @@
 		08DB5E9F2BC6C49500C29663 /* Double+Rounding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5E9E2BC6C49500C29663 /* Double+Rounding.swift */; };
 		08DB5EA02BC6C49500C29663 /* Double+Rounding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5E9E2BC6C49500C29663 /* Double+Rounding.swift */; };
 		08DB5EA12BC6C49500C29663 /* Double+Rounding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5E9E2BC6C49500C29663 /* Double+Rounding.swift */; };
+		08E472A22BC98105004F0088 /* SimpleTransferRequestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472A12BC98105004F0088 /* SimpleTransferRequestParams.swift */; };
+		08E472A32BC98105004F0088 /* SimpleTransferRequestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472A12BC98105004F0088 /* SimpleTransferRequestParams.swift */; };
+		08E472A42BC98105004F0088 /* SimpleTransferRequestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472A12BC98105004F0088 /* SimpleTransferRequestParams.swift */; };
+		08E472A72BCEE85C004F0088 /* SignMessageRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472A62BCEE85C004F0088 /* SignMessageRequestModel.swift */; };
+		08E472A82BCEE85C004F0088 /* SignMessageRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472A62BCEE85C004F0088 /* SignMessageRequestModel.swift */; };
+		08E472A92BCEE85C004F0088 /* SignMessageRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472A62BCEE85C004F0088 /* SignMessageRequestModel.swift */; };
+		08E472AB2BCEE883004F0088 /* TransferUpdateRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472AA2BCEE883004F0088 /* TransferUpdateRequestModel.swift */; };
+		08E472AC2BCEE883004F0088 /* TransferUpdateRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472AA2BCEE883004F0088 /* TransferUpdateRequestModel.swift */; };
+		08E472AD2BCEE883004F0088 /* TransferUpdateRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472AA2BCEE883004F0088 /* TransferUpdateRequestModel.swift */; };
+		08E472AF2BCEF308004F0088 /* SimpleTrasferRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472AE2BCEF308004F0088 /* SimpleTrasferRequestModel.swift */; };
+		08E472B02BCEF308004F0088 /* SimpleTrasferRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472AE2BCEF308004F0088 /* SimpleTrasferRequestModel.swift */; };
+		08E472B12BCEF308004F0088 /* SimpleTrasferRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472AE2BCEF308004F0088 /* SimpleTrasferRequestModel.swift */; };
+		08E472B32BCEFAA4004F0088 /* IncomeRequestValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472B22BCEFAA4004F0088 /* IncomeRequestValidator.swift */; };
+		08E472B42BCEFAA4004F0088 /* IncomeRequestValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472B22BCEFAA4004F0088 /* IncomeRequestValidator.swift */; };
+		08E472B52BCEFAA4004F0088 /* IncomeRequestValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472B22BCEFAA4004F0088 /* IncomeRequestValidator.swift */; };
+		08E472B72BCEFB53004F0088 /* SessionRequestDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472B62BCEFB53004F0088 /* SessionRequestDataType.swift */; };
+		08E472B82BCEFB53004F0088 /* SessionRequestDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472B62BCEFB53004F0088 /* SessionRequestDataType.swift */; };
+		08E472B92BCEFB53004F0088 /* SessionRequestDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472B62BCEFB53004F0088 /* SessionRequestDataType.swift */; };
+		08E472BB2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472BA2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift */; };
+		08E472BC2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472BA2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift */; };
+		08E472BD2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472BA2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift */; };
 		08E69C832A1D2183001CCA96 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69C812A1D2183001CCA96 /* AccountView.swift */; };
 		08E69C852A1D2183001CCA96 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69C812A1D2183001CCA96 /* AccountView.swift */; };
 		08E69C992A1FCAA5001CCA96 /* AccountTokensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69C972A1FCAA5001CCA96 /* AccountTokensView.swift */; };
@@ -3121,7 +3142,7 @@
 		08C169C22BB7396200E61326 /* ProdTestNet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProdTestNet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08C169C42BB73E5700E61326 /* ProdTestNet-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ProdTestNet-Info.plist"; sourceTree = "<group>"; };
 		08C169C52BBFE1C900E61326 /* AnyPublisher+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPublisher+Extentions.swift"; sourceTree = "<group>"; };
-		08C169CA2BBFE2CD00E61326 /* ContractUpdateParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractUpdateParams.swift; sourceTree = "<group>"; };
+		08C169CA2BBFE2CD00E61326 /* ContractUpdateRequestParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractUpdateRequestParams.swift; sourceTree = "<group>"; };
 		08C169CE2BC00C5F00E61326 /* SessionRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequestViewModel.swift; sourceTree = "<group>"; };
 		08C169D32BC0397600E61326 /* SignMessagePayloadToJsonInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignMessagePayloadToJsonInput.swift; sourceTree = "<group>"; };
 		08C169D72BC04A1E00E61326 /* SignMessageSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignMessageSignature.swift; sourceTree = "<group>"; };
@@ -3171,6 +3192,13 @@
 		08DB5E962BC6C36000C29663 /* Stake.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Stake.storyboard; sourceTree = "<group>"; };
 		08DB5E9A2BC6C44200C29663 /* Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Binding.swift; sourceTree = "<group>"; };
 		08DB5E9E2BC6C49500C29663 /* Double+Rounding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Rounding.swift"; sourceTree = "<group>"; };
+		08E472A12BC98105004F0088 /* SimpleTransferRequestParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTransferRequestParams.swift; sourceTree = "<group>"; };
+		08E472A62BCEE85C004F0088 /* SignMessageRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignMessageRequestModel.swift; sourceTree = "<group>"; };
+		08E472AA2BCEE883004F0088 /* TransferUpdateRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferUpdateRequestModel.swift; sourceTree = "<group>"; };
+		08E472AE2BCEF308004F0088 /* SimpleTrasferRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTrasferRequestModel.swift; sourceTree = "<group>"; };
+		08E472B22BCEFAA4004F0088 /* IncomeRequestValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeRequestValidator.swift; sourceTree = "<group>"; };
+		08E472B62BCEFB53004F0088 /* SessionRequestDataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequestDataType.swift; sourceTree = "<group>"; };
+		08E472BA2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequestDataProvidable.swift; sourceTree = "<group>"; };
 		08E69C812A1D2183001CCA96 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		08E69C972A1FCAA5001CCA96 /* AccountTokensView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTokensView.swift; sourceTree = "<group>"; };
 		08E69C9C2A20D071001CCA96 /* ImportTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTokenView.swift; sourceTree = "<group>"; };
@@ -4799,8 +4827,12 @@
 		089B34402A17D67900F3CD90 /* SessionRequestFlow */ = {
 			isa = PBXGroup;
 			children = (
+				08E472A52BCEE84F004F0088 /* DataModels */,
 				089B34412A17D69400F3CD90 /* SessionRequestView.swift */,
 				08C169CE2BC00C5F00E61326 /* SessionRequestViewModel.swift */,
+				08E472B22BCEFAA4004F0088 /* IncomeRequestValidator.swift */,
+				08E472B62BCEFB53004F0088 /* SessionRequestDataType.swift */,
+				08E472BA2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift */,
 			);
 			path = SessionRequestFlow;
 			sourceTree = "<group>";
@@ -5042,8 +5074,8 @@
 		08C169C92BBFE28200E61326 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				08E472A02BC980F1004F0088 /* RequestParams */,
 				08C169D22BC0395600E61326 /* SignMessage */,
-				08C169CA2BBFE2CD00E61326 /* ContractUpdateParams.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -5245,6 +5277,25 @@
 				08DB5E5C2BC6C2FC00C29663 /* BakingOnboardingCoordinator.swift */,
 			);
 			path = Baking;
+			sourceTree = "<group>";
+		};
+		08E472A02BC980F1004F0088 /* RequestParams */ = {
+			isa = PBXGroup;
+			children = (
+				08C169CA2BBFE2CD00E61326 /* ContractUpdateRequestParams.swift */,
+				08E472A12BC98105004F0088 /* SimpleTransferRequestParams.swift */,
+			);
+			path = RequestParams;
+			sourceTree = "<group>";
+		};
+		08E472A52BCEE84F004F0088 /* DataModels */ = {
+			isa = PBXGroup;
+			children = (
+				08E472A62BCEE85C004F0088 /* SignMessageRequestModel.swift */,
+				08E472AA2BCEE883004F0088 /* TransferUpdateRequestModel.swift */,
+				08E472AE2BCEF308004F0088 /* SimpleTrasferRequestModel.swift */,
+			);
+			path = DataModels;
 			sourceTree = "<group>";
 		};
 		08E69C862A1E6623001CCA96 /* AccountDetail */ = {
@@ -6929,6 +6980,7 @@
 				08C166842BB7396200E61326 /* RecoveryPhraseRecoverIntroViewModel.swift in Sources */,
 				08C166852BB7396200E61326 /* BottomSheet.swift in Sources */,
 				08C166862BB7396200E61326 /* SubmissionStatusEnum.swift in Sources */,
+				08E472BD2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift in Sources */,
 				08C166872BB7396200E61326 /* OutcomeEnum.swift in Sources */,
 				08DB5E432BC6C2DF00C29663 /* DelegationStatusPresenter.swift in Sources */,
 				08C166882BB7396200E61326 /* Models.swift in Sources */,
@@ -7069,6 +7121,7 @@
 				08C1670F2BB7396200E61326 /* AccountsMainView.swift in Sources */,
 				08C167102BB7396200E61326 /* MobileWalletFacade.swift in Sources */,
 				08C167112BB7396200E61326 /* InitialAccountSummaryViewController.swift in Sources */,
+				08E472AD2BCEE883004F0088 /* TransferUpdateRequestModel.swift in Sources */,
 				08C167122BB7396200E61326 /* ExportTransactionLogView.swift in Sources */,
 				08DB5E812BC6C32F00C29663 /* BakerPoolReceiptConfirmationPresenter.swift in Sources */,
 				08DB5E822BC6C32F00C29663 /* BakerPoolReceiptPresenter.swift in Sources */,
@@ -7106,11 +7159,13 @@
 				08C1672F2BB7396200E61326 /* CreateSeedIdentityViewModel.swift in Sources */,
 				08C169C82BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */,
 				08C167302BB7396200E61326 /* IconImageView.swift in Sources */,
+				08E472A92BCEE85C004F0088 /* SignMessageRequestModel.swift in Sources */,
+				08E472B52BCEFAA4004F0088 /* IncomeRequestValidator.swift in Sources */,
 				08C167312BB7396200E61326 /* AttributeList.swift in Sources */,
 				08C167322BB7396200E61326 /* ErrorMapper.swift in Sources */,
 				08C167332BB7396200E61326 /* RecoveryPhraseSetupCompleteView.swift in Sources */,
 				08C167342BB7396200E61326 /* TransferEntity.swift in Sources */,
-				08C169CD2BBFE2CD00E61326 /* ContractUpdateParams.swift in Sources */,
+				08C169CD2BBFE2CD00E61326 /* ContractUpdateRequestParams.swift in Sources */,
 				08C167372BB7396200E61326 /* LoadingIndicator.swift in Sources */,
 				08C167392BB7396200E61326 /* TransactionDetailPresenter.swift in Sources */,
 				08C1673A2BB7396200E61326 /* SeedPhraseInput.swift in Sources */,
@@ -7169,6 +7224,8 @@
 				08C167712BB7396200E61326 /* IdentityRevokersWidgetViewController.swift in Sources */,
 				08C167722BB7396200E61326 /* AccountCell.swift in Sources */,
 				08C167732BB7396200E61326 /* AssetExtractor.swift in Sources */,
+				08E472B12BCEF308004F0088 /* SimpleTrasferRequestModel.swift in Sources */,
+				08E472A42BC98105004F0088 /* SimpleTransferRequestParams.swift in Sources */,
 				08C167742BB7396200E61326 /* CIS2TokenDetailView.swift in Sources */,
 				08C167752BB7396200E61326 /* RecoveryPhraseOnboardingView.swift in Sources */,
 				08C167762BB7396200E61326 /* AirDropResultView.swift in Sources */,
@@ -7368,6 +7425,7 @@
 				08C1683B2BB7396200E61326 /* AccountTransactionsDataViewController.swift in Sources */,
 				08C1683C2BB7396200E61326 /* AppSettings.swift in Sources */,
 				08C1683D2BB7396200E61326 /* UIView+Additions.swift in Sources */,
+				08E472B92BCEFB53004F0088 /* SessionRequestDataType.swift in Sources */,
 				08C1683E2BB7396200E61326 /* Sizes.swift in Sources */,
 				08C1683F2BB7396200E61326 /* SanityChecker.swift in Sources */,
 				08C168402BB7396200E61326 /* WelcomeView.swift in Sources */,
@@ -7613,6 +7671,7 @@
 				088FF0CD2A02846700042957 /* RecoveryPhraseRecoverIntroViewModel.swift in Sources */,
 				0832EB562B350A1700BD2ECD /* BottomSheet.swift in Sources */,
 				D589F1BD2794B5ED003F2FBB /* SubmissionStatusEnum.swift in Sources */,
+				08E472BC2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift in Sources */,
 				D589F1CD2794B5ED003F2FBB /* OutcomeEnum.swift in Sources */,
 				08DB5E422BC6C2DF00C29663 /* DelegationStatusPresenter.swift in Sources */,
 				D589F3442794B7DD003F2FBB /* Models.swift in Sources */,
@@ -7753,6 +7812,7 @@
 				089FF0DD2A4C4516007AB1CF /* AccountsMainView.swift in Sources */,
 				089E327E2A0BA043002AE530 /* MobileWalletFacade.swift in Sources */,
 				088FF1902A02947B00042957 /* InitialAccountSummaryViewController.swift in Sources */,
+				08E472AC2BCEE883004F0088 /* TransferUpdateRequestModel.swift in Sources */,
 				088FED8D2A01672D00042957 /* ExportTransactionLogView.swift in Sources */,
 				08DB5E7E2BC6C32E00C29663 /* BakerPoolReceiptConfirmationPresenter.swift in Sources */,
 				08DB5E7F2BC6C32E00C29663 /* BakerPoolReceiptPresenter.swift in Sources */,
@@ -7790,11 +7850,13 @@
 				088FEFE52A0271C000042957 /* CreateSeedIdentityViewModel.swift in Sources */,
 				08C169C72BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */,
 				D5CACC4526E91B9100D3C3CF /* IconImageView.swift in Sources */,
+				08E472A82BCEE85C004F0088 /* SignMessageRequestModel.swift in Sources */,
+				08E472B42BCEFAA4004F0088 /* IncomeRequestValidator.swift in Sources */,
 				08A045DB29FA99D200DACE1F /* AttributeList.swift in Sources */,
 				D589F3192794B678003F2FBB /* ErrorMapper.swift in Sources */,
 				088FF0F12A0284A700042957 /* RecoveryPhraseSetupCompleteView.swift in Sources */,
 				D589F1A52794B5ED003F2FBB /* TransferEntity.swift in Sources */,
-				08C169CC2BBFE2CD00E61326 /* ContractUpdateParams.swift in Sources */,
+				08C169CC2BBFE2CD00E61326 /* ContractUpdateRequestParams.swift in Sources */,
 				088FEE312A01687400042957 /* LoadingIndicator.swift in Sources */,
 				088FEE042A0167E600042957 /* TransactionDetailPresenter.swift in Sources */,
 				0851BFD92B5059E8006373AC /* SeedPhraseInput.swift in Sources */,
@@ -7853,6 +7915,8 @@
 				088FEF832A0270B000042957 /* IdentityRevokersWidgetViewController.swift in Sources */,
 				08B16F2F2A011B4A002E6B33 /* AccountCell.swift in Sources */,
 				08BC95172A30E4AF0058F1B9 /* AssetExtractor.swift in Sources */,
+				08E472B02BCEF308004F0088 /* SimpleTrasferRequestModel.swift in Sources */,
+				08E472A32BC98105004F0088 /* SimpleTransferRequestParams.swift in Sources */,
 				08E69CCA2A265E1B001CCA96 /* CIS2TokenDetailView.swift in Sources */,
 				088FF1122A0284D100042957 /* RecoveryPhraseOnboardingView.swift in Sources */,
 				D52D4F7629184D2E00C9A815 /* AirDropResultView.swift in Sources */,
@@ -8052,6 +8116,7 @@
 				088FEDCC2A01677F00042957 /* AccountTransactionsDataViewController.swift in Sources */,
 				7F85B88C246A9AB600ED09B8 /* AppSettings.swift in Sources */,
 				7F85B88D246A9AB600ED09B8 /* UIView+Additions.swift in Sources */,
+				08E472B82BCEFB53004F0088 /* SessionRequestDataType.swift in Sources */,
 				7F85B88F246A9AB600ED09B8 /* Sizes.swift in Sources */,
 				088FF1DA2A02A72700042957 /* SanityChecker.swift in Sources */,
 				08A6BD952B30893200869317 /* WelcomeView.swift in Sources */,
@@ -8297,6 +8362,7 @@
 				D5F3BC71278E5FF0008DC894 /* HapticFeedbackHelper.swift in Sources */,
 				0832EB552B350A1700BD2ECD /* BottomSheet.swift in Sources */,
 				D589F1BB2794B5ED003F2FBB /* SubmissionStatusEnum.swift in Sources */,
+				08E472BB2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift in Sources */,
 				088FF0C72A02846600042957 /* RecoveryPhraseRecoverIntroViewModel.swift in Sources */,
 				08DB5E412BC6C2DF00C29663 /* DelegationStatusPresenter.swift in Sources */,
 				D589F1CB2794B5ED003F2FBB /* OutcomeEnum.swift in Sources */,
@@ -8437,6 +8503,7 @@
 				089E327C2A0BA042002AE530 /* MobileWalletFacade.swift in Sources */,
 				088FF1822A02947A00042957 /* InitialAccountSummaryViewController.swift in Sources */,
 				D5CCCB3828EE42A800350D83 /* NFTErrorStatusView.swift in Sources */,
+				08E472AB2BCEE883004F0088 /* TransferUpdateRequestModel.swift in Sources */,
 				08E69CC32A26279C001CCA96 /* TransactionListView.swift in Sources */,
 				08DB5E7B2BC6C32E00C29663 /* BakerPoolReceiptConfirmationPresenter.swift in Sources */,
 				08DB5E7C2BC6C32E00C29663 /* BakerPoolReceiptPresenter.swift in Sources */,
@@ -8474,9 +8541,11 @@
 				D589F3172794B678003F2FBB /* ErrorMapper.swift in Sources */,
 				08C169C62BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */,
 				C939821D240F8D7000C72FE2 /* RoundedCornerView.swift in Sources */,
+				08E472A72BCEE85C004F0088 /* SignMessageRequestModel.swift in Sources */,
+				08E472B32BCEFAA4004F0088 /* IncomeRequestValidator.swift in Sources */,
 				088FEFDF2A0271BF00042957 /* CreateSeedIdentityViewModel.swift in Sources */,
 				D589F1A32794B5ED003F2FBB /* TransferEntity.swift in Sources */,
-				08C169CB2BBFE2CD00E61326 /* ContractUpdateParams.swift in Sources */,
+				08C169CB2BBFE2CD00E61326 /* ContractUpdateRequestParams.swift in Sources */,
 				088FF0EB2A0284A600042957 /* RecoveryPhraseSetupCompleteView.swift in Sources */,
 				088FEE2F2A01687400042957 /* LoadingIndicator.swift in Sources */,
 				08A0457529FA99D100DACE1F /* BakerPoolResponse.swift in Sources */,
@@ -8537,6 +8606,8 @@
 				08A0447529FA987700DACE1F /* RecoveryPhrase.swift in Sources */,
 				08BC95152A30E4AF0058F1B9 /* AssetExtractor.swift in Sources */,
 				08E69CC82A265E1B001CCA96 /* CIS2TokenDetailView.swift in Sources */,
+				08E472AF2BCEF308004F0088 /* SimpleTrasferRequestModel.swift in Sources */,
+				08E472A22BC98105004F0088 /* SimpleTransferRequestParams.swift in Sources */,
 				D589F2032794B5ED003F2FBB /* ExportRecipient.swift in Sources */,
 				088FEF5B2A0270AF00042957 /* IdentityRevokersWidgetViewController.swift in Sources */,
 				08A0458929FA99D100DACE1F /* PassiveDelegation.swift in Sources */,
@@ -8736,6 +8807,7 @@
 				088FEDC42A01677E00042957 /* AccountTransactionsDataViewController.swift in Sources */,
 				D5B39402271990D60094A9F5 /* CircleView.swift in Sources */,
 				19C2E7429349DB90804089D0 /* AppSettings.swift in Sources */,
+				08E472B72BCEFB53004F0088 /* SessionRequestDataType.swift in Sources */,
 				19C2E1F4C4825F62DEE3EE2B /* UIView+Additions.swift in Sources */,
 				D5E29760276C8DC8000DB102 /* CopyPasterHelper.swift in Sources */,
 				08A6BD942B30893200869317 /* WelcomeView.swift in Sources */,
