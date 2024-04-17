@@ -26,7 +26,7 @@ struct SessionRequestView: View {
                             Text("Sign transaction")
                                 .foregroundColor(.white)
                                 .font(.system(size: 28, weight: .semibold))
-                            Text(viewModel.sessionRequest.method)
+                            Text(viewModel.method)
                                 .foregroundColor(.white.opacity(0.3))
                                 .font(.system(size: 13, weight: .regular))
                         }

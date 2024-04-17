@@ -62,15 +62,15 @@ struct CIS2TokenInfoBox: Codable {
     let tokens: [CIS2TokenInfo]
 }
 
-struct CIS2TokenMetadataContainer: Codable {
+struct CIS2TokensMetadataItem: Codable {
     let metadataChecksum: String?
     let metadataURL: String
     let tokenId: String
 }
 
-struct CIS2TokenMetadataContainerBox: Codable {
+struct CIS2TokensMetadata: Codable {
     let contractName: String
-    let metadata: [CIS2TokenMetadataContainer]
+    let metadata: [CIS2TokensMetadataItem]
 }
 
 extension CIS2TokenMetadata: Equatable {
@@ -140,7 +140,7 @@ struct CIS2TokenService {
         let tokens = try await CIS2TokenService.getCIS2Tokens(index: index)
         let containerBox = try await CIS2TokenService.getCIS2TokenMetadataContainer(index: index, tokenIds: tokens.map(\.token))
         
-        return try await withThrowingTaskGroup(of: (CIS2TokenMetadata, CIS2TokenMetadataContainer, String).self, body: { group in
+        return try await withThrowingTaskGroup(of: (CIS2TokenMetadata, CIS2TokensMetadataItem, String).self, body: { group in
             for c in containerBox.metadata {
                 group.addTask {
                     try await (CIS2TokenService.getCIS2TokenMetadata(url: c.metadataURL), c, containerBox.contractName)
@@ -199,7 +199,7 @@ struct CIS2TokenService {
     }
     
     /// `GET /v0/CIS2Tokens/{index}/{subindex}`: get the list of tokens on a given contract address.
-    static func getCIS2TokenMetadataContainer(index: Int, tokenIds: [String]) async throws -> CIS2TokenMetadataContainerBox {
+    static func getCIS2TokenMetadataContainer(index: Int, tokenIds: [String]) async throws -> CIS2TokensMetadata {
         guard
             let request = ResourceRequest(
                 url: ApiConstants.CIS2Token.tokenMetadata.appendingPathComponent("\(index)/0"),
@@ -214,7 +214,7 @@ struct CIS2TokenService {
         logger.debugLog("[CIS2Token] getCIS2TokenMetadataContainer request: \(request)")
         let (data, _) = try await session.data(from: url)
         logger.debugLog("[CIS2Token] getCIS2TokenMetadataContainer response: \(String(data: data, encoding: .utf8))")
-        return try JSONDecoder().decode(CIS2TokenMetadataContainerBox.self, from: data)
+        return try JSONDecoder().decode(CIS2TokensMetadata.self, from: data)
     }
     
     /// `GET /v0/CIS2Tokens/{index}/{subindex}`: get the list of tokens on a given contract address.
