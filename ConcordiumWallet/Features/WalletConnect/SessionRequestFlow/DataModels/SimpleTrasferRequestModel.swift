@@ -78,12 +78,6 @@ final class SimpleTrasferRequestModel: SessionRequestDataProvidable {
             .eraseToAnyPublisher()
     }
     
-    private func getNrgCCDAmount(nrgLimit: Int, cost: Float, energy: Float) -> Int {
-        let _nrgLimit = Float(nrgLimit)
-        let nrgCCDAmount = Float(_nrgLimit * (cost / energy) / 1000000.0)
-        return Int(ceil(nrgCCDAmount))
-    }
-    
     private func getTransfer(for params: SimpleTransferRequestParams, txCost: TransferCost) -> any TransferDataType {
         var transfer = TransferDataTypeFactory.create()
         transfer.transferType = .simpleTransfer

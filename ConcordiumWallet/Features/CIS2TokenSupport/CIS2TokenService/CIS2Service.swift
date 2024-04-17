@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CryptoKit
 
 ///
 /// [WIP] Tihis service will be replacement for `CIS2TokenService`
@@ -20,16 +21,26 @@ protocol CIS2ServiceProtocol {
 class CIS2Service: CIS2ServiceProtocol {
     let networkManager: NetworkManagerProtocol
     let storageManager: StorageManagerProtocol
+    let session: URLSession
+
     
     init(networkManager: NetworkManagerProtocol, storageManager: StorageManagerProtocol) {
         self.networkManager = networkManager
         self.storageManager = storageManager
+        self.session = URLSession(configuration: URLSessionConfiguration.ephemeral)
     }
 }
 
 ///
 /// User case for token search by cintract index
 ///
+///
+
+enum ChecksumError: Error {
+    case invalidChecksum
+    case incorrectChecksum
+}
+
 extension CIS2Service {
     func fetchTokens(contractIndex: String, contractSubindex: String = "0", limit: Int = 1000) async throws -> CIS2TokenInfoBox {
         try await networkManager.load(
@@ -71,8 +82,23 @@ extension CIS2Service {
         )
     }
     
-    func getCIS2TokenMetadata(url: URL) async throws -> CIS2TokenMetadata {
-        try await networkManager.load(ResourceRequest(url: url))
+    func getCIS2TokenMetadata(url: URL, metadataChecksum: String?) async throws -> CIS2TokenMetadata {
+        let (data, _) = try await session.data(from: url)
+        
+        if let metadataChecksum = metadataChecksum {
+            try await verifyChecksum(checksum: metadataChecksum, responseData: data)
+        }
+        
+        return try JSONDecoder().decode(CIS2TokenMetadata.self, from: data)
+    }
+    
+    func verifyChecksum(checksum: String, responseData: Data) async throws {
+        let hash = SHA256.hash(data: responseData)
+        let hashString = hash.compactMap { String(format: "%02x", $0) }.joined()
+        
+        guard hashString == checksum else {
+            throw ChecksumError.incorrectChecksum
+        }
     }
 }
 
@@ -93,13 +119,8 @@ extension CIS2Service {
             for metadata in metadata.metadata {
                 if let url = URL(string: metadata.metadataURL) {
                     group.addTask {
-                        guard let result = try? await self.getCIS2TokenMetadata(url: url) else {
+                        guard let result = try? await self.getCIS2TokenMetadata(url: url, metadataChecksum: metadata.metadataChecksum) else {
                             return nil
-                        }
-                        
-                        if let metadataChecksum = metadata.metadataChecksum {
-                            //TODO: - add verification checksum here
-                            // result.hash check
                         }
                         
                         return (metadata, result)
