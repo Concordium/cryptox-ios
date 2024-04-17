@@ -95,8 +95,7 @@ extension CIS2Service {
     func verifyChecksum(checksum: String, responseData: Data) async throws {
         let hash = SHA256.hash(data: responseData)
         let hashString = hash.compactMap { String(format: "%02x", $0) }.joined()
-        
-        guard hashString == checksum else {
+        guard hashString.localizedCaseInsensitiveCompare(checksum) == .orderedSame else {
             throw ChecksumError.incorrectChecksum
         }
     }
