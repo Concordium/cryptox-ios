@@ -1147,7 +1147,6 @@
 		08C167042BB7396200E61326 /* AccNonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A044F229FA99C900DACE1F /* AccNonce.swift */; };
 		08C167052BB7396200E61326 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52055F852552C1D90071F7CA /* NibLoadable.swift */; };
 		08C167062BB7396200E61326 /* SelectIdentityProviderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFE72A0271CF00042957 /* SelectIdentityProviderPresenter.swift */; };
-		08C167082BB7396200E61326 /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AE123EADEFD00F1FC04 /* String+Localizable.swift */; };
 		08C167092BB7396200E61326 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1A82A02A67E00042957 /* ExportService.swift */; };
 		08C1670A2BB7396200E61326 /* MaterialTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE822A025B9100042957 /* MaterialTabBar.swift */; };
 		08C1670B2BB7396200E61326 /* AirDropWalletsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52D4F582918379200C9A815 /* AirDropWalletsView.swift */; };
@@ -1978,6 +1977,15 @@
 		08E472BB2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472BA2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift */; };
 		08E472BC2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472BA2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift */; };
 		08E472BD2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472BA2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift */; };
+		08E472BF2BD179AE004F0088 /* VerifiablePresentationRequestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472BE2BD179AE004F0088 /* VerifiablePresentationRequestParams.swift */; };
+		08E472C02BD179AE004F0088 /* VerifiablePresentationRequestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472BE2BD179AE004F0088 /* VerifiablePresentationRequestParams.swift */; };
+		08E472C12BD179AE004F0088 /* VerifiablePresentationRequestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472BE2BD179AE004F0088 /* VerifiablePresentationRequestParams.swift */; };
+		08E472C32BD2649C004F0088 /* VerifiablePresentationRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472C22BD2649C004F0088 /* VerifiablePresentationRequestModel.swift */; };
+		08E472C42BD2649C004F0088 /* VerifiablePresentationRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472C22BD2649C004F0088 /* VerifiablePresentationRequestModel.swift */; };
+		08E472C52BD2649C004F0088 /* VerifiablePresentationRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472C22BD2649C004F0088 /* VerifiablePresentationRequestModel.swift */; };
+		08E472C82BD6688F004F0088 /* VerifiablePresentationRequestParamsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472C72BD6688F004F0088 /* VerifiablePresentationRequestParamsView.swift */; };
+		08E472C92BD6688F004F0088 /* VerifiablePresentationRequestParamsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472C72BD6688F004F0088 /* VerifiablePresentationRequestParamsView.swift */; };
+		08E472CA2BD6688F004F0088 /* VerifiablePresentationRequestParamsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472C72BD6688F004F0088 /* VerifiablePresentationRequestParamsView.swift */; };
 		08E69C832A1D2183001CCA96 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69C812A1D2183001CCA96 /* AccountView.swift */; };
 		08E69C852A1D2183001CCA96 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69C812A1D2183001CCA96 /* AccountView.swift */; };
 		08E69C992A1FCAA5001CCA96 /* AccountTokensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69C972A1FCAA5001CCA96 /* AccountTokensView.swift */; };
@@ -2075,7 +2083,6 @@
 		7F85B7FE246A9AB600ED09B8 /* LoadProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BFC835242A2FA00063AEE9 /* LoadProtocol.swift */; };
 		7F85B7FF246A9AB600ED09B8 /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068DC80F23F2E46E001B2975 /* BaseButton.swift */; };
 		7F85B800246A9AB600ED09B8 /* BaseLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068DC80D23F2E464001B2975 /* BaseLabel.swift */; };
-		7F85B805246A9AB600ED09B8 /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AE123EADEFD00F1FC04 /* String+Localizable.swift */; };
 		7F85B811246A9AB600ED09B8 /* AttributesFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BB9FDE244426B100AE0884 /* AttributesFormatter.swift */; };
 		7F85B813246A9AB600ED09B8 /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9623EADBB100F1FC04 /* UIViewController+Additions.swift */; };
 		7F85B815246A9AB600ED09B8 /* BaseTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068DC81123F2E479001B2975 /* BaseTextfield.swift */; };
@@ -2129,7 +2136,6 @@
 		7FF07AC423EADBB100F1FC04 /* UITableView+scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9A23EADBB100F1FC04 /* UITableView+scroll.swift */; };
 		7FF07AC623EADBB100F1FC04 /* String+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9C23EADBB100F1FC04 /* String+Additions.swift */; };
 		7FF07AC923EADBB100F1FC04 /* readme.md in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A9F23EADBB100F1FC04 /* readme.md */; };
-		7FF07AE223EADEFD00F1FC04 /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AE123EADEFD00F1FC04 /* String+Localizable.swift */; };
 		7FF07AE823EAFF5000F1FC04 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AE723EAFF5000F1FC04 /* MainTabBarController.swift */; };
 		7FF07AEE23EB075D00F1FC04 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AED23EB075D00F1FC04 /* Storyboarded.swift */; };
 		C916DAE92467F481008EA16A /* MenuItemCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C916DAE82467F480008EA16A /* MenuItemCellView.swift */; };
@@ -3199,6 +3205,9 @@
 		08E472B22BCEFAA4004F0088 /* IncomeRequestValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeRequestValidator.swift; sourceTree = "<group>"; };
 		08E472B62BCEFB53004F0088 /* SessionRequestDataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequestDataType.swift; sourceTree = "<group>"; };
 		08E472BA2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequestDataProvidable.swift; sourceTree = "<group>"; };
+		08E472BE2BD179AE004F0088 /* VerifiablePresentationRequestParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifiablePresentationRequestParams.swift; sourceTree = "<group>"; };
+		08E472C22BD2649C004F0088 /* VerifiablePresentationRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifiablePresentationRequestModel.swift; sourceTree = "<group>"; };
+		08E472C72BD6688F004F0088 /* VerifiablePresentationRequestParamsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifiablePresentationRequestParamsView.swift; sourceTree = "<group>"; };
 		08E69C812A1D2183001CCA96 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		08E69C972A1FCAA5001CCA96 /* AccountTokensView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTokensView.swift; sourceTree = "<group>"; };
 		08E69C9C2A20D071001CCA96 /* ImportTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTokenView.swift; sourceTree = "<group>"; };
@@ -4827,6 +4836,7 @@
 		089B34402A17D67900F3CD90 /* SessionRequestFlow */ = {
 			isa = PBXGroup;
 			children = (
+				08E472C62BD66886004F0088 /* View */,
 				08E472A52BCEE84F004F0088 /* DataModels */,
 				089B34412A17D69400F3CD90 /* SessionRequestView.swift */,
 				08C169CE2BC00C5F00E61326 /* SessionRequestViewModel.swift */,
@@ -5284,6 +5294,7 @@
 			children = (
 				08C169CA2BBFE2CD00E61326 /* ContractUpdateRequestParams.swift */,
 				08E472A12BC98105004F0088 /* SimpleTransferRequestParams.swift */,
+				08E472BE2BD179AE004F0088 /* VerifiablePresentationRequestParams.swift */,
 			);
 			path = RequestParams;
 			sourceTree = "<group>";
@@ -5294,8 +5305,17 @@
 				08E472A62BCEE85C004F0088 /* SignMessageRequestModel.swift */,
 				08E472AA2BCEE883004F0088 /* TransferUpdateRequestModel.swift */,
 				08E472AE2BCEF308004F0088 /* SimpleTrasferRequestModel.swift */,
+				08E472C22BD2649C004F0088 /* VerifiablePresentationRequestModel.swift */,
 			);
 			path = DataModels;
+			sourceTree = "<group>";
+		};
+		08E472C62BD66886004F0088 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				08E472C72BD6688F004F0088 /* VerifiablePresentationRequestParamsView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		08E69C862A1E6623001CCA96 /* AccountDetail */ = {
@@ -6969,8 +6989,10 @@
 				08C166792BB7396200E61326 /* WidgetButton.swift in Sources */,
 				08C1667A2BB7396200E61326 /* IdentityDataSelectionWidgetPresenter.swift in Sources */,
 				08C1667B2BB7396200E61326 /* ShowIdentityFailureProtocol.swift in Sources */,
+				08E472CA2BD6688F004F0088 /* VerifiablePresentationRequestParamsView.swift in Sources */,
 				08C1667C2BB7396200E61326 /* TransactionDetailsView.swift in Sources */,
 				08C1667D2BB7396200E61326 /* NetworkManagerProtocol.swift in Sources */,
+				08E472C12BD179AE004F0088 /* VerifiablePresentationRequestParams.swift in Sources */,
 				08C1667E2BB7396200E61326 /* BaseTabBar.swift in Sources */,
 				08C1667F2BB7396200E61326 /* InitialAccountInfoPresenter.swift in Sources */,
 				08C166802BB7396200E61326 /* TransferType.swift in Sources */,
@@ -7099,6 +7121,7 @@
 				08C166F92BB7396200E61326 /* TermsAndConditionsViewController.swift in Sources */,
 				08C166FA2BB7396200E61326 /* RequestExportPasswordPresenter.swift in Sources */,
 				08C166FB2BB7396200E61326 /* BaseLabel.swift in Sources */,
+				08E472C52BD2649C004F0088 /* VerifiablePresentationRequestModel.swift in Sources */,
 				08C166FC2BB7396200E61326 /* PublicEncriptionKey.swift in Sources */,
 				08C166FD2BB7396200E61326 /* RealmHelper.swift in Sources */,
 				08C166FE2BB7396200E61326 /* BiometricsEnablingPresenter.swift in Sources */,
@@ -7111,7 +7134,6 @@
 				08C169DE2BC04A8500E61326 /* SignMessagePayload.swift in Sources */,
 				08C167052BB7396200E61326 /* NibLoadable.swift in Sources */,
 				08C167062BB7396200E61326 /* SelectIdentityProviderPresenter.swift in Sources */,
-				08C167082BB7396200E61326 /* String+Localizable.swift in Sources */,
 				08DB5E3D2BC6C2DF00C29663 /* DelegationPoolSelectionPresenter.swift in Sources */,
 				08C167092BB7396200E61326 /* ExportService.swift in Sources */,
 				08C1670A2BB7396200E61326 /* MaterialTabBar.swift in Sources */,
@@ -7660,8 +7682,10 @@
 				7F85B7D3246A9AB600ED09B8 /* WidgetButton.swift in Sources */,
 				088FEF802A0270B000042957 /* IdentityDataSelectionWidgetPresenter.swift in Sources */,
 				D5E29753276C8CD9000DB102 /* ShowIdentityFailureProtocol.swift in Sources */,
+				08E472C92BD6688F004F0088 /* VerifiablePresentationRequestParamsView.swift in Sources */,
 				D5962CDB272170F800A757A5 /* TransactionDetailsView.swift in Sources */,
 				D589F3292794B678003F2FBB /* NetworkManagerProtocol.swift in Sources */,
+				08E472C02BD179AE004F0088 /* VerifiablePresentationRequestParams.swift in Sources */,
 				7F85B7D7246A9AB600ED09B8 /* BaseTabBar.swift in Sources */,
 				088FF18F2A02947B00042957 /* InitialAccountInfoPresenter.swift in Sources */,
 				D589F1D92794B5ED003F2FBB /* TransferType.swift in Sources */,
@@ -7790,6 +7814,7 @@
 				088FF0322A0277F600042957 /* TermsAndConditionsViewController.swift in Sources */,
 				088FF0602A02781C00042957 /* RequestExportPasswordPresenter.swift in Sources */,
 				7F85B800246A9AB600ED09B8 /* BaseLabel.swift in Sources */,
+				08E472C42BD2649C004F0088 /* VerifiablePresentationRequestModel.swift in Sources */,
 				08A045DC29FA99D200DACE1F /* PublicEncriptionKey.swift in Sources */,
 				D5B47106278DE6AC00781EE8 /* RealmHelper.swift in Sources */,
 				088FF06E2A02783000042957 /* BiometricsEnablingPresenter.swift in Sources */,
@@ -7802,7 +7827,6 @@
 				08C169DD2BC04A8500E61326 /* SignMessagePayload.swift in Sources */,
 				52055F892552C1D90071F7CA /* NibLoadable.swift in Sources */,
 				088FEFF42A0271D500042957 /* SelectIdentityProviderPresenter.swift in Sources */,
-				7F85B805246A9AB600ED09B8 /* String+Localizable.swift in Sources */,
 				08DB5E3C2BC6C2DF00C29663 /* DelegationPoolSelectionPresenter.swift in Sources */,
 				088FF1CB2A02A70800042957 /* ExportService.swift in Sources */,
 				088FEE862A025B9100042957 /* MaterialTabBar.swift in Sources */,
@@ -8351,8 +8375,10 @@
 				08A0454B29FA99D100DACE1F /* Schedule.swift in Sources */,
 				D562EE962752BF5E00AAFD12 /* Date+Expire.swift in Sources */,
 				088FEF582A0270AF00042957 /* IdentityDataSelectionWidgetPresenter.swift in Sources */,
+				08E472C82BD6688F004F0088 /* VerifiablePresentationRequestParamsView.swift in Sources */,
 				C9D342B724581CD9007ED45E /* WidgetButton.swift in Sources */,
 				D594F7C72718BE68008F532E /* QRTransactionViewController.swift in Sources */,
+				08E472BF2BD179AE004F0088 /* VerifiablePresentationRequestParams.swift in Sources */,
 				D589F3272794B678003F2FBB /* NetworkManagerProtocol.swift in Sources */,
 				06D178A123F6D54900ABC904 /* BaseTabBar.swift in Sources */,
 				D5F3BC67278E5D3C008DC894 /* ShowAlertProtocol.swift in Sources */,
@@ -8469,7 +8495,6 @@
 				088FEFB72A02717D00042957 /* SubmitSeedAccountViewModel.swift in Sources */,
 				D54ABC2B26E243B000F4E773 /* UIAlertAction+Color.swift in Sources */,
 				D589F3132794B678003F2FBB /* StorageManager.swift in Sources */,
-				7FF07AE223EADEFD00F1FC04 /* String+Localizable.swift in Sources */,
 				088FEDF52A0167D100042957 /* TransferFiltersPresenter.swift in Sources */,
 				088FF0522A02781B00042957 /* PasswordFieldViewController.swift in Sources */,
 				52055F872552C1D90071F7CA /* NibLoadable.swift in Sources */,
@@ -8481,6 +8506,7 @@
 				088FEF042A026F0000042957 /* IdentityInfoViewModel.swift in Sources */,
 				088FF02A2A0277F600042957 /* TermsAndConditionsViewController.swift in Sources */,
 				088FF0502A02781B00042957 /* RequestExportPasswordPresenter.swift in Sources */,
+				08E472C32BD2649C004F0088 /* VerifiablePresentationRequestModel.swift in Sources */,
 				08A0454429FA99D100DACE1F /* PublicEncriptionKey.swift in Sources */,
 				D5E6CBF2290F47BE009856B7 /* NFTMarketplaceCell.swift in Sources */,
 				088FF06A2A02782F00042957 /* BiometricsEnablingPresenter.swift in Sources */,

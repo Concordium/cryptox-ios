@@ -12,6 +12,8 @@ import WalletConnectVerify
 import Combine
 
 final class TransferUpdateRequestModel: SessionRequestDataProvidable {
+    @Published var title: String = "Sign Transaction"
+    
     private let transactionsService: TransactionsServiceProtocol
     private let mobileWallet: MobileWalletProtocol
     private let params: ContractUpdateRequestParams

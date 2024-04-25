@@ -11,6 +11,8 @@ import Web3Wallet
 import WalletConnectVerify
 
 protocol SessionRequestDataProvidable {
+    var title: String { get }
+    
     func checkAllSatisfy() async throws -> Bool
     func approveRequest() async throws
 }
@@ -54,6 +56,15 @@ final class SessionRequestDataModelProvider {
                     mobileWallet: mobileWallet,
                     passwordDelegate: passwordDelegate,
                     storageManager: storageManager
+                )
+            case .verifiablePresentation(let params):
+                return VerifiablePresentationRequestModel(
+                    payload: params,
+                    account: account,
+                    sessionRequest: sessionRequest,
+                    transactionsService: transactionsService,
+                    mobileWallet: mobileWallet,
+                    passwordDelegate: passwordDelegate
                 )
         }
     }
