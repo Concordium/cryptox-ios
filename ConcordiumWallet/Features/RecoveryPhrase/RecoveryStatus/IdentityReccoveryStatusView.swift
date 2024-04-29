@@ -53,15 +53,6 @@ struct IdentityReccoveryStatusView: Page {
         switch viewModel.status {
         case .fetching:
             EmptyView()
-//        case .emptyResponse:
-//            Button(viewModel.tryAgain) {
-//                viewModel.send(.fetchIdentities)
-//            }
-//            .applyStandardButtonStyle()
-//            .padding([.bottom], 16)
-//            Button(viewModel.changeRecoveryPhrase) {
-//                viewModel.send(.changeRecoveryPhrase)
-//            }.applyStandardButtonStyle()
         case .success, .emptyResponse:
             Button(viewModel.continueLongLabel) {
                 viewModel.send(.finish)
@@ -79,22 +70,6 @@ struct IdentityReccoveryStatusView: Page {
             }
         }
     }
-    
-//    private var titleColor: Color {
-//        if viewModel.status == .emptyResponse {
-//            return Pallette.error
-//        } else {
-//            return Pallette.primary
-//        }
-//    }
-    
-//    private var messageColor: Color {
-//        if viewModel.status == .fetching {
-//            return Pallette.fadedText
-//        } else {
-//            return Pallette.text
-//        }
-//    }
     
     private var imageName: String {
         switch viewModel.status {
@@ -179,34 +154,8 @@ struct IdentityReccoveryStatusView_Previews: PreviewProvider {
                 continueLongLabel: "Continue to wallet",
                 continueLabel: "Continue",
                 tryAgain: "Try again"
-//                changeRecoveryPhrase: "Enter another recovery phrase"
             )
         )
-        
-//        IdentityReccoveryStatusView(
-//            viewModel: .init(
-//                status: .emptyResponse,
-//                title: "We found nothing to recover.",
-//                message: """
-//There was no accounts to be found for the secret recovery phrase. Did you maybe enter a wrong recovery phrase?
-//
-//If you only have an identity and no accounts, this can also be the reason. In this case please specify which identity provider you used to get your identity, so we can send them a request.
-//""",
-//                continueLabel: "Continue to wallet",
-//                tryAgain: "Try again"
-////                changeRecoveryPhrase: "Enter another recovery phrase")
-//        )
-        
-//        IdentityReccoveryStatusView(
-//            viewModel: .init(
-//                status: .success([IdentityEntity()], [AccountEntity()]),
-//                title: "Recovery finished",
-//                message: "You have successfully recovered:",
-//                continueLabel: "Continue to wallet",
-//                tryAgain: "Try again"
-////                changeRecoveryPhrase: "Enter another recovery phrase"
-//            )
-//        )
     }
 }
 

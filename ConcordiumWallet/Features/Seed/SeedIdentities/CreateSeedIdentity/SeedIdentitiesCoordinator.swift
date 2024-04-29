@@ -161,19 +161,6 @@ class SeedIdentitiesCoordinator: Coordinator {
         let viewControllers = navigationController.viewControllers.filter { $0.isPresenting(page: RecoveryPhraseGettingStartedView.self) }
         navigationController.setViewControllers(viewControllers + [controller], animated: true)
     }
-    
-    func showMainTabbar() {
-//        navigationController.setupBaseNavigationControllerStyle()
-
-        accountsCoordinator = AccountsCoordinator(
-            navigationController: self.navigationController,
-            dependencyProvider: ServicesProvider.defaultProvider(),
-            appSettingsDelegate: self//,
-//            accountsPresenterDelegate: self
-        )
-        // accountsCoordinator?.delegate = self
-        accountsCoordinator?.start()
-    }
 }
 
 extension SeedIdentitiesCoordinator: SeedIdentityOnboardingPresenterDelegate {
@@ -295,8 +282,8 @@ extension SeedIdentitiesCoordinator: SubmittedSeedAccountPresenterDelegate {
 
 extension SeedIdentitiesCoordinator: IdentityRecoveryStatusPresenterDelegate {
     func identityRecoveryCompleted() {
-        showMainTabbar()
         childCoordinators.removeAll { $0 is RecoveryPhraseCoordinator }
+        navigationController.dismiss(animated: true)
     }
     
     func reenterRecoveryPhrase() {
