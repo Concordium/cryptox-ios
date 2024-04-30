@@ -151,9 +151,10 @@ extension AccountsMainViewModel {
             do {
                 try await defaultCIS2TokenManager.addDefaultCIS2Token(to: account)
                 await reload()
-
             } catch {
-                logger.errorLog("failed to add default tokens to account: \(account.address)")
+                DispatchQueue.main.async {
+                    logger.errorLog("failed to add default tokens to account: \(account.address)")
+                }
             }
         }
     }

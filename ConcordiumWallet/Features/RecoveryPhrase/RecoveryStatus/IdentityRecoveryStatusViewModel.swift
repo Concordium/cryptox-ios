@@ -10,13 +10,11 @@ import Combine
 
 enum IdentityRecoveryStatusEvent {
     case fetchIdentities
-//    case changeRecoveryPhrase
     case finish
 }
 
 enum IdentityRecoveryStatus: Equatable {
     case fetching
-//    case failed
     case emptyResponse
     case success([IdentityDataType], [AccountDataType])
     case partial([IdentityDataType], [AccountDataType], [String])
@@ -34,8 +32,6 @@ enum IdentityRecoveryStatus: Equatable {
         switch (lhs, rhs) {
         case (.fetching, .fetching):
             return true
-//        case (.failed, .failed):
-//            return true
         case (.emptyResponse, .emptyResponse):
             return true
         case let (.success(lhsIdentities, lhsAccounts), .success(rhsIdentities, rhsAccounts)):
@@ -63,7 +59,6 @@ class IdentityRecoveryStatusViewModel: PageViewModel<IdentityRecoveryStatusEvent
     @Published var continueLongLabel: String
     @Published var continueLabel: String
     @Published var tryAgain: String
-//    @Published var changeRecoveryPhrase: String
     
     init(
         status: IdentityRecoveryStatus,
@@ -72,7 +67,6 @@ class IdentityRecoveryStatusViewModel: PageViewModel<IdentityRecoveryStatusEvent
         continueLongLabel: String,
         continueLabel: String,
         tryAgain: String
-//        changeRecoveryPhrase: String
     ) {
         self.status = status
         self.title = title
@@ -80,6 +74,5 @@ class IdentityRecoveryStatusViewModel: PageViewModel<IdentityRecoveryStatusEvent
         self.continueLongLabel = continueLongLabel
         self.continueLabel = continueLabel
         self.tryAgain = tryAgain
-//        self.changeRecoveryPhrase = changeRecoveryPhrase
     }
 }
