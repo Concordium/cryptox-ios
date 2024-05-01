@@ -388,9 +388,9 @@ process on-chain.";
 "more.about" = "About";
 "more.about.title" = "About";
 "more.about.support.title" = "Support";
-"more.about.support.text" = "If you encountered a problem, or need help with something, you can reach out to us via\ncontact@pioneeringtechventures.com";
+"more.about.support.text" = "If you encountered a problem, or need help with something, you can reach out to us via\nsupport@concordium.software";
 "more.about.website.title" = "Website";
-"more.about.website.text" = "For more info about CryptoX Wallet you can visit\npioneeringtechventures.com";
+"more.about.website.text" = "For more info about CryptoX Wallet you can visit\nhttps://concordium.com";
 "more.about.appVersion.title" = "App Version";
 
 "accountDetails.testnetGtuDropTitle" = "TESTNET CCD DROP";
@@ -1153,12 +1153,12 @@ Remember to restart your node with the validator keys.";
 
 "burgermenu.releaseschedule" = "Release Schedule";
 "burgermenu.transferfilters" = "Transfer Filters";
-"burgermenu.showshieldedbalance" = "Show shielded balance";
-"burgermenu.hideshieldedbalance" = "Hide shielded balance";
+"burgermenu.showshieldedbalance" = "Show Shielded Balance";
+"burgermenu.hideshieldedbalance" = "Hide Shielded Balance";
 "burgermenu.decrypt" = "Decrypt";
 "burgermenu.exportprivatekey" = "Export Private Key";
-"burgermenu.exporttransactionlog" = "Export transaction logs";
-"burgermenu.renameaccount" = "Change account name";
+"burgermenu.exporttransactionlog" = "Export Transaction Logs";
+"burgermenu.renameaccount" = "Change Account Name";
 
 "exporttransactionlog.navigationtitle" = "Export transaction logs";
 "exporttransactionlog.save" = "Save transaction logs";
