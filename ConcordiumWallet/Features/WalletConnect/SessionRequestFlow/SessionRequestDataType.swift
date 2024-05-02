@@ -40,12 +40,24 @@ enum SessionRequestDataType {
     case signMessage(SignMessagePayload)
     case simpleTransfer(SimpleTransferRequestParams)
     case signAndSend(ContractUpdateRequestParams)
+    case verifiablePresentation(VerifiablePresentationRequestParams)
     
     /// Basically we support two types of incoming wallet connect requests: `sign_message` & `sign_message`
     /// In case of `sign_message` wee need to determine what king of request is: send or update.
     /// having this info we can properly map income request data payload
     init(sessionRequest: Request) throws {
         switch sessionRequest.method {
+            case "request_verifiable_presentation":
+                do {
+                    struct DummyJSON: Codable {
+                        let paramsJson: String
+                    }
+                    let dummy = try sessionRequest.params.get(DummyJSON.self)
+                    let payload: VerifiablePresentationRequestParams = try JSONDecoder().decode(VerifiablePresentationRequestParams.self, from: Data(dummy.paramsJson.utf8))
+                    self = .verifiablePresentation(payload)
+                } catch {
+                    throw SessionRequstError.unSupportedRequestMethod
+                }
             case "sign_message":
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: sessionRequest.params.value, options: [])

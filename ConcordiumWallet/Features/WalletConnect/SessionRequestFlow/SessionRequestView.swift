@@ -23,7 +23,7 @@ struct SessionRequestView: View {
                 VStack(spacing: 8) {
                     HStack {
                         VStack(alignment: .leading) {
-                            Text("Sign transaction")
+                            Text(viewModel.title)
                                 .foregroundColor(.white)
                                 .font(.system(size: 28, weight: .semibold))
                             Text(viewModel.method)
@@ -45,8 +45,19 @@ struct SessionRequestView: View {
                                 .padding(.bottom, 16)
                         }
                         
-                        if viewModel.message != "[:]" {
-                            authRequestView()
+                        switch viewModel.requestType {
+                            case .signMessage, .simpleTransfer, .signAndSend:
+                                if viewModel.message != "[:]" {
+                                    authRequestView()
+                                }
+                            case .verifiablePresentation:
+                                if let requestModel = viewModel.requestModel as? VerifiablePresentationRequestModel {
+                                    VerifiablePresentationRequestParamsView(viewModel: requestModel)
+                                } else {
+                                    EmptyView()
+                                }
+                            case .none:
+                                EmptyView()
                         }
                     }
                     .frame(minHeight: 100)
@@ -137,7 +148,8 @@ struct SessionRequestView: View {
                 
                 VStack(spacing: 0) {
                     ScrollView {
-                        Text(viewModel.message)
+                        let content = try! AttributedString(markdown: viewModel.message)
+                        Text(content)
                             .foregroundColor(.white)
                             .font(.system(size: 13, weight: .medium))
                     }

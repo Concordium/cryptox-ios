@@ -21,9 +21,12 @@ final class SessionRequestViewModel: ObservableObject {
     @Published var message: String
     @Published var method: String
     
+    @Published var title: String = "Sign Transaction"
+    
     private let sessionRequest: Request
     private var cancellables = [AnyCancellable]()
-    private var requestModel: SessionRequestDataProvidable?
+    
+    var requestModel: SessionRequestDataProvidable?
     
     @Published var requestType: SessionRequestDataType?
     
@@ -53,8 +56,10 @@ final class SessionRequestViewModel: ObservableObject {
                         passwordDelegate: passwordDelegate,
                         storageManager: storageManager
                     )
+                    self.title = self.requestModel?.title ?? "Sign Transaction"
                 } catch is SessionRequstError {
                     self.error = error
+                    logger.debug("\(self.error?.errorMessage ?? "unknown error")")
                 } catch {
                     logger.debug("unknown error --- \(error)")
                 }

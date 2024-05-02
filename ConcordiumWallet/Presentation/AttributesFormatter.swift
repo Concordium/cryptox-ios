@@ -23,7 +23,7 @@ enum Sex: String {
     case notApplicable = "9"
 }
 
-enum ChosenAttributeKeys: String, CodingKey, CaseIterable {
+enum ChosenAttributeKeys: String, CodingKey, CaseIterable, Codable {
     case firstName, lastName, sex, dob, countryOfResidence, nationality
     case idDocType, idDocNo, idDocIssuer, idDocIssuedAt, idDocExpiresAt
     case nationalIdNo, taxIdNo

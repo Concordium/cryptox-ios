@@ -1315,3 +1315,13 @@ Remember to restart your node with the validator keys.";
 "[%@](https://pioneeringtechventures.com/privacy-policy)" = "[%@](https://pioneeringtechventures.com/privacy-policy)";
 "[%@](https://pioneeringtechventures.com/terms-and-conditions)" = "[%@](https://pioneeringtechventures.com/terms-and-conditions)";
 
+
+
+// ID 2.5
+
+"reveal_description" = "Note that all the information above will be revealed to the connected service.";
+"unable_to_prove_request" = "You are unable to prove the entire request. You may go through the statements, but you won\'t be able to approve the request.";
+"identity_proofs_range_statement_description" = "This will prove that your %@ is between %@ and %@";
+"identity_attribute_birth_date" = "Date of birth";
+"identity_proofs_age_max" = "%@ years or older";
+"identity_proofs_age_min" = "%@ years or younger";
