@@ -91,7 +91,7 @@ final class SessionProposalViewModel: ObservableObject {
                 events: supportedEvents,
                 accounts: supportedAccounts
             )
-            try await Web3Wallet.instance.approve(proposalId: sessionProposal.id, namespaces: sessionNamespaces)
+            try await Sign.instance.approve(proposalId: sessionProposal.id, namespaces: sessionNamespaces)
             completion?()
         } catch {
             logger.debugLog(error.localizedDescription)
@@ -101,7 +101,7 @@ final class SessionProposalViewModel: ObservableObject {
     @MainActor
     func rejectSessionRequest(_ completion: (() -> Void)?) async {
         do {
-            try await Web3Wallet.instance.reject(proposalId: sessionProposal.id, reason: .userRejected)
+            try await Sign.instance.reject(proposalId: sessionProposal.id, reason: .userRejected)
             completion?()
         } catch {
             logger.debugLog(error.localizedDescription)

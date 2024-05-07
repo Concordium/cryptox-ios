@@ -47,7 +47,7 @@ final class IncomeRequestValidator {
         // A WalletConnect session should always be for exactly one account. If there are more, then
         // we cannot uniquely determine the correct account address.
         guard
-            let session = Web3Wallet.instance.getSessions().first(where: { $0.topic == sessionRequest.topic }),
+            let session = Sign.instance.getSessions().first(where: { $0.topic == sessionRequest.topic }),
             session.accounts.count == 1,
             let walletConnectAccount = session.accounts.first
         else {

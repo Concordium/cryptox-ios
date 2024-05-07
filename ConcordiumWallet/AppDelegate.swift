@@ -31,9 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window?.rootViewController = appCoordinator.navigationController
         window?.makeKeyAndVisible()
-                
-        configure()
-        
         
         // Warn if device is jail broken.
         if  let url = launchOptions?[.url] as? URL, let scheme = url.scheme, scheme.localizedCaseInsensitiveCompare("tcwb") == .orderedSame, let view = url.host {
@@ -145,33 +142,5 @@ extension UIViewController {
 extension UIApplication {
     func topMostViewController() -> UIViewController? {
         return self.keyWindow?.rootViewController?.topMostViewController()
-    }
-}
-
-extension AppDelegate {
-    func configure() {
-        Networking.configure(projectId: "f64859abcbf5c1de9520a27399f3097c", socketFactory: DefaultSocketFactory())
-
-        let metadata = AppMetadata(
-            name: "CryptoX",
-            description: "CryptoX - Blockchain Wallet",
-            url: "https://apps.apple.com/app/cryptox-wallet/id1593386457",
-            icons: ["https://is2-ssl.mzstatic.com/image/thumb/Purple122/v4/d2/76/4f/d2764f4a-cb11-2039-7edf-7bb1a7ea36d8/AppIcon-1x_U007emarketing-0-5-0-sRGB-85-220.png/230x0w.png"]
-        )
-        
-        Web3Wallet.configure(metadata: metadata, crypto: DefaultCryptoProvider(), environment: APNSEnvironment.sandbox)
-    }
-}
-
-struct DefaultCryptoProvider: CryptoProvider {
-
-    public func recoverPubKey(signature: EthereumSignature, message: Data) throws -> Data {
-      Data()
-    }
-
-    public func keccak256(_ data: Data) -> Data { Data()
-//        let digest = SHA3(variant: .keccak256)
-//        let hash = digest.calculate(for: [UInt8](data))
-//        return Data(hash)
     }
 }
