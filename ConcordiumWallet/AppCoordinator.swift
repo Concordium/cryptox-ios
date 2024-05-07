@@ -161,7 +161,8 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         let accountsCoordinator = AccountsCoordinator(
             navigationController: CXNavigationController(),
             dependencyProvider: defaultProvider,
-            appSettingsDelegate: self
+            appSettingsDelegate: self,
+            walletConnectService: WalletConnectService()
         )
         self.accountsCoordinator = accountsCoordinator
         

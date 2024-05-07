@@ -18,6 +18,7 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
     
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
+    
     private var dependencyProvider: DependencyProvider
     private var loginDependencyProvider: LoginDependencyProvider
     private var sanityChecker: SanityChecker
@@ -200,16 +201,6 @@ extension MoreCoordinator: MoreMenuPresenterDelegate {
         let vc = presenter.present(IdentityReccoveryStatusView.self)
         vc.modalPresentationStyle = .overFullScreen
         navigationController.present(vc, animated: true)
-    }
-    
-    func showMainTabbar() {
-        accountsCoordinator = AccountsCoordinator(
-            navigationController: self.navigationController,
-            dependencyProvider: ServicesProvider.defaultProvider(),
-            appSettingsDelegate: self
-        )
-        
-        accountsCoordinator?.start()
     }
     
     func aboutSelected() {

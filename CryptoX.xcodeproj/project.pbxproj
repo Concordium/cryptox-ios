@@ -730,10 +730,6 @@
 		08A0441C29FA888600DACE1F /* MnemonicSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 08A0441B29FA888600DACE1F /* MnemonicSwift */; };
 		08A0442129FA892F00DACE1F /* Base58Swift in Frameworks */ = {isa = PBXBuildFile; productRef = 08A0442029FA892F00DACE1F /* Base58Swift */; };
 		08A0442529FA893700DACE1F /* Base58Swift in Frameworks */ = {isa = PBXBuildFile; productRef = 08A0442429FA893700DACE1F /* Base58Swift */; };
-		08A0442C29FA8C0500DACE1F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 08A0442B29FA8C0500DACE1F /* FirebaseAnalytics */; };
-		08A0442E29FA8C0A00DACE1F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 08A0442D29FA8C0A00DACE1F /* FirebaseAuth */; };
-		08A0443429FA8C1800DACE1F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 08A0443329FA8C1800DACE1F /* FirebaseAnalytics */; };
-		08A0443629FA8C1800DACE1F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 08A0443529FA8C1800DACE1F /* FirebaseAuth */; };
 		08A0444329FA905700DACE1F /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 08A0444229FA905700DACE1F /* Kingfisher */; };
 		08A0444729FA906200DACE1F /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 08A0444629FA906200DACE1F /* Kingfisher */; };
 		08A0446F29FA987700DACE1F /* SeedIdentityObjectWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A0445E29FA987200DACE1F /* SeedIdentityObjectWrapper.swift */; };
@@ -1569,11 +1565,9 @@
 		08C168C92BB7396200E61326 /* IdentityChoosePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE942A026B6400042957 /* IdentityChoosePresenter.swift */; };
 		08C168CA2BB7396200E61326 /* PageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF0CF2A02848400042957 /* PageList.swift */; };
 		08C168CB2BB7396200E61326 /* ExportContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F1462794B5EC003F2FBB /* ExportContainer.swift */; };
-		08C168CC2BB7396200E61326 /* ConsentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F3452794B8E5003F2FBB /* ConsentManager.swift */; };
 		08C168CD2BB7396200E61326 /* SeedMobileWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF0152A02727C00042957 /* SeedMobileWallet.swift */; };
 		08C168CE2BB7396200E61326 /* SingleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2ED4F802767556C4ABBE9 /* SingleSection.swift */; };
 		08C168CF2BB7396200E61326 /* TransferCost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A044C729FA99C200DACE1F /* TransferCost.swift */; };
-		08C168D02BB7396200E61326 /* AnalyticsPermissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D521B36A2757A5280020CF16 /* AnalyticsPermissionController.swift */; };
 		08C168D12BB7396200E61326 /* RecoverAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D103DF2B5692A70057E844 /* RecoverAccountsView.swift */; };
 		08C168D22BB7396200E61326 /* IdentityProviderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEED02A026E9400042957 /* IdentityProviderListViewController.swift */; };
 		08C168D32BB7396200E61326 /* AccountPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089FF0E12A4C4B58007AB1CF /* AccountPreviewView.swift */; };
@@ -1635,7 +1629,6 @@
 		08C1690C2BB7396200E61326 /* IdentityCreationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F13B2794B5EC003F2FBB /* IdentityCreationStatus.swift */; };
 		08C1690D2BB7396200E61326 /* RecoveryPhraseConfirmPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF0F52A0284AF00042957 /* RecoveryPhraseConfirmPhraseViewModel.swift */; };
 		08C169102BB7396200E61326 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 08C1666F2BB7396200E61326 /* SDWebImageSwiftUI */; };
-		08C169112BB7396200E61326 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 08C166602BB7396200E61326 /* FirebaseAnalytics */; };
 		08C169122BB7396200E61326 /* SwiftCBOR in Frameworks */ = {isa = PBXBuildFile; productRef = 08C1665A2BB7396200E61326 /* SwiftCBOR */; };
 		08C169132BB7396200E61326 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 08C166582BB7396200E61326 /* RealmSwift */; };
 		08C169142BB7396200E61326 /* WalletConnectVerify in Frameworks */ = {isa = PBXBuildFile; productRef = 08C1666B2BB7396200E61326 /* WalletConnectVerify */; };
@@ -1649,7 +1642,6 @@
 		08C1691C2BB7396200E61326 /* WalletConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 08C166672BB7396200E61326 /* WalletConnect */; };
 		08C1691D2BB7396200E61326 /* Base58Swift in Frameworks */ = {isa = PBXBuildFile; productRef = 08C1665E2BB7396200E61326 /* Base58Swift */; };
 		08C1691E2BB7396200E61326 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99CFF6D243EFD7E0045B8E6 /* WebKit.framework */; };
-		08C1691F2BB7396200E61326 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 08C166622BB7396200E61326 /* FirebaseAuth */; };
 		08C169212BB7396200E61326 /* intro_flow_onboarding_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2852A02C7E300042957 /* intro_flow_onboarding_en_2.html */; };
 		08C169222BB7396200E61326 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A7723EADB1400F1FC04 /* LaunchScreen.storyboard */; };
 		08C169232BB7396200E61326 /* baker_update_flow_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3032A02C9D900042957 /* baker_update_flow_en_4.html */; };
@@ -1676,7 +1668,7 @@
 		08C169382BB7396200E61326 /* baker_update_flow_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3042A02C9D900042957 /* baker_update_flow_en_5.html */; };
 		08C169392BB7396200E61326 /* baker_update_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3052A02C9D900042957 /* baker_update_flow_en_1.html */; };
 		08C1693A2BB7396200E61326 /* NoDataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D54ABC1F26E14A5C00F4E773 /* NoDataView.xib */; };
-		08C1693B2BB7396200E61326 /* readme.md in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A9F23EADBB100F1FC04 /* readme.md */; };
+		08C1693B2BB7396200E61326 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A9F23EADBB100F1FC04 /* README.md */; };
 		08C1693C2BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus_com_amb.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3702794B96B003F2FBB /* 3.4.2.RX_backend_submissionStatus_com_amb.json */; };
 		08C1693D2BB7396200E61326 /* ImportStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 088FF21F2A02A89500042957 /* ImportStatusCell.xib */; };
 		08C1693E2BB7396200E61326 /* NFTItemsStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D58EA769290F53AE0033C8FD /* NFTItemsStatusView.xib */; };
@@ -1773,7 +1765,6 @@
 		08C1699A2BB7396200E61326 /* NFTProviderHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D58EA776290FAEB60033C8FD /* NFTProviderHeaderView.xib */; };
 		08C1699B2BB7396200E61326 /* IBMPlexMono-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08A6BDAA2B30A69800869317 /* IBMPlexMono-Medium.ttf */; };
 		08C1699C2BB7396200E61326 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088FED6C2A0166C700042957 /* Account.storyboard */; };
-		08C1699D2BB7396200E61326 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D521B36027578FBF0020CF16 /* GoogleService-Info.plist */; };
 		08C1699E2BB7396200E61326 /* bakerupdate_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3062A02C9D900042957 /* bakerupdate_flow_style.css */; };
 		08C1699F2BB7396200E61326 /* More.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2192A02A78300042957 /* More.storyboard */; };
 		08C169A02BB7396200E61326 /* seed_identity_onboarding_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3102A02CA0500042957 /* seed_identity_onboarding_en_2.html */; };
@@ -1797,7 +1788,6 @@
 		08C169B22BB7396200E61326 /* AirDropContainerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D52D4F5329181C1600C9A815 /* AirDropContainerView.xib */; };
 		08C169B32BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F36D2794B96B003F2FBB /* 3.4.2.RX_backend_submissionStatus.json */; };
 		08C169B42BB7396200E61326 /* 2.2.2.RX-lib_create_credential.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3602794B96B003F2FBB /* 2.2.2.RX-lib_create_credential.json */; };
-		08C169B52BB7396200E61326 /* AnalyticsPermissionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D521B36B2757A5280020CF16 /* AnalyticsPermissionController.xib */; };
 		08C169B62BB7396200E61326 /* bakerremove_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF30E2A02C9F600042957 /* bakerremove_flow_style.css */; };
 		08C169B72BB7396200E61326 /* 2.3.2.RX_backend_submitCredential.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3632794B96B003F2FBB /* 2.3.2.RX_backend_submitCredential.json */; };
 		08C169B82BB7396200E61326 /* baker_update_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3012A02C9D800042957 /* baker_update_flow_en_3.html */; };
@@ -2113,7 +2103,7 @@
 		7F85B8B4246A9AB600ED09B8 /* SubmissionStatusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E9785641601AE91623C6 /* SubmissionStatusService.swift */; };
 		7F85B8BA246A9AB600ED09B8 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99CFF6D243EFD7E0045B8E6 /* WebKit.framework */; };
 		7F85B8BD246A9AB600ED09B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A7723EADB1400F1FC04 /* LaunchScreen.storyboard */; };
-		7F85B8C0246A9AB600ED09B8 /* readme.md in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A9F23EADBB100F1FC04 /* readme.md */; };
+		7F85B8C0246A9AB600ED09B8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A9F23EADBB100F1FC04 /* README.md */; };
 		7F85B8C5246A9AB600ED09B8 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 19C2E793C0A30253D187EC88 /* .swiftlint.yml */; };
 		7FA8F3B5241BAC9400479F83 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA8F3B4241BAC9400479F83 /* AppCoordinator.swift */; };
 		7FCC0E8224200A2E007030EC /* LoginErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCC0E8124200A2E007030EC /* LoginErrorLabel.swift */; };
@@ -2128,7 +2118,7 @@
 		7FF07AC323EADBB100F1FC04 /* UIStackView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9923EADBB100F1FC04 /* UIStackView+extension.swift */; };
 		7FF07AC423EADBB100F1FC04 /* UITableView+scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9A23EADBB100F1FC04 /* UITableView+scroll.swift */; };
 		7FF07AC623EADBB100F1FC04 /* String+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9C23EADBB100F1FC04 /* String+Additions.swift */; };
-		7FF07AC923EADBB100F1FC04 /* readme.md in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A9F23EADBB100F1FC04 /* readme.md */; };
+		7FF07AC923EADBB100F1FC04 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A9F23EADBB100F1FC04 /* README.md */; };
 		7FF07AE223EADEFD00F1FC04 /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AE123EADEFD00F1FC04 /* String+Localizable.swift */; };
 		7FF07AE823EAFF5000F1FC04 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AE723EAFF5000F1FC04 /* MainTabBarController.swift */; };
 		7FF07AEE23EB075D00F1FC04 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AED23EB075D00F1FC04 /* Storyboarded.swift */; };
@@ -2163,12 +2153,6 @@
 		D5087B6828EE4C5E0082A05F /* NFTDataStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5087B6428EE4C5E0082A05F /* NFTDataStatusView.xib */; };
 		D5113A3A271733510004841E /* WebSocketDecodingStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5113A38271733510004841E /* WebSocketDecodingStrategy.swift */; };
 		D5113A3C271733510004841E /* WebSocketDecodingStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5113A38271733510004841E /* WebSocketDecodingStrategy.swift */; };
-		D521B36327578FD20020CF16 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D521B36027578FBF0020CF16 /* GoogleService-Info.plist */; };
-		D521B36627578FDF0020CF16 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D521B36427578FDB0020CF16 /* GoogleService-Info.plist */; };
-		D521B36E2757A7640020CF16 /* AnalyticsPermissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D521B36A2757A5280020CF16 /* AnalyticsPermissionController.swift */; };
-		D521B36F2757A7640020CF16 /* AnalyticsPermissionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D521B36B2757A5280020CF16 /* AnalyticsPermissionController.xib */; };
-		D521B3702757A7650020CF16 /* AnalyticsPermissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D521B36A2757A5280020CF16 /* AnalyticsPermissionController.swift */; };
-		D521B3712757A7650020CF16 /* AnalyticsPermissionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D521B36B2757A5280020CF16 /* AnalyticsPermissionController.xib */; };
 		D521B3762757B32E0020CF16 /* Locate+Additionals.swift in Sources */ = {isa = PBXBuildFile; fileRef = D521B3742757B20D0020CF16 /* Locate+Additionals.swift */; };
 		D521B3782757B3300020CF16 /* Locate+Additionals.swift in Sources */ = {isa = PBXBuildFile; fileRef = D521B3742757B20D0020CF16 /* Locate+Additionals.swift */; };
 		D52D4F5029181C0B00C9A815 /* AirDropContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52D4F4E29181C0B00C9A815 /* AirDropContainerView.swift */; };
@@ -2336,8 +2320,6 @@
 		D589F3402794B7DD003F2FBB /* Model+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F33B2794B7DD003F2FBB /* Model+Transaction.swift */; };
 		D589F3422794B7DD003F2FBB /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F33C2794B7DD003F2FBB /* Models.swift */; };
 		D589F3442794B7DD003F2FBB /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F33C2794B7DD003F2FBB /* Models.swift */; };
-		D589F3482794B8E5003F2FBB /* ConsentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F3452794B8E5003F2FBB /* ConsentManager.swift */; };
-		D589F34A2794B8E5003F2FBB /* ConsentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F3452794B8E5003F2FBB /* ConsentManager.swift */; };
 		D589F34C2794B8E5003F2FBB /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F3462794B8E5003F2FBB /* LocationManager.swift */; };
 		D589F34E2794B8E5003F2FBB /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F3462794B8E5003F2FBB /* LocationManager.swift */; };
 		D589F3792794B96B003F2FBB /* 4.3.2.RX_backend_accEncryptionKey.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3502794B96A003F2FBB /* 4.3.2.RX_backend_accEncryptionKey.json */; };
@@ -3271,7 +3253,7 @@
 		7FF07A9923EADBB100F1FC04 /* UIStackView+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStackView+extension.swift"; sourceTree = "<group>"; };
 		7FF07A9A23EADBB100F1FC04 /* UITableView+scroll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+scroll.swift"; sourceTree = "<group>"; };
 		7FF07A9C23EADBB100F1FC04 /* String+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Additions.swift"; sourceTree = "<group>"; };
-		7FF07A9F23EADBB100F1FC04 /* readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
+		7FF07A9F23EADBB100F1FC04 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		7FF07AAC23EADBB100F1FC04 /* BaseNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		7FF07AE123EADEFD00F1FC04 /* String+Localizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Localizable.swift"; sourceTree = "<group>"; };
 		7FF07AE723EAFF5000F1FC04 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -3301,10 +3283,6 @@
 		D5087B5F28EE4C4A0082A05F /* NFTEmptyStatusView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NFTEmptyStatusView.xib; sourceTree = "<group>"; };
 		D5087B6428EE4C5E0082A05F /* NFTDataStatusView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NFTDataStatusView.xib; sourceTree = "<group>"; };
 		D5113A38271733510004841E /* WebSocketDecodingStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketDecodingStrategy.swift; sourceTree = "<group>"; };
-		D521B36027578FBF0020CF16 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		D521B36427578FDB0020CF16 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		D521B36A2757A5280020CF16 /* AnalyticsPermissionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsPermissionController.swift; sourceTree = "<group>"; };
-		D521B36B2757A5280020CF16 /* AnalyticsPermissionController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnalyticsPermissionController.xib; sourceTree = "<group>"; };
 		D521B3742757B20D0020CF16 /* Locate+Additionals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locate+Additionals.swift"; sourceTree = "<group>"; };
 		D52D4F4E29181C0B00C9A815 /* AirDropContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirDropContainerView.swift; sourceTree = "<group>"; };
 		D52D4F5329181C1600C9A815 /* AirDropContainerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AirDropContainerView.xib; sourceTree = "<group>"; };
@@ -3389,7 +3367,6 @@
 		D589F3112794B678003F2FBB /* ServicesProvider+mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ServicesProvider+mock.swift"; sourceTree = "<group>"; };
 		D589F33B2794B7DD003F2FBB /* Model+Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Model+Transaction.swift"; sourceTree = "<group>"; };
 		D589F33C2794B7DD003F2FBB /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
-		D589F3452794B8E5003F2FBB /* ConsentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsentManager.swift; sourceTree = "<group>"; };
 		D589F3462794B8E5003F2FBB /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		D589F3502794B96A003F2FBB /* 4.3.2.RX_backend_accEncryptionKey.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 4.3.2.RX_backend_accEncryptionKey.json; sourceTree = "<group>"; };
 		D589F3512794B96A003F2FBB /* 3.4.2.RX_backend_submissionStatus_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 3.4.2.RX_backend_submissionStatus_success.json; sourceTree = "<group>"; };
@@ -3529,7 +3506,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				08C169102BB7396200E61326 /* SDWebImageSwiftUI in Frameworks */,
-				08C169112BB7396200E61326 /* FirebaseAnalytics in Frameworks */,
 				08C169122BB7396200E61326 /* SwiftCBOR in Frameworks */,
 				08C169132BB7396200E61326 /* RealmSwift in Frameworks */,
 				08C169142BB7396200E61326 /* WalletConnectVerify in Frameworks */,
@@ -3543,7 +3519,6 @@
 				08C1691C2BB7396200E61326 /* WalletConnect in Frameworks */,
 				08C1691D2BB7396200E61326 /* Base58Swift in Frameworks */,
 				08C1691E2BB7396200E61326 /* WebKit.framework in Frameworks */,
-				08C1691F2BB7396200E61326 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3552,7 +3527,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				083505052A9F4F0F000D5175 /* SDWebImageSwiftUI in Frameworks */,
-				08A0443429FA8C1800DACE1F /* FirebaseAnalytics in Frameworks */,
 				08A0441329FA885300DACE1F /* SwiftCBOR in Frameworks */,
 				08A0441129FA884F00DACE1F /* RealmSwift in Frameworks */,
 				089B34252A16851700F3CD90 /* WalletConnectVerify in Frameworks */,
@@ -3566,7 +3540,6 @@
 				089B340C2A16377600F3CD90 /* WalletConnect in Frameworks */,
 				08A0442529FA893700DACE1F /* Base58Swift in Frameworks */,
 				7F85B8BA246A9AB600ED09B8 /* WebKit.framework in Frameworks */,
-				08A0443629FA8C1800DACE1F /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3577,13 +3550,11 @@
 				08A0442129FA892F00DACE1F /* Base58Swift in Frameworks */,
 				083505002A9E3DFA000D5175 /* SDWebImageSVGCoder in Frameworks */,
 				08A0440929FA883E00DACE1F /* RealmSwift in Frameworks */,
-				08A0442C29FA8C0500DACE1F /* FirebaseAnalytics in Frameworks */,
 				089FF0EA2A4F4CF0007AB1CF /* JDStatusBarNotification in Frameworks */,
 				089E32812A0BA0CE002AE530 /* ConcordiumWalletCrypto in Frameworks */,
 				089B340F2A16489700F3CD90 /* Web3Wallet in Frameworks */,
 				083504FD2A9E3DCA000D5175 /* SDWebImageSwiftUI in Frameworks */,
 				08A0444329FA905700DACE1F /* Kingfisher in Frameworks */,
-				08A0442E29FA8C0A00DACE1F /* FirebaseAuth in Frameworks */,
 				089B340A2A16376B00F3CD90 /* WalletConnect in Frameworks */,
 				08A0440B29FA884100DACE1F /* SwiftCBOR in Frameworks */,
 				08A0441829FA887700DACE1F /* MnemonicSwift in Frameworks */,
@@ -5425,11 +5396,10 @@
 		7FF07A6023EADB1200F1FC04 = {
 			isa = PBXGroup;
 			children = (
-				7FF07A9F23EADBB100F1FC04 /* readme.md */,
+				7FF07A9F23EADBB100F1FC04 /* README.md */,
 				644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */,
 				0893CC452A66D36C00A10F73 /* Logger.swift */,
 				7FF07A6B23EADB1200F1FC04 /* ConcordiumWallet */,
-				D589279F27566139005644B5 /* Crashlytics */,
 				7FF07A8223EADB1500F1FC04 /* ConcordiumWalletTests */,
 				7FA3FE3E23F43AEB00A3D8B8 /* Dependencies */,
 				6BB39F873C67A7442AE8DD30 /* Frameworks */,
@@ -5585,7 +5555,6 @@
 				D5FA3E74291343750071A779 /* Airdrop */,
 				D5612B6B28EA19CE00582AD4 /* Collections */,
 				D578396427A08AF200FFD123 /* BackUpAlertController */,
-				D521B3692757A5060020CF16 /* AnalyticsPermission */,
 				FAAA492627450E47007EFA61 /* AccountsTotalHeader */,
 				D5CFCF28273922B500888E1B /* QRTransactionData */,
 				D594F7C42718BE1B008F532E /* QRConnectApprove */,
@@ -5662,15 +5631,6 @@
 				19C2EE201F8E02CE561DA70D /* GTU.swift */,
 			);
 			path = Presentation;
-			sourceTree = "<group>";
-		};
-		D521B3692757A5060020CF16 /* AnalyticsPermission */ = {
-			isa = PBXGroup;
-			children = (
-				D521B36A2757A5280020CF16 /* AnalyticsPermissionController.swift */,
-				D521B36B2757A5280020CF16 /* AnalyticsPermissionController.xib */,
-			);
-			path = AnalyticsPermission;
 			sourceTree = "<group>";
 		};
 		D52D4F4D29181BD000C9A815 /* Views */ = {
@@ -5778,31 +5738,6 @@
 				D578396527A08B1200FFD123 /* BackupAlertController.swift */,
 			);
 			path = BackUpAlertController;
-			sourceTree = "<group>";
-		};
-		D589279F27566139005644B5 /* Crashlytics */ = {
-			isa = PBXGroup;
-			children = (
-				D58927A027566139005644B5 /* ProdNet */,
-				D58927A127566139005644B5 /* StageNet */,
-			);
-			path = Crashlytics;
-			sourceTree = "<group>";
-		};
-		D58927A027566139005644B5 /* ProdNet */ = {
-			isa = PBXGroup;
-			children = (
-				D521B36027578FBF0020CF16 /* GoogleService-Info.plist */,
-			);
-			path = ProdNet;
-			sourceTree = "<group>";
-		};
-		D58927A127566139005644B5 /* StageNet */ = {
-			isa = PBXGroup;
-			children = (
-				D521B36427578FDB0020CF16 /* GoogleService-Info.plist */,
-			);
-			path = StageNet;
 			sourceTree = "<group>";
 		};
 		D589F1202794B5EB003F2FBB /* Model */ = {
@@ -5985,7 +5920,6 @@
 		D589F3062794B678003F2FBB /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				D589F3452794B8E5003F2FBB /* ConsentManager.swift */,
 				D589F3462794B8E5003F2FBB /* LocationManager.swift */,
 				D589F3072794B678003F2FBB /* StorageManager.swift */,
 				D589F3082794B678003F2FBB /* ErrorMapper.swift */,
@@ -6237,8 +6171,6 @@
 				08C1665A2BB7396200E61326 /* SwiftCBOR */,
 				08C1665C2BB7396200E61326 /* MnemonicSwift */,
 				08C1665E2BB7396200E61326 /* Base58Swift */,
-				08C166602BB7396200E61326 /* FirebaseAnalytics */,
-				08C166622BB7396200E61326 /* FirebaseAuth */,
 				08C166632BB7396200E61326 /* Kingfisher */,
 				08C166652BB7396200E61326 /* ConcordiumWalletCrypto */,
 				08C166672BB7396200E61326 /* WalletConnect */,
@@ -6273,8 +6205,6 @@
 				08A0441229FA885300DACE1F /* SwiftCBOR */,
 				08A0441B29FA888600DACE1F /* MnemonicSwift */,
 				08A0442429FA893700DACE1F /* Base58Swift */,
-				08A0443329FA8C1800DACE1F /* FirebaseAnalytics */,
-				08A0443529FA8C1800DACE1F /* FirebaseAuth */,
 				08A0444629FA906200DACE1F /* Kingfisher */,
 				089E32842A0BA0DE002AE530 /* ConcordiumWalletCrypto */,
 				089B340B2A16377600F3CD90 /* WalletConnect */,
@@ -6309,8 +6239,6 @@
 				08A0440A29FA884100DACE1F /* SwiftCBOR */,
 				08A0441729FA887700DACE1F /* MnemonicSwift */,
 				08A0442029FA892F00DACE1F /* Base58Swift */,
-				08A0442B29FA8C0500DACE1F /* FirebaseAnalytics */,
-				08A0442D29FA8C0A00DACE1F /* FirebaseAuth */,
 				08A0444229FA905700DACE1F /* Kingfisher */,
 				089E32802A0BA0CE002AE530 /* ConcordiumWalletCrypto */,
 				089B34092A16376B00F3CD90 /* WalletConnect */,
@@ -6378,7 +6306,6 @@
 				08A0440529FA883400DACE1F /* XCRemoteSwiftPackageReference "SwiftCBOR" */,
 				08A0441429FA887000DACE1F /* XCRemoteSwiftPackageReference "MnemonicSwift" */,
 				08A0441D29FA892800DACE1F /* XCRemoteSwiftPackageReference "Base58Swift" */,
-				08A0442629FA8B0600DACE1F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				08A0443F29FA904B00DACE1F /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				089E32782A0B9F27002AE530 /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */,
 				089B34022A16375A00F3CD90 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */,
@@ -6431,7 +6358,7 @@
 				08C169382BB7396200E61326 /* baker_update_flow_en_5.html in Resources */,
 				08C169392BB7396200E61326 /* baker_update_flow_en_1.html in Resources */,
 				08C1693A2BB7396200E61326 /* NoDataView.xib in Resources */,
-				08C1693B2BB7396200E61326 /* readme.md in Resources */,
+				08C1693B2BB7396200E61326 /* README.md in Resources */,
 				08C1693C2BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus_com_amb.json in Resources */,
 				08C1693D2BB7396200E61326 /* ImportStatusCell.xib in Resources */,
 				08C1693E2BB7396200E61326 /* NFTItemsStatusView.xib in Resources */,
@@ -6528,7 +6455,6 @@
 				08C1699A2BB7396200E61326 /* NFTProviderHeaderView.xib in Resources */,
 				08C1699B2BB7396200E61326 /* IBMPlexMono-Medium.ttf in Resources */,
 				08C1699C2BB7396200E61326 /* Account.storyboard in Resources */,
-				08C1699D2BB7396200E61326 /* GoogleService-Info.plist in Resources */,
 				08C1699E2BB7396200E61326 /* bakerupdate_flow_style.css in Resources */,
 				08C1699F2BB7396200E61326 /* More.storyboard in Resources */,
 				08C169A02BB7396200E61326 /* seed_identity_onboarding_en_2.html in Resources */,
@@ -6552,7 +6478,6 @@
 				08C169B22BB7396200E61326 /* AirDropContainerView.xib in Resources */,
 				08C169B32BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus.json in Resources */,
 				08C169B42BB7396200E61326 /* 2.2.2.RX-lib_create_credential.json in Resources */,
-				08C169B52BB7396200E61326 /* AnalyticsPermissionController.xib in Resources */,
 				08C169B62BB7396200E61326 /* bakerremove_flow_style.css in Resources */,
 				08C169B72BB7396200E61326 /* 2.3.2.RX_backend_submitCredential.json in Resources */,
 				08C169B82BB7396200E61326 /* baker_update_flow_en_3.html in Resources */,
@@ -6595,7 +6520,7 @@
 				088FF3592A02CA2700042957 /* baker_update_flow_en_5.html in Resources */,
 				088FF3572A02CA2700042957 /* baker_update_flow_en_1.html in Resources */,
 				D54ABC2326E14A5C00F4E773 /* NoDataView.xib in Resources */,
-				7F85B8C0246A9AB600ED09B8 /* readme.md in Resources */,
+				7F85B8C0246A9AB600ED09B8 /* README.md in Resources */,
 				D589F3FB2794B96C003F2FBB /* 3.4.2.RX_backend_submissionStatus_com_amb.json in Resources */,
 				088FF2272A02A89900042957 /* ImportStatusCell.xib in Resources */,
 				D58EA76D290F53AE0033C8FD /* NFTItemsStatusView.xib in Resources */,
@@ -6692,7 +6617,6 @@
 				D58EA77A290FAEB70033C8FD /* NFTProviderHeaderView.xib in Resources */,
 				08A6BDBD2B31C01500869317 /* IBMPlexMono-Medium.ttf in Resources */,
 				088FEE902A02609A00042957 /* Account.storyboard in Resources */,
-				D521B36327578FD20020CF16 /* GoogleService-Info.plist in Resources */,
 				088FF3542A02CA2700042957 /* bakerupdate_flow_style.css in Resources */,
 				088FF21D2A02A78300042957 /* More.storyboard in Resources */,
 				088FF3262A02CA1600042957 /* seed_identity_onboarding_en_2.html in Resources */,
@@ -6716,7 +6640,6 @@
 				D52D4F5729181C1600C9A815 /* AirDropContainerView.xib in Resources */,
 				D589F3EF2794B96C003F2FBB /* 3.4.2.RX_backend_submissionStatus.json in Resources */,
 				D589F3BB2794B96C003F2FBB /* 2.2.2.RX-lib_create_credential.json in Resources */,
-				D521B3712757A7650020CF16 /* AnalyticsPermissionController.xib in Resources */,
 				088FF3312A02CA1D00042957 /* bakerremove_flow_style.css in Resources */,
 				D589F3C72794B96C003F2FBB /* 2.3.2.RX_backend_submitCredential.json in Resources */,
 				088FF3582A02CA2700042957 /* baker_update_flow_en_3.html in Resources */,
@@ -6751,7 +6674,7 @@
 				D589F4052794B96D003F2FBB /* 2.4.2.RX_backend_submissionStatus.json in Resources */,
 				D5E6CBF6290F47BE009856B7 /* NFTMarketplaceCell.xib in Resources */,
 				088FF32C2A02CA1C00042957 /* baker_remove_flow_en_1.html in Resources */,
-				7FF07AC923EADBB100F1FC04 /* readme.md in Resources */,
+				7FF07AC923EADBB100F1FC04 /* README.md in Resources */,
 				089B34802A1B9E8C00F3CD90 /* unshielding_1.svg in Resources */,
 				08A6BDC02B3318B300869317 /* Colors.xcassets in Resources */,
 				D5B393F327197CDD0094A9F5 /* QRTransactionBuyView.xib in Resources */,
@@ -6820,7 +6743,6 @@
 				088FF2C52A02C98700042957 /* delegation_intro_flow_en_4.html in Resources */,
 				089B347A2A1B9E8300F3CD90 /* shielded_balance_style.css in Resources */,
 				D589F3992794B96B003F2FBB /* 3.3.2.RX_backend_submitTransfer.json in Resources */,
-				D521B36F2757A7640020CF16 /* AnalyticsPermissionController.xib in Resources */,
 				D5883FCF29040C290014F83C /* NFTEmptySearchStatusView.xib in Resources */,
 				7F5F779324891F220016F8D1 /* AppIcon.xcassets in Resources */,
 				D589F3952794B96B003F2FBB /* 4.2.2.RX_backend_accTransactions.json in Resources */,
@@ -6852,7 +6774,6 @@
 				D589F4152794B96D003F2FBB /* backend_invalidRequest_error.json in Resources */,
 				088FF2E52A02C98E00042957 /* intro_flow_onboarding_en_5.html in Resources */,
 				D589F3912794B96B003F2FBB /* 4.2.2.RX_backend_accTransactions_mock.json in Resources */,
-				D521B36627578FDF0020CF16 /* GoogleService-Info.plist in Resources */,
 				088FEE8D2A02609800042957 /* Account.storyboard in Resources */,
 				08A6BDB92B31C01500869317 /* IBMPlexMono-Medium.ttf in Resources */,
 				D58EA778290FAEB70033C8FD /* NFTProviderHeaderView.xib in Resources */,
@@ -7571,11 +7492,9 @@
 				08DB5E0C2BC6C28400C29663 /* StakeReceiptViewController.swift in Sources */,
 				08DB5E0D2BC6C28400C29663 /* StakeReceiptPresenter.swift in Sources */,
 				08C168CB2BB7396200E61326 /* ExportContainer.swift in Sources */,
-				08C168CC2BB7396200E61326 /* ConsentManager.swift in Sources */,
 				08C168CD2BB7396200E61326 /* SeedMobileWallet.swift in Sources */,
 				08C168CE2BB7396200E61326 /* SingleSection.swift in Sources */,
 				08C168CF2BB7396200E61326 /* TransferCost.swift in Sources */,
-				08C168D02BB7396200E61326 /* AnalyticsPermissionController.swift in Sources */,
 				08C168D12BB7396200E61326 /* RecoverAccountsView.swift in Sources */,
 				08C168D22BB7396200E61326 /* IdentityProviderListViewController.swift in Sources */,
 				08C168D32BB7396200E61326 /* AccountPreviewView.swift in Sources */,
@@ -8262,11 +8181,9 @@
 				08DB5E0A2BC6C28200C29663 /* StakeReceiptViewController.swift in Sources */,
 				08DB5E0B2BC6C28200C29663 /* StakeReceiptPresenter.swift in Sources */,
 				D589F20D2794B5ED003F2FBB /* ExportContainer.swift in Sources */,
-				D589F34A2794B8E5003F2FBB /* ConsentManager.swift in Sources */,
 				088FF0192A02727C00042957 /* SeedMobileWallet.swift in Sources */,
 				19C2EFF1CEC944A7FCBC63C5 /* SingleSection.swift in Sources */,
 				08A0462629FA99D300DACE1F /* TransferCost.swift in Sources */,
-				D521B3702757A7650020CF16 /* AnalyticsPermissionController.swift in Sources */,
 				08D103E12B5692A70057E844 /* RecoverAccountsView.swift in Sources */,
 				088FEEE32A026EB100042957 /* IdentityProviderListViewController.swift in Sources */,
 				089FF0E32A4C4B58007AB1CF /* AccountPreviewView.swift in Sources */,
@@ -8562,7 +8479,6 @@
 				08E69CA82A24A2C9001CCA96 /* CIS2TokenMetadataEntity.swift in Sources */,
 				088FF1362A02850100042957 /* RecoveryPhraseCopyPhraseViewModel.swift in Sources */,
 				088FEE1B2A0167FA00042957 /* TransactionsLoadingHandler.swift in Sources */,
-				D521B36E2757A7640020CF16 /* AnalyticsPermissionController.swift in Sources */,
 				08A0454F29FA99D100DACE1F /* CredentialPublicKeys.swift in Sources */,
 				D5E6CBC6290F405B009856B7 /* NFTProvidersDataFlow.swift in Sources */,
 				088FEE732A025A7800042957 /* String+Links.swift in Sources */,
@@ -8949,7 +8865,6 @@
 				D589F20B2794B5ED003F2FBB /* ExportContainer.swift in Sources */,
 				083505022A9F46D4000D5175 /* CryptoImage.swift in Sources */,
 				088FEEA12A026B7200042957 /* IdentityChoosePresenter.swift in Sources */,
-				D589F3482794B8E5003F2FBB /* ConsentManager.swift in Sources */,
 				08DB5E082BC6C28200C29663 /* StakeReceiptViewController.swift in Sources */,
 				08DB5E092BC6C28200C29663 /* StakeReceiptPresenter.swift in Sources */,
 				088FF0D72A02848A00042957 /* PageList.swift in Sources */,
@@ -9585,14 +9500,6 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		08A0442629FA8B0600DACE1F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.0.0;
-			};
-		};
 		08A0443F29FA904B00DACE1F /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
@@ -9631,14 +9538,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.0.0;
-			};
-		};
-		08C166612BB7396200E61326 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.0.0;
 			};
 		};
 		08C166642BB7396200E61326 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
@@ -9820,26 +9719,6 @@
 			package = 08A0441D29FA892800DACE1F /* XCRemoteSwiftPackageReference "Base58Swift" */;
 			productName = Base58Swift;
 		};
-		08A0442B29FA8C0500DACE1F /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 08A0442629FA8B0600DACE1F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
-		08A0442D29FA8C0A00DACE1F /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 08A0442629FA8B0600DACE1F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		08A0443329FA8C1800DACE1F /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 08A0442629FA8B0600DACE1F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
-		08A0443529FA8C1800DACE1F /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 08A0442629FA8B0600DACE1F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
 		08A0444229FA905700DACE1F /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 08A0443F29FA904B00DACE1F /* XCRemoteSwiftPackageReference "Kingfisher" */;
@@ -9869,16 +9748,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 08C1665F2BB7396200E61326 /* XCRemoteSwiftPackageReference "Base58Swift" */;
 			productName = Base58Swift;
-		};
-		08C166602BB7396200E61326 /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 08C166612BB7396200E61326 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
-		08C166622BB7396200E61326 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 08C166612BB7396200E61326 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
 		};
 		08C166632BB7396200E61326 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -29,6 +29,7 @@ class AccountsCoordinator: Coordinator {
     
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
+    
     weak var delegate: AccountsCoordinatorDelegate?
     weak var accountsPresenterDelegate: AccountsPresenterDelegate?
 
@@ -41,13 +42,13 @@ class AccountsCoordinator: Coordinator {
     init(
         navigationController: UINavigationController,
         dependencyProvider: DependencyProvider,
-        appSettingsDelegate: AppSettingsDelegate?//,
-//        accountsPresenterDelegate: AccountsPresenterDelegate
+        appSettingsDelegate: AppSettingsDelegate?,
+        walletConnectService: WalletConnectService
     ) {
         self.navigationController = navigationController
         self.dependencyProvider = dependencyProvider
         self.appSettingsDelegate = appSettingsDelegate
-        self.walletConnectService = WalletConnectService()
+        self.walletConnectService = walletConnectService
 
         self.accountsPresenterDelegate = self
         self.walletConnectService.delegate = self
