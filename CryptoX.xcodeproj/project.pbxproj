@@ -1076,9 +1076,7 @@
 		08C166C02BB7396200E61326 /* AccountDetailsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE0B2A0167F200042957 /* AccountDetailsCoordinator.swift */; };
 		08C166C12BB7396200E61326 /* OperationRoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F7A23526D7A1DB0061E646 /* OperationRoundedView.swift */; };
 		08C166C22BB7396200E61326 /* UIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9123EADBB100F1FC04 /* UIImage+Additions.swift */; };
-		08C166C32BB7396200E61326 /* AirDropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FA3E75291343A10071A779 /* AirDropViewController.swift */; };
 		08C166C42BB7396200E61326 /* MoreMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1AC2A02A6FD00042957 /* MoreMenuViewController.swift */; };
-		08C166C52BB7396200E61326 /* AirDropConnectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52D4F6D29184A9900C9A815 /* AirDropConnectView.swift */; };
 		08C166C62BB7396200E61326 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0893CC452A66D36C00A10F73 /* Logger.swift */; };
 		08C166C72BB7396200E61326 /* ResourceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F30A2794B678003F2FBB /* ResourceRequest.swift */; };
 		08C166C82BB7396200E61326 /* StandardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068DC81523F2E899001B2975 /* StandardButton.swift */; };
@@ -1145,7 +1143,6 @@
 		08C167082BB7396200E61326 /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AE123EADEFD00F1FC04 /* String+Localizable.swift */; };
 		08C167092BB7396200E61326 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1A82A02A67E00042957 /* ExportService.swift */; };
 		08C1670A2BB7396200E61326 /* MaterialTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE822A025B9100042957 /* MaterialTabBar.swift */; };
-		08C1670B2BB7396200E61326 /* AirDropWalletsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52D4F582918379200C9A815 /* AirDropWalletsView.swift */; };
 		08C1670D2BB7396200E61326 /* TransferTokenSubmittedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BFE21D2A39CE9E007A7B1E /* TransferTokenSubmittedView.swift */; };
 		08C1670E2BB7396200E61326 /* OriginTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F1382794B5EC003F2FBB /* OriginTypeEnum.swift */; };
 		08C1670F2BB7396200E61326 /* AccountsMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089FF0DB2A4C4516007AB1CF /* AccountsMainView.swift */; };
@@ -1160,7 +1157,6 @@
 		08C167182BB7396200E61326 /* BurgerMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEDCF2A01679000042957 /* BurgerMenuViewController.swift */; };
 		08C167192BB7396200E61326 /* QRTransactionDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D594F7CA2718BF13008F532E /* QRTransactionDataFlow.swift */; };
 		08C1671A2BB7396200E61326 /* GASRewards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A044EA29FA99C800DACE1F /* GASRewards.swift */; };
-		08C1671B2BB7396200E61326 /* AirDropWalletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52D4F63291841CA00C9A815 /* AirDropWalletCell.swift */; };
 		08C1671C2BB7396200E61326 /* AccountDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE072A0167F100042957 /* AccountDetailsPresenter.swift */; };
 		08C1671D2BB7396200E61326 /* MailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E29759276C8DA3000DB102 /* MailHelper.swift */; };
 		08C1671E2BB7396200E61326 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B87CD927A2EC2F00F27819 /* LaunchScreenViewController.swift */; };
@@ -1244,7 +1240,6 @@
 		08C167732BB7396200E61326 /* AssetExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BC95132A30E4AF0058F1B9 /* AssetExtractor.swift */; };
 		08C167742BB7396200E61326 /* CIS2TokenDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CC62A265E1B001CCA96 /* CIS2TokenDetailView.swift */; };
 		08C167752BB7396200E61326 /* RecoveryPhraseOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1042A0284C500042957 /* RecoveryPhraseOnboardingView.swift */; };
-		08C167762BB7396200E61326 /* AirDropResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52D4F7229184D2E00C9A815 /* AirDropResultView.swift */; };
 		08C167772BB7396200E61326 /* TransactionDetailErrorCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94ED723246301740071A4FB /* TransactionDetailErrorCellView.swift */; };
 		08C167782BB7396200E61326 /* RecoveryPhrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A0445F29FA987200DACE1F /* RecoveryPhrase.swift */; };
 		08C167792BB7396200E61326 /* ExportRecipient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F1442794B5EC003F2FBB /* ExportRecipient.swift */; };
@@ -1504,7 +1499,6 @@
 		08C1688B2BB7396200E61326 /* CommissionRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A044F029FA99C800DACE1F /* CommissionRange.swift */; };
 		08C1688C2BB7396200E61326 /* Optional+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08520A542B45B5DC008DC851 /* Optional+Ext.swift */; };
 		08C1688D2BB7396200E61326 /* InitialAccountSummaryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1722A02947400042957 /* InitialAccountSummaryPresenter.swift */; };
-		08C1688E2BB7396200E61326 /* AirDropContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52D4F4E29181C0B00C9A815 /* AirDropContainerView.swift */; };
 		08C1688F2BB7396200E61326 /* ApiConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F30B2794B678003F2FBB /* ApiConstants.swift */; };
 		08C168902BB7396200E61326 /* DefaultCIS2TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AB08E22A696C1100C226F3 /* DefaultCIS2TokenManager.swift */; };
 		08C168912BB7396200E61326 /* ValueCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A044C829FA99C200DACE1F /* ValueCredential.swift */; };
@@ -1646,7 +1640,6 @@
 		08C169242BB7396200E61326 /* NFTEmptyStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5087B5F28EE4C4A0082A05F /* NFTEmptyStatusView.xib */; };
 		08C169252BB7396200E61326 /* delegation_intro_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B72A02C96C00042957 /* delegation_intro_flow_en_1.html */; };
 		08C169262BB7396200E61326 /* shielded_balance_onboarding_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B345C2A1B9E6100F3CD90 /* shielded_balance_onboarding_en_4.html */; };
-		08C169272BB7396200E61326 /* AirDropWalletsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D52D4F5D291837D100C9A815 /* AirDropWalletsView.xib */; };
 		08C169282BB7396200E61326 /* IBMPlexSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08A6BD9C2B30A66700869317 /* IBMPlexSans-Regular.ttf */; };
 		08C169292BB7396200E61326 /* 2.4.2.RX_backend_submissionStatus_received.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3662794B96B003F2FBB /* 2.4.2.RX_backend_submissionStatus_received.json */; };
 		08C1692A2BB7396200E61326 /* Identity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088FF1662A028AFC00042957 /* Identity.storyboard */; };
@@ -1718,7 +1711,6 @@
 		08C1696D2BB7396200E61326 /* NFTLoadingStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5087B5528EE49740082A05F /* NFTLoadingStatusView.xib */; };
 		08C1696E2BB7396200E61326 /* shielding_2.svg in Resources */ = {isa = PBXBuildFile; fileRef = 089B34522A1B9E4D00F3CD90 /* shielding_2.svg */; };
 		08C1696F2BB7396200E61326 /* 3.3.1.TX_backend_submitTransfer.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3752794B96B003F2FBB /* 3.3.1.TX_backend_submitTransfer.json */; };
-		08C169702BB7396200E61326 /* AirDropWalletCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D52D4F64291841CA00C9A815 /* AirDropWalletCell.xib */; };
 		08C169712BB7396200E61326 /* 2.4.2.RX_backend_submissionStatus_absent.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3652794B96B003F2FBB /* 2.4.2.RX_backend_submissionStatus_absent.json */; };
 		08C169722BB7396200E61326 /* NFTDataEmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5E6CBD6290F4771009856B7 /* NFTDataEmptyCell.xib */; };
 		08C169732BB7396200E61326 /* 1.2.1.TX-lib_create_id_request_and_private_data.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F35E2794B96B003F2FBB /* 1.2.1.TX-lib_create_id_request_and_private_data.json */; };
@@ -1767,7 +1759,6 @@
 		08C1699F2BB7396200E61326 /* More.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2192A02A78300042957 /* More.storyboard */; };
 		08C169A02BB7396200E61326 /* seed_identity_onboarding_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3102A02CA0500042957 /* seed_identity_onboarding_en_2.html */; };
 		08C169A12BB7396200E61326 /* seed_identity_onboarding_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3132A02CA0600042957 /* seed_identity_onboarding_en_1.html */; };
-		08C169A22BB7396200E61326 /* AirDropResultView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D52D4F7C291852E000C9A815 /* AirDropResultView.xib */; };
 		08C169A32BB7396200E61326 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088FF27D2A02BDEC00042957 /* Onboarding.storyboard */; };
 		08C169A42BB7396200E61326 /* delegation_update_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2F62A02C9A100042957 /* delegation_update_flow_en_1.html */; };
 		08C169A52BB7396200E61326 /* baker_intro_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF30A2A02C9E800042957 /* baker_intro_flow_en_3.html */; };
@@ -1783,13 +1774,11 @@
 		08C169AF2BB7396200E61326 /* IBMPlexMono-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08A6BDAC2B30A69900869317 /* IBMPlexMono-SemiBold.ttf */; };
 		08C169B02BB7396200E61326 /* 1.3.1.TX-backend_request_identity.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3592794B96B003F2FBB /* 1.3.1.TX-backend_request_identity.json */; };
 		08C169B12BB7396200E61326 /* 4.3.2.RX_backend_accEncryptionKey.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3502794B96A003F2FBB /* 4.3.2.RX_backend_accEncryptionKey.json */; };
-		08C169B22BB7396200E61326 /* AirDropContainerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D52D4F5329181C1600C9A815 /* AirDropContainerView.xib */; };
 		08C169B32BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F36D2794B96B003F2FBB /* 3.4.2.RX_backend_submissionStatus.json */; };
 		08C169B42BB7396200E61326 /* 2.2.2.RX-lib_create_credential.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3602794B96B003F2FBB /* 2.2.2.RX-lib_create_credential.json */; };
 		08C169B62BB7396200E61326 /* bakerremove_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF30E2A02C9F600042957 /* bakerremove_flow_style.css */; };
 		08C169B72BB7396200E61326 /* 2.3.2.RX_backend_submitCredential.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3632794B96B003F2FBB /* 2.3.2.RX_backend_submitCredential.json */; };
 		08C169B82BB7396200E61326 /* baker_update_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3012A02C9D800042957 /* baker_update_flow_en_3.html */; };
-		08C169B92BB7396200E61326 /* AirDropConnectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D52D4F772918522B00C9A815 /* AirDropConnectView.xib */; };
 		08C169BA2BB7396200E61326 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A7523EADB1400F1FC04 /* Assets.xcassets */; };
 		08C169BB2BB7396200E61326 /* shielded_balance_onboarding_en_7.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B345B2A1B9E6100F3CD90 /* shielded_balance_onboarding_en_7.html */; };
 		08C169BC2BB7396200E61326 /* 4.1.2.RX_backend_accBalance.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3642794B96B003F2FBB /* 4.1.2.RX_backend_accBalance.json */; };
@@ -2152,26 +2141,6 @@
 		D5113A3C271733510004841E /* WebSocketDecodingStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5113A38271733510004841E /* WebSocketDecodingStrategy.swift */; };
 		D521B3762757B32E0020CF16 /* Locate+Additionals.swift in Sources */ = {isa = PBXBuildFile; fileRef = D521B3742757B20D0020CF16 /* Locate+Additionals.swift */; };
 		D521B3782757B3300020CF16 /* Locate+Additionals.swift in Sources */ = {isa = PBXBuildFile; fileRef = D521B3742757B20D0020CF16 /* Locate+Additionals.swift */; };
-		D52D4F5029181C0B00C9A815 /* AirDropContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52D4F4E29181C0B00C9A815 /* AirDropContainerView.swift */; };
-		D52D4F5229181C0B00C9A815 /* AirDropContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52D4F4E29181C0B00C9A815 /* AirDropContainerView.swift */; };
-		D52D4F5529181C1600C9A815 /* AirDropContainerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D52D4F5329181C1600C9A815 /* AirDropContainerView.xib */; };
-		D52D4F5729181C1600C9A815 /* AirDropContainerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D52D4F5329181C1600C9A815 /* AirDropContainerView.xib */; };
-		D52D4F5A2918379200C9A815 /* AirDropWalletsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52D4F582918379200C9A815 /* AirDropWalletsView.swift */; };
-		D52D4F5C2918379200C9A815 /* AirDropWalletsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52D4F582918379200C9A815 /* AirDropWalletsView.swift */; };
-		D52D4F5F291837D100C9A815 /* AirDropWalletsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D52D4F5D291837D100C9A815 /* AirDropWalletsView.xib */; };
-		D52D4F61291837D100C9A815 /* AirDropWalletsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D52D4F5D291837D100C9A815 /* AirDropWalletsView.xib */; };
-		D52D4F66291841CA00C9A815 /* AirDropWalletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52D4F63291841CA00C9A815 /* AirDropWalletCell.swift */; };
-		D52D4F68291841CA00C9A815 /* AirDropWalletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52D4F63291841CA00C9A815 /* AirDropWalletCell.swift */; };
-		D52D4F6A291841CA00C9A815 /* AirDropWalletCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D52D4F64291841CA00C9A815 /* AirDropWalletCell.xib */; };
-		D52D4F6C291841CA00C9A815 /* AirDropWalletCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D52D4F64291841CA00C9A815 /* AirDropWalletCell.xib */; };
-		D52D4F6F29184A9900C9A815 /* AirDropConnectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52D4F6D29184A9900C9A815 /* AirDropConnectView.swift */; };
-		D52D4F7129184A9900C9A815 /* AirDropConnectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52D4F6D29184A9900C9A815 /* AirDropConnectView.swift */; };
-		D52D4F7429184D2E00C9A815 /* AirDropResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52D4F7229184D2E00C9A815 /* AirDropResultView.swift */; };
-		D52D4F7629184D2E00C9A815 /* AirDropResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52D4F7229184D2E00C9A815 /* AirDropResultView.swift */; };
-		D52D4F792918522B00C9A815 /* AirDropConnectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D52D4F772918522B00C9A815 /* AirDropConnectView.xib */; };
-		D52D4F7B2918522B00C9A815 /* AirDropConnectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D52D4F772918522B00C9A815 /* AirDropConnectView.xib */; };
-		D52D4F7E291852E000C9A815 /* AirDropResultView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D52D4F7C291852E000C9A815 /* AirDropResultView.xib */; };
-		D52D4F80291852E000C9A815 /* AirDropResultView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D52D4F7C291852E000C9A815 /* AirDropResultView.xib */; };
 		D52D4F882919D75F00C9A815 /* NFTTokensStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52D4F852919D75E00C9A815 /* NFTTokensStatusView.swift */; };
 		D52D4F8A2919D75F00C9A815 /* NFTTokensStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52D4F852919D75E00C9A815 /* NFTTokensStatusView.swift */; };
 		D52D4F8C2919D75F00C9A815 /* NFTTokensStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D52D4F862919D75E00C9A815 /* NFTTokensStatusView.xib */; };
@@ -2556,8 +2525,6 @@
 		D5F7A24826D7C7550061E646 /* CurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F7A24426D7C7550061E646 /* CurrencyView.swift */; };
 		D5F7A24E26D7FFC30061E646 /* FilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F7A24C26D7FFC30061E646 /* FilledButton.swift */; };
 		D5F7A25026D7FFC30061E646 /* FilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F7A24C26D7FFC30061E646 /* FilledButton.swift */; };
-		D5FA3E77291343A10071A779 /* AirDropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FA3E75291343A10071A779 /* AirDropViewController.swift */; };
-		D5FA3E79291343A10071A779 /* AirDropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FA3E75291343A10071A779 /* AirDropViewController.swift */; };
 		D5FB7EC4290B433F00B7DB0C /* URLSession+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FB7EC2290B433F00B7DB0C /* URLSession+Data.swift */; };
 		D5FB7EC6290B433F00B7DB0C /* URLSession+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FB7EC2290B433F00B7DB0C /* URLSession+Data.swift */; };
 		FA07319226CD249F00CEE8F0 /* ExternalPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07319026CD249F00CEE8F0 /* ExternalPaymentVC.swift */; };
@@ -3278,16 +3245,6 @@
 		D5087B6428EE4C5E0082A05F /* NFTDataStatusView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NFTDataStatusView.xib; sourceTree = "<group>"; };
 		D5113A38271733510004841E /* WebSocketDecodingStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketDecodingStrategy.swift; sourceTree = "<group>"; };
 		D521B3742757B20D0020CF16 /* Locate+Additionals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locate+Additionals.swift"; sourceTree = "<group>"; };
-		D52D4F4E29181C0B00C9A815 /* AirDropContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirDropContainerView.swift; sourceTree = "<group>"; };
-		D52D4F5329181C1600C9A815 /* AirDropContainerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AirDropContainerView.xib; sourceTree = "<group>"; };
-		D52D4F582918379200C9A815 /* AirDropWalletsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirDropWalletsView.swift; sourceTree = "<group>"; };
-		D52D4F5D291837D100C9A815 /* AirDropWalletsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AirDropWalletsView.xib; sourceTree = "<group>"; };
-		D52D4F63291841CA00C9A815 /* AirDropWalletCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirDropWalletCell.swift; sourceTree = "<group>"; };
-		D52D4F64291841CA00C9A815 /* AirDropWalletCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AirDropWalletCell.xib; sourceTree = "<group>"; };
-		D52D4F6D29184A9900C9A815 /* AirDropConnectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirDropConnectView.swift; sourceTree = "<group>"; };
-		D52D4F7229184D2E00C9A815 /* AirDropResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirDropResultView.swift; sourceTree = "<group>"; };
-		D52D4F772918522B00C9A815 /* AirDropConnectView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AirDropConnectView.xib; sourceTree = "<group>"; };
-		D52D4F7C291852E000C9A815 /* AirDropResultView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AirDropResultView.xib; sourceTree = "<group>"; };
 		D52D4F852919D75E00C9A815 /* NFTTokensStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFTTokensStatusView.swift; sourceTree = "<group>"; };
 		D52D4F862919D75E00C9A815 /* NFTTokensStatusView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NFTTokensStatusView.xib; sourceTree = "<group>"; };
 		D547959128ECDC0E00575649 /* NFTImportPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFTImportPresenter.swift; sourceTree = "<group>"; };
@@ -3481,7 +3438,6 @@
 		D5F7A23F26D7A94B0061E646 /* UIView+CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+CornerRadius.swift"; sourceTree = "<group>"; };
 		D5F7A24426D7C7550061E646 /* CurrencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyView.swift; sourceTree = "<group>"; };
 		D5F7A24C26D7FFC30061E646 /* FilledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButton.swift; sourceTree = "<group>"; };
-		D5FA3E75291343A10071A779 /* AirDropViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirDropViewController.swift; sourceTree = "<group>"; };
 		D5FB7EC2290B433F00B7DB0C /* URLSession+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Data.swift"; sourceTree = "<group>"; };
 		FA07319026CD249F00CEE8F0 /* ExternalPaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalPaymentVC.swift; sourceTree = "<group>"; };
 		FA43DAC526B986070046C42B /* GradientBGView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBGView.swift; sourceTree = "<group>"; };
@@ -5527,7 +5483,6 @@
 		7FF07AE323EAE09B00F1FC04 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D5FA3E74291343750071A779 /* Airdrop */,
 				D5612B6B28EA19CE00582AD4 /* Collections */,
 				D578396427A08AF200FFD123 /* BackUpAlertController */,
 				FAAA492627450E47007EFA61 /* AccountsTotalHeader */,
@@ -5606,38 +5561,6 @@
 				19C2EE201F8E02CE561DA70D /* GTU.swift */,
 			);
 			path = Presentation;
-			sourceTree = "<group>";
-		};
-		D52D4F4D29181BD000C9A815 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				D52D4F6D29184A9900C9A815 /* AirDropConnectView.swift */,
-				D52D4F772918522B00C9A815 /* AirDropConnectView.xib */,
-				D52D4F7229184D2E00C9A815 /* AirDropResultView.swift */,
-				D52D4F7C291852E000C9A815 /* AirDropResultView.xib */,
-				D52D4F582918379200C9A815 /* AirDropWalletsView.swift */,
-				D52D4F5D291837D100C9A815 /* AirDropWalletsView.xib */,
-				D52D4F622918417300C9A815 /* Cells */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		D52D4F622918417300C9A815 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				D52D4F63291841CA00C9A815 /* AirDropWalletCell.swift */,
-				D52D4F64291841CA00C9A815 /* AirDropWalletCell.xib */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		D52D4F81291857E900C9A815 /* Container */ = {
-			isa = PBXGroup;
-			children = (
-				D52D4F4E29181C0B00C9A815 /* AirDropContainerView.swift */,
-				D52D4F5329181C1600C9A815 /* AirDropContainerView.xib */,
-			);
-			path = Container;
 			sourceTree = "<group>";
 		};
 		D547958F28ECDB5A00575649 /* Views */ = {
@@ -6095,16 +6018,6 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		D5FA3E74291343750071A779 /* Airdrop */ = {
-			isa = PBXGroup;
-			children = (
-				D52D4F4D29181BD000C9A815 /* Views */,
-				D5FA3E75291343A10071A779 /* AirDropViewController.swift */,
-				D52D4F81291857E900C9A815 /* Container */,
-			);
-			path = Airdrop;
-			sourceTree = "<group>";
-		};
 		FA7C079C26C5AFCC008714CB /* QRConnect */ = {
 			isa = PBXGroup;
 			children = (
@@ -6312,7 +6225,6 @@
 				08C169242BB7396200E61326 /* NFTEmptyStatusView.xib in Resources */,
 				08C169252BB7396200E61326 /* delegation_intro_flow_en_1.html in Resources */,
 				08C169262BB7396200E61326 /* shielded_balance_onboarding_en_4.html in Resources */,
-				08C169272BB7396200E61326 /* AirDropWalletsView.xib in Resources */,
 				08C169282BB7396200E61326 /* IBMPlexSans-Regular.ttf in Resources */,
 				08C169292BB7396200E61326 /* 2.4.2.RX_backend_submissionStatus_received.json in Resources */,
 				08C1692A2BB7396200E61326 /* Identity.storyboard in Resources */,
@@ -6385,7 +6297,6 @@
 				08C1696D2BB7396200E61326 /* NFTLoadingStatusView.xib in Resources */,
 				08C1696E2BB7396200E61326 /* shielding_2.svg in Resources */,
 				08C1696F2BB7396200E61326 /* 3.3.1.TX_backend_submitTransfer.json in Resources */,
-				08C169702BB7396200E61326 /* AirDropWalletCell.xib in Resources */,
 				08C169712BB7396200E61326 /* 2.4.2.RX_backend_submissionStatus_absent.json in Resources */,
 				08C169722BB7396200E61326 /* NFTDataEmptyCell.xib in Resources */,
 				08C169732BB7396200E61326 /* 1.2.1.TX-lib_create_id_request_and_private_data.json in Resources */,
@@ -6434,7 +6345,6 @@
 				08C1699F2BB7396200E61326 /* More.storyboard in Resources */,
 				08C169A02BB7396200E61326 /* seed_identity_onboarding_en_2.html in Resources */,
 				08C169A12BB7396200E61326 /* seed_identity_onboarding_en_1.html in Resources */,
-				08C169A22BB7396200E61326 /* AirDropResultView.xib in Resources */,
 				08C169A32BB7396200E61326 /* Onboarding.storyboard in Resources */,
 				08C169A42BB7396200E61326 /* delegation_update_flow_en_1.html in Resources */,
 				08C169A52BB7396200E61326 /* baker_intro_flow_en_3.html in Resources */,
@@ -6450,13 +6360,11 @@
 				08C169AF2BB7396200E61326 /* IBMPlexMono-SemiBold.ttf in Resources */,
 				08C169B02BB7396200E61326 /* 1.3.1.TX-backend_request_identity.json in Resources */,
 				08C169B12BB7396200E61326 /* 4.3.2.RX_backend_accEncryptionKey.json in Resources */,
-				08C169B22BB7396200E61326 /* AirDropContainerView.xib in Resources */,
 				08C169B32BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus.json in Resources */,
 				08C169B42BB7396200E61326 /* 2.2.2.RX-lib_create_credential.json in Resources */,
 				08C169B62BB7396200E61326 /* bakerremove_flow_style.css in Resources */,
 				08C169B72BB7396200E61326 /* 2.3.2.RX_backend_submitCredential.json in Resources */,
 				08C169B82BB7396200E61326 /* baker_update_flow_en_3.html in Resources */,
-				08C169B92BB7396200E61326 /* AirDropConnectView.xib in Resources */,
 				08C169BA2BB7396200E61326 /* Assets.xcassets in Resources */,
 				08C169BB2BB7396200E61326 /* shielded_balance_onboarding_en_7.html in Resources */,
 				08C169BC2BB7396200E61326 /* 4.1.2.RX_backend_accBalance.json in Resources */,
@@ -6474,7 +6382,6 @@
 				D5087B6328EE4C4A0082A05F /* NFTEmptyStatusView.xib in Resources */,
 				088FF2D72A02C98800042957 /* delegation_intro_flow_en_1.html in Resources */,
 				089B34772A1B9E7C00F3CD90 /* shielded_balance_onboarding_en_4.html in Resources */,
-				D52D4F61291837D100C9A815 /* AirDropWalletsView.xib in Resources */,
 				08A6BDA22B30A66D00869317 /* IBMPlexSans-Regular.ttf in Resources */,
 				D589F3D32794B96C003F2FBB /* 2.4.2.RX_backend_submissionStatus_received.json in Resources */,
 				088FF16A2A028AFD00042957 /* Identity.storyboard in Resources */,
@@ -6547,7 +6454,6 @@
 				D5087B5928EE49740082A05F /* NFTLoadingStatusView.xib in Resources */,
 				089B34882A1B9E8E00F3CD90 /* shielding_2.svg in Resources */,
 				D589F40F2794B96D003F2FBB /* 3.3.1.TX_backend_submitTransfer.json in Resources */,
-				D52D4F6C291841CA00C9A815 /* AirDropWalletCell.xib in Resources */,
 				D589F3CF2794B96C003F2FBB /* 2.4.2.RX_backend_submissionStatus_absent.json in Resources */,
 				D5E6CBEE290F4771009856B7 /* NFTDataEmptyCell.xib in Resources */,
 				D589F3B32794B96C003F2FBB /* 1.2.1.TX-lib_create_id_request_and_private_data.json in Resources */,
@@ -6596,7 +6502,6 @@
 				088FF21D2A02A78300042957 /* More.storyboard in Resources */,
 				088FF3262A02CA1600042957 /* seed_identity_onboarding_en_2.html in Resources */,
 				088FF3272A02CA1600042957 /* seed_identity_onboarding_en_1.html in Resources */,
-				D52D4F80291852E000C9A815 /* AirDropResultView.xib in Resources */,
 				088FF2812A02BDF100042957 /* Onboarding.storyboard in Resources */,
 				088FF3732A02CA3300042957 /* delegation_update_flow_en_1.html in Resources */,
 				088FF3402A02CA2200042957 /* baker_intro_flow_en_3.html in Resources */,
@@ -6612,13 +6517,11 @@
 				08A6BDBB2B31C01500869317 /* IBMPlexMono-SemiBold.ttf in Resources */,
 				D589F39F2794B96B003F2FBB /* 1.3.1.TX-backend_request_identity.json in Resources */,
 				D589F37B2794B96B003F2FBB /* 4.3.2.RX_backend_accEncryptionKey.json in Resources */,
-				D52D4F5729181C1600C9A815 /* AirDropContainerView.xib in Resources */,
 				D589F3EF2794B96C003F2FBB /* 3.4.2.RX_backend_submissionStatus.json in Resources */,
 				D589F3BB2794B96C003F2FBB /* 2.2.2.RX-lib_create_credential.json in Resources */,
 				088FF3312A02CA1D00042957 /* bakerremove_flow_style.css in Resources */,
 				D589F3C72794B96C003F2FBB /* 2.3.2.RX_backend_submitCredential.json in Resources */,
 				088FF3582A02CA2700042957 /* baker_update_flow_en_3.html in Resources */,
-				D52D4F7B2918522B00C9A815 /* AirDropConnectView.xib in Resources */,
 				7F5F778B24891E9F0016F8D1 /* Assets.xcassets in Resources */,
 				089B34782A1B9E7C00F3CD90 /* shielded_balance_onboarding_en_7.html in Resources */,
 				D589F3CB2794B96C003F2FBB /* 4.1.2.RX_backend_accBalance.json in Resources */,
@@ -6636,7 +6539,6 @@
 				D5087B6128EE4C4A0082A05F /* NFTEmptyStatusView.xib in Resources */,
 				088FF2C72A02C98700042957 /* delegation_intro_flow_en_1.html in Resources */,
 				089B34692A1B9E7B00F3CD90 /* shielded_balance_onboarding_en_4.html in Resources */,
-				D52D4F5F291837D100C9A815 /* AirDropWalletsView.xib in Resources */,
 				08A6BD9D2B30A66D00869317 /* IBMPlexSans-Regular.ttf in Resources */,
 				D589F3D12794B96C003F2FBB /* 2.4.2.RX_backend_submissionStatus_received.json in Resources */,
 				088FF1682A028AFD00042957 /* Identity.storyboard in Resources */,
@@ -6710,7 +6612,6 @@
 				089B34822A1B9E8C00F3CD90 /* shielding_2.svg in Resources */,
 				D5087B5728EE49740082A05F /* NFTLoadingStatusView.xib in Resources */,
 				D589F40D2794B96D003F2FBB /* 3.3.1.TX_backend_submitTransfer.json in Resources */,
-				D52D4F6A291841CA00C9A815 /* AirDropWalletCell.xib in Resources */,
 				D589F3CD2794B96C003F2FBB /* 2.4.2.RX_backend_submissionStatus_absent.json in Resources */,
 				D5E6CBEC290F4771009856B7 /* NFTDataEmptyCell.xib in Resources */,
 				D589F3B12794B96C003F2FBB /* 1.2.1.TX-lib_create_id_request_and_private_data.json in Resources */,
@@ -6757,7 +6658,6 @@
 				088FF21B2A02A78300042957 /* More.storyboard in Resources */,
 				088FF31C2A02CA1500042957 /* seed_identity_onboarding_en_2.html in Resources */,
 				088FF31D2A02CA1500042957 /* seed_identity_onboarding_en_1.html in Resources */,
-				D52D4F7E291852E000C9A815 /* AirDropResultView.xib in Resources */,
 				088FF2802A02BDF000042957 /* Onboarding.storyboard in Resources */,
 				088FF36B2A02CA3200042957 /* delegation_update_flow_en_1.html in Resources */,
 				088FF3382A02CA2100042957 /* baker_intro_flow_en_3.html in Resources */,
@@ -6773,14 +6673,12 @@
 				08A6BDB72B31C01500869317 /* IBMPlexMono-SemiBold.ttf in Resources */,
 				D589F39D2794B96B003F2FBB /* 1.3.1.TX-backend_request_identity.json in Resources */,
 				D589F3792794B96B003F2FBB /* 4.3.2.RX_backend_accEncryptionKey.json in Resources */,
-				D52D4F5529181C1600C9A815 /* AirDropContainerView.xib in Resources */,
 				D589F3ED2794B96C003F2FBB /* 3.4.2.RX_backend_submissionStatus.json in Resources */,
 				D589F3B92794B96C003F2FBB /* 2.2.2.RX-lib_create_credential.json in Resources */,
 				19C2E2845C662830D186E79E /* .swiftlint.yml in Resources */,
 				088FF32D2A02CA1C00042957 /* bakerremove_flow_style.css in Resources */,
 				D589F3C52794B96C003F2FBB /* 2.3.2.RX_backend_submitCredential.json in Resources */,
 				088FF34C2A02CA2700042957 /* baker_update_flow_en_3.html in Resources */,
-				D52D4F792918522B00C9A815 /* AirDropConnectView.xib in Resources */,
 				7F5F778C24891EA00016F8D1 /* Assets.xcassets in Resources */,
 				089B346A2A1B9E7B00F3CD90 /* shielded_balance_onboarding_en_7.html in Resources */,
 				D589F3C92794B96C003F2FBB /* 4.1.2.RX_backend_accBalance.json in Resources */,
@@ -6938,9 +6836,7 @@
 				08C166C02BB7396200E61326 /* AccountDetailsCoordinator.swift in Sources */,
 				08C166C12BB7396200E61326 /* OperationRoundedView.swift in Sources */,
 				08C166C22BB7396200E61326 /* UIImage+Additions.swift in Sources */,
-				08C166C32BB7396200E61326 /* AirDropViewController.swift in Sources */,
 				08C166C42BB7396200E61326 /* MoreMenuViewController.swift in Sources */,
-				08C166C52BB7396200E61326 /* AirDropConnectView.swift in Sources */,
 				08C166C62BB7396200E61326 /* Logger.swift in Sources */,
 				08C166C72BB7396200E61326 /* ResourceRequest.swift in Sources */,
 				08C166C82BB7396200E61326 /* StandardButton.swift in Sources */,
@@ -7011,7 +6907,6 @@
 				08DB5E3D2BC6C2DF00C29663 /* DelegationPoolSelectionPresenter.swift in Sources */,
 				08C167092BB7396200E61326 /* ExportService.swift in Sources */,
 				08C1670A2BB7396200E61326 /* MaterialTabBar.swift in Sources */,
-				08C1670B2BB7396200E61326 /* AirDropWalletsView.swift in Sources */,
 				08C1670D2BB7396200E61326 /* TransferTokenSubmittedView.swift in Sources */,
 				08C1670E2BB7396200E61326 /* OriginTypeEnum.swift in Sources */,
 				08C1670F2BB7396200E61326 /* AccountsMainView.swift in Sources */,
@@ -7030,7 +6925,6 @@
 				08C167182BB7396200E61326 /* BurgerMenuViewController.swift in Sources */,
 				08C167192BB7396200E61326 /* QRTransactionDataFlow.swift in Sources */,
 				08C1671A2BB7396200E61326 /* GASRewards.swift in Sources */,
-				08C1671B2BB7396200E61326 /* AirDropWalletCell.swift in Sources */,
 				08C1671C2BB7396200E61326 /* AccountDetailsPresenter.swift in Sources */,
 				08C1671D2BB7396200E61326 /* MailHelper.swift in Sources */,
 				08C1671E2BB7396200E61326 /* LaunchScreenViewController.swift in Sources */,
@@ -7123,7 +7017,6 @@
 				08E472A42BC98105004F0088 /* SimpleTransferRequestParams.swift in Sources */,
 				08C167742BB7396200E61326 /* CIS2TokenDetailView.swift in Sources */,
 				08C167752BB7396200E61326 /* RecoveryPhraseOnboardingView.swift in Sources */,
-				08C167762BB7396200E61326 /* AirDropResultView.swift in Sources */,
 				08C167772BB7396200E61326 /* TransactionDetailErrorCellView.swift in Sources */,
 				08C167782BB7396200E61326 /* RecoveryPhrase.swift in Sources */,
 				08C167792BB7396200E61326 /* ExportRecipient.swift in Sources */,
@@ -7400,7 +7293,6 @@
 				08C1688B2BB7396200E61326 /* CommissionRange.swift in Sources */,
 				08C1688C2BB7396200E61326 /* Optional+Ext.swift in Sources */,
 				08C1688D2BB7396200E61326 /* InitialAccountSummaryPresenter.swift in Sources */,
-				08C1688E2BB7396200E61326 /* AirDropContainerView.swift in Sources */,
 				08C1688F2BB7396200E61326 /* ApiConstants.swift in Sources */,
 				08C168902BB7396200E61326 /* DefaultCIS2TokenManager.swift in Sources */,
 				08C168912BB7396200E61326 /* ValueCredential.swift in Sources */,
@@ -7626,9 +7518,7 @@
 				088FEE2C2A0167FB00042957 /* AccountDetailsCoordinator.swift in Sources */,
 				D5F7A23926D7A1DB0061E646 /* OperationRoundedView.swift in Sources */,
 				7F85B7ED246A9AB600ED09B8 /* UIImage+Additions.swift in Sources */,
-				D5FA3E79291343A10071A779 /* AirDropViewController.swift in Sources */,
 				088FF1B52A02A70300042957 /* MoreMenuViewController.swift in Sources */,
-				D52D4F7129184A9900C9A815 /* AirDropConnectView.swift in Sources */,
 				0893CC472A66D36C00A10F73 /* Logger.swift in Sources */,
 				D589F31D2794B678003F2FBB /* ResourceRequest.swift in Sources */,
 				7F85B7F0246A9AB600ED09B8 /* StandardButton.swift in Sources */,
@@ -7699,7 +7589,6 @@
 				08DB5E3C2BC6C2DF00C29663 /* DelegationPoolSelectionPresenter.swift in Sources */,
 				088FF1CB2A02A70800042957 /* ExportService.swift in Sources */,
 				088FEE862A025B9100042957 /* MaterialTabBar.swift in Sources */,
-				D52D4F5C2918379200C9A815 /* AirDropWalletsView.swift in Sources */,
 				08BFE2212A39CE9E007A7B1E /* TransferTokenSubmittedView.swift in Sources */,
 				D589F1DD2794B5ED003F2FBB /* OriginTypeEnum.swift in Sources */,
 				089FF0DD2A4C4516007AB1CF /* AccountsMainView.swift in Sources */,
@@ -7718,7 +7607,6 @@
 				088FEDDC2A01679500042957 /* BurgerMenuViewController.swift in Sources */,
 				D594F7CE2718BF13008F532E /* QRTransactionDataFlow.swift in Sources */,
 				08A0461B29FA99D300DACE1F /* GASRewards.swift in Sources */,
-				D52D4F68291841CA00C9A815 /* AirDropWalletCell.swift in Sources */,
 				088FEE292A0167FB00042957 /* AccountDetailsPresenter.swift in Sources */,
 				D5E2975D276C8DA3000DB102 /* MailHelper.swift in Sources */,
 				D5B87CDD27A2EC3000F27819 /* LaunchScreenViewController.swift in Sources */,
@@ -7811,7 +7699,6 @@
 				08E472A32BC98105004F0088 /* SimpleTransferRequestParams.swift in Sources */,
 				08E69CCA2A265E1B001CCA96 /* CIS2TokenDetailView.swift in Sources */,
 				088FF1122A0284D100042957 /* RecoveryPhraseOnboardingView.swift in Sources */,
-				D52D4F7629184D2E00C9A815 /* AirDropResultView.swift in Sources */,
 				7F85B82C246A9AB600ED09B8 /* TransactionDetailErrorCellView.swift in Sources */,
 				08A0449129FA987800DACE1F /* RecoveryPhrase.swift in Sources */,
 				D589F2052794B5ED003F2FBB /* ExportRecipient.swift in Sources */,
@@ -8088,7 +7975,6 @@
 				08A0461729FA99D300DACE1F /* CommissionRange.swift in Sources */,
 				08520A562B45B5DC008DC851 /* Optional+Ext.swift in Sources */,
 				088FF18D2A02947B00042957 /* InitialAccountSummaryPresenter.swift in Sources */,
-				D52D4F5229181C0B00C9A815 /* AirDropContainerView.swift in Sources */,
 				D589F3212794B678003F2FBB /* ApiConstants.swift in Sources */,
 				08AB08E42A696C1100C226F3 /* DefaultCIS2TokenManager.swift in Sources */,
 				08A045FB29FA99D200DACE1F /* ValueCredential.swift in Sources */,
@@ -8321,8 +8207,6 @@
 				7FF07A6D23EADB1200F1FC04 /* AppDelegate.swift in Sources */,
 				7FA8F3B5241BAC9400479F83 /* AppCoordinator.swift in Sources */,
 				088FF1FB2A02A76C00042957 /* AboutViewController.swift in Sources */,
-				D5FA3E77291343A10071A779 /* AirDropViewController.swift in Sources */,
-				D52D4F6F29184A9900C9A815 /* AirDropConnectView.swift in Sources */,
 				08C169CF2BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */,
 				D589F31B2794B678003F2FBB /* ResourceRequest.swift in Sources */,
 				067D766B23FC1B42002DEF67 /* LoginWarningLabel.swift in Sources */,
@@ -8383,7 +8267,6 @@
 				088FEFEE2A0271D400042957 /* SelectIdentityProviderPresenter.swift in Sources */,
 				088FF1C12A02A70700042957 /* ExportService.swift in Sources */,
 				088FEE842A025B9100042957 /* MaterialTabBar.swift in Sources */,
-				D52D4F5A2918379200C9A815 /* AirDropWalletsView.swift in Sources */,
 				08DB5E3B2BC6C2DF00C29663 /* DelegationPoolSelectionPresenter.swift in Sources */,
 				D58EA766290F53A30033C8FD /* NFTItemsStatusView.swift in Sources */,
 				08BFE21F2A39CE9E007A7B1E /* TransferTokenSubmittedView.swift in Sources */,
@@ -8400,7 +8283,6 @@
 				088FED872A01672D00042957 /* ExportTransactionLogView.swift in Sources */,
 				D589F1DB2794B5ED003F2FBB /* OriginTypeEnum.swift in Sources */,
 				08A0458329FA99D100DACE1F /* GASRewards.swift in Sources */,
-				D52D4F66291841CA00C9A815 /* AirDropWalletCell.swift in Sources */,
 				088FF13F2A02859C00042957 /* String+Mnemonics.swift in Sources */,
 				088FEDD62A01679400042957 /* BurgerMenuViewController.swift in Sources */,
 				C9874ECB2417FC0F006EF386 /* IdentityDataRowCellView.swift in Sources */,
@@ -8489,7 +8371,6 @@
 				088FEEE02A026EB000042957 /* IdentityProviderListPresenter.swift in Sources */,
 				D589F19B2794B5ED003F2FBB /* EncryptedDetails.swift in Sources */,
 				088FEF982A02715100042957 /* SelectIdentityView.swift in Sources */,
-				D52D4F7429184D2E00C9A815 /* AirDropResultView.swift in Sources */,
 				088FF0962A02840E00042957 /* IdentityRecoveryStatusViewModel.swift in Sources */,
 				08A0447529FA987700DACE1F /* RecoveryPhrase.swift in Sources */,
 				08BC95152A30E4AF0058F1B9 /* AssetExtractor.swift in Sources */,
@@ -8778,7 +8659,6 @@
 				08B16EFE2A01185E002E6B33 /* AccountsPresenter.swift in Sources */,
 				08A0457F29FA99D100DACE1F /* CommissionRange.swift in Sources */,
 				08AB08E32A696C1100C226F3 /* DefaultCIS2TokenManager.swift in Sources */,
-				D52D4F5029181C0B00C9A815 /* AirDropContainerView.swift in Sources */,
 				D589F31F2794B678003F2FBB /* ApiConstants.swift in Sources */,
 				08A0456329FA99D100DACE1F /* ValueCredential.swift in Sources */,
 				088FF17F2A02947A00042957 /* InitialAccountSummaryPresenter.swift in Sources */,

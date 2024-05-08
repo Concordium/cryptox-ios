@@ -346,24 +346,6 @@ extension AccountsCoordinator: ScanAddressQRPresenterDelegate {
         }
         task.resume()
     }
-    
-    
-    func registerAirdropQr(didScanAddress address: String) {
-        registerAirDrop(with: address)
-    }
-    
-    func registerAirDrop(with address: String) {
-        guard let url = URL(string: address) else { return }
-        guard let model: Model.Flyer = url.host?.base64Decoded() else { return }
-
-        let accounts = self.dependencyProvider.storageManager().getAccounts()
-
-        DispatchQueue.main.async {
-            let vc = AirDropViewController(model: model, accs: accounts)
-            vc.modalPresentationStyle = .overFullScreen
-            self.navigationController.present(vc, animated: true)
-        }
-    }
 }
 
 import WalletConnectPairing
