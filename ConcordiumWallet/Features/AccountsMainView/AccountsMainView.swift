@@ -19,7 +19,6 @@ protocol AccountsMainViewDelegate: class {
 
 struct AccountsMainView: View {
     @StateObject var viewModel: AccountsMainViewModel
-//    @EnvironmentObject var router: AccountsMainRouter
     @EnvironmentObject var updateTimer: UpdateTimer
     
     @State var accountQr: AccountEntity?
@@ -82,8 +81,6 @@ struct AccountsMainView: View {
                 Divider()
             }
             .padding(16)
-//            .background(Color.blackSecondary)
-//            .cornerRadius(24, corners: .allCorners)
             .listRowSeparator(.hidden)
             .listRowBackground(Color.clear)
             

@@ -452,7 +452,6 @@ class SendFundPresenter: SendFundPresenterProtocol {
         }
         
         let gtuAmount = GTU(displayValue: amount)
-        
         let maxGTU = disposableAmount - (disposableAmount / 20) // 95% of disposableAmount
         
         if gtuAmount.intValue >= maxGTU {

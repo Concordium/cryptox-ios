@@ -103,12 +103,6 @@ struct AccountPreviewView: View {
                 
                 
                 VStack(alignment: .leading ,spacing: 10) {
-//                    HStack(spacing: 7) {
-//                        Text(viewModel.totalAmount)
-//                            .foregroundColor(Color.deepBlue)
-//                            .font(.system(size: 30, weight: .bold))
-//                        Image("ccd_logo_white_large")
-//                    }
                     Text(viewModel.totalAmount)
                         .foregroundColor(Color.Neutral.tint7)
                         .font(.satoshi(size: 24, weight: .medium))
@@ -131,7 +125,6 @@ struct AccountPreviewView: View {
                                     .font(.satoshi(size: 12, weight: .regular))
                                     .offset(x: 26)
                             }
-//                        Image("ccd_logo_white_large").resizable().frame(width: 16, height: 16)
                     }
                 }
                 
@@ -199,7 +192,6 @@ struct AccountPreviewView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .buttonStyle(BorderlessButtonStyle())
-//                    .background(Color.blackSecondary)
                    
                     Divider().padding(.vertical, 11)
 
@@ -210,7 +202,6 @@ struct AccountPreviewView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .buttonStyle(BorderlessButtonStyle())
-//                    .background(Color.blackSecondary)
                 }
                 .background(Color.Neutral.tint5)
             }
@@ -218,13 +209,4 @@ struct AccountPreviewView: View {
         .cornerRadius(24, corners: .allCorners)
         .listSectionSeparator(.hidden)
     }
-    
-    
-//    private let pipeline = ImagePipeline {
-//        $0.dataLoader = {
-//            let config = URLSessionConfiguration.default
-//            config.urlCache = nil
-//            return DataLoader(configuration: config)
-//        }()
-//    }
 }

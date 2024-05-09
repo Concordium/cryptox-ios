@@ -509,12 +509,7 @@ extension AppCoordinator {
 //        accountsCoordinator?.showNewTerms()
     }
     
-    func showSettings() {
-//        let moreCoordinator = MoreCoordinator(navigationController: self.navigationController,
-//                                              dependencyProvider: defaultProvider,
-//                                              parentCoordinator: self)
-//        moreCoordinator.start()
-    }
+    func showSettings() {}
 }
 
 extension AppCoordinator: MoreCoordinatorDelegate {
