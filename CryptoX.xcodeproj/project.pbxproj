@@ -42,11 +42,9 @@
 		0832EB522B34E01F00BD2ECD /* AccountsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0832EB502B34E01F00BD2ECD /* AccountsTab.swift */; };
 		0832EB552B350A1700BD2ECD /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0832EB542B350A1700BD2ECD /* BottomSheet.swift */; };
 		0832EB562B350A1700BD2ECD /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0832EB542B350A1700BD2ECD /* BottomSheet.swift */; };
-		083504FD2A9E3DCA000D5175 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 083504FC2A9E3DCA000D5175 /* SDWebImageSwiftUI */; };
 		083505002A9E3DFA000D5175 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 083504FF2A9E3DFA000D5175 /* SDWebImageSVGCoder */; };
 		083505022A9F46D4000D5175 /* CryptoImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083505012A9F46D4000D5175 /* CryptoImage.swift */; };
 		083505032A9F46D4000D5175 /* CryptoImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083505012A9F46D4000D5175 /* CryptoImage.swift */; };
-		083505052A9F4F0F000D5175 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 083505042A9F4F0F000D5175 /* SDWebImageSwiftUI */; };
 		083505072A9F4F14000D5175 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 083505062A9F4F14000D5175 /* SDWebImageSVGCoder */; };
 		0835F9AB2B5FCE4500D3716F /* ImportLegacyWalletInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0835F9AA2B5FCE4500D3716F /* ImportLegacyWalletInfo.swift */; };
 		0835F9AC2B5FCE4500D3716F /* ImportLegacyWalletInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0835F9AA2B5FCE4500D3716F /* ImportLegacyWalletInfo.swift */; };
@@ -3480,7 +3478,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				083505052A9F4F0F000D5175 /* SDWebImageSwiftUI in Frameworks */,
 				08A0441329FA885300DACE1F /* SwiftCBOR in Frameworks */,
 				08A0441129FA884F00DACE1F /* RealmSwift in Frameworks */,
 				089B34252A16851700F3CD90 /* WalletConnectVerify in Frameworks */,
@@ -3507,7 +3504,6 @@
 				089FF0EA2A4F4CF0007AB1CF /* JDStatusBarNotification in Frameworks */,
 				089E32812A0BA0CE002AE530 /* ConcordiumWalletCrypto in Frameworks */,
 				089B340F2A16489700F3CD90 /* Web3Wallet in Frameworks */,
-				083504FD2A9E3DCA000D5175 /* SDWebImageSwiftUI in Frameworks */,
 				08A0444329FA905700DACE1F /* Kingfisher in Frameworks */,
 				089B340A2A16376B00F3CD90 /* WalletConnect in Frameworks */,
 				08A0440B29FA884100DACE1F /* SwiftCBOR in Frameworks */,
@@ -6113,7 +6109,6 @@
 				089B34242A16851700F3CD90 /* WalletConnectVerify */,
 				0867CAE42A44661C00D7887D /* Web3Wallet */,
 				089FF0EB2A4F4D01007AB1CF /* JDStatusBarNotification */,
-				083505042A9F4F0F000D5175 /* SDWebImageSwiftUI */,
 				083505062A9F4F14000D5175 /* SDWebImageSVGCoder */,
 			);
 			productName = ConcordiumWallet;
@@ -6147,7 +6142,6 @@
 				089B34182A164BE300F3CD90 /* Starscream */,
 				089B34222A16850F00F3CD90 /* WalletConnectVerify */,
 				089FF0E92A4F4CF0007AB1CF /* JDStatusBarNotification */,
-				083504FC2A9E3DCA000D5175 /* SDWebImageSwiftUI */,
 				083504FF2A9E3DFA000D5175 /* SDWebImageSVGCoder */,
 			);
 			productName = ConcordiumWallet;
@@ -6212,8 +6206,8 @@
 				089B34022A16375A00F3CD90 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */,
 				089B34102A164BCD00F3CD90 /* XCRemoteSwiftPackageReference "Starscream" */,
 				089FF0E82A4F4CF0007AB1CF /* XCRemoteSwiftPackageReference "JDStatusBarNotification" */,
-				083504FB2A9E3DCA000D5175 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				083504FE2A9E3DF9000D5175 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
+				5076296A2BF2573D00B4D390 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = 7FF07A6A23EADB1200F1FC04 /* Products */;
 			projectDirPath = "";
@@ -9288,14 +9282,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		083504FB2A9E3DCA000D5175 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI?source=post_page-----260120557e3a--------------------------------";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
 		083504FE2A9E3DF9000D5175 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSVGCoder.git";
@@ -9464,23 +9450,21 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		5076296A2BF2573D00B4D390 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		083504FC2A9E3DCA000D5175 /* SDWebImageSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 083504FB2A9E3DCA000D5175 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
-			productName = SDWebImageSwiftUI;
-		};
 		083504FF2A9E3DFA000D5175 /* SDWebImageSVGCoder */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 083504FE2A9E3DF9000D5175 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
 			productName = SDWebImageSVGCoder;
-		};
-		083505042A9F4F0F000D5175 /* SDWebImageSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 083504FB2A9E3DCA000D5175 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
-			productName = SDWebImageSwiftUI;
 		};
 		083505062A9F4F14000D5175 /* SDWebImageSVGCoder */ = {
 			isa = XCSwiftPackageProductDependency;
