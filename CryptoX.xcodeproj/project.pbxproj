@@ -2008,6 +2008,9 @@
 		507629622BECCCE900B4D390 /* Net.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A0449929FA98A400DACE1F /* Net.swift */; };
 		507629632BECCCE900B4D390 /* Net.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A0449929FA98A400DACE1F /* Net.swift */; };
 		507629642BECCCEA00B4D390 /* Net.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A0449929FA98A400DACE1F /* Net.swift */; };
+		507629662BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
+		507629672BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
+		507629682BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
 		52055F872552C1D90071F7CA /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52055F852552C1D90071F7CA /* NibLoadable.swift */; };
 		52055F892552C1D90071F7CA /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52055F852552C1D90071F7CA /* NibLoadable.swift */; };
 		52055F8C2552C51F0071F7CA /* IdentityProviderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52055F8A2552C51F0071F7CA /* IdentityProviderCell.swift */; };
@@ -3182,6 +3185,7 @@
 		19C2ED4F802767556C4ABBE9 /* SingleSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleSection.swift; sourceTree = "<group>"; };
 		19C2EE201F8E02CE561DA70D /* GTU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GTU.swift; sourceTree = "<group>"; };
 		19C2EEBD44B62F16333900D2 /* GeneralError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralError.swift; sourceTree = "<group>"; };
+		507629652BF2040B00B4D390 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		52055F852552C1D90071F7CA /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
 		52055F8A2552C51F0071F7CA /* IdentityProviderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityProviderCell.swift; sourceTree = "<group>"; };
 		52589B2525128F8700ADD35B /* AccountMultiBalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountMultiBalanceCell.swift; sourceTree = "<group>"; };
@@ -5327,6 +5331,7 @@
 		7FF07A6023EADB1200F1FC04 = {
 			isa = PBXGroup;
 			children = (
+				507629652BF2040B00B4D390 /* CHANGELOG.md */,
 				7FF07A9F23EADBB100F1FC04 /* README.md */,
 				644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */,
 				0893CC452A66D36C00A10F73 /* Logger.swift */,
@@ -6245,6 +6250,7 @@
 				08C169382BB7396200E61326 /* baker_update_flow_en_5.html in Resources */,
 				08C169392BB7396200E61326 /* baker_update_flow_en_1.html in Resources */,
 				08C1693A2BB7396200E61326 /* NoDataView.xib in Resources */,
+				507629682BF2040B00B4D390 /* CHANGELOG.md in Resources */,
 				08C1693B2BB7396200E61326 /* README.md in Resources */,
 				08C1693C2BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus_com_amb.json in Resources */,
 				08C1693D2BB7396200E61326 /* ImportStatusCell.xib in Resources */,
@@ -6402,6 +6408,7 @@
 				088FF3592A02CA2700042957 /* baker_update_flow_en_5.html in Resources */,
 				088FF3572A02CA2700042957 /* baker_update_flow_en_1.html in Resources */,
 				D54ABC2326E14A5C00F4E773 /* NoDataView.xib in Resources */,
+				507629672BF2040B00B4D390 /* CHANGELOG.md in Resources */,
 				7F85B8C0246A9AB600ED09B8 /* README.md in Resources */,
 				D589F3FB2794B96C003F2FBB /* 3.4.2.RX_backend_submissionStatus_com_amb.json in Resources */,
 				088FF2272A02A89900042957 /* ImportStatusCell.xib in Resources */,
@@ -6559,6 +6566,7 @@
 				088FF34D2A02CA2700042957 /* baker_update_flow_en_5.html in Resources */,
 				088FF34B2A02CA2700042957 /* baker_update_flow_en_1.html in Resources */,
 				FA7C079926C5A726008714CB /* QRConnect.storyboard in Resources */,
+				507629662BF2040B00B4D390 /* CHANGELOG.md in Resources */,
 				D589F3F92794B96C003F2FBB /* 3.4.2.RX_backend_submissionStatus_com_amb.json in Resources */,
 				D58EA76B290F53AE0033C8FD /* NFTItemsStatusView.xib in Resources */,
 				088FF2232A02A89800042957 /* ImportStatusCell.xib in Resources */,

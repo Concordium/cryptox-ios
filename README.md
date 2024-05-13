@@ -37,10 +37,10 @@ It is based on Concordium reference wallet and can be used instead of both Conco
 
 ## Development notes
 
-The app requires iOS 15 for development.
+The app requires minimum iOS 15 for development.
 
 ### Build variants
-- Testnet (`tstnet`) – Public Concordium test network, fake funds and identities. Spaceseven stage
+- Testnet (`testnet`) – Public Concordium test network, fake funds and identities. Spaceseven stage
 - Stagenet (`stagenet`) – Unstable Concordium test network, fake funds and identities.
 No Spaceseven instance
 - Mainnet (`mainnet`) – Public Concordium network, real funds and identities. Spaceseven production
