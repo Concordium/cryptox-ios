@@ -3614,6 +3614,7 @@
 		06C88CC523F537B8007567CD /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				7FF07A7723EADB1400F1FC04 /* LaunchScreen.storyboard */,
 				D54F032E28EA1746009A1057 /* Collections.storyboard */,
 				FAAC232626E54D2A00EFF43F /* AccountConfirmationCardView.xib */,
 				FA7C079726C5A726008714CB /* QRConnect.storyboard */,
@@ -5259,6 +5260,18 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		507629692BF2293400B4D390 /* LegacyWalletConnect */ = {
+			isa = PBXGroup;
+			children = (
+				D5CFCF28273922B500888E1B /* QRTransactionData */,
+				D594F7C42718BE1B008F532E /* QRConnectApprove */,
+				FA7C079C26C5AFCC008714CB /* QRConnect */,
+				FAF2C56D26B00DBB00406A86 /* WebSocketService.swift */,
+				D5113A38271733510004841E /* WebSocketDecodingStrategy.swift */,
+			);
+			path = LegacyWalletConnect;
+			sourceTree = "<group>";
+		};
 		6BB39F873C67A7442AE8DD30 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -5367,15 +5380,13 @@
 				08A0463629FAA62100DACE1F /* Extensions */,
 				D589F3062794B678003F2FBB /* Service */,
 				D589F1202794B5EB003F2FBB /* Model */,
-				C9BB9FDD2444268A00AE0884 /* Presentation */,
+				C9BB9FDD2444268A00AE0884 /* Formatters */,
 				06AA2A9B23F58C420001F964 /* Resources */,
 				06C88CC523F537B8007567CD /* Storyboards */,
 				068DC80723F2E332001B2975 /* StyledViews */,
+				507629692BF2293400B4D390 /* LegacyWalletConnect */,
 				7FF07AE323EAE09B00F1FC04 /* Views */,
 				7FF07A6C23EADB1200F1FC04 /* AppDelegate.swift */,
-				FAF2C56D26B00DBB00406A86 /* WebSocketService.swift */,
-				D5113A38271733510004841E /* WebSocketDecodingStrategy.swift */,
-				7FF07A7723EADB1400F1FC04 /* LaunchScreen.storyboard */,
 				19C2E3C60DD1F86BE4DC76F6 /* AppSettings.swift */,
 				D5B87CD927A2EC2F00F27819 /* LaunchScreenViewController.swift */,
 				7FA8F3B4241BAC9400479F83 /* AppCoordinator.swift */,
@@ -5491,10 +5502,7 @@
 				D5612B6B28EA19CE00582AD4 /* Collections */,
 				D578396427A08AF200FFD123 /* BackUpAlertController */,
 				FAAA492627450E47007EFA61 /* AccountsTotalHeader */,
-				D5CFCF28273922B500888E1B /* QRTransactionData */,
-				D594F7C42718BE1B008F532E /* QRConnectApprove */,
 				D5F7A23426D7A1510061E646 /* Shared */,
-				FA7C079C26C5AFCC008714CB /* QRConnect */,
 				7FF07AE523EAE0AC00F1FC04 /* ☠️AccountsView */,
 				C93EFF3024107F09002D6DB7 /* Cells */,
 				7FF07AF323EB0E1200F1FC04 /* Identities */,
@@ -5558,14 +5566,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		C9BB9FDD2444268A00AE0884 /* Presentation */ = {
+		C9BB9FDD2444268A00AE0884 /* Formatters */ = {
 			isa = PBXGroup;
 			children = (
 				C9BB9FDE244426B100AE0884 /* AttributesFormatter.swift */,
 				C9BB9FE02444AB3900AE0884 /* GeneralFormatter.swift */,
 				19C2EE201F8E02CE561DA70D /* GTU.swift */,
 			);
-			path = Presentation;
+			path = Formatters;
 			sourceTree = "<group>";
 		};
 		D547958F28ECDB5A00575649 /* Views */ = {
