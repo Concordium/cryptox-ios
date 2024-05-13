@@ -55,9 +55,7 @@ final class AccountsMainViewModel: ObservableObject {
         Task {
             checkPendingAccountsStatusesIfNeeded()
         }
-        updateData()
-        
-        walletConnectService.updatePendingRequests()
+        updateData()        
     }
     
     @MainActor

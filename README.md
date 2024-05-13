@@ -1,4 +1,4 @@
-# <img src="app/src/main/res/mipmap-hdpi/ic_launcher.png" alt="Icon" style="vertical-align: bottom; height: 36px;"/>  CryptoX Concordium Wallet
+# <img src="CryptoX/ConcordiumWallet/Resources/icon-44-58.png" alt="Icon" style="vertical-align: bottom; height: 36px;"/>  CryptoX Concordium Wallet
 
 Use CryptoX Concordium Wallet to get started with the open-source, privacy-centric and public Concordium Blockchain. 
 
@@ -30,6 +30,23 @@ CryptoX is a Concordium wallet with an advanced set of features.
 It is based on Concordium reference wallet and can be used instead of both Concordium and Concordium Legacy wallets.
 
 
-## Download - TODO
+## Download
 | Mainnet| Testnet|
 |:------:|:------:|
+|[AppStore](https://apps.apple.com/dk/app/cryptox-concordium-wallet/id1593386457)|[AppStore](https://apps.apple.com/dk/app/cryptox-concordium-wallet/id1593386457)|
+
+## Development notes
+
+The app requires minimum iOS 15 for development.
+
+### Build variants
+- Testnet (`testnet`) – Public Concordium test network, fake funds and identities. Spaceseven stage
+- Stagenet (`stagenet`) – Unstable Concordium test network, fake funds and identities.
+No Spaceseven instance
+- Mainnet (`mainnet`) – Public Concordium network, real funds and identities. Spaceseven production
+
+### Distribution for internal testing
+Update the version in `main`, tag the commit with the version name and push the changes.
+
+### Building for release
+Builds for releases tagged with semver version (`X.Y.Z`)

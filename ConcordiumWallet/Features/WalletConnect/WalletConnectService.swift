@@ -12,6 +12,8 @@ import SwiftUI
 import Combine
 import BigInt
 
+private let CONCORDIUM_WALLET_CONNECT_PROJECT_ID = "76324905a70fe5c388bab46d3e0564dc"
+
 protocol WalletConnectServiceProtocol: AnyObject {
     func showSessionProposal(with proposal: Session.Proposal, context: VerifyContext?)
     func showSessionRequest(with request: Request)
@@ -21,10 +23,22 @@ final class WalletConnectService {
     weak var delegate: WalletConnectServiceProtocol?
 
     private var publishers = [AnyCancellable]()
-    
     private var currrentPairingAddress: String?
     
     init() {
+        let metadata = AppMetadata(
+            name: "CryptoX",
+            description: "CryptoX - Blockchain Wallet",
+            url: "https://apps.apple.com/app/cryptox-wallet/id1593386457",
+            icons: ["https://is2-ssl.mzstatic.com/image/thumb/Purple122/v4/d2/76/4f/d2764f4a-cb11-2039-7edf-7bb1a7ea36d8/AppIcon-1x_U007emarketing-0-5-0-sRGB-85-220.png/230x0w.png"]
+        )
+        
+        Pair.configure(metadata: metadata)
+        Networking.configure(
+            projectId: CONCORDIUM_WALLET_CONNECT_PROJECT_ID,
+            socketFactory: DefaultSocketFactory()
+        )
+        
         initialize()
     }
     
@@ -33,36 +47,19 @@ final class WalletConnectService {
         initialize()
     }
     
-    func updatePendingRequests() {
-        do {
-            guard let last = try Web3Wallet.instance.getPendingRequests().last else { return }
-            logger.debugLog("\(last.id.description)")
-        } catch {
-            logger.debugLog(error.localizedDescription)
-        }
-    }
-    
     func initialize() {
-        Web3Wallet.instance.sessionRequestPublisher.delay(for: 2, scheduler: RunLoop.main)
+        Sign.instance.sessionRequestPublisher.delay(for: 2, scheduler: RunLoop.main)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] session in
                 logger.debugLog("wc: --- sessionRequestPublisher \(session)")
                 self?.delegate?.showSessionRequest(with: session.request)
             }.store(in: &publishers)
         
-        Web3Wallet.instance.sessionProposalPublisher.delay(for: 2, scheduler: RunLoop.main)
+        Sign.instance.sessionProposalPublisher.delay(for: 2, scheduler: RunLoop.main)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] session in
                 logger.debugLog("wc: --- sessionProposalPublisher \(session)")
                 self?.delegate?.showSessionProposal(with: session.proposal, context: session.context)
-            }
-            .store(in: &publishers)
-        
-        //TODO: - possibly we will add this `sign message` flow also. but for now, there is no such reque
-        Web3Wallet.instance.authRequestPublisher.delay(for: 2, scheduler: RunLoop.main)
-            .receive(on: DispatchQueue.main)
-            .sink { session in
-                logger.debugLog("wc: --- authRequestPublisher \(session)")
             }
             .store(in: &publishers)
     }
@@ -73,17 +70,17 @@ final class WalletConnectService {
         
         self.currrentPairingAddress = address
         
-        
         LegacyLogger.debug("wc: `pair.address` -- \(uri)")
+        
         do {
-            try await Web3Wallet.instance.pair(uri: uri)
+            try await Pair.instance.pair(uri: uri)
         } catch {
             LegacyLogger.debug("wc: `pair` error -- \(error.localizedDescription)")
             self.currrentPairingAddress = nil
-            if let pairing = Web3Wallet.instance.getPairings().first(where: { $0.topic == uri.topic }) {
+            if let pairing = Pair.instance.getPairings().first(where: { $0.topic == uri.topic }) {
                 do {
-                    try await Web3Wallet.instance.disconnectPairing(topic: pairing.topic)
-                    LegacyLogger.debug("wc: `cleanup.getPairings` -- \(Web3Wallet.instance.getPairings())")
+                    try await Pair.instance.disconnect(topic: pairing.topic)
+                    LegacyLogger.debug("wc: `cleanup.getPairings` -- \(Pair.instance.getPairings())")
                 } catch {
                     LegacyLogger.debug("wc: `disconnectPairing` error -- \(error.localizedDescription)")
                 }
@@ -94,18 +91,14 @@ final class WalletConnectService {
     public func pair(_ uri: WalletConnectURI) async {
         LegacyLogger.debug("wc: `pair.address` -- \(uri)")
         do {
-            try await Web3Wallet.instance.pair(uri: uri)
+            try await Pair.instance.pair(uri: uri)
         } catch {
-            do {
-                try await Web3Wallet.instance.cleanup()
-            } catch {
-                LegacyLogger.debug("wc: `disconnectPairing` error -- \(error.localizedDescription)")
-            }
+            LegacyLogger.debug("wc: `pairing` error -- \(error.localizedDescription)")
         }
     }
     
     private func subscribeSessionProposals() {
-        Web3Wallet.instance.sessionProposalPublisher
+        Sign.instance.sessionProposalPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] session in
                 LegacyLogger.debug("wc: --- sessionProposalPublisher \(session)")
@@ -115,7 +108,7 @@ final class WalletConnectService {
     }
     
     private func subscribeSessionRequest() {
-        Web3Wallet.instance.sessionRequestPublisher
+        Sign.instance.sessionRequestPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] session in
                 LegacyLogger.debug("wc: --- sessionRequestPublisher \(session)")

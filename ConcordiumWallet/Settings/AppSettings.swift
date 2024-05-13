@@ -27,9 +27,6 @@ enum UserDefaultKeys: String {
     case needsBackupWarning
     case lastKnownAppVersionSinceBackupWarning
     
-    case isGDPRRegion
-    case isGDPREnabled
-    
     case lastKnownAppVersion
     
     case dismissedWarningIds
@@ -129,39 +126,6 @@ struct AppSettings {
     }
 }
 
-
-
-extension AppSettings {
-    
-    static var isGDPREnabled: Bool? {
-        get {
-            if UserDefaults.standard.object(forKey: UserDefaultKeys.isGDPREnabled.rawValue) == nil {
-                AppSettings.isGDPREnabled = nil
-                return nil
-            } else {
-                return UserDefaults.standard.bool(forKey: UserDefaultKeys.isGDPREnabled.rawValue)
-            }
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.isGDPREnabled.rawValue)
-        }
-    }
-    
-    
-    static var isGDPRRegion: Bool? {
-        get {
-            if UserDefaults.standard.object(forKey: UserDefaultKeys.isGDPRRegion.rawValue) == nil {
-                AppSettings.isGDPRRegion = nil
-                return nil
-            } else {
-                return UserDefaults.standard.bool(forKey: UserDefaultKeys.isGDPRRegion.rawValue)
-            }
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.isGDPRRegion.rawValue)
-        }
-    }
-}
 
 extension AppSettings {
     static var lastKnownAppVersion: String? {
