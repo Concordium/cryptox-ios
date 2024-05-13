@@ -1,11 +1,6 @@
 # Changelog
 
 ## [Unreleased]
-- CIS-2 tokens with corrupted or missing metadata can no longer be added
-- Inability to search for CIS-2 token by ID on contracts with lots of tokens
-
-
-## [1.2.0] - 2022-05-...
 
 ### Added
 - Add Mainnet, Stagenet and Testnet schemas
