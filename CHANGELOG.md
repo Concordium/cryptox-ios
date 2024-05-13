@@ -11,9 +11,6 @@
 - Display of balance/ownership when adding CIS-2 tokens
 - Wallet Connect, add `sign message` functionality 
 
-### Removed
-- Unused code and logic
-
 ### Fixed
 - An issue where signing a text message through WalletConnect did not work
 - An issue where a dApp could request to get a transaction signed by a different account than the one chosen for the WalletConnect session
