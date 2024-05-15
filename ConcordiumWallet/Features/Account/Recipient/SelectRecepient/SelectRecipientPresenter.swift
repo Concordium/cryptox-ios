@@ -11,7 +11,6 @@ import Combine
 
 enum SelectRecipientMode {
     case selectRecipientFromPublic
-//    case selectRecipientFromShielded
     case addressBook
 }
 
