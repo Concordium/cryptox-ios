@@ -45,11 +45,6 @@ struct AccountSettingsView: Page {
     private func getMenuItems() -> [AccountSettingsMenuItem] {
         var menuItems = [AccountSettingsMenuItem]()
         menuItems.append(AccountSettingsMenuItem(id: 0, text: "burgermenu.transferfilters".localized, action: .transferFilters))
-        if viewModel.account.showsShieldedBalance {
-            menuItems.append(AccountSettingsMenuItem(id: 1, text: "burgermenu.hideshieldedbalance".localized, action: .hideShielded))
-        } else {
-            menuItems.append(AccountSettingsMenuItem(id: 1, text: "burgermenu.showshieldedbalance".localized, action: .showShielded))
-        }
         menuItems.append(AccountSettingsMenuItem(id: 2, text: "burgermenu.releaseschedule".localized, action: .releaseSchedule))
         menuItems.append(AccountSettingsMenuItem(id: 3, text: "burgermenu.exportprivatekey".localized, action: .exportPrivateKey))
         menuItems.append(AccountSettingsMenuItem(id: 4, text: "burgermenu.exporttransactionlog".localized, action: .exportTransactionLog))

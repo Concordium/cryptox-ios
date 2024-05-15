@@ -11,8 +11,6 @@ import Foundation
 protocol AccountSettingsPresenterDelegate: AnyObject {
     func transferFiltersTapped()
     func releaseScheduleTapped()
-    func showShieldedTapped()
-    func hideShieldedTapped()
     func exportPrivateKeyTapped()
     func exportTransactionLogTapped()
     func renameAccountTapped()
@@ -40,10 +38,6 @@ class AccountSettingsPresenter: SwiftUIPresenter<AccountSettingsViewModel> {
                 delegate?.transferFiltersTapped()
             case .releaseSchedule:
                 delegate?.releaseScheduleTapped()
-            case .showShielded:
-                delegate?.showShieldedTapped()
-            case .hideShielded:
-                delegate?.hideShieldedTapped()
             case .exportPrivateKey:
                 delegate?.exportPrivateKeyTapped()
             case .exportTransactionLog:

@@ -15,8 +15,7 @@ struct TransactionViewModel {
     var date: Date
     var memo: Memo?
     var details: TransactionDetailsViewModel
-
-    let showCostAsShieleded: Bool
+    
     let source: TransactionType
     var isLast = false
     // To uniquely identity the view model in the table view
@@ -60,53 +59,23 @@ extension TransactionViewModel {
         } else {
             title = transaction.details.detailsDescription ?? ""
         }
-
-        if balanceType == .shielded {
-            let total: Int?
-            if let totalForShieldingOrUnshieldeding = transaction.getTotalForShielded() {
-                total = totalForShieldingOrUnshieldeding
-            } else {
-                if let decryptedAmount = encryptedAmountLookup(transaction.encrypted?.encryptedAmount) {
-                    if OriginTypeEnum.typeSelf == transaction.origin?.type {
-                        total = -decryptedAmount
-                    } else {
-                        total = decryptedAmount
-                    }
-                } else {
-                    total = nil
-                }
-            }
-            self.init(status: .finalized,
-                      outcome: transaction.details.outcome,
-                      cost: GTU(intValue: Int("0" ) ?? 0),
-                      amount: nil,
-                total: (total == nil ? nil : GTU(intValue: total)),
-                title: title,
-                date: Date(timeIntervalSince1970: TimeInterval(transaction.blockTime ?? 0.0)),
-                memo: Memo(hex: transaction.details.memo),
-                details: TransactionDetailsViewModel(remoteTransactionData: transaction, account: account, recipientListLookup: recipientListLookup),
-                showCostAsShieleded: false,
-                source: transaction)
-        } else {
-            
-            let isEncryptedAmountTransfer = transaction.details.type == "encryptedAmountTransfer"
-            let isEncryptedAmountTransferWithMemo = transaction.details.type == "encryptedAmountTransferWithMemo"
-            let isShielded = isEncryptedAmountTransfer || isEncryptedAmountTransferWithMemo
-            
-            self.init(
-                status: .finalized,
-                outcome: transaction.details.outcome,
-                cost: GTU(intValue: Int(transaction.cost ?? "0" ) ?? 0),
-                amount: (transaction.subtotal) != nil ? GTU(intValue: Int(transaction.subtotal ?? "0") ?? 0) : nil,
-                total: GTU(intValue: Int(transaction.total ?? "0") ?? 0),
-                title: title,
-                date: Date(timeIntervalSince1970: TimeInterval(transaction.blockTime ?? 0.0)),
-                memo: Memo(hex: transaction.details.memo),
-                details: TransactionDetailsViewModel(remoteTransactionData: transaction, account: account, recipientListLookup: recipientListLookup),
-                showCostAsShieleded: isShielded,
-                source: transaction
-            )
-        }
+        
+        let isEncryptedAmountTransfer = transaction.details.type == "encryptedAmountTransfer"
+        let isEncryptedAmountTransferWithMemo = transaction.details.type == "encryptedAmountTransferWithMemo"
+        let isShielded = isEncryptedAmountTransfer || isEncryptedAmountTransferWithMemo
+        
+        self.init(
+            status: .finalized,
+            outcome: transaction.details.outcome,
+            cost: GTU(intValue: Int(transaction.cost ?? "0" ) ?? 0),
+            amount: (transaction.subtotal) != nil ? GTU(intValue: Int(transaction.subtotal ?? "0") ?? 0) : nil,
+            total: GTU(intValue: Int(transaction.total ?? "0") ?? 0),
+            title: title,
+            date: Date(timeIntervalSince1970: TimeInterval(transaction.blockTime ?? 0.0)),
+            memo: Memo(hex: transaction.details.memo),
+            details: TransactionDetailsViewModel(remoteTransactionData: transaction, account: account, recipientListLookup: recipientListLookup),
+            source: transaction
+        )
         LegacyLogger.trace("Converted remote transaction to view model: \(self)")
     }
     
@@ -116,66 +85,37 @@ extension TransactionViewModel {
          balanceType: AccountBalanceTypeEnum,
          encryptedAmountLookup: (String?) -> Int?,
          recipientListLookup: (String?) -> String?) {
-        
-        if balanceType == .shielded {
-            let title: String
-            if transfer.transferType == .transferToSecret {
-                title = "transaction.shieldedAmount".localized
-            } else if transfer.transferType == .transferToPublic {
-                title = "transaction.unshieldedAmount".localized
-            } else {
-                title = recipientListLookup(transfer.toAddress) ?? AddressDisplay.string(from: transfer.toAddress)
-            }
-            self.init(status: transfer.transactionStatus ?? SubmissionStatusEnum.received,
-                      outcome: transfer.outcome,
-                      cost: GTU(intValue: Int("0") ?? 0),
-                      amount: nil, // amount is stored as positive in database
-                total: GTU(intValue: transfer.getShieldedBalanceChange()),
-                title: title,
-                date: transfer.createdAt,
-                memo: Memo(hex: transfer.memo),
-                details: TransactionDetailsViewModel(localTransferData: transfer,
-                                                     submissionStatus: submissionStatus,
-                                                     account: account,
-                                                     recipientListLookup: recipientListLookup),
-                showCostAsShieleded: false,
-                source: transfer)
-        } else {
-            let title: String
-            switch transfer.transferType {
-            case .transferToPublic:
-                title = "transaction.unshieldedAmount".localized
-            case .transferToSecret:
-                title = "transaction.shieldedAmount".localized
-            case .registerDelegation, .updateDelegation, .removeDelegation:
-                title = "transaction.configuredelegation".localized
-            case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
-                title = "transaction.configurebaker".localized
-            default:
-                title = recipientListLookup(transfer.toAddress) ?? AddressDisplay.string(from: transfer.toAddress)
-            }
-            
-            let totalGTU = GTU(intValue: transfer.getPublicBalanceChange())
-            var transferAmount = Int(transfer.amount) ?? 0
-            transferAmount.negate() // amount is stored as positive in database, but outgoing transfer is always negative.
-            let amountGTU = GTU(intValue: transferAmount)
-            let costGTU = GTU(intValue: Int(transfer.cost) ?? 0)
-            
-            self.init(status: transfer.transactionStatus ?? SubmissionStatusEnum.received,
-                      outcome: transfer.outcome,
-                      cost: costGTU,
-                      amount: amountGTU,
-                total: totalGTU,
-                title: title,
-                date: transfer.createdAt,
-                memo: Memo(hex: transfer.memo),
-                details: TransactionDetailsViewModel(localTransferData: transfer,
-                                                     submissionStatus: submissionStatus,
-                                                     account: account,
-                                                     recipientListLookup: recipientListLookup),
-                showCostAsShieleded: (transfer.transferType == .encryptedTransfer),
-                source: transfer)
+        let title: String
+        switch transfer.transferType {
+        case .transferToPublic:
+            title = "transaction.unshieldedAmount".localized
+        case .registerDelegation, .updateDelegation, .removeDelegation:
+            title = "transaction.configuredelegation".localized
+        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
+            title = "transaction.configurebaker".localized
+        default:
+            title = recipientListLookup(transfer.toAddress) ?? AddressDisplay.string(from: transfer.toAddress)
         }
+        
+        let totalGTU = GTU(intValue: transfer.getPublicBalanceChange())
+        var transferAmount = Int(transfer.amount) ?? 0
+        transferAmount.negate() // amount is stored as positive in database, but outgoing transfer is always negative.
+        let amountGTU = GTU(intValue: transferAmount)
+        let costGTU = GTU(intValue: Int(transfer.cost) ?? 0)
+        
+        self.init(status: transfer.transactionStatus ?? SubmissionStatusEnum.received,
+                  outcome: transfer.outcome,
+                  cost: costGTU,
+                  amount: amountGTU,
+                  total: totalGTU,
+                  title: title,
+                  date: transfer.createdAt,
+                  memo: Memo(hex: transfer.memo),
+                  details: TransactionDetailsViewModel(localTransferData: transfer,
+                                                       submissionStatus: submissionStatus,
+                                                       account: account,
+                                                       recipientListLookup: recipientListLookup),
+                  source: transfer)
         LegacyLogger.trace("Converted local transfer to view model: \(self)")
     }
     
@@ -187,52 +127,51 @@ extension TransactionViewModel {
         total = GTU(intValue: 0)
         source = TransferEntity()
         isLast = false
-        showCostAsShieleded = false
     }
 }
 
 extension TransactionDetailsViewModel {
     init(remoteTransactionData transaction: Transaction, account: AccountDataType, recipientListLookup: (String?) -> String?) {
         let details = transaction.details
-
+        
         var originAddress: String?
         if details.transferSource == nil && OriginTypeEnum.account == transaction.origin?.type {
             originAddress = transaction.origin?.address
         }
-
+        
         var transactionEvents: [String]?
         if OutcomeEnum.success == details.outcome && details.transferSource == nil && details.transferDestination == nil {
             transactionEvents = details.events
         }
-
+        
         let fromAddressName: String? = recipientListLookup(details.transferSource)
-
+        
         let toAddressName: String? = recipientListLookup(details.transferDestination)
-
+        
         self.init(rejectReason: details.rejectReason,
-                origin: (originAddress),
-                fromAddressName: fromAddressName,
-                fromAddressValue: details.transferSource,
-                toAddressName: toAddressName,
-                toAddressValue: details.transferDestination,
-                transactionHash: transaction.transactionHash,
-                blockHashes: [transaction.blockHash],
-                details: transactionEvents)
+                  origin: (originAddress),
+                  fromAddressName: fromAddressName,
+                  fromAddressValue: details.transferSource,
+                  toAddressName: toAddressName,
+                  toAddressValue: details.transferDestination,
+                  transactionHash: transaction.transactionHash,
+                  blockHashes: [transaction.blockHash],
+                  details: transactionEvents)
     }
-
+    
     init(localTransferData transfer: TransferDataType,
          submissionStatus: SubmissionStatus? = nil,
          account: AccountDataType,
          recipientListLookup: (String?) -> String?) {
         self.init(rejectReason: submissionStatus?.rejectReason,
-                origin: nil,
-                fromAddressName: account.name, // local transfers are always from local account
-                fromAddressValue: transfer.fromAddress,
-                toAddressName: recipientListLookup(transfer.toAddress),
-                toAddressValue: transfer.toAddress,
-                transactionHash: submissionStatus?.transactionHash,
-                blockHashes: submissionStatus?.blockHashes,
-                details: nil)
+                  origin: nil,
+                  fromAddressName: account.name, // local transfers are always from local account
+                  fromAddressValue: transfer.fromAddress,
+                  toAddressName: recipientListLookup(transfer.toAddress),
+                  toAddressValue: transfer.toAddress,
+                  transactionHash: submissionStatus?.transactionHash,
+                  blockHashes: submissionStatus?.blockHashes,
+                  details: nil)
     }
 }
 
@@ -258,17 +197,17 @@ extension TransactionDetailsViewModel: Hashable {
         hasher.combine(blockHashes.hashValue)
         hasher.combine(details.hashValue)
     }
-
+    
     public static func == (lhs: TransactionDetailsViewModel, rhs: TransactionDetailsViewModel) -> Bool {
         lhs.rejectReason == rhs.rejectReason &&
-                lhs.origin == rhs.origin &&
-                lhs.fromAddressName == rhs.fromAddressName &&
-                lhs.fromAddressValue == rhs.fromAddressValue &&
-                lhs.toAddressName == rhs.toAddressName &&
-                lhs.toAddressValue == rhs.toAddressValue &&
-                lhs.transactionHash == rhs.transactionHash &&
-                lhs.blockHashes == rhs.blockHashes &&
-                lhs.details == rhs.details
+        lhs.origin == rhs.origin &&
+        lhs.fromAddressName == rhs.fromAddressName &&
+        lhs.fromAddressValue == rhs.fromAddressValue &&
+        lhs.toAddressName == rhs.toAddressName &&
+        lhs.toAddressValue == rhs.toAddressValue &&
+        lhs.transactionHash == rhs.transactionHash &&
+        lhs.blockHashes == rhs.blockHashes &&
+        lhs.details == rhs.details
     }
 }
 

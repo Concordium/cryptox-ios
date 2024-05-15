@@ -247,7 +247,7 @@ class MobileWallet: MobileWalletProtocol {
         let privateAccountKeys = try getPrivateAccountKeys(for: fromAccount, pwHash: pwHash).get()
         
         var secretEncryptionKey: String?
-        if transferType == .transferToPublic || transferType == .encryptedTransfer {
+        if transferType == .transferToPublic /*|| transferType == .encryptedTransfer*/ {
             secretEncryptionKey = try getSecretEncryptionKey(for: fromAccount, pwHash: pwHash).get()
         }
         
@@ -280,12 +280,8 @@ class MobileWallet: MobileWalletProtocol {
         switch transferType {
         case .simpleTransfer:
             return try CreateTransferRequest(walletFacade.createTransfer(input: input))
-        case .transferToSecret:
-            return try CreateTransferRequest(walletFacade.createShielding(input: input))
         case .transferToPublic:
              return try CreateTransferRequest(walletFacade.createUnshielding(input: input))
-        case .encryptedTransfer:
-             return try CreateTransferRequest(walletFacade.createEncrypted(input: input))
         case .registerDelegation, .removeDelegation, .updateDelegation:
             return try CreateTransferRequest(walletFacade.createConfigureDelegation(input: input))
         case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:

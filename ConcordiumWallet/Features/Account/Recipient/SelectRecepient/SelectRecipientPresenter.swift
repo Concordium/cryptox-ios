@@ -11,7 +11,7 @@ import Combine
 
 enum SelectRecipientMode {
     case selectRecipientFromPublic
-    case selectRecipientFromShielded
+//    case selectRecipientFromShielded
     case addressBook
 }
 
@@ -112,8 +112,7 @@ class SelectRecipientPresenter {
             self.originalRecipientsViewModels.removeAll()
                         
             for (index, recipient) in recipients.enumerated() {
-                let encrypted = mode == .selectRecipientFromShielded
-                self.originalRecipientsViewModels.append(RecipientViewModel(recipient: recipient, realIndex: index, isEncrypted: encrypted))
+                self.originalRecipientsViewModels.append(RecipientViewModel(recipient: recipient, realIndex: index, isEncrypted: false))
             }
 
             self.originalRecipientsViewModels = Array((NSOrderedSet(array: (self.originalRecipientsViewModels)).array as? [RecipientViewModel]) ?? [])
@@ -139,8 +138,7 @@ class SelectRecipientPresenter {
             self.originalRecipientsViewModels.removeAll()
                         
             for (index, recipient) in recipients.enumerated() {
-                let encrypted = mode == .selectRecipientFromShielded
-                self.originalRecipientsViewModels.append(RecipientViewModel(recipient: recipient, realIndex: index, isEncrypted: encrypted))
+                self.originalRecipientsViewModels.append(RecipientViewModel(recipient: recipient, realIndex: index, isEncrypted: false))
             }
 
             self.originalRecipientsViewModels = Array((NSOrderedSet(array: (self.originalRecipientsViewModels)).array as? [RecipientViewModel]) ?? [])

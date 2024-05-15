@@ -11,8 +11,6 @@ import Foundation
 enum AccountSettingsLogEvent {
     case releaseSchedule
     case transferFilters
-    case showShielded
-    case hideShielded
     case exportPrivateKey
     case exportTransactionLog
     case renameAccount

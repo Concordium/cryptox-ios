@@ -56,7 +56,6 @@ class SelectRecipientViewController: BaseViewController, SelectRecipientViewProt
                 target: self, action: #selector(createRecipientTapped))
 
         dataSource = RecipientDiffibleDataSource(tableView: tableView, cellProvider: createCell)
-//        tableView.applyConcordiumEdgeStyle()
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.clipsToBounds = true
         tableView.layer.masksToBounds = true
@@ -76,9 +75,6 @@ class SelectRecipientViewController: BaseViewController, SelectRecipientViewProt
         viewModel.$recipients.sink {
             var snapshot = NSDiffableDataSourceSnapshot<String, RecipientViewModel>()
             snapshot.appendSections(["me", "others"])
-//            let me = $0.filter {$0.isShielded}
-//            let others = $0.filter {!$0.isShielded}
-//            snapshot.appendItems(me, toSection: "me")
             snapshot.appendItems($0, toSection: "others")
             self.dataSource?.apply(snapshot)
             self.tableView.reloadData()
@@ -87,7 +83,7 @@ class SelectRecipientViewController: BaseViewController, SelectRecipientViewProt
         viewModel.$mode.sink {
             self.dataSource?.mode = $0
             switch $0 {
-            case .selectRecipientFromPublic, .selectRecipientFromShielded:
+            case .selectRecipientFromPublic:
                 self.title = "selectRecipient.title".localized
             case .addressBook:
                 self.title = "more.addressBook".localized
@@ -110,7 +106,6 @@ extension SelectRecipientViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecipientViewCell", for: indexPath)
         cell.textLabel?.text = viewModel.name
         cell.detailTextLabel?.text = viewModel.address
-        cell.imageView?.image = viewModel.isEncrypted ? UIImage(named: "Icon_Shield_Recipient") : nil
         return cell
     }
 }
@@ -147,8 +142,6 @@ class RecipientDiffibleDataSource: UITableViewDiffableDataSource<String, Recipie
                 return true
             case .selectRecipientFromPublic:
                 return false
-            case .selectRecipientFromShielded:
-            return false
         }
     }
 }

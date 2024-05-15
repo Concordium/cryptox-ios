@@ -380,13 +380,6 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
         return getAccountBalance(for: account.address)
             .flatMap({ (balance: AccountBalance) -> AnyPublisher<[(String, Int)], Error> in
                 savedBalance = balance
-                if let passwordDelegate = requestPasswordDelegate, withDecryption, balanceType == .shielded {
-                    let undecryptedValues = self.getUnDecryptedValues(for: account, balance: balance)
-                    if undecryptedValues.count > 0 {
-                        return self.mobileWallet.decryptEncryptedAmounts(from: account, undecryptedValues, requestPasswordDelegate: passwordDelegate)
-                    }
-                    
-                }
                 return .just([])
 
             }) .map({ (values) -> (AccountDataType) in

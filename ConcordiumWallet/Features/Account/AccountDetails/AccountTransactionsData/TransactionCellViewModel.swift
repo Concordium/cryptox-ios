@@ -21,13 +21,12 @@ struct TransactionCellViewModel {
     var totalColor: UIColor = .text
     var amountColor: UIColor = .text
     var costColor: UIColor = .text
-    var showLock = false
     var showCostAndAmount = true
     var showErrorIcon = true
     var showStatusIcon = true
     var statusIcon = #imageLiteral(resourceName: "ok_x2")
     var showCostAsEstimate = false
-
+    
     // swiftlint:disable all
     init(transactionVM: TransactionViewModel) {
         title = transactionVM.title
@@ -35,10 +34,9 @@ struct TransactionCellViewModel {
         memo = transactionVM.memo?.displayValue ?? ""
         fullDate = GeneralFormatter.formatDateWithTime(for: transactionVM.date)
         total = transactionVM.total?.displayValueWithGStroke() ?? ""
-        showLock = transactionVM.total?.displayValueWithGStroke() == nil
         
         if transactionVM.status == .received
-                   || (transactionVM.status == .committed && transactionVM.outcome == .ambiguous) {
+            || (transactionVM.status == .committed && transactionVM.outcome == .ambiguous) {
             showErrorIcon = false
             statusIcon = #imageLiteral(resourceName: "time")
             costColor = .primary
@@ -69,19 +67,14 @@ struct TransactionCellViewModel {
             amountColor = .fadedText
         }
         
-        if transactionVM.showCostAsShieleded {
-            self.cost = "transactions.shieledtransactionfee".localized
-            self.amount = ""
-        } else {
-            if let cost = transactionVM.cost?.displayValueWithGStroke(),
-                let amount = transactionVM.amount?.displayValueWithGStroke() {
-                self.amount = amount
-                self.cost = " - " + cost + " Fee"
-
-                // Prepend with ~ if cost is estimated.
-                if showCostAsEstimate {
-                    self.cost = self.cost.replacingOccurrences(of: "- ", with: "- ~", options: NSString.CompareOptions.literal, range: nil)
-                }
+        if let cost = transactionVM.cost?.displayValueWithGStroke(),
+           let amount = transactionVM.amount?.displayValueWithGStroke() {
+            self.amount = amount
+            self.cost = " - " + cost + " Fee"
+            
+            // Prepend with ~ if cost is estimated.
+            if showCostAsEstimate {
+                self.cost = self.cost.replacingOccurrences(of: "- ", with: "- ~", options: NSString.CompareOptions.literal, range: nil)
             }
         }
     }

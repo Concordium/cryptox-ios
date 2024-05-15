@@ -21,7 +21,6 @@ class SendFundViewModel {
     @Published var showMemoRemoveButton = false
     @Published var sendButtonEnabled = false
     @Published var showMemoAndRecipient = false
-    @Published var showShieldedLock = false
     @Published var pageTitle: String?
     @Published var buttonTitle: String?
     @Published var sendAllVisible = true
@@ -31,15 +30,7 @@ class SendFundViewModel {
     @Published var disposalAmount: GTU?
     
     func setup(account: AccountDataType, transferType: SendFundTransferType) {
-        switch transferType {
-        case .simpleTransfer, .encryptedTransfer:
-            // We show the memo and recipient for simple or encrypted transfers
-            showMemoAndRecipient = true
-        case .transferToSecret, .transferToPublic:
-            // We hide the memo and recipient for shielding or unshielding
-            showMemoAndRecipient = false
-        }
-        
+        showMemoAndRecipient = true
         setPageAndSendButtonTitle(transferType: transferType)
         setBalancesFor(transferType: transferType, account: account)
     }
@@ -59,36 +50,28 @@ class SendFundViewModel {
     
     private func setPageAndSendButtonTitle(transferType: SendFundTransferType) {
         switch transferType {
-        case .simpleTransfer, .encryptedTransfer:
+        case .simpleTransfer:
             pageTitle = "sendFund.pageTitle.send".localized
             buttonTitle = "sendFund.buttonTitle.send".localized
         case .transferToPublic:
             pageTitle = "sendFund.pageTitle.unshieldAmount".localized
             buttonTitle = "sendFund.buttonTitle.unshieldAmount".localized
-        case .transferToSecret:
-            pageTitle = "sendFund.pageTitle.shieldAmount".localized
-            buttonTitle = "sendFund.buttonTitle.shieldAmount".localized
         }
     }
     private func setBalancesFor(transferType: SendFundTransferType, account: AccountDataType) {
         switch transferType {
-        case .simpleTransfer, .transferToSecret:
+        case .simpleTransfer:
             // for transfers from the public account, we show Total and at disposal for the public balance
             firstBalanceName = "sendFund.total".localized
             secondBalanceName = "sendFund.atDisposal".localized
-            // We don't show the send all button for shielding transfers as it is likely a user mistake
-            sendAllVisible = transferType != .transferToSecret
             firstBalance = GTU(intValue: account.forecastBalance).displayValueWithGStroke()
             secondBalance = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
             disposalAmount = GTU(intValue: account.forecastAtDisposalBalance)
-        case .encryptedTransfer, .transferToPublic:
-            // for transfers from the shielded account we should the public at disposal and the shielded balance
-            let showLock = account.encryptedBalanceStatus == .partiallyDecrypted || account.encryptedBalanceStatus == .encrypted
-            showShieldedLock = showLock
+        case .transferToPublic:
             firstBalanceName = "sendFund.balanceAtDisposal".localized
-            secondBalanceName = "sendFund.shieldedBalance".localized
+            secondBalanceName = ""
             firstBalance = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
-            secondBalance = GTU(intValue: account.finalizedEncryptedBalance).displayValueWithGStroke() + (showLock ? " + " : "")
+            secondBalance = GTU(intValue: account.finalizedEncryptedBalance).displayValueWithGStroke()
             disposalAmount = GTU(intValue: account.finalizedEncryptedBalance)
         }
     }
@@ -173,12 +156,6 @@ class SendFundPresenter: SendFundPresenterProtocol {
         self.transferType = transferType
         self.delegate = delegate
         self.dependencyProvider = dependencyProvider
-        
-        // If transfertype is from/to shielded account, set recipient to own account.
-        if transferType == .transferToPublic || transferType == .transferToSecret {
-            let ownAccount = RecipientEntity(name: self.account.displayName, address: self.account.address)
-            setSelectedRecipient(recipient: ownAccount)
-        }
     }
     
     func viewDidLoad() {
@@ -324,7 +301,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
             let recipient: RecipientDataType
             if selectedRecipient.address == self.account.address {
                 // if we try to make a simple or an encrypted transfer to own account, we show an error
-                if self.transferType == .simpleTransfer || self.transferType == .encryptedTransfer {
+                if self.transferType == .simpleTransfer {
                     self.view?.showToast(withMessage: "sendFund.sendingToOwnAccountDisallowed".localized, time: 1)
                     return
                 }
@@ -344,10 +321,8 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 transferType: self.transferType
             )
         }
-        
-        if transferType == .transferToSecret {
-            showShieldAmountWarningIfNeeded(amount: amount, completion: sendFund)
-        } else if addedMemo == nil || AppSettings.dontShowMemoAlertWarning {
+
+        if addedMemo == nil || AppSettings.dontShowMemoAlertWarning {
             sendFund()
         } else {
             view?.showMemoWarningAlert { sendFund() }
@@ -409,26 +384,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
             }, receiveValue: { [weak self] value in
                 guard let self = self else { return }
                 let cost = GTU(intValue: Int(value.cost) ?? 0)
-                let totalAmount: String!
-                if self.balanceType == .shielded {
-                    // the cost is always deducted from the public balance, not
-                    // from the shielded
-                    totalAmount = GTU(intValue: disposalAmount).displayValue()
-                } else {
-                    totalAmount = (GTU(intValue: disposalAmount) - cost).displayValue()
-                }
-                
-                /*
-                 if self.balanceType == .shielded {
-                     // the cost is always deducted from the public balance, not
-                     // from the shielded
-                     totalAmount = TokenFormatter().string(from: .init(BigInt(disposalAmount), 6))//  GTU(intValue: disposalAmount).displayValue()
-                 } else {
-                     totalAmount = TokenFormatter().string(from: .init(BigInt((GTU(intValue: disposalAmount) - cost).intValue), 6))//(GTU(intValue: disposalAmount) - cost).displayValue()
-                 }
-                 */
-                
-                
+                let totalAmount: String = (GTU(intValue: disposalAmount) - cost).displayValue()
                 self.view?.amountSubject.send(totalAmount)
                 self.viewModel.sendAllAmount = totalAmount
                 self.cost = cost
@@ -436,46 +392,12 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 let feeMessage = "sendFund.feeMessage".localized + cost.displayValue()
                 self.viewModel.feeMessage = feeMessage
             }).store(in: &cancellables)
-
     }
 
     private func clearEstimatedTransferCost() {
         viewModel.feeMessage = nil
         cost = nil
         energy = nil
-    }
-    
-    private func showShieldAmountWarningIfNeeded(amount: String, completion: @escaping () -> Void) {
-        guard let disposableAmount = viewModel.disposalAmount?.intValue else {
-            completion()
-            return
-        }
-        
-        let gtuAmount = GTU(displayValue: amount)
-        let maxGTU = disposableAmount - (disposableAmount / 20) // 95% of disposableAmount
-        
-        if gtuAmount.intValue >= maxGTU {
-            let continueAction = AlertAction(
-                name: "sendFund.warning.shield.continue".localized,
-                completion: completion,
-                style: .default
-            )
-            let newAmountAction = AlertAction(
-                name: "sendFund.warning.shield.newamount".localized,
-                completion: nil,
-                style: .default
-            )
-            
-            let alertOptions = AlertOptions(
-                title: "sendFund.warning.shield.title".localized,
-                message: "sendFund.warning.shield.message".localized,
-                actions: [continueAction, newAmountAction]
-            )
-            
-            self.view?.showAlert(with: alertOptions)
-        } else {
-            completion()
-        }
     }
 }
 

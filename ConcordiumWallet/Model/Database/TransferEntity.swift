@@ -69,24 +69,22 @@ extension TransferDataType {
     private func amountAsInt() -> Int {
         return Int(amount) ?? 0
     }
-
+    
     func getPublicBalanceChange() -> Int {
         if .absent == transactionStatus {
             return 0
         }
-
+        
         let balanceChange: Int
         switch outcome {
         case .reject:
             balanceChange = Int(cost) ?? 0
         default:
             switch transferType {
-            case .simpleTransfer, .transferToSecret: // transfer to public is included even if not finalized
+            case .simpleTransfer: // transfer to public is included even if not finalized
                 balanceChange = amountAsInt() + (Int(cost) ?? 0)
             case .transferToPublic:
                 balanceChange = -amountAsInt() + (Int(cost) ?? 0)
-            case .encryptedTransfer:
-                balanceChange = (Int(cost) ?? 0)
             case .registerDelegation, .removeDelegation, .updateDelegation:
                 balanceChange = (Int(cost) ?? 0)
             case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
@@ -112,9 +110,7 @@ extension TransferDataType {
             switch transferType {
             case .simpleTransfer:
                 balanceChange = 0
-            case .transferToSecret:
-                balanceChange = -amountAsInt()// shielding is included even if not finalized
-            case .encryptedTransfer, .transferToPublic:
+            case .transferToPublic:
                 balanceChange = amountAsInt() + 0 // the cost is taken from the public balance
             case .registerDelegation, .removeDelegation, .updateDelegation:
                 balanceChange = 0
@@ -170,7 +166,7 @@ final class TransferEntity: Object {
     @objc dynamic var transactionFeeCommission: Double = -1
     @objc dynamic var bakingRewardCommission: Double = -1
     @objc dynamic var finalizationRewardCommission: Double = -1
- 
+    
     @objc dynamic var keys: String = ""
     @objc dynamic var params: String = ""
     @objc dynamic var receiveName: String = ""
@@ -244,13 +240,3 @@ extension TransferEntity: TransferDataType {
         }
     }
 }
-
-//class ContractAddressObject: Object {
-//    var index: String = ""
-//    var subindex: String = ""
-//    
-//    required override init() {
-//        index = ""
-//        subindex = ""
-//    }
-//}

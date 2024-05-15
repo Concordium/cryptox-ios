@@ -11,18 +11,14 @@ protocol SendFundsCoordinatorDelegate: AnyObject {
 
 enum SendFundTransferType {
     case simpleTransfer
-    case encryptedTransfer
-    case transferToSecret
+    
+    @available(*, deprecated, message: "Will remove after fully remove `Shielding` functionality on blockchain")
     case transferToPublic
     
     var actualType: TransferType {
         switch self {
         case .simpleTransfer:
             return .simpleTransfer
-        case .encryptedTransfer:
-            return .encryptedTransfer
-        case .transferToSecret:
-            return .transferToSecret
         case .transferToPublic:
             return .transferToPublic
         }
@@ -68,15 +64,9 @@ class SendFundsCoordinator: Coordinator {
     }
 
     func showSelectRecipient(balanceType: AccountBalanceTypeEnum, currentAccount: AccountDataType) {
-        let mode: SelectRecipientMode
-        if balanceType == .shielded {
-            mode = .selectRecipientFromShielded
-        } else {
-            mode = .selectRecipientFromPublic
-        }
         let vc = SelectRecipientFactory.create(with: SelectRecipientPresenter(delegate: self,
                                                                               storageManager: dependencyProvider.storageManager(),
-                                                                              mode: mode,
+                                                                              mode: .selectRecipientFromPublic,
                                                                               ownAccount: currentAccount))
         navigationController.pushViewController(vc, animated: true)
     }

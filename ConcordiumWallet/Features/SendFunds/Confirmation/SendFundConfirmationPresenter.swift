@@ -30,18 +30,18 @@ protocol SendFundConfirmationPresenterDelegate: AnyObject {
 // MARK: -
 // MARK: Presenter
 protocol SendFundConfirmationPresenterProtocol: AnyObject {
-	var view: SendFundConfirmationViewProtocol? { get set }
+    var view: SendFundConfirmationViewProtocol? { get set }
     func viewDidLoad()
     func userTappedConfirm()
 }
 
 class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
-
+    
     weak var view: SendFundConfirmationViewProtocol?
     weak var delegate: (SendFundConfirmationPresenterDelegate & RequestPasswordDelegate)?
     let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     private var cancellables = [AnyCancellable]()
-
+    
     private var amount: GTU
     private var fromAccount: AccountDataType
     private var recipient: RecipientDataType
@@ -49,7 +49,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
     private var memo: Memo?
     private var energy: Int
     private var transferType: SendFundTransferType
-
+    
     init(
         delegate: (SendFundConfirmationPresenterDelegate & RequestPasswordDelegate)? = nil,
         amount: GTU,
@@ -71,12 +71,12 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         self.dependencyProvider = dependencyProvider
         self.transferType = transferType
     }
-
+    
     func viewDidLoad() {
         let sAmount = amount.displayValueWithGStroke()
         let to = "sendFund.confirmation.line2.to".localized
         let recipientName = recipient.displayName()
-        if transferType == .encryptedTransfer || transferType == .simpleTransfer {
+        if transferType == .simpleTransfer {
             view?.line2Text = "\(sAmount) \(to) \(recipientName)"
             let sFromAccount = "sendFund.confirmation.line3.fromAccount".localized
             let accountName = fromAccount.displayName
@@ -94,18 +94,11 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         case .simpleTransfer:
             view?.line1Text = "sendFund.confirmation.transfer".localized
             view?.buttonText = "sendFund.confirmation.buttonTitle".localized
-        case .encryptedTransfer:
-            view?.line1Text = "sendFund.confirmation.transfer".localized
-            view?.buttonText = "sendFund.sendshielded".localized
-            view?.visibleWaterMark = true
         case .transferToPublic:
             view?.line1Text = "sendFund.confirmation.unshield".localized
             view?.buttonText = "accounts.unshieldedamount".localized
-        case .transferToSecret:
-            view?.line1Text = "sendFund.confirmation.shield".localized
-            view?.buttonText = "accounts.shieldedamount".localized
         }
-
+        
         let estimateTransactionFee = "sendFund.confirmation.line4.estimatedTransactionFee".localized
         let sCost = cost.displayValueWithGStroke()
         view?.line4Text = "\(estimateTransactionFee)\(sCost)"
@@ -116,7 +109,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
             view?.line5Text = nil
         }
     }
-
+    
     func userTappedConfirm() {
         var transfer = TransferDataTypeFactory.create()
         transfer.transferType = transferType.actualType
@@ -126,24 +119,24 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         transfer.cost = String(cost.intValue)
         transfer.memo = memo?.data.hexDescription
         transfer.energy = energy
-
+        
         dependencyProvider.transactionsService()
-                .performTransfer(transfer, from: fromAccount, requestPasswordDelegate: delegate!)
-                .showLoadingIndicator(in: self.view)
-                .tryMap(dependencyProvider.storageManager().storeTransfer)
-                .sink(receiveError: { [weak self] error in
-                    if case NetworkError.serverError = error {
-                        LegacyLogger.error(error)
-                        self?.delegate?.sendFundFailed(error: error)
-                    } else if case GeneralError.userCancelled = error {
-                        return
-                    } else {
-                        self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
-                    }
-                }, receiveValue: { [weak self] in
-                    guard let self = self else { return }
-                    LegacyLogger.debug($0)
-                    self.delegate?.sendFundSubmitted(transfer: $0, recipient: self.recipient)
-                }).store(in: &cancellables)
+            .performTransfer(transfer, from: fromAccount, requestPasswordDelegate: delegate!)
+            .showLoadingIndicator(in: self.view)
+            .tryMap(dependencyProvider.storageManager().storeTransfer)
+            .sink(receiveError: { [weak self] error in
+                if case NetworkError.serverError = error {
+                    LegacyLogger.error(error)
+                    self?.delegate?.sendFundFailed(error: error)
+                } else if case GeneralError.userCancelled = error {
+                    return
+                } else {
+                    self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+                }
+            }, receiveValue: { [weak self] in
+                guard let self = self else { return }
+                LegacyLogger.debug($0)
+                self.delegate?.sendFundSubmitted(transfer: $0, recipient: self.recipient)
+            }).store(in: &cancellables)
     }
 }

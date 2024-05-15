@@ -57,18 +57,6 @@ class AccountMultiBalanceCell: UITableViewCell {
         leftAlignmentConstraint.constant = 0
     }
     
-    func showLock() {
-        self.lockImageView?.image = UIImage(named: "Icon_Shield")
-        self.shieldedLockImageView?.image = UIImage(named: "Icon_Shield")
-        layoutIfNeeded()
-    }
-    
-    func hideLock() {
-        self.lockImageView?.image = nil
-        self.shieldedLockImageView?.image = nil
-         layoutIfNeeded()
-    }
-    
     @IBAction func pressedGeneralBalance(sender: Any) {
         guard let cellRow = cellRow else { return }
         delegate?.cellCheckTapped(cellRow: cellRow, index: 1)

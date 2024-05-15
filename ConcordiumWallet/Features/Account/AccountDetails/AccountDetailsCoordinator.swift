@@ -81,21 +81,10 @@ class AccountDetailsCoordinator: Coordinator,
                                                           account: account,
                                                           delegate: self)
         let vc = AccountDetailsFactory.create(with: accountDetailsPresenter!)
-//        vc.hidesBottomBarWhenPushed = true
         navigationController.pushViewController(vc, animated: true)
     }
     
     func showAccountDetails(account: AccountDataType) {
-        #warning("Max, im here")
-//        accountDetailsPresenter = AccountDetailsPresenter(dependencyProvider: dependencyProvider,
-//                                                          account: account,
-//                                                          delegate: self)
-//        let vc = AccountDetailsFactory.create(with: accountDetailsPresenter!)
-//        vc.hidesBottomBarWhenPushed = true
-//        navigationController.pushViewController(vc, animated: true)
-//
-//        let accountDetailProxy: AccountDetailProxy = .init(coordinator: self)
-//        let balanceType: AccountBalanceTypeEnum = .balance
         let router = AccountDetailRouter(account: account, navigationController: navigationController, dependencyProvider: dependencyProvider as! ServicesProvider)
         let viewModel = AccountDetailViewModel(
             router: router,
@@ -184,20 +173,7 @@ class AccountDetailsCoordinator: Coordinator,
     }
     
     func showSendFund(balanceType: AccountBalanceTypeEnum = .balance) {
-        let transferType: SendFundTransferType = balanceType == .shielded ? .encryptedTransfer : .simpleTransfer
-        let coordinator = SendFundsCoordinator(navigationController: CXNavigationController(),
-                                               delegate: self,
-                                               dependencyProvider: self.dependencyProvider,
-                                               account: account,
-                                               balanceType: balanceType,
-                                               transferType: transferType)
-        coordinator.start()
-        childCoordinators.append(coordinator)
-        navigationController.present(coordinator.navigationController, animated: true, completion: nil)
-    }
-    
-    func shieldUnshieldFund(balanceType: AccountBalanceTypeEnum = .balance) {
-        let transferType: SendFundTransferType = balanceType == .shielded ? .transferToPublic : .transferToSecret
+        let transferType: SendFundTransferType = /*balanceType == .shielded ? .encryptedTransfer : */.simpleTransfer
         let coordinator = SendFundsCoordinator(navigationController: CXNavigationController(),
                                                delegate: self,
                                                dependencyProvider: self.dependencyProvider,
@@ -364,10 +340,6 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
         showSendFund(balanceType: balanceType)
     }
     
-    func accountDetailsPresenterShieldUnshield(_ accountDetailsPresenter: AccountDetailsPresenter, balanceType: AccountBalanceTypeEnum) {
-        shieldUnshieldFund(balanceType: balanceType)
-    }
-    
     func accountDetailsPresenterAddress(_ accountDetailsPresenter: AccountDetailsPresenter) {
         showAccountAddressQR(account)
     }
@@ -520,9 +492,6 @@ extension AccountDetailsCoordinator: ExportTransactionLogPresenterDelegate {
     }
 }
 
-
-
-/// redesign
 extension AccountDetailsCoordinator {
     public func showAccountSettings() {
         let presenter = AccountSettingsPresenter(account: account, delegate: self)
@@ -532,56 +501,3 @@ extension AccountDetailsCoordinator {
         )
     }
 }
-
-//extension AccountDetailsCoordinator: AccountDetailNavigationProxy {
-//    func showRecepientPicker(_ onPicked: @escaping (String) -> Void) {
-//        let vc = SelectRecipientFactory.create(with: SelectRecipientPresenter(closure: { [weak self] output in
-//            onPicked(output.address)
-//            self?.navigationController.popViewController(animated: true)
-//        },
-//                                                                              storageManager: dependencyProvider.storageManager(),
-//                                                                              mode: .addressBook,
-//                                                                              ownAccount: account))
-//        navigationController.pushViewController(vc, animated: true)
-//    }
-//    
-//    func showQrAddressPicker(_ onPicked: @escaping (String) -> Void) {
-//        let vc = ScanAddressQRFactory.create(with: ScanAddressQRPresenter(wallet: dependencyProvider.mobileWallet(), closure: { [weak self] output in
-//            onPicked(output.address)
-//            self?.navigationController.popViewController(animated: true)
-//        }))
-//        navigationController.pushViewController(vc, animated: true)
-//    }
-//    
-//    func showSendTokenFlow(tokenType: CXTokenType) {
-//        let router = TransferTokenRouter(root: navigationController, account: account, dependencyProvider: dependencyProvider)
-//        router.showSendTokenFlow(tokenType: tokenType)
-//    }
-//    
-//    func showCIS2TokenDetailsFlow(_ token: CIS2Token, account: AccountDataType) {
-//        let viewModel = CIS2TokenDetailViewModel(
-//            token,
-//            account: account,
-//            proxy: self,
-//            storageManager: dependencyProvider.storageManager(),
-//            onPop: { [weak navigationController] in
-//                navigationController?.popViewController(animated: true)
-//            })
-//        let view = CIS2TokenDetailView(viewModel: viewModel)
-//        let viewController = SceneViewController(content: view)
-//        viewController.hidesBottomBarWhenPushed = true
-//        navigationController.pushViewController(viewController, animated: true)
-//    }
-//    
-//    func showAccountDetailFlow(for account: AccountDataType) {
-//        self.showOldAccountDetails(account: account)
-//    }
-//    
-//    func showImportTokenFlow(for account: AccountDataType) {
-//        self.showImportTokenFlow(account.address)
-//    }
-//    
-//    func showTx(_ tx: TransactionViewModel) {
-//        showTransactionDetail(viewModel: tx)
-//    }
-//}
