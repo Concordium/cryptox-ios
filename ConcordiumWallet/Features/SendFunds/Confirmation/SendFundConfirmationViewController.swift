@@ -25,8 +25,6 @@ class SendFundConfirmationViewController: BaseViewController, SendFundConfirmati
     @IBOutlet weak var line5: UILabel!
     
     @IBOutlet weak var sendButton: UIButton!
-
-    @IBOutlet weak var shieldedWaterMark: UIImageView!
     
     var line1Text: String? {
         didSet {
@@ -61,12 +59,6 @@ class SendFundConfirmationViewController: BaseViewController, SendFundConfirmati
     var buttonText: String? {
         didSet {
             sendButton.setTitle(buttonText, for: .normal)
-        }
-    }
-    
-    var visibleWaterMark: Bool = false {
-        didSet {
-            shieldedWaterMark.isHidden = !visibleWaterMark
         }
     }
 

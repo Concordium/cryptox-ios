@@ -17,7 +17,6 @@ protocol SendFundConfirmationViewProtocol: ShowAlert, Loadable {
     var line4Text: String? { get set }
     var line5Text: String? { get set }
     var buttonText: String? { get set }
-    var visibleWaterMark: Bool { get set }
 }
 
 // MARK: -
@@ -87,9 +86,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
             let accountName = fromAccount.displayName
             view?.line3Text = "\(sFromAccount) \(accountName)"
         }
-        
-        view?.visibleWaterMark = false
-        
+                
         switch transferType {
         case .simpleTransfer:
             view?.line1Text = "sendFund.confirmation.transfer".localized
