@@ -232,7 +232,7 @@ public class TokenFormatter {
                                                   count: max(0, number.precision - numberString.count + 1))
         numberString = leadingZeroesForSmallNumbers + numberString
         var fractional = String(numberString.suffix(number.precision))
-        var integer = String(numberString.prefix(numberString.count - fractional.count))
+        let integer = String(numberString.prefix(numberString.count - fractional.count))
         fractional = fractional.removingTrailingZeroes
         
         let integerGroupped = Self.groups(string: integer, size: 3).joined(separator: "")

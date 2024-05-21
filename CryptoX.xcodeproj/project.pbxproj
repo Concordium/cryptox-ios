@@ -1976,6 +1976,12 @@
 		507629662BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
 		507629672BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
 		507629682BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
+		50EB30FF2BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */; };
+		50EB31002BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */; };
+		50EB31012BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */; };
+		50EB31032BFCABAA002B2558 /* UnshieldAssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB31022BFCABAA002B2558 /* UnshieldAssetsView.swift */; };
+		50EB31042BFCABAA002B2558 /* UnshieldAssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB31022BFCABAA002B2558 /* UnshieldAssetsView.swift */; };
+		50EB31052BFCABAA002B2558 /* UnshieldAssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB31022BFCABAA002B2558 /* UnshieldAssetsView.swift */; };
 		52055F872552C1D90071F7CA /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52055F852552C1D90071F7CA /* NibLoadable.swift */; };
 		52055F892552C1D90071F7CA /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52055F852552C1D90071F7CA /* NibLoadable.swift */; };
 		52055F8C2552C51F0071F7CA /* IdentityProviderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52055F8A2552C51F0071F7CA /* IdentityProviderCell.swift */; };
@@ -3140,6 +3146,8 @@
 		19C2EE201F8E02CE561DA70D /* GTU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GTU.swift; sourceTree = "<group>"; };
 		19C2EEBD44B62F16333900D2 /* GeneralError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralError.swift; sourceTree = "<group>"; };
 		507629652BF2040B00B4D390 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldedAccountsView.swift; sourceTree = "<group>"; };
+		50EB31022BFCABAA002B2558 /* UnshieldAssetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnshieldAssetsView.swift; sourceTree = "<group>"; };
 		52055F852552C1D90071F7CA /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
 		52055F8A2552C51F0071F7CA /* IdentityProviderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityProviderCell.swift; sourceTree = "<group>"; };
 		52589B2525128F8700ADD35B /* AccountMultiBalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountMultiBalanceCell.swift; sourceTree = "<group>"; };
@@ -3704,6 +3712,7 @@
 		088FEC682A01483D00042957 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				50EB30FD2BFBA113002B2558 /* UnshieldAssetsFlow */,
 				08520A4B2B45B56F008DC851 /* SwiftUIComponents */,
 				08A6BD922B3088DA00869317 /* NewOnboardingFlow */,
 				08AB08E12A696B9900C226F3 /* DefaultAccountCIS2Token */,
@@ -5187,6 +5196,15 @@
 				D5113A38271733510004841E /* WebSocketDecodingStrategy.swift */,
 			);
 			path = LegacyWalletConnect;
+			sourceTree = "<group>";
+		};
+		50EB30FD2BFBA113002B2558 /* UnshieldAssetsFlow */ = {
+			isa = PBXGroup;
+			children = (
+				50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */,
+				50EB31022BFCABAA002B2558 /* UnshieldAssetsView.swift */,
+			);
+			path = UnshieldAssetsFlow;
 			sourceTree = "<group>";
 		};
 		6BB39F873C67A7442AE8DD30 /* Frameworks */ = {
@@ -6720,6 +6738,7 @@
 				08C166B22BB7396200E61326 /* CXNavigationController.swift in Sources */,
 				08C166B32BB7396200E61326 /* InitialAccountData.swift in Sources */,
 				08C166B42BB7396200E61326 /* TermsAndConditionsIntroPresenter.swift in Sources */,
+				50EB31052BFCABAA002B2558 /* UnshieldAssetsView.swift in Sources */,
 				08C166B52BB7396200E61326 /* GradienBackgroundModifier.swift in Sources */,
 				08C166B62BB7396200E61326 /* NFTProvidersViewController.swift in Sources */,
 				08C166B72BB7396200E61326 /* LoginInfoLabel.swift in Sources */,
@@ -7110,6 +7129,7 @@
 				08C1683A2BB7396200E61326 /* Aci.swift in Sources */,
 				08C1683B2BB7396200E61326 /* AccountTransactionsDataViewController.swift in Sources */,
 				08C1683C2BB7396200E61326 /* AppSettings.swift in Sources */,
+				50EB31012BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */,
 				08C1683D2BB7396200E61326 /* UIView+Additions.swift in Sources */,
 				08E472B92BCEFB53004F0088 /* SessionRequestDataType.swift in Sources */,
 				08C1683E2BB7396200E61326 /* Sizes.swift in Sources */,
@@ -7402,6 +7422,7 @@
 				080F35292A09058E0070D4EE /* CXNavigationController.swift in Sources */,
 				08A0460429FA99D200DACE1F /* InitialAccountData.swift in Sources */,
 				088FF0342A0277F600042957 /* TermsAndConditionsIntroPresenter.swift in Sources */,
+				50EB31042BFCABAA002B2558 /* UnshieldAssetsView.swift in Sources */,
 				08FD0B832A7D31D9003774A6 /* GradienBackgroundModifier.swift in Sources */,
 				D5612B8C28EA559D00582AD4 /* NFTProvidersViewController.swift in Sources */,
 				7F85B7E8246A9AB600ED09B8 /* LoginInfoLabel.swift in Sources */,
@@ -7792,6 +7813,7 @@
 				08A045DD29FA99D200DACE1F /* Aci.swift in Sources */,
 				088FEDCC2A01677F00042957 /* AccountTransactionsDataViewController.swift in Sources */,
 				7F85B88C246A9AB600ED09B8 /* AppSettings.swift in Sources */,
+				50EB31002BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */,
 				7F85B88D246A9AB600ED09B8 /* UIView+Additions.swift in Sources */,
 				08E472B82BCEFB53004F0088 /* SessionRequestDataType.swift in Sources */,
 				7F85B88F246A9AB600ED09B8 /* Sizes.swift in Sources */,
@@ -8084,6 +8106,7 @@
 				067D766923FC1AF9002DEF67 /* LoginInfoLabel.swift in Sources */,
 				088FEDC32A01677E00042957 /* TransactionViewModel.swift in Sources */,
 				080F35272A09058E0070D4EE /* CXNavigationController.swift in Sources */,
+				50EB31032BFCABAA002B2558 /* UnshieldAssetsView.swift in Sources */,
 				088FF0002A0271F000042957 /* SeedIdentityOnboardingViewModel.swift in Sources */,
 				D54795A228ECECBF00575649 /* NFTImportView.swift in Sources */,
 				08A0458229FA99D100DACE1F /* ServerErrorMessage.swift in Sources */,
@@ -8474,6 +8497,7 @@
 				088FEDC42A01677E00042957 /* AccountTransactionsDataViewController.swift in Sources */,
 				D5B39402271990D60094A9F5 /* CircleView.swift in Sources */,
 				19C2E7429349DB90804089D0 /* AppSettings.swift in Sources */,
+				50EB30FF2BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */,
 				08E472B72BCEFB53004F0088 /* SessionRequestDataType.swift in Sources */,
 				19C2E1F4C4825F62DEE3EE2B /* UIView+Additions.swift in Sources */,
 				D5E29760276C8DC8000DB102 /* CopyPasterHelper.swift in Sources */,

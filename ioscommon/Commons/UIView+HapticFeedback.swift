@@ -20,7 +20,6 @@ extension UIView {
 
 
 enum Vibration {
-    
     case error
     case success
     case warning
