@@ -1982,6 +1982,12 @@
 		50EB31032BFCABAA002B2558 /* UnshieldAssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB31022BFCABAA002B2558 /* UnshieldAssetsView.swift */; };
 		50EB31042BFCABAA002B2558 /* UnshieldAssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB31022BFCABAA002B2558 /* UnshieldAssetsView.swift */; };
 		50EB31052BFCABAA002B2558 /* UnshieldAssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB31022BFCABAA002B2558 /* UnshieldAssetsView.swift */; };
+		50EB31072BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB31062BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift */; };
+		50EB31082BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB31062BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift */; };
+		50EB31092BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB31062BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift */; };
+		50EB310B2BFFF515002B2558 /* UnshieldAssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB310A2BFFF515002B2558 /* UnshieldAssetsViewModel.swift */; };
+		50EB310C2BFFF515002B2558 /* UnshieldAssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB310A2BFFF515002B2558 /* UnshieldAssetsViewModel.swift */; };
+		50EB310D2BFFF515002B2558 /* UnshieldAssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB310A2BFFF515002B2558 /* UnshieldAssetsViewModel.swift */; };
 		52055F872552C1D90071F7CA /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52055F852552C1D90071F7CA /* NibLoadable.swift */; };
 		52055F892552C1D90071F7CA /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52055F852552C1D90071F7CA /* NibLoadable.swift */; };
 		52055F8C2552C51F0071F7CA /* IdentityProviderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52055F8A2552C51F0071F7CA /* IdentityProviderCell.swift */; };
@@ -3148,6 +3154,8 @@
 		507629652BF2040B00B4D390 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldedAccountsView.swift; sourceTree = "<group>"; };
 		50EB31022BFCABAA002B2558 /* UnshieldAssetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnshieldAssetsView.swift; sourceTree = "<group>"; };
+		50EB31062BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldedAccountsViewModel.swift; sourceTree = "<group>"; };
+		50EB310A2BFFF515002B2558 /* UnshieldAssetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnshieldAssetsViewModel.swift; sourceTree = "<group>"; };
 		52055F852552C1D90071F7CA /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
 		52055F8A2552C51F0071F7CA /* IdentityProviderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityProviderCell.swift; sourceTree = "<group>"; };
 		52589B2525128F8700ADD35B /* AccountMultiBalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountMultiBalanceCell.swift; sourceTree = "<group>"; };
@@ -5201,7 +5209,9 @@
 		50EB30FD2BFBA113002B2558 /* UnshieldAssetsFlow */ = {
 			isa = PBXGroup;
 			children = (
+				50EB31062BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift */,
 				50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */,
+				50EB310A2BFFF515002B2558 /* UnshieldAssetsViewModel.swift */,
 				50EB31022BFCABAA002B2558 /* UnshieldAssetsView.swift */,
 			);
 			path = UnshieldAssetsFlow;
@@ -7044,6 +7054,7 @@
 				08C167DF2BB7396200E61326 /* ExportValues.swift in Sources */,
 				08C167E02BB7396200E61326 /* RoundedCurrencyView.swift in Sources */,
 				08C167E12BB7396200E61326 /* Data+Hex.swift in Sources */,
+				50EB310D2BFFF515002B2558 /* UnshieldAssetsViewModel.swift in Sources */,
 				08C167E22BB7396200E61326 /* MakeGenerateAccountsResponseElement.swift in Sources */,
 				08C167E32BB7396200E61326 /* StakeService.swift in Sources */,
 				08C167E52BB7396200E61326 /* DelegationTarget.swift in Sources */,
@@ -7306,6 +7317,7 @@
 				08C168E22BB7396200E61326 /* Publisher+Async.swift in Sources */,
 				08C168E32BB7396200E61326 /* QRTransactionDataViewController.swift in Sources */,
 				08C168E42BB7396200E61326 /* RevealAttributesViewController.swift in Sources */,
+				50EB31092BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift in Sources */,
 				08C168E52BB7396200E61326 /* ExportPrivateKeyViewModel.swift in Sources */,
 				08C168E62BB7396200E61326 /* ColorPalette.swift in Sources */,
 				08C168E72BB7396200E61326 /* ShowAlertProtocol.swift in Sources */,
@@ -7728,6 +7740,7 @@
 				D589F2092794B5ED003F2FBB /* ExportValues.swift in Sources */,
 				D5D52C6C26DE45530072D20E /* RoundedCurrencyView.swift in Sources */,
 				D5BA806B2731AFA800DCE1CD /* Data+Hex.swift in Sources */,
+				50EB310C2BFFF515002B2558 /* UnshieldAssetsViewModel.swift in Sources */,
 				08A0460029FA99D200DACE1F /* MakeGenerateAccountsResponseElement.swift in Sources */,
 				088FEC5D2A0144B000042957 /* StakeService.swift in Sources */,
 				08A0461529FA99D300DACE1F /* DelegationTarget.swift in Sources */,
@@ -7990,6 +8003,7 @@
 				088FEE4B2A016B3400042957 /* Publisher+Async.swift in Sources */,
 				D5CFCF2E273922D800888E1B /* QRTransactionDataViewController.swift in Sources */,
 				088FEEAE2A026B7300042957 /* RevealAttributesViewController.swift in Sources */,
+				50EB31082BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift in Sources */,
 				088FED9C2A01674100042957 /* ExportPrivateKeyViewModel.swift in Sources */,
 				088FEC942A01609F00042957 /* ColorPalette.swift in Sources */,
 				D5F3BC69278E5D3C008DC894 /* ShowAlertProtocol.swift in Sources */,
@@ -8412,6 +8426,7 @@
 				08A0455329FA99D100DACE1F /* AccountDelegation.swift in Sources */,
 				D5CACC5D26ED5B1400D3C3CF /* VersionView.swift in Sources */,
 				08A0456829FA99D100DACE1F /* MakeGenerateAccountsResponseElement.swift in Sources */,
+				50EB310B2BFFF515002B2558 /* UnshieldAssetsViewModel.swift in Sources */,
 				D5F7A23726D7A1DB0061E646 /* OperationRoundedView.swift in Sources */,
 				088FEC5B2A0144B000042957 /* StakeService.swift in Sources */,
 				08A0457D29FA99D100DACE1F /* DelegationTarget.swift in Sources */,
@@ -8674,6 +8689,7 @@
 				088FEEA02A026B7200042957 /* CreateNicknamePresenter.swift in Sources */,
 				088FEE492A016B3400042957 /* Publisher+Async.swift in Sources */,
 				088FEEA22A026B7200042957 /* RevealAttributesViewController.swift in Sources */,
+				50EB31072BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift in Sources */,
 				088FED962A01674000042957 /* ExportPrivateKeyViewModel.swift in Sources */,
 				088FEC922A01609E00042957 /* ColorPalette.swift in Sources */,
 				08A0456129FA99D100DACE1F /* IdentityObject.swift in Sources */,

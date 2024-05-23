@@ -22,6 +22,7 @@ enum MenuCell: Hashable {
     case deleteAccount(title: String)
     
     case revealSeedPhrase(title: String)
+    case unshieldAssets(title: String)
     
     var title: String {
         switch self {
@@ -33,6 +34,7 @@ enum MenuCell: Hashable {
                     .import(let title),
                     .export(let title),
                     .deleteAccount(let title),
+                    .unshieldAssets(let title),
                     .revealSeedPhrase(let title):
                 return title
         }
@@ -58,6 +60,8 @@ enum MenuCell: Hashable {
                 return UIImage(systemName: "rectangle.portrait.and.arrow.right")
             case .revealSeedPhrase:
                 return UIImage(systemName: "eye")
+            case .unshieldAssets:
+                return UIImage(systemName: "shield.slash")
         }
     }
     
@@ -137,6 +141,8 @@ extension MoreMenuViewController: UITableViewDelegate {
                 presenter.logout()
             case .revealSeedPhrase:
                 presenter.showRevealSeedPrase()
+            case .unshieldAssets:
+                presenter.showUnshieldAssetsFlow()
         }
     }
 }
@@ -145,6 +151,7 @@ extension MoreMenuViewController {
     private func setupUI() {
         var snapshot = NSDiffableDataSourceSnapshot<SingleSection, MenuCell>()
         snapshot.appendSections([.main])
+        snapshot.appendItems([.unshieldAssets(title: "more.funds.to.unshield".localized)])
         snapshot.appendItems([.identities(title: "more.identities".localized)])
         snapshot.appendItems([.addressBook(title: "more.addressBook".localized)])
         snapshot.appendItems([.update(title: "more.update".localized)])

@@ -134,7 +134,6 @@ struct TransferTokenConfirmView: View {
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
                 .padding(20)
-//                .background(Color.black)
                 .cornerRadius(24, corners: .allCorners)
             }
             .listStyle(.plain)

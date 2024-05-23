@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Removed
+- Removed Shielding functionalty
+
 ### Added
 - Add Mainnet, Stagenet and Testnet schemas
 - Setting up and updating validator pool commission rates
@@ -10,6 +13,7 @@
 - Validation of metadata checksum when adding CIS-2 tokens
 - Display of balance/ownership when adding CIS-2 tokens
 - Wallet Connect, add `sign message` functionality 
+- Add new Unshield Assets flow
 
 ### Fixed
 - An issue where signing a text message through WalletConnect did not work

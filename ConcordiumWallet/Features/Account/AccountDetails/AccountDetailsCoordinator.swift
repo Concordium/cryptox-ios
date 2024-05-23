@@ -324,14 +324,12 @@ extension AccountDetailsCoordinator: ShowShieldedDelegate {
     }
 
     func onboardingCarouselSkiped() {
-        account = account.withShowShielded(true)
         self.navigationController.popViewController(animated: false)
         accountDetailsPresenter?.viewDidLoad()
         self.navigationController.popViewController(animated: true)
     }
 
     func onboardingCarouselFinished() {
-        account = account.withShowShielded(true)
         self.navigationController.popViewController(animated: false)
         accountDetailsPresenter?.viewDidLoad()
         self.navigationController.popViewController(animated: true)
@@ -373,12 +371,6 @@ extension AccountDetailsCoordinator: AccountSettingsPresenterDelegate {
 
     func releaseScheduleTapped() {
         showReleaseSchedule(account: account)
-    }
-    
-    func hideShieldedTapped() {
-        account = account.withShowShielded(false)
-        accountDetailsPresenter?.viewDidLoad()
-        self.navigationController.popViewController(animated: true)
     }
     
     func exportPrivateKeyTapped() {

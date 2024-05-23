@@ -19,6 +19,8 @@ protocol AccountsServiceProtocol {
     func gtuDrop(for accountAddress: String) -> AnyPublisher<TransferDataType, Error>
     func checkAccountExistance(accounts: [String]) -> AnyPublisher<[String], Error>
     func getLocalTransferWithUpdatedStatus(transfer: TransferDataType, for account: AccountDataType) -> AnyPublisher<TransferDataType, Error>
+    
+    func updateAccountBalancesAndDecryptIfNeeded(account: AccountDataType, balanceType: AccountBalanceTypeEnum) async throws -> AccountDataType
 }
 
 // swiftlint:disable type_body_length
@@ -208,7 +210,6 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
         getAccountWithUpdatedFinalizedBalance(account: account, balanceType: balanceType)
             .flatMap(self.addingBalanceEffectFromTransfersNoRefresh)
             .eraseToAnyPublisher()
-        
     }
     
     func gtuDrop(for accountAddress: String) -> AnyPublisher<TransferDataType, Error> {
@@ -420,10 +421,24 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                                                             delegation,
                                                            baker: baker,
                                                            releaseSchedule: releaseSchedule)
-            }).eraseToAnyPublisher()
+            })
+            .eraseToAnyPublisher()
     }
     
     private func getAccountBalance(for accountAddress: String) -> AnyPublisher<AccountBalance, Error> {
         networkManager.load(ResourceRequest(url: ApiConstants.accountBalance.appendingPathComponent(accountAddress)))
+    }
+}
+
+extension AccountsService {
+    @MainActor
+    func updateAccountBalancesAndDecryptIfNeeded(account: AccountDataType, balanceType: AccountBalanceTypeEnum) async throws -> AccountDataType {
+        try await getAccountWithUpdatedFinalizedBalance(account: account,
+                                              balanceType: balanceType,
+                                              withDecryption: true,
+                                              requestPasswordDelegate: nil)
+            .flatMap(self.addingBalanceEffectFromTransfers)
+            .eraseToAnyPublisher()
+            .async()
     }
 }

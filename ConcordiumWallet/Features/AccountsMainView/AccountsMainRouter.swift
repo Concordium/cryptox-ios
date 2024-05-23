@@ -35,7 +35,6 @@ final class AccountsMainRouter: ObservableObject {
     }
     
     func rootScene() -> UINavigationController {
-        #warning("Max remove me, for test only")
         isShouldShowSunsetShieldingView = true
         
         let viewModel: AccountsMainViewModel = .init(dependencyProvider: dependencyProvider, onReload: onAccountsUpdate.eraseToAnyPublisher(), walletConnectService: walletConnectService)
@@ -47,7 +46,7 @@ final class AccountsMainRouter: ObservableObject {
         return navigationController
     }
     
-    func showUnshieldAssetsFlow() {
+    @MainActor func showUnshieldAssetsFlow() {
         let viewModel = ShieldedAccountsViewModel(dependencyProvider: dependencyProvider)
         let view = ShieldedAccountsView(viewModel: viewModel)
         let viewController = SceneViewController(content: view)

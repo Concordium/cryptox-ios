@@ -160,7 +160,6 @@ extension TransferTokenRouter: AddRecipientPresenterDelegate {
         }
     }
     
-    /// This is reall shi**t need to refactore his, or replace with normal swiftui impl
     func scanAddressQr(didScanAddress address: String) {
         let addRecipientViewController = getAddRecipientViewController(dependencyProvider: dependencyProvider)
         addRecipientViewController.presenter.setAccountAddress(address)

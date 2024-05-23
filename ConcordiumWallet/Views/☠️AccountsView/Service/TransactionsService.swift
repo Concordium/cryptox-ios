@@ -22,6 +22,7 @@ protocol TransactionsServiceProtocol {
                          requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error>
     
     func getTransferCost(transferType: WalletProxyTransferType, costParameters: [TransferCostParameter]) -> AnyPublisher<TransferCost, Error>
+    func getInputEncryptedAmount(for account: AccountDataType) -> InputEncryptedAmount
 }
 
 extension TransactionsServiceProtocol {
@@ -382,7 +383,7 @@ extension TransactionsService {
     }
    
     // MARK: Encrypted Amount calculation helpers
-    private func getInputEncryptedAmount(for account: AccountDataType) -> InputEncryptedAmount {
+    func getInputEncryptedAmount(for account: AccountDataType) -> InputEncryptedAmount {
         // if existing pending transactions,
         // aggEncryptedAmount = last self amount from transaction + any incoming amounts that were NOT used in that transaction
         // else aggEncryptedAmount = selfAmount + incoming Amounts

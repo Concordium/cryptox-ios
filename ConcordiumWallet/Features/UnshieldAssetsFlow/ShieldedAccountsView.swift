@@ -7,94 +7,6 @@
 //
 
 import SwiftUI
-import BigInt
-
-struct AccountViewData: Identifiable {
-    enum Balance {
-        case encrypted(BigDecimal)
-        case decrypted
-        
-        var title: String {
-            switch self {
-            case .encrypted(let gTU):
-                return TokenFormatter().plainString(from: gTU) + " CCD"
-            case .decrypted:
-                return "*** ***"
-            }
-        }
-        
-        var isZero: Bool {
-            switch self {
-            case .encrypted(let gTU):
-                return gTU.value.isZero
-            case .decrypted:
-                return true
-            }
-        }
-    }
-    
-    let id: String
-    let displayname: String
-    let address: String
-    var balance: Balance
-    let isUncrypted: Bool // means that balance is visible
-    let isUnshielded: Bool // just visually shows, that in current view session user is unshielded all assets
-    
-    init(account: AccountDataType, storageManager: any StorageManagerProtocol) {
-        self.id = account.address
-        self.displayname = account.displayName
-        self.address = account.address
-        self.balance = .decrypted
-        self.isUncrypted = false
-        self.isUnshielded = false
-        
-        if let selfAmount = account.encryptedBalance?.selfAmount,
-           let decryptedSelfAmount = storageManager.getShieldedAmount(encryptedValue: selfAmount,
-                                                                      account: account)?.decryptedValue {
-            self.balance = .encrypted(BigDecimal(BigInt(stringLiteral: decryptedSelfAmount), 6))
-        }
-    }
-}
-
-final class ShieldedAccountsViewModel: ObservableObject {
-    @Published var accounts = [AccountViewData]()
-    
-    let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
-    
-    init(dependencyProvider: AccountsFlowCoordinatorDependencyProvider) {
-        self.dependencyProvider = dependencyProvider
-        self.accounts = dependencyProvider.storageManager().getAccounts()
-            .filter { $0.encryptedBalanceStatus == ShieldedAccountEncryptionStatus.decrypted }
-            .sorted(by: { t1, t2 in
-                if (t1.forecastBalance == t2.forecastBalance) {
-                    return t1.createdTime > t2.createdTime
-                }
-                return t1.forecastBalance > t2.forecastBalance
-            })
-            .map { AccountViewData(account: $0, storageManager: dependencyProvider.storageManager()) }
-    }
-    
-    func decryptBalances(_ seed: String) {
-        
-    }
-    
-    func unshield(_ account: AccountViewData) {
-        guard let accountDataType = dependencyProvider.storageManager().getAccounts().first(where: { $0.address == account.address }) else { return }
-    }
-    
-    func getUnshieldAccount(_ account: AccountViewData) -> AccountEntity? {
-        dependencyProvider.storageManager().getAccounts().first(where: { $0.address == account.address }) as? AccountEntity
-    }
-    
-    private func update() {
-        dependencyProvider.storageManager().getAccounts().forEach { account in
-            let shieldedAmount = dependencyProvider.storageManager().getShieldedAmountsForAccount(account)
-            print("shieldedAmount --- \(shieldedAmount)")
-            print("shieldedAmount --- \(account.displayName)")
-            print("account.encryptedBalanceStatus != ShieldedAccountEncryptionStatus.decrypted -- \(account.encryptedBalanceStatus == ShieldedAccountEncryptionStatus.decrypted)")
-        }
-    }
-}
 
 struct ShieldedAccountsView: View {
     @SwiftUI.Environment(\.dismiss) private var dismiss
@@ -126,43 +38,52 @@ struct ShieldedAccountsView: View {
                 )
                 .ignoresSafeArea(.all)
                 
-                List(viewModel.accounts) { account in
-                    HStack {
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text(account.displayname)
-                                .font(.satoshi(size: 14, weight: .medium))
-                                .foregroundStyle(Color.blackAditional)
-                            Text(account.balance.title)
-                                .font(.satoshi(size: 20, weight: .medium))
-                                .foregroundStyle(Color.white)
-                        }
-                        
-                        Spacer()
-                        Button {
-                            Vibration.vibrate(with: .light)
-                            switch account.balance {
-                            case .decrypted:
-                                isPasscodeViewShow.toggle()
-                            case .encrypted:
-                                self.unshieldFlowShown = viewModel.getUnshieldAccount(account)
+                switch viewModel.state {
+                case .loadingInitial:
+                    ProgressView()
+                case .loaded(let accounts):
+                    List(accounts) { data in
+                        HStack {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text(data.displayname)
+                                    .font(.satoshi(size: 14, weight: .medium))
+                                    .foregroundStyle(Color.blackAditional)
+                                Text(data.balance.title)
+                                    .font(.satoshi(size: 20, weight: .medium))
+                                    .foregroundStyle(Color.white)
                             }
-                        } label: {
-                            Text(account.balance.isZero ? "Unshielded" : "Unshield")
-                                .font(.satoshi(size: 15, weight: .medium))
-                                .foregroundStyle(Color.black)
-                                .padding(.vertical, 13)
-                                .padding(.horizontal, 28)
-                                .contentShape(.rect)
+                            
+                            Spacer()
+                            switch data.balance {
+                            case .decrypted:
+                                UnshieldButton(data)
+                            case .encrypted(let balance):
+                                if balance.value == .zero {
+                                    HStack {
+                                        Text("Unshielded")
+                                            .font(.satoshi(size: 15, weight: .medium))
+                                            .foregroundColor(Color(red: 0.53, green: 0.53, blue: 0.53))
+                                        Image(systemName: "checkmark")
+                                            .renderingMode(.template)
+                                            .foregroundStyle(Color(hex: 0x149E7E))
+                                    }
+                                } else {
+                                    UnshieldButton(data)
+                                }
+                            }
                         }
-                        .background(.white)
-                        .cornerRadius(48)
-                        .buttonStyle(.plain)
+                        .listRowBackground(Color.clear)
+                        .padding(.vertical, 16)
                     }
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-                    .padding(.vertical, 16)
+                    .listStyle(.plain)
+                case .noAccounts:
+                    VStack(spacing: 24) {
+                        Text("No Shielded Transactions")
+                            .font(.satoshi(size: 20, weight: .medium))
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(Color.white)
+                    }
                 }
-                .listStyle(.plain)
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -190,6 +111,31 @@ struct ShieldedAccountsView: View {
             .passcodeInput(isPresented: $isPasscodeViewShow) { seed in
                 viewModel.decryptBalances(seed)
             }
+            .onAppear {
+                viewModel.reload()
+            }
         }
+    }
+    
+    func UnshieldButton(_ account: AccountViewData) -> some View {
+        Button {
+            Vibration.vibrate(with: .light)
+            switch account.balance {
+            case .decrypted:
+                isPasscodeViewShow.toggle()
+            case .encrypted:
+                self.unshieldFlowShown = viewModel.getUnshieldAccount(account)
+            }
+        } label: {
+            Text("Unshield")
+                .font(.satoshi(size: 15, weight: .medium))
+                .foregroundStyle(Color.black)
+                .padding(.vertical, 13)
+                .padding(.horizontal, 28)
+                .contentShape(.rect)
+        }
+        .background(.white)
+        .cornerRadius(48)
+        .buttonStyle(.plain)
     }
 }

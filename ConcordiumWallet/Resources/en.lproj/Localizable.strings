@@ -1084,6 +1084,7 @@ Remember to restart your node with the validator keys.";
 "more.deleteAccount.subtitle" = "Remove all sensitive data and private keys from this device";
 "accountFailed.errorMessage" = "Account create error";
 "accountFailed.buttonTitle" = "Recover identities";
+"more.funds.to.unshield" = "Funds to Unshield";
 
 
 "delegation.inputamount.title.create" = "Register delegation";

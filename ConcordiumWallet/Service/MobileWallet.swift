@@ -57,6 +57,8 @@ protocol MobileWalletProtocol {
     func isLegacyAccount() -> Bool
     
     func signMessage(for account: AccountDataType, message: String, requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<StringMessageSignatures, Error>
+    
+    func decryptEncryptedAmounts(from fromAccount: AccountDataType, _ encryptedAmounts: [String], pwHash: String) async throws-> [(String, Int)]
 }
 
 enum MobileWalletError: Error {
@@ -365,6 +367,7 @@ class MobileWallet: MobileWalletProtocol {
         } catch {
             return .fail(error)
         }
+        
     }
 
     func combineEncryptedAmount(_ encryptedAmount1: String, _ encryptedAmount2: String) -> Result<String, Error> {
@@ -563,5 +566,21 @@ extension MobileWallet {
             return try JSONDecoder().decode(StringMessageSignatures.self, from: Data(res.utf8))
         }
         .eraseToAnyPublisher()
+    }
+}
+
+extension MobileWallet {
+    @MainActor
+    func decryptEncryptedAmounts(from fromAccount: AccountDataType, _ encryptedAmounts: [String], pwHash: String) async throws-> [(String, Int)] {
+        let secretEncryptionKey = try self.getSecretEncryptionKey(for: fromAccount, pwHash: pwHash).get()
+        
+        return try encryptedAmounts.map { (encryptedAmount) -> (String, Int) in
+            let makeDecryptionRequest = MakeDecryptAmountRequest(encryptedAmount: encryptedAmount, encryptionSecretKey: secretEncryptionKey)
+            guard let input = try makeDecryptionRequest.jsonString() else {
+                throw MobileWalletError.invalidArgument
+            }
+            let decryptedValue = try self.walletFacade.decryptEncryptedAmount(input: input)
+            return (encryptedAmount, decryptedValue)
+        }
     }
 }

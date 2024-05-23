@@ -7,46 +7,6 @@
 //
 
 import SwiftUI
-import BigInt
-
-final class UnshieldAssetsViewModel: ObservableObject {
-    @Published var account: AccountEntity?
-    @Published var displayName: String
-    @Published var unshieldAmount: BigDecimal = .zero
-    @Published var transaferCost: TransferCost = .zero
-    
-    @Published var fee: String = ""
-    
-    private let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
-    
-    init(account: AccountEntity?, dependencyProvider: AccountsFlowCoordinatorDependencyProvider) {
-        self.dependencyProvider = dependencyProvider
-        self.account = account
-        self.displayName = account?.displayName ?? ""
-        
-        if let account = account,
-           let selfAmount = account.encryptedBalance?.selfAmount,
-           let decryptedSelfAmount = dependencyProvider.storageManager().getShieldedAmount(
-            encryptedValue: selfAmount,
-            account: account)?.decryptedValue
-        {
-            self.unshieldAmount = BigDecimal(BigInt(stringLiteral: decryptedSelfAmount), 6)
-        }
-        
-        Task {
-            try? await updateTransferCost()
-        }
-    }
-    
-    @MainActor
-    private func updateTransferCost() async throws {
-        self.transaferCost = try await dependencyProvider
-            .transactionsService()
-            .getTransferCost(transferType: .transferToPublic, costParameters: [])
-            .async()
-        self.fee = GTU(intValue: Int(BigInt(stringLiteral: transaferCost.cost))).displayValueWithCCDStroke()
-    }
-}
 
 struct UnshieldAssetsView: View {
     @StateObject var viewModel: UnshieldAssetsViewModel
@@ -65,26 +25,75 @@ struct UnshieldAssetsView: View {
             )
             .ignoresSafeArea(.all)
             VStack(alignment: .center, spacing: 32) {
-                VStack(spacing: 24) {
+                VStack(spacing: 20) {
                     Text("Shielded amount:")
                         .font(.satoshi(size: 11, weight: .medium))
                         .foregroundStyle(Color.blackAditional)
                     Text(TokenFormatter().plainString(from: viewModel.unshieldAmount))
                         .font(.satoshi(size: 40, weight: .medium))
                         .foregroundStyle(Color.white)
+                        .overlay(alignment: .topTrailing) {
+                            Text("CCD")
+                                .lineLimit(1)
+                                .font(.satoshi(size: 12, weight: .medium))
+                                .foregroundStyle(Color.black)
+                                .padding(.horizontal, 4)
+                                .padding(.vertical, 2)
+                                .background(Color(red: 0.73, green: 0.75, blue: 0.78))
+                                .cornerRadius(4)
+                                .offset(x: 38)
+                        }
                 }
+                .frame(maxWidth: .infinity)
                 .padding(.top, 64)
                 
                 VStack(spacing: 8) {
                     Text("Estimated transaction fee:")
                         .font(.satoshi(size: 11, weight: .medium))
                         .foregroundStyle(Color.blackAditional)
-                    Text(viewModel.fee)
-                        .font(.satoshi(size: 14, weight: .medium))
-                        .foregroundStyle(Color.white)
+                    if viewModel.isLoadingTxCost {
+                        ProgressView()
+                    } else {
+                        Text(viewModel.fee)
+                            .font(.satoshi(size: 14, weight: .medium))
+                            .foregroundStyle(Color.white)
+                    }
+                    if let error = viewModel.error {
+                        Text(error)
+                            .multilineTextAlignment(.center)
+                            .font(.satoshi(size: 14, weight: .medium))
+                            .foregroundStyle(Color.red)
+                    }
                 }
                 
                 Spacer()
+                
+                Button {
+                    Vibration.vibrate(with: .light)
+                    viewModel.unshieldAssets(onSuccess: {
+                        dismiss()
+                    })
+                } label: {
+                    Group {
+                        if viewModel.isUnshielding {
+                            ProgressView()
+                        } else {
+                            Text("Unshield funds")
+                                .font(.satoshi(size: 15, weight: .medium))
+                                .foregroundStyle(Color.black)
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 28)
+                    .padding(.vertical, 16)
+                    .contentShape(.rect)
+                }
+                .background(.white)
+                .cornerRadius(48)
+                .padding(.horizontal, 16)
+                .padding(.bottom, 56)
+                .disabled(viewModel.isUnshielding || viewModel.isUnshieldButtonDisabled)
+                .opacity(viewModel.isUnshielding ? 0.7 : 1.0)
             }
             .frame(maxWidth: .infinity)
             .overlay(alignment: .top) {
@@ -117,6 +126,5 @@ struct UnshieldAssetsView: View {
                 }
             }
         }
-
     }
 }
