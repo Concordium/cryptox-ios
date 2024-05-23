@@ -170,7 +170,7 @@ class AccountDetailsCoordinator: Coordinator,
     }
     
     func showSendFund(balanceType: AccountBalanceTypeEnum = .balance) {
-        let transferType: SendFundTransferType = /*balanceType == .shielded ? .encryptedTransfer : */.simpleTransfer
+        let transferType: SendFundTransferType = .simpleTransfer
         let coordinator = SendFundsCoordinator(navigationController: CXNavigationController(),
                                                delegate: self,
                                                dependencyProvider: self.dependencyProvider,

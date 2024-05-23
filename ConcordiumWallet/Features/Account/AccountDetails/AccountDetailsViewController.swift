@@ -161,7 +161,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         presenter.updateTransfersOnChanges()
     }
     
-    private func setupButtonSlider(/*isShielded: Bool*/) {
+    private func setupButtonSlider() {
         let areActionsEnabled = viewModel.accountState == .finalized && !viewModel.isReadOnly
         
         let buttonSlider = ButtonSlider(
