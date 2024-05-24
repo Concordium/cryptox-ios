@@ -27,8 +27,11 @@ final class UnshieldAssetsViewModel: ObservableObject {
     private let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     private let passwordDelegate: RequestPasswordDelegate
     private var cancellables = [AnyCancellable]()
+    private var onSuccess: (AccountEntity) -> Void
 
-    init(account: AccountEntity?, dependencyProvider: AccountsFlowCoordinatorDependencyProvider, passwordDelegate: RequestPasswordDelegate = DummyRequestPasswordDelegate()) {
+
+    init(account: AccountEntity?, dependencyProvider: AccountsFlowCoordinatorDependencyProvider, onSuccess: @escaping (AccountEntity) -> Void, passwordDelegate: RequestPasswordDelegate = DummyRequestPasswordDelegate()) {
+        self.onSuccess = onSuccess
         self.dependencyProvider = dependencyProvider
         self.passwordDelegate = passwordDelegate
         self.account = account
@@ -38,7 +41,6 @@ final class UnshieldAssetsViewModel: ObservableObject {
         Task {
             try? await updateTransferCost()
         }
-        
     }
     
     @MainActor
@@ -57,9 +59,11 @@ final class UnshieldAssetsViewModel: ObservableObject {
     }
     
     @MainActor
-    func unshieldAssets(onSuccess: @escaping () -> Void) {
+    func unshieldAssets(dismiss: @escaping () -> Void) {
         guard let account = account else { return }
         isUnshielding = true
+        error = nil
+        
         var transfer = TransferDataTypeFactory.create()
         transfer.transferType = .transferToPublic
         transfer.amount = String(unshieldAmount.value)
@@ -78,7 +82,8 @@ final class UnshieldAssetsViewModel: ObservableObject {
                 guard let self = self else { return }
                 LegacyLogger.debug($0)
                 self.isUnshielding = false
-                onSuccess()
+                self.onSuccess(account)
+                dismiss()
             })
             .store(in: &cancellables)
     }

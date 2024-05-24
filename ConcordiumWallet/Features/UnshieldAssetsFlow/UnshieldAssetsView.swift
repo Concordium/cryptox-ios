@@ -10,7 +10,7 @@ import SwiftUI
 
 struct UnshieldAssetsView: View {
     @StateObject var viewModel: UnshieldAssetsViewModel
-    
+        
     @SwiftUI.Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -70,7 +70,7 @@ struct UnshieldAssetsView: View {
                 
                 Button {
                     Vibration.vibrate(with: .light)
-                    viewModel.unshieldAssets(onSuccess: {
+                    viewModel.unshieldAssets(dismiss: {
                         dismiss()
                     })
                 } label: {
@@ -93,7 +93,7 @@ struct UnshieldAssetsView: View {
                 .padding(.horizontal, 16)
                 .padding(.bottom, 56)
                 .disabled(viewModel.isUnshielding || viewModel.isUnshieldButtonDisabled)
-                .opacity(viewModel.isUnshielding ? 0.7 : 1.0)
+                .opacity(viewModel.isUnshielding || viewModel.isUnshieldButtonDisabled ? 0.7 : 1.0)
             }
             .frame(maxWidth: .infinity)
             .overlay(alignment: .top) {

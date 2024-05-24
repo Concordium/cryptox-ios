@@ -20,7 +20,9 @@ struct ShieldedAccountsView: View {
         NavigationView {
             ZStack {
                 NavigationLink(
-                    destination: UnshieldAssetsView(viewModel: .init(account: unshieldFlowShown, dependencyProvider: viewModel.dependencyProvider)),
+                    destination: UnshieldAssetsView(
+                        viewModel: .init(account: unshieldFlowShown, dependencyProvider: viewModel.dependencyProvider, onSuccess: viewModel.handleUnshieldSuccess(_:))
+                    ),
                     isActive: Binding<Bool>(
                         get: { unshieldFlowShown != nil },
                         set: { _ in unshieldFlowShown = nil }
@@ -43,37 +45,10 @@ struct ShieldedAccountsView: View {
                     ProgressView()
                 case .loaded(let accounts):
                     List(accounts) { data in
-                        HStack {
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text(data.displayname)
-                                    .font(.satoshi(size: 14, weight: .medium))
-                                    .foregroundStyle(Color.blackAditional)
-                                Text(data.balance.title)
-                                    .font(.satoshi(size: 20, weight: .medium))
-                                    .foregroundStyle(Color.white)
-                            }
-                            
-                            Spacer()
-                            switch data.balance {
-                            case .decrypted:
-                                UnshieldButton(data)
-                            case .encrypted(let balance):
-                                if balance.value == .zero {
-                                    HStack {
-                                        Text("Unshielded")
-                                            .font(.satoshi(size: 15, weight: .medium))
-                                            .foregroundColor(Color(red: 0.53, green: 0.53, blue: 0.53))
-                                        Image(systemName: "checkmark")
-                                            .renderingMode(.template)
-                                            .foregroundStyle(Color(hex: 0x149E7E))
-                                    }
-                                } else {
-                                    UnshieldButton(data)
-                                }
-                            }
-                        }
-                        .listRowBackground(Color.clear)
-                        .padding(.vertical, 16)
+                        UnshieldedAccountListView(data)
+                    }
+                    .refreshable {
+                        viewModel.reloadItems()
                     }
                     .listStyle(.plain)
                 case .noAccounts:
@@ -111,9 +86,6 @@ struct ShieldedAccountsView: View {
             .passcodeInput(isPresented: $isPasscodeViewShow) { seed in
                 viewModel.decryptBalances(seed)
             }
-            .onAppear {
-                viewModel.reload()
-            }
         }
     }
     
@@ -137,5 +109,39 @@ struct ShieldedAccountsView: View {
         .background(.white)
         .cornerRadius(48)
         .buttonStyle(.plain)
+    }
+    
+    func UnshieldedAccountListView(_ data: AccountViewData) -> some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 8) {
+                Text(data.displayname)
+                    .font(.satoshi(size: 14, weight: .medium))
+                    .foregroundStyle(Color.blackAditional)
+                Text(data.balance.title)
+                    .font(.satoshi(size: 20, weight: .medium))
+                    .foregroundStyle(Color.white)
+            }
+            
+            Spacer()
+            switch data.balance {
+            case .decrypted:
+                UnshieldButton(data)
+            case .encrypted(let balance):
+                if balance.value == .zero {
+                    HStack {
+                        Text("Unshielded")
+                            .font(.satoshi(size: 15, weight: .medium))
+                            .foregroundColor(Color(red: 0.53, green: 0.53, blue: 0.53))
+                        Image(systemName: "checkmark")
+                            .renderingMode(.template)
+                            .foregroundStyle(Color(hex: 0x149E7E))
+                    }
+                } else {
+                    UnshieldButton(data)
+                }
+            }
+        }
+        .listRowBackground(Color.clear)
+        .padding(.vertical, 16)
     }
 }

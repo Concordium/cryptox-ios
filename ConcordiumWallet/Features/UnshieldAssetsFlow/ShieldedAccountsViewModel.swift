@@ -70,10 +70,22 @@ final class ShieldedAccountsViewModel: ObservableObject {
     init(dependencyProvider: AccountsFlowCoordinatorDependencyProvider, passwordDelegate: RequestPasswordDelegate = DummyRequestPasswordDelegate()) {
         self.dependencyProvider = dependencyProvider
         self.passwordDelegate = passwordDelegate
-
+        
+        reloadItems()
     }
     
-    public func reload() {
+    public func handleUnshieldSuccess(_ account: AccountEntity) {
+        switch state {
+        case .loaded(let array):
+            var newArr: [AccountViewData] = array
+            newArr.removeAll(where: { $0.address == account.address })
+            self.state = .loaded(newArr)
+        case .noAccounts, .loadingInitial:
+            break
+        }
+    }
+    
+    public func reloadItems() {
         Task.detached { @MainActor in
             let accounts = await self.fetchUpdatedAccounts(accountsService: self.dependencyProvider.accountsService(), storageManager: self.dependencyProvider.storageManager())
             await self.updateAccounts(accounts)

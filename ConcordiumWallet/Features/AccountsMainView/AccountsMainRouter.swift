@@ -34,9 +34,7 @@ final class AccountsMainRouter: ObservableObject {
         self.walletConnectService.delegate = self
     }
     
-    func rootScene() -> UINavigationController {
-        isShouldShowSunsetShieldingView = true
-        
+    func rootScene() -> UINavigationController {        
         let viewModel: AccountsMainViewModel = .init(dependencyProvider: dependencyProvider, onReload: onAccountsUpdate.eraseToAnyPublisher(), walletConnectService: walletConnectService)
         let view = AccountsMainView(viewModel: viewModel, router: self)
             .environmentObject(updateTimer)
