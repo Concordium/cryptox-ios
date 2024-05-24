@@ -1,5 +1,5 @@
 {
-  "originHash" : "74596dd26ca383785347cdb43a8dba95a969382bc56586378733f1b859f1ef8f",
+  "originHash" : "2e4111bafda177d213d27e71b52ad70c05b4443b8ccfc0e770993c4f0764154f",
   "pins" : [
     {
       "identity" : "base58swift",
@@ -164,5 +164,5 @@
       }
     }
   ],
-  "version" : 3
+  "version" : 2
 }
