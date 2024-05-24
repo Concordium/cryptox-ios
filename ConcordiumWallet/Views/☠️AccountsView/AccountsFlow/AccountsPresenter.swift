@@ -16,7 +16,6 @@ class AccountViewModel: Hashable {
     var totalName: String
     var totalAmount: String // total amount = public + everything decrypted from shielded
     var generalAmount: String // public balance
-    var totalLockStatus: ShieldedAccountEncryptionStatus
     
     var owner: String?
     var isBaking: Bool = false
@@ -57,17 +56,10 @@ class AccountViewModel: Hashable {
         state = account.transactionStatus ?? SubmissionStatusEnum.committed
         generalAmount = GTU(intValue: account.forecastBalance).displayValue()
          
-        // TODO: this will need fixing in a future release. We currently don't show the lock
-        #warning("RNI: This has been intentionally set to decrypted for the purpose of March 2022 release")
-        totalLockStatus = .decrypted
-        
         atDisposalName = "accounts.atdisposal".localized
         
         if !createMode {
             areActionsEnabled = account.transactionStatus == .finalized && !account.isReadOnly // actions are enabled if the account is not readonly
-            if totalLockStatus != .decrypted {
-                totalAmount += " + "
-            }
         } else {
             state = SubmissionStatusEnum.finalized
             areActionsEnabled = false

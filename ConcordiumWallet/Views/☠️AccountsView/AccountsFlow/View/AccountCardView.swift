@@ -43,7 +43,6 @@ class AccountCardView: UIView, NibLoadable {
     // Contained in totalView
     @IBOutlet weak private var totalLabel: UILabel!
     @IBOutlet weak private var totalAmount: UILabel!
-    @IBOutlet weak private var totalAmountLockImageView: UIImageView!
     
     // Contained in atDisposalView
     @IBOutlet weak private var atDisposalLabel: UILabel!
@@ -89,9 +88,7 @@ class AccountCardView: UIView, NibLoadable {
         } else {
             state = .basic
         }
-        
-        let showLock = accountViewModel.totalLockStatus != .decrypted
-        
+                
         if accountViewModel.areActionsEnabled {
             buttonsHStackViewView.isHidden = false
         } else {
@@ -102,7 +99,6 @@ class AccountCardView: UIView, NibLoadable {
                    accountOwner: accountViewModel.owner,
                    isInitialAccount: accountViewModel.isInitialAccount,
                    totalAmount: accountViewModel.totalAmount,
-                   showLock: showLock,
                    publicBalanceAmount: accountViewModel.generalAmount,
                    atDisposalAmount: accountViewModel.atDisposalAmount,
                    state: state)
@@ -120,7 +116,6 @@ class AccountCardView: UIView, NibLoadable {
                        accountOwner: String?,
                        isInitialAccount: Bool,
                        totalAmount: String,
-                       showLock: Bool,
                        publicBalanceAmount: String,
                        atDisposalAmount: String,
                        state: AccountCardViewState) {
@@ -132,12 +127,6 @@ class AccountCardView: UIView, NibLoadable {
         self.atDisposalAmount.text = atDisposalAmount
         
         initialAccountLabel.isHidden = !isInitialAccount
-        
-        if showLock {
-            self.showLock()
-        } else {
-            hideLock()
-        }
         
         widget.applyConcordiumEdgeStyle(color: .primary)
         widget.backgroundColor = UIColor.white
@@ -199,16 +188,5 @@ class AccountCardView: UIView, NibLoadable {
 
     @IBAction private func pressedMore(sender: Any) {
         delegate?.perform(action: .more)
-    }
-    
-    // MARK: Helpers
-    private func showLock() {
-        self.totalAmountLockImageView.image = UIImage(named: "Icon_Shield")
-        layoutIfNeeded()
-    }
-    
-    private func hideLock() {
-        self.totalAmountLockImageView.image = nil
-        layoutIfNeeded()
     }
 }
