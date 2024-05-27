@@ -24,10 +24,7 @@ extension UIImage {
     /*
      @brief decode image base64
      */
-    static func decodeBase64(toImage strEncodeData: String!) -> UIImage {
-
-        return UIImage(named: "identity_cryptox_icon") ?? UIImage()
-        
+    static func decodeBase64(toImage strEncodeData: String!) -> UIImage {        
         guard let string = strEncodeData?.fixedBase64Format else { return UIImage() }
                 
         if let decData = Data(base64Encoded: string, options: .ignoreUnknownCharacters), strEncodeData.count > 0 {
