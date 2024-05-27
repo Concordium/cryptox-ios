@@ -1,29 +1,12 @@
-//
-//  AppConstants.swift
-//  ConcordiumWallet
-//
-//  Created by Maxim Liashenko on 17.12.2021.
-//  Copyright © 2021 concordium. All rights reserved.
-//
-
 import Foundation
 
 struct AppConstants {
-    
-    
-    // MARK: - Support
     struct Support {
-        static let concordiumSupportMail: String =  "contact@pioneeringtechventures.com"
+        static let concordiumSupportMail: String = Bundle.main.object(forInfoDictionaryKey: "Concordium Support Mail") as? String ?? ""
     }
     
-    // MARK: - Privacy Policy
-    #warning("Max, fix me pls")
-    /// fix url
-    struct PrivacyPolicy {
-        static let url = "https://developer.concordium.software/extra/Terms-and-conditions-Mobile-Wallet.pdf"
-        
-        static let privacyPolicy = "https://pioneeringtechventures.com/privacy-policy"
-        static let termsAndConditions = "https://pioneeringtechventures.com/terms-and-conditions"
+    struct TermsAndConditions {
+        static let url = "https://developer.concordium.software/en/mainnet/net/resources/terms-and-conditions-cryptox.html"
     }
     
     struct Media {
@@ -32,7 +15,7 @@ struct AppConstants {
     }
     
     struct Email {
-        static let contact = "contact@pioneeringtechventures.com"
-        static let support = "contact@pioneeringtechventures.com"
+        static let contact = "contact@concordium.software"
+        static let support = "support@concordium.software"
     }
 }

@@ -44,7 +44,7 @@ class IdentityInfoViewModel: IdentityGeneralViewModel {
                   state: identity.state,
                   nickname: identity.nickname,
                   expiresOn: expiresOn,
-                  privacyPolicyURL: AppConstants.PrivacyPolicy.url,
+                  privacyPolicyURL: AppConstants.TermsAndConditions.url,
                   url: nil)
     }
 
