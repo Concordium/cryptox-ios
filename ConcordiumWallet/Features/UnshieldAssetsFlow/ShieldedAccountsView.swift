@@ -53,7 +53,7 @@ struct ShieldedAccountsView: View {
                     .listStyle(.plain)
                 case .noAccounts:
                     VStack(spacing: 24) {
-                        Text("No Shielded Transactions")
+                        Text("No shielded balances")
                             .font(.satoshi(size: 20, weight: .medium))
                             .multilineTextAlignment(.center)
                             .foregroundColor(Color.white)
@@ -93,9 +93,9 @@ struct ShieldedAccountsView: View {
         Button {
             Vibration.vibrate(with: .light)
             switch account.balance {
-            case .decrypted:
-                isPasscodeViewShow.toggle()
             case .encrypted:
+                isPasscodeViewShow.toggle()
+            case .decrypted:
                 self.unshieldFlowShown = viewModel.getUnshieldAccount(account)
             }
         } label: {
@@ -124,9 +124,9 @@ struct ShieldedAccountsView: View {
             
             Spacer()
             switch data.balance {
-            case .decrypted:
+            case .encrypted:
                 UnshieldButton(data)
-            case .encrypted(let balance):
+            case .decrypted(let balance):
                 if balance.value == .zero {
                     HStack {
                         Text("Unshielded")

@@ -229,7 +229,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             .store(in: &cancellables)
         
             self.title = self.presenter.getTitle()
-            self.atDisposalView.setHiddenIfChanged(false/*isShielded*/)
+            self.atDisposalView.setHiddenIfChanged(false)
             
             self.generalButton.backgroundColor = UIColor.darkGray
             self.shieldedButton.backgroundColor = UIColor.black

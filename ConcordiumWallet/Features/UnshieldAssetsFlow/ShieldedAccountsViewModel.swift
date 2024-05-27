@@ -11,31 +11,31 @@ import BigInt
 
 struct AccountViewData: Identifiable {
     enum Balance: Equatable {
-        case encrypted(BigDecimal)
-        case decrypted
+        case decrypted(BigDecimal)
+        case encrypted
         
         var title: String {
             switch self {
-            case .encrypted(let gTU):
+            case .decrypted(let gTU):
                 return TokenFormatter().plainString(from: gTU) + " CCD"
-            case .decrypted:
+            case .encrypted:
                 return "*** ***"
             }
         }
         
         var isZero: Bool {
             switch self {
-            case .encrypted(let gTU):
+            case .decrypted(let gTU):
                 return gTU.value.isZero
-            case .decrypted:
+            case .encrypted:
                 return true
             }
         }
         
         var value: BigDecimal {
             switch self {
-            case .encrypted(let bigDecimal): return bigDecimal
-            case .decrypted: return .zero
+            case .decrypted(let bigDecimal): return bigDecimal
+            case .encrypted: return .zero
             }
         }
     }
@@ -103,16 +103,16 @@ final class ShieldedAccountsViewModel: ObservableObject {
                 if isLocked {
                     let inputEncryptedAmount = self.dependencyProvider.transactionsService().getInputEncryptedAmount(for: account)
                     if let aggEncryptedAmount = inputEncryptedAmount.aggEncryptedAmount, aggEncryptedAmount != ShieldedAmountEntity.zeroValue {
-                        return AccountViewData(account: account, balance: .decrypted)
+                        return AccountViewData(account: account, balance: .encrypted)
                     }
                 }
                 
-                return AccountViewData(account: account, balance: isLocked ? .decrypted : .encrypted(BigDecimal(BigInt.init(integerLiteral: Int64(account.finalizedEncryptedBalance)), 6)))
+                return AccountViewData(account: account, balance: isLocked ? .encrypted : .decrypted(BigDecimal(BigInt.init(integerLiteral: Int64(account.finalizedEncryptedBalance)), 6)))
             }
                 .filter { accountData in
                     switch accountData.balance {
-                    case .decrypted: return true
-                    case .encrypted(let value): return !value.value.isZero
+                    case .encrypted: return true
+                    case .decrypted(let value): return !value.value.isZero
                     }
                 }
                 .sorted(by: { t1, t2 in
