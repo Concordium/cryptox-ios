@@ -681,28 +681,6 @@
 		089B343F2A17D1B400F3CD90 /* WalletConnectService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089B343B2A17D1B400F3CD90 /* WalletConnectService.swift */; };
 		089B34432A17D69400F3CD90 /* SessionRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089B34412A17D69400F3CD90 /* SessionRequestView.swift */; };
 		089B34452A17D69400F3CD90 /* SessionRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089B34412A17D69400F3CD90 /* SessionRequestView.swift */; };
-		089B34642A1B9E7B00F3CD90 /* shielded_balance_onboarding_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B34562A1B9E6000F3CD90 /* shielded_balance_onboarding_en_2.html */; };
-		089B34652A1B9E7B00F3CD90 /* shielded_balance_onboarding_en_6.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B34582A1B9E6000F3CD90 /* shielded_balance_onboarding_en_6.html */; };
-		089B34662A1B9E7B00F3CD90 /* shielded_balance_onboarding_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B34572A1B9E6000F3CD90 /* shielded_balance_onboarding_en_5.html */; };
-		089B34672A1B9E7B00F3CD90 /* shielded_balance_onboarding_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B34592A1B9E6100F3CD90 /* shielded_balance_onboarding_en_3.html */; };
-		089B34682A1B9E7B00F3CD90 /* shielded_balance_onboarding_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B345A2A1B9E6100F3CD90 /* shielded_balance_onboarding_en_1.html */; };
-		089B34692A1B9E7B00F3CD90 /* shielded_balance_onboarding_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B345C2A1B9E6100F3CD90 /* shielded_balance_onboarding_en_4.html */; };
-		089B346A2A1B9E7B00F3CD90 /* shielded_balance_onboarding_en_7.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B345B2A1B9E6100F3CD90 /* shielded_balance_onboarding_en_7.html */; };
-		089B34722A1B9E7C00F3CD90 /* shielded_balance_onboarding_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B34562A1B9E6000F3CD90 /* shielded_balance_onboarding_en_2.html */; };
-		089B34732A1B9E7C00F3CD90 /* shielded_balance_onboarding_en_6.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B34582A1B9E6000F3CD90 /* shielded_balance_onboarding_en_6.html */; };
-		089B34742A1B9E7C00F3CD90 /* shielded_balance_onboarding_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B34572A1B9E6000F3CD90 /* shielded_balance_onboarding_en_5.html */; };
-		089B34752A1B9E7C00F3CD90 /* shielded_balance_onboarding_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B34592A1B9E6100F3CD90 /* shielded_balance_onboarding_en_3.html */; };
-		089B34762A1B9E7C00F3CD90 /* shielded_balance_onboarding_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B345A2A1B9E6100F3CD90 /* shielded_balance_onboarding_en_1.html */; };
-		089B34772A1B9E7C00F3CD90 /* shielded_balance_onboarding_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B345C2A1B9E6100F3CD90 /* shielded_balance_onboarding_en_4.html */; };
-		089B34782A1B9E7C00F3CD90 /* shielded_balance_onboarding_en_7.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B345B2A1B9E6100F3CD90 /* shielded_balance_onboarding_en_7.html */; };
-		089B347A2A1B9E8300F3CD90 /* shielded_balance_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 089B34552A1B9E5900F3CD90 /* shielded_balance_style.css */; };
-		089B347C2A1B9E8400F3CD90 /* shielded_balance_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 089B34552A1B9E5900F3CD90 /* shielded_balance_style.css */; };
-		089B34802A1B9E8C00F3CD90 /* unshielding_1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 089B34532A1B9E4E00F3CD90 /* unshielding_1.svg */; };
-		089B34812A1B9E8C00F3CD90 /* shielding_1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 089B34512A1B9E4D00F3CD90 /* shielding_1.svg */; };
-		089B34822A1B9E8C00F3CD90 /* shielding_2.svg in Resources */ = {isa = PBXBuildFile; fileRef = 089B34522A1B9E4D00F3CD90 /* shielding_2.svg */; };
-		089B34862A1B9E8E00F3CD90 /* unshielding_1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 089B34532A1B9E4E00F3CD90 /* unshielding_1.svg */; };
-		089B34872A1B9E8E00F3CD90 /* shielding_1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 089B34512A1B9E4D00F3CD90 /* shielding_1.svg */; };
-		089B34882A1B9E8E00F3CD90 /* shielding_2.svg in Resources */ = {isa = PBXBuildFile; fileRef = 089B34522A1B9E4D00F3CD90 /* shielding_2.svg */; };
 		089E327C2A0BA042002AE530 /* MobileWalletFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EB878FC7456177133AEA /* MobileWalletFacade.swift */; };
 		089E327E2A0BA043002AE530 /* MobileWalletFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EB878FC7456177133AEA /* MobileWalletFacade.swift */; };
 		089E32812A0BA0CE002AE530 /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = 089E32802A0BA0CE002AE530 /* ConcordiumWalletCrypto */; };
@@ -1634,7 +1612,6 @@
 		08C169232BB7396200E61326 /* baker_update_flow_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3032A02C9D900042957 /* baker_update_flow_en_4.html */; };
 		08C169242BB7396200E61326 /* NFTEmptyStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5087B5F28EE4C4A0082A05F /* NFTEmptyStatusView.xib */; };
 		08C169252BB7396200E61326 /* delegation_intro_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B72A02C96C00042957 /* delegation_intro_flow_en_1.html */; };
-		08C169262BB7396200E61326 /* shielded_balance_onboarding_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B345C2A1B9E6100F3CD90 /* shielded_balance_onboarding_en_4.html */; };
 		08C169282BB7396200E61326 /* IBMPlexSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08A6BD9C2B30A66700869317 /* IBMPlexSans-Regular.ttf */; };
 		08C169292BB7396200E61326 /* 2.4.2.RX_backend_submissionStatus_received.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3662794B96B003F2FBB /* 2.4.2.RX_backend_submissionStatus_received.json */; };
 		08C1692A2BB7396200E61326 /* Identity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088FF1662A028AFC00042957 /* Identity.storyboard */; };
@@ -1647,7 +1624,6 @@
 		08C169312BB7396200E61326 /* NFTMarketplaceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5E6CBF0290F47BE009856B7 /* NFTMarketplaceCell.xib */; };
 		08C169322BB7396200E61326 /* baker_remove_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF30D2A02C9F500042957 /* baker_remove_flow_en_1.html */; };
 		08C169332BB7396200E61326 /* QRConnect.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA7C079726C5A726008714CB /* QRConnect.storyboard */; };
-		08C169342BB7396200E61326 /* unshielding_1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 089B34532A1B9E4E00F3CD90 /* unshielding_1.svg */; };
 		08C169352BB7396200E61326 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08A6BDBF2B3318B300869317 /* Colors.xcassets */; };
 		08C169362BB7396200E61326 /* QRTransactionDataViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5CFCF2A273922D800888E1B /* QRTransactionDataViewController.xib */; };
 		08C169372BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus_success.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3512794B96A003F2FBB /* 3.4.2.RX_backend_submissionStatus_success.json */; };
@@ -1659,14 +1635,12 @@
 		08C1693D2BB7396200E61326 /* ImportStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 088FF21F2A02A89500042957 /* ImportStatusCell.xib */; };
 		08C1693E2BB7396200E61326 /* NFTItemsStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D58EA769290F53AE0033C8FD /* NFTItemsStatusView.xib */; };
 		08C1693F2BB7396200E61326 /* baker_intro_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF30B2A02C9E800042957 /* baker_intro_flow_en_1.html */; };
-		08C169402BB7396200E61326 /* shielded_balance_onboarding_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B34592A1B9E6100F3CD90 /* shielded_balance_onboarding_en_3.html */; };
 		08C169412BB7396200E61326 /* delegation_intro_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B92A02C96C00042957 /* delegation_intro_flow_en_3.html */; };
 		08C169422BB7396200E61326 /* NFTErrorStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5087B5A28EE4C380082A05F /* NFTErrorStatusView.xib */; };
 		08C169432BB7396200E61326 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		08C169442BB7396200E61326 /* NFTInputStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5087B5028EE49260082A05F /* NFTInputStatusView.xib */; };
 		08C169452BB7396200E61326 /* IBMPlexSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08A6BD9A2B30A66600869317 /* IBMPlexSans-Medium.ttf */; };
 		08C169462BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus_fin_reject.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F35B2794B96B003F2FBB /* 3.4.2.RX_backend_submissionStatus_fin_reject.json */; };
-		08C169472BB7396200E61326 /* shielding_1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 089B34512A1B9E4D00F3CD90 /* shielding_1.svg */; };
 		08C169482BB7396200E61326 /* icon-44-58.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FD435FD249A2D34002D2AC3 /* icon-44-58.png */; };
 		08C169492BB7396200E61326 /* RobotoMono.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3762A02CA7900042957 /* RobotoMono.ttf */; };
 		08C1694A2BB7396200E61326 /* Satoshi-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 08A6BDB02B30AF3200869317 /* Satoshi-Bold.otf */; };
@@ -1684,7 +1658,6 @@
 		08C169572BB7396200E61326 /* IBMPlexSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08A6BD982B30A66600869317 /* IBMPlexSans-Light.ttf */; };
 		08C169582BB7396200E61326 /* TransactionAccountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5962CC3272161E200A757A5 /* TransactionAccountView.xib */; };
 		08C169592BB7396200E61326 /* 2.4.2.RX_backend_submissionStatus_success.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3722794B96B003F2FBB /* 2.4.2.RX_backend_submissionStatus_success.json */; };
-		08C1695A2BB7396200E61326 /* shielded_balance_onboarding_en_6.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B34582A1B9E6000F3CD90 /* shielded_balance_onboarding_en_6.html */; };
 		08C1695B2BB7396200E61326 /* registerbaker_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3082A02C9E700042957 /* registerbaker_flow_style.css */; };
 		08C1695C2BB7396200E61326 /* backend_server_error.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3742794B96B003F2FBB /* backend_server_error.json */; };
 		08C1695D2BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus_rec.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F35C2794B96B003F2FBB /* 3.4.2.RX_backend_submissionStatus_rec.json */; };
@@ -1704,7 +1677,6 @@
 		08C1696B2BB7396200E61326 /* TransactionDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5962CC82721629E00A757A5 /* TransactionDetailsView.xib */; };
 		08C1696C2BB7396200E61326 /* 2.5.2.RX_backend_transferCost.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F36E2794B96B003F2FBB /* 2.5.2.RX_backend_transferCost.json */; };
 		08C1696D2BB7396200E61326 /* NFTLoadingStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5087B5528EE49740082A05F /* NFTLoadingStatusView.xib */; };
-		08C1696E2BB7396200E61326 /* shielding_2.svg in Resources */ = {isa = PBXBuildFile; fileRef = 089B34522A1B9E4D00F3CD90 /* shielding_2.svg */; };
 		08C1696F2BB7396200E61326 /* 3.3.1.TX_backend_submitTransfer.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3752794B96B003F2FBB /* 3.3.1.TX_backend_submitTransfer.json */; };
 		08C169712BB7396200E61326 /* 2.4.2.RX_backend_submissionStatus_absent.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3652794B96B003F2FBB /* 2.4.2.RX_backend_submissionStatus_absent.json */; };
 		08C169722BB7396200E61326 /* NFTDataEmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5E6CBD6290F4771009856B7 /* NFTDataEmptyCell.xib */; };
@@ -1712,7 +1684,6 @@
 		08C169742BB7396200E61326 /* icon-22-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FD435FC249A2D34002D2AC3 /* icon-22-29.png */; };
 		08C169752BB7396200E61326 /* 3.3.2.RX_backend_submitTransfer.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3582794B96B003F2FBB /* 3.3.2.RX_backend_submitTransfer.json */; };
 		08C169762BB7396200E61326 /* delegation_intro_flow_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B82A02C96C00042957 /* delegation_intro_flow_en_4.html */; };
-		08C169772BB7396200E61326 /* shielded_balance_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 089B34552A1B9E5900F3CD90 /* shielded_balance_style.css */; };
 		08C169782BB7396200E61326 /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F779124891F220016F8D1 /* AppIcon.xcassets */; };
 		08C169792BB7396200E61326 /* NFTEmptySearchStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5883FCD29040C290014F83C /* NFTEmptySearchStatusView.xib */; };
 		08C1697A2BB7396200E61326 /* TextEditView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D54ABC1526E100B800F4E773 /* TextEditView.xib */; };
@@ -1738,8 +1709,6 @@
 		08C1698E2BB7396200E61326 /* IBMPlexMono-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08A6BDA92B30A69800869317 /* IBMPlexMono-Bold.ttf */; };
 		08C1698F2BB7396200E61326 /* 1.2.2.RX-lib_create_id_request_and_private_data.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F35A2794B96B003F2FBB /* 1.2.2.RX-lib_create_id_request_and_private_data.json */; };
 		08C169902BB7396200E61326 /* 4.4.1.TX_lib_decrypt_encrypted_amount.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3762794B96B003F2FBB /* 4.4.1.TX_lib_decrypt_encrypted_amount.json */; };
-		08C169912BB7396200E61326 /* shielded_balance_onboarding_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B34572A1B9E6000F3CD90 /* shielded_balance_onboarding_en_5.html */; };
-		08C169922BB7396200E61326 /* shielded_balance_onboarding_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B34562A1B9E6000F3CD90 /* shielded_balance_onboarding_en_2.html */; };
 		08C169932BB7396200E61326 /* TransactionOperationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5962CBE2721613E00A757A5 /* TransactionOperationView.xib */; };
 		08C169942BB7396200E61326 /* updatedelegation_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2FA2A02C9AE00042957 /* updatedelegation_flow_style.css */; };
 		08C169952BB7396200E61326 /* Satoshi-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 08A6BDAF2B30AF3200869317 /* Satoshi-Regular.otf */; };
@@ -1775,9 +1744,7 @@
 		08C169B72BB7396200E61326 /* 2.3.2.RX_backend_submitCredential.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3632794B96B003F2FBB /* 2.3.2.RX_backend_submitCredential.json */; };
 		08C169B82BB7396200E61326 /* baker_update_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3012A02C9D800042957 /* baker_update_flow_en_3.html */; };
 		08C169BA2BB7396200E61326 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A7523EADB1400F1FC04 /* Assets.xcassets */; };
-		08C169BB2BB7396200E61326 /* shielded_balance_onboarding_en_7.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B345B2A1B9E6100F3CD90 /* shielded_balance_onboarding_en_7.html */; };
 		08C169BC2BB7396200E61326 /* 4.1.2.RX_backend_accBalance.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3642794B96B003F2FBB /* 4.1.2.RX_backend_accBalance.json */; };
-		08C169BD2BB7396200E61326 /* shielded_balance_onboarding_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 089B345A2A1B9E6100F3CD90 /* shielded_balance_onboarding_en_1.html */; };
 		08C169C62BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169C52BBFE1C900E61326 /* AnyPublisher+Extentions.swift */; };
 		08C169C72BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169C52BBFE1C900E61326 /* AnyPublisher+Extentions.swift */; };
 		08C169C82BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169C52BBFE1C900E61326 /* AnyPublisher+Extentions.swift */; };
@@ -2011,6 +1978,18 @@
 		507629662BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
 		507629672BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
 		507629682BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
+		50EB30FF2BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */; };
+		50EB31002BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */; };
+		50EB31012BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */; };
+		50EB31032BFCABAA002B2558 /* UnshieldAssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB31022BFCABAA002B2558 /* UnshieldAssetsView.swift */; };
+		50EB31042BFCABAA002B2558 /* UnshieldAssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB31022BFCABAA002B2558 /* UnshieldAssetsView.swift */; };
+		50EB31052BFCABAA002B2558 /* UnshieldAssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB31022BFCABAA002B2558 /* UnshieldAssetsView.swift */; };
+		50EB31072BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB31062BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift */; };
+		50EB31082BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB31062BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift */; };
+		50EB31092BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB31062BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift */; };
+		50EB310B2BFFF515002B2558 /* UnshieldAssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB310A2BFFF515002B2558 /* UnshieldAssetsViewModel.swift */; };
+		50EB310C2BFFF515002B2558 /* UnshieldAssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB310A2BFFF515002B2558 /* UnshieldAssetsViewModel.swift */; };
+		50EB310D2BFFF515002B2558 /* UnshieldAssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB310A2BFFF515002B2558 /* UnshieldAssetsViewModel.swift */; };
 		52055F872552C1D90071F7CA /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52055F852552C1D90071F7CA /* NibLoadable.swift */; };
 		52055F892552C1D90071F7CA /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52055F852552C1D90071F7CA /* NibLoadable.swift */; };
 		52055F8C2552C51F0071F7CA /* IdentityProviderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52055F8A2552C51F0071F7CA /* IdentityProviderCell.swift */; };
@@ -2932,17 +2911,6 @@
 		089B34362A17C05900F3CD90 /* WCAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCAccountCell.swift; sourceTree = "<group>"; };
 		089B343B2A17D1B400F3CD90 /* WalletConnectService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectService.swift; sourceTree = "<group>"; };
 		089B34412A17D69400F3CD90 /* SessionRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequestView.swift; sourceTree = "<group>"; };
-		089B34512A1B9E4D00F3CD90 /* shielding_1.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = shielding_1.svg; sourceTree = "<group>"; };
-		089B34522A1B9E4D00F3CD90 /* shielding_2.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = shielding_2.svg; sourceTree = "<group>"; };
-		089B34532A1B9E4E00F3CD90 /* unshielding_1.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = unshielding_1.svg; sourceTree = "<group>"; };
-		089B34552A1B9E5900F3CD90 /* shielded_balance_style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = shielded_balance_style.css; sourceTree = "<group>"; };
-		089B34562A1B9E6000F3CD90 /* shielded_balance_onboarding_en_2.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = shielded_balance_onboarding_en_2.html; sourceTree = "<group>"; };
-		089B34572A1B9E6000F3CD90 /* shielded_balance_onboarding_en_5.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = shielded_balance_onboarding_en_5.html; sourceTree = "<group>"; };
-		089B34582A1B9E6000F3CD90 /* shielded_balance_onboarding_en_6.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = shielded_balance_onboarding_en_6.html; sourceTree = "<group>"; };
-		089B34592A1B9E6100F3CD90 /* shielded_balance_onboarding_en_3.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = shielded_balance_onboarding_en_3.html; sourceTree = "<group>"; };
-		089B345A2A1B9E6100F3CD90 /* shielded_balance_onboarding_en_1.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = shielded_balance_onboarding_en_1.html; sourceTree = "<group>"; };
-		089B345B2A1B9E6100F3CD90 /* shielded_balance_onboarding_en_7.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = shielded_balance_onboarding_en_7.html; sourceTree = "<group>"; };
-		089B345C2A1B9E6100F3CD90 /* shielded_balance_onboarding_en_4.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = shielded_balance_onboarding_en_4.html; sourceTree = "<group>"; };
 		089E327F2A0BA07B002AE530 /* ConcordiumWallet-Briding-Header-File.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ConcordiumWallet-Briding-Header-File.h"; sourceTree = "<group>"; };
 		089E32872A0CF2BB002AE530 /* MakeUpdateTransferRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeUpdateTransferRequest.swift; sourceTree = "<group>"; };
 		089FF0DB2A4C4516007AB1CF /* AccountsMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsMainView.swift; sourceTree = "<group>"; };
@@ -3186,6 +3154,10 @@
 		19C2EE201F8E02CE561DA70D /* GTU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GTU.swift; sourceTree = "<group>"; };
 		19C2EEBD44B62F16333900D2 /* GeneralError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralError.swift; sourceTree = "<group>"; };
 		507629652BF2040B00B4D390 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldedAccountsView.swift; sourceTree = "<group>"; };
+		50EB31022BFCABAA002B2558 /* UnshieldAssetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnshieldAssetsView.swift; sourceTree = "<group>"; };
+		50EB31062BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldedAccountsViewModel.swift; sourceTree = "<group>"; };
+		50EB310A2BFFF515002B2558 /* UnshieldAssetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnshieldAssetsViewModel.swift; sourceTree = "<group>"; };
 		52055F852552C1D90071F7CA /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
 		52055F8A2552C51F0071F7CA /* IdentityProviderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityProviderCell.swift; sourceTree = "<group>"; };
 		52589B2525128F8700ADD35B /* AccountMultiBalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountMultiBalanceCell.swift; sourceTree = "<group>"; };
@@ -3583,7 +3555,6 @@
 				088FF2B32A02C96200042957 /* RegisterDelegationOnboarding */,
 				088FF2822A02C7D900042957 /* IntroductionFlowOnboarding  */,
 				7FD435FC249A2D34002D2AC3 /* icon-22-29.png */,
-				089B344F2A1B9E3900F3CD90 /* SchieldedBalanceOnboarding */,
 				7FD435FD249A2D34002D2AC3 /* icon-44-58.png */,
 				7F5F779124891F220016F8D1 /* AppIcon.xcassets */,
 				7F5F778F24891EFB0016F8D1 /* AppIconTestNet.xcassets */,
@@ -3753,6 +3724,7 @@
 		088FEC682A01483D00042957 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				50EB30FD2BFBA113002B2558 /* UnshieldAssetsFlow */,
 				08520A4B2B45B56F008DC851 /* SwiftUIComponents */,
 				08A6BD922B3088DA00869317 /* NewOnboardingFlow */,
 				08AB08E12A696B9900C226F3 /* DefaultAccountCIS2Token */,
@@ -4752,40 +4724,6 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		089B344F2A1B9E3900F3CD90 /* SchieldedBalanceOnboarding */ = {
-			isa = PBXGroup;
-			children = (
-				089B345A2A1B9E6100F3CD90 /* shielded_balance_onboarding_en_1.html */,
-				089B34562A1B9E6000F3CD90 /* shielded_balance_onboarding_en_2.html */,
-				089B34592A1B9E6100F3CD90 /* shielded_balance_onboarding_en_3.html */,
-				089B345C2A1B9E6100F3CD90 /* shielded_balance_onboarding_en_4.html */,
-				089B34572A1B9E6000F3CD90 /* shielded_balance_onboarding_en_5.html */,
-				089B34582A1B9E6000F3CD90 /* shielded_balance_onboarding_en_6.html */,
-				089B345B2A1B9E6100F3CD90 /* shielded_balance_onboarding_en_7.html */,
-				089B34542A1B9E5400F3CD90 /* styles */,
-				089B34502A1B9E4600F3CD90 /* images */,
-			);
-			path = SchieldedBalanceOnboarding;
-			sourceTree = "<group>";
-		};
-		089B34502A1B9E4600F3CD90 /* images */ = {
-			isa = PBXGroup;
-			children = (
-				089B34512A1B9E4D00F3CD90 /* shielding_1.svg */,
-				089B34522A1B9E4D00F3CD90 /* shielding_2.svg */,
-				089B34532A1B9E4E00F3CD90 /* unshielding_1.svg */,
-			);
-			path = images;
-			sourceTree = "<group>";
-		};
-		089B34542A1B9E5400F3CD90 /* styles */ = {
-			isa = PBXGroup;
-			children = (
-				089B34552A1B9E5900F3CD90 /* shielded_balance_style.css */,
-			);
-			path = styles;
-			sourceTree = "<group>";
-		};
 		089B34892A1CC94C00F3CD90 /* CIS2TokenSupport */ = {
 			isa = PBXGroup;
 			children = (
@@ -5270,6 +5208,17 @@
 				D5113A38271733510004841E /* WebSocketDecodingStrategy.swift */,
 			);
 			path = LegacyWalletConnect;
+			sourceTree = "<group>";
+		};
+		50EB30FD2BFBA113002B2558 /* UnshieldAssetsFlow */ = {
+			isa = PBXGroup;
+			children = (
+				50EB31062BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift */,
+				50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */,
+				50EB310A2BFFF515002B2558 /* UnshieldAssetsViewModel.swift */,
+				50EB31022BFCABAA002B2558 /* UnshieldAssetsView.swift */,
+			);
+			path = UnshieldAssetsFlow;
 			sourceTree = "<group>";
 		};
 		6BB39F873C67A7442AE8DD30 /* Frameworks */ = {
@@ -6237,7 +6186,6 @@
 				08C169232BB7396200E61326 /* baker_update_flow_en_4.html in Resources */,
 				08C169242BB7396200E61326 /* NFTEmptyStatusView.xib in Resources */,
 				08C169252BB7396200E61326 /* delegation_intro_flow_en_1.html in Resources */,
-				08C169262BB7396200E61326 /* shielded_balance_onboarding_en_4.html in Resources */,
 				08C169282BB7396200E61326 /* IBMPlexSans-Regular.ttf in Resources */,
 				08C169292BB7396200E61326 /* 2.4.2.RX_backend_submissionStatus_received.json in Resources */,
 				08C1692A2BB7396200E61326 /* Identity.storyboard in Resources */,
@@ -6251,7 +6199,6 @@
 				08C169312BB7396200E61326 /* NFTMarketplaceCell.xib in Resources */,
 				08C169322BB7396200E61326 /* baker_remove_flow_en_1.html in Resources */,
 				08C169332BB7396200E61326 /* QRConnect.storyboard in Resources */,
-				08C169342BB7396200E61326 /* unshielding_1.svg in Resources */,
 				08C169352BB7396200E61326 /* Colors.xcassets in Resources */,
 				08C169362BB7396200E61326 /* QRTransactionDataViewController.xib in Resources */,
 				08C169372BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus_success.json in Resources */,
@@ -6264,14 +6211,12 @@
 				08C1693D2BB7396200E61326 /* ImportStatusCell.xib in Resources */,
 				08C1693E2BB7396200E61326 /* NFTItemsStatusView.xib in Resources */,
 				08C1693F2BB7396200E61326 /* baker_intro_flow_en_1.html in Resources */,
-				08C169402BB7396200E61326 /* shielded_balance_onboarding_en_3.html in Resources */,
 				08C169412BB7396200E61326 /* delegation_intro_flow_en_3.html in Resources */,
 				08C169422BB7396200E61326 /* NFTErrorStatusView.xib in Resources */,
 				08C169432BB7396200E61326 /* (null) in Resources */,
 				08C169442BB7396200E61326 /* NFTInputStatusView.xib in Resources */,
 				08C169452BB7396200E61326 /* IBMPlexSans-Medium.ttf in Resources */,
 				08C169462BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus_fin_reject.json in Resources */,
-				08C169472BB7396200E61326 /* shielding_1.svg in Resources */,
 				08C169482BB7396200E61326 /* icon-44-58.png in Resources */,
 				08C169492BB7396200E61326 /* RobotoMono.ttf in Resources */,
 				08C1694A2BB7396200E61326 /* Satoshi-Bold.otf in Resources */,
@@ -6289,7 +6234,6 @@
 				08C169572BB7396200E61326 /* IBMPlexSans-Light.ttf in Resources */,
 				08C169582BB7396200E61326 /* TransactionAccountView.xib in Resources */,
 				08C169592BB7396200E61326 /* 2.4.2.RX_backend_submissionStatus_success.json in Resources */,
-				08C1695A2BB7396200E61326 /* shielded_balance_onboarding_en_6.html in Resources */,
 				08C1695B2BB7396200E61326 /* registerbaker_flow_style.css in Resources */,
 				08C1695C2BB7396200E61326 /* backend_server_error.json in Resources */,
 				08C1695D2BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus_rec.json in Resources */,
@@ -6309,7 +6253,6 @@
 				08C1696B2BB7396200E61326 /* TransactionDetailsView.xib in Resources */,
 				08C1696C2BB7396200E61326 /* 2.5.2.RX_backend_transferCost.json in Resources */,
 				08C1696D2BB7396200E61326 /* NFTLoadingStatusView.xib in Resources */,
-				08C1696E2BB7396200E61326 /* shielding_2.svg in Resources */,
 				08C1696F2BB7396200E61326 /* 3.3.1.TX_backend_submitTransfer.json in Resources */,
 				08C169712BB7396200E61326 /* 2.4.2.RX_backend_submissionStatus_absent.json in Resources */,
 				08C169722BB7396200E61326 /* NFTDataEmptyCell.xib in Resources */,
@@ -6317,7 +6260,6 @@
 				08C169742BB7396200E61326 /* icon-22-29.png in Resources */,
 				08C169752BB7396200E61326 /* 3.3.2.RX_backend_submitTransfer.json in Resources */,
 				08C169762BB7396200E61326 /* delegation_intro_flow_en_4.html in Resources */,
-				08C169772BB7396200E61326 /* shielded_balance_style.css in Resources */,
 				08C169782BB7396200E61326 /* AppIcon.xcassets in Resources */,
 				08C169792BB7396200E61326 /* NFTEmptySearchStatusView.xib in Resources */,
 				08C1697A2BB7396200E61326 /* TextEditView.xib in Resources */,
@@ -6343,8 +6285,6 @@
 				08C1698E2BB7396200E61326 /* IBMPlexMono-Bold.ttf in Resources */,
 				08C1698F2BB7396200E61326 /* 1.2.2.RX-lib_create_id_request_and_private_data.json in Resources */,
 				08C169902BB7396200E61326 /* 4.4.1.TX_lib_decrypt_encrypted_amount.json in Resources */,
-				08C169912BB7396200E61326 /* shielded_balance_onboarding_en_5.html in Resources */,
-				08C169922BB7396200E61326 /* shielded_balance_onboarding_en_2.html in Resources */,
 				08C169932BB7396200E61326 /* TransactionOperationView.xib in Resources */,
 				08C169942BB7396200E61326 /* updatedelegation_flow_style.css in Resources */,
 				08C169952BB7396200E61326 /* Satoshi-Regular.otf in Resources */,
@@ -6380,9 +6320,7 @@
 				08C169B72BB7396200E61326 /* 2.3.2.RX_backend_submitCredential.json in Resources */,
 				08C169B82BB7396200E61326 /* baker_update_flow_en_3.html in Resources */,
 				08C169BA2BB7396200E61326 /* Assets.xcassets in Resources */,
-				08C169BB2BB7396200E61326 /* shielded_balance_onboarding_en_7.html in Resources */,
 				08C169BC2BB7396200E61326 /* 4.1.2.RX_backend_accBalance.json in Resources */,
-				08C169BD2BB7396200E61326 /* shielded_balance_onboarding_en_1.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6395,7 +6333,6 @@
 				088FF3562A02CA2700042957 /* baker_update_flow_en_4.html in Resources */,
 				D5087B6328EE4C4A0082A05F /* NFTEmptyStatusView.xib in Resources */,
 				088FF2D72A02C98800042957 /* delegation_intro_flow_en_1.html in Resources */,
-				089B34772A1B9E7C00F3CD90 /* shielded_balance_onboarding_en_4.html in Resources */,
 				08A6BDA22B30A66D00869317 /* IBMPlexSans-Regular.ttf in Resources */,
 				D589F3D32794B96C003F2FBB /* 2.4.2.RX_backend_submissionStatus_received.json in Resources */,
 				088FF16A2A028AFD00042957 /* Identity.storyboard in Resources */,
@@ -6409,7 +6346,6 @@
 				D5E6CBF8290F47BE009856B7 /* NFTMarketplaceCell.xib in Resources */,
 				088FF3302A02CA1D00042957 /* baker_remove_flow_en_1.html in Resources */,
 				FA7C079B26C5A726008714CB /* QRConnect.storyboard in Resources */,
-				089B34862A1B9E8E00F3CD90 /* unshielding_1.svg in Resources */,
 				08A6BDC12B3318B300869317 /* Colors.xcassets in Resources */,
 				D5CFCF32273922D800888E1B /* QRTransactionDataViewController.xib in Resources */,
 				D589F37F2794B96B003F2FBB /* 3.4.2.RX_backend_submissionStatus_success.json in Resources */,
@@ -6422,14 +6358,12 @@
 				088FF2272A02A89900042957 /* ImportStatusCell.xib in Resources */,
 				D58EA76D290F53AE0033C8FD /* NFTItemsStatusView.xib in Resources */,
 				088FF33E2A02CA2200042957 /* baker_intro_flow_en_1.html in Resources */,
-				089B34752A1B9E7C00F3CD90 /* shielded_balance_onboarding_en_3.html in Resources */,
 				088FF2D82A02C98800042957 /* delegation_intro_flow_en_3.html in Resources */,
 				D5087B5E28EE4C380082A05F /* NFTErrorStatusView.xib in Resources */,
 				D58927A4275664EA005644B5 /* (null) in Resources */,
 				D5087B5428EE49260082A05F /* NFTInputStatusView.xib in Resources */,
 				08A6BDA52B30A66D00869317 /* IBMPlexSans-Medium.ttf in Resources */,
 				D589F3A72794B96C003F2FBB /* 3.4.2.RX_backend_submissionStatus_fin_reject.json in Resources */,
-				089B34872A1B9E8E00F3CD90 /* shielding_1.svg in Resources */,
 				7FD43605249A2D34002D2AC3 /* icon-44-58.png in Resources */,
 				088FF37A2A02CA7900042957 /* RobotoMono.ttf in Resources */,
 				08A6BDB62B31C01000869317 /* Satoshi-Bold.otf in Resources */,
@@ -6447,7 +6381,6 @@
 				08A6BDA32B30A66D00869317 /* IBMPlexSans-Light.ttf in Resources */,
 				D5962CC7272161E200A757A5 /* TransactionAccountView.xib in Resources */,
 				D589F4032794B96D003F2FBB /* 2.4.2.RX_backend_submissionStatus_success.json in Resources */,
-				089B34732A1B9E7C00F3CD90 /* shielded_balance_onboarding_en_6.html in Resources */,
 				088FF3412A02CA2200042957 /* registerbaker_flow_style.css in Resources */,
 				D589F40B2794B96D003F2FBB /* backend_server_error.json in Resources */,
 				D589F3AB2794B96C003F2FBB /* 3.4.2.RX_backend_submissionStatus_rec.json in Resources */,
@@ -6467,7 +6400,6 @@
 				D5962CCC2721629E00A757A5 /* TransactionDetailsView.xib in Resources */,
 				D589F3F32794B96C003F2FBB /* 2.5.2.RX_backend_transferCost.json in Resources */,
 				D5087B5928EE49740082A05F /* NFTLoadingStatusView.xib in Resources */,
-				089B34882A1B9E8E00F3CD90 /* shielding_2.svg in Resources */,
 				D589F40F2794B96D003F2FBB /* 3.3.1.TX_backend_submitTransfer.json in Resources */,
 				D589F3CF2794B96C003F2FBB /* 2.4.2.RX_backend_submissionStatus_absent.json in Resources */,
 				D5E6CBEE290F4771009856B7 /* NFTDataEmptyCell.xib in Resources */,
@@ -6475,7 +6407,6 @@
 				7FD43601249A2D34002D2AC3 /* icon-22-29.png in Resources */,
 				D589F39B2794B96B003F2FBB /* 3.3.2.RX_backend_submitTransfer.json in Resources */,
 				088FF2D52A02C98800042957 /* delegation_intro_flow_en_4.html in Resources */,
-				089B347C2A1B9E8400F3CD90 /* shielded_balance_style.css in Resources */,
 				7F5F779424891F220016F8D1 /* AppIcon.xcassets in Resources */,
 				D5883FD129040C290014F83C /* NFTEmptySearchStatusView.xib in Resources */,
 				D54ABC1926E100B800F4E773 /* TextEditView.xib in Resources */,
@@ -6501,8 +6432,6 @@
 				08A6BDBC2B31C01500869317 /* IBMPlexMono-Bold.ttf in Resources */,
 				D589F3A32794B96B003F2FBB /* 1.2.2.RX-lib_create_id_request_and_private_data.json in Resources */,
 				D589F4132794B96D003F2FBB /* 4.4.1.TX_lib_decrypt_encrypted_amount.json in Resources */,
-				089B34742A1B9E7C00F3CD90 /* shielded_balance_onboarding_en_5.html in Resources */,
-				089B34722A1B9E7C00F3CD90 /* shielded_balance_onboarding_en_2.html in Resources */,
 				D5962CC22721613E00A757A5 /* TransactionOperationView.xib in Resources */,
 				088FF3722A02CA3300042957 /* updatedelegation_flow_style.css in Resources */,
 				08A6BDB42B31C01000869317 /* Satoshi-Regular.otf in Resources */,
@@ -6538,9 +6467,7 @@
 				D589F3C72794B96C003F2FBB /* 2.3.2.RX_backend_submitCredential.json in Resources */,
 				088FF3582A02CA2700042957 /* baker_update_flow_en_3.html in Resources */,
 				7F5F778B24891E9F0016F8D1 /* Assets.xcassets in Resources */,
-				089B34782A1B9E7C00F3CD90 /* shielded_balance_onboarding_en_7.html in Resources */,
 				D589F3CB2794B96C003F2FBB /* 4.1.2.RX_backend_accBalance.json in Resources */,
-				089B34762A1B9E7C00F3CD90 /* shielded_balance_onboarding_en_1.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6553,7 +6480,6 @@
 				088FF34A2A02CA2700042957 /* baker_update_flow_en_4.html in Resources */,
 				D5087B6128EE4C4A0082A05F /* NFTEmptyStatusView.xib in Resources */,
 				088FF2C72A02C98700042957 /* delegation_intro_flow_en_1.html in Resources */,
-				089B34692A1B9E7B00F3CD90 /* shielded_balance_onboarding_en_4.html in Resources */,
 				08A6BD9D2B30A66D00869317 /* IBMPlexSans-Regular.ttf in Resources */,
 				D589F3D12794B96C003F2FBB /* 2.4.2.RX_backend_submissionStatus_received.json in Resources */,
 				088FF1682A028AFD00042957 /* Identity.storyboard in Resources */,
@@ -6567,7 +6493,6 @@
 				D5E6CBF6290F47BE009856B7 /* NFTMarketplaceCell.xib in Resources */,
 				088FF32C2A02CA1C00042957 /* baker_remove_flow_en_1.html in Resources */,
 				7FF07AC923EADBB100F1FC04 /* README.md in Resources */,
-				089B34802A1B9E8C00F3CD90 /* unshielding_1.svg in Resources */,
 				08A6BDC02B3318B300869317 /* Colors.xcassets in Resources */,
 				D5B393F327197CDD0094A9F5 /* QRTransactionBuyView.xib in Resources */,
 				D589F37D2794B96B003F2FBB /* 3.4.2.RX_backend_submissionStatus_success.json in Resources */,
@@ -6580,14 +6505,12 @@
 				088FF2232A02A89800042957 /* ImportStatusCell.xib in Resources */,
 				D5087B5C28EE4C380082A05F /* NFTErrorStatusView.xib in Resources */,
 				088FF3362A02CA2100042957 /* baker_intro_flow_en_1.html in Resources */,
-				089B34672A1B9E7B00F3CD90 /* shielded_balance_onboarding_en_3.html in Resources */,
 				088FF2C82A02C98700042957 /* delegation_intro_flow_en_3.html in Resources */,
 				D54ABC2126E14A5C00F4E773 /* NoDataView.xib in Resources */,
 				D5962CC02721613E00A757A5 /* TransactionOperationView.xib in Resources */,
 				D54ABC1726E100B800F4E773 /* TextEditView.xib in Resources */,
 				08A6BDA02B30A66D00869317 /* IBMPlexSans-Medium.ttf in Resources */,
 				D5087B5228EE49260082A05F /* NFTInputStatusView.xib in Resources */,
-				089B34812A1B9E8C00F3CD90 /* shielding_1.svg in Resources */,
 				D589F3A52794B96C003F2FBB /* 3.4.2.RX_backend_submissionStatus_fin_reject.json in Resources */,
 				088FF3782A02CA7900042957 /* RobotoMono.ttf in Resources */,
 				08A6BDB32B31C00F00869317 /* Satoshi-Bold.otf in Resources */,
@@ -6605,7 +6528,6 @@
 				08A6BD9E2B30A66D00869317 /* IBMPlexSans-Light.ttf in Resources */,
 				7FD435FF249A2D34002D2AC3 /* icon-22-29.png in Resources */,
 				D589F4012794B96D003F2FBB /* 2.4.2.RX_backend_submissionStatus_success.json in Resources */,
-				089B34652A1B9E7B00F3CD90 /* shielded_balance_onboarding_en_6.html in Resources */,
 				088FF3392A02CA2100042957 /* registerbaker_flow_style.css in Resources */,
 				D589F4092794B96D003F2FBB /* backend_server_error.json in Resources */,
 				D589F3A92794B96C003F2FBB /* 3.4.2.RX_backend_submissionStatus_rec.json in Resources */,
@@ -6625,7 +6547,6 @@
 				D589F3E92794B96C003F2FBB /* 3.4.2.RX_backend_submissionStatus_fin.json in Resources */,
 				D5CFCF30273922D800888E1B /* QRTransactionDataViewController.xib in Resources */,
 				D589F3F12794B96C003F2FBB /* 2.5.2.RX_backend_transferCost.json in Resources */,
-				089B34822A1B9E8C00F3CD90 /* shielding_2.svg in Resources */,
 				D5087B5728EE49740082A05F /* NFTLoadingStatusView.xib in Resources */,
 				D589F40D2794B96D003F2FBB /* 3.3.1.TX_backend_submitTransfer.json in Resources */,
 				D589F3CD2794B96C003F2FBB /* 2.4.2.RX_backend_submissionStatus_absent.json in Resources */,
@@ -6633,7 +6554,6 @@
 				D589F3B12794B96C003F2FBB /* 1.2.1.TX-lib_create_id_request_and_private_data.json in Resources */,
 				FAAA492C274513F4007EFA61 /* AccountsTotalHeader.xib in Resources */,
 				088FF2C52A02C98700042957 /* delegation_intro_flow_en_4.html in Resources */,
-				089B347A2A1B9E8300F3CD90 /* shielded_balance_style.css in Resources */,
 				D589F3992794B96B003F2FBB /* 3.3.2.RX_backend_submitTransfer.json in Resources */,
 				D5883FCF29040C290014F83C /* NFTEmptySearchStatusView.xib in Resources */,
 				7F5F779324891F220016F8D1 /* AppIcon.xcassets in Resources */,
@@ -6657,8 +6577,6 @@
 				08A6BDB82B31C01500869317 /* IBMPlexMono-Bold.ttf in Resources */,
 				D589F3A12794B96B003F2FBB /* 1.2.2.RX-lib_create_id_request_and_private_data.json in Resources */,
 				D589F4112794B96D003F2FBB /* 4.4.1.TX_lib_decrypt_encrypted_amount.json in Resources */,
-				089B34662A1B9E7B00F3CD90 /* shielded_balance_onboarding_en_5.html in Resources */,
-				089B34642A1B9E7B00F3CD90 /* shielded_balance_onboarding_en_2.html in Resources */,
 				FAAC232826E54D2A00EFF43F /* AccountConfirmationCardView.xib in Resources */,
 				088FF36A2A02CA3200042957 /* updatedelegation_flow_style.css in Resources */,
 				08A6BDB12B31C00F00869317 /* Satoshi-Regular.otf in Resources */,
@@ -6696,9 +6614,7 @@
 				D589F3C52794B96C003F2FBB /* 2.3.2.RX_backend_submitCredential.json in Resources */,
 				088FF34C2A02CA2700042957 /* baker_update_flow_en_3.html in Resources */,
 				7F5F778C24891EA00016F8D1 /* Assets.xcassets in Resources */,
-				089B346A2A1B9E7B00F3CD90 /* shielded_balance_onboarding_en_7.html in Resources */,
 				D589F3C92794B96C003F2FBB /* 4.1.2.RX_backend_accBalance.json in Resources */,
-				089B34682A1B9E7B00F3CD90 /* shielded_balance_onboarding_en_1.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6838,6 +6754,7 @@
 				08C166B22BB7396200E61326 /* CXNavigationController.swift in Sources */,
 				08C166B32BB7396200E61326 /* InitialAccountData.swift in Sources */,
 				08C166B42BB7396200E61326 /* TermsAndConditionsIntroPresenter.swift in Sources */,
+				50EB31052BFCABAA002B2558 /* UnshieldAssetsView.swift in Sources */,
 				08C166B52BB7396200E61326 /* GradienBackgroundModifier.swift in Sources */,
 				08C166B62BB7396200E61326 /* NFTProvidersViewController.swift in Sources */,
 				08C166B72BB7396200E61326 /* LoginInfoLabel.swift in Sources */,
@@ -7143,6 +7060,7 @@
 				08C167DF2BB7396200E61326 /* ExportValues.swift in Sources */,
 				08C167E02BB7396200E61326 /* RoundedCurrencyView.swift in Sources */,
 				08C167E12BB7396200E61326 /* Data+Hex.swift in Sources */,
+				50EB310D2BFFF515002B2558 /* UnshieldAssetsViewModel.swift in Sources */,
 				08C167E22BB7396200E61326 /* MakeGenerateAccountsResponseElement.swift in Sources */,
 				08C167E32BB7396200E61326 /* StakeService.swift in Sources */,
 				08C167E52BB7396200E61326 /* DelegationTarget.swift in Sources */,
@@ -7228,6 +7146,7 @@
 				08C1683A2BB7396200E61326 /* Aci.swift in Sources */,
 				08C1683B2BB7396200E61326 /* AccountTransactionsDataViewController.swift in Sources */,
 				08C1683C2BB7396200E61326 /* AppSettings.swift in Sources */,
+				50EB31012BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */,
 				08C1683D2BB7396200E61326 /* UIView+Additions.swift in Sources */,
 				08E472B92BCEFB53004F0088 /* SessionRequestDataType.swift in Sources */,
 				08C1683E2BB7396200E61326 /* Sizes.swift in Sources */,
@@ -7404,6 +7323,7 @@
 				08C168E22BB7396200E61326 /* Publisher+Async.swift in Sources */,
 				08C168E32BB7396200E61326 /* QRTransactionDataViewController.swift in Sources */,
 				08C168E42BB7396200E61326 /* RevealAttributesViewController.swift in Sources */,
+				50EB31092BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift in Sources */,
 				08C168E52BB7396200E61326 /* ExportPrivateKeyViewModel.swift in Sources */,
 				08C168E62BB7396200E61326 /* ColorPalette.swift in Sources */,
 				08C168E72BB7396200E61326 /* ShowAlertProtocol.swift in Sources */,
@@ -7520,6 +7440,7 @@
 				080F35292A09058E0070D4EE /* CXNavigationController.swift in Sources */,
 				08A0460429FA99D200DACE1F /* InitialAccountData.swift in Sources */,
 				088FF0342A0277F600042957 /* TermsAndConditionsIntroPresenter.swift in Sources */,
+				50EB31042BFCABAA002B2558 /* UnshieldAssetsView.swift in Sources */,
 				08FD0B832A7D31D9003774A6 /* GradienBackgroundModifier.swift in Sources */,
 				D5612B8C28EA559D00582AD4 /* NFTProvidersViewController.swift in Sources */,
 				7F85B7E8246A9AB600ED09B8 /* LoginInfoLabel.swift in Sources */,
@@ -7825,6 +7746,7 @@
 				D589F2092794B5ED003F2FBB /* ExportValues.swift in Sources */,
 				D5D52C6C26DE45530072D20E /* RoundedCurrencyView.swift in Sources */,
 				D5BA806B2731AFA800DCE1CD /* Data+Hex.swift in Sources */,
+				50EB310C2BFFF515002B2558 /* UnshieldAssetsViewModel.swift in Sources */,
 				08A0460029FA99D200DACE1F /* MakeGenerateAccountsResponseElement.swift in Sources */,
 				088FEC5D2A0144B000042957 /* StakeService.swift in Sources */,
 				08A0461529FA99D300DACE1F /* DelegationTarget.swift in Sources */,
@@ -7910,6 +7832,7 @@
 				08A045DD29FA99D200DACE1F /* Aci.swift in Sources */,
 				088FEDCC2A01677F00042957 /* AccountTransactionsDataViewController.swift in Sources */,
 				7F85B88C246A9AB600ED09B8 /* AppSettings.swift in Sources */,
+				50EB31002BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */,
 				7F85B88D246A9AB600ED09B8 /* UIView+Additions.swift in Sources */,
 				08E472B82BCEFB53004F0088 /* SessionRequestDataType.swift in Sources */,
 				7F85B88F246A9AB600ED09B8 /* Sizes.swift in Sources */,
@@ -8086,6 +8009,7 @@
 				088FEE4B2A016B3400042957 /* Publisher+Async.swift in Sources */,
 				D5CFCF2E273922D800888E1B /* QRTransactionDataViewController.swift in Sources */,
 				088FEEAE2A026B7300042957 /* RevealAttributesViewController.swift in Sources */,
+				50EB31082BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift in Sources */,
 				088FED9C2A01674100042957 /* ExportPrivateKeyViewModel.swift in Sources */,
 				088FEC942A01609F00042957 /* ColorPalette.swift in Sources */,
 				D5F3BC69278E5D3C008DC894 /* ShowAlertProtocol.swift in Sources */,
@@ -8202,6 +8126,7 @@
 				067D766923FC1AF9002DEF67 /* LoginInfoLabel.swift in Sources */,
 				088FEDC32A01677E00042957 /* TransactionViewModel.swift in Sources */,
 				080F35272A09058E0070D4EE /* CXNavigationController.swift in Sources */,
+				50EB31032BFCABAA002B2558 /* UnshieldAssetsView.swift in Sources */,
 				088FF0002A0271F000042957 /* SeedIdentityOnboardingViewModel.swift in Sources */,
 				D54795A228ECECBF00575649 /* NFTImportView.swift in Sources */,
 				08A0458229FA99D100DACE1F /* ServerErrorMessage.swift in Sources */,
@@ -8507,6 +8432,7 @@
 				08A0455329FA99D100DACE1F /* AccountDelegation.swift in Sources */,
 				D5CACC5D26ED5B1400D3C3CF /* VersionView.swift in Sources */,
 				08A0456829FA99D100DACE1F /* MakeGenerateAccountsResponseElement.swift in Sources */,
+				50EB310B2BFFF515002B2558 /* UnshieldAssetsViewModel.swift in Sources */,
 				D5F7A23726D7A1DB0061E646 /* OperationRoundedView.swift in Sources */,
 				088FEC5B2A0144B000042957 /* StakeService.swift in Sources */,
 				08A0457D29FA99D100DACE1F /* DelegationTarget.swift in Sources */,
@@ -8592,6 +8518,7 @@
 				088FEDC42A01677E00042957 /* AccountTransactionsDataViewController.swift in Sources */,
 				D5B39402271990D60094A9F5 /* CircleView.swift in Sources */,
 				19C2E7429349DB90804089D0 /* AppSettings.swift in Sources */,
+				50EB30FF2BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */,
 				08E472B72BCEFB53004F0088 /* SessionRequestDataType.swift in Sources */,
 				19C2E1F4C4825F62DEE3EE2B /* UIView+Additions.swift in Sources */,
 				D5E29760276C8DC8000DB102 /* CopyPasterHelper.swift in Sources */,
@@ -8768,6 +8695,7 @@
 				088FEEA02A026B7200042957 /* CreateNicknamePresenter.swift in Sources */,
 				088FEE492A016B3400042957 /* Publisher+Async.swift in Sources */,
 				088FEEA22A026B7200042957 /* RevealAttributesViewController.swift in Sources */,
+				50EB31072BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift in Sources */,
 				088FED962A01674000042957 /* ExportPrivateKeyViewModel.swift in Sources */,
 				088FEC922A01609E00042957 /* ColorPalette.swift in Sources */,
 				08A0456129FA99D100DACE1F /* IdentityObject.swift in Sources */,

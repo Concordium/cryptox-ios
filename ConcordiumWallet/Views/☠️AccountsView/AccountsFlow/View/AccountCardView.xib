@@ -22,7 +22,6 @@
                 <outlet property="stateImageView" destination="9XF-Vj-Tyf" id="cL6-Hw-WSd"/>
                 <outlet property="stateLabel" destination="Tbq-D7-W1H" id="FBm-Ne-09x"/>
                 <outlet property="totalAmount" destination="snC-tA-VVa" id="BcZ-PX-BHK"/>
-                <outlet property="totalAmountLockImageView" destination="ED8-7i-egy" id="kqY-DJ-qCh"/>
                 <outlet property="widget" destination="Xmb-kR-5H7" id="JdF-My-PYs"/>
             </connections>
         </placeholder>
@@ -103,7 +102,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="LPK-au-T15">
-                                                    <rect key="frame" x="111" y="8" width="53" height="20"/>
+                                                    <rect key="frame" x="111" y="8" width="40" height="20"/>
                                                     <subviews>
                                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="19i-lP-Qbf">
                                                             <rect key="frame" x="0.0" y="0.0" width="40" height="20"/>
@@ -128,13 +127,6 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon_Shield" translatesAutoresizingMaskIntoConstraints="NO" id="ED8-7i-egy">
-                                                            <rect key="frame" x="42" y="3.5" width="11" height="13"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="13" id="0Hr-dc-lBg"/>
-                                                                <constraint firstAttribute="width" constant="11" id="WxJ-7T-tWG"/>
-                                                            </constraints>
-                                                        </imageView>
                                                     </subviews>
                                                 </stackView>
                                             </subviews>
@@ -261,7 +253,6 @@
     <resources>
         <image name="Button_Icon_Paperplane" width="18" height="18"/>
         <image name="Button_Icon_QR" width="19" height="19"/>
-        <image name="Icon_Shield" width="11" height="13"/>
         <image name="account_background" width="339" height="178"/>
         <image name="icon_read_only" width="17" height="8"/>
         <image name="pending" width="150" height="150"/>

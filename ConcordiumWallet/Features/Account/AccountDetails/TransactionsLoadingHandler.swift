@@ -11,18 +11,18 @@ class TransactionsLoadingHandler {
     let account: AccountDataType
     var balanceType: AccountBalanceTypeEnum
     let transactionsService: TransactionsServiceProtocol
-
+    
     private var localTransactionsNotShownYet: [TransactionViewModel] = []
     let displayedTransactions = [TransactionViewModel]()
     var undecryptedTransactions: [Transaction] = []
-
+    
     init(account: AccountDataType, balanceType: AccountBalanceTypeEnum, dependencyProvider: AccountsFlowCoordinatorDependencyProvider) {
         self.account = account
         self.transactionsService = dependencyProvider.transactionsService()
         self.storageManager = dependencyProvider.storageManager()
         self.balanceType = balanceType
     }
-
+    
     func updateBalanceType(_ balanceType: AccountBalanceTypeEnum) {
         self.balanceType = balanceType
     }
@@ -31,19 +31,19 @@ class TransactionsLoadingHandler {
         guard let accountAddress = accountAddress else { return nil }
         return storageManager.getRecipient(withAddress: accountAddress)?.name
     }
-
+    
     private func encryptedAmopuntLookup(encryptedAmount: String?) -> Int? {
         guard let encryptedValue = encryptedAmount else { return 0 }
         guard let amount = self.storageManager.getShieldedAmount(encryptedValue: encryptedValue, account: account) else { return nil }
         return Int(amount.decryptedValue ) ?? nil
-       }
+    }
     
     func decryptUndecryptedTransactions(requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<[(String, Int)], Error> {
         transactionsService.decryptEncryptedTransferAmounts(transactions: self.undecryptedTransactions,
                                                             from: account,
                                                             requestPasswordDelegate: requestPasswordDelegate)
     }
-
+    
     func decryptUndecryptedTransaction(withTransactionHash: String?,
                                        requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<[(String, Int)], Error> {
         let matchingTransaction = self.undecryptedTransactions.filter { $0.transactionHash == withTransactionHash }
@@ -54,7 +54,7 @@ class TransactionsLoadingHandler {
             return result
         }.eraseToAnyPublisher()
     }
-
+    
     func getTransactions(startingFrom: TransactionViewModel? = nil) -> AnyPublisher<([TransactionViewModel], [TransactionViewModel]), Error> {
         if startingFrom == nil {
             undecryptedTransactions = []
@@ -72,25 +72,21 @@ class TransactionsLoadingHandler {
             }
             .eraseToAnyPublisher()
     }
-
+    
     func loadLocalTransfers() {
         self.localTransactionsNotShownYet = storageManager.getTransfers(for: account.address)
             .filter { (transfer) -> Bool in
-                // we don't show simple trasnfers in shielded balance
-                if balanceType == .shielded && (transfer.transferType == .simpleTransfer) {
-                    return false
-                }
                 return true }
             .map {
-            TransactionViewModel(localTransferData: $0,
-                                 submissionStatus: nil,
-                                 account: self.account,
-                                 balanceType: self.balanceType,
-                                 encryptedAmountLookup: self.encryptedAmopuntLookup(encryptedAmount:),
-                                 recipientListLookup: self.recipientListLookup(accountAddress:))
-        }
+                TransactionViewModel(localTransferData: $0,
+                                     submissionStatus: nil,
+                                     account: self.account,
+                                     balanceType: self.balanceType,
+                                     encryptedAmountLookup: self.encryptedAmopuntLookup(encryptedAmount:),
+                                     recipientListLookup: self.recipientListLookup(accountAddress:))
+            }
     }
-
+    
     private func isLastFromServer(transactions: RemoteTransactions) -> Bool {
         if let cnt = transactions.count, let limit = transactions.limit {
             if cnt == 0 || cnt < limit {
@@ -99,7 +95,7 @@ class TransactionsLoadingHandler {
         }
         return false
     }
-
+    
     // swiftlint:disable function_body_length
     private func mergeTransactions(newTransactions: RemoteTransactions, useAllTransactions: Bool = false) -> [TransactionViewModel] {
         let rawTransactions: [Transaction] = newTransactions.transactions ?? []
@@ -108,21 +104,13 @@ class TransactionsLoadingHandler {
             
             filteredRawTransactions = rawTransactions.filter { (transaction) -> Bool in
                 if balanceType == .balance {
-                     // For balance type balance, we only remove incoming shielded transactions
+                    // For balance type balance, we only remove incoming shielded transactions
                     let incomingEncrypted = transaction.details.type == "encryptedAmountTransfer"
-                        && transaction.origin?.type != OriginTypeEnum.typeSelf
+                    && transaction.origin?.type != OriginTypeEnum.typeSelf
                     let incomingEncryptedWithMemo = transaction.details.type == "encryptedAmountTransferWithMemo"
-                        && transaction.origin?.type != OriginTypeEnum.typeSelf
-
+                    && transaction.origin?.type != OriginTypeEnum.typeSelf
+                    
                     if incomingEncrypted || incomingEncryptedWithMemo {
-                        return false
-                    }
-                } else if balanceType == .shielded {
-                    // For balance type shielded, we only keep shielded transactions and the self transfers
-                    if transaction.details.type != "encryptedAmountTransfer" &&
-                        transaction.details.type != "encryptedAmountTransferWithMemo" &&
-                        transaction.details.type != "transferToEncrypted" &&
-                        transaction.details.type != "transferToPublic" {
                         return false
                     }
                 }
@@ -130,19 +118,6 @@ class TransactionsLoadingHandler {
             }
         } else {
             filteredRawTransactions = rawTransactions
-        }
-        
-        if balanceType == .shielded {
-            // swiftlint:disable line_length
-            let association: [(Transaction, String?, Int?)] = filteredRawTransactions.map { (transaction) -> (Transaction, String?, Int?) in
-                (transaction, transaction.encrypted?.encryptedAmount, self.encryptedAmopuntLookup(encryptedAmount: transaction.encrypted?.encryptedAmount))
-            }
-            let newUndecrypted = association.filter { (_, encrypted, value) -> Bool in
-                value == nil && encrypted != nil
-            }.map { (transaction, _, _) -> Transaction in
-                return transaction
-            }
-            undecryptedTransactions += newUndecrypted
         }
         
         let remoteTransactionsVM: [TransactionViewModel] = filteredRawTransactions.map {
@@ -153,7 +128,7 @@ class TransactionsLoadingHandler {
                                  recipientListLookup: self.recipientListLookup(accountAddress:))
         }
         var timeOfLastRemoteTransaction = remoteTransactionsVM.last?.date ?? Date.distantPast
-
+        
         if isLastFromServer(transactions: newTransactions)  || remoteTransactionsVM.count == 0 {
             timeOfLastRemoteTransaction = Date.distantPast
         } else {
@@ -161,12 +136,12 @@ class TransactionsLoadingHandler {
             // will return true if there are no elements in the list
             timeOfLastRemoteTransaction = remoteTransactionsVM.last!.date
         }
-
+        
         let localTransfersToMerge = self.localTransactionsNotShownYet.filter { localTrns in localTrns.date >= timeOfLastRemoteTransaction }
         if useAllTransactions {
             self.localTransactionsNotShownYet.removeAll { localTransfersToMerge.contains($0) }
         }
-
+        
         var mergedTransactions: [TransactionViewModel] = remoteTransactionsVM + localTransfersToMerge
         
         // Sort the list

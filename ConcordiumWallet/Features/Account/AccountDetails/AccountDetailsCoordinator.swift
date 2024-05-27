@@ -18,7 +18,6 @@ enum AccountDetailsFlowEntryPoint {
     case details
     case send
     case receive
-    case enableShielded
     case earn
 }
 
@@ -63,8 +62,6 @@ class AccountDetailsCoordinator: Coordinator,
             showSendFund()
         case .receive:
                 showAccountAddressQR(account)
-        case .enableShielded:
-            showEnableShielding()
         case .earn:
             showEarn(account: account)
         }
@@ -81,21 +78,10 @@ class AccountDetailsCoordinator: Coordinator,
                                                           account: account,
                                                           delegate: self)
         let vc = AccountDetailsFactory.create(with: accountDetailsPresenter!)
-//        vc.hidesBottomBarWhenPushed = true
         navigationController.pushViewController(vc, animated: true)
     }
     
     func showAccountDetails(account: AccountDataType) {
-        #warning("Max, im here")
-//        accountDetailsPresenter = AccountDetailsPresenter(dependencyProvider: dependencyProvider,
-//                                                          account: account,
-//                                                          delegate: self)
-//        let vc = AccountDetailsFactory.create(with: accountDetailsPresenter!)
-//        vc.hidesBottomBarWhenPushed = true
-//        navigationController.pushViewController(vc, animated: true)
-//
-//        let accountDetailProxy: AccountDetailProxy = .init(coordinator: self)
-//        let balanceType: AccountBalanceTypeEnum = .balance
         let router = AccountDetailRouter(account: account, navigationController: navigationController, dependencyProvider: dependencyProvider as! ServicesProvider)
         let viewModel = AccountDetailViewModel(
             router: router,
@@ -184,20 +170,7 @@ class AccountDetailsCoordinator: Coordinator,
     }
     
     func showSendFund(balanceType: AccountBalanceTypeEnum = .balance) {
-        let transferType: SendFundTransferType = balanceType == .shielded ? .encryptedTransfer : .simpleTransfer
-        let coordinator = SendFundsCoordinator(navigationController: CXNavigationController(),
-                                               delegate: self,
-                                               dependencyProvider: self.dependencyProvider,
-                                               account: account,
-                                               balanceType: balanceType,
-                                               transferType: transferType)
-        coordinator.start()
-        childCoordinators.append(coordinator)
-        navigationController.present(coordinator.navigationController, animated: true, completion: nil)
-    }
-    
-    func shieldUnshieldFund(balanceType: AccountBalanceTypeEnum = .balance) {
-        let transferType: SendFundTransferType = balanceType == .shielded ? .transferToPublic : .transferToSecret
+        let transferType: SendFundTransferType = .simpleTransfer
         let coordinator = SendFundsCoordinator(navigationController: CXNavigationController(),
                                                delegate: self,
                                                dependencyProvider: self.dependencyProvider,
@@ -216,15 +189,6 @@ class AccountDetailsCoordinator: Coordinator,
         accountAddressQRCoordinator.start()
         navigationController.present(accountAddressQRCoordinator.navigationController, animated: true)
         self.childCoordinators.append(accountAddressQRCoordinator)
-    }
-    
-    func showEnableShielding() {
-        accountDetailsPresenter = AccountDetailsPresenter(dependencyProvider: dependencyProvider,
-                                                          account: account,
-                                                          delegate: self)
-        let vc = AccountDetailsFactory.create(with: accountDetailsPresenter!)
-        navigationController.pushViewController(vc, animated: false)
-        showShieldedBalanceOnboarding(showShieldedDelegate: accountDetailsPresenter)
     }
     
     func showTransactionDetail(viewModel: TransactionViewModel) {
@@ -266,52 +230,6 @@ class AccountDetailsCoordinator: Coordinator,
     func showTransferFilters(account: AccountDataType) {
         let vc = TransferFiltersFactory.create(with: TransferFiltersPresenter(delegate: self, account: account))
         navigationController.pushViewController(vc, animated: true)
-    }
-
-    func showShieldedBalanceOnboarding(showShieldedDelegate: ShowShieldedDelegate?) {
-        let onboardingCarouselViewModel = OnboardingCarouselViewModel(
-            title: "onboardingcarousel.shieldedbalance.title".localized,
-            pages: [
-                OnboardingPage(
-                    title: "onboardingcarousel.shieldedbalance.page1.title".localized,
-                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_1")
-                ),
-                OnboardingPage(
-                    title: "onboardingcarousel.shieldedbalance.page2.title".localized,
-                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_2")
-                ),
-                OnboardingPage(
-                    title: "onboardingcarousel.shieldedbalance.page3.title".localized,
-                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_3")
-                ),
-                OnboardingPage(
-                    title: "onboardingcarousel.shieldedbalance.page4.title".localized,
-                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_4")
-                ),
-                OnboardingPage(
-                    title: "onboardingcarousel.shieldedbalance.page5.title".localized,
-                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_5")
-                ),
-                OnboardingPage(
-                    title: "onboardingcarousel.shieldedbalance.page6.title".localized,
-                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_6")
-                ),
-                OnboardingPage(
-                    title: "onboardingcarousel.shieldedbalance.page7.title".localized,
-                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_7")
-                )
-            ]
-        )
-
-        let onboardingCarouselPresenter = OnboardingCarouselPresenter(
-            delegate: showShieldedDelegate,
-            viewModel: onboardingCarouselViewModel
-        )
-
-        let onboardingCarouselViewController = OnboardingCarouselFactory.create(with: onboardingCarouselPresenter)
-        onboardingCarouselViewController.hidesBottomBarWhenPushed = true
-
-        navigationController.pushViewController(onboardingCarouselViewController, animated: true)
     }
     
     func showExportPrivateKey(account: AccountDataType) {
@@ -364,10 +282,6 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
         showSendFund(balanceType: balanceType)
     }
     
-    func accountDetailsPresenterShieldUnshield(_ accountDetailsPresenter: AccountDetailsPresenter, balanceType: AccountBalanceTypeEnum) {
-        shieldUnshieldFund(balanceType: balanceType)
-    }
-    
     func accountDetailsPresenterAddress(_ accountDetailsPresenter: AccountDetailsPresenter) {
         showAccountAddressQR(account)
     }
@@ -410,14 +324,12 @@ extension AccountDetailsCoordinator: ShowShieldedDelegate {
     }
 
     func onboardingCarouselSkiped() {
-        account = account.withShowShielded(true)
         self.navigationController.popViewController(animated: false)
         accountDetailsPresenter?.viewDidLoad()
         self.navigationController.popViewController(animated: true)
     }
 
     func onboardingCarouselFinished() {
-        account = account.withShowShielded(true)
         self.navigationController.popViewController(animated: false)
         accountDetailsPresenter?.viewDidLoad()
         self.navigationController.popViewController(animated: true)
@@ -459,16 +371,6 @@ extension AccountDetailsCoordinator: AccountSettingsPresenterDelegate {
 
     func releaseScheduleTapped() {
         showReleaseSchedule(account: account)
-    }
-    
-    func showShieldedTapped() {
-        showShieldedBalanceOnboarding(showShieldedDelegate: self)
-    }
-    
-    func hideShieldedTapped() {
-        account = account.withShowShielded(false)
-        accountDetailsPresenter?.viewDidLoad()
-        self.navigationController.popViewController(animated: true)
     }
     
     func exportPrivateKeyTapped() {
@@ -520,9 +422,6 @@ extension AccountDetailsCoordinator: ExportTransactionLogPresenterDelegate {
     }
 }
 
-
-
-/// redesign
 extension AccountDetailsCoordinator {
     public func showAccountSettings() {
         let presenter = AccountSettingsPresenter(account: account, delegate: self)
@@ -532,56 +431,3 @@ extension AccountDetailsCoordinator {
         )
     }
 }
-
-//extension AccountDetailsCoordinator: AccountDetailNavigationProxy {
-//    func showRecepientPicker(_ onPicked: @escaping (String) -> Void) {
-//        let vc = SelectRecipientFactory.create(with: SelectRecipientPresenter(closure: { [weak self] output in
-//            onPicked(output.address)
-//            self?.navigationController.popViewController(animated: true)
-//        },
-//                                                                              storageManager: dependencyProvider.storageManager(),
-//                                                                              mode: .addressBook,
-//                                                                              ownAccount: account))
-//        navigationController.pushViewController(vc, animated: true)
-//    }
-//    
-//    func showQrAddressPicker(_ onPicked: @escaping (String) -> Void) {
-//        let vc = ScanAddressQRFactory.create(with: ScanAddressQRPresenter(wallet: dependencyProvider.mobileWallet(), closure: { [weak self] output in
-//            onPicked(output.address)
-//            self?.navigationController.popViewController(animated: true)
-//        }))
-//        navigationController.pushViewController(vc, animated: true)
-//    }
-//    
-//    func showSendTokenFlow(tokenType: CXTokenType) {
-//        let router = TransferTokenRouter(root: navigationController, account: account, dependencyProvider: dependencyProvider)
-//        router.showSendTokenFlow(tokenType: tokenType)
-//    }
-//    
-//    func showCIS2TokenDetailsFlow(_ token: CIS2Token, account: AccountDataType) {
-//        let viewModel = CIS2TokenDetailViewModel(
-//            token,
-//            account: account,
-//            proxy: self,
-//            storageManager: dependencyProvider.storageManager(),
-//            onPop: { [weak navigationController] in
-//                navigationController?.popViewController(animated: true)
-//            })
-//        let view = CIS2TokenDetailView(viewModel: viewModel)
-//        let viewController = SceneViewController(content: view)
-//        viewController.hidesBottomBarWhenPushed = true
-//        navigationController.pushViewController(viewController, animated: true)
-//    }
-//    
-//    func showAccountDetailFlow(for account: AccountDataType) {
-//        self.showOldAccountDetails(account: account)
-//    }
-//    
-//    func showImportTokenFlow(for account: AccountDataType) {
-//        self.showImportTokenFlow(account.address)
-//    }
-//    
-//    func showTx(_ tx: TransactionViewModel) {
-//        showTransactionDetail(viewModel: tx)
-//    }
-//}

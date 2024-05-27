@@ -42,13 +42,12 @@ class AccountDetailsViewModel {
     @Published var allAccountTransactionsList = TransactionsListViewModel()
     @Published var showUnlockButton = false
     @Published var isReadOnly = false
-    @Published var isShielded = false
     @Published var atDisposal: String = ""
     @Published var stakedValue: String = ""
     @Published var stakedLabel: String?
     @Published var hasStaked: Bool = false
-    @Published var isShieldedEnabled: Bool = true
     @Published var menuState: AccountMenuState = .closed
+    
     private var inflightTransactionRequest = Set<TransactionRequest>()
     
     init(account: AccountDataType, balanceType: AccountBalanceTypeEnum) {
@@ -60,33 +59,25 @@ class AccountDetailsViewModel {
         name = account.displayName
         address = account.address
         isReadOnly = account.isReadOnly
-        isShieldedEnabled = account.showsShieldedBalance
-        if balanceType == .shielded {
-            isShielded = true
-            balance = GTU(intValue: account.forecastEncryptedBalance).displayValue()
-            hasStaked = false
+        balance = GTU(intValue: account.forecastBalance).displayValue()
+        if let baker = account.baker, baker.bakerID != -1 {
+            self.hasStaked = true
+            self.stakedLabel = String(format: "accountDetails.bakingstakelabel".localized, String(baker.bakerID))
+            self.stakedValue = GTU(intValue: baker.stakedAmount ).displayValueWithGStroke()
+            
+        } else if let delegation = account.delegation {
+            let pool = BakerTarget.from(delegationType: delegation.delegationTargetType, bakerId: delegation.delegationTargetBakerID)
+            
+            self.hasStaked = true
+            self.stakedLabel = pool.getDisplayValueForAccountDetails()
+            self.stakedValue = GTU(intValue: Int(delegation.stakedAmount) ).displayValueWithGStroke()
         } else {
-            isShielded = false
-            balance = GTU(intValue: account.forecastBalance).displayValue()
-            if let baker = account.baker, baker.bakerID != -1 {
-                self.hasStaked = true
-                self.stakedLabel = String(format: "accountDetails.bakingstakelabel".localized, String(baker.bakerID))
-                self.stakedValue = GTU(intValue: baker.stakedAmount ).displayValueWithGStroke()
-                
-            } else if let delegation = account.delegation {
-                let pool = BakerTarget.from(delegationType: delegation.delegationTargetType, bakerId: delegation.delegationTargetBakerID)
-                
-                self.hasStaked = true
-                self.stakedLabel = pool.getDisplayValueForAccountDetails()
-                self.stakedValue = GTU(intValue: Int(delegation.stakedAmount) ).displayValueWithGStroke()
-            } else {
-                self.hasStaked = false
-                stakedLabel = nil
-            }
+            self.hasStaked = false
+            stakedLabel = nil
         }
         atDisposal = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
     }
-
+    
     func toggleMenu() {
         menuState = menuState == .closed ? .open : .closed
     }
@@ -118,12 +109,12 @@ class AccountDetailsViewModel {
             allAccountTransactionsList.loading = false
         }
     }
-
+    
     func appendTransactions(transactions: [TransactionViewModel], shouldClearPrevious: Bool = false) {
         if transactions.count == 0 {
             if shouldClearPrevious {
                 transactionsList.transactions = transactions
-            } 
+            }
             // we did not receive new transactions - therefore the last transaction in the list must be the last existing
             if transactionsList.transactions.count > 0 {
                 transactionsList.transactions[transactionsList.transactions.count - 1].isLast = true

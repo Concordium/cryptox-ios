@@ -40,11 +40,6 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
     
     @IBOutlet weak var firstBalanceLabel: UILabel!
     @IBOutlet weak var secondBalanceLabel: UILabel!
-    @IBOutlet weak var shieldedBalanceLockImageView: UIImageView! {
-        didSet {
-            shieldedBalanceLockImageView.alpha = 0.5
-        }
-    }
     
     @IBOutlet weak var recipientTextView: UITextView!
     @IBOutlet weak var recipientPlacehodlerLabel: UILabel!
@@ -127,11 +122,6 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
                 self?.selectRecipientWidgetView.isHidden = !showMemoAndRecipient
                 self?.addMemoWidgetView.isHidden = !showMemoAndRecipient
             }
-            .store(in: &cancellables)
-        
-        viewModel.$showShieldedLock
-            .map { !$0 }
-            .assign(to: \.isHidden, on: shieldedBalanceLockImageView)
             .store(in: &cancellables)
         
         viewModel.$addMemoText

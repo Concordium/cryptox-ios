@@ -22,6 +22,7 @@ protocol TransactionsServiceProtocol {
                          requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error>
     
     func getTransferCost(transferType: WalletProxyTransferType, costParameters: [TransferCostParameter]) -> AnyPublisher<TransferCost, Error>
+    func getInputEncryptedAmount(for account: AccountDataType) -> InputEncryptedAmount
 }
 
 extension TransactionsServiceProtocol {
@@ -61,12 +62,8 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
         switch pTransfer.transferType {
         case .simpleTransfer:
             return performPublicTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
-        case .transferToSecret:
-            return performShielding(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         case .transferToPublic:
             return performUnshielding(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
-        case .encryptedTransfer:
-            return performEncryptedTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
             return performBakerTransfer(pTransfer, from: account, bakerKeys: bakerKeys, requestPasswordDelegate: requestPasswordDelegate)
         case .registerDelegation, .removeDelegation, .updateDelegation:
@@ -194,37 +191,6 @@ extension TransactionsService {
                 self?.updateLocalTransfer(transfer, withSubmissionStatus: $0) ?? transfer
             }
             .eraseToAnyPublisher()
-    }
-
-    private func performShielding(_ pTransfer: TransferDataType,
-                                  from account: AccountDataType,
-                                  requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
-        var transfer = updateLocalTransferWithExpiration(pTransfer)
-        return getAccountNonce(for: transfer.fromAddress).zip(getGlobal())
-            .flatMap { [weak self] (nonce, global)  -> AnyPublisher<CreateTransferRequest, Error>  in
-                transfer.nonce = nonce.nonce
-                guard let self = self else { return .fail(GeneralError.unexpectedNullValue) }
-                return self.createTransfer(transfer,
-                                           from: account,
-                                           requestPasswordDelegate: requestPasswordDelegate,
-                                           bakerKeys: nil,
-                                           global: global,
-                                           inputEncryptedAmount: nil,
-                                           receiverPublicKey: nil)
-            }.map({ [weak self](transferRequest) -> CreateTransferRequest in
-                // try and store the expected selfAmount, based on calculations
-                transfer = self?.updateLocalTransfer(transfer, withShieldingRequest: transferRequest, forAccount: account) ?? transfer
-                return transferRequest
-            })
-            .flatMap(submitTransfer)
-            .flatMap { (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
-                transfer.submissionId = submissionResponse.submissionID
-                return self.submissionStatus(submissionId: submissionResponse.submissionID)
-            }.map { [weak self] in
-                self?.updateLocalTransfer(transfer, withSubmissionStatus: $0) ?? transfer
-            }
-            .eraseToAnyPublisher()
-        
     }
     
     private func performUnshielding(_ pTransfer: TransferDataType,
@@ -417,7 +383,7 @@ extension TransactionsService {
     }
    
     // MARK: Encrypted Amount calculation helpers
-    private func getInputEncryptedAmount(for account: AccountDataType) -> InputEncryptedAmount {
+    func getInputEncryptedAmount(for account: AccountDataType) -> InputEncryptedAmount {
         // if existing pending transactions,
         // aggEncryptedAmount = last self amount from transaction + any incoming amounts that were NOT used in that transaction
         // else aggEncryptedAmount = selfAmount + incoming Amounts

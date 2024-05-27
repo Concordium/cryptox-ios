@@ -22,6 +22,7 @@ final class AccountsMainRouter: ObservableObject {
     private let onAccountsUpdate = PassthroughSubject<Void, Never>()
 
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
+    @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
 
     /// Legacy codebase support
     var childCoordinators = [Coordinator]()
@@ -33,7 +34,7 @@ final class AccountsMainRouter: ObservableObject {
         self.walletConnectService.delegate = self
     }
     
-    func rootScene() -> UINavigationController {
+    func rootScene() -> UINavigationController {        
         let viewModel: AccountsMainViewModel = .init(dependencyProvider: dependencyProvider, onReload: onAccountsUpdate.eraseToAnyPublisher(), walletConnectService: walletConnectService)
         let view = AccountsMainView(viewModel: viewModel, router: self)
             .environmentObject(updateTimer)
@@ -41,6 +42,15 @@ final class AccountsMainRouter: ObservableObject {
         viewController.tabBarItem = UITabBarItem(title: "accounts_tab_title".localized, image: UIImage(named: "tab_bar_accounts_icon"), tag: 0)
         navigationController.setViewControllers([viewController], animated: false)
         return navigationController
+    }
+    
+    @MainActor func showUnshieldAssetsFlow() {
+        let viewModel = ShieldedAccountsViewModel(dependencyProvider: dependencyProvider)
+        let view = ShieldedAccountsView(viewModel: viewModel)
+        let viewController = SceneViewController(content: view)
+        viewController.hidesBottomBarWhenPushed = true
+        viewController.modalPresentationStyle = .overFullScreen
+        navigationController.present(viewController, animated: true, completion: nil)
     }
     
     @MainActor func showAccountDetail(_ account: AccountDataType) {

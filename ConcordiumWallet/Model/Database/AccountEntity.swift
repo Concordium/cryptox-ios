@@ -44,7 +44,6 @@ protocol AccountDataType: DataStoreProtocol {
     var releaseSchedule: ReleaseScheduleDataType? { get set }
     var transferFilters: TransferFilter? { get set }
     
-    var showsShieldedBalance: Bool {get set}
     var hasShieldedTransactions: Bool {get set}
     
     func withUpdatedForecastBalance(_ forecastBalance: Int,
@@ -65,7 +64,6 @@ protocol AccountDataType: DataStoreProtocol {
     func withUpdatedStatus(status: SubmissionStatusEnum) -> AccountDataType
     func withTransferFilters(filters: TransferFilter) -> AccountDataType
     func withMarkAsReadOnly(_ isReadOnly: Bool) -> AccountDataType
-    func withShowShielded(_ showsShieled: Bool) -> AccountDataType
 }
 
 extension AccountDataType {
@@ -124,13 +122,6 @@ extension AccountDataType {
         _ = write {
             var pAccount = $0
             pAccount.transactionStatus = status
-        }
-        return self
-    }
-    func withShowShielded(_ showsShieled: Bool) -> AccountDataType {
-        _ = write {
-            var pAccount = $0
-            pAccount.showsShieldedBalance = showsShieled
         }
         return self
     }

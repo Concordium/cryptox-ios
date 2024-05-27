@@ -147,6 +147,15 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
 }
 
 extension MoreCoordinator: MoreMenuPresenterDelegate {
+    func showUnshieldAssetsFlow() {
+        let viewModel = ShieldedAccountsViewModel(dependencyProvider: dependencyProvider as! AccountsFlowCoordinatorDependencyProvider)
+        let view = ShieldedAccountsView(viewModel: viewModel)
+        let viewController = SceneViewController(content: view)
+        viewController.hidesBottomBarWhenPushed = true
+        viewController.modalPresentationStyle = .overFullScreen
+        navigationController.present(viewController, animated: true, completion: nil)
+    }
+    
     func showRevealSeedPrase() {
         parentCoordinator?.showRevealSeedPrase()
     }
@@ -350,9 +359,12 @@ extension MoreCoordinator: AppSettingsDelegate {
 }
 
 extension MoreCoordinator: AccountsPresenterDelegate {
-    func scanQR() {
-        
-    }
+    func scanQR() {}
+    func noValidIdentitiesAvailable() { }
+    func tryAgainIdentity() { }
+    func didSelectMakeBackup() { }
+    func didSelectPendingIdentity(identity: IdentityDataType) { }
+    
     func createNewIdentity() {
         accountsCoordinator?.showCreateNewIdentity()
     }
@@ -363,21 +375,6 @@ extension MoreCoordinator: AccountsPresenterDelegate {
     
     func userPerformed(action: AccountCardAction, on account: AccountDataType) {
         accountsCoordinator?.userPerformed(action: action, on: account)
-    }
-    
-    func enableShielded(on account: AccountDataType) {
-    }
-    
-    func noValidIdentitiesAvailable() {
-    }
-    
-    func tryAgainIdentity() {
-    }
-    
-    func didSelectMakeBackup() {
-    }
-    
-    func didSelectPendingIdentity(identity: IdentityDataType) {
     }
     
     func newTermsAvailable() {

@@ -161,11 +161,10 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         presenter.updateTransfersOnChanges()
     }
     
-    private func setupButtonSlider(isShielded: Bool) {
+    private func setupButtonSlider() {
         let areActionsEnabled = viewModel.accountState == .finalized && !viewModel.isReadOnly
         
         let buttonSlider = ButtonSlider(
-            isShielded: isShielded,
             actionSend: {
                 if self.sendEnabled {
                     self.presenter.userTappedSend()
@@ -179,11 +178,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             actionEarn: {
                 self.presenter.showEarn()
             },
-            actionShield: {
-                if self.shieldEnabled {
-                    self.presenter.userTappedShieldUnshield()
-                }
-            },
             actionSettings: {
                 self.presenter.burgerButtonTapped()
             },
@@ -195,32 +189,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         buttonSliderContainer.addSubview(childView.view)
         childView.didMove(toParent: self)
     }
-
-    private func setupButtonsShielded() {
-        let buttonsShielded = ButtonsShielded(
-            actionSendShielded: {
-                if self.sendEnabled {
-                    self.presenter.userTappedSend()
-                }
-            },
-            actionUnshield: {
-                if self.shieldEnabled {
-                    self.presenter.userTappedShieldUnshield()
-                }
-            },
-            actionReceive: {
-                if self.receiveEnabled {
-                    self.presenter.userTappedAddress()
-                }
-            })
-        let childView = UIHostingController(rootView: buttonsShielded)
-        addChild(childView)
-        childView.view.frame = buttonSliderContainer.bounds
-        buttonSliderContainer.subviews.forEach { $0.removeFromSuperview() }
-        buttonSliderContainer.addSubview(childView.view)
-        childView.didMove(toParent: self)
-    }
-
+    
     // swiftlint:disable function_body_length
     func bind(to viewModel: AccountDetailsViewModel) {
         self.viewModel = viewModel
@@ -259,52 +228,31 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             .assign(to: \.text, on: balanceLabel)
             .store(in: &cancellables)
         
-        viewModel.$isShielded.sink { [weak self](isShielded) in
-            guard let self = self else { return }
-
-            self.isShielded = isShielded
             self.title = self.presenter.getTitle()
-            self.atDisposalView.setHiddenIfChanged(isShielded)
+            self.atDisposalView.setHiddenIfChanged(false)
             
-            self.generalButton.backgroundColor = isShielded ? UIColor.black : UIColor.darkGray
-            self.shieldedButton.backgroundColor = isShielded ? UIColor.darkGray : UIColor.black
+            self.generalButton.backgroundColor = UIColor.darkGray
+            self.shieldedButton.backgroundColor = UIColor.black
             
-            if isShielded {
-                self.balanceNameLabel.text =  String(format: ("accounts.overview.shieldedtotal".localized), viewModel.name ?? "")
-                self.stakedView.setHiddenIfChanged(true)
-            } else {
                 self.balanceNameLabel.text = "accounts.overview.generaltotal".localized
                 if viewModel.hasStaked {
                     self.stakedView.setHiddenIfChanged(false)
                 } else {
                     self.stakedView.setHiddenIfChanged(true)
                 }
-            }
-            self.backgroundShield.isHidden = !isShielded
-            self.totalsStackView.spacing = isShielded ? 35 : 15
-            self.topSpacingStackViewConstraint.constant = isShielded ? 20 : 10
 
-            if isShielded {
-                self.setupButtonsShielded()
-            } else {
-                self.setupButtonSlider(isShielded: viewModel.isShieldedEnabled)
-            }
+            self.backgroundShield.isHidden = true
+            self.totalsStackView.spacing = 15
+            self.topSpacingStackViewConstraint.constant = 10
+        self.setupButtonSlider()
 
             UIView.animate(withDuration: 0.3) {
                 self.view.layoutIfNeeded()
             }
-        }.store(in: &cancellables)
         
-        viewModel.$isShieldedEnabled.sink { [weak self] enabled in
-            if enabled {
-                self?.buttonsView.setHiddenIfChanged(false)
-                self?.spacerView.setHiddenIfChanged(true)
-            } else {
-                self?.buttonsView.setHiddenIfChanged(true)
-                self?.spacerView.setHiddenIfChanged(false)
-            }
-        }.store(in: &cancellables)
-        
+        self.buttonsView.setHiddenIfChanged(true)
+        self.spacerView.setHiddenIfChanged(false)
+
         viewModel.$atDisposal
             .compactMap { $0 }
             .assign(to: \.text, on: atDisposalLabel)
@@ -342,27 +290,17 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         presenter.gtuDropTapped()
     }
     
-    @IBAction func pressedUnlock(_ sender: UIBarButtonItem) {
-        sender.isEnabled = false
-        presenter.pressedUnlock()
-    }
     
     @IBAction func pressedGeneral(_ sender: UIButton) {
         presenter.userSelectedGeneral()
     }
     
     @IBAction func pressedShielded(_ sender: UIButton) {
-        presenter.userSelectedShieled()
     }
 }
 
 extension AccountDetailsViewController {
     func setupTabBar() {
-//        tabViewModel.tabs = [
-//            "accountDetails.transfers".localized,
-//            "accountDetails.identity_data".localized
-//        ]
-        
         tabViewModel.tabs = [
             "accountDetails.transfers".localized
         ]

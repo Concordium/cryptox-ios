@@ -105,7 +105,6 @@ add_identity_data = "Reveal Identity Data";
 "accounts.totalatdisposal" = "Total currently at disposal";
 
 
-"accounts.shieldedamount" = "Shield amount";
 "accounts.unshieldedamount" = "Unshield amount";
 "accounts.amountwillbeshielded" = "Amount will be shielded";
 "accounts.amountwillbeunshielded" = "Amount will be unshielded";
@@ -245,21 +244,16 @@ process on-chain.";
 
 
 "sendFund.pageTitle.send" = "Send Funds";
-"sendFund.pageTitle.shieldAmount" = "Shield Amount";
 "sendFund.pageTitle.unshieldAmount" = "Unshield Amount";
 "sendFund.buttonTitle.send" = "Send amount";
-"sendFund.buttonTitle.shieldAmount" = "Shield amount";
 "sendFund.buttonTitle.unshieldAmount" = "Unshield amount";
-"sendFund.sendshielded" = "Send shielded amount";
 "sendFund.selectRecipient" = "Select Recipient";
 "sendFund.feeMessageTitle" = "Estimated transaction fee:";
 "sendFund.feeMessageValue" = "%@ CCD";
 "sendFund.feeMessage" = "Estimated transaction fee: CCD";
 "sendFund.sendingToOwnAccountDisallowed" = "Recipient account is not allowed be the same as sending account";
 "sendFund.insufficientFunds" = "Insufficient funds";
-"sendFund.confirmation.shield" = "Are you sure you want to shield";
 "sendFund.confirmation.unshield" = "Are you sure you want to unshield";
-"sendFund.confirmation.transfer" = "Are you sure you want to transfer";
 "sendFund.confirmation.line2.to" = "to";
 "sendFund.confirmation.line3.fromAccount" = "from account: ";
 "sendFund.confirmation.line3.Account" = "Account: ";
@@ -325,9 +319,6 @@ process on-chain.";
 "Save" = "Save";
 
 "transactionConfirmed.submitted" = "Transaction submitted!";
-"shieldedtransactionConfirmed.submitted" = "Shielded transaction submitted!";
-"shielding.submitted" = "Shielding submitted!";
-"unshielding.submitted" = "Unshielding submitted!";
 
 "transactionFailed.title" = "Transaction error!";
 "TransactionsList.loading" = "Loading...";
@@ -561,7 +552,6 @@ concordium-backup.concordiumwallet securely.";
 "accounts.overview.totalatdisposal" = "Total currently at disposal";
 
 
-"accounts.shieldedamount" = "Shield amount";
 "accounts.unshieldedamount" = "Unshield amount";
 "accounts.amountwillbeshielded" = "Amount will be shielded";
 "accounts.amountwillbeunshielded" = "Amount will be unshielded";
@@ -579,15 +569,6 @@ You can show the shielded balance of the account via the option below, or later 
 "onboardingcarousel.button.next.text" = "Next";
 "onboardingcarousel.button.back.text" = "Back";
 "onboardingcarousel.button.continue.text" = "Continue";
-
-"onboardingcarousel.shieldedbalance.title" = "Shielded Balance";
-"onboardingcarousel.shieldedbalance.page1.title" = "Before you continue";
-"onboardingcarousel.shieldedbalance.page2.title" = "Before you continue";
-"onboardingcarousel.shieldedbalance.page3.title" = "The shielding transaction";
-"onboardingcarousel.shieldedbalance.page4.title" = "The shielded transfer";
-"onboardingcarousel.shieldedbalance.page5.title" = "The shielded transfer";
-"onboardingcarousel.shieldedbalance.page6.title" = "The unshielding transaction";
-"onboardingcarousel.shieldedbalance.page7.title" = "Before you continue";
 
 "onboardingcarousel.introflow.title" = "Introduction";
 "onboardingcarousel.introflow.page1.title" = "Welcome to CryptoX Wallet";
@@ -730,12 +711,9 @@ When you have submitted your account, you will be taken to the wallet.";
 
 
 "sendFund.pageTitle.send" = "Send Funds";
-"sendFund.pageTitle.shieldAmount" = "Shield Amount";
 "sendFund.pageTitle.unshieldAmount" = "Unshield Amount";
 "sendFund.buttonTitle.send" = "Send amount";
-"sendFund.buttonTitle.shieldAmount" = "Shield amount";
 "sendFund.buttonTitle.unshieldAmount" = "Unshield amount";
-"sendFund.sendshielded" = "Send shielded amount";
 "sendFund.feeMessage" = "Estimated transaction fee:
 Ͼ";
 "sendFund.addMemo" = "Optional: Add memo";
@@ -743,9 +721,7 @@ When you have submitted your account, you will be taken to the wallet.";
 
 "sendFund.sendingToOwnAccountDisallowed" = "Sender and recipient accounts cannot be the same";
 "sendFund.insufficientFunds" = "Insufficient funds";
-"sendFund.confirmation.shield" = "Are you sure you want to shield";
 "sendFund.confirmation.unshield" = "Are you sure you want to unshield";
-"sendFund.confirmation.transfer" = "Are you sure you want to transfer";
 "sendFund.confirmation.line2.to" = "to";
 "sendFund.confirmation.line3.fromAccount" = "from account: ";
 "sendFund.confirmation.line3.Account" = "Account: ";
@@ -754,7 +730,6 @@ When you have submitted your account, you will be taken to the wallet.";
 "sendFund.memo.text" = "Memo:\n %@";
 
 "sendFund.balanceAtDisposal" = "Balance (at disposal)";
-"sendFund.shieldedBalance" = "Shielded balance";
 "sendFund.total" = "Total";
 "sendFund.atDisposal" = "At disposal";
 "sendFund.scanQr" = "Scan QR";
@@ -1109,6 +1084,7 @@ Remember to restart your node with the validator keys.";
 "more.deleteAccount.subtitle" = "Remove all sensitive data and private keys from this device";
 "accountFailed.errorMessage" = "Account create error";
 "accountFailed.buttonTitle" = "Recover identities";
+"more.funds.to.unshield" = "Funds to Unshield";
 
 
 "delegation.inputamount.title.create" = "Register delegation";
@@ -1153,8 +1129,6 @@ Remember to restart your node with the validator keys.";
 
 "burgermenu.releaseschedule" = "Release Schedule";
 "burgermenu.transferfilters" = "Transfer Filters";
-"burgermenu.showshieldedbalance" = "Show Shielded Balance";
-"burgermenu.hideshieldedbalance" = "Hide Shielded Balance";
 "burgermenu.decrypt" = "Decrypt";
 "burgermenu.exportprivatekey" = "Export Private Key";
 "burgermenu.exporttransactionlog" = "Export Transaction Logs";

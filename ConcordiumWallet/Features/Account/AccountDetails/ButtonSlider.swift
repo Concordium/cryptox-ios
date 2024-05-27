@@ -11,12 +11,9 @@ import SwiftUI
 private let size: CGFloat = 60.0
 
 struct ButtonSlider: View {
-    var isShielded: Bool
-    
     var actionSend: () -> Void
     var actionReceive: () -> Void
     var actionEarn: () -> Void
-    var actionShield: () -> Void
     var actionSettings: () -> Void
     
     @State var disabled: Bool = false
@@ -28,14 +25,6 @@ struct ButtonSlider: View {
             ActionButton(imageName: "button_slider_receive", disabled: disabled, action: actionReceive)
             VerticalLine()
             ActionButton(imageName: "button_slider_earn", disabled: disabled, action: actionEarn)
-            if isShielded {
-                VerticalLine()
-                ActionButton(imageName: "button_slider_shield", disabled: disabled, action: actionShield)
-//                VerticalLine()
-//                ActionButton(imageName: "button_slider_settings", disabled: disabled, action: actionSettings)
-            } else {
-//                ActionButton(imageName: "button_slider_settings", disabled: disabled, action: actionSettings)
-            }
         }
         .frame(maxWidth: .infinity, maxHeight: size)
         .background(Color.blackSecondary)
@@ -71,11 +60,9 @@ struct VerticalLine: View {
 struct ButtonSlider_Previews: PreviewProvider {
     static var previews: some View {
         ButtonSlider(
-            isShielded: true,
             actionSend: {
             }, actionReceive: {
             }, actionEarn: {
-            }, actionShield: {
             }, actionSettings: {
             })
     }

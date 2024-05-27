@@ -31,9 +31,7 @@ class TransactionSubmittedViewController: BaseViewController, TransactionSubmitt
     @IBOutlet weak var transactionMemoLabel: UILabel!
     
     @IBOutlet weak var transactionSubmittedLabel: UILabel!
-    
-    @IBOutlet weak var shieldedWaterMark: UIImageView!
-    
+        
     init?(coder: NSCoder, presenter: TransactionSubmittedPresenterProtocol) {
         self.presenter = presenter
         super.init(coder: coder)
@@ -62,10 +60,6 @@ class TransactionSubmittedViewController: BaseViewController, TransactionSubmitt
         
         viewModel.$transferSummary.sink { [weak self] summary in
             self?.transactionSummaryLabel.text = summary
-        }.store(in: &cancellables)
-        
-        viewModel.$visibleWaterMark.sink { [weak self] visible in
-            self?.shieldedWaterMark.isHidden = !visible
         }.store(in: &cancellables)
         
         viewModel.$submitedText.sink { [weak self] text in

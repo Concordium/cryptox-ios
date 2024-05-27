@@ -122,8 +122,6 @@ class IdentitiesService {
             return try self.addIdentityObject(identityWrapperShell, to: identity)
         case .error(let detail):
             return try addErrorMessage(detail, to: identity)
-        default:
-            throw NetworkError.invalidResponse
         }
     }
 

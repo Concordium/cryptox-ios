@@ -16,7 +16,6 @@ class AccountViewModel: Hashable {
     var totalName: String
     var totalAmount: String // total amount = public + everything decrypted from shielded
     var generalAmount: String // public balance
-    var totalLockStatus: ShieldedAccountEncryptionStatus
     
     var owner: String?
     var isBaking: Bool = false
@@ -57,18 +56,10 @@ class AccountViewModel: Hashable {
         state = account.transactionStatus ?? SubmissionStatusEnum.committed
         generalAmount = GTU(intValue: account.forecastBalance).displayValue()
          
-        // TODO: this will need fixing in a future release. We currently don't show the lock
-        #warning("RNI: This has been intentionally set to decrypted for the purpose of March 2022 release")
-        totalLockStatus = .decrypted
-        // totalLockStatus = (account.encryptedBalanceStatus == ShieldedAccountEncryptionStatus.decrypted) ? .decrypted : .partiallyDecrypted
-        
         atDisposalName = "accounts.atdisposal".localized
         
         if !createMode {
             areActionsEnabled = account.transactionStatus == .finalized && !account.isReadOnly // actions are enabled if the account is not readonly
-            if totalLockStatus != .decrypted {
-                totalAmount += " + "
-            }
         } else {
             state = SubmissionStatusEnum.finalized
             areActionsEnabled = false
@@ -119,7 +110,6 @@ protocol AccountsPresenterDelegate: AnyObject {
     func createNewAccount()
     func createNewIdentity()
     func userPerformed(action: AccountCardAction, on account: AccountDataType)
-    func enableShielded(on account: AccountDataType)
     func noValidIdentitiesAvailable()
     func tryAgainIdentity()
     func didSelectMakeBackup()
@@ -267,23 +257,9 @@ class AccountsPresenter: AccountsPresenterProtocol {
                     .filter {!$0.isReadOnly}
                     .reduce(into: 0, { $0 += $1.forecastAtDisposalBalance })
                 let staked = updatedAccounts.reduce(into: 0, { $0 += ($1.baker?.stakedAmount ?? 0) })
-                
-//                let countLocked = updatedAccounts.filter { $0.encryptedBalanceStatus != ShieldedAccountEncryptionStatus.decrypted }.count
-//                self.viewModel.totalBalanceLockStatus = countLocked > 0 ? .encrypted : .decrypted
-                // we add to the alert list all the non read-only accounts that have something in the shielded balance,
-                // but do not show a shielded balance
-                let accountsWithPendingShieldedTransactions = updatedAccounts.filter { account in
-                    (account.hasShieldedTransactions && !account.showsShieldedBalance && !account.isReadOnly)
-                }
-                for account in accountsWithPendingShieldedTransactions {
-                    // we add the alert in the queue (the queue knows whether it needs to show it and when)
-                    self.alertDisplayer.enqueueAlert(.shieldedTransfer(account: account, actionCompletion: { [weak self] in
-                        self?.delegate?.enableShielded(on: account)
-                    }, dismissCompletion: {}))
-                }
-                
+
                 #warning("RNI: Intentionally set to decrypted for MArch release")
-                // TODO: readd the lock after March release
+                // TODO: readd the lock after March release, which March?
                 self.viewModel.totalBalanceLockStatus = .decrypted
                 self.viewModel.totalBalance = GTU(intValue: totalBalance)
                 self.viewModel.atDisposal = GTU(intValue: atDisposal)
@@ -339,29 +315,14 @@ class AccountsPresenter: AccountsPresenterProtocol {
         if finalizedAccounts.count > 1 {
             AppSettings.needsBackupWarning = true
             checkForBackup()
-//            displayBackupAlert(notification: .multiple)
             finalizedAccounts.forEach { markPendingAccountAsFinalized(account: $0) }
         } else if finalizedAccounts.count == 1, let account = finalizedAccounts.first {
             AppSettings.needsBackupWarning = true
             checkForBackup()
-//            displayBackupAlert(notification: .singleAccount(accountName: account.name ?? ""))
             markPendingAccountAsFinalized(account: account)
         }
     }
-    
-//    private func displayBackupAlert(notification: FinalizedAccountsNotification) {
-//        let alert = AlertType.backup(notification: notification, actionCompletion: { [weak self] in
-//            self?.delegate?.didSelectMakeBackup()
-//        }, dismissCompletion: { [weak self] in
-//            let extraAlert = AlertType.backupExtra(notification: notification, actionCompletion: { [weak self] in
-//                self?.delegate?.didSelectMakeBackup()
-//            }, dismissCompletion: {
-//            })
-//            self?.alertDisplayer.enqueueAlert(extraAlert)
-//        })
-//        self.alertDisplayer.enqueueAlert(alert)
-//    }
-    
+
     private func markPendingAccountAsFinalized(account: AccountDataType) {
         dependencyProvider.storageManager().removePendingAccount(with: account.address)
     }
@@ -405,12 +366,6 @@ class AccountsPresenter: AccountsPresenterProtocol {
     }
     
     private func showConfirmedIdentityAlert() {
-//        view?.showAlert(with: AlertOptions(title: "newaccount.title".localized, message: String(format: "newaccount.message".localized, pendingIdentity!.nickname), actions: [AlertAction(name: "newaccount.create".localized, completion: {
-//            self.pendingIdentity = nil
-//        }, style: .default), AlertAction(name: "newaccount.later".localized, completion: {
-//            self.pendingIdentity = nil
-//        }, style: .cancel)]))
-        
         self.pendingIdentity = nil
     }
     
@@ -421,15 +376,6 @@ class AccountsPresenter: AccountsPresenterProtocol {
         
         self.pendingIdentity = nil
     }
-    
-//    private func checkForNewTerms() {
-//        let currentTermsHash = HashingHelper.hash(TermsHelper.currentTerms)
-//        let acceptedTermsHash = AppSettings.acceptedTermsHash
-//
-//        if currentTermsHash != acceptedTermsHash {
-//            self.delegate?.newTermsAvailable()
-//        }
-//    }
 
     private func checkForBackup() {
         let finalizedAccounts = dependencyProvider.storageManager().getAccounts().filter { $0.transactionStatus == .finalized }

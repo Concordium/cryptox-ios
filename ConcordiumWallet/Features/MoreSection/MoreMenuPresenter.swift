@@ -25,6 +25,7 @@ protocol MoreMenuPresenterDelegate: AnyObject {
     func importSelected()
     func logout()
     func showRevealSeedPrase()
+    func showUnshieldAssetsFlow()
 }
 
 // MARK: -
@@ -45,6 +46,7 @@ protocol MoreMenuPresenterProtocol: AnyObject {
     func showRevealSeedPrase()
     
     func hasSavedSeedPhrase() -> Bool
+    func showUnshieldAssetsFlow()
 }
 
 class MoreMenuPresenter {
@@ -70,6 +72,10 @@ class MoreMenuPresenter {
 }
 
 extension MoreMenuPresenter: MoreMenuPresenterProtocol {
+    func showUnshieldAssetsFlow() {
+        delegate?.showUnshieldAssetsFlow()
+    }
+    
     func hasSavedSeedPhrase() -> Bool {
         dependencyProvider.seedIdentitiesService().mobileWallet.isMnemonicPhraseSaved
     }

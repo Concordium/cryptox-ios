@@ -297,7 +297,11 @@ extension SeedIdentitiesCoordinator: AppSettingsDelegate {
 }
 
 extension SeedIdentitiesCoordinator: AccountsPresenterDelegate {
-    func scanQR() {}
+    func scanQR() { }
+    func noValidIdentitiesAvailable() { }
+    func tryAgainIdentity() { }
+    func didSelectMakeBackup() { }
+    func didSelectPendingIdentity(identity: IdentityDataType) { }
     
     func createNewIdentity() {
         accountsCoordinator?.showCreateNewIdentity()
@@ -309,21 +313,6 @@ extension SeedIdentitiesCoordinator: AccountsPresenterDelegate {
     
     func userPerformed(action: AccountCardAction, on account: AccountDataType) {
         accountsCoordinator?.userPerformed(action: action, on: account)
-    }
-
-    func enableShielded(on account: AccountDataType) {
-    }
-
-    func noValidIdentitiesAvailable() {
-    }
-
-    func tryAgainIdentity() {
-    }
-
-    func didSelectMakeBackup() {
-    }
-
-    func didSelectPendingIdentity(identity: IdentityDataType) {
     }
 
     func newTermsAvailable() {

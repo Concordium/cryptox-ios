@@ -28,31 +28,26 @@ final class TransactionListViewModel: ObservableObject {
         }
         
         switch tx.status {
-            case .received?:
-                showCostAsEstimate = true
-            case .absent?:
-                showCostAsEstimate = true
-            case .committed?:
-                break
-            case .finalized?:
-                break
-            case .none:
-                break
+        case .received?:
+            showCostAsEstimate = true
+        case .absent?:
+            showCostAsEstimate = true
+        case .committed?:
+            break
+        case .finalized?:
+            break
+        case .none:
+            break
         }
         
-        if tx.showCostAsShieleded {
-            self.cost = "transactions.shieledtransactionfee".localized
-            self.amount = ""
-        } else {
-            if let cost = tx.cost?.displayValueWithCCDStroke(),
-                let amount = tx.amount?.displayValueWithCCDStroke() {
-                self.amount = amount
-                self.cost = " - " + cost + " Fee"
-
-                // Prepend with ~ if cost is estimated.
-                if showCostAsEstimate {
-                    self.cost = self.cost.replacingOccurrences(of: "- ", with: "- ~", options: NSString.CompareOptions.literal, range: nil)
-                }
+        if let cost = tx.cost?.displayValueWithCCDStroke(),
+           let amount = tx.amount?.displayValueWithCCDStroke() {
+            self.amount = amount
+            self.cost = " - " + cost + " Fee"
+            
+            // Prepend with ~ if cost is estimated.
+            if showCostAsEstimate {
+                self.cost = self.cost.replacingOccurrences(of: "- ", with: "- ~", options: NSString.CompareOptions.literal, range: nil)
             }
         }
         
@@ -85,7 +80,7 @@ struct TransactionListView: View {
                 .clipShape(Capsule())
                 .frame(maxWidth: .infinity)
             }
-
+            
             
             HStack {
                 Text(viewModel.title)

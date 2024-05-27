@@ -5,9 +5,9 @@ Use CryptoX Concordium Wallet to get started with the open-source, privacy-centr
 With CryptoX Wallet, you can:
 - Create digital identities and your initial account via an identity provider (IDP)
 - Create additional accounts with your digital identities
-- Send and receive CCD, both via regular and shielded transfers
-- Check your account balances, both public and private
-- Transfer CCD between your balances (from public to private and from private to public)
+- Send and receive CCD
+- Check your account balances
+- Transfer CCD between your balances
 - Manage CCD validation and delegation
 - Check your CCD release schedule (only for buyers)
 - Manage your addresses in the address book for fast and easy transactions

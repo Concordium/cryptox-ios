@@ -11,7 +11,6 @@ import Combine
 
 class TransactionSubmittedViewModel {
     @Published var transferSummary: String
-    @Published var visibleWaterMark: Bool
     @Published var submitedText: String
     @Published var amount: String
     @Published var recipient: RecipientDataType
@@ -21,9 +20,7 @@ class TransactionSubmittedViewModel {
         self.transferSummary = TransactionSubmittedViewModel.formatSummary(for: transfer)
         self.amount = GTU(intValue: Int(transfer.amount) ?? 0).displayValue()
         self.recipient = recipient
-        
-        self.visibleWaterMark = (transfer.transferType == .encryptedTransfer)
-        
+                
         if let memo = Memo(hex: transfer.memo) {
             self.memoText = String(format: "sendFund.memo.text".localized, memo.displayValue)
         }
@@ -31,12 +28,8 @@ class TransactionSubmittedViewModel {
         switch transfer.transferType {
         case .simpleTransfer:
             submitedText = "transactionConfirmed.submitted".localized
-        case .encryptedTransfer:
-            submitedText = "shieldedtransactionConfirmed.submitted".localized
         case .transferToPublic:
             submitedText = "unshielding.submitted".localized
-        case .transferToSecret:
-            submitedText = "shielding.submitted".localized
         case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
             submitedText = ""
         case .registerDelegation, .removeDelegation, .updateDelegation:

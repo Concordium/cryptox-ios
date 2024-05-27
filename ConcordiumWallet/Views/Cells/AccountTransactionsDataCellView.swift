@@ -48,18 +48,13 @@ class AccountTransactionsDataCellView: UITableViewCell {
         transactionIconStatusView.isHidden = !viewModel.showErrorIcon
         statusIconImageView.isHidden = !viewModel.showStatusIcon
         costLabel.text = viewModel.cost
-        lockButton.isUserInteractionEnabled = viewModel.showLock
         
         memoLabel.text = viewModel.memo
         memoLabel.isHidden = viewModel.memo == nil
         
-        if viewModel.showLock {
-            lockButton.setImage(UIImage(named: "Icon_Shield"), for: .normal)
-            lockButton.setHiddenIfChanged(false)
-        } else {
-            lockButton.setImage(nil, for: .normal)
-            lockButton.setHiddenIfChanged(true)
-        }
+        lockButton.setImage(nil, for: .normal)
+        lockButton.setHiddenIfChanged(true)
+        
         layoutIfNeeded()
         
     }
