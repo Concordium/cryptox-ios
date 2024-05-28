@@ -78,10 +78,10 @@ class CreateAccountCoordinator: Coordinator {
     }
 
     func showRevealAttributes(for account: AccountDataType) {
-        let vc = RevealAttributesFactory.create(with: RevealAttributesPresenter(account: account,
+        let vc = RevealAttributesFactory.create(with: ConfirmAccountCreatePresenter(account: account,
                                                                                 dependencyProvider: dependencyProvider,
                                                                                 delegate: self))
-
+        vc.title = account.name
         navigationController.pushViewController(vc, animated: true)
     }
     
@@ -142,10 +142,6 @@ extension CreateAccountCoordinator: AccountConfirmedPresenterDelegate, CreationF
 }
 
 extension CreateAccountCoordinator: RevealAttributesPresenterDelegate {
-    func revealAttributes(_ account: AccountDataType) {
-        showIdentityAttributeSelection(for: account)
-    }
-    
     func revealPresentedCanceled() {
         parentCoordinator?.createNewAccountCancelled()
     }

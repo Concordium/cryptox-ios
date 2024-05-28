@@ -85,7 +85,7 @@ extension ServicesProvider: WalletAndStorageDependencyProvider {
 
 extension ServicesProvider: IdentitiesFlowCoordinatorDependencyProvider {
     func identitiesService() -> IdentitiesService {
-        IdentitiesService(networkManager: _networkManager, storageManager: _storageManager)
+        IdentitiesService(networkManager: _networkManager, storageManager: _storageManager, mobileWallet: _mobileWallet)
     }
     
     func seedIdentitiesService() -> SeedIdentitiesService {
