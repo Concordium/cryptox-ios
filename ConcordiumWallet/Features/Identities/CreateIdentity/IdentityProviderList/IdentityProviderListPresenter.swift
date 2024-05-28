@@ -64,7 +64,7 @@ class IdentityProviderViewModel: IdentityGeneralViewModel {
         let encodedIcon = ipInfo.metadata.icon
         let url = ipInfo.ipInfo.ipDescription.url
 
-        let privacyPolicyURL = "https://developer.concordium.software/extra/Terms-and-conditions-Mobile-Wallet.pdf"
+        let privacyPolicyURL = "https://developer.concordium.software/en/mainnet/net/resources/terms-and-conditions-cryptox.html"
         self.init(id: id, identityName: name, iconEncoded: encodedIcon, privacyPolicyURL: privacyPolicyURL, url: url)
     }
 }

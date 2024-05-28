@@ -93,11 +93,11 @@ struct WelcomeView: View {
                         Group {
                             Text("new_onb_privacy_read".localized)
                             + Text(" ")
-                            + Text("[\("new_onb_terms".localized)](https://pioneeringtechventures.com/terms-and-conditions)").underline()
+                            + Text("[\("new_onb_terms".localized)](https://developer.concordium.software/en/mainnet/net/resources/terms-and-conditions-cryptox.html)").underline()
                             + Text(" ")
                             + Text("and".localized)
                             + Text(" ")
-                            + Text("[\("new_onb_privacy".localized)](https://pioneeringtechventures.com/privacy-policy)").underline()
+                            + Text("[\("new_onb_privacy".localized)](https://www.concordium.com/privacy-policy)").underline()
                         }
                         .accentColor(Color.Neutral.tint1)
                         .font(.satoshi(size: 14, weight: .regular))
