@@ -93,7 +93,7 @@ final class SessionRequestViewModel: ObservableObject {
     @MainActor
     func rejectRequest(_ completion: () -> Void) async {
         do {
-            try await Web3Wallet.instance.respond(
+            try await Sign.instance.respond(
                 topic: sessionRequest.topic,
                 requestId: sessionRequest.id,
                 response: .error(.init(code: 0, message: ""))

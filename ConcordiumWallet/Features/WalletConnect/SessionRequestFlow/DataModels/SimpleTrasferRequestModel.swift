@@ -52,7 +52,7 @@ final class SimpleTrasferRequestModel: SessionRequestDataProvidable {
         let params = try sessionRequest.params.get(SimpleTransferRequestParams.self)
         let transfer = getTransfer(for: params, txCost: txCost)
         let result = try await createAndPerform(params: params, account: account, transfer: transfer).singleOutput()
-        try await Web3Wallet.instance.respond(
+        try await Sign.instance.respond(
             topic: sessionRequest.topic,
             requestId: sessionRequest.id,
             response: .response(AnyCodable(["hash": result]))
