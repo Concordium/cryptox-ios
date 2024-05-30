@@ -99,7 +99,7 @@ class AccountCardView: UIView, NibLoadable {
                    accountOwner: accountViewModel.owner,
                    isInitialAccount: accountViewModel.isInitialAccount,
                    totalAmount: accountViewModel.totalAmount,
-                   publicBalanceAmount: accountViewModel.generalAmount,
+                   generalAmount: accountViewModel.generalAmount,
                    atDisposalAmount: accountViewModel.atDisposalAmount,
                    state: state)
     }
@@ -116,14 +116,14 @@ class AccountCardView: UIView, NibLoadable {
                        accountOwner: String?,
                        isInitialAccount: Bool,
                        totalAmount: String,
-                       publicBalanceAmount: String,
+                       generalAmount: String,
                        atDisposalAmount: String,
                        state: AccountCardViewState) {
         
         self.accountName.text = accountName
         self.accountOwner.text = accountOwner
         
-        self.totalAmount.text = publicBalanceAmount
+        self.totalAmount.text = generalAmount
         self.atDisposalAmount.text = atDisposalAmount
         
         initialAccountLabel.isHidden = !isInitialAccount

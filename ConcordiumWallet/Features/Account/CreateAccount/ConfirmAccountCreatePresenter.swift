@@ -11,12 +11,12 @@ import Combine
 
 // MARK: View
 protocol RevealAttributesViewProtocol: Loadable, ShowAlert {
+    func bindData(model: IdentityInfoViewModel)
 }
 
 // MARK: -
 // MARK: Delegate
 protocol RevealAttributesPresenterDelegate: CreateAccountButtonWidgetPresenterDelegate {
-    func revealAttributes(_ account: AccountDataType)
     func revealPresentedCanceled()
 }
 
@@ -28,10 +28,9 @@ protocol RevealAttributesPresenterProtocol: AnyObject {
     
     func closeButtonPressed()
     func finish()
-    func revealAttributes()
 }
 
-class RevealAttributesPresenter: RevealAttributesPresenterProtocol {
+class ConfirmAccountCreatePresenter: RevealAttributesPresenterProtocol {
     var serverError: Error?
     
     weak var view: RevealAttributesViewProtocol?
@@ -52,11 +51,11 @@ class RevealAttributesPresenter: RevealAttributesPresenterProtocol {
     }
     
     func viewDidLoad() {
+        if let identity = account.identity, let model = IdentityInfoViewModel(identity: identity) {
+            view?.bindData(model: model)
+        }
     }
 
-    func revealAttributes() {
-        delegate?.revealAttributes(account)
-    }
     func finish() {
         // Get gathered info from the coordinator
         guard let delegate = self.delegate else { return }

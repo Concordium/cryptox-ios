@@ -198,15 +198,11 @@
 		088FEE9F2A026B7200042957 /* CreateNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE922A026B6400042957 /* CreateNicknameViewController.swift */; };
 		088FEEA02A026B7200042957 /* CreateNicknamePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE962A026B6500042957 /* CreateNicknamePresenter.swift */; };
 		088FEEA12A026B7200042957 /* IdentityChoosePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE942A026B6400042957 /* IdentityChoosePresenter.swift */; };
-		088FEEA22A026B7200042957 /* RevealAttributesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE952A026B6400042957 /* RevealAttributesViewController.swift */; };
 		088FEEA32A026B7200042957 /* CreateAccountCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE932A026B6400042957 /* CreateAccountCoordinator.swift */; };
-		088FEEA42A026B7200042957 /* RevealAttributesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE972A026B6500042957 /* RevealAttributesPresenter.swift */; };
 		088FEEAB2A026B7300042957 /* CreateNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE922A026B6400042957 /* CreateNicknameViewController.swift */; };
 		088FEEAC2A026B7300042957 /* CreateNicknamePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE962A026B6500042957 /* CreateNicknamePresenter.swift */; };
 		088FEEAD2A026B7300042957 /* IdentityChoosePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE942A026B6400042957 /* IdentityChoosePresenter.swift */; };
-		088FEEAE2A026B7300042957 /* RevealAttributesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE952A026B6400042957 /* RevealAttributesViewController.swift */; };
 		088FEEAF2A026B7300042957 /* CreateAccountCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE932A026B6400042957 /* CreateAccountCoordinator.swift */; };
-		088FEEB02A026B7300042957 /* RevealAttributesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE972A026B6500042957 /* RevealAttributesPresenter.swift */; };
 		088FEEB72A026B8100042957 /* CreationFailedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEEB12A026B7C00042957 /* CreationFailedPresenter.swift */; };
 		088FEEB82A026B8100042957 /* CreationFailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEEB22A026B7C00042957 /* CreationFailedViewController.swift */; };
 		088FEEB92A026B8200042957 /* CreationFailedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEEB12A026B7C00042957 /* CreationFailedPresenter.swift */; };
@@ -943,8 +939,6 @@
 		08B16F0B2A0118E1002E6B33 /* WarningDisplayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B16F072A0118E1002E6B33 /* WarningDisplayer.swift */; };
 		08B16F0F2A01190A002E6B33 /* AccountCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B16F0D2A01190A002E6B33 /* AccountCardView.swift */; };
 		08B16F112A01190A002E6B33 /* AccountCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B16F0D2A01190A002E6B33 /* AccountCardView.swift */; };
-		08B16F142A01196D002E6B33 /* AccountCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08B16F122A011968002E6B33 /* AccountCardView.xib */; };
-		08B16F162A01196E002E6B33 /* AccountCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08B16F122A011968002E6B33 /* AccountCardView.xib */; };
 		08B16F192A011A62002E6B33 /* BakerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B16F172A011A62002E6B33 /* BakerEntity.swift */; };
 		08B16F1B2A011A62002E6B33 /* BakerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B16F172A011A62002E6B33 /* BakerEntity.swift */; };
 		08B16F1E2A011A72002E6B33 /* DelegationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B16F1C2A011A72002E6B33 /* DelegationEntity.swift */; };
@@ -1221,7 +1215,6 @@
 		08C1677B2BB7396200E61326 /* AccountDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE082A0167F100042957 /* AccountDetailsViewModel.swift */; };
 		08C1677C2BB7396200E61326 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF03C2A02781300042957 /* LoginPresenter.swift */; };
 		08C1677D2BB7396200E61326 /* PassiveDelegation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A044AC29FA99BE00DACE1F /* PassiveDelegation.swift */; };
-		08C1677E2BB7396200E61326 /* RevealAttributesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE972A026B6500042957 /* RevealAttributesPresenter.swift */; };
 		08C1677F2BB7396200E61326 /* ConcordiumApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */; };
 		08C167802BB7396200E61326 /* IdentityEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F1262794B5EB003F2FBB /* IdentityEntity.swift */; };
 		08C167812BB7396200E61326 /* IdentityBaseInfoWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEF2C2A02709800042957 /* IdentityBaseInfoWidgetViewController.swift */; };
@@ -1552,7 +1545,6 @@
 		08C168E12BB7396200E61326 /* CreateNicknamePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE962A026B6500042957 /* CreateNicknamePresenter.swift */; };
 		08C168E22BB7396200E61326 /* Publisher+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE472A016B3400042957 /* Publisher+Async.swift */; };
 		08C168E32BB7396200E61326 /* QRTransactionDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CFCF29273922D800888E1B /* QRTransactionDataViewController.swift */; };
-		08C168E42BB7396200E61326 /* RevealAttributesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE952A026B6400042957 /* RevealAttributesViewController.swift */; };
 		08C168E52BB7396200E61326 /* ExportPrivateKeyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FED912A01673D00042957 /* ExportPrivateKeyViewModel.swift */; };
 		08C168E62BB7396200E61326 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B16F362A011E59002E6B33 /* ColorPalette.swift */; };
 		08C168E72BB7396200E61326 /* ShowAlertProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F3BC65278E5D3C008DC894 /* ShowAlertProtocol.swift */; };
@@ -1693,7 +1685,6 @@
 		08C1697E2BB7396200E61326 /* delegation_intro_flow_en_7.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B52A02C96B00042957 /* delegation_intro_flow_en_7.html */; };
 		08C1697F2BB7396200E61326 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088FF0742A02784A00042957 /* Login.storyboard */; };
 		08C169802BB7396200E61326 /* Widget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088FEF882A0270BB00042957 /* Widget.storyboard */; };
-		08C169812BB7396200E61326 /* AccountCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08B16F122A011968002E6B33 /* AccountCardView.xib */; };
 		08C169822BB7396200E61326 /* seed_identity_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3152A02CA1100042957 /* seed_identity_style.css */; };
 		08C169832BB7396200E61326 /* baker_intro_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3092A02C9E700042957 /* baker_intro_flow_en_2.html */; };
 		08C169842BB7396200E61326 /* 2.1.2.RX-backend_global.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3692794B96B003F2FBB /* 2.1.2.RX-backend_global.json */; };
@@ -1978,6 +1969,15 @@
 		507629662BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
 		507629672BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
 		507629682BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
+		50D3890D2C05D66A00B3675A /* ConfirmAccountCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE952A026B6400042957 /* ConfirmAccountCreateViewController.swift */; };
+		50D3890E2C05D66A00B3675A /* ConfirmAccountCreatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE972A026B6500042957 /* ConfirmAccountCreatePresenter.swift */; };
+		50D3890F2C05D66B00B3675A /* ConfirmAccountCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE952A026B6400042957 /* ConfirmAccountCreateViewController.swift */; };
+		50D389102C05D66B00B3675A /* ConfirmAccountCreatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE972A026B6500042957 /* ConfirmAccountCreatePresenter.swift */; };
+		50D389112C05D66C00B3675A /* ConfirmAccountCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE952A026B6400042957 /* ConfirmAccountCreateViewController.swift */; };
+		50D389122C05D66C00B3675A /* ConfirmAccountCreatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE972A026B6500042957 /* ConfirmAccountCreatePresenter.swift */; };
+		50D389182C0607D600B3675A /* AccountCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08B16F122A011968002E6B33 /* AccountCardView.xib */; };
+		50D389192C0607D600B3675A /* AccountCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08B16F122A011968002E6B33 /* AccountCardView.xib */; };
+		50D3891A2C0607D700B3675A /* AccountCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08B16F122A011968002E6B33 /* AccountCardView.xib */; };
 		50EB30FF2BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */; };
 		50EB31002BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */; };
 		50EB31012BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */; };
@@ -2680,9 +2680,9 @@
 		088FEE922A026B6400042957 /* CreateNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNicknameViewController.swift; sourceTree = "<group>"; };
 		088FEE932A026B6400042957 /* CreateAccountCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountCoordinator.swift; sourceTree = "<group>"; };
 		088FEE942A026B6400042957 /* IdentityChoosePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityChoosePresenter.swift; sourceTree = "<group>"; };
-		088FEE952A026B6400042957 /* RevealAttributesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevealAttributesViewController.swift; sourceTree = "<group>"; };
+		088FEE952A026B6400042957 /* ConfirmAccountCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmAccountCreateViewController.swift; sourceTree = "<group>"; };
 		088FEE962A026B6500042957 /* CreateNicknamePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNicknamePresenter.swift; sourceTree = "<group>"; };
-		088FEE972A026B6500042957 /* RevealAttributesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevealAttributesPresenter.swift; sourceTree = "<group>"; };
+		088FEE972A026B6500042957 /* ConfirmAccountCreatePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmAccountCreatePresenter.swift; sourceTree = "<group>"; };
 		088FEEB12A026B7C00042957 /* CreationFailedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationFailedPresenter.swift; sourceTree = "<group>"; };
 		088FEEB22A026B7C00042957 /* CreationFailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationFailedViewController.swift; sourceTree = "<group>"; };
 		088FEEBC2A026B9100042957 /* AccountConfirmedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountConfirmedViewController.swift; sourceTree = "<group>"; };
@@ -3965,8 +3965,8 @@
 				088FEE962A026B6500042957 /* CreateNicknamePresenter.swift */,
 				088FEE922A026B6400042957 /* CreateNicknameViewController.swift */,
 				088FEE942A026B6400042957 /* IdentityChoosePresenter.swift */,
-				088FEE972A026B6500042957 /* RevealAttributesPresenter.swift */,
-				088FEE952A026B6400042957 /* RevealAttributesViewController.swift */,
+				088FEE972A026B6500042957 /* ConfirmAccountCreatePresenter.swift */,
+				088FEE952A026B6400042957 /* ConfirmAccountCreateViewController.swift */,
 			);
 			path = CreateAccount;
 			sourceTree = "<group>";
@@ -6191,6 +6191,7 @@
 				08C1692A2BB7396200E61326 /* Identity.storyboard in Resources */,
 				08C1692B2BB7396200E61326 /* IBMPlexSans-SemiBold.ttf in Resources */,
 				08C1692C2BB7396200E61326 /* baker_update_flow_en_2.html in Resources */,
+				50D3891A2C0607D700B3675A /* AccountCardView.xib in Resources */,
 				08C1692D2BB7396200E61326 /* intro_flow_style.css in Resources */,
 				08C1692E2BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus_com.json in Resources */,
 				08C1692F2BB7396200E61326 /* intro_flow_onboarding_en_4.html in Resources */,
@@ -6269,7 +6270,6 @@
 				08C1697E2BB7396200E61326 /* delegation_intro_flow_en_7.html in Resources */,
 				08C1697F2BB7396200E61326 /* Login.storyboard in Resources */,
 				08C169802BB7396200E61326 /* Widget.storyboard in Resources */,
-				08C169812BB7396200E61326 /* AccountCardView.xib in Resources */,
 				08C169822BB7396200E61326 /* seed_identity_style.css in Resources */,
 				08C169832BB7396200E61326 /* baker_intro_flow_en_2.html in Resources */,
 				08C169842BB7396200E61326 /* 2.1.2.RX-backend_global.json in Resources */,
@@ -6338,6 +6338,7 @@
 				088FF16A2A028AFD00042957 /* Identity.storyboard in Resources */,
 				08A6BDA62B30A66D00869317 /* IBMPlexSans-SemiBold.ttf in Resources */,
 				088FF3552A02CA2700042957 /* baker_update_flow_en_2.html in Resources */,
+				50D389192C0607D600B3675A /* AccountCardView.xib in Resources */,
 				088FF2F22A02C98F00042957 /* intro_flow_style.css in Resources */,
 				D589F3D72794B96C003F2FBB /* 3.4.2.RX_backend_submissionStatus_com.json in Resources */,
 				088FF2F42A02C98F00042957 /* intro_flow_onboarding_en_4.html in Resources */,
@@ -6416,7 +6417,6 @@
 				088FF2DA2A02C98800042957 /* delegation_intro_flow_en_7.html in Resources */,
 				088FF0782A02784A00042957 /* Login.storyboard in Resources */,
 				088FEF8C2A0270C200042957 /* Widget.storyboard in Resources */,
-				08B16F162A01196E002E6B33 /* AccountCardView.xib in Resources */,
 				088FF3292A02CA1600042957 /* seed_identity_style.css in Resources */,
 				088FF33F2A02CA2200042957 /* baker_intro_flow_en_2.html in Resources */,
 				D589F3DF2794B96C003F2FBB /* 2.1.2.RX-backend_global.json in Resources */,
@@ -6485,6 +6485,7 @@
 				088FF1682A028AFD00042957 /* Identity.storyboard in Resources */,
 				08A6BDA12B30A66D00869317 /* IBMPlexSans-SemiBold.ttf in Resources */,
 				088FF3492A02CA2700042957 /* baker_update_flow_en_2.html in Resources */,
+				50D389182C0607D600B3675A /* AccountCardView.xib in Resources */,
 				088FF2E62A02C98E00042957 /* intro_flow_style.css in Resources */,
 				D589F3D52794B96C003F2FBB /* 3.4.2.RX_backend_submissionStatus_com.json in Resources */,
 				088FF2E82A02C98E00042957 /* intro_flow_onboarding_en_4.html in Resources */,
@@ -6564,7 +6565,6 @@
 				088FEF8A2A0270C000042957 /* Widget.storyboard in Resources */,
 				088FF31F2A02CA1500042957 /* seed_identity_style.css in Resources */,
 				088FF3372A02CA2100042957 /* baker_intro_flow_en_2.html in Resources */,
-				08B16F142A01196D002E6B33 /* AccountCardView.xib in Resources */,
 				088FF36C2A02CA3200042957 /* delegation_update_flow_en_2.html in Resources */,
 				08A6BDBA2B31C01500869317 /* IBMPlexMono-Regular.ttf in Resources */,
 				D589F3DD2794B96C003F2FBB /* 2.1.2.RX-backend_global.json in Resources */,
@@ -6958,7 +6958,6 @@
 				08C1677B2BB7396200E61326 /* AccountDetailsViewModel.swift in Sources */,
 				08C1677C2BB7396200E61326 /* LoginPresenter.swift in Sources */,
 				08C1677D2BB7396200E61326 /* PassiveDelegation.swift in Sources */,
-				08C1677E2BB7396200E61326 /* RevealAttributesPresenter.swift in Sources */,
 				08C1677F2BB7396200E61326 /* ConcordiumApplication.swift in Sources */,
 				08C167802BB7396200E61326 /* IdentityEntity.swift in Sources */,
 				08C167812BB7396200E61326 /* IdentityBaseInfoWidgetViewController.swift in Sources */,
@@ -7322,7 +7321,6 @@
 				08C168E12BB7396200E61326 /* CreateNicknamePresenter.swift in Sources */,
 				08C168E22BB7396200E61326 /* Publisher+Async.swift in Sources */,
 				08C168E32BB7396200E61326 /* QRTransactionDataViewController.swift in Sources */,
-				08C168E42BB7396200E61326 /* RevealAttributesViewController.swift in Sources */,
 				50EB31092BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift in Sources */,
 				08C168E52BB7396200E61326 /* ExportPrivateKeyViewModel.swift in Sources */,
 				08C168E62BB7396200E61326 /* ColorPalette.swift in Sources */,
@@ -7354,6 +7352,8 @@
 				08C169002BB7396200E61326 /* BackupAlertController.swift in Sources */,
 				08C169012BB7396200E61326 /* EuroPerEnergy.swift in Sources */,
 				08C169022BB7396200E61326 /* JSONObject.swift in Sources */,
+				50D389112C05D66C00B3675A /* ConfirmAccountCreateViewController.swift in Sources */,
+				50D389122C05D66C00B3675A /* ConfirmAccountCreatePresenter.swift in Sources */,
 				08C169032BB7396200E61326 /* AddRecipientCoordinatorHelper.swift in Sources */,
 				08C169042BB7396200E61326 /* PermissionHelper.swift in Sources */,
 				08C169052BB7396200E61326 /* QRTransactionViewController.swift in Sources */,
@@ -7644,7 +7644,6 @@
 				088FEE252A0167FB00042957 /* AccountDetailsViewModel.swift in Sources */,
 				088FF05E2A02781C00042957 /* LoginPresenter.swift in Sources */,
 				08A0462129FA99D300DACE1F /* PassiveDelegation.swift in Sources */,
-				088FEEB02A026B7300042957 /* RevealAttributesPresenter.swift in Sources */,
 				644BB68025DFB4630086ED48 /* ConcordiumApplication.swift in Sources */,
 				D589F1992794B5ED003F2FBB /* IdentityEntity.swift in Sources */,
 				088FEF852A0270B000042957 /* IdentityBaseInfoWidgetViewController.swift in Sources */,
@@ -8008,7 +8007,6 @@
 				088FEEAC2A026B7300042957 /* CreateNicknamePresenter.swift in Sources */,
 				088FEE4B2A016B3400042957 /* Publisher+Async.swift in Sources */,
 				D5CFCF2E273922D800888E1B /* QRTransactionDataViewController.swift in Sources */,
-				088FEEAE2A026B7300042957 /* RevealAttributesViewController.swift in Sources */,
 				50EB31082BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift in Sources */,
 				088FED9C2A01674100042957 /* ExportPrivateKeyViewModel.swift in Sources */,
 				088FEC942A01609F00042957 /* ColorPalette.swift in Sources */,
@@ -8040,6 +8038,8 @@
 				D578396927A08B1200FFD123 /* BackupAlertController.swift in Sources */,
 				08A0461029FA99D200DACE1F /* EuroPerEnergy.swift in Sources */,
 				D589F2192794B5ED003F2FBB /* JSONObject.swift in Sources */,
+				50D3890F2C05D66B00B3675A /* ConfirmAccountCreateViewController.swift in Sources */,
+				50D389102C05D66B00B3675A /* ConfirmAccountCreatePresenter.swift in Sources */,
 				088FF2452A02A99C00042957 /* AddRecipientCoordinatorHelper.swift in Sources */,
 				D589F41E2794C3DB003F2FBB /* PermissionHelper.swift in Sources */,
 				D594F7C92718BE68008F532E /* QRTransactionViewController.swift in Sources */,
@@ -8326,7 +8326,6 @@
 				088FF10C2A0284D000042957 /* RecoveryPhraseOnboardingView.swift in Sources */,
 				088FEE152A0167FA00042957 /* AccountDetailsViewModel.swift in Sources */,
 				06AEE69323F4065800D14834 /* WidgetView.swift in Sources */,
-				088FEEA42A026B7200042957 /* RevealAttributesPresenter.swift in Sources */,
 				D5F7A24626D7C7550061E646 /* CurrencyView.swift in Sources */,
 				088FF04E2A02781B00042957 /* LoginPresenter.swift in Sources */,
 				D589F1972794B5ED003F2FBB /* IdentityEntity.swift in Sources */,
@@ -8694,7 +8693,6 @@
 				19C2EA90B0630C36EEBD53C4 /* AES256Encryption.swift in Sources */,
 				088FEEA02A026B7200042957 /* CreateNicknamePresenter.swift in Sources */,
 				088FEE492A016B3400042957 /* Publisher+Async.swift in Sources */,
-				088FEEA22A026B7200042957 /* RevealAttributesViewController.swift in Sources */,
 				50EB31072BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift in Sources */,
 				088FED962A01674000042957 /* ExportPrivateKeyViewModel.swift in Sources */,
 				088FEC922A01609E00042957 /* ColorPalette.swift in Sources */,
@@ -8726,6 +8724,8 @@
 				088FEDF42A0167D100042957 /* TransferFiltersViewController.swift in Sources */,
 				08A0457829FA99D100DACE1F /* EuroPerEnergy.swift in Sources */,
 				D589F2172794B5ED003F2FBB /* JSONObject.swift in Sources */,
+				50D3890D2C05D66A00B3675A /* ConfirmAccountCreateViewController.swift in Sources */,
+				50D3890E2C05D66A00B3675A /* ConfirmAccountCreatePresenter.swift in Sources */,
 				088FF23F2A02A99B00042957 /* AddRecipientCoordinatorHelper.swift in Sources */,
 				D589F41C2794C3DB003F2FBB /* PermissionHelper.swift in Sources */,
 				08A0458C29FA99D100DACE1F /* Key.swift in Sources */,

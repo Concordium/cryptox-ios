@@ -1289,3 +1289,4 @@ Remember to restart your node with the validator keys.";
 "[%@](https://pioneeringtechventures.com/privacy-policy)" = "[%@](https://pioneeringtechventures.com/privacy-policy)";
 "[%@](https://pioneeringtechventures.com/terms-and-conditions)" = "[%@](https://pioneeringtechventures.com/terms-and-conditions)";
 
+"identityCreation.hasPending" = "You can only have one identity request open at a time. Please wait for your currently pending request to finish before starting a new one.";

@@ -517,7 +517,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="confirm" translatesAutoresizingMaskIntoConstraints="NO" id="K6y-ue-05u">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="confirm" translatesAutoresizingMaskIntoConstraints="NO" id="K6y-ue-05u">
                                 <rect key="frame" x="159.66666666666666" y="163" width="108.99999999999997" height="109"/>
                                 <color key="tintColor" name="primary"/>
                                 <constraints>
@@ -525,7 +525,7 @@
                                     <constraint firstAttribute="width" secondItem="K6y-ue-05u" secondAttribute="height" multiplier="1:1" id="Adh-4r-6XN"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="[Account submitted]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0a-3e-lti">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Account submitted]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0a-3e-lti">
                                 <rect key="frame" x="110.66666666666669" y="307" width="207" height="27"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                 <color key="textColor" name="primary"/>
@@ -551,7 +551,7 @@
                                     <action selector="finishAction:" destination="wrn-j8-zZ3" eventType="touchUpInside" id="Oep-mP-5vM"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Mi-xH-4cJ">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Mi-xH-4cJ">
                                 <rect key="frame" x="103.66666666666669" y="595" width="221" height="36"/>
                                 <string key="text">[This may take a few minutes to 
 process on-chain]</string>
@@ -562,7 +562,7 @@ process on-chain]</string>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="accountConfirmed.submittedMessage"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fzx-fk-CyW" customClass="AccountCardView" customModule="ProdMainNet" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fzx-fk-CyW" customClass="AccountCardView" customModule="ProdMainNet" customModuleProvider="target">
                                 <rect key="frame" x="15" y="364" width="398" height="211"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -2165,44 +2165,14 @@ process on-chain]</string>
             </objects>
             <point key="canvasLocation" x="5313.0841121495323" y="71.274298056155516"/>
         </scene>
-        <!--Reveal Attributes View Controller-->
+        <!--Confirm Account Create View Controller-->
         <scene sceneID="1cs-Na-3lM">
             <objects>
-                <viewController storyboardIdentifier="RevealAttributesViewController" id="vjj-JZ-oNF" customClass="RevealAttributesViewController" customModule="ProdMainNet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConfirmAccountCreateViewController" id="vjj-JZ-oNF" customClass="ConfirmAccountCreateViewController" customModule="ProdMainNet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HhQ-oM-m5g">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jnp-Dc-cSV">
-                                <rect key="frame" x="37" y="187" width="354" height="71.666666666666686"/>
-                                <string key="text">[You can choose to reveal a range of attributes on your account, e.g. your name and country of residence. This is not necessary, and you can choose to reveal no attributes at all.]</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" name="text"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="revealattributes.details"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Exm-UE-z2h" customClass="WidgetButton" customModule="ProdMainNet" customModuleProvider="target">
-                                <rect key="frame" x="16" y="747" width="396" height="50"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dH1-qc-Uz9">
-                                <rect key="frame" x="16" y="747" width="396" height="50"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Lmc-ZJ-DRQ"/>
-                                </constraints>
-                                <state key="normal" title="[Reveal account attributes]">
-                                    <color key="titleColor" name="fadedText"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKeyNormal" value="revealattributes.selectAttributes"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="revealAction:" destination="vjj-JZ-oNF" eventType="touchUpInside" id="JQG-bU-KNg"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y8I-YT-27p" customClass="StandardButton" customModule="ProdMainNet" customModuleProvider="target">
                                 <rect key="frame" x="16" y="812" width="396" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
@@ -2219,26 +2189,26 @@ process on-chain]</string>
                                     <action selector="finishAction:" destination="vjj-JZ-oNF" eventType="touchUpInside" id="a6I-g0-SdQ"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wl1-rB-KTE" customClass="IdentityCardView" customModule="ProdMainNet" customModuleProvider="target">
+                                <rect key="frame" x="24" y="103" width="380" height="720"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="AZR-jF-jh3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="wl1-rB-KTE" firstAttribute="top" secondItem="AZR-jF-jh3" secondAttribute="top" constant="56" id="3It-YG-B3j"/>
                             <constraint firstItem="AZR-jF-jh3" firstAttribute="bottom" secondItem="y8I-YT-27p" secondAttribute="bottom" priority="999" constant="30" id="9wF-Gh-nar"/>
+                            <constraint firstItem="wl1-rB-KTE" firstAttribute="centerX" secondItem="HhQ-oM-m5g" secondAttribute="centerX" id="BOG-5Q-O75"/>
                             <constraint firstItem="y8I-YT-27p" firstAttribute="centerX" secondItem="AZR-jF-jh3" secondAttribute="centerX" id="Csx-9b-xdS"/>
-                            <constraint firstItem="jnp-Dc-cSV" firstAttribute="leading" secondItem="AZR-jF-jh3" secondAttribute="leading" constant="37" id="K3y-Rc-Gee"/>
-                            <constraint firstItem="jnp-Dc-cSV" firstAttribute="centerX" secondItem="AZR-jF-jh3" secondAttribute="centerX" id="P4T-hq-yPH"/>
-                            <constraint firstItem="Exm-UE-z2h" firstAttribute="trailing" secondItem="dH1-qc-Uz9" secondAttribute="trailing" id="UZK-QE-q5u"/>
                             <constraint firstItem="y8I-YT-27p" firstAttribute="leading" secondItem="AZR-jF-jh3" secondAttribute="leading" constant="16" id="UdZ-rX-3Qa"/>
-                            <constraint firstItem="Exm-UE-z2h" firstAttribute="leading" secondItem="dH1-qc-Uz9" secondAttribute="leading" id="XNJ-cO-dLe"/>
+                            <constraint firstItem="wl1-rB-KTE" firstAttribute="leading" secondItem="AZR-jF-jh3" secondAttribute="leading" constant="24" id="eaz-Aq-rmV"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="y8I-YT-27p" secondAttribute="bottom" constant="20" id="kmd-V3-GQv"/>
-                            <constraint firstItem="y8I-YT-27p" firstAttribute="top" secondItem="dH1-qc-Uz9" secondAttribute="bottom" constant="15" id="kxv-qg-Qos"/>
-                            <constraint firstItem="dH1-qc-Uz9" firstAttribute="centerX" secondItem="AZR-jF-jh3" secondAttribute="centerX" id="rGu-UI-0Uy"/>
-                            <constraint firstItem="dH1-qc-Uz9" firstAttribute="leading" secondItem="AZR-jF-jh3" secondAttribute="leading" constant="16" id="udN-0u-zOg"/>
-                            <constraint firstItem="Exm-UE-z2h" firstAttribute="bottom" secondItem="dH1-qc-Uz9" secondAttribute="bottom" id="vuo-w7-6T8"/>
-                            <constraint firstItem="jnp-Dc-cSV" firstAttribute="top" secondItem="AZR-jF-jh3" secondAttribute="top" constant="140" id="wu7-Ed-p16"/>
-                            <constraint firstItem="Exm-UE-z2h" firstAttribute="top" secondItem="dH1-qc-Uz9" secondAttribute="top" id="xaa-AR-WwV"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="identityCard" destination="wl1-rB-KTE" id="XeA-aQ-tZ3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="biX-uO-iW0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2256,7 +2226,7 @@ process on-chain]</string>
             <size key="intrinsicContentSize" width="282" height="30"/>
         </designable>
         <designable name="SWM-ta-B92">
-            <size key="intrinsicContentSize" width="85" height="30"/>
+            <size key="intrinsicContentSize" width="69" height="30"/>
         </designable>
         <designable name="ZgW-9v-gsl">
             <size key="intrinsicContentSize" width="287" height="30"/>
@@ -2339,13 +2309,13 @@ process on-chain]</string>
             <color red="1" green="0.73725490196078436" blue="0.066666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="separatorColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

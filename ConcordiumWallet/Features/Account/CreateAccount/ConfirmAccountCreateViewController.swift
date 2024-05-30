@@ -9,19 +9,17 @@
 import UIKit
 
 class RevealAttributesFactory {
-    class func create(with presenter: RevealAttributesPresenter) -> RevealAttributesViewController {
-        RevealAttributesViewController.instantiate(fromStoryboard: "Account") { coder in
-            return RevealAttributesViewController(coder: coder, presenter: presenter)
+    class func create(with presenter: ConfirmAccountCreatePresenter) -> ConfirmAccountCreateViewController {
+        ConfirmAccountCreateViewController.instantiate(fromStoryboard: "Account") { coder in
+            return ConfirmAccountCreateViewController(coder: coder, presenter: presenter)
         }
     }
 }
 
-class RevealAttributesViewController: BaseViewController, RevealAttributesViewProtocol, Storyboarded {
+class ConfirmAccountCreateViewController: BaseViewController, RevealAttributesViewProtocol, Storyboarded {
 
-    @IBOutlet weak var detailsLabel: UILabel!
-    @IBOutlet weak var revealAttributesButton: UIButton!
-    @IBOutlet weak var submitButton: UIButton!
-
+    @IBOutlet weak var identityCard: IdentityCardView!
+    
     var presenter: RevealAttributesPresenterProtocol
 
     init?(coder: NSCoder, presenter: RevealAttributesPresenterProtocol) {
@@ -35,18 +33,12 @@ class RevealAttributesViewController: BaseViewController, RevealAttributesViewPr
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.title = "revealattributes.title".localized
         
         let addIcon = UIImage(named: "ico_close")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: addIcon, style: .plain, target: self, action: #selector(self.closeButtonTapped))
         
         presenter.view = self
         presenter.viewDidLoad()
-    }
-
-    @IBAction func revealAction(_ sender: Any) {
-        presenter.revealAttributes()
     }
     
     @IBAction func finishAction(_ sender: Any) {
@@ -55,5 +47,11 @@ class RevealAttributesViewController: BaseViewController, RevealAttributesViewPr
     
     @objc func closeButtonTapped() {
         presenter.closeButtonPressed()
+    }
+    
+    func bindData(model: IdentityInfoViewModel) {
+        identityCard.titleLabel?.text = model.nickname
+        identityCard.expirationDateLabel?.text = model.expiresOn
+        identityCard.iconImageView?.image = UIImage.decodeBase64(toImage: model.iconEncoded)
     }
 }
