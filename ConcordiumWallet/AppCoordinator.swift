@@ -581,12 +581,12 @@ extension AppCoordinator {
             logger.debugLog("postponed action -- \(url.absoluteString)")
             return
         }
-
         
-        if let uriValue = url.absoluteString.components(separatedBy: "://").last {
-            accountsCoordinator?.handlWCDeeplinkConnect(uriValue)
+        if let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems, let uriValue = queryItems.first(where: { $0.name == "uri" })?.value {
+            accountsCoordinator?.showWalletConnectFlow(uriValue)
+        } else if let uriValue = url.absoluteString.components(separatedBy: "://").last {
+            accountsCoordinator?.showWalletConnectFlow(uriValue)
         }
-        
     }
 }
 

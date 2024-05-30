@@ -27,11 +27,13 @@ final class SessionProposalViewModel: ObservableObject {
     ]
     
     var currentChain: String {
-        #if MAINNET
-            "ccd:mainnet"
-        #else
-            "ccd:testnet"
-        #endif
+#if TESTNET
+        "ccd:testnet"
+#elseif MAINNET
+        "ccd:mainnet"
+#else // Staging
+        "ccd:stagenet"
+#endif
     }
     
     private let wallet: MobileWalletProtocol

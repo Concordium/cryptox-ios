@@ -348,13 +348,7 @@ import Web3Wallet
 import SwiftUI
 
 extension AccountsCoordinator {
-    public func handlWCDeeplinkConnect(_ uri: String) {
-        Task {
-            await self.walletConnectService.pair(uri)
-        }
-    }
-    
-    private func showWalletConnectFlow(_ address: String) {
+    func showWalletConnectFlow(_ address: String) {
         Task {
             await self.walletConnectService.pair(address)
         }

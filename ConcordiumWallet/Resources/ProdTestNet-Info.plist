@@ -89,7 +89,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>cryptoxtestnet</string>
