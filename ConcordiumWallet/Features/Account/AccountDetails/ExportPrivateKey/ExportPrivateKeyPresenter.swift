@@ -33,7 +33,8 @@ class ExportPrivateKeyPresenter: SwiftUIPresenter<ExportPrivateKeyViewModel> {
             viewModel: .init(
                 title: "exportprivatekey.title".localized,
                 exportPrivateKey: .hidden(topMessage: "exportprivatekey.toprevealmessage".localized, downMessage: String(format: ("exportprivatekey.downrevealmessage".localized), account.displayName)),
-                doneButtonTitle: "exportprivatekey.done".localized
+                doneButtonTitle: "exportprivatekey.done".localized, 
+                isExportAvailable: !defaultProvider.mobileWallet().isLegacyAccount()
             )
         )
         
