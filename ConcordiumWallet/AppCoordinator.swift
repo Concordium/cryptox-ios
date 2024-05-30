@@ -575,16 +575,20 @@ extension AppCoordinator {
 }
 
 extension AppCoordinator {
-    public func openWCConnect(_ uri: URL) {
+    public func openWCConnect(_ url: URL) {
         guard isMainFlowActive else {
-            self.appStartOpenURLAction = .openWalletConnect(uri)
-            logger.debugLog("postponed action -- \(uri.absoluteString)")
+            self.appStartOpenURLAction = .openWalletConnect(url)
+            logger.debugLog("postponed action -- \(url.absoluteString)")
             return
         }
-        accountsCoordinator?.handlWCDeeplinkConnect(uri)
+
+        
+        if let uriValue = url.absoluteString.components(separatedBy: "://").last {
+            accountsCoordinator?.handlWCDeeplinkConnect(uriValue)
+        }
+        
     }
 }
-
 
 extension AppCoordinator {
     private func handleOpenURLActionIfNeeded() {

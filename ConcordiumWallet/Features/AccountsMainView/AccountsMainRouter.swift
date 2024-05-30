@@ -208,14 +208,10 @@ extension AccountsMainRouter: ScanAddressQRPresenterDelegate {
 
 extension AccountsMainRouter {
     public func handlWCDeeplinkConnect(_ url: URL) {
-        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
 
-        guard let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems else { return }
-        guard let uriItems = queryItems.first(where: { $0.name == "uri" })?.value else { return }
-        guard let pairURI = WalletConnectURI(string: uriItems) else { return }
         
         Task {
-            await self.walletConnectService.pair(pairURI)
+            await self.walletConnectService.pair(url.absoluteString)
         }
     }
     

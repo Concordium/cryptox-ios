@@ -67,6 +67,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+    
+    /// Checks if the given URL string matches a specified URL scheme pattern.
+    /// - Parameters:
+    ///  - url: The URL string to be checked.
+    ///     - Returns:
+    ///        - `true` if the URL string matches the specified pattern, otherwise `false`.
+    ///     - Note:
+    ///       The function checks if the provided `url` matches one of two patterns:
+    ///       1. The URL scheme specified by the `ApiConstants.scheme` constant, followed by "://wc".
+    ///       2. The exact URL scheme "concordiumwallet" followed by "://wc".
+    ///       The reason for these check is that we want to check if url follows `concordiumwallet` scheme for WalletConnect,
+    ///       but need to support also DeepLinks per scheme, for instance `concordiumwallettest` or  `concordiumwalletstaging`
+    private func matchesURLScheme(_ url: String) -> Bool {
+        let regexPattern = #"^\#(ApiConstants.scheme)://wc.*|concordiumwallet://wc.*|cryptox://wc.*|cryptoxtestnet://wc.*|cryptoxstage://wc.*"#
+        guard let regex = try? NSRegularExpression(pattern: regexPattern, options: []) else { return false }
+        let range = NSRange(location: 0, length: url.utf16.count)
+        if let match = regex.firstMatch(in: url, options: [], range: range) {
+            return match.range == range
+        }
+        return false
+    }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         logger.debugLog("application:openUrl: \(url)")
@@ -74,7 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if url.absoluteString.starts(with: ApiConstants.notabeneCallback) {
             receivedCreateIdentityCallback(url)
-        } else if url.host == "wc" {
+        } else if matchesURLScheme(url.absoluteString) {
             appCoordinator.openWCConnect(url)
         } else if let scheme = url.scheme, scheme.localizedCaseInsensitiveCompare("tcwb") == .orderedSame, let view = url.host {
             
