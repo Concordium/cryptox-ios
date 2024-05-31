@@ -30,15 +30,18 @@ class ExportPrivateKeyViewModel: PageViewModel<ExportPrivateKeyEvent> {
     @Published var exportPrivateKey: ExportPrivateKeyState
     @Published var doneButtonTitle: String
     @Published var alertText: AlertText?
+    @Published var isExportAvailable: Bool
     
     init(
         title: String,
         exportPrivateKey: ExportPrivateKeyState,
-        doneButtonTitle: String
+        doneButtonTitle: String,
+        isExportAvailable: Bool
     ) {
         self.title = title
         self.exportPrivateKey = exportPrivateKey
         self.doneButtonTitle = doneButtonTitle
         self.alertText = nil
+        self.isExportAvailable = isExportAvailable
     }
 }
