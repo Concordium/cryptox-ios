@@ -31,10 +31,12 @@ enum SessionRequstError: Error {
 
 final class IncomeRequestValidator {
     static var currentChain: String {
-#if MAINNET
-        "ccd:mainnet"
-#else
+#if TESTNET
         "ccd:testnet"
+#elseif MAINNET
+        "ccd:mainnet"
+#else // Staging
+        "ccd:stagenet"
 #endif
     }
     

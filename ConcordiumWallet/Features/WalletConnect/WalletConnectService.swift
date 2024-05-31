@@ -88,15 +88,6 @@ final class WalletConnectService {
         }
     }
     
-    public func pair(_ uri: WalletConnectURI) async {
-        LegacyLogger.debug("wc: `pair.address` -- \(uri)")
-        do {
-            try await Pair.instance.pair(uri: uri)
-        } catch {
-            LegacyLogger.debug("wc: `pairing` error -- \(error.localizedDescription)")
-        }
-    }
-    
     private func subscribeSessionProposals() {
         Sign.instance.sessionProposalPublisher
             .receive(on: DispatchQueue.main)
