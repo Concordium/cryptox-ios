@@ -325,6 +325,8 @@ process on-chain.";
 "transactions.shieledtransactionfee" = "Shielded transaction fee";
 "transaction.shieldedAmount" = "Shielded amount";
 "transaction.unshieldedAmount" = "Unshielded amount";
+"transaction.configuredelegation" = "Configure delegation";
+"transaction.configurebaker" = "Configure validator";
 
 "accountDetails.generalbalance" = "Balance";
 "accountDetails.generalshieldedbalance" = "Shielded Balance";
