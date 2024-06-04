@@ -383,7 +383,7 @@ process on-chain.";
 "more.about.support.title" = "Support";
 "more.about.support.text" = "If you encountered a problem, or need help with something, you can reach out to us via\nsupport@concordium.software";
 "more.about.website.title" = "Website";
-"more.about.website.text" = "For more info about CryptoX Wallet you can visit\nhttps://concordium.com";
+"more.about.website.text" = "For more info about CryptoX Wallet you can visit\nconcordium.com";
 "more.about.appVersion.title" = "App Version";
 
 "accountDetails.testnetGtuDropTitle" = "TESTNET CCD DROP";
