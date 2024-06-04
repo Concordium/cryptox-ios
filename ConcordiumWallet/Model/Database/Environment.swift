@@ -9,8 +9,8 @@
 import Foundation
 
 enum Environment: String, Codable {
-    case main = "production"
-    case test = "prod_testnet"
+    case mainnet = "mainnet"
+    case testnet = "testnet"
     case staging = "staging"
     case mock = "mock"
     
@@ -19,9 +19,9 @@ enum Environment: String, Codable {
         if UserDefaults.bool(forKey: "demomode.userdefaultskey".localized) == true {
             return .test
         }
-        return .main
+        return .mainnet
         #elseif TESTNET
-        return .test
+        return .testnet
         #elseif STAGINGNET
         return .staging
         #else // Mock
