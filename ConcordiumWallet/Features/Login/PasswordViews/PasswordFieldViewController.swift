@@ -12,6 +12,11 @@ import Combine
 protocol PasswordFieldDelegate: AnyObject {
     func passwordView(_ passwordView: PasswordFieldViewController, didFinishEnteringPassword: String)
     func setPasswordState(valid: Bool)
+    func editingChanged()
+}
+
+extension PasswordFieldDelegate {
+    func editingChanged() {}
 }
 
 class PasswordFieldViewController: UIViewController, Storyboarded {
@@ -20,7 +25,7 @@ class PasswordFieldViewController: UIViewController, Storyboarded {
 
     @IBOutlet weak var passwordTextField: UITextField!
     private var cancellables: [AnyCancellable] = []
-
+    
     func getPassword() -> String? {
         passwordTextField.text
     }
@@ -57,5 +62,10 @@ extension PasswordFieldViewController: UITextFieldDelegate {
 
     private func passwordValid(_ password: String?) -> Bool {
         return (password?.count ?? 0) >= leastPasswordSize
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        delegate?.editingChanged()
+        return true
     }
 }
