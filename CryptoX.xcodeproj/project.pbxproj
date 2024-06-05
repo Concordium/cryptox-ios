@@ -1978,6 +1978,12 @@
 		50D389182C0607D600B3675A /* AccountCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08B16F122A011968002E6B33 /* AccountCardView.xib */; };
 		50D389192C0607D600B3675A /* AccountCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08B16F122A011968002E6B33 /* AccountCardView.xib */; };
 		50D3891A2C0607D700B3675A /* AccountCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08B16F122A011968002E6B33 /* AccountCardView.xib */; };
+		50D3891D2C107C1F00B3675A /* TokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D3891C2C107C1E00B3675A /* TokenView.swift */; };
+		50D3891E2C107C1F00B3675A /* TokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D3891C2C107C1E00B3675A /* TokenView.swift */; };
+		50D3891F2C107C1F00B3675A /* TokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D3891C2C107C1E00B3675A /* TokenView.swift */; };
+		50D389232C107C7500B3675A /* CustomSVGDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D389222C107C7500B3675A /* CustomSVGDecoder.swift */; };
+		50D389242C107C7500B3675A /* CustomSVGDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D389222C107C7500B3675A /* CustomSVGDecoder.swift */; };
+		50D389252C107C7500B3675A /* CustomSVGDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D389222C107C7500B3675A /* CustomSVGDecoder.swift */; };
 		50EB30FF2BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */; };
 		50EB31002BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */; };
 		50EB31012BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */; };
@@ -3153,6 +3159,8 @@
 		19C2EE201F8E02CE561DA70D /* GTU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GTU.swift; sourceTree = "<group>"; };
 		19C2EEBD44B62F16333900D2 /* GeneralError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralError.swift; sourceTree = "<group>"; };
 		507629652BF2040B00B4D390 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		50D3891C2C107C1E00B3675A /* TokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenView.swift; sourceTree = "<group>"; };
+		50D389222C107C7500B3675A /* CustomSVGDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSVGDecoder.swift; sourceTree = "<group>"; };
 		50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldedAccountsView.swift; sourceTree = "<group>"; };
 		50EB31022BFCABAA002B2558 /* UnshieldAssetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnshieldAssetsView.swift; sourceTree = "<group>"; };
 		50EB31062BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldedAccountsViewModel.swift; sourceTree = "<group>"; };
@@ -4726,7 +4734,7 @@
 			isa = PBXGroup;
 			children = (
 				0800BC302BC455BB00EF7A47 /* CIS2TokenService */,
-				08E69C9C2A20D071001CCA96 /* ImportTokenView.swift */,
+				50D3891B2C107C1400B3675A /* ImportToken */,
 				08E69CC62A265E1B001CCA96 /* CIS2TokenDetailView.swift */,
 			);
 			path = CIS2TokenSupport;
@@ -5208,6 +5216,31 @@
 			path = LegacyWalletConnect;
 			sourceTree = "<group>";
 		};
+		50D3891B2C107C1400B3675A /* ImportToken */ = {
+			isa = PBXGroup;
+			children = (
+				08E69C9C2A20D071001CCA96 /* ImportTokenView.swift */,
+				50D3891C2C107C1E00B3675A /* TokenView.swift */,
+			);
+			path = ImportToken;
+			sourceTree = "<group>";
+		};
+		50D389202C107C6000B3675A /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				50D389212C107C6900B3675A /* ThirdParty */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		50D389212C107C6900B3675A /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				50D389222C107C7500B3675A /* CustomSVGDecoder.swift */,
+			);
+			path = ThirdParty;
+			sourceTree = "<group>";
+		};
 		50EB30FD2BFBA113002B2558 /* UnshieldAssetsFlow */ = {
 			isa = PBXGroup;
 			children = (
@@ -5322,6 +5355,7 @@
 		7FF07A6B23EADB1200F1FC04 /* ConcordiumWallet */ = {
 			isa = PBXGroup;
 			children = (
+				50D389202C107C6000B3675A /* Core */,
 				088FEC682A01483D00042957 /* Features */,
 				08B16F352A011E4C002E6B33 /* Design */,
 				08A0463629FAA62100DACE1F /* Extensions */,
@@ -7146,6 +7180,7 @@
 				50EB31012BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */,
 				08C1683D2BB7396200E61326 /* UIView+Additions.swift in Sources */,
 				08E472B92BCEFB53004F0088 /* SessionRequestDataType.swift in Sources */,
+				50D3891F2C107C1F00B3675A /* TokenView.swift in Sources */,
 				08C1683E2BB7396200E61326 /* Sizes.swift in Sources */,
 				08C1683F2BB7396200E61326 /* SanityChecker.swift in Sources */,
 				08C168402BB7396200E61326 /* WelcomeView.swift in Sources */,
@@ -7246,6 +7281,7 @@
 				08C1689F2BB7396200E61326 /* AccountTransactionsLoadingCellView.swift in Sources */,
 				08C168A02BB7396200E61326 /* IdentityDataWidgetViewController.swift in Sources */,
 				08C168A12BB7396200E61326 /* URLSession+Data.swift in Sources */,
+				50D389252C107C7500B3675A /* CustomSVGDecoder.swift in Sources */,
 				08C168A22BB7396200E61326 /* Array+Ext.swift in Sources */,
 				08C168A32BB7396200E61326 /* DataStoreProtocol.swift in Sources */,
 				08C168A42BB7396200E61326 /* ChangePasswordPresenter.swift in Sources */,
@@ -7832,6 +7868,7 @@
 				50EB31002BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */,
 				7F85B88D246A9AB600ED09B8 /* UIView+Additions.swift in Sources */,
 				08E472B82BCEFB53004F0088 /* SessionRequestDataType.swift in Sources */,
+				50D3891E2C107C1F00B3675A /* TokenView.swift in Sources */,
 				7F85B88F246A9AB600ED09B8 /* Sizes.swift in Sources */,
 				088FF1DA2A02A72700042957 /* SanityChecker.swift in Sources */,
 				08A6BD952B30893200869317 /* WelcomeView.swift in Sources */,
@@ -7932,6 +7969,7 @@
 				7F85B8AD246A9AB600ED09B8 /* AccountTransactionsLoadingCellView.swift in Sources */,
 				088FEF742A0270B000042957 /* IdentityDataWidgetViewController.swift in Sources */,
 				D5FB7EC6290B433F00B7DB0C /* URLSession+Data.swift in Sources */,
+				50D389242C107C7500B3675A /* CustomSVGDecoder.swift in Sources */,
 				08520A532B45B5C7008DC851 /* Array+Ext.swift in Sources */,
 				D589F1B52794B5ED003F2FBB /* DataStoreProtocol.swift in Sources */,
 				088FF1EB2A02A73D00042957 /* ChangePasswordPresenter.swift in Sources */,
@@ -8518,6 +8556,7 @@
 				50EB30FF2BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */,
 				08E472B72BCEFB53004F0088 /* SessionRequestDataType.swift in Sources */,
 				19C2E1F4C4825F62DEE3EE2B /* UIView+Additions.swift in Sources */,
+				50D3891D2C107C1F00B3675A /* TokenView.swift in Sources */,
 				D5E29760276C8DC8000DB102 /* CopyPasterHelper.swift in Sources */,
 				08A6BD942B30893200869317 /* WelcomeView.swift in Sources */,
 				088FF1D82A02A72600042957 /* SanityChecker.swift in Sources */,
@@ -8618,6 +8657,7 @@
 				08A0457629FA99D100DACE1F /* GlobalWrapper.swift in Sources */,
 				08A0458829FA99D100DACE1F /* IDRequestAndPrivateData.swift in Sources */,
 				08520A522B45B5C7008DC851 /* Array+Ext.swift in Sources */,
+				50D389232C107C7500B3675A /* CustomSVGDecoder.swift in Sources */,
 				088FEF4C2A0270AF00042957 /* IdentityDataWidgetViewController.swift in Sources */,
 				D5FB7EC4290B433F00B7DB0C /* URLSession+Data.swift in Sources */,
 				088FF1E72A02A73C00042957 /* ChangePasswordPresenter.swift in Sources */,
