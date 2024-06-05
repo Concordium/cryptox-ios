@@ -9,17 +9,20 @@
 import Foundation
 
 enum Net: String, Codable {
-    case main = "Mainnet"
-    case test = "Testnet"
+    case mainnet = "Mainnet"
+    case testnet = "Testnet"
+    case stagenet = "Stagenet"
     
     static var current: Net {
-        #if MAINNET
+    #if MAINNET
         if UserDefaults.bool(forKey: "demomode.userdefaultskey".localized) == true {
             return .test
         }
-        return .main
-        #else
-        return .test
-        #endif
+        return .mainnet
+    #elseif TESTNET
+        return .testnet
+    #elseif STAGINGNET
+        return .stagenet
+    #endif
     }
 }
