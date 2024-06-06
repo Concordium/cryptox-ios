@@ -18,6 +18,7 @@ final class CIS2TokenDetailViewModel: ObservableObject {
     let ticker: String
     let tokenId: String
     let description: String?
+    let decimals: String
     
     @Published var balance: String = "0.0"
 
@@ -47,6 +48,7 @@ final class CIS2TokenDetailViewModel: ObservableObject {
         self.ticker = token.metadata.symbol ?? ""
         self.tokenId = token.tokenId
         self.description = token.metadata.description
+        self.decimals = "\(token.metadata.decimals ?? 0)"
     }
     
     @MainActor
@@ -112,7 +114,7 @@ struct CIS2TokenDetailView: View {
                                 }
                                 VerticalLine().background(Color.greyMain).opacity(0.2).padding(.vertical, 8)
                                 VStack(alignment: .leading, spacing: 4) {
-                                    Text("token".localized)
+                                    Text("Symbol")
                                         .foregroundColor(Color.blackAditional)
                                         .font(.system(size: 14, weight: .medium))
                                     Text(viewModel.ticker)
@@ -143,6 +145,16 @@ struct CIS2TokenDetailView: View {
                                             .foregroundColor(Color.white)
                                             .font(.system(size: 14, weight: .medium))
                                     }
+                                }
+                                
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("Decimals")
+                                        .foregroundColor(Color.blackAditional)
+                                        .font(.system(size: 14, weight: .medium))
+                                    Text(viewModel.decimals)
+                                        .multilineTextAlignment(.leading)
+                                        .foregroundColor(Color.white)
+                                        .font(.system(size: 14, weight: .medium))
                                 }
                             }
                         }
