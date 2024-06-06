@@ -18,7 +18,7 @@ extension CIS2Token: Identifiable {
     var id: Int { tokenId.hashValue ^ metadata.decimals.hashValue ^ contractName.hashValue }
 }
 
-struct CIS2Token: Codable, Equatable {
+struct CIS2Token: Codable {
     public let tokenId: String
     public let metadata: CIS2TokenMetadata
     public let contractAddress: SmartContractAddress
@@ -47,6 +47,12 @@ struct CIS2Token: Codable, Equatable {
             index: entity.index,
             subindex: entity.subindex
         )
+    }
+}
+
+extension CIS2Token: Equatable {
+    static func == (lhs: CIS2Token, rhs: CIS2Token) -> Bool {
+        lhs.id == rhs.id
     }
 }
 
