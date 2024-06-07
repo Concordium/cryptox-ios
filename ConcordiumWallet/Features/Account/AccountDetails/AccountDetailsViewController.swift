@@ -49,10 +49,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     @IBOutlet weak var stakedValueLabel: UILabel!
     @IBOutlet weak var stakedLabel: UILabel!
     
-    @IBOutlet weak var buttonsView: UIView!
-    @IBOutlet weak var generalButton: UIButton!
-    @IBOutlet weak var shieldedButton: UIButton!
-    @IBOutlet weak var spacerView: UIView!
     @IBOutlet weak var topSpacingStackViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var buttonSliderContainer: RoundedCornerView!
     
@@ -61,6 +57,8 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             gtuDropView.isHidden = true
         }
     }
+    
+    @IBOutlet weak var actioButtonsStackView: UIStackView!
     
     var identityDataVC: AccountDetailsIdentityDataViewController!
     var transactionsVC: AccountTransactionsDataViewController!
@@ -184,10 +182,15 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             disabled: !areActionsEnabled)
         let childView = UIHostingController(rootView: buttonSlider)
         addChild(childView)
-        childView.view.frame = buttonSliderContainer.bounds
-        buttonSliderContainer.subviews.forEach { $0.removeFromSuperview() }
-        buttonSliderContainer.addSubview(childView.view)
+        childView.view.frame = actioButtonsStackView.bounds
+        actioButtonsStackView.subviews.forEach { $0.removeFromSuperview() }
+        actioButtonsStackView.addSubview(childView.view)
         childView.didMove(toParent: self)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setupButtonSlider()
     }
     
     // swiftlint:disable function_body_length
@@ -230,10 +233,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         
             self.title = self.presenter.getTitle()
             self.atDisposalView.setHiddenIfChanged(false)
-            
-            self.generalButton.backgroundColor = UIColor.darkGray
-            self.shieldedButton.backgroundColor = UIColor.black
-            
+                        
                 self.balanceNameLabel.text = "accounts.overview.generaltotal".localized
                 if viewModel.hasStaked {
                     self.stakedView.setHiddenIfChanged(false)
@@ -250,9 +250,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
                 self.view.layoutIfNeeded()
             }
         
-        self.buttonsView.setHiddenIfChanged(true)
-        self.spacerView.setHiddenIfChanged(false)
-
         viewModel.$atDisposal
             .compactMap { $0 }
             .assign(to: \.text, on: atDisposalLabel)
