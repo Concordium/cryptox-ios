@@ -219,13 +219,19 @@ add_identity_data = "Reveal Identity Data";
 "createNickname.next.title" = "Next";
 "Ok.thanks" = "Ok, thanks";
 "Ok" = "Ok";
+
 "accountConfirmed.submitted" = "Account submitted";
 "accountConfirmed.submittedMessage" = "This may take a few minutes to
 process on-chain.";
+
 "accountFailed.title" = "Account creation failed!";
-"accountFailed.tryLater" = "Please try again.";
+"accountFailed.errorMessage" = "Your wallet seems to not be synchronized with the blockchain. You must first make a recovery of existing accounts, before you can make a new one.";
+"accountFailed.tryLater" = "Start the recovery flow, by pressing the button bellow.";
+"accountFailed.buttonTitle" = "Start recovery";
+
 "accountDetails.failedMessage" = "Account creation failed in the process of creation";
 "accountDetails.committedMessage" = "Account creation in progress.\n\nYou can start using this account once it’s been finalized on the chain.";
+
 
 "accountDetails.retryAccountCreation.title" = "Retry account creation";
 "accountDetails.removeAccount.title" = "Remove account from wallet";
@@ -1084,8 +1090,6 @@ Remember to restart your node with the validator keys.";
 "more.recovery" = "Recovery";
 "more.deleteAccount" = "Remove wallet";
 "more.deleteAccount.subtitle" = "Remove all sensitive data and private keys from this device";
-"accountFailed.errorMessage" = "Account create error";
-"accountFailed.buttonTitle" = "Recover identities";
 "more.funds.to.unshield" = "Funds to Unshield";
 
 
