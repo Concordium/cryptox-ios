@@ -16,7 +16,7 @@ enum Net: String, Codable {
     static var current: Net {
     #if MAINNET
         if UserDefaults.bool(forKey: "demomode.userdefaultskey".localized) == true {
-            return .test
+            return .testnet
         }
         return .mainnet
     #elseif TESTNET
