@@ -161,7 +161,7 @@ You can pick one from the list below. To read more about them before deciding, c
         <!--Identity Provider Web View View Controller-->
         <scene sceneID="7Cc-ns-yeS">
             <objects>
-                <viewController storyboardIdentifier="IdentityProviderWebViewViewController" id="wfB-9p-OO8" customClass="IdentityProviderWebViewViewController" customModule="Mock" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IdentityProviderWebViewViewController" id="wfB-9p-OO8" customClass="IdentityProviderWebViewViewController" customModule="ProdMainNet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2vt-q2-mcF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
