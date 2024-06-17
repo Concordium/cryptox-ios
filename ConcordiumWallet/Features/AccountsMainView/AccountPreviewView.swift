@@ -96,7 +96,7 @@ struct AccountPreviewView: View {
                         case .baking:
                             Image("icon_validate")
                         case .delegating:
-                            Image("icon_delegate").resizable().frame(width: 16, height: 16)
+                            Image("icon_delegate")
                         case .basic: EmptyView()
                     }
                 }
