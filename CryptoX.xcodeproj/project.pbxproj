@@ -1969,6 +1969,15 @@
 		507629662BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
 		507629672BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
 		507629682BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
+		509749D02C3C0D4E00D28D6B /* CCDOnrampView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749CF2C3C0D4E00D28D6B /* CCDOnrampView.swift */; };
+		509749D12C3C0D4E00D28D6B /* CCDOnrampView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749CF2C3C0D4E00D28D6B /* CCDOnrampView.swift */; };
+		509749D22C3C0D4E00D28D6B /* CCDOnrampView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749CF2C3C0D4E00D28D6B /* CCDOnrampView.swift */; };
+		509749D42C3C241B00D28D6B /* ProviderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749D32C3C241B00D28D6B /* ProviderView.swift */; };
+		509749D52C3C241B00D28D6B /* ProviderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749D32C3C241B00D28D6B /* ProviderView.swift */; };
+		509749D62C3C241B00D28D6B /* ProviderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749D32C3C241B00D28D6B /* ProviderView.swift */; };
+		509749D82C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749D72C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift */; };
+		509749D92C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749D72C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift */; };
+		509749DA2C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749D72C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift */; };
 		50D3890D2C05D66A00B3675A /* ConfirmAccountCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE952A026B6400042957 /* ConfirmAccountCreateViewController.swift */; };
 		50D3890E2C05D66A00B3675A /* ConfirmAccountCreatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE972A026B6500042957 /* ConfirmAccountCreatePresenter.swift */; };
 		50D3890F2C05D66B00B3675A /* ConfirmAccountCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE952A026B6400042957 /* ConfirmAccountCreateViewController.swift */; };
@@ -3159,6 +3168,9 @@
 		19C2EE201F8E02CE561DA70D /* GTU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GTU.swift; sourceTree = "<group>"; };
 		19C2EEBD44B62F16333900D2 /* GeneralError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralError.swift; sourceTree = "<group>"; };
 		507629652BF2040B00B4D390 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		509749CF2C3C0D4E00D28D6B /* CCDOnrampView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCDOnrampView.swift; sourceTree = "<group>"; };
+		509749D32C3C241B00D28D6B /* ProviderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderView.swift; sourceTree = "<group>"; };
+		509749D72C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCDOnrampViewDataProvider.swift; sourceTree = "<group>"; };
 		50D3891C2C107C1E00B3675A /* TokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenView.swift; sourceTree = "<group>"; };
 		50D389222C107C7500B3675A /* CustomSVGDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSVGDecoder.swift; sourceTree = "<group>"; };
 		50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldedAccountsView.swift; sourceTree = "<group>"; };
@@ -3730,6 +3742,7 @@
 		088FEC682A01483D00042957 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				509749CE2C3C0D2B00D28D6B /* OnrampFlow */,
 				50EB30FD2BFBA113002B2558 /* UnshieldAssetsFlow */,
 				08520A4B2B45B56F008DC851 /* SwiftUIComponents */,
 				08A6BD922B3088DA00869317 /* NewOnboardingFlow */,
@@ -5214,6 +5227,16 @@
 				D5113A38271733510004841E /* WebSocketDecodingStrategy.swift */,
 			);
 			path = LegacyWalletConnect;
+			sourceTree = "<group>";
+		};
+		509749CE2C3C0D2B00D28D6B /* OnrampFlow */ = {
+			isa = PBXGroup;
+			children = (
+				509749CF2C3C0D4E00D28D6B /* CCDOnrampView.swift */,
+				509749D32C3C241B00D28D6B /* ProviderView.swift */,
+				509749D72C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift */,
+			);
+			path = OnrampFlow;
 			sourceTree = "<group>";
 		};
 		50D3891B2C107C1400B3675A /* ImportToken */ = {
@@ -6811,6 +6834,7 @@
 				08C166CB2BB7396200E61326 /* AppCoordinator.swift in Sources */,
 				08C169D12BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */,
 				08C166CC2BB7396200E61326 /* HapticFeedbackHelper.swift in Sources */,
+				509749D62C3C241B00D28D6B /* ProviderView.swift in Sources */,
 				08C166CD2BB7396200E61326 /* NFTProviderHeaderView.swift in Sources */,
 				08C166CF2BB7396200E61326 /* SelectRecipientViewController.swift in Sources */,
 				08C166D02BB7396200E61326 /* LoginWarningLabel.swift in Sources */,
@@ -7062,6 +7086,7 @@
 				08C167C52BB7396200E61326 /* GettingStartedPresenter.swift in Sources */,
 				08C167C62BB7396200E61326 /* PasscodeView.swift in Sources */,
 				08C167C72BB7396200E61326 /* NFTFeedPresenter.swift in Sources */,
+				509749DA2C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift in Sources */,
 				08C167C82BB7396200E61326 /* WebSocketDecodingStrategy.swift in Sources */,
 				08C167C92BB7396200E61326 /* UIAlertAction+Color.swift in Sources */,
 				08C167CA2BB7396200E61326 /* NFTEmptyStatusView.swift in Sources */,
@@ -7156,6 +7181,7 @@
 				08C168222BB7396200E61326 /* TransactionAccountView.swift in Sources */,
 				08C168232BB7396200E61326 /* IdentitiesService.swift in Sources */,
 				08C168242BB7396200E61326 /* NFTFeedViewController.swift in Sources */,
+				509749D22C3C0D4E00D28D6B /* CCDOnrampView.swift in Sources */,
 				08C168252BB7396200E61326 /* DummyRequestPasswordDelegate.swift in Sources */,
 				08C168262BB7396200E61326 /* ImportService.swift in Sources */,
 				08C168282BB7396200E61326 /* Environment.swift in Sources */,
@@ -7499,6 +7525,7 @@
 				7F85B7F4246A9AB600ED09B8 /* AppCoordinator.swift in Sources */,
 				08C169D02BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */,
 				D5F3BC73278E5FF0008DC894 /* HapticFeedbackHelper.swift in Sources */,
+				509749D52C3C241B00D28D6B /* ProviderView.swift in Sources */,
 				D5E6CC07290F4832009856B7 /* NFTProviderHeaderView.swift in Sources */,
 				088FF23B2A02A99000042957 /* SelectRecipientViewController.swift in Sources */,
 				7F85B7F6246A9AB600ED09B8 /* LoginWarningLabel.swift in Sources */,
@@ -7750,6 +7777,7 @@
 				088FF1912A02947B00042957 /* GettingStartedPresenter.swift in Sources */,
 				088CA9D82B3590BD00898C85 /* PasscodeView.swift in Sources */,
 				D5612B7D28EA207100582AD4 /* NFTFeedPresenter.swift in Sources */,
+				509749D92C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift in Sources */,
 				D5113A3C271733510004841E /* WebSocketDecodingStrategy.swift in Sources */,
 				D54ABC2D26E243B000F4E773 /* UIAlertAction+Color.swift in Sources */,
 				D5CCCB3F28EE42B200350D83 /* NFTEmptyStatusView.swift in Sources */,
@@ -7844,6 +7872,7 @@
 				D5962CD6272170DB00A757A5 /* TransactionAccountView.swift in Sources */,
 				088FEF0E2A026F0100042957 /* IdentitiesService.swift in Sources */,
 				D5612B7828EA205E00582AD4 /* NFTFeedViewController.swift in Sources */,
+				509749D12C3C0D4E00D28D6B /* CCDOnrampView.swift in Sources */,
 				0867CAE82A45CE5600D7887D /* DummyRequestPasswordDelegate.swift in Sources */,
 				088FF2142A02A77200042957 /* ImportService.swift in Sources */,
 				08A0463529FAA51000DACE1F /* Environment.swift in Sources */,
@@ -8187,6 +8216,7 @@
 				088FF1FB2A02A76C00042957 /* AboutViewController.swift in Sources */,
 				08C169CF2BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */,
 				D589F31B2794B678003F2FBB /* ResourceRequest.swift in Sources */,
+				509749D42C3C241B00D28D6B /* ProviderView.swift in Sources */,
 				067D766B23FC1B42002DEF67 /* LoginWarningLabel.swift in Sources */,
 				088FF2372A02A98F00042957 /* SelectRecipientViewController.swift in Sources */,
 				069B9DDB23FBEA8700A02A1F /* KeychainWrapper.swift in Sources */,
@@ -8438,6 +8468,7 @@
 				088CA9D72B3590BD00898C85 /* PasscodeView.swift in Sources */,
 				D5BA806E2731AFE700DCE1CD /* Int+Data.swift in Sources */,
 				D5B3940727199BED0094A9F5 /* QRTransactionProvider.swift in Sources */,
+				509749D82C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift in Sources */,
 				D5E29756276C8D0F000DB102 /* SupportMailProtocol.swift in Sources */,
 				7FCC0E8224200A2E007030EC /* LoginErrorLabel.swift in Sources */,
 				D5CCCB3D28EE42B200350D83 /* NFTEmptyStatusView.swift in Sources */,
@@ -8532,6 +8563,7 @@
 				19C2E05A6CFAD9B9CCECF785 /* LetterSpacingLabel.swift in Sources */,
 				0867CAE72A45CE5600D7887D /* DummyRequestPasswordDelegate.swift in Sources */,
 				D5612B7628EA205E00582AD4 /* NFTFeedViewController.swift in Sources */,
+				509749D02C3C0D4E00D28D6B /* CCDOnrampView.swift in Sources */,
 				088FF2082A02A77100042957 /* ImportService.swift in Sources */,
 				088FEF002A026F0000042957 /* IdentitiesService.swift in Sources */,
 				08A0463329FAA51000DACE1F /* Environment.swift in Sources */,

@@ -23,12 +23,14 @@ struct AccountsMainView: View {
     @EnvironmentObject var updateTimer: UpdateTimer
     
     @State var accountQr: AccountEntity?
+    @State var onRampFlowShown: Bool = false
+    
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     
     @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
     
     weak var router: AccountsMainViewDelegate?
-
+    
     var body: some View {
         List {
             VStack(alignment: .leading, spacing: 16) {
@@ -88,77 +90,85 @@ struct AccountsMainView: View {
             .listRowBackground(Color.clear)
             
             switch viewModel.state {
-                case .empty:
-                    VStack {
+            case .empty:
+                VStack {
+                    Spacer()
+                    HStack {
                         Spacer()
-                        HStack {
-                            Spacer()
-                            ProgressView()
-                            Spacer()
-                        }
+                        ProgressView()
                         Spacer()
                     }
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
-                case .accounts:
+                    Spacer()
+                }
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
+            case .accounts:
+                VStack(spacing: 8) {
+                    OnRampAnchorView()
+                        .onTapGesture {
+                            onRampFlowShown.toggle()
+                        }
+                    
                     ForEach(viewModel.accountViewModels, id: \.id) { vm in
                         AccountPreviewView(
                             viewModel: vm,
                             onQrTap: { accountQr = (vm.account as? AccountEntity) },
-                            onSendTap: { router?.showSendFundsFlow(vm.account) }
+                            onSendTap: { router?.showSendFundsFlow(vm.account) },
+                            onShowPlusTap: { onRampFlowShown.toggle() }
                         )
                         .onTapGesture {
                             router?.showAccountDetail(vm.account)
                         }
-                        .listRowSeparator(.hidden)
-                        .listRowBackground(Color.clear)
                     }
-                case .createAccount:
-                    VStack {
+                }
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
+            case .createAccount:
+                VStack {
+                    Spacer()
+                    HStack {
                         Spacer()
-                        HStack {
-                            Spacer()
-                            Button {
-                                self.router?.showCreateAccountFlow()
-                            } label: {
-                                Text("accounts.createNewAccount".localized)
-                            }
-                            .frame(maxWidth: .infinity)
-                            .foregroundColor(.black)
-                            .font(.system(size: 17, weight: .semibold))
-                            .padding(.vertical, 12)
-                            .background(.white)
-                            .clipShape(Capsule())
-                            
-                            Spacer()
+                        Button {
+                            self.router?.showCreateAccountFlow()
+                        } label: {
+                            Text("accounts.createNewAccount".localized)
                         }
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(.black)
+                        .font(.system(size: 17, weight: .semibold))
+                        .padding(.vertical, 12)
+                        .background(.white)
+                        .clipShape(Capsule())
+                        
                         Spacer()
                     }
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
-                case .createIdentity:
-                    VStack {
+                    Spacer()
+                }
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
+            case .createIdentity:
+                VStack {
+                    Spacer()
+                    HStack {
                         Spacer()
-                        HStack {
-                            Spacer()
-                            Button {
-                                self.router?.showCreateIdentityFlow()
-                            } label: {
-                                Text("accounts.createNewIdentity".localized)
-                            }
-                            .frame(maxWidth: .infinity)
-                            .foregroundColor(.black)
-                            .font(.system(size: 17, weight: .semibold))
-                            .padding(.vertical, 12)
-                            .background(.white)
-                            .clipShape(Capsule())
-                            
-                            Spacer()
+                        Button {
+                            self.router?.showCreateIdentityFlow()
+                        } label: {
+                            Text("accounts.createNewIdentity".localized)
                         }
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(.black)
+                        .font(.system(size: 17, weight: .semibold))
+                        .padding(.vertical, 12)
+                        .background(.white)
+                        .clipShape(Capsule())
+                        
                         Spacer()
                     }
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
+                    Spacer()
+                }
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
             }
             
             Color.clear.padding(.bottom, viewModel.isBackupAlertShown ? 48 : 0)
@@ -228,10 +238,10 @@ struct AccountsMainView: View {
                                     .multilineTextAlignment(.center)
                                     .foregroundColor(Color(red: 0.08, green: 0.09, blue: 0.11))
                                 Text("We recommend that you unshield any\nShielded balance today.")
-                                  .font(.satoshi(size: 14, weight: .regular))
-                                  .multilineTextAlignment(.center)
-                                  .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
-                                  .frame(maxWidth: .infinity, alignment: .top)
+                                    .font(.satoshi(size: 14, weight: .regular))
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
+                                    .frame(maxWidth: .infinity, alignment: .top)
                             }
                             Button {
                                 Vibration.vibrate(with: .light)
@@ -283,6 +293,41 @@ struct AccountsMainView: View {
                     .padding(.horizontal, 32)
                 }
             }
+        }.sheet(isPresented: $onRampFlowShown, content: {
+            CCDOnrampView()
+        })
+    }
+    
+    private func OnRampAnchorView() -> some View {
+        VStack(alignment: .leading) {
+            HStack(spacing: 16) {
+                Image("onramp_flow_icon")
+                VStack(alignment: .leading) {
+                    Text("Where is CCD available?")
+                        .font(.satoshi(size: 16, weight: .medium))
+                        .foregroundColor(Color(red: 0.06, green: 0.08, blue: 0.08))
+                        .frame(alignment: .leading)
+                    Group {
+                        Text("CCD is listed in the following exchanges and services.")
+                        + Text(" See more")
+                            .underline()
+                    }
+                    .font(.satoshi(size: 14, weight: .regular))
+                    .foregroundColor(Color(red: 0.3, green: 0.31, blue: 0.28))
+                    .frame(alignment: .leading)
+                }
+            }
         }
+        .frame(maxWidth: .infinity)
+        .padding(16)
+        .background(Color(red: 1, green: 0.99, blue: 0.89))
+        .cornerRadius(20)
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .inset(by: 0.5)
+                .stroke(Color(red: 0.06, green: 0.08, blue: 0.08).opacity(0.05), lineWidth: 1)
+        )
+        .listRowSeparator(.hidden)
+        .listRowBackground(Color.clear)
     }
 }
