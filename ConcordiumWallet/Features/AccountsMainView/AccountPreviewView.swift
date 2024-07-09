@@ -18,6 +18,8 @@ final class AccountPreviewViewModel: Identifiable {
     
     var viewState: AccountCardViewState = .basic
     
+    let address: String
+    
     var id: Int {
         account.address.hashValue
         ^ tokens.count
@@ -35,6 +37,7 @@ final class AccountPreviewViewModel: Identifiable {
     init(account: AccountDataType, tokens: [CIS2Token]) {
         self.account = account
         self.tokens = tokens
+        self.address = account.address
         
         self.totalAmount = GTU(intValue: account.totalForecastBalance).displayValue()
         self.totalAtDisposalAmount = GTU(intValue: account.forecastAtDisposalBalance).displayValue()

@@ -1978,6 +1978,9 @@
 		509749D82C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749D72C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift */; };
 		509749D92C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749D72C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift */; };
 		509749DA2C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749D72C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift */; };
+		509749DC2C3D25E800D28D6B /* OnrampAccountPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749DB2C3D25E800D28D6B /* OnrampAccountPicker.swift */; };
+		509749DD2C3D25E800D28D6B /* OnrampAccountPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749DB2C3D25E800D28D6B /* OnrampAccountPicker.swift */; };
+		509749DE2C3D25E800D28D6B /* OnrampAccountPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749DB2C3D25E800D28D6B /* OnrampAccountPicker.swift */; };
 		50D3890D2C05D66A00B3675A /* ConfirmAccountCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE952A026B6400042957 /* ConfirmAccountCreateViewController.swift */; };
 		50D3890E2C05D66A00B3675A /* ConfirmAccountCreatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE972A026B6500042957 /* ConfirmAccountCreatePresenter.swift */; };
 		50D3890F2C05D66B00B3675A /* ConfirmAccountCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE952A026B6400042957 /* ConfirmAccountCreateViewController.swift */; };
@@ -3171,6 +3174,7 @@
 		509749CF2C3C0D4E00D28D6B /* CCDOnrampView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCDOnrampView.swift; sourceTree = "<group>"; };
 		509749D32C3C241B00D28D6B /* ProviderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderView.swift; sourceTree = "<group>"; };
 		509749D72C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCDOnrampViewDataProvider.swift; sourceTree = "<group>"; };
+		509749DB2C3D25E800D28D6B /* OnrampAccountPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnrampAccountPicker.swift; sourceTree = "<group>"; };
 		50D3891C2C107C1E00B3675A /* TokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenView.swift; sourceTree = "<group>"; };
 		50D389222C107C7500B3675A /* CustomSVGDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSVGDecoder.swift; sourceTree = "<group>"; };
 		50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldedAccountsView.swift; sourceTree = "<group>"; };
@@ -5235,6 +5239,7 @@
 				509749CF2C3C0D4E00D28D6B /* CCDOnrampView.swift */,
 				509749D32C3C241B00D28D6B /* ProviderView.swift */,
 				509749D72C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift */,
+				509749DB2C3D25E800D28D6B /* OnrampAccountPicker.swift */,
 			);
 			path = OnrampFlow;
 			sourceTree = "<group>";
@@ -7061,6 +7066,7 @@
 				08C167AD2BB7396200E61326 /* AccountView.swift in Sources */,
 				08C167AE2BB7396200E61326 /* SceneViewController.swift in Sources */,
 				08C167B02BB7396200E61326 /* Model+Marketplace.swift in Sources */,
+				509749DE2C3D25E800D28D6B /* OnrampAccountPicker.swift in Sources */,
 				08C167B12BB7396200E61326 /* IdentityConfirmedPresenter.swift in Sources */,
 				08C167B22BB7396200E61326 /* BakerStakePendingChange.swift in Sources */,
 				08C167B32BB7396200E61326 /* String+Extensions.swift in Sources */,
@@ -7752,6 +7758,7 @@
 				08E69C852A1D2183001CCA96 /* AccountView.swift in Sources */,
 				089B34352A17ACD000F3CD90 /* SceneViewController.swift in Sources */,
 				D5553254291091C700A69230 /* Model+Marketplace.swift in Sources */,
+				509749DD2C3D25E800D28D6B /* OnrampAccountPicker.swift in Sources */,
 				088FEEEE2A026EB600042957 /* IdentityConfirmedPresenter.swift in Sources */,
 				08A0460B29FA99D200DACE1F /* BakerStakePendingChange.swift in Sources */,
 				08A0463B29FAA62B00DACE1F /* String+Extensions.swift in Sources */,
@@ -8443,6 +8450,7 @@
 				08A0457729FA99D100DACE1F /* ChainParametersResponse.swift in Sources */,
 				088FEFFF2A0271F000042957 /* SeedIdentityOnboardingView.swift in Sources */,
 				088FEEE82A026EB500042957 /* IdentityConfirmedPresenter.swift in Sources */,
+				509749DC2C3D25E800D28D6B /* OnrampAccountPicker.swift in Sources */,
 				C938F533241FB9B100ECAD47 /* UITextField+Extensions.swift in Sources */,
 				08A0457329FA99D100DACE1F /* BakerStakePendingChange.swift in Sources */,
 				08A0463929FAA62B00DACE1F /* String+Extensions.swift in Sources */,

@@ -9,20 +9,26 @@
 import SwiftUI
 
 struct CCDOnrampView: View {
+    @SwiftUI.Environment(\.openURL) var openURL
+    
+    let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
+    
+    @State var isAccountsPickerShown: CCDOnrampViewDataProvider.DataProvider?
+    
     var body: some View {
-        ScrollViewReader(content: { proxy in
-            List {
-                ListHeader()
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.clear)
-                .onTapGesture {
-                    proxy.scrollTo("footer")
-                }
-                
-                ForEach(CCDOnrampViewDataProvider.sections) { section in
-                    Section {
-                        ForEach(section.providers) { provider in
-                            Link(destination: provider.url) {
+        NavigationView {
+            ScrollViewReader(content: { proxy in
+                List {
+                    ListHeader()
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
+                        .onTapGesture {
+                            proxy.scrollTo("footer")
+                        }
+                    
+                    ForEach(CCDOnrampViewDataProvider.sections) { section in
+                        Section {
+                            ForEach(section.providers) { provider in
                                 ProviderView(provider: provider)
                                     .frame(maxWidth: .infinity)
                                     .overlay(alignment: .trailing) {
@@ -32,27 +38,42 @@ struct CCDOnrampView: View {
                                                 .padding(.trailing, 32)
                                         }
                                     }
+                                    .listRowBackground(Color.clear)
+                                    .contentShape(.rect)
+                                    .onTapGesture {
+                                        let accounts = dependencyProvider.storageManager().getAccounts()
+                                        if accounts.count > 1 {
+                                            isAccountsPickerShown = provider
+                                        } else {
+                                            UIPasteboard.general.string = accounts.first?.address
+                                            openURL(provider.url)
+                                        }
+                                    }
                             }
-                            .listRowBackground(Color.clear)
+                        } header: {
+                            Text(section.title)
+                                .foregroundColor(Color(red: 0.53, green: 0.53, blue: 0.53))
+                                .font(.satoshi(size: 12, weight: .regular))
                         }
-                    } header: {
-                        Text(section.title)
-                            .foregroundColor(Color(red: 0.53, green: 0.53, blue: 0.53))
-                            .font(.satoshi(size: 12, weight: .regular))
                     }
+                    
+                    ListFooter()
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
+                        .padding(.top, 64)
+                        .padding(.bottom, 32)
+                        .padding(.horizontal, 54)
+                        .id("footer")
                 }
-                
-                ListFooter()
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
-                    .padding(.top, 64)
-                    .padding(.bottom, 32)
-                    .padding(.horizontal, 54)
-                    .id("footer")
-            }
-            .modifier(AppBackgroundModifier())
-            .listSectionSeparator(.hidden)
-            .listStyle(.plain)
+                .modifier(AppBackgroundModifier())
+                .listSectionSeparator(.hidden)
+                .listStyle(.plain)
+            })
+        }
+        .sheet(item: $isAccountsPickerShown, content: { provider in
+            OnrampAccountPicker(
+                accountModels: dependencyProvider.storageManager().getAccounts().map { AccountPreviewViewModel.init(account: $0, tokens: dependencyProvider.storageManager().getAccountSavedCIS2Tokens($0.address)) },
+                provider: provider)
         })
     }
     
@@ -85,8 +106,4 @@ struct CCDOnrampView: View {
                 .foregroundColor(Color(red: 0.8, green: 0.84, blue: 0.84))
         }
     }
-}
-
-#Preview {
-    CCDOnrampView()
 }

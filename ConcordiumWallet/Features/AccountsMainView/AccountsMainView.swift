@@ -293,8 +293,9 @@ struct AccountsMainView: View {
                     .padding(.horizontal, 32)
                 }
             }
-        }.sheet(isPresented: $onRampFlowShown, content: {
-            CCDOnrampView()
+        }
+        .sheet(isPresented: $onRampFlowShown, content: {
+            CCDOnrampView(dependencyProvider: viewModel.dependencyProvider)
         })
     }
     

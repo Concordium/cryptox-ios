@@ -25,9 +25,7 @@ struct ProviderView: View {
             
             Text(provider.title)
             Spacer()
-            Image(systemName: "chevron.right")
-                .renderingMode(.template)
-                .tint(.blackAditional)
+            Image("ico_side_arrow")
         }
     }
 }

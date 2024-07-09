@@ -292,7 +292,7 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
     }
     
     func showOnrampFlow() {
-        let childView = UIHostingController(rootView: CCDOnrampView())
+        let childView = UIHostingController(rootView: CCDOnrampView(dependencyProvider: dependencyProvider))
         navigationController.present(childView, animated: true)
     }
 
