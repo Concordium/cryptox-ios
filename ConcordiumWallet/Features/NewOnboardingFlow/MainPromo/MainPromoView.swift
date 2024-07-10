@@ -64,13 +64,6 @@ struct MainPromoView: View {
                         .font(Font.plexSans(size: 12, weight: .regular))
                 }
                 .tag(MainTabs.nft)
-
-//            Text("Notifications")
-//                .tabItem {
-//                    Label("Notifications", image: "tab_item_notifications")
-//                        .tint(Color.Neutral.tint1)
-//                        .font(Font.plexSans(size: 12, weight: .regular))
-//                }
             MoreTab(identitiesService: identitiesService, onLogout: onLogout)
                 .tabItem {
                     Label("more_tab_title", image: "tab_item_more")
