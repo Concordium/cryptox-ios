@@ -1296,3 +1296,11 @@ Remember to restart your node with the validator keys.";
 "[%@](https://pioneeringtechventures.com/terms-and-conditions)" = "[%@](https://pioneeringtechventures.com/terms-and-conditions)";
 
 "identityCreation.hasPending" = "You can only have one identity request open at a time. Please wait for your currently pending request to finish before starting a new one.";
+
+"ccd_onramp_list_header_title" = "CCD Listings";
+"ccd_onramp_list_header_subtitle" = "CCD is listed in the following external exchanges and services. Some of these venues will guide you through their onboarding process and wallet choices.";
+"ccd_onramp_list_header_subtitle_more" = "Read our disclaimer for more.";
+"ccd_onramp_list_footer_title" = "Disclaimer";
+"ccd_onramp_list_footer_subtitle" = "The information regarding the CCD on any Concordium website does not constitute an offer or solicitation to purchase CCDs. The information on the CCD on this website is only directed to persons in countries other than the United States. \n\nWithout limiting the foregoing, in no event would any offering of CCD by Concordium be intended to be available to residents of the United States. \n\nBy clicking on any of the above links, you may be getting access to various services, including trading services. \n\nThese services are offered by third parties and the use of such services are subject to terms of conditions defined by such third parties and Concordium is not responsible for and does not assume any liabilities in relation to the use of such services.";
+"ccd_onramp_account_picker_list_header_title" = "Select Account";
+"ccd_onramp_account_picker_list_header_subtitle" = "Which account do you want to use with the external service?";

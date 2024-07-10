@@ -176,8 +176,8 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             actionEarn: {
                 self.presenter.showEarn()
             },
-            actionSettings: {
-                self.presenter.burgerButtonTapped()
+            onPlus: {
+                self.presenter.showOnrampFlow()
             },
             disabled: !areActionsEnabled)
         let childView = UIHostingController(rootView: buttonSlider)

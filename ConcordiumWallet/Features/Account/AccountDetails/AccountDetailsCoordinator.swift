@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 protocol AccountDetailsDelegate: AnyObject {
     func accountDetailsClosed()
@@ -288,6 +289,11 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
 
     func showEarn() {
         showEarn(account: account)
+    }
+    
+    func showOnrampFlow() {
+        let childView = UIHostingController(rootView: CCDOnrampView(dependencyProvider: dependencyProvider))
+        navigationController.present(childView, animated: true)
     }
 
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, retryFailedAccount account: AccountDataType) {

@@ -18,6 +18,8 @@ final class AccountPreviewViewModel: Identifiable {
     
     var viewState: AccountCardViewState = .basic
     
+    let address: String
+    
     var id: Int {
         account.address.hashValue
         ^ tokens.count
@@ -35,6 +37,7 @@ final class AccountPreviewViewModel: Identifiable {
     init(account: AccountDataType, tokens: [CIS2Token]) {
         self.account = account
         self.tokens = tokens
+        self.address = account.address
         
         self.totalAmount = GTU(intValue: account.totalForecastBalance).displayValue()
         self.totalAtDisposalAmount = GTU(intValue: account.forecastAtDisposalBalance).displayValue()
@@ -58,6 +61,7 @@ struct AccountPreviewView: View {
     
     var onQrTap: () -> Void
     var onSendTap: () -> Void
+    var onShowPlusTap: () -> Void
 
     var body: some View {
         VStack(spacing: 0) {
@@ -185,6 +189,16 @@ struct AccountPreviewView: View {
             
             if viewModel.account.isReadOnly == false {
                 HStack {
+                    Button {
+                        self.onShowPlusTap()
+                    } label: {
+                        Image("ico_onramp")
+                    }
+                    .frame(maxWidth: .infinity)
+                    .buttonStyle(BorderlessButtonStyle())
+                   
+                    Divider().padding(.vertical, 11)
+                    
                     Button {
                         self.onSendTap()
                     } label: {

@@ -14,12 +14,14 @@ struct ButtonSlider: View {
     var actionSend: () -> Void
     var actionReceive: () -> Void
     var actionEarn: () -> Void
-    var actionSettings: () -> Void
+    var onPlus: () -> Void
     
     @State var disabled: Bool = false
     
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
+            ActionButton(imageName: "ico_onramp", disabled: disabled, action: onPlus)
+            VerticalLine()
             ActionButton(imageName: "button_slider_send", disabled: disabled, action: actionSend)
             VerticalLine()
             ActionButton(imageName: "button_slider_receive", disabled: disabled, action: actionReceive)
@@ -63,7 +65,7 @@ struct ButtonSlider_Previews: PreviewProvider {
             actionSend: {
             }, actionReceive: {
             }, actionEarn: {
-            }, actionSettings: {
+            }, onPlus: {
             })
     }
 }

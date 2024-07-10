@@ -21,7 +21,8 @@ final class AccountsMainViewModel: ObservableObject {
     @Published var staked = GTU(intValue: 0)
     @Published var isBackupAlertShown = false
         
-    private let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
+    let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
+    
     private var cancellables = [AnyCancellable]()
     private let walletConnectService: WalletConnectService
     private let defaultCIS2TokenManager: DefaultCIS2TokenManager

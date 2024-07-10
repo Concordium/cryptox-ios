@@ -14,6 +14,7 @@
 - Display of balance/ownership when adding CIS-2 tokens
 - Wallet Connect, add `sign message` functionality 
 - Add new Unshield Assets flow
+- Add CCD onramp flow
 
 ### Fixed
 - An issue where signing a text message through WalletConnect did not work
