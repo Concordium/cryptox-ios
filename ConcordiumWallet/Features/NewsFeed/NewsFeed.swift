@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct NewsFeed: View {
     @StateObject var rssFeed = RSSFeed()
@@ -45,7 +46,10 @@ struct NewsFeed: View {
                 .onAppear {
                     rssFeed.fetchRSSFeed()
                 }
+                .clipped()
             }
+            .modifier(AppBackgroundModifier())
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
     
@@ -69,7 +73,7 @@ struct NewsFeed: View {
                 .foregroundColor(.white.opacity(0.8))
                 .multilineTextAlignment(.leading)
             
-            Text(item.pubDate)
+            Text(item.pubDate, style: .date)
                 .font(.satoshi(size: 12, weight: .medium))
                 .foregroundColor(Color(red: 0.62, green: 0.67, blue: 0.66))
                 .multilineTextAlignment(.leading)
@@ -86,26 +90,13 @@ struct NewsFeed: View {
         )
     }
     
-    @ViewBuilder
     private func RSSPostPreview(_ item: RSSItem, size: CGSize) -> some View {
-        VStack {
-            if let imageURL = item.contentURL {
-                AsyncImage(url: imageURL) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: ContentMode.fit)
-                } placeholder: {
-                    ProgressView()
-                }
-            } else if let imageURL = item.thumbnailURL {
-                AsyncImage(url: imageURL) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: ContentMode.fit)
-                } placeholder: {
-                    ProgressView()
-                }
-            }
+        WebImage(url: item.contentURL ?? item.thumbnailURL) { image in
+            image
+                .resizable()
+                .aspectRatio(contentMode: ContentMode.fit)
+        } placeholder: {
+            ProgressView()
         }
         .cornerRadius(10)
         .shadow(radius: 5)

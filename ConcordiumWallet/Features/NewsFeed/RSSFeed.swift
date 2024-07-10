@@ -5,7 +5,7 @@ struct RSSItem: Identifiable {
     let id = UUID()
     let title: String
     let description: String
-    let pubDate: String
+    let pubDate: Date
     let link: URL?
     let contentURL: URL?
     let thumbnailURL: URL?
@@ -26,7 +26,6 @@ class RSSFeed: ObservableObject {
                     self.isLoading = false
                 }
             } catch {
-                debugPrint("Failed to fetch RSS feed: \(error)")
                 isLoading = false
             }
         }
@@ -98,15 +97,30 @@ class RSSParserDelegate: NSObject, XMLParserDelegate {
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
-            let rssItem = RSSItem(
-                title: currentTitle,
-                description: currentDescription,
-                pubDate: currentPubDate,
-                link: currentLink,
-                contentURL: currentContentURL,
-                thumbnailURL: currentThumbnailURL
-            )
-            items.append(rssItem)
+            if let pubDate = DateFormatter.date(fromRSSDateString: currentPubDate) {
+                let rssItem = RSSItem(
+                    title: currentTitle,
+                    description: currentDescription,
+                    pubDate: pubDate,
+                    link: currentLink,
+                    contentURL: currentContentURL,
+                    thumbnailURL: currentThumbnailURL
+                )
+                items.append(rssItem)
+            }
         }
+    }
+}
+
+private extension DateFormatter {
+    static let rssDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "E, d MMM yyyy HH:mm:ss Z"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter
+    }()
+    
+    static func date(fromRSSDateString dateString: String) -> Date? {
+        return rssDateFormatter.date(from: dateString)
     }
 }

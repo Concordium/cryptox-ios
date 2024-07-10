@@ -15,6 +15,7 @@
 - Wallet Connect, add `sign message` functionality 
 - Add new Unshield Assets flow
 - Add CCD onramp flow
+- Add News Tab
 
 ### Fixed
 - An issue where signing a text message through WalletConnect did not work
