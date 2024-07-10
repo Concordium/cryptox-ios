@@ -14,7 +14,7 @@ struct RSSItem: Identifiable {
 class RSSFeed: ObservableObject {
     @Published var items: [RSSItem] = []
     @Published var isLoading: Bool = true
-        
+    
     @MainActor
     func fetchRSSFeed() {
         Task {
@@ -32,7 +32,7 @@ class RSSFeed: ObservableObject {
     }
     
     private func fetchRSSFeedItems() async throws -> [RSSItem] {
-        guard let url = URL(string: "https://www.concordium.com/test-collection-for-oleg/rss.xml") else { return [] }
+        guard let url = URL(string: "https://concordium-4926ab-5553023-28e7dbd644046.webflow.io/article/rss.xml") else { return [] }
         
         let (data, _) = try await URLSession.shared.data(from: url)
         let parser = XMLParser(data: data)
@@ -53,6 +53,7 @@ class RSSParserDelegate: NSObject, XMLParserDelegate {
     var currentLink: URL?
     var currentContentURL: URL?
     var currentThumbnailURL: URL?
+    let maxItems = 10
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         currentElement = elementName
@@ -97,6 +98,11 @@ class RSSParserDelegate: NSObject, XMLParserDelegate {
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
+            if items.count >= maxItems {
+                parser.abortParsing()
+                return
+            }
+            
             if let pubDate = DateFormatter.date(fromRSSDateString: currentPubDate) {
                 let rssItem = RSSItem(
                     title: currentTitle,

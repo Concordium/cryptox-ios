@@ -60,6 +60,7 @@ struct NewsFeed: View {
                     .font(.satoshi(size: 18, weight: .bold))
                     .foregroundColor(.white.opacity(0.8))
                     .multilineTextAlignment(.leading)
+                    .padding(.trailing, 16)
                     Spacer()
             }
             .overlay(alignment: .topTrailing) {
@@ -72,6 +73,7 @@ struct NewsFeed: View {
                 .font(.satoshi(size: 14, weight: .regular))
                 .foregroundColor(.white.opacity(0.8))
                 .multilineTextAlignment(.leading)
+                .opacity(item.description.isEmpty ? 0 : 1.0)
             
             Text(item.pubDate, style: .date)
                 .font(.satoshi(size: 12, weight: .medium))
