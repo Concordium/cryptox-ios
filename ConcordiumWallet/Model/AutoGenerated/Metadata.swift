@@ -11,6 +11,7 @@ struct Metadata: Codable {
     let issuanceStart: String
     let recoveryStart: String?
     let icon: String
+    let display: String?
 }
 
 // MARK: Metadata convenience initializers and mutators
@@ -35,13 +36,15 @@ extension Metadata {
         support: String?? = nil,
         issuanceStart: String? = nil,
         recoveryStart: String? = nil,
-        icon: String? = nil
+        icon: String? = nil,
+        display: String? = nil
     ) -> Metadata {
         return Metadata(
             support: support ?? self.support,
             issuanceStart: issuanceStart ?? self.issuanceStart,
             recoveryStart: recoveryStart ?? self.recoveryStart,
-            icon: icon ?? self.icon
+            icon: icon ?? self.icon,
+            display: display ?? self.display
         )
     }
 
