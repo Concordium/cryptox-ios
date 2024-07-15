@@ -191,7 +191,8 @@ extension ExportIdentityData {
             support: identityProvider.support,
             issuanceStart: identityProvider.issuanceStartURL,
             recoveryStart: identityProvider.recoveryStartURL,
-            icon: identityProvider.icon
+            icon: identityProvider.icon,
+            display: identityProvider.ipInfo?.ipDescription.name
         )
       
         let identityProviderElm = IPInfoResponseElement(ipInfo: ipInfo, arsInfos: arsInfo, metadata: ipMetaData)

@@ -60,7 +60,7 @@ class IdentityProviderViewModel: IdentityGeneralViewModel {
 
     convenience init(ipInfo: IPInfoResponseElement) {
         let id = ipInfo.ipInfo.ipIdentity
-        let name = ipInfo.ipInfo.ipDescription.name
+        let name = ipInfo.displayName
         let encodedIcon = ipInfo.metadata.icon
         let url = ipInfo.ipInfo.ipDescription.url
 
