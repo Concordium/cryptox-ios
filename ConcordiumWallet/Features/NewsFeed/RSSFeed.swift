@@ -32,8 +32,7 @@ class RSSFeed: ObservableObject {
     }
     
     private func fetchRSSFeedItems() async throws -> [RSSItem] {
-        guard let url = URL(string: "https://www.concordium.com/cryptox-news/rss.xml") else { return [] }
-        let (data, _) = try await URLSession.shared.data(from: url)
+        let (data, _) = try await URLSession.shared.data(from: AppConstants.rssFeedURL)
         let parser = XMLParser(data: data)
         let rssParserDelegate = RSSParserDelegate()
         parser.delegate = rssParserDelegate
