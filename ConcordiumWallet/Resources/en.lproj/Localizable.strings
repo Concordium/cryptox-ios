@@ -12,6 +12,7 @@ no = "No"; /*  */
 close = "Close"; /*  */
 start = "Start"; /*  */
 accounts_tab_title = "Accounts"; /*  */
+news_tab_title = "News"; /*  */
 collections_tab_title = "NFT"; /*  */
 identities_tab_title = "Identities"; /*  */
 more_tab_title = "More"; /*  */

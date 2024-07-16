@@ -8,6 +8,10 @@
 
 import SwiftUI
 
+enum MainTabs: Int {
+    case accounts, news, nft, more
+}
+
 struct MainPromoView: View {
     let keychain: KeychainWrapperProtocol
     let identitiesService: SeedIdentitiesService
@@ -19,7 +23,7 @@ struct MainPromoView: View {
     @State var isCreateSeedPhraseFlowShown = false
     
     @State var isCreateIdentityFlowShown = false
-    @State private var selection = 0
+    @State private var selection = MainTabs.accounts
     
     @EnvironmentObject var sanityChecker: SanityChecker
     
@@ -45,38 +49,33 @@ struct MainPromoView: View {
                         .tint(Color.Neutral.tint1)
                         .font(Font.plexSans(size: 12, weight: .regular))
                 }
-                .tag(0)
+                .tag(MainTabs.accounts)
+            NewsFeed()
+                .tabItem {
+                    Label("News", image: "tab_item_news")
+                        .tint(Color.Neutral.tint1)
+                        .font(Font.plexSans(size: 12, weight: .regular))
+                }
+                .tag(MainTabs.news)
             Text("collections_tab_title".localized)
                 .tabItem {
                     Label("collections_tab_title".localized, image: "tab_item_nft")
                         .tint(Color.Neutral.tint1)
                         .font(Font.plexSans(size: 12, weight: .regular))
                 }
-                .tag(1)
-//            Text("Assistant")
-//                .tabItem {
-//                    Label("Assistant", image: "tab_item_assistant")
-//                        .tint(Color.Neutral.tint1)
-//                        .font(Font.plexSans(size: 12, weight: .regular))
-//                }
-//            Text("Notifications")
-//                .tabItem {
-//                    Label("Notifications", image: "tab_item_notifications")
-//                        .tint(Color.Neutral.tint1)
-//                        .font(Font.plexSans(size: 12, weight: .regular))
-//                }
+                .tag(MainTabs.nft)
             MoreTab(identitiesService: identitiesService, onLogout: onLogout)
                 .tabItem {
                     Label("more_tab_title", image: "tab_item_more")
                         .tint(Color.Neutral.tint1)
                         .font(Font.plexSans(size: 12, weight: .regular))
                 }
-                .tag(2)
+                .tag(MainTabs.more)
         }
         .modifier(AppBackgroundModifier())
         .onChange(of: selection) { _ in
-            if selection == 1 {
-                selection = 0
+            if selection == MainTabs.nft {
+                selection = .accounts
                 isCreateAccountSheetShown = true
             }
         }

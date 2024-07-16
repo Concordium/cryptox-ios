@@ -1981,6 +1981,12 @@
 		509749DC2C3D25E800D28D6B /* OnrampAccountPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749DB2C3D25E800D28D6B /* OnrampAccountPicker.swift */; };
 		509749DD2C3D25E800D28D6B /* OnrampAccountPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749DB2C3D25E800D28D6B /* OnrampAccountPicker.swift */; };
 		509749DE2C3D25E800D28D6B /* OnrampAccountPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749DB2C3D25E800D28D6B /* OnrampAccountPicker.swift */; };
+		509749E12C3E863B00D28D6B /* NewsFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749E02C3E863B00D28D6B /* NewsFeed.swift */; };
+		509749E22C3E863B00D28D6B /* NewsFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749E02C3E863B00D28D6B /* NewsFeed.swift */; };
+		509749E32C3E863B00D28D6B /* NewsFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749E02C3E863B00D28D6B /* NewsFeed.swift */; };
+		509749E52C3E886C00D28D6B /* RSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749E42C3E886C00D28D6B /* RSSFeed.swift */; };
+		509749E62C3E886C00D28D6B /* RSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749E42C3E886C00D28D6B /* RSSFeed.swift */; };
+		509749E72C3E886C00D28D6B /* RSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749E42C3E886C00D28D6B /* RSSFeed.swift */; };
 		50D3890D2C05D66A00B3675A /* ConfirmAccountCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE952A026B6400042957 /* ConfirmAccountCreateViewController.swift */; };
 		50D3890E2C05D66A00B3675A /* ConfirmAccountCreatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE972A026B6500042957 /* ConfirmAccountCreatePresenter.swift */; };
 		50D3890F2C05D66B00B3675A /* ConfirmAccountCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE952A026B6400042957 /* ConfirmAccountCreateViewController.swift */; };
@@ -3175,6 +3181,8 @@
 		509749D32C3C241B00D28D6B /* ProviderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderView.swift; sourceTree = "<group>"; };
 		509749D72C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCDOnrampViewDataProvider.swift; sourceTree = "<group>"; };
 		509749DB2C3D25E800D28D6B /* OnrampAccountPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnrampAccountPicker.swift; sourceTree = "<group>"; };
+		509749E02C3E863B00D28D6B /* NewsFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeed.swift; sourceTree = "<group>"; };
+		509749E42C3E886C00D28D6B /* RSSFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeed.swift; sourceTree = "<group>"; };
 		50D3891C2C107C1E00B3675A /* TokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenView.swift; sourceTree = "<group>"; };
 		50D389222C107C7500B3675A /* CustomSVGDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSVGDecoder.swift; sourceTree = "<group>"; };
 		50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldedAccountsView.swift; sourceTree = "<group>"; };
@@ -3746,6 +3754,7 @@
 		088FEC682A01483D00042957 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				509749DF2C3E862500D28D6B /* NewsFeed */,
 				509749CE2C3C0D2B00D28D6B /* OnrampFlow */,
 				50EB30FD2BFBA113002B2558 /* UnshieldAssetsFlow */,
 				08520A4B2B45B56F008DC851 /* SwiftUIComponents */,
@@ -5242,6 +5251,15 @@
 				509749DB2C3D25E800D28D6B /* OnrampAccountPicker.swift */,
 			);
 			path = OnrampFlow;
+			sourceTree = "<group>";
+		};
+		509749DF2C3E862500D28D6B /* NewsFeed */ = {
+			isa = PBXGroup;
+			children = (
+				509749E02C3E863B00D28D6B /* NewsFeed.swift */,
+				509749E42C3E886C00D28D6B /* RSSFeed.swift */,
+			);
+			path = NewsFeed;
 			sourceTree = "<group>";
 		};
 		50D3891B2C107C1400B3675A /* ImportToken */ = {
@@ -6990,6 +7008,7 @@
 				08C167602BB7396200E61326 /* NFTDataItemCell.swift in Sources */,
 				08C167612BB7396200E61326 /* RecoveryPhraseRecoverIntroPresenter.swift in Sources */,
 				08C167622BB7396200E61326 /* RecoveryPhraseGettingStartedViewModel.swift in Sources */,
+				509749E32C3E863B00D28D6B /* NewsFeed.swift in Sources */,
 				08C167632BB7396200E61326 /* SubmitSeedAccountPresenter.swift in Sources */,
 				08C167642BB7396200E61326 /* WarningDisplayer.swift in Sources */,
 				08C167652BB7396200E61326 /* SelectIdentityProviderViewModel.swift in Sources */,
@@ -7399,6 +7418,7 @@
 				08C168ED2BB7396200E61326 /* AccountMultiBalanceCell.swift in Sources */,
 				08C168EE2BB7396200E61326 /* QRTransactionView.swift in Sources */,
 				08C168EF2BB7396200E61326 /* UserDefaults+Helper.swift in Sources */,
+				509749E72C3E886C00D28D6B /* RSSFeed.swift in Sources */,
 				08C168F02BB7396200E61326 /* Model+Transaction.swift in Sources */,
 				08C168F12BB7396200E61326 /* EncryptionMetadata.swift in Sources */,
 				08C168F22BB7396200E61326 /* RecoveryPhraseSetupCompletePresenter.swift in Sources */,
@@ -7682,6 +7702,7 @@
 				D5E6CBDA290F4771009856B7 /* NFTDataItemCell.swift in Sources */,
 				088FF0CC2A02846700042957 /* RecoveryPhraseRecoverIntroPresenter.swift in Sources */,
 				088FF1262A0284F600042957 /* RecoveryPhraseGettingStartedViewModel.swift in Sources */,
+				509749E22C3E863B00D28D6B /* NewsFeed.swift in Sources */,
 				088FEFBF2A02717E00042957 /* SubmitSeedAccountPresenter.swift in Sources */,
 				08B16F0B2A0118E1002E6B33 /* WarningDisplayer.swift in Sources */,
 				088FEFF32A0271D500042957 /* SelectIdentityProviderViewModel.swift in Sources */,
@@ -8091,6 +8112,7 @@
 				52589B2925128F8700ADD35B /* AccountMultiBalanceCell.swift in Sources */,
 				D5B393EB27197A960094A9F5 /* QRTransactionView.swift in Sources */,
 				088FF15F2A02895A00042957 /* UserDefaults+Helper.swift in Sources */,
+				509749E62C3E886C00D28D6B /* RSSFeed.swift in Sources */,
 				D589F3402794B7DD003F2FBB /* Model+Transaction.swift in Sources */,
 				D589F1F92794B5ED003F2FBB /* EncryptionMetadata.swift in Sources */,
 				088FF0F32A0284A700042957 /* RecoveryPhraseSetupCompletePresenter.swift in Sources */,
@@ -8374,6 +8396,7 @@
 				08B16F092A0118E1002E6B33 /* WarningDisplayer.swift in Sources */,
 				08A0447B29FA987700DACE1F /* SeedIdentityObject.swift in Sources */,
 				088FEFB92A02717D00042957 /* SubmitSeedAccountPresenter.swift in Sources */,
+				509749E12C3E863B00D28D6B /* NewsFeed.swift in Sources */,
 				088FF0C62A02846600042957 /* RecoveryPhraseRecoverIntroPresenter.swift in Sources */,
 				088FF1202A0284F500042957 /* RecoveryPhraseGettingStartedViewModel.swift in Sources */,
 				08DB5E382BC6C2DF00C29663 /* DelegationInputPresenter.swift in Sources */,
@@ -8783,6 +8806,7 @@
 				644BB67E25DFB4630086ED48 /* ConcordiumApplication.swift in Sources */,
 				D589F33E2794B7DD003F2FBB /* Model+Transaction.swift in Sources */,
 				088FF15D2A02895A00042957 /* UserDefaults+Helper.swift in Sources */,
+				509749E52C3E886C00D28D6B /* RSSFeed.swift in Sources */,
 				D589F1F72794B5ED003F2FBB /* EncryptionMetadata.swift in Sources */,
 				D5E2974C276C8C19000DB102 /* AppConstants.swift in Sources */,
 				088FF0ED2A0284A600042957 /* RecoveryPhraseSetupCompletePresenter.swift in Sources */,

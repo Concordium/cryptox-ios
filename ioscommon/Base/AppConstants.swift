@@ -18,4 +18,6 @@ struct AppConstants {
         static let contact = "contact@concordium.software"
         static let support = "support@concordium.software"
     }
+    
+    static let rssFeedURL = URL(string: "https://www.concordium.com/cryptox-news/rss.xml")!
 }
