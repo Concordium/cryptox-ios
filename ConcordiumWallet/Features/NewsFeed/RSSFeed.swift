@@ -32,14 +32,12 @@ class RSSFeed: ObservableObject {
     }
     
     private func fetchRSSFeedItems() async throws -> [RSSItem] {
-        guard let url = URL(string: "https://concordium-4926ab-5553023-28e7dbd644046.webflow.io/article/rss.xml") else { return [] }
-        
+        guard let url = URL(string: "https://www.concordium.com/cryptox-news/rss.xml") else { return [] }
         let (data, _) = try await URLSession.shared.data(from: url)
         let parser = XMLParser(data: data)
         let rssParserDelegate = RSSParserDelegate()
         parser.delegate = rssParserDelegate
         parser.parse()
-        
         return rssParserDelegate.items
     }
 }
