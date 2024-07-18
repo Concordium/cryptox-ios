@@ -20,4 +20,13 @@ struct AppConstants {
     }
     
     static let rssFeedURL = URL(string: "https://www.concordium.com/cryptox-news/rss.xml")!
+    
+    struct MatomoTracker {
+        static let baseUrl: String = "https://concordium.matomo.cloud/matomo.php"
+        static let siteId = "9"
+        static let versionCustomDimensionId: Int = 1
+        static let networkCustomDimensionId: Int = 2
+        
+        static let migratedFromFourPointFourSharedInstance = "migratedFromFourPointFourSharedInstance"
+    }
 }

@@ -1987,6 +1987,15 @@
 		509749E52C3E886C00D28D6B /* RSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749E42C3E886C00D28D6B /* RSSFeed.swift */; };
 		509749E62C3E886C00D28D6B /* RSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749E42C3E886C00D28D6B /* RSSFeed.swift */; };
 		509749E72C3E886C00D28D6B /* RSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749E42C3E886C00D28D6B /* RSSFeed.swift */; };
+		509749EB2C491A0D00D28D6B /* MatomoTracker in Frameworks */ = {isa = PBXBuildFile; productRef = 509749EA2C491A0D00D28D6B /* MatomoTracker */; };
+		509749ED2C491A6100D28D6B /* MatomoTracker in Frameworks */ = {isa = PBXBuildFile; productRef = 509749EC2C491A6100D28D6B /* MatomoTracker */; };
+		509749EF2C491A6800D28D6B /* MatomoTracker in Frameworks */ = {isa = PBXBuildFile; productRef = 509749EE2C491A6800D28D6B /* MatomoTracker */; };
+		509749F12C49203200D28D6B /* MatomoTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749F02C49203200D28D6B /* MatomoTracker.swift */; };
+		509749F22C49203200D28D6B /* MatomoTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749F02C49203200D28D6B /* MatomoTracker.swift */; };
+		509749F32C49203200D28D6B /* MatomoTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749F02C49203200D28D6B /* MatomoTracker.swift */; };
+		509749F52C49207400D28D6B /* UserDefaultsQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749F42C49207400D28D6B /* UserDefaultsQueue.swift */; };
+		509749F62C49207400D28D6B /* UserDefaultsQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749F42C49207400D28D6B /* UserDefaultsQueue.swift */; };
+		509749F72C49207400D28D6B /* UserDefaultsQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749F42C49207400D28D6B /* UserDefaultsQueue.swift */; };
 		50D3890D2C05D66A00B3675A /* ConfirmAccountCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE952A026B6400042957 /* ConfirmAccountCreateViewController.swift */; };
 		50D3890E2C05D66A00B3675A /* ConfirmAccountCreatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE972A026B6500042957 /* ConfirmAccountCreatePresenter.swift */; };
 		50D3890F2C05D66B00B3675A /* ConfirmAccountCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE952A026B6400042957 /* ConfirmAccountCreateViewController.swift */; };
@@ -3183,6 +3192,8 @@
 		509749DB2C3D25E800D28D6B /* OnrampAccountPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnrampAccountPicker.swift; sourceTree = "<group>"; };
 		509749E02C3E863B00D28D6B /* NewsFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeed.swift; sourceTree = "<group>"; };
 		509749E42C3E886C00D28D6B /* RSSFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeed.swift; sourceTree = "<group>"; };
+		509749F02C49203200D28D6B /* MatomoTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatomoTracker.swift; sourceTree = "<group>"; };
+		509749F42C49207400D28D6B /* UserDefaultsQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsQueue.swift; sourceTree = "<group>"; };
 		50D3891C2C107C1E00B3675A /* TokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenView.swift; sourceTree = "<group>"; };
 		50D389222C107C7500B3675A /* CustomSVGDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSVGDecoder.swift; sourceTree = "<group>"; };
 		50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldedAccountsView.swift; sourceTree = "<group>"; };
@@ -3462,6 +3473,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				509749EF2C491A6800D28D6B /* MatomoTracker in Frameworks */,
 				08C169102BB7396200E61326 /* SDWebImageSwiftUI in Frameworks */,
 				08C169122BB7396200E61326 /* SwiftCBOR in Frameworks */,
 				08C169132BB7396200E61326 /* RealmSwift in Frameworks */,
@@ -3483,6 +3495,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				509749ED2C491A6100D28D6B /* MatomoTracker in Frameworks */,
 				5059C9B52C00CF1200E40307 /* SDWebImageSwiftUI in Frameworks */,
 				08A0441329FA885300DACE1F /* SwiftCBOR in Frameworks */,
 				08A0441129FA884F00DACE1F /* RealmSwift in Frameworks */,
@@ -3504,6 +3517,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				509749EB2C491A0D00D28D6B /* MatomoTracker in Frameworks */,
 				5059C9B72C00CF1700E40307 /* SDWebImageSwiftUI in Frameworks */,
 				08A0442129FA892F00DACE1F /* Base58Swift in Frameworks */,
 				083505002A9E3DFA000D5175 /* SDWebImageSVGCoder in Frameworks */,
@@ -5262,6 +5276,15 @@
 			path = NewsFeed;
 			sourceTree = "<group>";
 		};
+		509749E82C49195900D28D6B /* Tracking */ = {
+			isa = PBXGroup;
+			children = (
+				509749F02C49203200D28D6B /* MatomoTracker.swift */,
+				509749F42C49207400D28D6B /* UserDefaultsQueue.swift */,
+			);
+			path = Tracking;
+			sourceTree = "<group>";
+		};
 		50D3891B2C107C1400B3675A /* ImportToken */ = {
 			isa = PBXGroup;
 			children = (
@@ -5274,6 +5297,7 @@
 		50D389202C107C6000B3675A /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				509749E82C49195900D28D6B /* Tracking */,
 				50D389212C107C6900B3675A /* ThirdParty */,
 			);
 			path = Core;
@@ -6108,6 +6132,7 @@
 				08C1666D2BB7396200E61326 /* JDStatusBarNotification */,
 				08C1666F2BB7396200E61326 /* SDWebImageSwiftUI */,
 				08C166712BB7396200E61326 /* SDWebImageSVGCoder */,
+				509749EE2C491A6800D28D6B /* MatomoTracker */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 08C169C22BB7396200E61326 /* ProdTestNet.app */;
@@ -6142,6 +6167,7 @@
 				089FF0EB2A4F4D01007AB1CF /* JDStatusBarNotification */,
 				083505062A9F4F14000D5175 /* SDWebImageSVGCoder */,
 				5059C9B42C00CF1200E40307 /* SDWebImageSwiftUI */,
+				509749EC2C491A6100D28D6B /* MatomoTracker */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
@@ -6176,6 +6202,7 @@
 				089FF0E92A4F4CF0007AB1CF /* JDStatusBarNotification */,
 				083504FF2A9E3DFA000D5175 /* SDWebImageSVGCoder */,
 				5059C9B62C00CF1700E40307 /* SDWebImageSwiftUI */,
+				509749EA2C491A0D00D28D6B /* MatomoTracker */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
@@ -6241,6 +6268,7 @@
 				089FF0E82A4F4CF0007AB1CF /* XCRemoteSwiftPackageReference "JDStatusBarNotification" */,
 				083504FE2A9E3DF9000D5175 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 				5076296A2BF2573D00B4D390 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				509749E92C491A0D00D28D6B /* XCRemoteSwiftPackageReference "matomo-sdk-ios" */,
 			);
 			productRefGroup = 7FF07A6A23EADB1200F1FC04 /* Products */;
 			projectDirPath = "";
@@ -6948,6 +6976,7 @@
 				08C167212BB7396200E61326 /* UITapGestureRecognizer.swift in Sources */,
 				08C167222BB7396200E61326 /* UIViewController+Additions.swift in Sources */,
 				08C167232BB7396200E61326 /* AddMemoViewController.swift in Sources */,
+				509749F72C49207400D28D6B /* UserDefaultsQueue.swift in Sources */,
 				08C167242BB7396200E61326 /* CredentialHolderInformation.swift in Sources */,
 				08C167252BB7396200E61326 /* XButton.swift in Sources */,
 				08C167262BB7396200E61326 /* RecoveryPhraseInputView.swift in Sources */,
@@ -7059,6 +7088,7 @@
 				08C167922BB7396200E61326 /* ExportIdentityData.swift in Sources */,
 				08C167932BB7396200E61326 /* SeedIdentityStatusPresenter.swift in Sources */,
 				08C167942BB7396200E61326 /* ImportLegacyWalletInfo.swift in Sources */,
+				509749F32C49203200D28D6B /* MatomoTracker.swift in Sources */,
 				08C167952BB7396200E61326 /* AddMemoPresenter.swift in Sources */,
 				08C167962BB7396200E61326 /* SeedIdentitiesCoordinator.swift in Sources */,
 				08C167972BB7396200E61326 /* IPArDatum.swift in Sources */,
@@ -7642,6 +7672,7 @@
 				088FF08A2A027AE400042957 /* UITapGestureRecognizer.swift in Sources */,
 				7F85B813246A9AB600ED09B8 /* UIViewController+Additions.swift in Sources */,
 				088FF2772A02AE8500042957 /* AddMemoViewController.swift in Sources */,
+				509749F62C49207400D28D6B /* UserDefaultsQueue.swift in Sources */,
 				08A045E129FA99D200DACE1F /* CredentialHolderInformation.swift in Sources */,
 				088FF28F2A02C8C200042957 /* XButton.swift in Sources */,
 				088FF0C12A02846100042957 /* RecoveryPhraseInputView.swift in Sources */,
@@ -7753,6 +7784,7 @@
 				D589F2012794B5ED003F2FBB /* ExportIdentityData.swift in Sources */,
 				088FEFD52A0271AB00042957 /* SeedIdentityStatusPresenter.swift in Sources */,
 				0835F9AC2B5FCE4500D3716F /* ImportLegacyWalletInfo.swift in Sources */,
+				509749F22C49203200D28D6B /* MatomoTracker.swift in Sources */,
 				088FF2762A02AE8500042957 /* AddMemoPresenter.swift in Sources */,
 				088FF00F2A0271F700042957 /* SeedIdentitiesCoordinator.swift in Sources */,
 				08A045ED29FA99D200DACE1F /* IPArDatum.swift in Sources */,
@@ -8336,6 +8368,7 @@
 				088FF2752A02AE8400042957 /* AddMemoViewController.swift in Sources */,
 				088FF08B2A027AE400042957 /* UITapGestureRecognizer.swift in Sources */,
 				088FF28D2A02C8C200042957 /* XButton.swift in Sources */,
+				509749F52C49207400D28D6B /* UserDefaultsQueue.swift in Sources */,
 				D5BA052829148BFB00AC780A /* Model+Airdrop.swift in Sources */,
 				088FF2362A02A98F00042957 /* SelectRecipientPresenter.swift in Sources */,
 				088FF0BB2A02846000042957 /* RecoveryPhraseInputView.swift in Sources */,
@@ -8447,6 +8480,7 @@
 				7FF07AEE23EB075D00F1FC04 /* Storyboarded.swift in Sources */,
 				0835F9AB2B5FCE4500D3716F /* ImportLegacyWalletInfo.swift in Sources */,
 				08A0455529FA99D100DACE1F /* IPArDatum.swift in Sources */,
+				509749F12C49203200D28D6B /* MatomoTracker.swift in Sources */,
 				088FEFCF2A0271AA00042957 /* SeedIdentityStatusPresenter.swift in Sources */,
 				08A0456929FA99D100DACE1F /* CurrentPaydayStatus.swift in Sources */,
 				FA7C079F26C5AFF3008714CB /* ConnectionRequestVC.swift in Sources */,
@@ -9496,6 +9530,14 @@
 				minimumVersion = 3.0.4;
 			};
 		};
+		509749E92C491A0D00D28D6B /* XCRemoteSwiftPackageReference "matomo-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/matomo-org/matomo-sdk-ios.git";
+			requirement = {
+				kind = exactVersion;
+				version = 7.6.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -9693,6 +9735,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5076296A2BF2573D00B4D390 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		509749EA2C491A0D00D28D6B /* MatomoTracker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 509749E92C491A0D00D28D6B /* XCRemoteSwiftPackageReference "matomo-sdk-ios" */;
+			productName = MatomoTracker;
+		};
+		509749EC2C491A6100D28D6B /* MatomoTracker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 509749E92C491A0D00D28D6B /* XCRemoteSwiftPackageReference "matomo-sdk-ios" */;
+			productName = MatomoTracker;
+		};
+		509749EE2C491A6800D28D6B /* MatomoTracker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 509749E92C491A0D00D28D6B /* XCRemoteSwiftPackageReference "matomo-sdk-ios" */;
+			productName = MatomoTracker;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
