@@ -25,3 +25,30 @@ extension MatomoTracker {
         UserDefaults.standard.set(true, forKey: AppConstants.MatomoTracker.migratedFromFourPointFourSharedInstance)
     }
 }
+
+protocol Track {
+    static func track(view: [String])
+    
+    /// `trackContentInteraction` used to track user interaction with UI elements
+    /// - Parameters:
+    ///   - name: View name where interaction was initiated
+    ///   - interaction: Interaction Type. predefined actions list
+    ///   - piece: Interaction description: eg "Copy to clipboard"
+    ///   - target: optinal value for target action
+    static func trackContentInteraction(name: String, interaction: Tracker.InteractionType, piece: String?, target: String?)
+}
+
+struct Tracker: Track {
+    enum InteractionType: String {
+        case clicked, checked, entered
+    }
+    // Convenience method override, to avoid `import MatomoTracker` everywhere
+    static func track(view: [String]) {
+        MatomoTracker.shared.track(view: view)
+    }
+    
+    // Convenience method override, to avoid `import MatomoTracker` everywhere
+    static func trackContentInteraction(name: String, interaction: Tracker.InteractionType, piece: String? = nil, target: String? = nil) {
+        MatomoTracker.shared.trackContentInteraction(name: name, interaction: interaction.rawValue, piece: piece, target: target)
+    }
+}

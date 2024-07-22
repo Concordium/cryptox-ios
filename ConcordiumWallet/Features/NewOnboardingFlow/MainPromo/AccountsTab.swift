@@ -56,7 +56,10 @@ struct AccountsTab: View {
                     }
                 
                 VStack(spacing: 8) {
-                    Button(action: { isCreateAccountSheetShown.toggle() }, label: {
+                    Button(action: {
+                        isCreateAccountSheetShown.toggle()
+                        Tracker.trackContentInteraction(name: "Home screen", interaction: .clicked, piece: "Activate account")
+                    }, label: {
                         HStack {
                             Text("activate_account_btn_title".localized)
                                 .font(Font.satoshi(size: 16, weight: .medium))
