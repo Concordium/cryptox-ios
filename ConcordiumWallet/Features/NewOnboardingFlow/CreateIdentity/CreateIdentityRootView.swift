@@ -35,6 +35,7 @@ struct CreateIdentityRootView: View {
                     PasscodeView(keychain: keychain, sanityChecker: sanityChecker) { pwHash in
                         self.viewState = .createSeedPhrase(pwHash)
                     }
+                    .onAppear { Tracker.track(view: ["Create passcode"]) }
                 case .createSeedPhrase(let pwHash):
                     CreateSeedPhraseView(
                         viewModel: .init(pwHash: pwHash, identitiesService: identitiesService),

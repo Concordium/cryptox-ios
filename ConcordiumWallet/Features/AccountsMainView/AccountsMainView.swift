@@ -130,6 +130,7 @@ struct AccountsMainView: View {
                         Spacer()
                         Button {
                             self.router?.showCreateAccountFlow()
+                            Tracker.trackContentInteraction(name: "Home screen", interaction: .clicked, piece: "Create account")
                         } label: {
                             Text("accounts.createNewAccount".localized)
                         }
@@ -297,6 +298,7 @@ struct AccountsMainView: View {
         .sheet(isPresented: $onRampFlowShown, content: {
             CCDOnrampView(dependencyProvider: viewModel.dependencyProvider)
         })
+        .onAppear { Tracker.track(view: ["Home screen"]) }
     }
     
     private func OnRampAnchorView() -> some View {

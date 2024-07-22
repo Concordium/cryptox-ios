@@ -50,6 +50,7 @@ final class IdentityVerificationViewModel: ObservableObject {
     }
     
     func selectIdentityProvider(_ ipData: IPInfoResponseElement, pwHash: String) {
+        Tracker.trackContentInteraction(name: "Identity verification", interaction: .clicked, piece: "\(ipData.displayName)")
         self.selectedidentity = ipData
         PermissionHelper.requestAccess(for: .camera) { [weak self] permissionGranted in
             guard let self = self else { return }

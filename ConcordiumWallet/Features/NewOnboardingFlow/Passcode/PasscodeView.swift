@@ -64,6 +64,7 @@ class PasscodeViewModel: ObservableObject {
                     clearPin()
                 case .repeatPasscode(let array):
                     if array == pin {
+                        Tracker.trackContentInteraction(name: "Create passcode", interaction: .entered, piece: "Successful 6 digit passcode")
                         keychain.storePassword(password: convertPinToString(array))
                             .onSuccess { [weak self] pwHash in
                                 self?.pwHash = pwHash
@@ -164,6 +165,7 @@ extension PasscodeViewModel {
                     localizedReason: myLocalizedReasonString) { success, _ in
                 DispatchQueue.main.async {
                     if success {
+                        Tracker.trackContentInteraction(name: "Dialog: enable biometrics", interaction: .clicked, piece: "success")
                         self.keychain.storePasswordBehindBiometrics(pwHash: self.pwHash ?? "")
                             .receive(on: DispatchQueue.main)
                             .sink(receiveError: { _ in }, receiveValue: { [weak self] _ in
@@ -171,11 +173,14 @@ extension PasscodeViewModel {
                                 self?.onSuccess(self?.pwHash ?? "")
                             })
                             .store(in: &self.cancellables)
+                    } else {
+                        Tracker.trackContentInteraction(name: "Dialog: enable biometrics", interaction: .clicked, piece: "not allowed")
                     }
                 }
             }
         } else {
             error = .noCameraAccess
+            Tracker.trackContentInteraction(name: "Dialog: enable biometrics", interaction: .clicked, piece: "error")
         }
     }
     
@@ -304,6 +309,7 @@ struct PasscodeView: View {
         .cornerRadius(20, corners: .allCorners)
         .clipped()
         .padding(.horizontal, 32)
+        .onAppear { Tracker.track(view: ["enable biometrics"]) }
     }
        
     @ViewBuilder

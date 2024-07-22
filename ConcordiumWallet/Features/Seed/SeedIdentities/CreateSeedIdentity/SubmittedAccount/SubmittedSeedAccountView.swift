@@ -27,6 +27,7 @@ struct SubmittedSeedAccountView: Page {
                     Spacer()
                     Button(viewModel.finishAccount) {
                         viewModel.send(.finishAccount)
+                        Tracker.trackContentInteraction(name: "Account submitted", interaction: .clicked, piece: "Finish")
                     }.applyStandardButtonStyle()
                 }.padding(.init(top: 10, leading: 16, bottom: 30, trailing: 16))
             }
