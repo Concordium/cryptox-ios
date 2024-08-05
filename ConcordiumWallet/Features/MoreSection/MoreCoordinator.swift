@@ -6,6 +6,7 @@
 import Foundation
 import UIKit
 import Combine
+import SwiftUI
 
 protocol MoreCoordinatorDelegate: IdentitiesCoordinatorDelegate {
     func logoutAccounts()
@@ -136,6 +137,15 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
         updatePasswordCoordinator.start()
     }
     
+    // MARK: Analytics
+    
+    func showAnalytics() {
+        let analyticsVc = UIHostingController(rootView: AnalyticsView())
+        analyticsVc.title = "Analytics"
+        navigationController.pushViewController(analyticsVc, animated: true)
+    }
+    
+    
     // MARK: About
     func showAbout() {
         let vc = AboutFactory.create(with: AboutPresenter(delegate: self))
@@ -210,6 +220,10 @@ extension MoreCoordinator: MoreMenuPresenterDelegate {
         let vc = presenter.present(IdentityReccoveryStatusView.self)
         vc.modalPresentationStyle = .overFullScreen
         navigationController.present(vc, animated: true)
+    }
+    
+    func analyticsSelected() {
+        showAnalytics()
     }
     
     func aboutSelected() {

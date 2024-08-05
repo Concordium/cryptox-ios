@@ -197,5 +197,6 @@ extension AppDelegate {
         
         MatomoTracker.shared.setDimension(version, forIndex: AppConstants.MatomoTracker.versionCustomDimensionId)
         MatomoTracker.shared.setDimension(Net.current.rawValue, forIndex: AppConstants.MatomoTracker.networkCustomDimensionId)
+        MatomoTracker.shared.isOptedOut = !UserDefaults.bool(forKey: "isAnalyticsEnabled")
     }
 }

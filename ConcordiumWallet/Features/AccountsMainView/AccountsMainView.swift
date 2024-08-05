@@ -227,72 +227,18 @@ struct AccountsMainView: View {
         }
         .overlay(alignment: .center) {
             if isShouldShowSunsetShieldingView {
-                ZStack {
-                    LinearGradient(gradient: Gradient(colors: [.black.opacity(0.6), .black.opacity(0.8)]), startPoint: .top, endPoint: .bottom).ignoresSafeArea(.all)
-                    
-                    ZStack {
-                        VStack(spacing: 16) {
-                            Image("unshield_popup_icon")
-                            VStack(spacing: 8) {
-                                Text("Transaction Shielding is\ngoing away")
-                                    .font(.satoshi(size: 20, weight: .medium))
-                                    .multilineTextAlignment(.center)
-                                    .foregroundColor(Color(red: 0.08, green: 0.09, blue: 0.11))
-                                Text("We recommend that you unshield any\nShielded balance today.")
-                                    .font(.satoshi(size: 14, weight: .regular))
-                                    .multilineTextAlignment(.center)
-                                    .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
-                                    .frame(maxWidth: .infinity, alignment: .top)
-                            }
-                            Button {
-                                Vibration.vibrate(with: .light)
-                                isShouldShowSunsetShieldingView = false
-                                router?.showUnshieldAssetsFlow()
-                            } label: {
-                                Text("Unshield assets")
-                                    .font(.satoshi(size: 14, weight: .medium))
-                                    .foregroundColor(.white)
-                                    .padding(.horizontal, 20)
-                                    .padding(.vertical, 12)
-                                    .background(Color(red: 0.08, green: 0.09, blue: 0.11))
-                                    .cornerRadius(21)
-                            }
-                            .frame(minHeight: 44)
-                        }
-                        .padding(.top, 24)
-                        .padding(.bottom, 32)
-                        .padding(.horizontal, 24)
-                        .overlay(alignment: .topTrailing) {
-                            Button {
-                                Vibration.vibrate(with: .light)
-                                isShouldShowSunsetShieldingView = false
-                            } label: {
-                                Image("unshield_close_popup_icon")
-                                    .contentShape(.rect)
-                            }
-                            .offset(x: -12, y: 12)
-                        }
-                    }
-                    .background(
-                        LinearGradient(
-                            stops: [
-                                Gradient.Stop(color: Color(red: 0.92, green: 0.94, blue: 0.94).opacity(0.2), location: 0.00),
-                                Gradient.Stop(color: Color(red: 0.02, green: 0.15, blue: 0.21).opacity(0.2), location: 1.00),
-                            ],
-                            startPoint: UnitPoint(x: 0.5, y: 0.5),
-                            endPoint: UnitPoint(x: 0.5, y: 1)
-                        )
-                    )
-                    .background(Color(red: 0.92, green: 0.94, blue: 0.94))
-                    .cornerRadius(20)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .inset(by: 0.5)
-                            .stroke(Color(red: 0.73, green: 0.73, blue: 0.73), lineWidth: 1)
-                        
-                    )
-                    .padding(.horizontal, 32)
+                let action: () -> Void = {
+                    isShouldShowSunsetShieldingView = false
+                    router?.showUnshieldAssetsFlow()
                 }
+                GenericPopup(imageName: "unshield_popup_icon",
+                             title: "Transaction Shielding is\ngoing away",
+                             message: "We recommend that you unshield any\nShielded balance today.",
+                             buttonTitles: ["Unshield assets"],
+                             buttonActions: [action],
+                             closeButtonAction: {
+                    isShouldShowSunsetShieldingView = false
+                })
             }
         }
         .sheet(isPresented: $onRampFlowShown, content: {

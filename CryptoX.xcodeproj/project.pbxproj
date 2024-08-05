@@ -1934,6 +1934,12 @@
 		08FD0B822A7D31D9003774A6 /* GradienBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FD0B812A7D31D9003774A6 /* GradienBackgroundModifier.swift */; };
 		08FD0B832A7D31D9003774A6 /* GradienBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FD0B812A7D31D9003774A6 /* GradienBackgroundModifier.swift */; };
 		08FD0B842A7D31DD003774A6 /* GrayRoundedBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FD0B7F2A7D271B003774A6 /* GrayRoundedBackgroundModifier.swift */; };
+		151A53992C5CF03800EFE20C /* GenericPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53982C5CF03800EFE20C /* GenericPopup.swift */; };
+		151A539A2C5CF03800EFE20C /* GenericPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53982C5CF03800EFE20C /* GenericPopup.swift */; };
+		151A539B2C5CF03800EFE20C /* GenericPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53982C5CF03800EFE20C /* GenericPopup.swift */; };
+		151A53A32C5D1A5500EFE20C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */; };
+		151A53A42C5D1A5500EFE20C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */; };
+		151A53A52C5D1A5500EFE20C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */; };
 		19C2E039DFC724B7CCFFF321 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E4B1F77014C882288F8E /* Coordinator.swift */; };
 		19C2E05A6CFAD9B9CCECF785 /* LetterSpacingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EBAEE6EC2525447CCDB5 /* LetterSpacingLabel.swift */; };
 		19C2E0C7F19B6044963A14A2 /* Publisher+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */; };
@@ -3159,6 +3165,8 @@
 		08E69CC62A265E1B001CCA96 /* CIS2TokenDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokenDetailView.swift; sourceTree = "<group>"; };
 		08FD0B7F2A7D271B003774A6 /* GrayRoundedBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayRoundedBackgroundModifier.swift; sourceTree = "<group>"; };
 		08FD0B812A7D31D9003774A6 /* GradienBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradienBackgroundModifier.swift; sourceTree = "<group>"; };
+		151A53982C5CF03800EFE20C /* GenericPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPopup.swift; sourceTree = "<group>"; };
+		151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		19C2E113307579CAF5005F21 /* Sizes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
 		19C2E3C60DD1F86BE4DC76F6 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSettings.swift; path = Settings/AppSettings.swift; sourceTree = "<group>"; };
 		19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+Utils.swift"; sourceTree = "<group>"; };
@@ -4432,6 +4440,7 @@
 		088FF1A32A02A65600042957 /* MoreSection */ = {
 			isa = PBXGroup;
 			children = (
+				151A53A12C5D19FB00EFE20C /* Analytics */,
 				088FF2192A02A78300042957 /* More.storyboard */,
 				088FF1AD2A02A6FE00042957 /* MoreCoordinator.swift */,
 				088FF1AE2A02A6FE00042957 /* MoreMenuPresenter.swift */,
@@ -5225,6 +5234,14 @@
 				08FD0B812A7D31D9003774A6 /* GradienBackgroundModifier.swift */,
 			);
 			path = Modifiers;
+			sourceTree = "<group>";
+		};
+		151A53A12C5D19FB00EFE20C /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */,
+			);
+			path = Analytics;
 			sourceTree = "<group>";
 		};
 		19C2E0CE4D75C20FB441CB95 /* ioscommon */ = {
@@ -6078,6 +6095,7 @@
 				D5F7A23A26D7A7E40061E646 /* PullMenuTopView.swift */,
 				D5F7A24426D7C7550061E646 /* CurrencyView.swift */,
 				D5CACC4126E91B9100D3C3CF /* IconImageView.swift */,
+				151A53982C5CF03800EFE20C /* GenericPopup.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -7118,6 +7136,7 @@
 				509749DE2C3D25E800D28D6B /* OnrampAccountPicker.swift in Sources */,
 				08C167B12BB7396200E61326 /* IdentityConfirmedPresenter.swift in Sources */,
 				08C167B22BB7396200E61326 /* BakerStakePendingChange.swift in Sources */,
+				151A539B2C5CF03800EFE20C /* GenericPopup.swift in Sources */,
 				08C167B32BB7396200E61326 /* String+Extensions.swift in Sources */,
 				08C167B52BB7396200E61326 /* SeedIDRequest.swift in Sources */,
 				08DB5E182BC6C29A00C29663 /* StakeAmountInputPresenterProtocol.swift in Sources */,
@@ -7161,6 +7180,7 @@
 				08C167D42BB7396200E61326 /* BorderedButton.swift in Sources */,
 				08C167D52BB7396200E61326 /* GrayRoundedBackgroundModifier.swift in Sources */,
 				08C167D62BB7396200E61326 /* CopyReferenceInfoWidgetViewController.swift in Sources */,
+				151A53A52C5D1A5500EFE20C /* AnalyticsView.swift in Sources */,
 				08C167D72BB7396200E61326 /* Publisher+Utils.swift in Sources */,
 				08C167D82BB7396200E61326 /* ReleaseScheduleCell.swift in Sources */,
 				08C167DA2BB7396200E61326 /* IdentitiesPresenterProtocol.swift in Sources */,
@@ -7814,6 +7834,7 @@
 				509749DD2C3D25E800D28D6B /* OnrampAccountPicker.swift in Sources */,
 				088FEEEE2A026EB600042957 /* IdentityConfirmedPresenter.swift in Sources */,
 				08A0460B29FA99D200DACE1F /* BakerStakePendingChange.swift in Sources */,
+				151A539A2C5CF03800EFE20C /* GenericPopup.swift in Sources */,
 				08A0463B29FAA62B00DACE1F /* String+Extensions.swift in Sources */,
 				08A0449829FA987800DACE1F /* SeedIDRequest.swift in Sources */,
 				08DB5E152BC6C29900C29663 /* StakeAmountInputPresenterProtocol.swift in Sources */,
@@ -7857,6 +7878,7 @@
 				D5D52C6126DBF6FC0072D20E /* BorderedButton.swift in Sources */,
 				08FD0B842A7D31DD003774A6 /* GrayRoundedBackgroundModifier.swift in Sources */,
 				088FEF842A0270B000042957 /* CopyReferenceInfoWidgetViewController.swift in Sources */,
+				151A53A42C5D1A5500EFE20C /* AnalyticsView.swift in Sources */,
 				7F85B858246A9AB600ED09B8 /* Publisher+Utils.swift in Sources */,
 				527DE353257378DC00333E65 /* ReleaseScheduleCell.swift in Sources */,
 				088FEF0F2A026F0100042957 /* IdentitiesPresenterProtocol.swift in Sources */,
@@ -8510,6 +8532,7 @@
 				509749DC2C3D25E800D28D6B /* OnrampAccountPicker.swift in Sources */,
 				C938F533241FB9B100ECAD47 /* UITextField+Extensions.swift in Sources */,
 				08A0457329FA99D100DACE1F /* BakerStakePendingChange.swift in Sources */,
+				151A53992C5CF03800EFE20C /* GenericPopup.swift in Sources */,
 				08A0463929FAA62B00DACE1F /* String+Extensions.swift in Sources */,
 				08DB5E122BC6C29900C29663 /* StakeAmountInputPresenterProtocol.swift in Sources */,
 				08DB5E132BC6C29900C29663 /* StakeAmountInputValidator.swift in Sources */,
@@ -8553,6 +8576,7 @@
 				088FEEE92A026EB500042957 /* CreateIdentityCoordinator.swift in Sources */,
 				C9DB8A212423C98E008551B8 /* IdentityDataSelectionCell.swift in Sources */,
 				C93EFF3224107F26002D6DB7 /* IdentityCell.swift in Sources */,
+				151A53A32C5D1A5500EFE20C /* AnalyticsView.swift in Sources */,
 				C924B2242430799400081E23 /* UILabel+localized.swift in Sources */,
 				088FEF5C2A0270AF00042957 /* CopyReferenceInfoWidgetViewController.swift in Sources */,
 				D589F2072794B5ED003F2FBB /* ExportValues.swift in Sources */,

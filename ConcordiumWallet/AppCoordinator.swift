@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Combine
 import SwiftUI
+import MatomoTracker
 
 import WalletConnectPairing
 import Web3Wallet
@@ -155,8 +156,42 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
             }
                 
         }
+        showAnalyticsPopup()
     }
 
+    private func showAnalyticsPopup() {
+        guard !UserDefaults.bool(forKey: "isAnalyticsPopupShown") else { return }
+        
+        var popoverAnalyticsVC: UIViewController?
+        
+        let allowTrackingAction = {
+            UserDefaults.standard.set(true, forKey: "isAnalyticsEnabled")
+            MatomoTracker.shared.isOptedOut = false
+            popoverAnalyticsVC?.dismiss(animated: true)
+        }
+        
+        let askNotToTrackAction = {
+            UserDefaults.standard.set(false, forKey: "isAnalyticsEnabled")
+            MatomoTracker.shared.isOptedOut = true
+            popoverAnalyticsVC?.dismiss(animated: true)
+        }
+        
+        popoverAnalyticsVC = UIHostingController(
+            rootView:
+                GenericPopup(imageName: "analytics_icon",
+                             title: "analytics.popupTrackTitle".localized,
+                             message: "analytics.trackMessage".localized,
+                             buttonTitles: ["analytics.allowTracking".localized, "analytics.askNotToTrack".localized],
+                             buttonActions: [allowTrackingAction, askNotToTrackAction]) {
+                                 askNotToTrackAction()
+                             }
+        )
+        popoverAnalyticsVC?.modalPresentationStyle = .overCurrentContext
+        popoverAnalyticsVC?.view.backgroundColor = .clear
+        navigationController.present(popoverAnalyticsVC!, animated: true)
+        UserDefaults.standard.set(true, forKey: "isAnalyticsPopupShown")
+    }
+    
     func showMainTabbar() {
         let accountsCoordinator = AccountsCoordinator(
             navigationController: CXNavigationController(),

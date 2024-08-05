@@ -14,6 +14,7 @@ enum MenuCell: Hashable {
     case addressBook(title: String)
     case update(title: String)
     case recovery(title: String)
+    case analytics(title: String)
     case about(title: String)
     
     case export(title: String) // for backward compatibility with legacy wallet
@@ -30,6 +31,7 @@ enum MenuCell: Hashable {
                     .addressBook(let title),
                     .update(let title),
                     .recovery(let title),
+                    .analytics(let title),
                     .about(let title),
                     .import(let title),
                     .export(let title),
@@ -50,6 +52,8 @@ enum MenuCell: Hashable {
                 return UIImage(named: "more_biometric")
             case .recovery:
                 return UIImage(named: "more_recovery")
+        case .analytics:
+            return UIImage(named: "more_analytics")
             case .about:
                 return UIImage(named: "more_info")
             case .export:
@@ -131,6 +135,8 @@ extension MoreMenuViewController: UITableViewDelegate {
                 presenter.userSelectedUpdate()
             case .recovery:
                 Task { await presenter.userSelectedRecovery() }
+            case .analytics:
+                presenter.userSelectedAnalytics()
             case .about:
                 presenter.userSelectedAbout()
             case .export:
@@ -166,6 +172,7 @@ extension MoreMenuViewController {
             snapshot.appendItems([.recovery(title: "more.recovery".localized)])
         }
         
+        snapshot.appendItems([.analytics(title: "more.analytics".localized)])
         snapshot.appendItems([.deleteAccount(title: "more.deleteAccount".localized)])
         DispatchQueue.main.async {
             self.dataSource?.apply(snapshot)
