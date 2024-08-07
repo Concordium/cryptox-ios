@@ -86,7 +86,11 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
             showInitialIdentityCreation()
         }
         // Remove login from hierarchy.
-        self.navigationController.viewControllers = [self.navigationController.viewControllers.last!]
+        let lastViewController = self.navigationController.viewControllers.last
+        if #unavailable(iOS 17) {
+            self.navigationController.dismiss(animated: false)
+        }
+        self.navigationController.viewControllers = [lastViewController!]
         childCoordinators.removeAll {$0 is LoginCoordinator}
     }
     
