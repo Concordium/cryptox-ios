@@ -162,33 +162,24 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     private func showAnalyticsPopup() {
         guard !UserDefaults.bool(forKey: "isAnalyticsPopupShown") else { return }
         
-        var popoverAnalyticsVC: UIViewController?
+        let popoverAnalyticsVC = UIHostingController<AnyView>(rootView: AnyView(EmptyView()))
         
-        let allowTrackingAction = {
-            UserDefaults.standard.set(true, forKey: "isAnalyticsEnabled")
-            MatomoTracker.shared.isOptedOut = false
-            popoverAnalyticsVC?.dismiss(animated: true)
-        }
-        
-        let askNotToTrackAction = {
-            UserDefaults.standard.set(false, forKey: "isAnalyticsEnabled")
-            MatomoTracker.shared.isOptedOut = true
-            popoverAnalyticsVC?.dismiss(animated: true)
-        }
-        
-        popoverAnalyticsVC = UIHostingController(
-            rootView:
+        let buttonsView = AnalyticsButtonsView(container: popoverAnalyticsVC)
+
+        popoverAnalyticsVC.rootView = AnyView(
                 GenericPopup(imageName: "analytics_icon",
                              title: "analytics.popupTrackTitle".localized,
                              message: "analytics.trackMessage".localized,
-                             buttonTitles: ["analytics.allowTracking".localized, "analytics.askNotToTrack".localized],
-                             buttonActions: [allowTrackingAction, askNotToTrackAction]) {
-                                 askNotToTrackAction()
-                             }
+                             content: buttonsView,
+                             closeButtonAction: {
+                                 UserDefaults.standard.set(false, forKey: "isAnalyticsEnabled")
+                                 MatomoTracker.shared.isOptedOut = true
+                                 popoverAnalyticsVC.dismiss(animated: true)
+                             })
         )
-        popoverAnalyticsVC?.modalPresentationStyle = .overCurrentContext
-        popoverAnalyticsVC?.view.backgroundColor = .clear
-        navigationController.present(popoverAnalyticsVC!, animated: true)
+        popoverAnalyticsVC.modalPresentationStyle = .overCurrentContext
+        popoverAnalyticsVC.view.backgroundColor = .clear
+        navigationController.present(popoverAnalyticsVC, animated: true)
         UserDefaults.standard.set(true, forKey: "isAnalyticsPopupShown")
     }
     

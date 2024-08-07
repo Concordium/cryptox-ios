@@ -1940,6 +1940,9 @@
 		151A53A32C5D1A5500EFE20C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */; };
 		151A53A42C5D1A5500EFE20C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */; };
 		151A53A52C5D1A5500EFE20C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */; };
+		151A53AC2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
+		151A53AD2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
+		151A53AE2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
 		19C2E039DFC724B7CCFFF321 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E4B1F77014C882288F8E /* Coordinator.swift */; };
 		19C2E05A6CFAD9B9CCECF785 /* LetterSpacingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EBAEE6EC2525447CCDB5 /* LetterSpacingLabel.swift */; };
 		19C2E0C7F19B6044963A14A2 /* Publisher+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */; };
@@ -3167,6 +3170,7 @@
 		08FD0B812A7D31D9003774A6 /* GradienBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradienBackgroundModifier.swift; sourceTree = "<group>"; };
 		151A53982C5CF03800EFE20C /* GenericPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPopup.swift; sourceTree = "<group>"; };
 		151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
+		151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsButtonsView.swift; sourceTree = "<group>"; };
 		19C2E113307579CAF5005F21 /* Sizes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
 		19C2E3C60DD1F86BE4DC76F6 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSettings.swift; path = Settings/AppSettings.swift; sourceTree = "<group>"; };
 		19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+Utils.swift"; sourceTree = "<group>"; };
@@ -5244,6 +5248,14 @@
 			path = Analytics;
 			sourceTree = "<group>";
 		};
+		151A53AA2C63B67500EFE20C /* PopupButtons */ = {
+			isa = PBXGroup;
+			children = (
+				151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */,
+			);
+			path = PopupButtons;
+			sourceTree = "<group>";
+		};
 		19C2E0CE4D75C20FB441CB95 /* ioscommon */ = {
 			isa = PBXGroup;
 			children = (
@@ -5567,6 +5579,7 @@
 		7FF07AE323EAE09B00F1FC04 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				151A53AA2C63B67500EFE20C /* PopupButtons */,
 				D5612B6B28EA19CE00582AD4 /* Collections */,
 				D578396427A08AF200FFD123 /* BackUpAlertController */,
 				FAAA492627450E47007EFA61 /* AccountsTotalHeader */,
@@ -7177,6 +7190,7 @@
 				08DB5E942BC6C34300C29663 /* BakerDataHandler.swift in Sources */,
 				08DB5E952BC6C34300C29663 /* BakingCoordinator.swift in Sources */,
 				08C167D32BB7396200E61326 /* TransferCostParameters.swift in Sources */,
+				151A53AE2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */,
 				08C167D42BB7396200E61326 /* BorderedButton.swift in Sources */,
 				08C167D52BB7396200E61326 /* GrayRoundedBackgroundModifier.swift in Sources */,
 				08C167D62BB7396200E61326 /* CopyReferenceInfoWidgetViewController.swift in Sources */,
@@ -7875,6 +7889,7 @@
 				08DB5E902BC6C34300C29663 /* BakerDataHandler.swift in Sources */,
 				08DB5E912BC6C34300C29663 /* BakingCoordinator.swift in Sources */,
 				08A0464529FAB0EC00DACE1F /* TransferCostParameters.swift in Sources */,
+				151A53AD2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */,
 				D5D52C6126DBF6FC0072D20E /* BorderedButton.swift in Sources */,
 				08FD0B842A7D31DD003774A6 /* GrayRoundedBackgroundModifier.swift in Sources */,
 				088FEF842A0270B000042957 /* CopyReferenceInfoWidgetViewController.swift in Sources */,
@@ -8573,6 +8588,7 @@
 				08DB5E8D2BC6C34200C29663 /* BakingCoordinator.swift in Sources */,
 				D5E29765276C8E04000DB102 /* Digest+Additions.swift in Sources */,
 				08A0464329FAB0EB00DACE1F /* TransferCostParameters.swift in Sources */,
+				151A53AC2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */,
 				088FEEE92A026EB500042957 /* CreateIdentityCoordinator.swift in Sources */,
 				C9DB8A212423C98E008551B8 /* IdentityDataSelectionCell.swift in Sources */,
 				C93EFF3224107F26002D6DB7 /* IdentityCell.swift in Sources */,

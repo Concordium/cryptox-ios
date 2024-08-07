@@ -9,14 +9,13 @@
 import SwiftUI
 import Combine
 
-struct GenericPopup: View {
+struct GenericPopup<Content: View>: View {
     
     var imageName: String
     var title: String
     var message: String
-    var buttonTitles: [String]
-    var buttonActions: [() -> Void]
-    var closeButtonAction: () -> Void
+    let content: Content
+    var closeButtonAction: (() -> Void)?
     
     @SwiftUI.Environment(\.dismiss) private var dismiss
     
@@ -39,32 +38,7 @@ struct GenericPopup: View {
                             .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
                             .frame(maxWidth: .infinity, alignment: .top)
                     }
-                    Button {
-                        Vibration.vibrate(with: .light)
-                        let mainButtonAction = buttonActions.first
-                        mainButtonAction?()
-                    } label: {
-                        Text(buttonTitles.first ?? "")
-                            .font(.satoshi(size: 14, weight: .medium))
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 20)
-                            .padding(.vertical, 12)
-                            .background(Color(red: 0.08, green: 0.09, blue: 0.11))
-                            .cornerRadius(21)
-                    }
-                    
-                    ForEach(1..<buttonTitles.count, id: \.self) { index in
-                        Button {
-                            Vibration.vibrate(with: .light)
-                            buttonActions[index]()
-                        } label: {
-                            Text(buttonTitles[index])
-                                .font(.satoshi(size: 14, weight: .medium))
-                                .foregroundColor(Color(red: 0.08, green: 0.09, blue: 0.11))
-                                .padding(.horizontal, 20)
-                                .padding(.vertical, 12)
-                        }
-                    }
+                    content
                     .frame(minHeight: 44)
                 }
                 .padding(.top, 24)
@@ -73,7 +47,7 @@ struct GenericPopup: View {
                 .overlay(alignment: .topTrailing) {
                     Button {
                         Vibration.vibrate(with: .light)
-                        closeButtonAction()
+                        closeButtonAction?()
                         dismiss()
                     } label: {
                         Image("unshield_close_popup_icon")
@@ -101,6 +75,7 @@ struct GenericPopup: View {
                 
             )
             .padding(.horizontal, 32)
+            .clipped()
         }
     }
 }

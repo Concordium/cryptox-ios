@@ -260,56 +260,42 @@ struct PasscodeView: View {
     
     @ViewBuilder
     private func enableFaceIdView() -> some View {
-        VStack(alignment: .center, spacing: 16) {
-            Image("enable)face_id_icon")
-                .padding(.top, 56)
-            
-            VStack(spacing: 8) {
-                Text("enable_face_id_title".localized)
-                    .font(.satoshi(size: 20, weight: .medium))
-                    .foregroundStyle(Color.Neutral.tint7)
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity)
-                    .padding(.horizontal, 24)
-                Text("enable_face_id_subtitle".localized)
-                    .font(.satoshi(size: 14, weight: .regular))
-                    .foregroundStyle(Color.Neutral.tint5)
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity)
-                    .padding(.horizontal, 24)
-                
-                Button(action: { viewModel.enablebiometric() }, label: {
-                    HStack {
-                        Text("enable_face_id_button_title".localized)
-                            .font(Font.satoshi(size: 16, weight: .medium))
-                            .lineSpacing(24)
-                            .foregroundColor(Color.Neutral.tint1)
-                    }
-                    .padding(.horizontal, 24)
-                })
-                .frame(height: 44)
-                .background(Color.Neutral.tint7)
-                .cornerRadius(22, corners: .allCorners)
-                .padding(.horizontal, 16)
-                
-                Button(action: { viewModel.continueWithoutBiometrics() }, label: {
-                    HStack {
-                        Text("enable_face_id_later_button_title".localized)
-                            .font(Font.satoshi(size: 14, weight: .medium))
-                            .foregroundColor(Color.Neutral.tint7)
-                    }
-                    .padding(.horizontal, 24)
-                })
-                .padding(.top, 20)
-                .padding(.bottom, 36)
-            }
-        }
-        .frame(maxWidth: .infinity)
-        .background(Image("modal_bg").resizable().ignoresSafeArea())
-        .cornerRadius(20, corners: .allCorners)
-        .clipped()
-        .padding(.horizontal, 32)
+        
+        GenericPopup(imageName: "enable)face_id_icon",
+                     title: "enable_face_id_title".localized,
+                     message: "enable_face_id_subtitle".localized,
+                     content: enableFaceIdViewButtons(),
+                     closeButtonAction: nil)
         .onAppear { Tracker.track(view: ["enable biometrics"]) }
+    }
+
+    
+    @ViewBuilder
+    private func enableFaceIdViewButtons() -> some View {
+        Button(action: { viewModel.enablebiometric() }, label: {
+            HStack {
+                Text("enable_face_id_button_title".localized)
+                    .font(Font.satoshi(size: 16, weight: .medium))
+                    .lineSpacing(24)
+                    .foregroundColor(Color.Neutral.tint1)
+            }
+            .padding(.horizontal, 24)
+        })
+        .frame(height: 44)
+        .background(Color.Neutral.tint7)
+        .cornerRadius(22, corners: .allCorners)
+        .padding(.horizontal, 16)
+        
+        Button(action: { viewModel.continueWithoutBiometrics() }, label: {
+            HStack {
+                Text("enable_face_id_later_button_title".localized)
+                    .font(Font.satoshi(size: 14, weight: .medium))
+                    .foregroundColor(Color.Neutral.tint7)
+            }
+            .padding(.horizontal, 24)
+        })
+        .padding(.top, 20)
+        .padding(.bottom, 36)
     }
        
     @ViewBuilder

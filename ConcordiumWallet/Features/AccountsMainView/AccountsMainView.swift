@@ -227,15 +227,10 @@ struct AccountsMainView: View {
         }
         .overlay(alignment: .center) {
             if isShouldShowSunsetShieldingView {
-                let action: () -> Void = {
-                    isShouldShowSunsetShieldingView = false
-                    router?.showUnshieldAssetsFlow()
-                }
                 GenericPopup(imageName: "unshield_popup_icon",
                              title: "Transaction Shielding is\ngoing away",
                              message: "We recommend that you unshield any\nShielded balance today.",
-                             buttonTitles: ["Unshield assets"],
-                             buttonActions: [action],
+                             content: unshieldAssetsButtonView(),
                              closeButtonAction: {
                     isShouldShowSunsetShieldingView = false
                 })
@@ -278,5 +273,20 @@ struct AccountsMainView: View {
         )
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
+    }
+    
+    private func unshieldAssetsButtonView() -> some View {
+        Button(action: {
+            isShouldShowSunsetShieldingView = false
+            router?.showUnshieldAssetsFlow()
+        }, label: {
+            Text("Unshield assets")
+                .font(.satoshi(size: 14, weight: .medium))
+                .foregroundColor(.white)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 12)
+                .background(Color(red: 0.08, green: 0.09, blue: 0.11))
+                .cornerRadius(21)
+        })
     }
 }
