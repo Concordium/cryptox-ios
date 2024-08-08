@@ -167,15 +167,15 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         let buttonsView = AnalyticsButtonsView(container: popoverAnalyticsVC)
 
         popoverAnalyticsVC.rootView = AnyView(
-                GenericPopup(imageName: "analytics_icon",
-                             title: "analytics.popupTrackTitle".localized,
-                             message: "analytics.trackMessage".localized,
-                             content: buttonsView,
-                             closeButtonAction: {
-                                 UserDefaults.standard.set(false, forKey: "isAnalyticsEnabled")
-                                 MatomoTracker.shared.isOptedOut = true
-                                 popoverAnalyticsVC.dismiss(animated: true)
-                             })
+            PopupContainer(icon: "analytics_icon",
+                           title: "analytics.popupTrackTitle".localized,
+                           subtitle: "analytics.trackMessage".localized,
+                           content: buttonsView,
+                           dismissAction: {
+                               UserDefaults.standard.set(false, forKey: "isAnalyticsEnabled")
+                               MatomoTracker.shared.isOptedOut = true
+                               popoverAnalyticsVC.dismiss(animated: true)
+                           })
         )
         popoverAnalyticsVC.modalPresentationStyle = .overCurrentContext
         popoverAnalyticsVC.view.backgroundColor = .clear

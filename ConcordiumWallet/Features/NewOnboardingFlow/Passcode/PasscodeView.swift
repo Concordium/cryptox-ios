@@ -261,11 +261,11 @@ struct PasscodeView: View {
     @ViewBuilder
     private func enableFaceIdView() -> some View {
         
-        GenericPopup(imageName: "enable)face_id_icon",
-                     title: "enable_face_id_title".localized,
-                     message: "enable_face_id_subtitle".localized,
-                     content: enableFaceIdViewButtons(),
-                     closeButtonAction: nil)
+        PopupContainer(icon: "enable)face_id_icon",
+                       title: "enable_face_id_title".localized,
+                       subtitle: "enable_face_id_subtitle".localized,
+                       content: enableFaceIdViewButtons(),
+                       dismissAction: nil)
         .onAppear { Tracker.track(view: ["enable biometrics"]) }
     }
 

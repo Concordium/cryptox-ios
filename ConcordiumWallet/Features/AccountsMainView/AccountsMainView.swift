@@ -227,11 +227,11 @@ struct AccountsMainView: View {
         }
         .overlay(alignment: .center) {
             if isShouldShowSunsetShieldingView {
-                GenericPopup(imageName: "unshield_popup_icon",
-                             title: "Transaction Shielding is\ngoing away",
-                             message: "We recommend that you unshield any\nShielded balance today.",
-                             content: unshieldAssetsButtonView(),
-                             closeButtonAction: {
+                PopupContainer(icon: "unshield_popup_icon",
+                               title: "Transaction Shielding is\ngoing away",
+                               subtitle: "We recommend that you unshield any\nShielded balance today.",
+                               content: unshieldAssetsButtonView(),
+                               dismissAction: {
                     isShouldShowSunsetShieldingView = false
                 })
             }

@@ -1,5 +1,5 @@
 //
-//  GenericPopup.swift
+//  PopupContainer.swift
 //  CryptoX
 //
 //  Created by Zhanna Komar on 02.08.2024.
@@ -9,13 +9,13 @@
 import SwiftUI
 import Combine
 
-struct GenericPopup<Content: View>: View {
+struct PopupContainer<Content: View>: View {
     
-    var imageName: String
+    var icon: String
     var title: String
-    var message: String
+    var subtitle: String
     let content: Content
-    var closeButtonAction: (() -> Void)?
+    var dismissAction: (() -> Void)?
     
     @SwiftUI.Environment(\.dismiss) private var dismiss
     
@@ -25,13 +25,13 @@ struct GenericPopup<Content: View>: View {
             
             ZStack {
                 VStack(spacing: 16) {
-                    Image(imageName)
+                    Image(icon)
                     VStack(spacing: 8) {
                         Text(title)
                             .font(.satoshi(size: 20, weight: .medium))
                             .multilineTextAlignment(.center)
                             .foregroundColor(Color(red: 0.08, green: 0.09, blue: 0.11))
-                        Text(message)
+                        Text(subtitle)
                             .font(.satoshi(size: 14, weight: .regular))
                             .multilineTextAlignment(.center)
                             .lineSpacing(7)
@@ -47,7 +47,7 @@ struct GenericPopup<Content: View>: View {
                 .overlay(alignment: .topTrailing) {
                     Button {
                         Vibration.vibrate(with: .light)
-                        closeButtonAction?()
+                        dismissAction?()
                         dismiss()
                     } label: {
                         Image("unshield_close_popup_icon")
