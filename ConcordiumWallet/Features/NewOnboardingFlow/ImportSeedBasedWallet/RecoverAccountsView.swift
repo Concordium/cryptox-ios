@@ -273,6 +273,7 @@ private struct IdentityList: View {
             }
         }
         .listRowBackground(Color.clear)
+        .listRowSpacing(10)
         .listStyle(.plain)
         .frame(maxWidth: .infinity)
     }
