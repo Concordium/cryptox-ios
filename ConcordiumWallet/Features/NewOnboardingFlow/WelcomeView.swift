@@ -85,6 +85,7 @@ struct WelcomeView: View {
                             .contentShape(.rect)
                             .onTapGesture {
                                 isChecked.toggle()
+                                Tracker.trackContentInteraction(name: "Welcome screen", interaction: .checked, piece: "Check box")
                             }
                         
                         ///
@@ -107,7 +108,11 @@ struct WelcomeView: View {
                     }
                     .padding(.horizontal, 16)
                     
-                    Button(action: { action() }, label: {
+                    Button(
+                        action: {
+                        action()
+                            Tracker.trackContentInteraction(name: "Welcome screen", interaction: .clicked, piece: "Get started")
+                    }, label: {
                         HStack {
                             Text("get_started_btn_title".localized)
                                 .font(Font.satoshi(size: 16, weight: .medium))
@@ -127,7 +132,6 @@ struct WelcomeView: View {
                 }
                 .padding(.bottom, 64)
             }
-            
         }
     }
 }

@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Combine
 import SwiftUI
+import MatomoTracker
 
 import WalletConnectPairing
 import Web3Wallet
@@ -42,6 +43,8 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     
     @AppStorage("isRestoredDefaultCIS2Tokens") private var isRestoredDefaultCIS2Tokens = false
     @AppStorage("isAcceptedPrivacy") private var isAcceptedPrivacy = false
+    
+    @State var isPresentedAnalyticsPopup: Bool = false
 
     override init() {
         navigationController = CXNavigationController()
@@ -161,6 +164,30 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         }
     }
 
+    private func showAnalyticsPopup() {
+        guard !UserDefaults.bool(forKey: "isAnalyticsPopupShown") else { return }
+        
+        let popoverAnalyticsVC = UIHostingController<AnyView>(rootView: AnyView(EmptyView()))
+        
+        let buttonsView = AnalyticsButtonsView(isPresented: $isPresentedAnalyticsPopup, container: popoverAnalyticsVC)
+
+        popoverAnalyticsVC.rootView = AnyView(
+            PopupContainer(icon: "analytics_icon",
+                           title: "analytics.popupTrackTitle".localized,
+                           subtitle: "analytics.trackMessage".localized,
+                           content: buttonsView,
+                           dismissAction: {
+                               UserDefaults.standard.set(false, forKey: "isAnalyticsEnabled")
+                               MatomoTracker.shared.isOptedOut = true
+                               popoverAnalyticsVC.dismiss(animated: true)
+                           })
+        )
+        popoverAnalyticsVC.modalPresentationStyle = .overCurrentContext
+        popoverAnalyticsVC.view.backgroundColor = .clear
+        navigationController.present(popoverAnalyticsVC, animated: true)
+        UserDefaults.standard.set(true, forKey: "isAnalyticsPopupShown")
+    }
+    
     func showMainTabbar() {
         let accountsCoordinator = AccountsCoordinator(
             navigationController: CXNavigationController(),
@@ -190,6 +217,8 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         self.handleOpenURLActionIfNeeded()
         
         self.defaultCIS2TokenManager.initializeDefaultValues()
+        
+        showAnalyticsPopup()
     }
 
     func importWallet(from url: URL) {

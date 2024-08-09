@@ -1934,6 +1934,15 @@
 		08FD0B822A7D31D9003774A6 /* GradienBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FD0B812A7D31D9003774A6 /* GradienBackgroundModifier.swift */; };
 		08FD0B832A7D31D9003774A6 /* GradienBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FD0B812A7D31D9003774A6 /* GradienBackgroundModifier.swift */; };
 		08FD0B842A7D31DD003774A6 /* GrayRoundedBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FD0B7F2A7D271B003774A6 /* GrayRoundedBackgroundModifier.swift */; };
+		151A53992C5CF03800EFE20C /* PopupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53982C5CF03800EFE20C /* PopupContainer.swift */; };
+		151A539A2C5CF03800EFE20C /* PopupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53982C5CF03800EFE20C /* PopupContainer.swift */; };
+		151A539B2C5CF03800EFE20C /* PopupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53982C5CF03800EFE20C /* PopupContainer.swift */; };
+		151A53A32C5D1A5500EFE20C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */; };
+		151A53A42C5D1A5500EFE20C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */; };
+		151A53A52C5D1A5500EFE20C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */; };
+		151A53AC2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
+		151A53AD2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
+		151A53AE2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
 		19C2E039DFC724B7CCFFF321 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E4B1F77014C882288F8E /* Coordinator.swift */; };
 		19C2E05A6CFAD9B9CCECF785 /* LetterSpacingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EBAEE6EC2525447CCDB5 /* LetterSpacingLabel.swift */; };
 		19C2E0C7F19B6044963A14A2 /* Publisher+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */; };
@@ -1987,6 +1996,15 @@
 		509749E52C3E886C00D28D6B /* RSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749E42C3E886C00D28D6B /* RSSFeed.swift */; };
 		509749E62C3E886C00D28D6B /* RSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749E42C3E886C00D28D6B /* RSSFeed.swift */; };
 		509749E72C3E886C00D28D6B /* RSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749E42C3E886C00D28D6B /* RSSFeed.swift */; };
+		509749EB2C491A0D00D28D6B /* MatomoTracker in Frameworks */ = {isa = PBXBuildFile; productRef = 509749EA2C491A0D00D28D6B /* MatomoTracker */; };
+		509749ED2C491A6100D28D6B /* MatomoTracker in Frameworks */ = {isa = PBXBuildFile; productRef = 509749EC2C491A6100D28D6B /* MatomoTracker */; };
+		509749EF2C491A6800D28D6B /* MatomoTracker in Frameworks */ = {isa = PBXBuildFile; productRef = 509749EE2C491A6800D28D6B /* MatomoTracker */; };
+		509749F12C49203200D28D6B /* MatomoTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749F02C49203200D28D6B /* MatomoTracker.swift */; };
+		509749F22C49203200D28D6B /* MatomoTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749F02C49203200D28D6B /* MatomoTracker.swift */; };
+		509749F32C49203200D28D6B /* MatomoTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749F02C49203200D28D6B /* MatomoTracker.swift */; };
+		509749F52C49207400D28D6B /* UserDefaultsQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749F42C49207400D28D6B /* UserDefaultsQueue.swift */; };
+		509749F62C49207400D28D6B /* UserDefaultsQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749F42C49207400D28D6B /* UserDefaultsQueue.swift */; };
+		509749F72C49207400D28D6B /* UserDefaultsQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749F42C49207400D28D6B /* UserDefaultsQueue.swift */; };
 		50D3890D2C05D66A00B3675A /* ConfirmAccountCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE952A026B6400042957 /* ConfirmAccountCreateViewController.swift */; };
 		50D3890E2C05D66A00B3675A /* ConfirmAccountCreatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE972A026B6500042957 /* ConfirmAccountCreatePresenter.swift */; };
 		50D3890F2C05D66B00B3675A /* ConfirmAccountCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE952A026B6400042957 /* ConfirmAccountCreateViewController.swift */; };
@@ -3150,6 +3168,9 @@
 		08E69CC62A265E1B001CCA96 /* CIS2TokenDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokenDetailView.swift; sourceTree = "<group>"; };
 		08FD0B7F2A7D271B003774A6 /* GrayRoundedBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayRoundedBackgroundModifier.swift; sourceTree = "<group>"; };
 		08FD0B812A7D31D9003774A6 /* GradienBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradienBackgroundModifier.swift; sourceTree = "<group>"; };
+		151A53982C5CF03800EFE20C /* PopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
+		151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
+		151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsButtonsView.swift; sourceTree = "<group>"; };
 		19C2E113307579CAF5005F21 /* Sizes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
 		19C2E3C60DD1F86BE4DC76F6 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSettings.swift; path = Settings/AppSettings.swift; sourceTree = "<group>"; };
 		19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+Utils.swift"; sourceTree = "<group>"; };
@@ -3183,6 +3204,8 @@
 		509749DB2C3D25E800D28D6B /* OnrampAccountPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnrampAccountPicker.swift; sourceTree = "<group>"; };
 		509749E02C3E863B00D28D6B /* NewsFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeed.swift; sourceTree = "<group>"; };
 		509749E42C3E886C00D28D6B /* RSSFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeed.swift; sourceTree = "<group>"; };
+		509749F02C49203200D28D6B /* MatomoTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatomoTracker.swift; sourceTree = "<group>"; };
+		509749F42C49207400D28D6B /* UserDefaultsQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsQueue.swift; sourceTree = "<group>"; };
 		50D3891C2C107C1E00B3675A /* TokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenView.swift; sourceTree = "<group>"; };
 		50D389222C107C7500B3675A /* CustomSVGDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSVGDecoder.swift; sourceTree = "<group>"; };
 		50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldedAccountsView.swift; sourceTree = "<group>"; };
@@ -3462,6 +3485,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				509749EF2C491A6800D28D6B /* MatomoTracker in Frameworks */,
 				08C169102BB7396200E61326 /* SDWebImageSwiftUI in Frameworks */,
 				08C169122BB7396200E61326 /* SwiftCBOR in Frameworks */,
 				08C169132BB7396200E61326 /* RealmSwift in Frameworks */,
@@ -3483,6 +3507,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				509749ED2C491A6100D28D6B /* MatomoTracker in Frameworks */,
 				5059C9B52C00CF1200E40307 /* SDWebImageSwiftUI in Frameworks */,
 				08A0441329FA885300DACE1F /* SwiftCBOR in Frameworks */,
 				08A0441129FA884F00DACE1F /* RealmSwift in Frameworks */,
@@ -3504,6 +3529,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				509749EB2C491A0D00D28D6B /* MatomoTracker in Frameworks */,
 				5059C9B72C00CF1700E40307 /* SDWebImageSwiftUI in Frameworks */,
 				08A0442129FA892F00DACE1F /* Base58Swift in Frameworks */,
 				083505002A9E3DFA000D5175 /* SDWebImageSVGCoder in Frameworks */,
@@ -4418,6 +4444,7 @@
 		088FF1A32A02A65600042957 /* MoreSection */ = {
 			isa = PBXGroup;
 			children = (
+				151A53A12C5D19FB00EFE20C /* Analytics */,
 				088FF2192A02A78300042957 /* More.storyboard */,
 				088FF1AD2A02A6FE00042957 /* MoreCoordinator.swift */,
 				088FF1AE2A02A6FE00042957 /* MoreMenuPresenter.swift */,
@@ -5213,6 +5240,22 @@
 			path = Modifiers;
 			sourceTree = "<group>";
 		};
+		151A53A12C5D19FB00EFE20C /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */,
+			);
+			path = Analytics;
+			sourceTree = "<group>";
+		};
+		151A53AA2C63B67500EFE20C /* PopupButtons */ = {
+			isa = PBXGroup;
+			children = (
+				151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */,
+			);
+			path = PopupButtons;
+			sourceTree = "<group>";
+		};
 		19C2E0CE4D75C20FB441CB95 /* ioscommon */ = {
 			isa = PBXGroup;
 			children = (
@@ -5262,6 +5305,15 @@
 			path = NewsFeed;
 			sourceTree = "<group>";
 		};
+		509749E82C49195900D28D6B /* Tracking */ = {
+			isa = PBXGroup;
+			children = (
+				509749F02C49203200D28D6B /* MatomoTracker.swift */,
+				509749F42C49207400D28D6B /* UserDefaultsQueue.swift */,
+			);
+			path = Tracking;
+			sourceTree = "<group>";
+		};
 		50D3891B2C107C1400B3675A /* ImportToken */ = {
 			isa = PBXGroup;
 			children = (
@@ -5274,6 +5326,7 @@
 		50D389202C107C6000B3675A /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				509749E82C49195900D28D6B /* Tracking */,
 				50D389212C107C6900B3675A /* ThirdParty */,
 			);
 			path = Core;
@@ -5526,6 +5579,7 @@
 		7FF07AE323EAE09B00F1FC04 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				151A53AA2C63B67500EFE20C /* PopupButtons */,
 				D5612B6B28EA19CE00582AD4 /* Collections */,
 				D578396427A08AF200FFD123 /* BackUpAlertController */,
 				FAAA492627450E47007EFA61 /* AccountsTotalHeader */,
@@ -6054,6 +6108,7 @@
 				D5F7A23A26D7A7E40061E646 /* PullMenuTopView.swift */,
 				D5F7A24426D7C7550061E646 /* CurrencyView.swift */,
 				D5CACC4126E91B9100D3C3CF /* IconImageView.swift */,
+				151A53982C5CF03800EFE20C /* PopupContainer.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -6108,6 +6163,7 @@
 				08C1666D2BB7396200E61326 /* JDStatusBarNotification */,
 				08C1666F2BB7396200E61326 /* SDWebImageSwiftUI */,
 				08C166712BB7396200E61326 /* SDWebImageSVGCoder */,
+				509749EE2C491A6800D28D6B /* MatomoTracker */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 08C169C22BB7396200E61326 /* ProdTestNet.app */;
@@ -6142,6 +6198,7 @@
 				089FF0EB2A4F4D01007AB1CF /* JDStatusBarNotification */,
 				083505062A9F4F14000D5175 /* SDWebImageSVGCoder */,
 				5059C9B42C00CF1200E40307 /* SDWebImageSwiftUI */,
+				509749EC2C491A6100D28D6B /* MatomoTracker */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
@@ -6176,6 +6233,7 @@
 				089FF0E92A4F4CF0007AB1CF /* JDStatusBarNotification */,
 				083504FF2A9E3DFA000D5175 /* SDWebImageSVGCoder */,
 				5059C9B62C00CF1700E40307 /* SDWebImageSwiftUI */,
+				509749EA2C491A0D00D28D6B /* MatomoTracker */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
@@ -6241,6 +6299,7 @@
 				089FF0E82A4F4CF0007AB1CF /* XCRemoteSwiftPackageReference "JDStatusBarNotification" */,
 				083504FE2A9E3DF9000D5175 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 				5076296A2BF2573D00B4D390 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				509749E92C491A0D00D28D6B /* XCRemoteSwiftPackageReference "matomo-sdk-ios" */,
 			);
 			productRefGroup = 7FF07A6A23EADB1200F1FC04 /* Products */;
 			projectDirPath = "";
@@ -6948,6 +7007,7 @@
 				08C167212BB7396200E61326 /* UITapGestureRecognizer.swift in Sources */,
 				08C167222BB7396200E61326 /* UIViewController+Additions.swift in Sources */,
 				08C167232BB7396200E61326 /* AddMemoViewController.swift in Sources */,
+				509749F72C49207400D28D6B /* UserDefaultsQueue.swift in Sources */,
 				08C167242BB7396200E61326 /* CredentialHolderInformation.swift in Sources */,
 				08C167252BB7396200E61326 /* XButton.swift in Sources */,
 				08C167262BB7396200E61326 /* RecoveryPhraseInputView.swift in Sources */,
@@ -7059,6 +7119,7 @@
 				08C167922BB7396200E61326 /* ExportIdentityData.swift in Sources */,
 				08C167932BB7396200E61326 /* SeedIdentityStatusPresenter.swift in Sources */,
 				08C167942BB7396200E61326 /* ImportLegacyWalletInfo.swift in Sources */,
+				509749F32C49203200D28D6B /* MatomoTracker.swift in Sources */,
 				08C167952BB7396200E61326 /* AddMemoPresenter.swift in Sources */,
 				08C167962BB7396200E61326 /* SeedIdentitiesCoordinator.swift in Sources */,
 				08C167972BB7396200E61326 /* IPArDatum.swift in Sources */,
@@ -7088,6 +7149,7 @@
 				509749DE2C3D25E800D28D6B /* OnrampAccountPicker.swift in Sources */,
 				08C167B12BB7396200E61326 /* IdentityConfirmedPresenter.swift in Sources */,
 				08C167B22BB7396200E61326 /* BakerStakePendingChange.swift in Sources */,
+				151A539B2C5CF03800EFE20C /* PopupContainer.swift in Sources */,
 				08C167B32BB7396200E61326 /* String+Extensions.swift in Sources */,
 				08C167B52BB7396200E61326 /* SeedIDRequest.swift in Sources */,
 				08DB5E182BC6C29A00C29663 /* StakeAmountInputPresenterProtocol.swift in Sources */,
@@ -7128,9 +7190,11 @@
 				08DB5E942BC6C34300C29663 /* BakerDataHandler.swift in Sources */,
 				08DB5E952BC6C34300C29663 /* BakingCoordinator.swift in Sources */,
 				08C167D32BB7396200E61326 /* TransferCostParameters.swift in Sources */,
+				151A53AE2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */,
 				08C167D42BB7396200E61326 /* BorderedButton.swift in Sources */,
 				08C167D52BB7396200E61326 /* GrayRoundedBackgroundModifier.swift in Sources */,
 				08C167D62BB7396200E61326 /* CopyReferenceInfoWidgetViewController.swift in Sources */,
+				151A53A52C5D1A5500EFE20C /* AnalyticsView.swift in Sources */,
 				08C167D72BB7396200E61326 /* Publisher+Utils.swift in Sources */,
 				08C167D82BB7396200E61326 /* ReleaseScheduleCell.swift in Sources */,
 				08C167DA2BB7396200E61326 /* IdentitiesPresenterProtocol.swift in Sources */,
@@ -7642,6 +7706,7 @@
 				088FF08A2A027AE400042957 /* UITapGestureRecognizer.swift in Sources */,
 				7F85B813246A9AB600ED09B8 /* UIViewController+Additions.swift in Sources */,
 				088FF2772A02AE8500042957 /* AddMemoViewController.swift in Sources */,
+				509749F62C49207400D28D6B /* UserDefaultsQueue.swift in Sources */,
 				08A045E129FA99D200DACE1F /* CredentialHolderInformation.swift in Sources */,
 				088FF28F2A02C8C200042957 /* XButton.swift in Sources */,
 				088FF0C12A02846100042957 /* RecoveryPhraseInputView.swift in Sources */,
@@ -7753,6 +7818,7 @@
 				D589F2012794B5ED003F2FBB /* ExportIdentityData.swift in Sources */,
 				088FEFD52A0271AB00042957 /* SeedIdentityStatusPresenter.swift in Sources */,
 				0835F9AC2B5FCE4500D3716F /* ImportLegacyWalletInfo.swift in Sources */,
+				509749F22C49203200D28D6B /* MatomoTracker.swift in Sources */,
 				088FF2762A02AE8500042957 /* AddMemoPresenter.swift in Sources */,
 				088FF00F2A0271F700042957 /* SeedIdentitiesCoordinator.swift in Sources */,
 				08A045ED29FA99D200DACE1F /* IPArDatum.swift in Sources */,
@@ -7782,6 +7848,7 @@
 				509749DD2C3D25E800D28D6B /* OnrampAccountPicker.swift in Sources */,
 				088FEEEE2A026EB600042957 /* IdentityConfirmedPresenter.swift in Sources */,
 				08A0460B29FA99D200DACE1F /* BakerStakePendingChange.swift in Sources */,
+				151A539A2C5CF03800EFE20C /* PopupContainer.swift in Sources */,
 				08A0463B29FAA62B00DACE1F /* String+Extensions.swift in Sources */,
 				08A0449829FA987800DACE1F /* SeedIDRequest.swift in Sources */,
 				08DB5E152BC6C29900C29663 /* StakeAmountInputPresenterProtocol.swift in Sources */,
@@ -7822,9 +7889,11 @@
 				08DB5E902BC6C34300C29663 /* BakerDataHandler.swift in Sources */,
 				08DB5E912BC6C34300C29663 /* BakingCoordinator.swift in Sources */,
 				08A0464529FAB0EC00DACE1F /* TransferCostParameters.swift in Sources */,
+				151A53AD2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */,
 				D5D52C6126DBF6FC0072D20E /* BorderedButton.swift in Sources */,
 				08FD0B842A7D31DD003774A6 /* GrayRoundedBackgroundModifier.swift in Sources */,
 				088FEF842A0270B000042957 /* CopyReferenceInfoWidgetViewController.swift in Sources */,
+				151A53A42C5D1A5500EFE20C /* AnalyticsView.swift in Sources */,
 				7F85B858246A9AB600ED09B8 /* Publisher+Utils.swift in Sources */,
 				527DE353257378DC00333E65 /* ReleaseScheduleCell.swift in Sources */,
 				088FEF0F2A026F0100042957 /* IdentitiesPresenterProtocol.swift in Sources */,
@@ -8336,6 +8405,7 @@
 				088FF2752A02AE8400042957 /* AddMemoViewController.swift in Sources */,
 				088FF08B2A027AE400042957 /* UITapGestureRecognizer.swift in Sources */,
 				088FF28D2A02C8C200042957 /* XButton.swift in Sources */,
+				509749F52C49207400D28D6B /* UserDefaultsQueue.swift in Sources */,
 				D5BA052829148BFB00AC780A /* Model+Airdrop.swift in Sources */,
 				088FF2362A02A98F00042957 /* SelectRecipientPresenter.swift in Sources */,
 				088FF0BB2A02846000042957 /* RecoveryPhraseInputView.swift in Sources */,
@@ -8447,6 +8517,7 @@
 				7FF07AEE23EB075D00F1FC04 /* Storyboarded.swift in Sources */,
 				0835F9AB2B5FCE4500D3716F /* ImportLegacyWalletInfo.swift in Sources */,
 				08A0455529FA99D100DACE1F /* IPArDatum.swift in Sources */,
+				509749F12C49203200D28D6B /* MatomoTracker.swift in Sources */,
 				088FEFCF2A0271AA00042957 /* SeedIdentityStatusPresenter.swift in Sources */,
 				08A0456929FA99D100DACE1F /* CurrentPaydayStatus.swift in Sources */,
 				FA7C079F26C5AFF3008714CB /* ConnectionRequestVC.swift in Sources */,
@@ -8476,6 +8547,7 @@
 				509749DC2C3D25E800D28D6B /* OnrampAccountPicker.swift in Sources */,
 				C938F533241FB9B100ECAD47 /* UITextField+Extensions.swift in Sources */,
 				08A0457329FA99D100DACE1F /* BakerStakePendingChange.swift in Sources */,
+				151A53992C5CF03800EFE20C /* PopupContainer.swift in Sources */,
 				08A0463929FAA62B00DACE1F /* String+Extensions.swift in Sources */,
 				08DB5E122BC6C29900C29663 /* StakeAmountInputPresenterProtocol.swift in Sources */,
 				08DB5E132BC6C29900C29663 /* StakeAmountInputValidator.swift in Sources */,
@@ -8516,9 +8588,11 @@
 				08DB5E8D2BC6C34200C29663 /* BakingCoordinator.swift in Sources */,
 				D5E29765276C8E04000DB102 /* Digest+Additions.swift in Sources */,
 				08A0464329FAB0EB00DACE1F /* TransferCostParameters.swift in Sources */,
+				151A53AC2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */,
 				088FEEE92A026EB500042957 /* CreateIdentityCoordinator.swift in Sources */,
 				C9DB8A212423C98E008551B8 /* IdentityDataSelectionCell.swift in Sources */,
 				C93EFF3224107F26002D6DB7 /* IdentityCell.swift in Sources */,
+				151A53A32C5D1A5500EFE20C /* AnalyticsView.swift in Sources */,
 				C924B2242430799400081E23 /* UILabel+localized.swift in Sources */,
 				088FEF5C2A0270AF00042957 /* CopyReferenceInfoWidgetViewController.swift in Sources */,
 				D589F2072794B5ED003F2FBB /* ExportValues.swift in Sources */,
@@ -9496,6 +9570,14 @@
 				minimumVersion = 3.0.4;
 			};
 		};
+		509749E92C491A0D00D28D6B /* XCRemoteSwiftPackageReference "matomo-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/matomo-org/matomo-sdk-ios.git";
+			requirement = {
+				kind = exactVersion;
+				version = 7.6.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -9693,6 +9775,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5076296A2BF2573D00B4D390 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		509749EA2C491A0D00D28D6B /* MatomoTracker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 509749E92C491A0D00D28D6B /* XCRemoteSwiftPackageReference "matomo-sdk-ios" */;
+			productName = MatomoTracker;
+		};
+		509749EC2C491A6100D28D6B /* MatomoTracker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 509749E92C491A0D00D28D6B /* XCRemoteSwiftPackageReference "matomo-sdk-ios" */;
+			productName = MatomoTracker;
+		};
+		509749EE2C491A6800D28D6B /* MatomoTracker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 509749E92C491A0D00D28D6B /* XCRemoteSwiftPackageReference "matomo-sdk-ios" */;
+			productName = MatomoTracker;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

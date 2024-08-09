@@ -83,6 +83,7 @@ struct MainPromoView: View {
         .overlay(alignment: .bottom, content: {
             BottomSheet(isShowing: $isCreateAccountSheetShown) {
                 ActivateAccountSheet()
+                    .onAppear { Tracker.track(view: ["Activate account dialog"]) }
             }
         })
         .fullScreenCover(isPresented: $isCreateIdentityFlowShown) {
@@ -148,6 +149,7 @@ struct MainPromoView: View {
                 
                 Button(action: {
                     isCreateIdentityFlowShown.toggle()
+                    Tracker.trackContentInteraction(name: "Activate account dialog", interaction: .clicked, piece: "Create Wallet")
                 }, label: {
                     HStack {
                         Text("create_wallet_sheet".localized)
@@ -192,6 +194,7 @@ struct MainPromoView: View {
                 .padding(.top, 24)
             Button {
                 isImportWalletFlowShown.toggle()
+                Tracker.trackContentInteraction(name: "Activate account dialog", interaction: .clicked, piece: "Import Wallet")
             } label: {
                 Text("import_wallet".localized).underline()
                     .font(Font.satoshi(size: 16, weight: .medium))

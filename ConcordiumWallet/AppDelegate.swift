@@ -9,6 +9,7 @@
 import UIKit
 import Base58Swift
 import Web3Wallet
+import MatomoTracker
 
 extension Notification.Name {
     static let didReceiveIdentityData = Notification.Name("didReceiveIdentityData")
@@ -64,6 +65,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                object: nil)
         
         UIApplication.shared.statusBarStyle = .lightContent
+        
+        setupMatomoTracker()
         
         return true
     }
@@ -163,5 +166,37 @@ extension UIViewController {
 extension UIApplication {
     func topMostViewController() -> UIViewController? {
         return self.keyWindow?.rootViewController?.topMostViewController()
+    }
+}
+
+extension AppDelegate {
+    func setupMatomoTracker() {
+        
+        MatomoTracker.shared.startNewSession()
+        
+        var debug: String {
+            #if DEBUG
+                return "(debug)"
+            #else
+                return ""
+            #endif
+        }
+        
+        var version: String {
+            #if MAINNET
+            if UserDefaults.bool(forKey: "demomode.userdefaultskey".localized) == true {
+                return AppSettings.appVersion + " " + AppSettings.buildNumber + " " + debug
+            }
+            return AppSettings.appVersion
+            #else
+            return AppSettings.appVersion + " " + AppSettings.buildNumber + " " + debug
+            #endif
+        }
+        
+        MatomoTracker.shared.track(view: ["home", "version and network"])
+        
+        MatomoTracker.shared.setDimension(version, forIndex: AppConstants.MatomoTracker.versionCustomDimensionId)
+        MatomoTracker.shared.setDimension(Net.current.rawValue, forIndex: AppConstants.MatomoTracker.networkCustomDimensionId)
+        MatomoTracker.shared.isOptedOut = !UserDefaults.bool(forKey: "isAnalyticsEnabled")
     }
 }

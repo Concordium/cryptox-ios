@@ -94,6 +94,8 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         navigationItem.leftBarButtonItem = qrScanerBarButton
         
         backupLegacyAccountViewLabel.text = "Please make a backup of your wallet"
+        
+        Tracker.track(view: ["Home screen"])
     }
 
     @objc func backupPresed() {
