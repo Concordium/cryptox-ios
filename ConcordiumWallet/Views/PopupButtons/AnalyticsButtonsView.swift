@@ -12,11 +12,14 @@ import MatomoTracker
 
 struct AnalyticsButtonsView: View {
     
+    @Binding var isPresented: Bool
+    
     var container: UIViewController?
     
     var body: some View {
         Button(action: {
             updateTrackingProperties(isAllowed: true)
+            isPresented = false
             container?.dismiss(animated: true)
         }, label: {
             Text("analytics.allowTracking".localized)
@@ -31,6 +34,7 @@ struct AnalyticsButtonsView: View {
         Button(action: {
             Vibration.vibrate(with: .light)
             updateTrackingProperties(isAllowed: false)
+            isPresented = false
             container?.dismiss(animated: true)
         }, label: {
             Text("analytics.askNotToTrack".localized)

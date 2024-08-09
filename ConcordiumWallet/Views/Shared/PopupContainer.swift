@@ -48,7 +48,6 @@ struct PopupContainer<Content: View>: View {
                     Button {
                         Vibration.vibrate(with: .light)
                         dismissAction?()
-                        dismiss()
                     } label: {
                         Image("unshield_close_popup_icon")
                             .contentShape(.rect)

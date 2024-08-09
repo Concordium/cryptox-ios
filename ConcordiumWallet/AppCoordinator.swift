@@ -43,6 +43,8 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     
     @AppStorage("isRestoredDefaultCIS2Tokens") private var isRestoredDefaultCIS2Tokens = false
     @AppStorage("isAcceptedPrivacy") private var isAcceptedPrivacy = false
+    
+    @State var isPresentedAnalyticsPopup: Bool = false
 
     override init() {
         navigationController = CXNavigationController()
@@ -156,7 +158,6 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
             }
                 
         }
-        showAnalyticsPopup()
     }
 
     private func showAnalyticsPopup() {
@@ -164,7 +165,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         
         let popoverAnalyticsVC = UIHostingController<AnyView>(rootView: AnyView(EmptyView()))
         
-        let buttonsView = AnalyticsButtonsView(container: popoverAnalyticsVC)
+        let buttonsView = AnalyticsButtonsView(isPresented: $isPresentedAnalyticsPopup, container: popoverAnalyticsVC)
 
         popoverAnalyticsVC.rootView = AnyView(
             PopupContainer(icon: "analytics_icon",
@@ -212,6 +213,8 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         self.handleOpenURLActionIfNeeded()
         
         self.defaultCIS2TokenManager.initializeDefaultValues()
+        
+        showAnalyticsPopup()
     }
 
     func importWallet(from url: URL) {

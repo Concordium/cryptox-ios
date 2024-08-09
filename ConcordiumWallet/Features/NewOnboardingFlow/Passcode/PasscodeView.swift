@@ -9,6 +9,7 @@
 import SwiftUI
 import Combine
 import LocalAuthentication
+import MatomoTracker
 
 class PasscodeViewModel: ObservableObject {
     enum State: Equatable {
@@ -38,6 +39,7 @@ class PasscodeViewModel: ObservableObject {
     
     @Published var pin: [Int] = []
     @Published var isRequestFaceIDViewShown = false
+    @Published var isRequestAnalyticsViewShown = false
     @Published var error: GeneralAppError?
     @Published var isWrongPassword: Bool = false
     
@@ -47,6 +49,10 @@ class PasscodeViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private var pwHash: String?
 
+    var shouldShowFaceIDAfterAnalytics: Bool {
+        return UserDefaults.standard.bool(forKey: "isAnalyticsPopupShown")
+    }
+    
     init(keychain: KeychainWrapperProtocol, sanityChecker: SanityChecker, onSuccess: @escaping (String) -> Void) {
         self.keychain = keychain
         self.onSuccess = onSuccess
@@ -68,6 +74,9 @@ class PasscodeViewModel: ObservableObject {
                         keychain.storePassword(password: convertPinToString(array))
                             .onSuccess { [weak self] pwHash in
                                 self?.pwHash = pwHash
+                                if !UserDefaults.bool(forKey: "isAnalyticsPopupShown") {
+                                    self?.isRequestAnalyticsViewShown = true
+                                }
                                 self?.isRequestFaceIDViewShown = true
                             }.onFailure { error in
                                 self.error = .somethingWentWrong
@@ -226,19 +235,21 @@ struct PasscodeView: View {
             passcodeView()
                 .padding(.bottom, 100)
                 .overlay {
-                    if viewModel.isRequestFaceIDViewShown {
-                        ZStack(alignment: .center) {
-                            Color.black
-                                .opacity(0.3)
-                                .ignoresSafeArea()
-                                .zIndex(1)
-                            enableFaceIdView()
-                                .zIndex(2)
-                        }
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .ignoresSafeArea(.all)
-                        .transition(.opacity)
-                        .animation(.easeInOut(duration: 0.3), value: viewModel.isRequestFaceIDViewShown)
+                    if viewModel.isRequestAnalyticsViewShown {
+                        analyticsPopupView(isPresented: $viewModel.isRequestAnalyticsViewShown)
+                            .onDisappear {
+                                if viewModel.shouldShowFaceIDAfterAnalytics {
+                                    viewModel.isRequestFaceIDViewShown = true
+                                }
+                            }
+                            .transition(.opacity)
+                            .animation(.easeInOut(duration: 0.3), value: viewModel.isRequestAnalyticsViewShown)
+                    }
+                    
+                    if viewModel.isRequestFaceIDViewShown && !viewModel.isRequestAnalyticsViewShown {
+                        enableFaceIdView()
+                            .transition(.opacity)
+                            .animation(.easeInOut(duration: 0.3), value: viewModel.isRequestFaceIDViewShown)
                     }
                 }
         }
@@ -265,7 +276,9 @@ struct PasscodeView: View {
                        title: "enable_face_id_title".localized,
                        subtitle: "enable_face_id_subtitle".localized,
                        content: enableFaceIdViewButtons(),
-                       dismissAction: nil)
+                       dismissAction: {
+            viewModel.continueWithoutBiometrics()
+        })
         .onAppear { Tracker.track(view: ["enable biometrics"]) }
     }
 
@@ -297,7 +310,23 @@ struct PasscodeView: View {
         .padding(.top, 20)
         .padding(.bottom, 36)
     }
-       
+    
+    @ViewBuilder
+    private func analyticsPopupView(isPresented: Binding<Bool>) -> some View {
+        PopupContainer(icon: "analytics_icon",
+                       title: "analytics.popupTrackTitle".localized,
+                       subtitle: "analytics.trackMessage".localized,
+                       content: AnalyticsButtonsView(isPresented: isPresented),
+                       dismissAction: {
+            UserDefaults.standard.set(false, forKey: "isAnalyticsEnabled")
+            MatomoTracker.shared.isOptedOut = true
+            isPresented.wrappedValue = false
+        })
+        .onDisappear {
+            UserDefaults.standard.set(true, forKey: "isAnalyticsPopupShown")
+        }
+    }
+    
     @ViewBuilder
     private func passcodeView() -> some View {
         VStack {
