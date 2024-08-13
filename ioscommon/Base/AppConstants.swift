@@ -10,7 +10,7 @@ struct AppConstants {
     }
     
     struct Media {
-        static let youtube = URL(string: "https://youtube.com/@ConcordiumNet?feature=shared")!
+        static let youtube = URL(string: "https://www.youtube.com/watch?v=eVZRuNWYs64")!
         static let ai = URL(string: "https://www.concordium.com/contact")!
     }
     
