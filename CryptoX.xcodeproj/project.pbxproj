@@ -1943,6 +1943,9 @@
 		151A53AC2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
 		151A53AD2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
 		151A53AE2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
+		15E1BC692C6B58C000543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
+		15E1BC6A2C6B58C000543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
+		15E1BC6B2C6B58C100543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
 		19C2E039DFC724B7CCFFF321 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E4B1F77014C882288F8E /* Coordinator.swift */; };
 		19C2E05A6CFAD9B9CCECF785 /* LetterSpacingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EBAEE6EC2525447CCDB5 /* LetterSpacingLabel.swift */; };
 		19C2E0C7F19B6044963A14A2 /* Publisher+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */; };
@@ -3171,6 +3174,7 @@
 		151A53982C5CF03800EFE20C /* PopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
 		151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsButtonsView.swift; sourceTree = "<group>"; };
+		15E1BC682C6B588900543242 /* Gate_io.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gate_io.png; sourceTree = "<group>"; };
 		19C2E113307579CAF5005F21 /* Sizes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
 		19C2E3C60DD1F86BE4DC76F6 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSettings.swift; path = Settings/AppSettings.swift; sourceTree = "<group>"; };
 		19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+Utils.swift"; sourceTree = "<group>"; };
@@ -3601,6 +3605,7 @@
 		06AA2A9B23F58C420001F964 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				15E1BC682C6B588900543242 /* Gate_io.png */,
 				08A6BD972B30A5D300869317 /* fonts */,
 				088FF3762A02CA7900042957 /* RobotoMono.ttf */,
 				088FF30F2A02C9FD00042957 /* SeedIdentityOnboarding */,
@@ -6372,6 +6377,7 @@
 				08C169572BB7396200E61326 /* IBMPlexSans-Light.ttf in Resources */,
 				08C169582BB7396200E61326 /* TransactionAccountView.xib in Resources */,
 				08C169592BB7396200E61326 /* 2.4.2.RX_backend_submissionStatus_success.json in Resources */,
+				15E1BC6B2C6B58C100543242 /* Gate_io.png in Resources */,
 				08C1695B2BB7396200E61326 /* registerbaker_flow_style.css in Resources */,
 				08C1695C2BB7396200E61326 /* backend_server_error.json in Resources */,
 				08C1695D2BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus_rec.json in Resources */,
@@ -6519,6 +6525,7 @@
 				08A6BDA32B30A66D00869317 /* IBMPlexSans-Light.ttf in Resources */,
 				D5962CC7272161E200A757A5 /* TransactionAccountView.xib in Resources */,
 				D589F4032794B96D003F2FBB /* 2.4.2.RX_backend_submissionStatus_success.json in Resources */,
+				15E1BC6A2C6B58C000543242 /* Gate_io.png in Resources */,
 				088FF3412A02CA2200042957 /* registerbaker_flow_style.css in Resources */,
 				D589F40B2794B96D003F2FBB /* backend_server_error.json in Resources */,
 				D589F3AB2794B96C003F2FBB /* 3.4.2.RX_backend_submissionStatus_rec.json in Resources */,
@@ -6666,6 +6673,7 @@
 				08A6BD9E2B30A66D00869317 /* IBMPlexSans-Light.ttf in Resources */,
 				7FD435FF249A2D34002D2AC3 /* icon-22-29.png in Resources */,
 				D589F4012794B96D003F2FBB /* 2.4.2.RX_backend_submissionStatus_success.json in Resources */,
+				15E1BC692C6B58C000543242 /* Gate_io.png in Resources */,
 				088FF3392A02CA2100042957 /* registerbaker_flow_style.css in Resources */,
 				D589F4092794B96D003F2FBB /* backend_server_error.json in Resources */,
 				D589F3A92794B96C003F2FBB /* 3.4.2.RX_backend_submissionStatus_rec.json in Resources */,
