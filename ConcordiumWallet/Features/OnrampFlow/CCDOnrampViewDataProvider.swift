@@ -100,6 +100,11 @@ final class CCDOnrampViewDataProvider {
                 title: "LCX",
                 url: URL(string: "https://exchange.lcx.com/")!,
                 icon: URL(string: "https://assets-global.website-files.com/64f060f3fc95f9d2081781db/660ef2975d8736c5529f54b9_LCX.jpg")!
+            ),
+            DataProvider(
+                title: "Gate.io",
+                url: URL(string: "https://www.gate.io/trade/CCD_USDT")!,
+                icon: Bundle.main.url(forResource: "Gate_io", withExtension: "png")!
             )
         ]
     }
