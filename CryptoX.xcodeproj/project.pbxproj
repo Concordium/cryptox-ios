@@ -1946,6 +1946,9 @@
 		15E1BC692C6B58C000543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
 		15E1BC6A2C6B58C000543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
 		15E1BC6B2C6B58C100543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
+		15EFE9F52C739D7B00B7145C /* ImportTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */; };
+		15EFE9F62C739D7B00B7145C /* ImportTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */; };
+		15EFE9F72C739D7B00B7145C /* ImportTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */; };
 		19C2E039DFC724B7CCFFF321 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E4B1F77014C882288F8E /* Coordinator.swift */; };
 		19C2E05A6CFAD9B9CCECF785 /* LetterSpacingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EBAEE6EC2525447CCDB5 /* LetterSpacingLabel.swift */; };
 		19C2E0C7F19B6044963A14A2 /* Publisher+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */; };
@@ -3175,6 +3178,7 @@
 		151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsButtonsView.swift; sourceTree = "<group>"; };
 		15E1BC682C6B588900543242 /* Gate_io.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gate_io.png; sourceTree = "<group>"; };
+		15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTokenViewModel.swift; sourceTree = "<group>"; };
 		19C2E113307579CAF5005F21 /* Sizes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
 		19C2E3C60DD1F86BE4DC76F6 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSettings.swift; path = Settings/AppSettings.swift; sourceTree = "<group>"; };
 		19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+Utils.swift"; sourceTree = "<group>"; };
@@ -5324,6 +5328,7 @@
 			children = (
 				08E69C9C2A20D071001CCA96 /* ImportTokenView.swift */,
 				50D3891C2C107C1E00B3675A /* TokenView.swift */,
+				15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */,
 			);
 			path = ImportToken;
 			sourceTree = "<group>";
@@ -7008,6 +7013,7 @@
 				08C1671C2BB7396200E61326 /* AccountDetailsPresenter.swift in Sources */,
 				08C1671D2BB7396200E61326 /* MailHelper.swift in Sources */,
 				08C1671E2BB7396200E61326 /* LaunchScreenViewController.swift in Sources */,
+				15EFE9F72C739D7B00B7145C /* ImportTokenViewModel.swift in Sources */,
 				08DB5E6D2BC6C31E00C29663 /* BakerPoolGenerateKeyViewController.swift in Sources */,
 				08DB5E6E2BC6C31E00C29663 /* BakerPoolGenerateKeyPresenter.swift in Sources */,
 				08C1671F2BB7396200E61326 /* AlertDisplayer.swift in Sources */,
@@ -7707,6 +7713,7 @@
 				088FEE292A0167FB00042957 /* AccountDetailsPresenter.swift in Sources */,
 				D5E2975D276C8DA3000DB102 /* MailHelper.swift in Sources */,
 				D5B87CDD27A2EC3000F27819 /* LaunchScreenViewController.swift in Sources */,
+				15EFE9F62C739D7B00B7145C /* ImportTokenViewModel.swift in Sources */,
 				08DB5E6B2BC6C31E00C29663 /* BakerPoolGenerateKeyViewController.swift in Sources */,
 				08DB5E6C2BC6C31E00C29663 /* BakerPoolGenerateKeyPresenter.swift in Sources */,
 				08B16F062A011899002E6B33 /* AlertDisplayer.swift in Sources */,
@@ -8406,6 +8413,7 @@
 				088FEE192A0167FA00042957 /* AccountDetailsPresenter.swift in Sources */,
 				08B16F042A011899002E6B33 /* AlertDisplayer.swift in Sources */,
 				08DB5E692BC6C31C00C29663 /* BakerPoolGenerateKeyViewController.swift in Sources */,
+				15EFE9F52C739D7B00B7145C /* ImportTokenViewModel.swift in Sources */,
 				08DB5E6A2BC6C31C00C29663 /* BakerPoolGenerateKeyPresenter.swift in Sources */,
 				D5CACC5326ED4A5300D3C3CF /* UIView+HapticFeedback.swift in Sources */,
 				D594F7CC2718BF13008F532E /* QRTransactionDataFlow.swift in Sources */,
