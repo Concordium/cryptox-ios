@@ -38,6 +38,8 @@ final class CIS2TokenTransferModel {
     private var onTxSuccess: (String) -> Void
     private var onTxReject: () -> Void
     
+    let cis2Service: CIS2Service
+    
     ///
     /// `notifyDestination` - describes whch service you need to send ``
     init(
@@ -57,6 +59,7 @@ final class CIS2TokenTransferModel {
         self.onTxSuccess = onTxSuccess
         self.onTxReject = onTxReject
         
+        self.cis2Service = CIS2Service(networkManager: dependencyProvider.networkManager(), storageManager: dependencyProvider.storageManager())
         subscribe()
         
         Task {
@@ -73,7 +76,7 @@ final class CIS2TokenTransferModel {
             case .ccd:
                 return .init(BigInt(account.forecastAtDisposalBalance) - BigInt(stringLiteral: transaferCost?.cost ?? "0"), 6)
             case .cis2(let cis2Token):
-                return try await CIS2TokenService.getCIS2TokenBalance(index: cis2Token.contractAddress.index, tokenIds: [cis2Token.tokenId], address: self.account.address)
+                return try await cis2Service.fetchTokensBalance(contractIndex: String(cis2Token.contractAddress.index), accountAddress: self.account.address, tokenId: cis2Token.tokenId)
                     .first
                     .map { balance -> BigDecimal in
                         return .init(BigInt(stringLiteral: balance.balance), cis2Token.metadata.decimals ?? 0)
@@ -128,7 +131,7 @@ final class CIS2TokenTransferModel {
                 self.tokenGeneralBalance = .init(BigInt(account.forecastBalance), 6)
                 self.ccdTokenDisposalBalance = .init(BigInt(account.forecastAtDisposalBalance), 6)
             case .cis2(let token):
-                guard let balance = try? await CIS2TokenService.getCIS2TokenBalance(index: token.contractAddress.index, tokenIds: [token.tokenId], address: self.account.address).first else {
+                guard let balance = try? await cis2Service.fetchTokensBalance(contractIndex: String(token.contractAddress.index), accountAddress: self.account.address, tokenId: token.tokenId).first else {
                     self.maxAmountTokenSend = .zero
                     self.tokenGeneralBalance = .zero
                     self.tokenGeneralBalance = .zero

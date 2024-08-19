@@ -1017,7 +1017,7 @@
 		08C166A32BB7396200E61326 /* IdentityCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFC12A02718B00042957 /* IdentityCard.swift */; };
 		08C166A42BB7396200E61326 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F30C2794B678003F2FBB /* NetworkManager.swift */; };
 		08C166A52BB7396200E61326 /* ArDatum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A044BD29FA99C100DACE1F /* ArDatum.swift */; };
-		08C166A62BB7396200E61326 /* CIS2TokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CA12A20DADA001CCA96 /* CIS2TokenService.swift */; };
+		08C166A62BB7396200E61326 /* CIS2TokenModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CA12A20DADA001CCA96 /* CIS2TokenModels.swift */; };
 		08C166A72BB7396200E61326 /* EncryptedBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F1242794B5EB003F2FBB /* EncryptedBalance.swift */; };
 		08C166A82BB7396200E61326 /* NFTProviderEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58EA78F290FB7E90033C8FD /* NFTProviderEmptyCell.swift */; };
 		08C166A92BB7396200E61326 /* CredentialResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F1342794B5EC003F2FBB /* CredentialResponse.swift */; };
@@ -1914,8 +1914,8 @@
 		08E69C9B2A1FCAA5001CCA96 /* AccountTokensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69C972A1FCAA5001CCA96 /* AccountTokensView.swift */; };
 		08E69C9E2A20D071001CCA96 /* ImportTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69C9C2A20D071001CCA96 /* ImportTokenView.swift */; };
 		08E69CA02A20D071001CCA96 /* ImportTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69C9C2A20D071001CCA96 /* ImportTokenView.swift */; };
-		08E69CA32A20DADA001CCA96 /* CIS2TokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CA12A20DADA001CCA96 /* CIS2TokenService.swift */; };
-		08E69CA52A20DADA001CCA96 /* CIS2TokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CA12A20DADA001CCA96 /* CIS2TokenService.swift */; };
+		08E69CA32A20DADA001CCA96 /* CIS2TokenModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CA12A20DADA001CCA96 /* CIS2TokenModels.swift */; };
+		08E69CA52A20DADA001CCA96 /* CIS2TokenModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CA12A20DADA001CCA96 /* CIS2TokenModels.swift */; };
 		08E69CA82A24A2C9001CCA96 /* CIS2TokenMetadataEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CA62A24A2C9001CCA96 /* CIS2TokenMetadataEntity.swift */; };
 		08E69CAA2A24A2C9001CCA96 /* CIS2TokenMetadataEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CA62A24A2C9001CCA96 /* CIS2TokenMetadataEntity.swift */; };
 		08E69CAF2A24D085001CCA96 /* AccountDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CAD2A24D085001CCA96 /* AccountDetailView.swift */; };
@@ -3161,7 +3161,7 @@
 		08E69C812A1D2183001CCA96 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		08E69C972A1FCAA5001CCA96 /* AccountTokensView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTokensView.swift; sourceTree = "<group>"; };
 		08E69C9C2A20D071001CCA96 /* ImportTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTokenView.swift; sourceTree = "<group>"; };
-		08E69CA12A20DADA001CCA96 /* CIS2TokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokenService.swift; sourceTree = "<group>"; };
+		08E69CA12A20DADA001CCA96 /* CIS2TokenModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokenModels.swift; sourceTree = "<group>"; };
 		08E69CA62A24A2C9001CCA96 /* CIS2TokenMetadataEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokenMetadataEntity.swift; sourceTree = "<group>"; };
 		08E69CAD2A24D085001CCA96 /* AccountDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailView.swift; sourceTree = "<group>"; };
 		08E69CB22A254570001CCA96 /* TokenFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenFormatter.swift; sourceTree = "<group>"; };
@@ -3671,7 +3671,7 @@
 		0800BC302BC455BB00EF7A47 /* CIS2TokenService */ = {
 			isa = PBXGroup;
 			children = (
-				08E69CA12A20DADA001CCA96 /* CIS2TokenService.swift */,
+				08E69CA12A20DADA001CCA96 /* CIS2TokenModels.swift */,
 				0800BC312BC56F1600EF7A47 /* CIS2Service.swift */,
 			);
 			path = CIS2TokenService;
@@ -6885,7 +6885,7 @@
 				08C166A32BB7396200E61326 /* IdentityCard.swift in Sources */,
 				08C166A42BB7396200E61326 /* NetworkManager.swift in Sources */,
 				08C166A52BB7396200E61326 /* ArDatum.swift in Sources */,
-				08C166A62BB7396200E61326 /* CIS2TokenService.swift in Sources */,
+				08C166A62BB7396200E61326 /* CIS2TokenModels.swift in Sources */,
 				08C166A72BB7396200E61326 /* EncryptedBalance.swift in Sources */,
 				08C166A82BB7396200E61326 /* NFTProviderEmptyCell.swift in Sources */,
 				08C166A92BB7396200E61326 /* CredentialResponse.swift in Sources */,
@@ -7584,7 +7584,7 @@
 				088FEFC52A02718F00042957 /* IdentityCard.swift in Sources */,
 				D589F3252794B678003F2FBB /* NetworkManager.swift in Sources */,
 				08A045E529FA99D200DACE1F /* ArDatum.swift in Sources */,
-				08E69CA52A20DADA001CCA96 /* CIS2TokenService.swift in Sources */,
+				08E69CA52A20DADA001CCA96 /* CIS2TokenModels.swift in Sources */,
 				D589F1912794B5ED003F2FBB /* EncryptedBalance.swift in Sources */,
 				D58EA794290FB7E90033C8FD /* NFTProviderEmptyCell.swift in Sources */,
 				D589F1D12794B5ED003F2FBB /* CredentialResponse.swift in Sources */,
@@ -8283,7 +8283,7 @@
 				C93A752F24464813003FDBE2 /* URL+queryParameters.swift in Sources */,
 				7FF07AE823EAFF5000F1FC04 /* MainTabBarController.swift in Sources */,
 				088FEE9F2A026B7200042957 /* CreateNicknameViewController.swift in Sources */,
-				08E69CA32A20DADA001CCA96 /* CIS2TokenService.swift in Sources */,
+				08E69CA32A20DADA001CCA96 /* CIS2TokenModels.swift in Sources */,
 				088FEFC32A02718E00042957 /* IdentityCard.swift in Sources */,
 				08A0458429FA99D100DACE1F /* RewardParameters.swift in Sources */,
 				D589F3232794B678003F2FBB /* NetworkManager.swift in Sources */,

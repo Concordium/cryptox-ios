@@ -69,7 +69,7 @@ class AccountDetailsCoordinator: Coordinator,
     }
     
     func showImportTokenFlow(_ address: String) {
-        let view = ImportTokenView(viewModel: .init(storageManager: self.dependencyProvider.storageManager(), address: address))
+        let view = ImportTokenView(viewModel: .init(storageManager: self.dependencyProvider.storageManager(), networkManager: self.dependencyProvider.networkManager(), address: address))
         let vc = SceneViewController(content: view)
         navigationController.present(vc, animated: true)
     }

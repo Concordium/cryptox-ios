@@ -49,7 +49,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     override init() {
         navigationController = CXNavigationController()
         sanityChecker = SanityChecker(mobileWallet: defaultProvider.mobileWallet(), storageManager: defaultProvider.storageManager())
-        self.defaultCIS2TokenManager = .init(storageManager: defaultProvider.storageManager())
+        self.defaultCIS2TokenManager = .init(storageManager: defaultProvider.storageManager(), networkManager: defaultProvider.networkManager())
         
         super.init()
         sanityChecker.coordinator = self

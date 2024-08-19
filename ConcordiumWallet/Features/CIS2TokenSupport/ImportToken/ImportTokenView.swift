@@ -17,13 +17,22 @@ final class ImportTokenViewModel: ObservableObject {
     @Published var tokens: [CIS2Token] = []
     @Published var selectedToken: CIS2Token?
     @Published var error: ImportTokenError?
+    @Published var isLoading: Bool = false
+    @Published var hasMore: Bool = true
+    @Published var currentPage = 1
     
     private let storageManager: StorageManagerProtocol
     private let address: String
+    private var allContractTokens = [String]()
+    private let batchSize = 20
+    private var contractIndex: Int?
     
-    init(storageManager: StorageManagerProtocol, address: String) {
+    private let cis2Service: CIS2Service
+    
+    init(storageManager: StorageManagerProtocol, networkManager: NetworkManagerProtocol, address: String) {
         self.storageManager = storageManager
         self.address = address
+        self.cis2Service = CIS2Service(networkManager: networkManager, storageManager: storageManager)
         
         logger.debugLog("savedTokens: -- \(self.storageManager.getAccountSavedCIS2Tokens(address))")
     }
@@ -31,7 +40,9 @@ final class ImportTokenViewModel: ObservableObject {
     func search(name: String) async {
         do {
             guard let index = Int(name) else { return }
-            tokens = try await CIS2TokenService.getCIS2Tokens(for: index)
+            allContractTokens = try await cis2Service.fetchTokens(contractIndex: name).tokens.map(\.token)
+            contractIndex = index
+            loadMore()
         } catch {
             logger.errorLog(error.localizedDescription)
         }
@@ -45,6 +56,43 @@ final class ImportTokenViewModel: ObservableObject {
             try storageManager.storeCIS2Token(token: token, address: address)
         } catch {
             logger.errorLog(error.localizedDescription)
+        }
+    }
+    
+    func loadMore() {
+        guard !isLoading, hasMore, let contractIndex else { return }
+        
+        isLoading = true
+        
+        Task {
+            do {
+                let ids = allContractTokens.dropFirst((currentPage - 1) * batchSize).prefix(batchSize)
+                
+                guard !ids.isEmpty else {
+                    return await MainActor.run {
+                        hasMore = false
+                        isLoading = false
+                    }
+                }
+                
+                let fetchedTokens = try await self.cis2Service.fetchAllTokensData(contractIndex: contractIndex, tokenIds: ids.joined(separator: ","))
+                
+                await MainActor.run {
+                    
+                    if currentPage == 1 {
+                        tokens = fetchedTokens
+                    } else {
+                        tokens += fetchedTokens
+                    }
+                    hasMore = tokens.count < allContractTokens.count
+                    currentPage += 1
+                    isLoading = false
+                }
+            } catch {
+                await MainActor.run {
+                    isLoading = false
+                }
+            }
         }
     }
 }
@@ -64,6 +112,11 @@ struct ImportTokenView: View {
                     } label: {
                         TokenView(token: token, isSelected: viewModel.selectedToken == token)
                     }
+                    .onAppear {
+                        if token == viewModel.tokens.last {
+                            viewModel.loadMore()
+                        }
+                    }
                     .listRowSeparator(.hidden)
                 }
                 .listStyle(.plain)
@@ -75,6 +128,7 @@ struct ImportTokenView: View {
                             await viewModel.search(name: value)
                         } else {
                             viewModel.tokens.removeAll()
+                            viewModel.selectedToken = nil
                         }
                     }
                 }
