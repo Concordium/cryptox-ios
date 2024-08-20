@@ -17,6 +17,7 @@ struct ImportTokenView: View {
     @State private var searchText: String = ""
     @State private var searchTokenIdText: String = ""
     @State private var showingTokenIdView = false
+    @State private var tokensArray: [CIS2Token] = []
     @SwiftUI.Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -35,8 +36,7 @@ struct ImportTokenView: View {
     
     func searchTokensByContractIndexView() -> some View {
         VStack {
-            TextField("", text: $searchText)
-                .searchable(text: $searchText)
+            CustomSearchBar(text: $searchText, placeholder: "Enter contract index")
                 .keyboardType(.numberPad)
                 .onChange(of: searchText) { value in
                     Task {
@@ -47,9 +47,8 @@ struct ImportTokenView: View {
                         }
                     }
                 }
+                .padding(.horizontal, 10)
                 .submitLabel(.search)
-                .padding(16)
-            
             Spacer()
             
             HStack(spacing: 20) {
@@ -69,7 +68,9 @@ struct ImportTokenView: View {
                 }
                 
                 Button {
-                    showingTokenIdView = true
+                    DispatchQueue.main.async {
+                        showingTokenIdView = true
+                    }
                 } label: {
                     Text("Look for tokens")
                         .frame(maxWidth: .infinity)
@@ -89,9 +90,27 @@ struct ImportTokenView: View {
     
     func searchTokenByTokenIDView() -> some View {
         VStack {
-            List(viewModel.tokens, id: \.tokenId) { token in
+            CustomSearchBar(text: $searchTokenIdText, placeholder: "Search for token by ID")
+                .onSubmit(of: .text) {
+                    Task {
+                        tokensArray = await viewModel.search(tokenId: searchTokenIdText)
+                    }
+                }
+                .onChange(of: searchTokenIdText) { value in
+                    if value.isEmpty {
+                        tokensArray = viewModel.tokens
+                    }
+                }
+                .padding(.horizontal, 10)
+            
+            List(tokensArray, id: \.tokenId) { token in
                 Button {
-                    viewModel.selectedToken = token
+                    if viewModel.selectedToken != token {
+                        viewModel.selectedToken = token
+                    }
+                    else {
+                        viewModel.selectedToken = nil
+                    }
                 } label: {
                     TokenView(token: token, isSelected: viewModel.selectedToken == token)
                 }
@@ -102,18 +121,18 @@ struct ImportTokenView: View {
                 }
                 .listRowSeparator(.hidden)
             }
-            .listStyle(.plain)
-            .searchable(text: $searchTokenIdText)
-            .onSubmit(of: .search) {
-                Task {
-                    await viewModel.search(tokenId: searchTokenIdText)
-                }
+            .onAppear {
+                tokensArray = viewModel.tokens
             }
+            .listStyle(.plain)
             .padding(.top, 16)
-            
             HStack(spacing: 20) {
                 Button {
-                    showingTokenIdView = false
+                    DispatchQueue.main.async {
+                        showingTokenIdView = false
+                        viewModel.selectedToken = nil
+                        searchTokenIdText = ""
+                    }
                 } label: {
                     Text("Back")
                         .frame(maxWidth: .infinity)

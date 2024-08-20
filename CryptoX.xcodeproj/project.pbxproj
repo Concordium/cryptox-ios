@@ -1949,6 +1949,9 @@
 		15EFE9F52C739D7B00B7145C /* ImportTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */; };
 		15EFE9F62C739D7B00B7145C /* ImportTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */; };
 		15EFE9F72C739D7B00B7145C /* ImportTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */; };
+		15EFE9F92C74CD4700B7145C /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */; };
+		15EFE9FA2C74CD4700B7145C /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */; };
+		15EFE9FB2C74CD4700B7145C /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */; };
 		19C2E039DFC724B7CCFFF321 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E4B1F77014C882288F8E /* Coordinator.swift */; };
 		19C2E05A6CFAD9B9CCECF785 /* LetterSpacingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EBAEE6EC2525447CCDB5 /* LetterSpacingLabel.swift */; };
 		19C2E0C7F19B6044963A14A2 /* Publisher+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */; };
@@ -3179,6 +3182,7 @@
 		151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsButtonsView.swift; sourceTree = "<group>"; };
 		15E1BC682C6B588900543242 /* Gate_io.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gate_io.png; sourceTree = "<group>"; };
 		15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTokenViewModel.swift; sourceTree = "<group>"; };
+		15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		19C2E113307579CAF5005F21 /* Sizes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
 		19C2E3C60DD1F86BE4DC76F6 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSettings.swift; path = Settings/AppSettings.swift; sourceTree = "<group>"; };
 		19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+Utils.swift"; sourceTree = "<group>"; };
@@ -4009,6 +4013,7 @@
 				08E69C812A1D2183001CCA96 /* AccountView.swift */,
 				08BFE22C2A3C9320007A7B1E /* DecimalNumberTextField.swift */,
 				083505012A9F46D4000D5175 /* CryptoImage.swift */,
+				15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -6974,6 +6979,7 @@
 				08C166F72BB7396200E61326 /* NFTWalletCell.swift in Sources */,
 				08C166F82BB7396200E61326 /* IdentityInfoViewModel.swift in Sources */,
 				08C166F92BB7396200E61326 /* TermsAndConditionsViewController.swift in Sources */,
+				15EFE9FB2C74CD4700B7145C /* CustomSearchBar.swift in Sources */,
 				08C166FA2BB7396200E61326 /* RequestExportPasswordPresenter.swift in Sources */,
 				08C166FB2BB7396200E61326 /* BaseLabel.swift in Sources */,
 				08C166FC2BB7396200E61326 /* PublicEncriptionKey.swift in Sources */,
@@ -7674,6 +7680,7 @@
 				D5E6CBFE290F47FC009856B7 /* NFTWalletCell.swift in Sources */,
 				088FEF122A026F0100042957 /* IdentityInfoViewModel.swift in Sources */,
 				088FF0322A0277F600042957 /* TermsAndConditionsViewController.swift in Sources */,
+				15EFE9FA2C74CD4700B7145C /* CustomSearchBar.swift in Sources */,
 				088FF0602A02781C00042957 /* RequestExportPasswordPresenter.swift in Sources */,
 				7F85B800246A9AB600ED09B8 /* BaseLabel.swift in Sources */,
 				08A045DC29FA99D200DACE1F /* PublicEncriptionKey.swift in Sources */,
@@ -8374,6 +8381,7 @@
 				088FF1802A02947A00042957 /* GettingStartedViewController.swift in Sources */,
 				D5E6CBFC290F47FC009856B7 /* NFTWalletCell.swift in Sources */,
 				088FEF042A026F0000042957 /* IdentityInfoViewModel.swift in Sources */,
+				15EFE9F92C74CD4700B7145C /* CustomSearchBar.swift in Sources */,
 				088FF02A2A0277F600042957 /* TermsAndConditionsViewController.swift in Sources */,
 				088FF0502A02781B00042957 /* RequestExportPasswordPresenter.swift in Sources */,
 				08A0454429FA99D100DACE1F /* PublicEncriptionKey.swift in Sources */,
@@ -9002,7 +9010,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = K762RM4LQ3;
+				DEVELOPMENT_TEAM = 6XPC23NVMV;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ProdTestNet-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "CryptoX - Testnet Wallet";
@@ -9018,7 +9026,7 @@
 				);
 				MARKETING_VERSION = 1.3.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DTESTNET";
-				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.testnet;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.testnett;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_GTU_DROP";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
@@ -9034,7 +9042,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
-				DEVELOPMENT_TEAM = K762RM4LQ3;
+				DEVELOPMENT_TEAM = 6XPC23NVMV;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ProdTestNet-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "CryptoX - Testnet Wallet";
@@ -9050,7 +9058,7 @@
 				);
 				MARKETING_VERSION = 1.3.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DTESTNET";
-				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.testnet;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.testnett;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";

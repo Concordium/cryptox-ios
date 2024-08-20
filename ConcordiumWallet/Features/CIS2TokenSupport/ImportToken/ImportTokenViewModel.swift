@@ -11,6 +11,7 @@ import SwiftUI
 @MainActor
 final class ImportTokenViewModel: ObservableObject {
     @Published var tokens: [CIS2Token] = []
+    @Published var searchResultToken: CIS2Token?
     @Published var selectedToken: CIS2Token?
     @Published var error: ImportTokenError?
     @Published var isLoading: Bool = false
@@ -44,13 +45,15 @@ final class ImportTokenViewModel: ObservableObject {
         }
     }
     
-    func search(tokenId: String) async {
+    func search(tokenId: String) async -> [CIS2Token] {
+        var tokens: [CIS2Token] = []
         do {
-            guard let contractIndex else { return }
+            guard let contractIndex else { return [] }
             tokens = try await cis2Service.fetchAllTokensData(contractIndex: contractIndex, tokenIds: tokenId)
         } catch {
             logger.errorLog(error.localizedDescription)
         }
+        return tokens
     }
     
     func saveToken(_ token: CIS2Token?) {

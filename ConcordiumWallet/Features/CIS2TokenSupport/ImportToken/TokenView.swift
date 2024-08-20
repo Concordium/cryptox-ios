@@ -18,9 +18,14 @@ struct TokenView: View {
                 CryptoImage(url: url.toURL, size: .medium)
                     .clipped()
             }
-            Text(token.metadata.name ?? "")
-                .foregroundColor(.white)
-                .font(.system(size: 15, weight: .medium))
+            VStack(spacing: 5) {
+                Text(token.metadata.name ?? "")
+                    .foregroundColor(.white)
+                    .font(.system(size: 15, weight: .medium))
+                Text(token.tokenId)
+                    .foregroundColor(.white)
+                    .font(.system(size: 13, weight: .regular))
+            }
             Spacer()
         }
         .padding()
