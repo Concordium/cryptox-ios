@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-public struct SmartContractAddress: Codable, Equatable {
+public struct SmartContractAddress: Codable, Equatable, Hashable {
     public let index: Int
     public let subindex: Int
 }
@@ -56,6 +56,16 @@ extension CIS2Token: Equatable {
     }
 }
 
+extension CIS2Token: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(tokenId)
+        hasher.combine(contractName)
+        hasher.combine(contractAddress)
+        hasher.combine(metadata)
+    }
+}
+
 struct CIS2TokenInfo: Codable {
     let id: Int
     let token: String
@@ -68,13 +78,13 @@ struct CIS2TokenInfoBox: Codable {
     let tokens: [CIS2TokenInfo]
 }
 
-struct CIS2TokensMetadataItem: Codable {
+struct CIS2TokensMetadataItem: Codable, Hashable {
     let metadataChecksum: String?
     let metadataURL: String
     let tokenId: String
 }
 
-struct CIS2TokensMetadata: Codable {
+struct CIS2TokensMetadata: Codable, Hashable {
     let contractName: String
     let metadata: [CIS2TokensMetadataItem]
 }
@@ -90,7 +100,7 @@ extension CIS2TokenMetadata: Equatable {
 }
 
 struct CIS2TokenMetadata: Codable {
-    struct Thumbnail: Codable, Equatable {
+    struct Thumbnail: Codable, Equatable, Hashable {
         enum ImageExtentionType {
             case svg, jpg, png
         }
@@ -132,6 +142,18 @@ struct CIS2TokenMetadata: Codable {
         self.thumbnail = thumbnail
         self.display = display
         self.unique = unique
+    }
+}
+
+extension CIS2TokenMetadata: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        hasher.combine(symbol)
+        hasher.combine(decimals)
+        hasher.combine(description)
+        hasher.combine(thumbnail)
+        hasher.combine(display)
+        hasher.combine(unique)
     }
 }
 

@@ -10,6 +10,7 @@ import SwiftUI
 
 @MainActor
 final class ImportTokenViewModel: ObservableObject {
+    @State var accountSavedCIS2Tokens: [CIS2Token]
     @Published var tokens: [CIS2Token] = []
     @Published var searchResultToken: CIS2Token?
     @Published var selectedToken: CIS2Token?
@@ -17,21 +18,25 @@ final class ImportTokenViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var hasMore: Bool = true
     @Published var currentPage = 1
+    @SwiftUI.Environment(\.dismiss) private var dismiss
     
     private let storageManager: StorageManagerProtocol
-    private let address: String
+    private let networkManager: NetworkManagerProtocol
+    private let account: AccountDataType
     private var allContractTokens = [String]()
     private let batchSize = 20
     private var contractIndex: Int?
     
     private let cis2Service: CIS2Service
     
-    init(storageManager: StorageManagerProtocol, networkManager: NetworkManagerProtocol, address: String) {
+    init(storageManager: StorageManagerProtocol, networkManager: NetworkManagerProtocol, account: AccountDataType) {
         self.storageManager = storageManager
-        self.address = address
+        self.networkManager = networkManager
+        self.account = account
         self.cis2Service = CIS2Service(networkManager: networkManager, storageManager: storageManager)
         
-        logger.debugLog("savedTokens: -- \(self.storageManager.getAccountSavedCIS2Tokens(address))")
+        logger.debugLog("savedTokens: -- \(self.storageManager.getAccountSavedCIS2Tokens(account.address))")
+        _accountSavedCIS2Tokens = State(initialValue: storageManager.getAccountSavedCIS2Tokens(account.address))
     }
     
     func search(name: String) async {
@@ -45,23 +50,12 @@ final class ImportTokenViewModel: ObservableObject {
         }
     }
     
-    func search(tokenId: String) async -> [CIS2Token] {
-        var tokens: [CIS2Token] = []
-        do {
-            guard let contractIndex else { return [] }
-            tokens = try await cis2Service.fetchAllTokensData(contractIndex: contractIndex, tokenIds: tokenId)
-        } catch {
-            logger.errorLog(error.localizedDescription)
-        }
-        return tokens
-    }
-    
     func saveToken(_ token: CIS2Token?) {
         guard let token = token else { return }
-        guard !storageManager.getAccountSavedCIS2Tokens(address).contains(token) else { return }
+        guard !storageManager.getAccountSavedCIS2Tokens(account.address).contains(token) else { return }
         
         do {
-            try storageManager.storeCIS2Token(token: token, address: address)
+            try storageManager.storeCIS2Token(token: token, address: account.address)
         } catch {
             logger.errorLog(error.localizedDescription)
         }
@@ -105,12 +99,46 @@ final class ImportTokenViewModel: ObservableObject {
     }
     
     func initialSearchState() {
-        hasMore = true
-        isLoading = false
+        loadInitial()
         allContractTokens.removeAll()
         tokens.removeAll()
+    }
+    
+    func loadInitial() {
+        hasMore = true
+        isLoading = false
         currentPage = 1
         selectedToken = nil
         error = nil
+    }
+    
+    func showCIS2TokenDetailsFlow(_ token: CIS2Token, onDismiss: @escaping (() -> Void)) -> some View {
+        let viewModel = CIS2TokenDetailViewModel(
+            token,
+            account: account,
+            storageManager: storageManager,
+            networkManager: networkManager,
+            onDismiss: { onDismiss() })
+        let detailTokenView = CIS2TokenDetailView(viewModel: viewModel, showRemoveTokenButton: false)
+            .navigationBarBackButtonHidden()
+            
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                       onDismiss()
+                    } label: {
+                        Image("backButtonIcon")
+                            .foregroundColor(Color.Neutral.tint1)
+                            .frame(width: 35, height: 35)
+                            .contentShape(.circle)
+                    }
+                }
+            }
+        return detailTokenView
+            .environmentObject(self)
+    }
+    
+    func isTokenAlreadyImported(tokenId: String) -> Bool {
+        return accountSavedCIS2Tokens.filter { $0.contractAddress.index == contractIndex }.contains { $0.tokenId == tokenId }
     }
 }

@@ -1943,6 +1943,9 @@
 		151A53AC2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
 		151A53AD2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
 		151A53AE2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
+		1599807C2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
+		1599807D2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
+		1599807E2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
 		15E1BC692C6B58C000543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
 		15E1BC6A2C6B58C000543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
 		15E1BC6B2C6B58C100543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
@@ -3180,6 +3183,7 @@
 		151A53982C5CF03800EFE20C /* PopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
 		151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsButtonsView.swift; sourceTree = "<group>"; };
+		1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTokenViewModel.swift; sourceTree = "<group>"; };
 		15E1BC682C6B588900543242 /* Gate_io.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gate_io.png; sourceTree = "<group>"; };
 		15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTokenViewModel.swift; sourceTree = "<group>"; };
 		15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
@@ -5270,6 +5274,24 @@
 			path = PopupButtons;
 			sourceTree = "<group>";
 		};
+		1599807F2C77391F00AE86B5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */,
+				15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		159980802C77392D00AE86B5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				50D3891C2C107C1E00B3675A /* TokenView.swift */,
+				08E69C9C2A20D071001CCA96 /* ImportTokenView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		19C2E0CE4D75C20FB441CB95 /* ioscommon */ = {
 			isa = PBXGroup;
 			children = (
@@ -5331,9 +5353,8 @@
 		50D3891B2C107C1400B3675A /* ImportToken */ = {
 			isa = PBXGroup;
 			children = (
-				08E69C9C2A20D071001CCA96 /* ImportTokenView.swift */,
-				50D3891C2C107C1E00B3675A /* TokenView.swift */,
-				15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */,
+				159980802C77392D00AE86B5 /* Views */,
+				1599807F2C77391F00AE86B5 /* Models */,
 			);
 			path = ImportToken;
 			sourceTree = "<group>";
@@ -7134,6 +7155,7 @@
 				08C1678D2BB7396200E61326 /* AccountBalanceTypeEnum.swift in Sources */,
 				08C1678E2BB7396200E61326 /* BaseView.swift in Sources */,
 				08C1678F2BB7396200E61326 /* AccountConfirmedViewController.swift in Sources */,
+				1599807E2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */,
 				08C167902BB7396200E61326 /* AccountSettingsView.swift in Sources */,
 				08C167912BB7396200E61326 /* CreateIDRequestV1.swift in Sources */,
 				08C167922BB7396200E61326 /* ExportIdentityData.swift in Sources */,
@@ -7835,6 +7857,7 @@
 				D589F1F12794B5ED003F2FBB /* AccountBalanceTypeEnum.swift in Sources */,
 				7F85B83B246A9AB600ED09B8 /* BaseView.swift in Sources */,
 				088FEEC42A026B9600042957 /* AccountConfirmedViewController.swift in Sources */,
+				1599807D2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */,
 				088FED7D2A01671900042957 /* AccountSettingsView.swift in Sources */,
 				08A0448E29FA987800DACE1F /* CreateIDRequestV1.swift in Sources */,
 				D589F2012794B5ED003F2FBB /* ExportIdentityData.swift in Sources */,
@@ -8536,6 +8559,7 @@
 				088FEEC02A026B9500042957 /* AccountConfirmedViewController.swift in Sources */,
 				08A0447229FA987700DACE1F /* CreateIDRequestV1.swift in Sources */,
 				D589F1FF2794B5ED003F2FBB /* ExportIdentityData.swift in Sources */,
+				1599807C2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */,
 				068DC81423F2E6FC001B2975 /* TitleLabel.swift in Sources */,
 				088FF2742A02AE8400042957 /* AddMemoPresenter.swift in Sources */,
 				7FF07AEE23EB075D00F1FC04 /* Storyboarded.swift in Sources */,

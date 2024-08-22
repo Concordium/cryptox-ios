@@ -11,6 +11,7 @@ import SwiftUI
 struct TokenView: View {
     let token: CIS2Token
     let isSelected: Bool
+    let onCheckMarkTapGesture: () -> Void
     
     var body: some View {
         HStack {
@@ -38,15 +39,23 @@ struct TokenView: View {
             }
         }
         .overlay(alignment: .trailing) {
-            if isSelected {
                 selectionOverlay
-            }
         }
     }
     
     
     private var selectionOverlay: some View {
-        Image("icon_selection")
+        let imageView = (isSelected ? Image("icon_selection") : Image(systemName: "circle"))
             .padding(.trailing, 12)
+            .onTapGesture {
+                onCheckMarkTapGesture()
+            }
+
+        if #available(iOS 17.0, *) {
+            return imageView
+                .contentTransition(.symbolEffect(.replace))
+        } else {
+            return imageView
+        }
     }
 }

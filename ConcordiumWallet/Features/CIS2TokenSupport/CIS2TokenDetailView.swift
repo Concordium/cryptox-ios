@@ -84,6 +84,7 @@ struct CIS2TokenDetailView: View {
     @EnvironmentObject var router: AccountDetailRouter
     
     @State private var showingQR = false
+    @State var showRemoveTokenButton = true
     
     var body: some View {
         NavigationView {
@@ -176,7 +177,7 @@ struct CIS2TokenDetailView: View {
                     }
                     .padding(16)
                 }
-
+                .clipped()
             }
         }
         .onAppear { Task { await viewModel.reload() } }
@@ -186,10 +187,11 @@ struct CIS2TokenDetailView: View {
         .navigationTitle(viewModel.sceneTitle)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Menu(content: {
-                    Button("token_detail_remove_token_action_title".localized, action: viewModel.removeToken)
-                }, label: { Image("ico_menu") })
-                
+                if showRemoveTokenButton {
+                    Menu(content: {
+                        Button("token_detail_remove_token_action_title".localized, action: viewModel.removeToken)
+                    }, label: { Image("ico_menu") })
+                }
             }
         }
         .sheet(isPresented: $showingQR) {
