@@ -48,10 +48,11 @@ final class ImportWalletSeedPhraseViewModel: ObservableObject {
         if selectedWords.allSatisfy({ !$0.isEmpty }) {
             switch recoveryService.validate(recoveryPhrase: selectedWords) {
             case .success:
-                    isValidPhrase = true
+                isValidPhrase = true
+                error = nil
             case .failure:
                 error = "recoveryphrase.recover.input.validationerror".localized
-                    isValidPhrase = false
+                isValidPhrase = false
             }
         }
     }
@@ -90,7 +91,7 @@ struct ImportWalletSeedPhraseView: View {
 
 
             SeedPhraseInput(
-                selectedWords: viewModel.selectedWords,
+                selectedWords: $viewModel.selectedWords,
                 selectedIndex: $viewModel.selectedIndex,
                 suggestions: viewModel.currentSuggestions,
                 editable: true,
