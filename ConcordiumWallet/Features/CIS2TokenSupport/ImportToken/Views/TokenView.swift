@@ -11,6 +11,7 @@ import SwiftUI
 struct TokenView: View {
     let token: CIS2Token
     let isSelected: Bool
+    let onCheckMarkTapGesture: () -> Void
     
     var body: some View {
         HStack {
@@ -18,9 +19,14 @@ struct TokenView: View {
                 CryptoImage(url: url.toURL, size: .medium)
                     .clipped()
             }
-            Text(token.metadata.name ?? "")
-                .foregroundColor(.white)
-                .font(.system(size: 15, weight: .medium))
+            VStack(spacing: 5) {
+                Text(token.metadata.name ?? "")
+                    .foregroundColor(.white)
+                    .font(.system(size: 15, weight: .medium))
+                Text(token.tokenId)
+                    .foregroundColor(.white)
+                    .font(.system(size: 13, weight: .regular))
+            }
             Spacer()
         }
         .padding()
@@ -33,15 +39,23 @@ struct TokenView: View {
             }
         }
         .overlay(alignment: .trailing) {
-            if isSelected {
                 selectionOverlay
-            }
         }
     }
     
     
     private var selectionOverlay: some View {
-        Image("icon_selection")
+        let imageView = (isSelected ? Image("icon_selection") : Image(systemName: "circle"))
             .padding(.trailing, 12)
+            .onTapGesture {
+                onCheckMarkTapGesture()
+            }
+
+        if #available(iOS 17.0, *) {
+            return imageView
+                .contentTransition(.symbolEffect(.replace))
+        } else {
+            return imageView
+        }
     }
 }

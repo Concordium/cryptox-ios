@@ -27,16 +27,20 @@ final class CIS2TokenDetailViewModel: ObservableObject {
     let token: CIS2Token
     
     private let storageManager: StorageManagerProtocol
+    private let networkManager: NetworkManagerProtocol
+    private let cis2Service: CIS2Service
     private let onDismiss: () -> Void
     
     init(
         _ token: CIS2Token,
         account: AccountDataType,
         storageManager: StorageManagerProtocol,
+        networkManager: NetworkManagerProtocol,
         onDismiss: @escaping () -> Void
     ) {
         self.onDismiss = onDismiss
         self.storageManager = storageManager
+        self.networkManager = networkManager
         self.token = token
         self.account = account
         self.sceneTitle = token.metadata.name ?? ""
@@ -49,12 +53,14 @@ final class CIS2TokenDetailViewModel: ObservableObject {
         self.tokenId = token.tokenId
         self.description = token.metadata.description
         self.decimals = "\(token.metadata.decimals ?? 0)"
+        
+        self.cis2Service = CIS2Service(networkManager: networkManager, storageManager: storageManager)
     }
     
     @MainActor
     func reload() async {
         do {
-            let balances = try await CIS2TokenService.getCIS2TokenBalance(index: token.contractAddress.index, tokenIds: [token.tokenId], address: account.address)
+            let balances = try await cis2Service.fetchTokensBalance(contractIndex: token.contractAddress.index.string, accountAddress: account.address, tokenId: token.tokenId)
             if let b = balances.first {
                 self.balance = TokenFormatter().string(from: BigDecimal(BigInt(stringLiteral: b.balance), token.metadata.decimals ?? 0))
             }
@@ -78,6 +84,7 @@ struct CIS2TokenDetailView: View {
     @EnvironmentObject var router: AccountDetailRouter
     
     @State private var showingQR = false
+    @State var showRemoveTokenButton = true
     
     var body: some View {
         NavigationView {
@@ -170,7 +177,7 @@ struct CIS2TokenDetailView: View {
                     }
                     .padding(16)
                 }
-
+                .clipped()
             }
         }
         .onAppear { Task { await viewModel.reload() } }
@@ -180,10 +187,11 @@ struct CIS2TokenDetailView: View {
         .navigationTitle(viewModel.sceneTitle)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Menu(content: {
-                    Button("token_detail_remove_token_action_title".localized, action: viewModel.removeToken)
-                }, label: { Image("ico_menu") })
-                
+                if showRemoveTokenButton {
+                    Menu(content: {
+                        Button("token_detail_remove_token_action_title".localized, action: viewModel.removeToken)
+                    }, label: { Image("ico_menu") })
+                }
             }
         }
         .sheet(isPresented: $showingQR) {

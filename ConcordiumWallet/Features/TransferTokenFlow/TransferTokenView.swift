@@ -92,7 +92,7 @@ final class TransferTokenViewModel: ObservableObject {
     var tokenTransferModel: CIS2TokenTransferModel
     
     lazy var accountTokensListPickerViewModel: AccountTokensListPickerViewModel = {
-        AccountTokensListPickerViewModel(account: account, storageManager: dependencyProvider.storageManager(), selectedToken: tokenTransferModel.tokenType)
+        AccountTokensListPickerViewModel(account: account, storageManager: dependencyProvider.storageManager(), networkManager: dependencyProvider.networkManager(), selectedToken: tokenTransferModel.tokenType)
     }()
     
     private var cancellables = [AnyCancellable]()

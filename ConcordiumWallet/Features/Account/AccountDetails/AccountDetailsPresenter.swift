@@ -40,7 +40,7 @@ protocol AccountDetailsPresenterDelegate: ShowShieldedDelegate {
     func transactionSelected(viewModel: TransactionViewModel)
     func accountDetailsClosed()
     
-    func showImportTokenFlow(_ address: String)
+    func showImportTokenFlow(account: AccountDataType)
 }
 
 // MARK: -
@@ -110,7 +110,7 @@ class AccountDetailsPresenter {
 extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     
     func showImportTokenFlow() {
-        delegate?.showImportTokenFlow(account.address)
+        delegate?.showImportTokenFlow(account: account)
     }
     
     func showGTUDrop() -> Bool {

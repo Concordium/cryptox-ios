@@ -53,7 +53,12 @@ extension AccountDetailRouter: TransactionDetailPresenterDelegate {}
 extension AccountDetailRouter: AccountDetailRoutable {
     @MainActor
     func showImportTokenFlow(for account: AccountDataType) {
-        let view = ImportTokenView(viewModel: .init(storageManager: self.dependencyProvider.storageManager(), address: account.address))
+        let view = ImportTokenView(viewModel: .init(storageManager: self.dependencyProvider.storageManager(),
+                                                    networkManager: self.dependencyProvider.networkManager(),
+                                                    account: account),
+                                   searchTokenViewModel: SearchTokenViewModel(cis2Service:
+                                                                                CIS2Service(networkManager: self.dependencyProvider.networkManager(),
+                                                                                            storageManager: self.dependencyProvider.storageManager())))
         let vc = SceneViewController(content: view)
         navigationController.present(vc, animated: true)
     }
@@ -73,6 +78,7 @@ extension AccountDetailRouter: AccountDetailRoutable {
             token,
             account: account,
             storageManager: dependencyProvider.storageManager(),
+            networkManager: dependencyProvider.networkManager(),
             onDismiss: { [weak navigationController] in
                 navigationController?.popViewController(animated: true)
             })

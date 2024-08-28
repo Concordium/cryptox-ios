@@ -31,7 +31,7 @@ final class AccountsMainViewModel: ObservableObject {
         self.dependencyProvider = dependencyProvider
         self.walletConnectService = walletConnectService
         self.isBackupAlertShown = dependencyProvider.mobileWallet().isLegacyAccount()
-        self.defaultCIS2TokenManager = .init(storageManager: dependencyProvider.storageManager())
+        self.defaultCIS2TokenManager = .init(storageManager: dependencyProvider.storageManager(), networkManager: self.dependencyProvider.networkManager())
         
         accounts = dependencyProvider.storageManager().getAccounts().sorted(by: { t1, t2 in
             if (t1.forecastBalance == t2.forecastBalance) {

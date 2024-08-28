@@ -68,8 +68,12 @@ class AccountDetailsCoordinator: Coordinator,
         }
     }
     
-    func showImportTokenFlow(_ address: String) {
-        let view = ImportTokenView(viewModel: .init(storageManager: self.dependencyProvider.storageManager(), address: address))
+    func showImportTokenFlow(account: AccountDataType) {
+        let view = ImportTokenView(viewModel: .init(storageManager: self.dependencyProvider.storageManager(),
+                                                    networkManager: self.dependencyProvider.networkManager(),
+                                                    account: account),
+                                   searchTokenViewModel: SearchTokenViewModel(cis2Service: CIS2Service(networkManager: self.dependencyProvider.networkManager(),
+                                                                                                       storageManager: self.dependencyProvider.storageManager())))
         let vc = SceneViewController(content: view)
         navigationController.present(vc, animated: true)
     }
