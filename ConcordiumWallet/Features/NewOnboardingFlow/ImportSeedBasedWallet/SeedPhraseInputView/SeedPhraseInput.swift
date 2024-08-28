@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import MnemonicSwift
 
 struct SeedPhraseInput: View {
     @Binding var selectedWords: [String]
@@ -138,7 +139,11 @@ struct SeedPhraseInputList: View {
                 .onChange(of: $currentInput.wrappedValue) { newValue in
                     if UIPasteboard.general.string == newValue {
                         isPasted = true
-                        handleInputChange(for: selectedIndex, newValue: newValue)
+                        do {
+                            try handleInputChange(for: selectedIndex, newValue: newValue)
+                        } catch(let error) {
+                            print("Error handling input change: \(error.localizedDescription)")
+                        }
                     } else {
                         isPasted = false
                     }
@@ -171,19 +176,15 @@ struct SeedPhraseInputList: View {
         .contentShape(Rectangle())
     }
     
-    private func handleInputChange(for index: Int, newValue: String) {
+    private func handleInputChange(for index: Int, newValue: String) throws {
         if isPasted {
             inputArray = newValue.components(separatedBy: " ")
-            for i in 0..<items.count {
-                if i < inputArray.count {
-                    items[i] = inputArray[i]
-                    action(inputArray[i])
-                    moveToNextIndex()
-                } else {
-                    items[i] = ""
-                }
+            if inputArray.count == 24 {
+                try Mnemonic.validate(mnemonic: newValue)
+                items = inputArray
+                currentInput = items[selectedIndex]
+                action(currentInput)
             }
-            currentInput = items[selectedIndex]
         } else {
             // Handle manual input
             items[index] = newValue
