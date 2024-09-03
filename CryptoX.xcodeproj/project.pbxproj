@@ -1943,6 +1943,9 @@
 		151A53AC2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
 		151A53AD2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
 		151A53AE2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
+		15844E5A2C87445B005A3BF1 /* TransferTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15844E592C87445B005A3BF1 /* TransferTokenViewModel.swift */; };
+		15844E5B2C8744D5005A3BF1 /* TransferTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15844E592C87445B005A3BF1 /* TransferTokenViewModel.swift */; };
+		15844E5C2C8744D5005A3BF1 /* TransferTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15844E592C87445B005A3BF1 /* TransferTokenViewModel.swift */; };
 		1599807C2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
 		1599807D2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
 		1599807E2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
@@ -3183,6 +3186,7 @@
 		151A53982C5CF03800EFE20C /* PopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
 		151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsButtonsView.swift; sourceTree = "<group>"; };
+		15844E592C87445B005A3BF1 /* TransferTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferTokenViewModel.swift; sourceTree = "<group>"; };
 		1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTokenViewModel.swift; sourceTree = "<group>"; };
 		15E1BC682C6B588900543242 /* Gate_io.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gate_io.png; sourceTree = "<group>"; };
 		15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTokenViewModel.swift; sourceTree = "<group>"; };
@@ -4982,6 +4986,7 @@
 		08BC950D2A30A85A0058F1B9 /* TransferTokenFlow */ = {
 			isa = PBXGroup;
 			children = (
+				15844E582C87444D005A3BF1 /* Models */,
 				08BC951D2A3719EE0058F1B9 /* TransferTokenRouter.swift */,
 				08BC950E2A30AC680058F1B9 /* TransferTokenView.swift */,
 				08BC95182A3717210058F1B9 /* TransferTokenConfirmView.swift */,
@@ -5272,6 +5277,14 @@
 				151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */,
 			);
 			path = PopupButtons;
+			sourceTree = "<group>";
+		};
+		15844E582C87444D005A3BF1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				15844E592C87445B005A3BF1 /* TransferTokenViewModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		1599807F2C77391F00AE86B5 /* Models */ = {
@@ -7487,6 +7500,7 @@
 				08C168CE2BB7396200E61326 /* SingleSection.swift in Sources */,
 				08C168CF2BB7396200E61326 /* TransferCost.swift in Sources */,
 				08C168D12BB7396200E61326 /* RecoverAccountsView.swift in Sources */,
+				15844E5C2C8744D5005A3BF1 /* TransferTokenViewModel.swift in Sources */,
 				08C168D22BB7396200E61326 /* IdentityProviderListViewController.swift in Sources */,
 				08C168D32BB7396200E61326 /* AccountPreviewView.swift in Sources */,
 				08C168D42BB7396200E61326 /* CreateIdentityRootView.swift in Sources */,
@@ -8189,6 +8203,7 @@
 				19C2EFF1CEC944A7FCBC63C5 /* SingleSection.swift in Sources */,
 				08A0462629FA99D300DACE1F /* TransferCost.swift in Sources */,
 				08D103E12B5692A70057E844 /* RecoverAccountsView.swift in Sources */,
+				15844E5B2C8744D5005A3BF1 /* TransferTokenViewModel.swift in Sources */,
 				088FEEE32A026EB100042957 /* IdentityProviderListViewController.swift in Sources */,
 				089FF0E32A4C4B58007AB1CF /* AccountPreviewView.swift in Sources */,
 				08520A6A2B48278F008DC851 /* CreateIdentityRootView.swift in Sources */,
@@ -8891,6 +8906,7 @@
 				D5BA80782731F2BF00DCE1CD /* QRTransactionParamsBuilder.swift in Sources */,
 				19C2EA698E53E3B19A20B2E8 /* Coordinator.swift in Sources */,
 				08D103E02B5692A70057E844 /* RecoverAccountsView.swift in Sources */,
+				15844E5A2C87445B005A3BF1 /* TransferTokenViewModel.swift in Sources */,
 				08A0458A29FA99D100DACE1F /* AccountKeys.swift in Sources */,
 				089FF0E22A4C4B58007AB1CF /* AccountPreviewView.swift in Sources */,
 				08520A692B48278F008DC851 /* CreateIdentityRootView.swift in Sources */,

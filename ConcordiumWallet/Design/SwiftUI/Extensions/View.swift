@@ -32,3 +32,28 @@ extension View {
     }
 }
 
+extension View {
+    func errorAlert(error: Binding<GeneralAppError?>, cancelTitle: String = "errorAlert.cancelButton".localized, action: ((GeneralAppError?) -> Void)?) -> some View {
+        return alert(isPresented: .constant(error.wrappedValue != nil), error: error.wrappedValue) { _ in
+            switch error.wrappedValue {
+                case .noCameraAccess:
+                    Button(error.wrappedValue?.actionButtontitle ?? "") {
+                        action?(error.wrappedValue)
+                    }
+                case .none: EmptyView()
+                default: EmptyView()
+            }
+            Button(cancelTitle, role: .cancel) {
+                error.wrappedValue = nil
+            }
+        } message: { error in
+            Text(error.recoverySuggestion ?? "")
+        }
+    }
+}
+
+extension View {
+    func eraseToAnyView() -> AnyView {
+        AnyView(self)
+    }
+}

@@ -28,6 +28,7 @@ final class CIS2TokenTransferModel {
     @Published var maxAmountTokenSend: BigDecimal = .zero
     @Published var tokenGeneralBalance: BigDecimal = .zero
     @Published var ccdTokenDisposalBalance: BigDecimal = .zero
+    @Published var memo: Memo?
     
     let account: AccountDataType
     let notifyDestination: TokenTransferNotifyDestination
@@ -48,6 +49,7 @@ final class CIS2TokenTransferModel {
         dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
         notifyDestination: TokenTransferNotifyDestination,
         passwordDelegate: RequestPasswordDelegate = DummyRequestPasswordDelegate(),
+        memo: Memo?,
         onTxSuccess: @escaping (String) -> Void,
         onTxReject: @escaping () -> Void
     ) {
@@ -56,6 +58,7 @@ final class CIS2TokenTransferModel {
         self.dependencyProvider = dependencyProvider
         self.notifyDestination = notifyDestination
         self.passwordDelegate = passwordDelegate
+        self.memo = memo
         self.onTxSuccess = onTxSuccess
         self.onTxReject = onTxReject
         
@@ -95,7 +98,7 @@ final class CIS2TokenTransferModel {
     }
     
     private func subscribe() {
-        Publishers.CombineLatest3($recipient, $tokenType, $amountTokenSend).sink(receiveValue: { [weak self] (address, tokenType, amount) in
+        Publishers.CombineLatest4($recipient, $tokenType, $amountTokenSend, $memo).sink(receiveValue: { [weak self] (address, tokenType, amount, memo) in
             await self?.updateMaxAmount()
 
             guard let self = self else { return }
@@ -113,7 +116,7 @@ final class CIS2TokenTransferModel {
     public func getCCDTxCost() async throws -> TransferCost {
         return try await dependencyProvider
             .transactionsService()
-            .getTransferCost(transferType: .simpleTransfer, costParameters: [])
+            .getTransferCost(transferType: .simpleTransfer, costParameters: TransferCostParameter.parametersForMemoSize(memo?.size))
             .async()
     }
     
@@ -182,6 +185,7 @@ extension CIS2TokenTransferModel {
                     .contractSubindex(token.contractAddress.subindex),
                     .receiveName("\(token.contractName).transfer"),
                     .parameter(serializedTransferParams),
+                    .memoSize(memo?.size ?? 0)
                 ]
             )
             .eraseToAnyPublisher()
@@ -192,7 +196,7 @@ extension CIS2TokenTransferModel {
     private func updateCCDTransferCost() async {
         self.transaferCost = try? await dependencyProvider
             .transactionsService()
-            .getTransferCost(transferType: .simpleTransfer, costParameters: [])
+            .getTransferCost(transferType: .simpleTransfer, costParameters: TransferCostParameter.parametersForMemoSize(memo?.size))
             .async()
     }
 }
@@ -219,6 +223,7 @@ extension CIS2TokenTransferModel {
         transfer.toAddress = self.recipient ?? ""
         transfer.cost = self.transaferCost?.cost ?? "100000"
         transfer.energy = self.transaferCost?.energy ?? 0
+        transfer.memo = self.memo?.displayValue
 
         return dependencyProvider.transactionsService()
             .performTransfer(transfer, from: self.account, requestPasswordDelegate: self.passwordDelegate)
@@ -239,6 +244,7 @@ extension CIS2TokenTransferModel {
         transfer.toAddress = to
         transfer.expiry = Date().addingTimeInterval(10 * 60)
         transfer.energy = txCost.energy
+        transfer.memo = self.memo?.displayValue
         
         transfer.receiveName = token.contractName + ".transfer"
         transfer.params = serializedTransferParams

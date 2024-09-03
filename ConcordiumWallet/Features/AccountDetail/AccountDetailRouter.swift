@@ -9,19 +9,6 @@
 import UIKit
 import Combine
 
-//protocol AccountDetailNavigationProxy: AnyObject {
-//    func showImportTokenFlow(for account: AccountDataType)
-//    func showAccountDetailFlow(for account: AccountDataType)
-//    func showTx(_ tx: TransactionViewModel)
-//    func showCIS2TokenDetailsFlow(_ token: CIS2Token, account: AccountDataType)
-//    func showAccountAddressQR(_ account: AccountDataType)
-//    func showAccountSettings()
-//    func showSendTokenFlow(tokenType: CXTokenType)
-//
-//    func showQrAddressPicker(_ onPicked: @escaping (String) -> Void)
-//    func showRecepientPicker(_ onPicked: @escaping (String) -> Void)
-//}
-
 protocol AccountDetailRoutable: AnyObject {
     func showImportTokenFlow(for account: AccountDataType)
     func showAccountDetailFlow(for account: AccountDataType)
@@ -38,6 +25,7 @@ final class AccountDetailRouter: ObservableObject {
     let navigationController: UINavigationController
     let dependencyProvider: ServicesProvider
     let account: AccountDataType
+    weak var accountMainViewDelegate: AccountsMainViewDelegate?
         
     init(account: AccountDataType, navigationController: UINavigationController, dependencyProvider: ServicesProvider) {
         self.navigationController = navigationController
@@ -65,12 +53,14 @@ extension AccountDetailRouter: AccountDetailRoutable {
 
     @MainActor
     func showAccountDetailFlow(for account: AccountDataType) {
-        AccountDetailsCoordinator.init(
+        let accountDetailCoordinator = AccountDetailsCoordinator.init(
             navigationController: navigationController,
             dependencyProvider: dependencyProvider,
             parentCoordinator: self,
             account: account)
-        .showLegacyAccountDetails(account: account)
+        
+        accountDetailCoordinator.accountsMainViewDelegate = accountMainViewDelegate
+        accountDetailCoordinator.showLegacyAccountDetails(account: account)
     }
     
     func showCIS2TokenDetailsFlow(_ token: CIS2Token, account: AccountDataType) {

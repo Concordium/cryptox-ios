@@ -20,6 +20,8 @@ final class TransferTokenRouter: ObservableObject {
     
     private var onAddressPicked = PassthroughSubject<String, Never>()
     
+    var transferTokenViewDelegate: TransferTokenViewProtocol?
+    
     init(
         root: UINavigationController,
         account: AccountDataType,
@@ -46,6 +48,7 @@ final class TransferTokenRouter: ObservableObject {
                 account: account,
                 dependencyProvider: dependencyProvider,
                 notifyDestination: .none,
+                memo: nil,
                 onTxSuccess: { _ in },
                 onTxReject: {
                     
@@ -70,6 +73,34 @@ final class TransferTokenRouter: ObservableObject {
         self.navigationController.pushViewController(viewController, animated: true)
     }
     
+    func showMemoWarningAlert(_ completion: @escaping () -> Void) {
+        let alert = UIAlertController(
+            title: "warningAlert.transactionMemo.title".localized,
+            message: "warningAlert.transactionMemo.text".localized,
+            preferredStyle: .alert
+        )
+        
+        let okAction = UIAlertAction(
+            title: "errorAlert.okButton".localized,
+            style: .default
+        ) { _ in
+            completion()
+        }
+        
+        let dontShowAgain = UIAlertAction(
+            title: "warningAlert.dontShowAgainButton".localized,
+            style: .default
+        ) { _ in
+            AppSettings.dontShowMemoAlertWarning = true
+            completion()
+        }
+        
+        alert.addAction(okAction)
+        alert.addAction(dontShowAgain)
+        
+        self.navigationController.present(alert, animated: true)
+    }
+    
     func transactionSuccessFlow(_ transferDataType: TransferEntity, tokenTransferModel: CIS2TokenTransferModel) {
         let viewModel = TransferTokenSubmittedViewModel(transferDataType: transferDataType, tokenTransferModel: tokenTransferModel)
         let view = TransferTokenSubmittedView().environmentObject(viewModel).environmentObject(self)
@@ -91,6 +122,7 @@ final class TransferTokenRouter: ObservableObject {
             account: account,
             dependencyProvider: dependencyProvider,
             notifyDestination: .legacyQrConnect,
+            memo: nil,
             onTxSuccess: onTxSuccess,
             onTxReject: onTxReject
         )
@@ -125,6 +157,17 @@ extension TransferTokenRouter {
                                                                               mode: .addressBook,
                                                                               ownAccount: account))
         navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func showAddMemo(memo: Memo?) {
+        let addMemoPresenter = AddMemoPresenter(delegate: self, memo: memo)
+        let addMemoViewController = AddMemoFactory.create(with: addMemoPresenter)
+        navigationController.pushViewController(addMemoViewController, animated: true)
+    }
+    
+    func addedMemo(_ memo: Memo) {
+        navigationController.popViewController(animated: true)
+        transferTokenViewDelegate?.setMemo(memo: memo)
     }
 }
 
@@ -178,5 +221,11 @@ extension TransferTokenRouter: AddRecipientPresenterDelegate {
         vcs.insert(vc, at: vcs.count-1)
         navigationController.setViewControllers(vcs, animated: false)
         return vc
+    }
+}
+
+extension TransferTokenRouter: AddMemoPresenterDelegate {
+    func addMemoDidAddMemoToTransfer(memo: Memo) {
+        addedMemo(memo)
     }
 }
