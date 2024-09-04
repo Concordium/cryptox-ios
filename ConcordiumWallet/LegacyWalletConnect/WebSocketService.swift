@@ -266,12 +266,9 @@ extension WebSocketService {
         guard let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController else { return }
         guard let dependencyProvider = dependencyProvider else { return }
         guard let account = dependencyProvider.storageManager().getAccounts().first(where: { $0.address == data.data.from }) else { return }
-//        guard let account = dependencyProvider.storageManager().getAccounts().first else { return }
-
-        let router = TransferTokenRouter(root: navigationController, account: account, dependencyProvider: dependencyProvider)
-//        let legacyQRConnectService: WebSocketService = .init()
-//        legacyQRConnectService.connect(url: T##String)
         
+        let router = TransferTokenRouter(root: navigationController, account: account, dependencyProvider: dependencyProvider)
+    
         router.showSimpleTransferConfirmFlow(data: data, onTxSuccess: sendPaymentMessage, onTxReject: sendPaymentRejectionMessage)
     }
 }
@@ -411,16 +408,6 @@ struct APIResponse: Codable {
         case session_id, connect_id
     }
 }
-
-//struct SocketData : Codable{
-//
-//    public var p: Float
-//
-//    private enum CodingKeys: String, CodingKey {
-//        case p
-//    }
-//}
-
 
 import Foundation
 

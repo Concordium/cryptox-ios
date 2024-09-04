@@ -145,7 +145,9 @@ extension TransferTokenRouter {
             onPicked(output.address)
             self?.navigationController.popViewController(animated: true)
         }))
-        navigationController.pushViewController(vc, animated: true)
+        DispatchQueue.main.async { [weak self] in
+            self?.navigationController.pushViewController(vc, animated: true)
+        }
     }
 
     func showRecepientPicker(_ onPicked: @escaping (String) -> Void) {
