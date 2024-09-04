@@ -28,26 +28,36 @@ final class CCDOnrampViewDataProvider {
     static var sections: [DataProvidersSection] {
 #if MAINNET
         [
-            DataProvidersSection(title: "Payment Gateway", providers: [CCDOnrampViewDataProvider.swipelux]),
+            DataProvidersSection(title: "Payment Gateway", providers: CCDOnrampViewDataProvider.swipelux),
             DataProvidersSection(title: "CEX", providers: CCDOnrampViewDataProvider.cex),
+            DataProvidersSection(title: "DEX", providers: [CCDOnrampViewDataProvider.dex]),
         ]
 #else
         [
-            DataProvidersSection(title: "Payment Gateway", providers: [CCDOnrampViewDataProvider.swipelux]),
+            DataProvidersSection(title: "Payment Gateway", providers: CCDOnrampViewDataProvider.swipelux),
             DataProvidersSection(title: "CEX", providers: CCDOnrampViewDataProvider.cex),
+            DataProvidersSection(title: "DEX", providers: [CCDOnrampViewDataProvider.dex]),
             DataProvidersSection(title: "Testnet", providers: [CCDOnrampViewDataProvider.testnet]),
         ]
 #endif
 
     }
     
-    static var swipelux: DataProvider {
-        DataProvider(
-            title: "Swipelux",
-            url: URL(string: "https://swipelux.com/buy_ccd")!,
-            icon: URL(string: "https://assets-global.website-files.com/64f060f3fc95f9d2081781db/65e825be9290e43f9d1bc29b_52c3517d-1bb0-4705-a952-8f0d2746b4c5.jpg")!,
-            isPaymentProvider: true
-        )
+    static var swipelux: [DataProvider] {
+        [
+            DataProvider(
+                title: "Swipelux",
+                url: URL(string: "https://swipelux.com/buy_ccd")!,
+                icon: URL(string: "https://assets-global.website-files.com/64f060f3fc95f9d2081781db/65e825be9290e43f9d1bc29b_52c3517d-1bb0-4705-a952-8f0d2746b4c5.jpg")!,
+                isPaymentProvider: true
+            ),
+            DataProvider(
+                title: "Wert",
+                url: URL(string: "https://wert.io/try-wert")!,
+                icon: URL(string: "https://partner.wert.io/icons/apple-touch-icon.png")!,
+                isPaymentProvider: true
+            )
+        ]
     }
     
     static var testnet: DataProvider {
@@ -107,5 +117,21 @@ final class CCDOnrampViewDataProvider {
                 icon: Bundle.main.url(forResource: "Gate_io", withExtension: "png")!
             )
         ]
+    }
+    
+    static var dex: DataProvider {
+        #if MAINNET
+            DataProvider(
+                title: "Concordex",
+                url: URL(string: "https://app.concordex.io/trade?mode=simple")!,
+                icon: URL(string: "https://cdn.prod.website-files.com/64f060f3fc95f9d2081781db/64f0d420d065ec0e03a694b9_logo-favicon-concordex.png")!
+            )
+        #else
+            DataProvider(
+                title: "Concordex Testnet",
+                url: URL(string: "https://testnet.concordex.io/trade?mode=simple")!,
+                icon: URL(string: "https://cdn.prod.website-files.com/64f060f3fc95f9d2081781db/64f0d420d065ec0e03a694b9_logo-favicon-concordex.png")!
+            )
+        #endif
     }
 }

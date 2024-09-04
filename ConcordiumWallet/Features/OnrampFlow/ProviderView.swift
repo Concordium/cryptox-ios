@@ -31,5 +31,5 @@ struct ProviderView: View {
 }
 
 #Preview {
-    ProviderView(provider: CCDOnrampViewDataProvider.swipelux)
+    ProviderView(provider: CCDOnrampViewDataProvider.testnet)
 }
