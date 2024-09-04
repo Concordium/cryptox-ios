@@ -223,7 +223,7 @@ extension CIS2TokenTransferModel {
         transfer.toAddress = self.recipient ?? ""
         transfer.cost = self.transaferCost?.cost ?? "100000"
         transfer.energy = self.transaferCost?.energy ?? 0
-        transfer.memo = self.memo?.displayValue
+        transfer.memo = self.memo?.data.hexDescription
 
         return dependencyProvider.transactionsService()
             .performTransfer(transfer, from: self.account, requestPasswordDelegate: self.passwordDelegate)
@@ -244,7 +244,7 @@ extension CIS2TokenTransferModel {
         transfer.toAddress = to
         transfer.expiry = Date().addingTimeInterval(10 * 60)
         transfer.energy = txCost.energy
-        transfer.memo = self.memo?.displayValue
+        transfer.memo = self.memo?.data.hexDescription
         
         transfer.receiveName = token.contractName + ".transfer"
         transfer.params = serializedTransferParams
