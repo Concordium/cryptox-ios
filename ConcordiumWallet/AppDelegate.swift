@@ -10,6 +10,8 @@ import UIKit
 import Base58Swift
 import Web3Wallet
 import MatomoTracker
+import FirebaseMessaging
+import FirebaseCore
 
 extension Notification.Name {
     static let didReceiveIdentityData = Notification.Name("didReceiveIdentityData")
@@ -20,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var appCoordinator = AppCoordinator()
     
+    let gcmMessageIDKey = "gcm.message_id"
+
     private lazy var backgroundWindow: UIWindow = {
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.rootViewController = LaunchScreenFactory.create()
@@ -68,6 +72,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         setupMatomoTracker()
         
+        UNUserNotificationCenter.current().delegate = self
+        PushNotificationService.shared.configureFirebase()
+        Messaging.messaging().delegate = self
+
         return true
     }
     
@@ -198,5 +206,75 @@ extension AppDelegate {
         MatomoTracker.shared.setDimension(version, forIndex: AppConstants.MatomoTracker.versionCustomDimensionId)
         MatomoTracker.shared.setDimension(Net.current.rawValue, forIndex: AppConstants.MatomoTracker.networkCustomDimensionId)
         MatomoTracker.shared.isOptedOut = !UserDefaults.bool(forKey: "isAnalyticsEnabled")
+    }
+}
+
+// MARK: - Notifications handling
+extension AppDelegate: MessagingDelegate {
+    @objc func messaging(_: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        print("Firebase token: \(String(describing: fcmToken))")
+        if UIApplication.shared.isRegisteredForRemoteNotifications {
+            PushNotificationService.shared.sendTokenToConcordiumServer(fcmToken: fcmToken)
+        }
+    }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(
+        _: UNUserNotificationCenter,
+        willPresent _: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        completionHandler([[.banner, .list, .sound]])
+    }
+    
+    func userNotificationCenter(
+        _: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        let userInfo = response.notification.request.content.userInfo
+        NotificationCenter.default.post(
+            name: Notification.Name("didReceiveRemoteNotification"),
+            object: nil,
+            userInfo: userInfo
+        )
+        completionHandler()
+    }
+}
+
+extension AppDelegate {
+    func application(_: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Oh no! Failed to register for remote notifications with error \(error)")
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        var readableToken = ""
+        for index in 0 ..< deviceToken.count {
+            readableToken += String(format: "%02.2hhx", deviceToken[index] as CVarArg)
+        }
+        print("Received an APNs device token: \(readableToken)")
+        
+        Messaging.messaging().apnsToken = deviceToken
+        
+        Messaging.messaging().token { token, error in
+            if let error {
+                print("Error fetching FCM registration token: \(error)")
+            } else if let token {
+                print("FCM registration token: \(token)")
+                PushNotificationService.shared.sendTokenToConcordiumServer(fcmToken: token)
+            }
+        }
+    }
+
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) async -> UIBackgroundFetchResult {
+      // TODO: Handle data of notification
+          
+      if let messageID = userInfo[gcmMessageIDKey] {
+        print("Message ID: \(messageID)")
+      }
+      print(userInfo)
+
+      return UIBackgroundFetchResult.newData
     }
 }

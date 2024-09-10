@@ -9,19 +9,6 @@
 import UIKit
 import Combine
 
-//protocol AccountDetailNavigationProxy: AnyObject {
-//    func showImportTokenFlow(for account: AccountDataType)
-//    func showAccountDetailFlow(for account: AccountDataType)
-//    func showTx(_ tx: TransactionViewModel)
-//    func showCIS2TokenDetailsFlow(_ token: CIS2Token, account: AccountDataType)
-//    func showAccountAddressQR(_ account: AccountDataType)
-//    func showAccountSettings()
-//    func showSendTokenFlow(tokenType: CXTokenType)
-//
-//    func showQrAddressPicker(_ onPicked: @escaping (String) -> Void)
-//    func showRecepientPicker(_ onPicked: @escaping (String) -> Void)
-//}
-
 protocol AccountDetailRoutable: AnyObject {
     func showImportTokenFlow(for account: AccountDataType)
     func showAccountDetailFlow(for account: AccountDataType)
