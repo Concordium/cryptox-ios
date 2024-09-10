@@ -153,6 +153,13 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
         navigationController.pushViewController(vc, animated: true)
     }
     
+    // MARK: Notifications
+    func showNotifications() {
+        let notificationsVc = UIHostingController(rootView: NotificationsView())
+        notificationsVc.title = "more.notifications".localized
+        navigationController.pushViewController(notificationsVc, animated: true)
+    }
+    
     func logoutAccounts() {}
 }
 
@@ -228,6 +235,10 @@ extension MoreCoordinator: MoreMenuPresenterDelegate {
     
     func aboutSelected() {
         showAbout()
+    }
+    
+    func notificationsSelected() {
+        showNotifications()
     }
 }
 

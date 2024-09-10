@@ -24,6 +24,7 @@ enum MenuCell: Hashable {
     
     case revealSeedPhrase(title: String)
     case unshieldAssets(title: String)
+    case notifications(title: String)
     
     var title: String {
         switch self {
@@ -37,6 +38,7 @@ enum MenuCell: Hashable {
                     .export(let title),
                     .deleteAccount(let title),
                     .unshieldAssets(let title),
+                    .notifications(let title),
                     .revealSeedPhrase(let title):
                 return title
         }
@@ -52,8 +54,8 @@ enum MenuCell: Hashable {
                 return UIImage(named: "more_biometric")
             case .recovery:
                 return UIImage(named: "more_recovery")
-        case .analytics:
-            return UIImage(named: "more_analytics")
+            case .analytics:
+                return UIImage(named: "more_analytics")
             case .about:
                 return UIImage(named: "more_info")
             case .export:
@@ -66,6 +68,8 @@ enum MenuCell: Hashable {
                 return UIImage(systemName: "eye")
             case .unshieldAssets:
                 return UIImage(systemName: "shield.slash")
+            case .notifications:
+                return UIImage(named: "more_bell")
         }
     }
     
@@ -149,6 +153,8 @@ extension MoreMenuViewController: UITableViewDelegate {
                 presenter.showRevealSeedPrase()
             case .unshieldAssets:
                 presenter.showUnshieldAssetsFlow()
+            case .notifications:
+                presenter.userSelectedNotifications()
         }
     }
 }
@@ -160,6 +166,7 @@ extension MoreMenuViewController {
         snapshot.appendItems([.unshieldAssets(title: "more.funds.to.unshield".localized)])
         snapshot.appendItems([.identities(title: "more.identities".localized)])
         snapshot.appendItems([.addressBook(title: "more.addressBook".localized)])
+        snapshot.appendItems([.notifications(title: "more.notifications".localized)])
         snapshot.appendItems([.update(title: "more.update".localized)])
         snapshot.appendItems([.about(title: "more.about".localized)])
         if presenter.isLegacyAccount() {

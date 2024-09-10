@@ -27,6 +27,7 @@ protocol MoreMenuPresenterDelegate: AnyObject {
     func logout()
     func showRevealSeedPrase()
     func showUnshieldAssetsFlow()
+    func notificationsSelected()
 }
 
 // MARK: -
@@ -40,6 +41,7 @@ protocol MoreMenuPresenterProtocol: AnyObject {
     func userSelectedRecovery() async
     func userSelectedAnalytics()
     func userSelectedAbout()
+    func userSelectedNotifications()
     
     func userSelectedExport()
     func userSelectedImport()
@@ -120,6 +122,10 @@ extension MoreMenuPresenter: MoreMenuPresenterProtocol {
     
     func userSelectedImport() {
         delegate?.importSelected()
+    }
+    
+    func userSelectedNotifications() {
+        delegate?.notificationsSelected()
     }
     
     func logout() {

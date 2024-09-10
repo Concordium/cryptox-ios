@@ -11,6 +11,7 @@ import SwiftUI
 struct WelcomeView: View {
     @State var isChecked: Bool = false
     @SwiftUI.Environment(\.openURL) var openURL
+    @AppStorage("isShouldShowAllowNotificationsView") private var isShouldShowAllowNotificationsView = true
     
     var action: () -> Void
     
@@ -131,6 +132,11 @@ struct WelcomeView: View {
                     .padding(.horizontal, 16)
                 }
                 .padding(.bottom, 64)
+            }
+        }
+        .overlay(alignment: .center) {
+            if !UIApplication.shared.isRegisteredForRemoteNotifications && isShouldShowAllowNotificationsView {
+                AllowNotificationsPopup(isVisible: $isShouldShowAllowNotificationsView)
             }
         }
     }
