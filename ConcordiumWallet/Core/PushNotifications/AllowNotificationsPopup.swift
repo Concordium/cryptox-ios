@@ -24,7 +24,6 @@ struct AllowNotificationsPopup: View {
         VStack {
             Button {
                 DispatchQueue.main.async {
-                    let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
                     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
                         if granted {
                             DispatchQueue.main.async {

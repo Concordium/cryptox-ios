@@ -25,6 +25,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     
     var mode: Mode = .standart
     var childCoordinators = [Coordinator]()
+    weak var notificationNavigationDelegate: NotificationNavigationDelegate?
 
     var navigationController: UINavigationController
     let defaultProvider = ServicesProvider.defaultProvider()
@@ -37,6 +38,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     enum AppStartOpenURLAction {
         case none
         case openWalletConnect(URL)
+        case openTransactionDetailsFromNotification([AnyHashable: Any])
     }
     
     private let defaultCIS2TokenManager: DefaultCIS2TokenManager
@@ -213,6 +215,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         self.navigationController.setNavigationBarHidden(true, animated: false)
         self.navigationController.pushViewController(tabBarController, animated: true)
         
+        self.notificationNavigationDelegate = tabBarController
         self.isMainFlowActive = true
         self.handleOpenURLActionIfNeeded()
         
@@ -453,36 +456,7 @@ extension AppCoordinator: IdentitiesCoordinatorDelegate {
 
 
 extension AppCoordinator: AppSettingsDelegate {
-    func checkForAppSettings() {
-//        guard needsAppCheck else { return }
-//        needsAppCheck = false
-//
-//        defaultProvider.appSettingsService()
-//            .getAppSettings()
-//            .sink(
-//                receiveCompletion: { _ in },
-//                receiveValue: { [weak self] response in
-//                    self?.handleAppSettings(response: response)
-//                }
-//            )
-//            .store(in: &cancellables)
-    }
-    
-//    private func handleAppSettings(response: AppSettingsResponse) {
-//        showUpdateDialogIfNeeded(
-//            appSettingsResponse: response
-//        ) { action in
-//            switch action {
-//            case .update(let url, let forced):
-//                if forced {
-//                    self.handleAppSettings(response: response)
-//                }
-//                UIApplication.shared.open(url)
-//            case .cancel:
-//                break
-//            }
-//        }
-//    }
+    func checkForAppSettings() {}
 }
 
 extension AppCoordinator: RecoveryPhraseCoordinatorDelegate {
@@ -580,12 +554,12 @@ extension AppCoordinator {
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             
-            if let error = error { return }
+            if error != nil { return }
             guard let data = data else { return }
             
             do {
                 let dataResponse = try JSONDecoder().decode(QRDataResponse.self, from: data)
-                let t = try JSONSerialization.jsonObject(with: data, options: [])
+                _ = try JSONSerialization.jsonObject(with: data, options: [])
                 
                 DispatchQueue.main.async {
                     let vc = ConnectionRequestVC.instantiate(fromStoryboard: "QRConnect") { coder in
@@ -632,6 +606,22 @@ extension AppCoordinator {
                 logger.debugLog("openWalletConnect -- \(url.absoluteString)")
                 self.openWCConnect(url)
                 self.appStartOpenURLAction = .none
+            case .openTransactionDetailsFromNotification(let userInfo):
+                logger.debugLog("openTransactionDetailsFromNotification")
+                self.handleOpeningTransactionFromNotification(with: userInfo)
+                self.appStartOpenURLAction = .none
         }
+    }
+}
+
+extension AppCoordinator {
+    func handleOpeningTransactionFromNotification(with userInfo: [AnyHashable: Any]) {
+        guard isMainFlowActive else {
+            self.appStartOpenURLAction = .openTransactionDetailsFromNotification(userInfo)
+            logger.debugLog("postponed action -- openTransactionDetailsFromNotification")
+            return
+        }
+        
+        notificationNavigationDelegate?.openTransactionFromNotification(with: userInfo)
     }
 }

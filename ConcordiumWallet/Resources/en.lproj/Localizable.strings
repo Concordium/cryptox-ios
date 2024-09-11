@@ -1134,6 +1134,7 @@ Remember to restart your node with the validator keys.";
 
 "notifications.ccdtransactions" = "CCD transactions";
 "notifications.cis2tokentransactions" = "CIS-2 token transactions";
+"notifications.seeTransactionDetails" = "See transaction details"
 
 "accountsettings.navigationtitle" = "Account settings";
 

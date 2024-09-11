@@ -29,4 +29,16 @@ struct AppConstants {
         
         static let migratedFromFourPointFourSharedInstance = "migratedFromFourPointFourSharedInstance"
     }
+    
+    struct Notifications {
+        static let baseUrl: String  = {
+            var url = ""
+            #if MAINNET
+                url = "https://notification-api.mainnet.concordium.software/api/v1/subscription"
+            #elseif TESTNET
+                url = "https://notification-api.testnet.concordium.com/api/v1/subscription"
+            #endif
+            return url
+        }()
+    }
 }

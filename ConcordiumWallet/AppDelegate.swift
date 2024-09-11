@@ -21,6 +21,7 @@ extension Notification.Name {
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var appCoordinator = AppCoordinator()
+    let transactionNotificationService = TransactionNotificationService()
     
     let gcmMessageIDKey = "gcm.message_id"
 
@@ -73,7 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupMatomoTracker()
         
         UNUserNotificationCenter.current().delegate = self
-        PushNotificationService.shared.configureFirebase()
+        transactionNotificationService.configureFirebase()
         Messaging.messaging().delegate = self
 
         return true
@@ -214,18 +215,15 @@ extension AppDelegate: MessagingDelegate {
     @objc func messaging(_: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         print("Firebase token: \(String(describing: fcmToken))")
         if UIApplication.shared.isRegisteredForRemoteNotifications {
-            PushNotificationService.shared.sendTokenToConcordiumServer(fcmToken: fcmToken)
+            transactionNotificationService.updateFcmToken(fcmToken)
         }
     }
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
-    func userNotificationCenter(
-        _: UNUserNotificationCenter,
-        willPresent _: UNNotification,
-        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
-    ) {
-        completionHandler([[.banner, .list, .sound]])
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
+        return [.banner, .list, .sound]
     }
     
     func userNotificationCenter(
@@ -234,11 +232,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
         let userInfo = response.notification.request.content.userInfo
-        NotificationCenter.default.post(
-            name: Notification.Name("didReceiveRemoteNotification"),
-            object: nil,
-            userInfo: userInfo
-        )
+        appCoordinator.handleOpeningTransactionFromNotification(with: userInfo)
         completionHandler()
     }
 }
@@ -262,18 +256,13 @@ extension AppDelegate {
                 print("Error fetching FCM registration token: \(error)")
             } else if let token {
                 print("FCM registration token: \(token)")
-                PushNotificationService.shared.sendTokenToConcordiumServer(fcmToken: token)
+                self.transactionNotificationService.updateFcmToken(token)
             }
         }
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) async -> UIBackgroundFetchResult {
-      // TODO: Handle data of notification
-          
-      if let messageID = userInfo[gcmMessageIDKey] {
-        print("Message ID: \(messageID)")
-      }
-      print(userInfo)
+        transactionNotificationService.handleNotificationsWithData(data: userInfo)
 
       return UIBackgroundFetchResult.newData
     }

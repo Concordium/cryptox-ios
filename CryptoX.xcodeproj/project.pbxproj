@@ -1970,9 +1970,12 @@
 		15F3F0A42C8B032200EF8975 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F3F0A32C8B032200EF8975 /* NotificationsView.swift */; };
 		15F3F0A52C8B032500EF8975 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F3F0A32C8B032200EF8975 /* NotificationsView.swift */; };
 		15F3F0A62C8B032600EF8975 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F3F0A32C8B032200EF8975 /* NotificationsView.swift */; };
-		15F3F0A82C8B1CFF00EF8975 /* PushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F3F0A72C8B1CFF00EF8975 /* PushNotificationService.swift */; };
-		15F3F0A92C8B1CFF00EF8975 /* PushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F3F0A72C8B1CFF00EF8975 /* PushNotificationService.swift */; };
-		15F3F0AA2C8B1CFF00EF8975 /* PushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F3F0A72C8B1CFF00EF8975 /* PushNotificationService.swift */; };
+		15F3F0A82C8B1CFF00EF8975 /* TransactionNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F3F0A72C8B1CFF00EF8975 /* TransactionNotificationService.swift */; };
+		15F3F0A92C8B1CFF00EF8975 /* TransactionNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F3F0A72C8B1CFF00EF8975 /* TransactionNotificationService.swift */; };
+		15F3F0AA2C8B1CFF00EF8975 /* TransactionNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F3F0A72C8B1CFF00EF8975 /* TransactionNotificationService.swift */; };
+		15F3F0AD2C90488300EF8975 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F3F0AC2C90488300EF8975 /* UserDefaults+Extensions.swift */; };
+		15F3F0AE2C90488300EF8975 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F3F0AC2C90488300EF8975 /* UserDefaults+Extensions.swift */; };
+		15F3F0AF2C90488300EF8975 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F3F0AC2C90488300EF8975 /* UserDefaults+Extensions.swift */; };
 		19C2E039DFC724B7CCFFF321 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E4B1F77014C882288F8E /* Coordinator.swift */; };
 		19C2E05A6CFAD9B9CCECF785 /* LetterSpacingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EBAEE6EC2525447CCDB5 /* LetterSpacingLabel.swift */; };
 		19C2E0C7F19B6044963A14A2 /* Publisher+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */; };
@@ -3211,8 +3214,9 @@
 		15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTokenViewModel.swift; sourceTree = "<group>"; };
 		15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		15F3F0A32C8B032200EF8975 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
-		15F3F0A72C8B1CFF00EF8975 /* PushNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationService.swift; sourceTree = "<group>"; };
+		15F3F0A72C8B1CFF00EF8975 /* TransactionNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionNotificationService.swift; sourceTree = "<group>"; };
 		15F3F0AB2C8F386500EF8975 /* ProdMainNet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProdMainNet.entitlements; sourceTree = "<group>"; };
+		15F3F0AC2C90488300EF8975 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		19C2E113307579CAF5005F21 /* Sizes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
 		19C2E3C60DD1F86BE4DC76F6 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSettings.swift; path = Settings/AppSettings.swift; sourceTree = "<group>"; };
 		19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+Utils.swift"; sourceTree = "<group>"; };
@@ -5321,7 +5325,7 @@
 			isa = PBXGroup;
 			children = (
 				1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */,
-				15F3F0A72C8B1CFF00EF8975 /* PushNotificationService.swift */,
+				15F3F0A72C8B1CFF00EF8975 /* TransactionNotificationService.swift */,
 			);
 			path = PushNotifications;
 			sourceTree = "<group>";
@@ -5652,6 +5656,7 @@
 				088FEE712A025A7800042957 /* String+Links.swift */,
 				088FF1512A02885600042957 /* Collections+Indexed.swift */,
 				088FEE472A016B3400042957 /* Publisher+Async.swift */,
+				15F3F0AC2C90488300EF8975 /* UserDefaults+Extensions.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -7432,6 +7437,7 @@
 				15F3F0A62C8B032600EF8975 /* NotificationsView.swift in Sources */,
 				08C1684D2BB7396200E61326 /* CreateExportPasswordPresenter.swift in Sources */,
 				08C1684E2BB7396200E61326 /* AccountSettingsPresenter.swift in Sources */,
+				15F3F0AF2C90488300EF8975 /* UserDefaults+Extensions.swift in Sources */,
 				08C1684F2BB7396200E61326 /* Balance.swift in Sources */,
 				08C168502BB7396200E61326 /* IdentityProviderWebViewViewController.swift in Sources */,
 				08DB5E602BC6C30E00C29663 /* BakerAmountInputPresenter.swift in Sources */,
@@ -7526,7 +7532,7 @@
 				08C168AC2BB7396200E61326 /* TransactionDetailInfoCellView.swift in Sources */,
 				08C168AD2BB7396200E61326 /* IdentityObjectWrapper.swift in Sources */,
 				08C168AE2BB7396200E61326 /* CredentialValue.swift in Sources */,
-				15F3F0AA2C8B1CFF00EF8975 /* PushNotificationService.swift in Sources */,
+				15F3F0AA2C8B1CFF00EF8975 /* TransactionNotificationService.swift in Sources */,
 				08C168AF2BB7396200E61326 /* PoolInfo.swift in Sources */,
 				08C168B02BB7396200E61326 /* AccountsService.swift in Sources */,
 				08C168B22BB7396200E61326 /* TransactionsService.swift in Sources */,
@@ -8137,6 +8143,7 @@
 				15F3F0A52C8B032500EF8975 /* NotificationsView.swift in Sources */,
 				088FF05C2A02781C00042957 /* CreateExportPasswordPresenter.swift in Sources */,
 				088FED7C2A01671900042957 /* AccountSettingsPresenter.swift in Sources */,
+				15F3F0AE2C90488300EF8975 /* UserDefaults+Extensions.swift in Sources */,
 				08A045EF29FA99D200DACE1F /* Balance.swift in Sources */,
 				088FEEDC2A026EAB00042957 /* IdentityProviderWebViewViewController.swift in Sources */,
 				08DB5E5F2BC6C30E00C29663 /* BakerAmountInputPresenter.swift in Sources */,
@@ -8231,7 +8238,7 @@
 				7F85B8B0246A9AB600ED09B8 /* TransactionDetailInfoCellView.swift in Sources */,
 				08A045DF29FA99D200DACE1F /* IdentityObjectWrapper.swift in Sources */,
 				08A045FD29FA99D200DACE1F /* CredentialValue.swift in Sources */,
-				15F3F0A92C8B1CFF00EF8975 /* PushNotificationService.swift in Sources */,
+				15F3F0A92C8B1CFF00EF8975 /* TransactionNotificationService.swift in Sources */,
 				08A0460729FA99D200DACE1F /* PoolInfo.swift in Sources */,
 				7F85B8B2246A9AB600ED09B8 /* AccountsService.swift in Sources */,
 				7F85B8B3246A9AB600ED09B8 /* TransactionsService.swift in Sources */,
@@ -8842,6 +8849,7 @@
 				15F3F0A42C8B032200EF8975 /* NotificationsView.swift in Sources */,
 				088FED762A01671800042957 /* AccountSettingsPresenter.swift in Sources */,
 				08A0455729FA99D100DACE1F /* Balance.swift in Sources */,
+				15F3F0AD2C90488300EF8975 /* UserDefaults+Extensions.swift in Sources */,
 				088FF04C2A02781B00042957 /* CreateExportPasswordPresenter.swift in Sources */,
 				08DB5E5E2BC6C30D00C29663 /* BakerAmountInputPresenter.swift in Sources */,
 				08B16F192A011A62002E6B33 /* BakerEntity.swift in Sources */,
@@ -8936,7 +8944,7 @@
 				088FECE12A01621F00042957 /* OnboardingCarouselPageViewController.swift in Sources */,
 				19C2EDF1839B4F4F8FE11A76 /* GTU.swift in Sources */,
 				08A0454729FA99D100DACE1F /* IdentityObjectWrapper.swift in Sources */,
-				15F3F0A82C8B1CFF00EF8975 /* PushNotificationService.swift in Sources */,
+				15F3F0A82C8B1CFF00EF8975 /* TransactionNotificationService.swift in Sources */,
 				08A0456529FA99D100DACE1F /* CredentialValue.swift in Sources */,
 				19C2E17E671E62F0C6925443 /* AccountTransactionsLoadingCellView.swift in Sources */,
 				08A0456F29FA99D100DACE1F /* PoolInfo.swift in Sources */,
