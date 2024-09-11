@@ -12,13 +12,18 @@ import Base58Swift
 
 
 
-protocol QRTransactionProviderDelegate: SendFundConfirmationPresenterDelegate {
+protocol QRTransactionProviderDelegate: SendFundConfirmationDelegate {
     func dismiss( compleation: @escaping () -> ())
     func present(_ presenter: RequestPasswordPresenter)
     func present(method: String, hex: String)
     //func present(_ presenter: RequestPasswordPresenter)
     func fetched(energy: Int, fee: Int, cost: Int, nrgCCDAmount: Int)
     func presentError(title: String, subtitle: String)
+}
+
+protocol SendFundConfirmationDelegate: AnyObject {
+    func sendFundSubmitted(transfer: TransferDataType, recipient: RecipientDataType)
+    func sendFundFailed(error: Error)
 }
 
 

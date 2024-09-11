@@ -33,7 +33,7 @@ class ExternalPaymentVC: UIViewController, Storyboarded {
     @ObservedObject var service = WebSocketService()
     private var cancellables = [AnyCancellable]()
     var dependencyProvider: AccountsFlowCoordinatorDependencyProvider?
-    weak var delegate: (SendFundConfirmationPresenterDelegate & RequestPasswordDelegate)?
+    weak var delegate: RequestPasswordDelegate?
     
     var contractMethod: ContractMethod = .create
     
@@ -74,17 +74,12 @@ class ExternalPaymentVC: UIViewController, Storyboarded {
         
         dependencyProvider?.transactionsService().getTransferCost(transferType: .simpleTransfer, costParameters: []).sink(receiveError: { [weak self] (error) in
             LegacyLogger.error(error)
-//            self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
             }, receiveValue: { [weak self] (value) in
                 print()
                 self?.fee = (Int(value.cost) ?? 0) + 50000
                 self?.energy = value.energy + 50000
                 self?.feeLabel.text = GTU(intValue: (self?.energy ?? 0) * 10).displayValue() + " CCD"
                 self?.totalLabel.text = GTU(intValue: (self?.energy ?? 0) * 10).displayValue() + " CCD"
-//                self?.cost = GTU(intValue: (Int(value.cost) ?? 0))
-//                self?.energy = value.energy
-//                let feeMessage = "sendFund.feeMessage".localized + GTU(intValue: Int(value.cost) ?? 0).displayValue()
-//                self?.viewModel.feeMessage = feeMessage
         }).store(in: &cancellables)
     }
     
@@ -161,47 +156,19 @@ class ExternalPaymentVC: UIViewController, Storyboarded {
 
             dependencyProvider.transactionsService()
                 .performTransferUpdate(transfer, from: fromAccount, contractAddress: contractAddress, requestPasswordDelegate: self)
-//                .showLoadingIndicator(in: self.view)
-//                .map(\.0)
                 .tryMap(dependencyProvider.storageManager().storeTransfer)
                 .sink(receiveError: { [weak self] error in
-//                    if case NetworkError.serverError = error {
-//                        Logger.error(error)
-//                        self?.delegate?.sendFundFailed(error: error)
-//                    } else if case GeneralError.userCancelled = error {
                     self?.dismiss(animated: true)
                         return
-//                    } else {
-//                        self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
-//                    }
                 }, receiveValue: { [weak self] in
                     guard let self = self else {
                         self?.dismiss(animated: true)
                         return
                     }
-//                    Logger.debug($0)
-
-                    //let recipient = self.recipient
-                    //self.delegate?.sendFundSubmitted(transfer: $0, recipient: recipient)
                     self.service.sendPaymentMessage(hash: $0.submissionId ?? "")
                     self.dismiss(animated: true)
                 }).store(in: &cancellables)
         }
-    }
-}
-
-
-
-extension ExternalPaymentVC: SendFundConfirmationPresenterDelegate {
-    func sendFundSubmitted(transfer: TransferDataType, recipient: RecipientDataType) {
-        self.recipient = recipient
-//        showTransactionSubmitted(transfer: transfer, recipient: recipient)
-        print()
-    }
-
-    func sendFundFailed(error: Error) {
-//        showTransferFailed(error: error)
-        print()
     }
 }
 
