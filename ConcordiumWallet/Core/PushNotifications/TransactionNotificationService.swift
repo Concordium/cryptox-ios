@@ -11,9 +11,14 @@ import FirebaseCore
 import Combine
 import UIKit
 
-enum NotificationTypes: String {
+enum TransactionNotificationTypes: String {
     case cis2 = "cis2-tx"
     case ccd = "ccd-tx"
+}
+
+enum TransactionNotificationNames: String {
+    case cis2 = "isCIS2TransactionNotificationAllowed"
+    case ccd = "isCCDTransactionNotificationAllowed"
 }
 
 protocol NotificationNavigationDelegate: AnyObject {
@@ -57,13 +62,13 @@ final class TransactionNotificationService {
 
         var preferences = [String]()
 
-        if let isCIS2TransactionNotificationAllowed = UserDefaults().value(forKey: "isCIS2TransactionNotificationAllowed") as? Bool,
+        if let isCIS2TransactionNotificationAllowed = UserDefaults().value(forKey: TransactionNotificationNames.cis2.rawValue) as? Bool,
            isCIS2TransactionNotificationAllowed {
-            preferences.append(NotificationTypes.cis2.rawValue)
+            preferences.append(TransactionNotificationTypes.cis2.rawValue)
         }
-        if let isCCDTransactionNotificationAllowed = UserDefaults().value(forKey: "isCCDTransactionNotificationAllowed") as? Bool,
+        if let isCCDTransactionNotificationAllowed = UserDefaults().value(forKey: TransactionNotificationNames.ccd.rawValue) as? Bool,
            isCCDTransactionNotificationAllowed{
-            preferences.append(NotificationTypes.ccd.rawValue)
+            preferences.append(TransactionNotificationTypes.ccd.rawValue)
         }
         let accounts = defaultProvider.storageManager().getAccounts().map({$0.address})
         
@@ -91,67 +96,105 @@ final class TransactionNotificationService {
         sendTokenToConcordiumServer(fcmToken: newToken)
     }
     
+    func handleNotificationsWithData(data: [AnyHashable: Any]) {
+        let amount = data["amount"] as? Double ?? 0
+        
+        if let type = data["type"] as? String,
+           type == TransactionNotificationTypes.cis2.rawValue,
+           let tokenMetadata = data["token_metadata"] {
+            
+            getTokenSymbol(with: tokenMetadata) { symbolString in
+                let symbol = symbolString ?? "Unknown Token"
+                self.composeAndSendNotification(amount: amount, symbol: symbol, data: data)
+            }
+        } else {
+            let symbol = "CCDs"
+            composeAndSendNotification(amount: amount, symbol: symbol, data: data)
+        }
+    }
+    
+    func handleCCDTransaction(account: AccountDataType, transactionId: String, accountDetailRouter: AccountDetailsCoordinator, completion: @escaping ((TransactionViewModel)-> Void)) {
+        let transactionLoadingHandler = TransactionsLoadingHandler(account: account, balanceType: .balance, dependencyProvider: defaultProvider)
+        
+        transactionLoadingHandler.getTransactions()
+            .map { transactions in
+                return transactions.1.first(where: { $0.details.transactionHash == transactionId })
+            }
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    print("Error loading transactions: \(error)")
+                case .finished:
+                    break
+                }
+            }, receiveValue: { transaction in
+                if let transaction = transaction {
+                    completion(transaction)
+                } else {
+                    print("Transaction not found")
+                }
+            })
+            .store(in: &cancellables)
+    }
+}
+
+// MARK: Helper methods
+extension TransactionNotificationService {
+    private func parseTokenMetadata(metadata: Any?) -> [String: Any] {
+        (metadata as? String)
+                .flatMap { $0.data(using: .utf8) }
+                .flatMap {
+                    try? JSONSerialization.jsonObject(with: $0, options: []) as? [String: Any]
+                } ?? [:]
+    }
+    
+    private func getTokenSymbol(with metadata: Any?, completion: @escaping ((String?) -> Void)) {
+        let dictionary = parseTokenMetadata(metadata: metadata)
+        guard let tokenUrl = dictionary["url"] as? String,
+              let url = URL(string: tokenUrl) else {
+            print("Invalid URL")
+            completion(nil)
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            let symbol = data.flatMap {
+                try? JSONDecoder().decode(CIS2TokenMetadata.self, from: $0).symbol
+            }
+            completion(symbol)
+        }.resume()
+    }
+    
+    private func composeAndSendNotification(amount: Double, symbol: String, data: [AnyHashable: Any]) {
+        // Convert from microCCD to normal
+        let formattedAmount = amount / 1000000
+        let content = UNMutableNotificationContent()
+        content.title = "You received \(amount) \(symbol)"
+        content.body = "notifications.seeTransactionDetails".localized
+        content.sound = UNNotificationSound.default
+        content.userInfo = data
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: "transactionNotification", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Error scheduling notification: \(error.localizedDescription)")
+            } else {
+                print("Notification scheduled successfully")
+            }
+        }
+    }
+    
     private func subscribeToUserDefaultsUpdates() {
-        UserDefaults.standard.publisher(for: "isCCDTransactionNotificationAllowed")
-            .merge(with: UserDefaults.standard.publisher(for: "isCIS2TransactionNotificationAllowed"))
+        UserDefaults.standard.publisher(for: TransactionNotificationNames.cis2.rawValue)
+            .merge(with: UserDefaults.standard.publisher(for: TransactionNotificationNames.ccd.rawValue))
             .sink { [weak self] _ in
                 DispatchQueue.main.async {
                     self?.sendTokenToConcordiumServer(fcmToken: self?.currentFcmToken)
                 }
             }
             .store(in: &cancellables)
-    }
-    
-    func handleNotificationsWithData(data: [AnyHashable: Any]) {
-        if let type = data["type"] as? String {
-            if type == NotificationTypes.ccd.rawValue {
-                handleCCDTransactionNotifications(data: data)
-            } else if type == NotificationTypes.cis2.rawValue {
-                handleCIS2TransactionNotifications(data: data)
-            }
-        }
-    }
-    
-    
-    private func handleCCDTransactionNotifications(data: [AnyHashable: Any]) {
-        let amount = data["amount"] as? String ?? ""
-        let content = UNMutableNotificationContent()
-        content.title = "You received \(amount) CCDs"
-        content.body = "notifications.seeTransactionDetails".localized
-        content.sound = UNNotificationSound.default
-        content.userInfo = data
-        
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
-        
-        let request = UNNotificationRequest(identifier: "ccdNotification", content: content, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                print("Error scheduling notification: \(error.localizedDescription)")
-            } else {
-                print("Notification scheduled successfully")
-            }
-        }
-    }
-    
-    private func handleCIS2TransactionNotifications(data: [AnyHashable: Any]) {
-        let amount = data["amount"] as? String ?? ""
-        let content = UNMutableNotificationContent()
-        content.title = "You received \(amount) EURe"
-        content.body = "notifications.seeTransactionDetails".localized
-        content.sound = UNNotificationSound.default
-        content.userInfo = data
-        
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
-        
-        let request = UNNotificationRequest(identifier: "cis2Notifications", content: content, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                print("Error scheduling notification: \(error.localizedDescription)")
-            } else {
-                print("Notification scheduled successfully")
-            }
-        }
     }
 }

@@ -16,6 +16,7 @@ class MainTabBarController: BaseTabBarController {
     let accountsMainRouter: AccountsMainRouter
     
     private var cancellables: [AnyCancellable] = []
+    let defaultProvider = ServicesProvider.defaultProvider()
 
     init(accountsCoordinator: AccountsCoordinator,
          collectionsCoordinator: CollectionsCoordinator,
@@ -81,7 +82,7 @@ extension MainTabBarController: BackupAlertControllerDelegate {
 
 extension MainTabBarController: NotificationNavigationDelegate {
     func openTransactionFromNotification(with userInfo: [AnyHashable : Any]) {
-        let defaultProvider = ServicesProvider.defaultProvider()
+        let transactionNotificationService = TransactionNotificationService()
         
         guard let accountAddress = userInfo["recipient"] as? String,
               let account = defaultProvider.storageManager().getAccount(withAddress: accountAddress),
@@ -94,27 +95,14 @@ extension MainTabBarController: NotificationNavigationDelegate {
                                                             account: account)
         guard let transactionId = userInfo["reference"] as? String
         else { return }
+        let notificationType = userInfo["type"] as? String
         
-        let transactionLoadingHandler = TransactionsLoadingHandler(account: account, balanceType: .balance, dependencyProvider: defaultProvider)
-        
-        transactionLoadingHandler.getTransactions()
-            .map { transactions in
-                return transactions.1.first(where: { $0.details.transactionHash == transactionId })
+        if notificationType == TransactionNotificationTypes.ccd.rawValue {
+            transactionNotificationService.handleCCDTransaction(account: account, transactionId: transactionId, accountDetailRouter: accountDetailRouter) {
+                accountDetailRouter.showTransactionDetail(viewModel: $0)
             }
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .failure(let error):
-                    print("Error loading transactions: \(error)")
-                case .finished:
-                    break
-                }
-            }, receiveValue: { transaction in
-                if let transaction = transaction {
-                    accountDetailRouter.showTransactionDetail(viewModel: transaction)
-                } else {
-                    print("Transaction not found")
-                }
-            })
-            .store(in: &cancellables)
+        } else {
+            accountDetailRouter.showAccountDetails(account: account)
+        }
     }
 }

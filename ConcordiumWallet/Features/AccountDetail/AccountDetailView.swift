@@ -194,6 +194,7 @@ struct AccountDetailView: View {
             }
         }
         .navigationTitle(viewModel.sceneTitle)
+        .navigationBarBackButtonHidden(false)
     }
 }
 

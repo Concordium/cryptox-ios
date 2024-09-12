@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct NotificationsView: View {
-    @State private var isCCDTransactionNotificationAllowed = UserDefaults.bool(forKey: "isCCDTransactionNotificationAllowed")
-    @State private var isCIS2TransactionNotificationAllowed = UserDefaults.bool(forKey: "isCIS2TransactionNotificationAllowed")
+    @State private var isCCDTransactionNotificationAllowed = UserDefaults.bool(forKey: TransactionNotificationNames.ccd.rawValue)
+    @State private var isCIS2TransactionNotificationAllowed = UserDefaults.bool(forKey: TransactionNotificationNames.cis2.rawValue)
     
     var body: some View {
         VStack(spacing: 24) {
@@ -24,7 +24,7 @@ struct NotificationsView: View {
             .toggleStyle(SwitchToggleStyle(tint: Color.greenSecondary))
             .onChange(of: isCCDTransactionNotificationAllowed, perform: { value in
                 // TODO: handle state changed
-                UserDefaults.standard.set(value, forKey: "isCCDTransactionNotificationAllowed")
+                UserDefaults.standard.set(value, forKey: TransactionNotificationNames.ccd.rawValue)
             })
             
             Toggle(isOn: $isCIS2TransactionNotificationAllowed) {
@@ -35,7 +35,7 @@ struct NotificationsView: View {
             .toggleStyle(SwitchToggleStyle(tint: Color.greenSecondary))
             .onChange(of: isCIS2TransactionNotificationAllowed, perform: { value in
                 // TODO: handle state changed
-                UserDefaults.standard.set(value, forKey: "isCIS2TransactionNotificationAllowed")
+                UserDefaults.standard.set(value, forKey: TransactionNotificationNames.cis2.rawValue)
             })
             Spacer()
         }

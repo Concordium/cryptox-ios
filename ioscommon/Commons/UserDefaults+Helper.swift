@@ -63,4 +63,9 @@ extension UserDefaults {
         UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
         UserDefaults.standard.synchronize()
     }
+    
+    class func removeNotificationSettings() {
+        UserDefaults.removeObject(forKey: TransactionNotificationNames.ccd.rawValue)
+        UserDefaults.removeObject(forKey: TransactionNotificationNames.cis2.rawValue)
+    }
 }
