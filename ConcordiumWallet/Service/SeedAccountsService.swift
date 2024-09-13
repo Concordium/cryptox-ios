@@ -170,7 +170,7 @@ extension SeedAccountsService: SeedAccountsServiceProtocol {
             }
             currentIndex += 1
         }
-
+        TransactionNotificationService().sendTokenToConcordiumServer()
         return accounts
     }
     

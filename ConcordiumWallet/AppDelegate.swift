@@ -75,8 +75,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UNUserNotificationCenter.current().delegate = self
         transactionNotificationService.configureFirebase()
+        transactionNotificationService.subscribeToUserDefaultsUpdates()
         Messaging.messaging().delegate = self
 
+        if let remoteNotification = launchOptions?[.remoteNotification] as? [AnyHashable: Any] {
+            transactionNotificationService.handleNotificationsWithData(data: remoteNotification)
+        }
+        
         return true
     }
     

@@ -82,14 +82,12 @@ extension MainTabBarController: BackupAlertControllerDelegate {
 
 extension MainTabBarController: NotificationNavigationDelegate {
     func openTransactionFromNotification(with userInfo: [AnyHashable : Any]) {
-        let transactionNotificationService = TransactionNotificationService()
-        
         guard let accountAddress = userInfo["recipient"] as? String,
               let account = defaultProvider.storageManager().getAccount(withAddress: accountAddress),
-              let navigationController
+              let selectedNavigationController = selectedViewController as? UINavigationController
         else { return }
 
-        let accountDetailRouter = AccountDetailsCoordinator(navigationController: navigationController,
+        let accountDetailRouter = AccountDetailsCoordinator(navigationController: selectedNavigationController,
                                                             dependencyProvider: defaultProvider,
                                                             parentCoordinator: accountsCoordinator,
                                                             account: account)
@@ -98,7 +96,7 @@ extension MainTabBarController: NotificationNavigationDelegate {
         let notificationType = userInfo["type"] as? String
         
         if notificationType == TransactionNotificationTypes.ccd.rawValue {
-            transactionNotificationService.handleCCDTransaction(account: account, transactionId: transactionId, accountDetailRouter: accountDetailRouter) {
+            TransactionNotificationService().handleCCDTransaction(account: account, transactionId: transactionId, accountDetailRouter: accountDetailRouter) {
                 accountDetailRouter.showTransactionDetail(viewModel: $0)
             }
         } else {

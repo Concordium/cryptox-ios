@@ -30,10 +30,6 @@ final class TransactionNotificationService {
     private var cancellables = Set<AnyCancellable>()
     let defaultProvider = ServicesProvider.defaultProvider()
     private var currentFcmToken: String?
-
-    init() {
-        subscribeToUserDefaultsUpdates()
-    }
     
     func configureFirebase() {
         #if MAINNET
@@ -53,8 +49,8 @@ final class TransactionNotificationService {
         #endif
     }
     
-    func sendTokenToConcordiumServer(fcmToken: String?) {
-       guard let fcmToken,
+    func sendTokenToConcordiumServer() {
+       guard let currentFcmToken,
              let url = URL(string: AppConstants.Notifications.baseUrl) else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "PUT"
@@ -75,7 +71,7 @@ final class TransactionNotificationService {
         let body: [String : Any] = [
             "preferences": preferences,
             "accounts": accounts,
-            "device_token": fcmToken
+            "device_token": currentFcmToken
         ]
 
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
@@ -93,11 +89,11 @@ final class TransactionNotificationService {
     
     func updateFcmToken(_ newToken: String?) {
         currentFcmToken = newToken
-        sendTokenToConcordiumServer(fcmToken: newToken)
+        sendTokenToConcordiumServer()
     }
     
     func handleNotificationsWithData(data: [AnyHashable: Any]) {
-        let amount = data["amount"] as? Double ?? 0
+        let amount = data["amount"] as? String ?? ""
         
         if let type = data["type"] as? String,
            type == TransactionNotificationTypes.cis2.rawValue,
@@ -136,6 +132,17 @@ final class TransactionNotificationService {
             })
             .store(in: &cancellables)
     }
+    
+    func subscribeToUserDefaultsUpdates() {
+        UserDefaults.standard.publisher(for: TransactionNotificationNames.cis2.rawValue)
+            .merge(with: UserDefaults.standard.publisher(for: TransactionNotificationNames.ccd.rawValue))
+            .sink { [weak self] _ in
+                DispatchQueue.main.async {
+                    self?.sendTokenToConcordiumServer()
+                }
+            }
+            .store(in: &cancellables)
+    }
 }
 
 // MARK: Helper methods
@@ -165,11 +172,13 @@ extension TransactionNotificationService {
         }.resume()
     }
     
-    private func composeAndSendNotification(amount: Double, symbol: String, data: [AnyHashable: Any]) {
-        // Convert from microCCD to normal
-        let formattedAmount = amount / 1000000
+    private func composeAndSendNotification(amount: String, symbol: String, data: [AnyHashable: Any]) {
+        var formattedAmount: String = amount
+        if let intAmount = Int(amount) {
+            formattedAmount = GTU(intValue: intAmount).displayValue()
+        }
         let content = UNMutableNotificationContent()
-        content.title = "You received \(amount) \(symbol)"
+        content.title = "You received \(formattedAmount) \(symbol)"
         content.body = "notifications.seeTransactionDetails".localized
         content.sound = UNNotificationSound.default
         content.userInfo = data
@@ -185,16 +194,5 @@ extension TransactionNotificationService {
                 print("Notification scheduled successfully")
             }
         }
-    }
-    
-    private func subscribeToUserDefaultsUpdates() {
-        UserDefaults.standard.publisher(for: TransactionNotificationNames.cis2.rawValue)
-            .merge(with: UserDefaults.standard.publisher(for: TransactionNotificationNames.ccd.rawValue))
-            .sink { [weak self] _ in
-                DispatchQueue.main.async {
-                    self?.sendTokenToConcordiumServer(fcmToken: self?.currentFcmToken)
-                }
-            }
-            .store(in: &cancellables)
     }
 }
