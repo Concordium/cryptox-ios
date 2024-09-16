@@ -100,7 +100,12 @@ extension MainTabBarController: NotificationNavigationDelegate {
                 accountDetailRouter.showTransactionDetail(viewModel: $0)
             }
         } else {
-            accountDetailRouter.showAccountDetails(account: account)
+            let detailRouter = AccountDetailRouter(account: account, navigationController: selectedNavigationController, dependencyProvider: defaultProvider)
+            Task {
+                if let token = await TransactionNotificationService().tokenObject(from: userInfo) {
+                        detailRouter.showCIS2TokenDetailsFlow(token, account: account)
+                }
+            }
         }
     }
 }

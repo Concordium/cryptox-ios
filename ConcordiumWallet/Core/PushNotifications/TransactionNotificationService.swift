@@ -98,9 +98,11 @@ final class TransactionNotificationService {
         if let type = data["type"] as? String,
            type == TransactionNotificationTypes.cis2.rawValue,
            let tokenMetadata = data["token_metadata"] {
-            
-            getTokenSymbol(with: tokenMetadata) { symbolString in
-                let symbol = symbolString ?? "Unknown Token"
+            Task {
+                guard let metadata = await getTokenMetadata(with: tokenMetadata) else {
+                    return
+                }
+                let symbol = metadata.symbol ?? "Unknown Token"
                 self.composeAndSendNotification(amount: amount, symbol: symbol, data: data)
             }
         } else {
@@ -155,22 +157,25 @@ extension TransactionNotificationService {
                 } ?? [:]
     }
     
-    private func getTokenSymbol(with metadata: Any?, completion: @escaping ((String?) -> Void)) {
+    private func getTokenMetadata(with metadata: Any?) async -> CIS2TokenMetadata? {
         let dictionary = parseTokenMetadata(metadata: metadata)
+        
         guard let tokenUrl = dictionary["url"] as? String,
               let url = URL(string: tokenUrl) else {
             print("Invalid URL")
-            completion(nil)
-            return
+            return nil
         }
-        
-        URLSession.shared.dataTask(with: url) { data, _, _ in
-            let symbol = data.flatMap {
-                try? JSONDecoder().decode(CIS2TokenMetadata.self, from: $0).symbol
-            }
-            completion(symbol)
-        }.resume()
+
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let decodedMetadata = try JSONDecoder().decode(CIS2TokenMetadata.self, from: data)
+            return decodedMetadata
+        } catch {
+            print("Error fetching metadata: \(error)")
+            return nil
+        }
     }
+
     
     private func composeAndSendNotification(amount: String, symbol: String, data: [AnyHashable: Any]) {
         var formattedAmount: String = amount
@@ -194,5 +199,32 @@ extension TransactionNotificationService {
                 print("Notification scheduled successfully")
             }
         }
+    }
+    
+    @MainActor
+    func tokenObject(from userInfo: [AnyHashable: Any]) async -> CIS2Token? {
+        guard
+            let tokenID = userInfo["token_id"] as? String,
+            let contractName = userInfo["contract_name"] as? String,
+            let tokenMetadata = userInfo["token_metadata"]
+        else {
+            return nil
+        }
+
+        let contractData = (userInfo["contract_address"] as? String)
+        .flatMap { $0.data(using: .utf8) }
+        .flatMap {
+            try? JSONSerialization.jsonObject(with: $0, options: []) as? [String: Any]
+        }
+        
+        guard let contractData,
+              let contractIndex = contractData["index"] as? Int,
+              let contractSubindex = contractData["subindex"] as? Int,
+              let accountAddress = userInfo["recipient"] as? String
+        else {
+            return nil
+        }
+        
+        return defaultProvider.storageManager().getAccountSavedCIS2Tokens(accountAddress).first(where: {$0.contractName == contractName && $0.contractAddress.index == contractIndex && $0.contractAddress.subindex == contractSubindex})
     }
 }
