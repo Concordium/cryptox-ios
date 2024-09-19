@@ -1940,6 +1940,9 @@
 		15EFE9F92C74CD4700B7145C /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */; };
 		15EFE9FA2C74CD4700B7145C /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */; };
 		15EFE9FB2C74CD4700B7145C /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */; };
+		15FC76692C9ADB5000AC357B /* ImportWalletInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC76682C9ADB5000AC357B /* ImportWalletInfoView.swift */; };
+		15FC766A2C9ADB5000AC357B /* ImportWalletInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC76682C9ADB5000AC357B /* ImportWalletInfoView.swift */; };
+		15FC766B2C9ADB5000AC357B /* ImportWalletInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC76682C9ADB5000AC357B /* ImportWalletInfoView.swift */; };
 		19C2E039DFC724B7CCFFF321 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E4B1F77014C882288F8E /* Coordinator.swift */; };
 		19C2E05A6CFAD9B9CCECF785 /* LetterSpacingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EBAEE6EC2525447CCDB5 /* LetterSpacingLabel.swift */; };
 		19C2E0C7F19B6044963A14A2 /* Publisher+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */; };
@@ -3167,6 +3170,7 @@
 		15E1BC682C6B588900543242 /* Gate_io.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gate_io.png; sourceTree = "<group>"; };
 		15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTokenViewModel.swift; sourceTree = "<group>"; };
 		15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
+		15FC76682C9ADB5000AC357B /* ImportWalletInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWalletInfoView.swift; sourceTree = "<group>"; };
 		19C2E113307579CAF5005F21 /* Sizes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
 		19C2E3C60DD1F86BE4DC76F6 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSettings.swift; path = Settings/AppSettings.swift; sourceTree = "<group>"; };
 		19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+Utils.swift"; sourceTree = "<group>"; };
@@ -3699,6 +3703,7 @@
 			isa = PBXGroup;
 			children = (
 				0851BFD12B4DA63C006373AC /* ImportWalletView.swift */,
+				15FC76682C9ADB5000AC357B /* ImportWalletInfoView.swift */,
 				08D103DF2B5692A70057E844 /* RecoverAccountsView.swift */,
 				0835F9AA2B5FCE4500D3716F /* ImportLegacyWalletInfo.swift */,
 				0851BFDA2B513234006373AC /* SeedPhraseInputView */,
@@ -7018,6 +7023,7 @@
 				08C167242BB7396200E61326 /* CredentialHolderInformation.swift in Sources */,
 				08C167252BB7396200E61326 /* XButton.swift in Sources */,
 				08C167262BB7396200E61326 /* RecoveryPhraseInputView.swift in Sources */,
+				15FC766B2C9ADB5000AC357B /* ImportWalletInfoView.swift in Sources */,
 				08C167272BB7396200E61326 /* IdentityCardView.swift in Sources */,
 				08C167282BB7396200E61326 /* SelectRecipientPresenter.swift in Sources */,
 				08C167292BB7396200E61326 /* Model+Airdrop.swift in Sources */,
@@ -7715,6 +7721,7 @@
 				08A045E129FA99D200DACE1F /* CredentialHolderInformation.swift in Sources */,
 				088FF28F2A02C8C200042957 /* XButton.swift in Sources */,
 				088FF0C12A02846100042957 /* RecoveryPhraseInputView.swift in Sources */,
+				15FC766A2C9ADB5000AC357B /* ImportWalletInfoView.swift in Sources */,
 				088FEF112A026F0100042957 /* IdentityCardView.swift in Sources */,
 				088FF23A2A02A99000042957 /* SelectRecipientPresenter.swift in Sources */,
 				D5BA052A29148BFB00AC780A /* Model+Airdrop.swift in Sources */,
@@ -8412,6 +8419,7 @@
 				D5BA052829148BFB00AC780A /* Model+Airdrop.swift in Sources */,
 				088FF2362A02A98F00042957 /* SelectRecipientPresenter.swift in Sources */,
 				088FF0BB2A02846000042957 /* RecoveryPhraseInputView.swift in Sources */,
+				15FC76692C9ADB5000AC357B /* ImportWalletInfoView.swift in Sources */,
 				088FEF032A026F0000042957 /* IdentityCardView.swift in Sources */,
 				08A0464D29FAB9C500DACE1F /* TransferCostRange.swift in Sources */,
 				D52D4F882919D75F00C9A815 /* NFTTokensStatusView.swift in Sources */,

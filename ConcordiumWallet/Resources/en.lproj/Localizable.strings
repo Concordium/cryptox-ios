@@ -1281,6 +1281,9 @@ Remember to restart your node with the validator keys.";
 "recover_accounts_recover_button_title" = "Recover";
 "recover_accounts_connect_wallet_button_title" = "Connect wallet";
 
+"recover_accounts.info.seedPhraseDescription" = "Consists of 24 words\n Grants access to all connected accounts\nCan be used to recover a seed phrase wallet";
+"recover_accounts.info.WalletKeyDescription" = "Consists of 128 characters long hexadecimal string\nGrants access to all connected accounts\nCan be used to recover a seed phrase wallet\nUsed in older Concordium wallets";
+
 "more.show.recovery.phrase.title" = "Show recovery phrase";
 "more.show.recovery.phrase.subtitle" = "Show you recovery seed phrase for this account";
 "more.remove.account.confirmation.title" = "Are you sure want to remove all account and related data?";
