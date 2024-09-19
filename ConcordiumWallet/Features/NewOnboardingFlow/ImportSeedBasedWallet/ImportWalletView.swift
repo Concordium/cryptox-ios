@@ -47,6 +47,11 @@ struct ImportWalletView: View {
                         tag: Flow.recoverPhraseInput,
                         selection: $flow) { EmptyView() }
                     
+                    NavigationLink(
+                        destination: ImportWalletPrivateKeyView(),
+                        tag: Flow.recoverWithWalletKey,
+                        selection: $flow) { EmptyView() }
+                    
                     optionsView()
                 }
                 
@@ -127,6 +132,9 @@ struct ImportWalletView: View {
                     .font(.satoshi(size: 14, weight: .regular))
                 Spacer()
                 Image(systemName: "arrow.right").tint(Color.Neutral.tint1)
+            }
+            .onTapGesture {
+                self.flow = .recoverWithWalletKey
             }
         }
         .frame(maxWidth: .infinity)

@@ -1943,6 +1943,15 @@
 		15FC76692C9ADB5000AC357B /* ImportWalletInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC76682C9ADB5000AC357B /* ImportWalletInfoView.swift */; };
 		15FC766A2C9ADB5000AC357B /* ImportWalletInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC76682C9ADB5000AC357B /* ImportWalletInfoView.swift */; };
 		15FC766B2C9ADB5000AC357B /* ImportWalletInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC76682C9ADB5000AC357B /* ImportWalletInfoView.swift */; };
+		15FC766D2C9C0F7700AC357B /* ImportWalletPrivateKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC766C2C9C0F7700AC357B /* ImportWalletPrivateKeyView.swift */; };
+		15FC766E2C9C0F7700AC357B /* ImportWalletPrivateKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC766C2C9C0F7700AC357B /* ImportWalletPrivateKeyView.swift */; };
+		15FC766F2C9C0F7700AC357B /* ImportWalletPrivateKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC766C2C9C0F7700AC357B /* ImportWalletPrivateKeyView.swift */; };
+		15FC76722C9C26AB00AC357B /* ImportWalletPrivateKeyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC76712C9C26AB00AC357B /* ImportWalletPrivateKeyViewModel.swift */; };
+		15FC76732C9C26AB00AC357B /* ImportWalletPrivateKeyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC76712C9C26AB00AC357B /* ImportWalletPrivateKeyViewModel.swift */; };
+		15FC76742C9C26AB00AC357B /* ImportWalletPrivateKeyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC76712C9C26AB00AC357B /* ImportWalletPrivateKeyViewModel.swift */; };
+		15FC76762C9C26E600AC357B /* RecoverAccountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC76752C9C26E600AC357B /* RecoverAccountsViewModel.swift */; };
+		15FC76772C9C26E600AC357B /* RecoverAccountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC76752C9C26E600AC357B /* RecoverAccountsViewModel.swift */; };
+		15FC76782C9C26E600AC357B /* RecoverAccountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC76752C9C26E600AC357B /* RecoverAccountsViewModel.swift */; };
 		19C2E039DFC724B7CCFFF321 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E4B1F77014C882288F8E /* Coordinator.swift */; };
 		19C2E05A6CFAD9B9CCECF785 /* LetterSpacingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EBAEE6EC2525447CCDB5 /* LetterSpacingLabel.swift */; };
 		19C2E0C7F19B6044963A14A2 /* Publisher+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */; };
@@ -3171,6 +3180,9 @@
 		15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTokenViewModel.swift; sourceTree = "<group>"; };
 		15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		15FC76682C9ADB5000AC357B /* ImportWalletInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWalletInfoView.swift; sourceTree = "<group>"; };
+		15FC766C2C9C0F7700AC357B /* ImportWalletPrivateKeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWalletPrivateKeyView.swift; sourceTree = "<group>"; };
+		15FC76712C9C26AB00AC357B /* ImportWalletPrivateKeyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWalletPrivateKeyViewModel.swift; sourceTree = "<group>"; };
+		15FC76752C9C26E600AC357B /* RecoverAccountsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverAccountsViewModel.swift; sourceTree = "<group>"; };
 		19C2E113307579CAF5005F21 /* Sizes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
 		19C2E3C60DD1F86BE4DC76F6 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSettings.swift; path = Settings/AppSettings.swift; sourceTree = "<group>"; };
 		19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+Utils.swift"; sourceTree = "<group>"; };
@@ -3702,7 +3714,9 @@
 		0851BFD02B4D9C1D006373AC /* ImportSeedBasedWallet */ = {
 			isa = PBXGroup;
 			children = (
+				15FC76702C9C269900AC357B /* ViewModels */,
 				0851BFD12B4DA63C006373AC /* ImportWalletView.swift */,
+				15FC766C2C9C0F7700AC357B /* ImportWalletPrivateKeyView.swift */,
 				15FC76682C9ADB5000AC357B /* ImportWalletInfoView.swift */,
 				08D103DF2B5692A70057E844 /* RecoverAccountsView.swift */,
 				0835F9AA2B5FCE4500D3716F /* ImportLegacyWalletInfo.swift */,
@@ -5262,6 +5276,15 @@
 				08E69C9C2A20D071001CCA96 /* ImportTokenView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		15FC76702C9C269900AC357B /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				15FC76712C9C26AB00AC357B /* ImportWalletPrivateKeyViewModel.swift */,
+				15FC76752C9C26E600AC357B /* RecoverAccountsViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		19C2E0CE4D75C20FB441CB95 /* ioscommon */ = {
@@ -7154,6 +7177,7 @@
 				08C167A92BB7396200E61326 /* SubmissionResponse.swift in Sources */,
 				08C167AA2BB7396200E61326 /* AccountDetailView.swift in Sources */,
 				08C167AB2BB7396200E61326 /* ChainParametersResponse.swift in Sources */,
+				15FC76742C9C26AB00AC357B /* ImportWalletPrivateKeyViewModel.swift in Sources */,
 				08C167AC2BB7396200E61326 /* SeedIdentityOnboardingView.swift in Sources */,
 				08C167AD2BB7396200E61326 /* AccountView.swift in Sources */,
 				08C167AE2BB7396200E61326 /* SceneViewController.swift in Sources */,
@@ -7236,6 +7260,7 @@
 				08C167F32BB7396200E61326 /* CurrencyView.swift in Sources */,
 				08C167F42BB7396200E61326 /* SeedIdentityStatusViewModel.swift in Sources */,
 				08C167F52BB7396200E61326 /* Memo.swift in Sources */,
+				15FC76782C9C26E600AC357B /* RecoverAccountsViewModel.swift in Sources */,
 				08C167F62BB7396200E61326 /* ExportVersionContainer.swift in Sources */,
 				08C167F72BB7396200E61326 /* IdentitiesViewController.swift in Sources */,
 				08C167F82BB7396200E61326 /* IdentityWrapperShell.swift in Sources */,
@@ -7346,6 +7371,7 @@
 				08C168612BB7396200E61326 /* ObjectWrapper.swift in Sources */,
 				08C168622BB7396200E61326 /* ImportTokenView.swift in Sources */,
 				08C168632BB7396200E61326 /* IdentityProviderError.swift in Sources */,
+				15FC766F2C9C0F7700AC357B /* ImportWalletPrivateKeyView.swift in Sources */,
 				08C168642BB7396200E61326 /* TransactionsView.swift in Sources */,
 				08C168652BB7396200E61326 /* CreateExportPasswordCoordinator.swift in Sources */,
 				08C168662BB7396200E61326 /* IPInfoResponseElement.swift in Sources */,
@@ -7852,6 +7878,7 @@
 				08A045E429FA99D200DACE1F /* SubmissionResponse.swift in Sources */,
 				08E69CB12A24D085001CCA96 /* AccountDetailView.swift in Sources */,
 				08A0460F29FA99D200DACE1F /* ChainParametersResponse.swift in Sources */,
+				15FC76732C9C26AB00AC357B /* ImportWalletPrivateKeyViewModel.swift in Sources */,
 				088FF0052A0271F100042957 /* SeedIdentityOnboardingView.swift in Sources */,
 				08E69C852A1D2183001CCA96 /* AccountView.swift in Sources */,
 				089B34352A17ACD000F3CD90 /* SceneViewController.swift in Sources */,
@@ -7934,6 +7961,7 @@
 				D5F7A24826D7C7550061E646 /* CurrencyView.swift in Sources */,
 				088FEFD32A0271AB00042957 /* SeedIdentityStatusViewModel.swift in Sources */,
 				D589F1C12794B5ED003F2FBB /* Memo.swift in Sources */,
+				15FC76772C9C26E600AC357B /* RecoverAccountsViewModel.swift in Sources */,
 				D589F1FD2794B5ED003F2FBB /* ExportVersionContainer.swift in Sources */,
 				088FEF102A026F0100042957 /* IdentitiesViewController.swift in Sources */,
 				D589F1E92794B5ED003F2FBB /* IdentityWrapperShell.swift in Sources */,
@@ -8044,6 +8072,7 @@
 				08A0448D29FA987800DACE1F /* ObjectWrapper.swift in Sources */,
 				08E69CA02A20D071001CCA96 /* ImportTokenView.swift in Sources */,
 				D589F1ED2794B5ED003F2FBB /* IdentityProviderError.swift in Sources */,
+				15FC766E2C9C0F7700AC357B /* ImportWalletPrivateKeyView.swift in Sources */,
 				08E69CC02A25FC1D001CCA96 /* TransactionsView.swift in Sources */,
 				088FF1CD2A02A70800042957 /* CreateExportPasswordCoordinator.swift in Sources */,
 				08A0461329FA99D300DACE1F /* IPInfoResponseElement.swift in Sources */,
@@ -8550,6 +8579,7 @@
 				08A0454C29FA99D100DACE1F /* SubmissionResponse.swift in Sources */,
 				08E69C832A1D2183001CCA96 /* AccountView.swift in Sources */,
 				089B34332A17ACD000F3CD90 /* SceneViewController.swift in Sources */,
+				15FC76722C9C26AB00AC357B /* ImportWalletPrivateKeyViewModel.swift in Sources */,
 				D5553252291091C700A69230 /* Model+Marketplace.swift in Sources */,
 				08A0457729FA99D100DACE1F /* ChainParametersResponse.swift in Sources */,
 				088FEFFF2A0271F000042957 /* SeedIdentityOnboardingView.swift in Sources */,
@@ -8632,6 +8662,7 @@
 				D589F1BF2794B5ED003F2FBB /* Memo.swift in Sources */,
 				D589F1FB2794B5ED003F2FBB /* ExportVersionContainer.swift in Sources */,
 				088FEFCD2A0271AA00042957 /* SeedIdentityStatusViewModel.swift in Sources */,
+				15FC76762C9C26E600AC357B /* RecoverAccountsViewModel.swift in Sources */,
 				D589F1E72794B5ED003F2FBB /* IdentityWrapperShell.swift in Sources */,
 				088FEF022A026F0000042957 /* IdentitiesViewController.swift in Sources */,
 				088FF1492A0286A200042957 /* AppSettingsResponse.swift in Sources */,
@@ -8742,6 +8773,7 @@
 				08E69C9E2A20D071001CCA96 /* ImportTokenView.swift in Sources */,
 				D5D52C6A26DE45530072D20E /* RoundedCurrencyView.swift in Sources */,
 				08E69CBE2A25FC1D001CCA96 /* TransactionsView.swift in Sources */,
+				15FC766D2C9C0F7700AC357B /* ImportWalletPrivateKeyView.swift in Sources */,
 				088FF1C32A02A70700042957 /* CreateExportPasswordCoordinator.swift in Sources */,
 				088FECE02A01621F00042957 /* OnboardingCarouselView.swift in Sources */,
 				08A0447129FA987700DACE1F /* ObjectWrapper.swift in Sources */,
