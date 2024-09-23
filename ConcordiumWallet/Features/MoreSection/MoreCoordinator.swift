@@ -11,6 +11,7 @@ import SwiftUI
 protocol MoreCoordinatorDelegate: IdentitiesCoordinatorDelegate {
     func logoutAccounts()
     func showRevealSeedPrase()
+    func showExportWalletPrivateKey()
 }
 
 @MainActor
@@ -228,6 +229,10 @@ extension MoreCoordinator: MoreMenuPresenterDelegate {
     
     func aboutSelected() {
         showAbout()
+    }
+    
+    func showExportWalletPrivateKey() {
+        parentCoordinator?.showExportWalletPrivateKey()
     }
 }
 

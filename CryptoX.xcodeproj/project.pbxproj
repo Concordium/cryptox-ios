@@ -1952,6 +1952,9 @@
 		15FC76762C9C26E600AC357B /* RecoverAccountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC76752C9C26E600AC357B /* RecoverAccountsViewModel.swift */; };
 		15FC76772C9C26E600AC357B /* RecoverAccountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC76752C9C26E600AC357B /* RecoverAccountsViewModel.swift */; };
 		15FC76782C9C26E600AC357B /* RecoverAccountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC76752C9C26E600AC357B /* RecoverAccountsViewModel.swift */; };
+		15FC767A2C9D699F00AC357B /* ExportWalletPrivateKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC76792C9D699F00AC357B /* ExportWalletPrivateKeyView.swift */; };
+		15FC767B2C9D699F00AC357B /* ExportWalletPrivateKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC76792C9D699F00AC357B /* ExportWalletPrivateKeyView.swift */; };
+		15FC767C2C9D699F00AC357B /* ExportWalletPrivateKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC76792C9D699F00AC357B /* ExportWalletPrivateKeyView.swift */; };
 		19C2E039DFC724B7CCFFF321 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E4B1F77014C882288F8E /* Coordinator.swift */; };
 		19C2E05A6CFAD9B9CCECF785 /* LetterSpacingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EBAEE6EC2525447CCDB5 /* LetterSpacingLabel.swift */; };
 		19C2E0C7F19B6044963A14A2 /* Publisher+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */; };
@@ -3183,6 +3186,7 @@
 		15FC766C2C9C0F7700AC357B /* ImportWalletPrivateKeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWalletPrivateKeyView.swift; sourceTree = "<group>"; };
 		15FC76712C9C26AB00AC357B /* ImportWalletPrivateKeyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWalletPrivateKeyViewModel.swift; sourceTree = "<group>"; };
 		15FC76752C9C26E600AC357B /* RecoverAccountsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverAccountsViewModel.swift; sourceTree = "<group>"; };
+		15FC76792C9D699F00AC357B /* ExportWalletPrivateKeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportWalletPrivateKeyView.swift; sourceTree = "<group>"; };
 		19C2E113307579CAF5005F21 /* Sizes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
 		19C2E3C60DD1F86BE4DC76F6 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSettings.swift; path = Settings/AppSettings.swift; sourceTree = "<group>"; };
 		19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+Utils.swift"; sourceTree = "<group>"; };
@@ -3721,6 +3725,7 @@
 				08D103DF2B5692A70057E844 /* RecoverAccountsView.swift */,
 				0835F9AA2B5FCE4500D3716F /* ImportLegacyWalletInfo.swift */,
 				0851BFDA2B513234006373AC /* SeedPhraseInputView */,
+				15FC76792C9D699F00AC357B /* ExportWalletPrivateKeyView.swift */,
 			);
 			path = ImportSeedBasedWallet;
 			sourceTree = "<group>";
@@ -7223,6 +7228,7 @@
 				08C167D22BB7396200E61326 /* CreateIdentityCoordinator.swift in Sources */,
 				08DB5E922BC6C34300C29663 /* BakingAlerts.swift in Sources */,
 				08DB5E932BC6C34300C29663 /* BakingOnboardingCoordinator.swift in Sources */,
+				15FC767C2C9D699F00AC357B /* ExportWalletPrivateKeyView.swift in Sources */,
 				08DB5E942BC6C34300C29663 /* BakerDataHandler.swift in Sources */,
 				08DB5E952BC6C34300C29663 /* BakingCoordinator.swift in Sources */,
 				08C167D32BB7396200E61326 /* TransferCostParameters.swift in Sources */,
@@ -7924,6 +7930,7 @@
 				088FEEEF2A026EB600042957 /* CreateIdentityCoordinator.swift in Sources */,
 				08DB5E8E2BC6C34300C29663 /* BakingAlerts.swift in Sources */,
 				08DB5E8F2BC6C34300C29663 /* BakingOnboardingCoordinator.swift in Sources */,
+				15FC767B2C9D699F00AC357B /* ExportWalletPrivateKeyView.swift in Sources */,
 				08DB5E902BC6C34300C29663 /* BakerDataHandler.swift in Sources */,
 				08DB5E912BC6C34300C29663 /* BakingCoordinator.swift in Sources */,
 				08A0464529FAB0EC00DACE1F /* TransferCostParameters.swift in Sources */,
@@ -8625,6 +8632,7 @@
 				08DB5E8A2BC6C34200C29663 /* BakingAlerts.swift in Sources */,
 				08DB5E8B2BC6C34200C29663 /* BakingOnboardingCoordinator.swift in Sources */,
 				08DB5E8C2BC6C34200C29663 /* BakerDataHandler.swift in Sources */,
+				15FC767A2C9D699F00AC357B /* ExportWalletPrivateKeyView.swift in Sources */,
 				08DB5E8D2BC6C34200C29663 /* BakingCoordinator.swift in Sources */,
 				D5E29765276C8E04000DB102 /* Digest+Additions.swift in Sources */,
 				08A0464329FAB0EB00DACE1F /* TransferCostParameters.swift in Sources */,

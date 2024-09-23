@@ -8,12 +8,13 @@
 
 import SwiftUI
 import Combine
+import UIKit
 
 struct ImportWalletPrivateKeyView: View {
     
-    @State var walletPrivateKey: String = ""
     @SwiftUI.Environment(\.dismiss) private var dismiss
-    
+    @StateObject var viewModel: ImportWalletPrivateKeyViewModel
+ 
     var body: some View {
         VStack(spacing: 40) {
             VStack(spacing: 12) {
@@ -25,50 +26,85 @@ struct ImportWalletPrivateKeyView: View {
                     .font(.satoshi(size: 14, weight: .regular))
                     .foregroundColor(Color.Neutral.tint2)
                     .multilineTextAlignment(.center)
-                
-            }.frame(maxWidth: .infinity)
+            }
+            .frame(maxWidth: .infinity)
+            
+            ErrorLabel(error: viewModel.error).padding(.bottom, 12)
             
             VStack(alignment: .leading, spacing: 16) {
                 Text("Wallet private key")
                     .font(.satoshi(size: 16, weight: .medium))
                 
-                ZStack(alignment: .trailing) {
-                    TextField("Wallet private key here", text: $walletPrivateKey)
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 13)
-                        .background(RoundedRectangle(cornerRadius: 4)
-                            .stroke(Color.buttonGreyBg, lineWidth: 1))
-                        .frame(minWidth: 100, maxWidth: .infinity)
-                    
+                HStack {
+                    if #available(iOS 16.0, *) {
+                        TextField("Wallet private key here", text: $viewModel.currentInput, axis: .vertical)
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 13)
+                            .font(.satoshi(size: 14, weight: .regular))
+                            .background(Color(.clear))
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                            .frame(minHeight: 40)
+                            .fixedSize(horizontal: false, vertical: true)
+                    } else {
+                        ZStack(alignment: .leading) {
+                            if viewModel.currentInput.isEmpty {
+                                Text("Wallet private key here")
+                                    .foregroundColor(.gray)
+                                    .font(.satoshi(size: 14, weight: .regular))
+                                    .padding(.horizontal, 13)
+                                    .padding(.vertical, 10)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .allowsHitTesting(false)
+                                    .zIndex(1)
+                            }
+                            TextEditor(text: $viewModel.currentInput)
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 13)
+                                .font(.satoshi(size: 14, weight: .regular))
+                                .background(Color(.clear))
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
+                                .frame(minHeight: 40)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .transparentScrolling()
+                                .zIndex(0)
+                        }
+                    }
                     Button(action: {
                         withAnimation {
-                            if walletPrivateKey.isEmpty {
+                            if viewModel.currentInput.isEmpty {
                                 if let pastedText = UIPasteboard.general.string {
-                                    walletPrivateKey = pastedText
+                                    viewModel.currentInput = pastedText
                                 }
                             } else {
-                                walletPrivateKey = ""
+                                viewModel.clearAll()
                             }
                         }
                     }) {
-                        Text(walletPrivateKey.isEmpty ? "Paste" : "Clear")
+                        Text(viewModel.currentInput.isEmpty ? "Paste" : "Clear")
                             .foregroundColor(.white)
                             .padding(.vertical, 8)
                             .padding(.horizontal, 16)
                             .background(Color.buttonGreyBg)
                             .cornerRadius(4)
                     }
-                    .animation(.easeInOut, value: walletPrivateKey.isEmpty)
                     .padding(4)
                 }
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray.opacity(0.6), lineWidth: 1)
+                )
             }
             .padding()
             .background(Color.textBackground.opacity(0.5))
             .cornerRadius(12)
+            
             Spacer()
+            
             Button(action: {
-//                viewModel.importAction()
-            }, label: {
+                viewModel.importAction()
+            }) {
                 HStack {
                     Text("recover_accounts_recover_button_title".localized)
                         .font(Font.satoshi(size: 16, weight: .medium))
@@ -78,13 +114,13 @@ struct ImportWalletPrivateKeyView: View {
                     Image(systemName: "arrow.right").tint(Color.Neutral.tint7)
                 }
                 .padding(.horizontal, 24)
-            })
-//            .disabled(!viewModel.isValidPhrase)
+            }
+            .disabled(!viewModel.isValidPhrase)
             .frame(height: 56)
             .background(Color.EggShell.tint1)
-            .cornerRadius(28, corners: .allCorners)
-//            .opacity(viewModel.isValidPhrase ? 1.0 : 0)
-//            .animation(.easeInOut, value: viewModel.isValidPhrase)
+            .cornerRadius(28)
+            .opacity(viewModel.isValidPhrase ? 1.0 : 0)
+            .animation(.easeInOut, value: viewModel.isValidPhrase)
         }
         .ignoresSafeArea()
         .padding(16)
@@ -105,9 +141,14 @@ struct ImportWalletPrivateKeyView: View {
     }
 }
 
-struct ResizableTextFieldWithPasteButton_Previews: PreviewProvider {
-    static var previews: some View {
-        ImportWalletPrivateKeyView()
+public extension View {
+    func transparentScrolling() -> some View {
+        if #available(iOS 16.0, *) {
+            return scrollContentBackground(.hidden)
+        } else {
+            return onAppear {
+                UITextView.appearance().backgroundColor = .clear
+            }
+        }
     }
 }
-

@@ -27,6 +27,7 @@ protocol MoreMenuPresenterDelegate: AnyObject {
     func logout()
     func showRevealSeedPrase()
     func showUnshieldAssetsFlow()
+    func showExportWalletPrivateKey()
 }
 
 // MARK: -
@@ -49,6 +50,7 @@ protocol MoreMenuPresenterProtocol: AnyObject {
     
     func hasSavedSeedPhrase() -> Bool
     func showUnshieldAssetsFlow()
+    func showExportWalletPrivateKey()
 }
 
 class MoreMenuPresenter {
@@ -84,6 +86,10 @@ extension MoreMenuPresenter: MoreMenuPresenterProtocol {
     
     func showRevealSeedPrase() {
         delegate?.showRevealSeedPrase()
+    }
+    
+    func showExportWalletPrivateKey() {
+        delegate?.showExportWalletPrivateKey()
     }
     
     func userSelectedIdentities() {

@@ -48,7 +48,9 @@ struct ImportWalletView: View {
                         selection: $flow) { EmptyView() }
                     
                     NavigationLink(
-                        destination: ImportWalletPrivateKeyView(),
+                        destination: ImportWalletPrivateKeyView(viewModel: ImportWalletPrivateKeyViewModel.init(recoveryService: defaultProvider.recoveryPhraseService(), onValidPrivateKey: { phrase in
+                            self.recoveryPhrase = phrase
+                        })),
                         tag: Flow.recoverWithWalletKey,
                         selection: $flow) { EmptyView() }
                     
