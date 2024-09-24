@@ -46,6 +46,11 @@ struct ImportWalletPrivateKeyView: View {
                             .cornerRadius(8)
                             .frame(minHeight: 40)
                             .fixedSize(horizontal: false, vertical: true)
+                            .onChange(of: viewModel.currentInput) { newValue in
+                                if !viewModel.currentInput.isEmpty {
+                                    viewModel.validateCurrentInput()
+                                }
+                            }
                     } else {
                         ZStack(alignment: .leading) {
                             if viewModel.currentInput.isEmpty {
@@ -69,6 +74,11 @@ struct ImportWalletPrivateKeyView: View {
                                 .fixedSize(horizontal: false, vertical: true)
                                 .transparentScrolling()
                                 .zIndex(0)
+                                .onChange(of: viewModel.currentInput) { newValue in
+                                    if !viewModel.currentInput.isEmpty {
+                                        viewModel.validateCurrentInput()
+                                    }
+                                }
                         }
                     }
                     Button(action: {
