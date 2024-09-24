@@ -23,6 +23,7 @@ struct ImportWalletView: View {
     
     @State private var flow: Flow? = nil
     @State private var recoveryPhrase: RecoveryPhrase? = nil
+    @State private var walletPrivateKey: IdentifiableString? = nil
     @State private var isLegacyImportInfoShown: Bool = false
     @State private var isInfoViewPresented = false
     
@@ -48,8 +49,8 @@ struct ImportWalletView: View {
                         selection: $flow) { EmptyView() }
                     
                     NavigationLink(
-                        destination: ImportWalletPrivateKeyView(viewModel: ImportWalletPrivateKeyViewModel.init(recoveryService: defaultProvider.recoveryPhraseService(), onValidPrivateKey: { phrase in
-                            self.recoveryPhrase = phrase
+                        destination: ImportWalletPrivateKeyView(viewModel: ImportWalletPrivateKeyViewModel.init(recoveryService: defaultProvider.recoveryPhraseService(), onValidPrivateKey: { key in
+                            self.walletPrivateKey = key
                         })),
                         tag: Flow.recoverWithWalletKey,
                         selection: $flow) { EmptyView() }
@@ -74,10 +75,13 @@ struct ImportWalletView: View {
                 .padding(.trailing, 15)
             }
             .fullScreenCover(item: $recoveryPhrase) { phrase in
-                RecoverAccountsView(viewModel: .init(phrase: phrase, defaultProvider: defaultProvider, onAccountInported: onAccountInported))
+                RecoverAccountsView(viewModel: .init(phrase: phrase, seedString: nil, defaultProvider: defaultProvider, onAccountInported: onAccountInported))
             }
             .fullScreenCover(isPresented: $isLegacyImportInfoShown) {
                 ImportLegacyWalletInfo()
+            }
+            .fullScreenCover(item: $walletPrivateKey) { key in
+                RecoverAccountsView(viewModel: .init(phrase: nil, seedString: key, defaultProvider: defaultProvider, onAccountInported: onAccountInported))
             }
         }
     }

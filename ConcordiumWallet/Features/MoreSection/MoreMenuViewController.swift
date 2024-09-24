@@ -174,6 +174,8 @@ extension MoreMenuViewController {
         } else {
             if presenter.hasSavedSeedPhrase() {
                 snapshot.appendItems([.revealSeedPhrase(title: "more.reveal.seed.phrase".localized)])
+            }
+            if presenter.hasSavedWalletPrivateKey() {
                 snapshot.appendItems([.exportWalletPrivateKey(title: "more.exportWallet.privateKey".localized)])
             }
             snapshot.appendItems([.recovery(title: "more.recovery".localized)])

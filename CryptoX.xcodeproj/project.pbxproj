@@ -1925,6 +1925,9 @@
 		151A53AC2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
 		151A53AD2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
 		151A53AE2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
+		1575862E2CA2CA4D00205A6E /* IdentifiableString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1575862D2CA2CA4D00205A6E /* IdentifiableString.swift */; };
+		1575862F2CA2CA4D00205A6E /* IdentifiableString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1575862D2CA2CA4D00205A6E /* IdentifiableString.swift */; };
+		157586302CA2CA4D00205A6E /* IdentifiableString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1575862D2CA2CA4D00205A6E /* IdentifiableString.swift */; };
 		15844E5A2C87445B005A3BF1 /* TransferTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15844E592C87445B005A3BF1 /* TransferTokenViewModel.swift */; };
 		15844E5B2C8744D5005A3BF1 /* TransferTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15844E592C87445B005A3BF1 /* TransferTokenViewModel.swift */; };
 		15844E5C2C8744D5005A3BF1 /* TransferTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15844E592C87445B005A3BF1 /* TransferTokenViewModel.swift */; };
@@ -3177,6 +3180,7 @@
 		151A53982C5CF03800EFE20C /* PopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
 		151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsButtonsView.swift; sourceTree = "<group>"; };
+		1575862D2CA2CA4D00205A6E /* IdentifiableString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableString.swift; sourceTree = "<group>"; };
 		15844E592C87445B005A3BF1 /* TransferTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferTokenViewModel.swift; sourceTree = "<group>"; };
 		1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTokenViewModel.swift; sourceTree = "<group>"; };
 		15E1BC682C6B588900543242 /* Gate_io.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gate_io.png; sourceTree = "<group>"; };
@@ -5588,6 +5592,7 @@
 				088FEE712A025A7800042957 /* String+Links.swift */,
 				088FF1512A02885600042957 /* Collections+Indexed.swift */,
 				088FEE472A016B3400042957 /* Publisher+Async.swift */,
+				1575862D2CA2CA4D00205A6E /* IdentifiableString.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -7112,6 +7117,7 @@
 				08C167632BB7396200E61326 /* SubmitSeedAccountPresenter.swift in Sources */,
 				08C167642BB7396200E61326 /* WarningDisplayer.swift in Sources */,
 				08C167652BB7396200E61326 /* SelectIdentityProviderViewModel.swift in Sources */,
+				157586302CA2CA4D00205A6E /* IdentifiableString.swift in Sources */,
 				08DB5E3A2BC6C2DF00C29663 /* DelegationInputPresenter.swift in Sources */,
 				08C167662BB7396200E61326 /* TokenEntity.swift in Sources */,
 				08C167672BB7396200E61326 /* CopyPasterHelper.swift in Sources */,
@@ -7814,6 +7820,7 @@
 				088FEFBF2A02717E00042957 /* SubmitSeedAccountPresenter.swift in Sources */,
 				08B16F0B2A0118E1002E6B33 /* WarningDisplayer.swift in Sources */,
 				088FEFF32A0271D500042957 /* SelectIdentityProviderViewModel.swift in Sources */,
+				1575862F2CA2CA4D00205A6E /* IdentifiableString.swift in Sources */,
 				08DB5E392BC6C2DF00C29663 /* DelegationInputPresenter.swift in Sources */,
 				D5A3757F2909E8E1002B8194 /* TokenEntity.swift in Sources */,
 				D5E29762276C8DC8000DB102 /* CopyPasterHelper.swift in Sources */,
@@ -8516,6 +8523,7 @@
 				088FF0C62A02846600042957 /* RecoveryPhraseRecoverIntroPresenter.swift in Sources */,
 				088FF1202A0284F500042957 /* RecoveryPhraseGettingStartedViewModel.swift in Sources */,
 				08DB5E382BC6C2DF00C29663 /* DelegationInputPresenter.swift in Sources */,
+				1575862E2CA2CA4D00205A6E /* IdentifiableString.swift in Sources */,
 				D547959428ECDC0E00575649 /* NFTImportPresenter.swift in Sources */,
 				527DE351257378DC00333E65 /* ReleaseScheduleCell.swift in Sources */,
 				088FEFED2A0271D400042957 /* SelectIdentityProviderViewModel.swift in Sources */,

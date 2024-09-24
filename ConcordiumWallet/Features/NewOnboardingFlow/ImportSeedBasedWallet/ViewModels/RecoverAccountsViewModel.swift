@@ -28,15 +28,17 @@ final class RecoverAccountsViewModel: ObservableObject {
     @Published var subtitle: String = "recover_accounts_flow_subtitle".localized
     @Published var actionButtonTitle: String = "recover_accounts_recover_button_title".localized
     
-    private let phrase: RecoveryPhrase
+    private let phrase: RecoveryPhrase?
+    private let seedString: IdentifiableString?
     private let defaultProvider: ServicesProvider
     private var cancellables = Set<AnyCancellable>()
     private let recoveryPhraseService: RecoveryPhraseServiceProtocol
     private let accountsService: SeedAccountsService
     private var onAccountInported: () -> Void
     
-    init(phrase: RecoveryPhrase, defaultProvider: ServicesProvider, onAccountInported: @escaping () -> Void) {
+    init(phrase: RecoveryPhrase?, seedString: IdentifiableString?, defaultProvider: ServicesProvider, onAccountInported: @escaping () -> Void) {
         self.phrase = phrase
+        self.seedString = seedString
         self.defaultProvider = defaultProvider
         self.recoveryPhraseService = defaultProvider.recoveryPhraseService()
         self.accountsService = defaultProvider.seedAccountsService()
@@ -62,7 +64,19 @@ final class RecoverAccountsViewModel: ObservableObject {
         
         Task {
             do {
-                let seed = try await recoveryPhraseService.store(recoveryPhrase: phrase, with: pwHash)
+                var seed: Seed?
+                if let phrase {
+                    seed = try await recoveryPhraseService.store(recoveryPhrase: phrase, with: pwHash)
+                } else if let seedString {
+                    seed = try await recoveryPhraseService.store(walletPrivateKey: seedString.value, with: pwHash)
+                }
+                
+                guard let seed else {
+                    await MainActor.run {
+                        self.state = .failed
+                    }
+                    return
+                }
                 let (identities, failedIdentityProviders) = try await defaultProvider.seedIdentitiesService().recoverIdentities(with: seed)
                 
                 let accounts = try await accountsService.recoverAccounts(

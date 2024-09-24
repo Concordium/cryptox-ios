@@ -49,6 +49,7 @@ protocol MoreMenuPresenterProtocol: AnyObject {
     func showRevealSeedPrase()
     
     func hasSavedSeedPhrase() -> Bool
+    func hasSavedWalletPrivateKey() -> Bool
     func showUnshieldAssetsFlow()
     func showExportWalletPrivateKey()
 }
@@ -82,6 +83,10 @@ extension MoreMenuPresenter: MoreMenuPresenterProtocol {
     
     func hasSavedSeedPhrase() -> Bool {
         dependencyProvider.seedIdentitiesService().mobileWallet.isMnemonicPhraseSaved
+    }
+    
+    func hasSavedWalletPrivateKey() -> Bool {
+        dependencyProvider.seedIdentitiesService().mobileWallet.hasSetupRecoveryPhrase
     }
     
     func showRevealSeedPrase() {

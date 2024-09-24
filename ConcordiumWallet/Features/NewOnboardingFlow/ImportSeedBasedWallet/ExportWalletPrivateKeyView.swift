@@ -23,11 +23,10 @@ final class ExportWalletPrivateKeyViewModel: ObservableObject {
     func getPrivateKey(pwHash: String) {
         Task {
             do {
-                let recoveryPhrase = try dependencyProvider.keychainWrapper().getValue(for: "RecoveryPhrase", securedByPassword: pwHash).get()
-                let seedValue = recoveryPhrase.data(using: .utf8)?.hexDescription
+                let recoveryPhrase = try dependencyProvider.keychainWrapper().getValue(for: "RecoveryPhraseSeed", securedByPassword: pwHash).get()
                 await MainActor.run {
                     withAnimation {
-                        self.walletPrivateKey = seedValue ?? ""
+                        self.walletPrivateKey = recoveryPhrase
                     }
                 }
             } catch {
