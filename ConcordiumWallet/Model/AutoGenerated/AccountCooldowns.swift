@@ -1,24 +1,19 @@
 // This file was generated from JSON Schema using quicktype, do not modify it directly.
 // To parse the JSON, add this file to your project and do:
 //
-//   let accountBalance = try AccountBalance(json)
+//   let accountCooldowns = try AccountCooldowns(json)
 
 import Foundation
-
-// MARK: - AccountBalance
-struct AccountBalance: Codable {
-    let balance: Balance?
-
-    enum CodingKeys: String, CodingKey {
-        case balance = "finalizedBalance"
-    }
+struct AccountCooldowns: Codable {
+    let timestamp, amount: Int
+    let status: String
 }
 
-// MARK: AccountBalance convenience initializers and mutators
+// MARK: AccountCooldowns convenience initializers and mutators
 
-extension AccountBalance {
+extension AccountCooldowns {
     init(data: Data) throws {
-        self = try newJSONDecoder().decode(AccountBalance.self, from: data)
+        self = try newJSONDecoder().decode(AccountCooldowns.self, from: data)
     }
 
     init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -33,10 +28,14 @@ extension AccountBalance {
     }
 
     func with(
-        finalizedBalance: Balance?? = nil
-    ) -> AccountBalance {
-        return AccountBalance(
-            balance: finalizedBalance ?? self.balance
+        timestamp: Int? = nil,
+        amount: Int? = nil,
+        status: String? = nil
+    ) -> AccountCooldowns {
+        return AccountCooldowns(
+            timestamp: timestamp ?? self.timestamp,
+            amount: amount ?? self.amount,
+            status: status ?? self.status
         )
     }
 

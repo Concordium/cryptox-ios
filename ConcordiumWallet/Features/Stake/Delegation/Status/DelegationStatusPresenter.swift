@@ -48,7 +48,7 @@ class DelegationStatusPresenter: StakeStatusPresenterProtocol {
         self.storageManager = dependencyProvider.storageManager()
         self.accountsService = dependencyProvider.accountsService()
         self.delegate = delegate
-        viewModel = StakeStatusViewModel()
+        viewModel = StakeStatusViewModel(account: account, dependencyProvider: dependencyProvider)
     }
 
     func viewDidLoad() {
@@ -173,75 +173,10 @@ class DelegationStatusPresenter: StakeStatusPresenterProtocol {
     }
 }
 
-private extension StorageManagerProtocol {
+extension StorageManagerProtocol {
     func getDelegationTransfers(for account: AccountDataType) -> [TransferDataType] {
         return getTransfers(for: account.address).filter { transfer in
             transfer.transferType.isDelegationTransfer
-        }
-    }
-}
-
-extension StakeStatusViewModel {
-    // swiftlint:disable function_body_length
-    func setup(
-        account: AccountDataType,
-        pendingChanges: PendingChanges,
-        hasUnfinishedTransaction: Bool
-    ) {
-        setup(dataHandler: DelegationDataHandler(account: account, isRemoving: false))
-        title = "delegation.status.title".localized
-        stopButtonLabel = "delegation.status.stopbutton".localized
-        topImageName = "confirm"
-        if hasUnfinishedTransaction {
-            topImageName = "logo_rotating_arrows"
-            topText = "delegation.status.waiting.header".localized
-            placeholderText = "delegation.status.waiting.placeholder".localized
-            buttonLabel = "delegation.status.updatebutton".localized
-            updateButtonEnabled = false
-            stopButtonEnabled = false
-            rows.removeAll()
-            return
-        }
-        
-        placeholderText = nil
-        topText = "delegation.status.registered.header".localized
-        buttonLabel = "delegation.status.updatebutton".localized
-        switch pendingChanges {
-        case .none:
-            gracePeriodText = nil
-            bottomInfoMessage = nil
-            bottomImportantMessage = nil
-            newAmount = nil
-            newAmountLabel = nil
-            stopButtonEnabled = true
-            updateButtonEnabled = true
-        case .newDelegationAmount(let cooldownTimestampUTC, let newDelegationAmount):
-            gracePeriodText = String(format: "delegation.status.graceperiod".localized,
-                                     GeneralFormatter.formatDateWithTime(for: GeneralFormatter.dateFrom(timestampUTC: cooldownTimestampUTC)))
-            bottomInfoMessage = nil
-            bottomImportantMessage = nil
-            newAmountLabel = "delegation.status.newamount".localized
-            newAmount = newDelegationAmount.displayValueWithGStroke()
-            stopButtonEnabled = false
-            updateButtonEnabled = true
-        case .stoppedDelegation(let cooldownTimestampUTC):
-            gracePeriodText = String(format: "delegation.status.graceperiod".localized,
-                                     GeneralFormatter.formatDateWithTime(for: GeneralFormatter.dateFrom(timestampUTC: cooldownTimestampUTC)))
-            bottomInfoMessage = "delegation.status.delegationwillstop".localized
-            bottomImportantMessage = nil
-            newAmount = nil
-            newAmountLabel = nil
-            stopButtonEnabled = false
-            updateButtonEnabled = true
-        case .poolWasDeregistered(let cooldownTimestampUTC):
-            gracePeriodText = nil
-            bottomInfoMessage = nil
-            bottomImportantMessage =  String(format: "delegation.status.deregisteredcooldown".localized,
-                                             GeneralFormatter.formatDateWithTime(for: GeneralFormatter.dateFrom(timestampUTC: cooldownTimestampUTC)))
-            newAmount = nil
-            newAmountLabel = nil
-            stopButtonEnabled = true
-            updateButtonEnabled = true
         }
     }
 }

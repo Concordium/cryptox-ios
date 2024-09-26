@@ -181,7 +181,7 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
             }
             
             return getAccountBalance(for: address).tryMap { (accountBalance) -> String in
-                if accountBalance.currentBalance == nil && accountBalance.finalizedBalance == nil {
+                if accountBalance.balance == nil {
                     return ""
                 }
                 return address
@@ -285,10 +285,10 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
         let shieldedAmounts = self.storageManager.getShieldedAmountsForAccount(account)
         
         var encryptedValues: [String] = []
-        if let selfAmount = balance.finalizedBalance?.accountEncryptedAmount?.selfAmount {
+        if let selfAmount = balance.balance?.accountEncryptedAmount?.selfAmount {
             encryptedValues.append(selfAmount)
         }
-        if let incomingAmounts = balance.finalizedBalance?.accountEncryptedAmount?.incomingAmounts {
+        if let incomingAmounts = balance.balance?.accountEncryptedAmount?.incomingAmounts {
             encryptedValues.append(contentsOf: incomingAmounts)
         }
         return encryptedValues.filter { (encryptedValue) -> Bool in
@@ -326,7 +326,7 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
     private func getFinalizedShieldedAmount(balance: AccountBalance, account: AccountDataType) -> (Int, ShieldedAccountEncryptionStatus) {
         let shieldedAmounts = self.storageManager.getShieldedAmountsForAccount(account)
         
-        guard let selfAmount = balance.finalizedBalance?.accountEncryptedAmount?.selfAmount else {
+        guard let selfAmount = balance.balance?.accountEncryptedAmount?.selfAmount else {
             // if we have no balance we assume 0
             return (0, .decrypted)
         }
@@ -336,7 +336,7 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
         }
         
         // if we don't have incoming amounts, we just return the self amount and we know its value
-        guard let incomingAmounts = balance.finalizedBalance?.accountEncryptedAmount?.incomingAmounts else {
+        guard let incomingAmounts = balance.balance?.accountEncryptedAmount?.incomingAmounts else {
             return (selfAmountDecrypted, .decrypted)
         }
         
@@ -351,7 +351,7 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
     
     private func getHasShieldedTransactions(balance: AccountBalance, account: AccountDataType ) -> Bool {
         // if we don't have incoming amounts, we just return the self amount and we know its value
-        guard let incomingAmounts = balance.finalizedBalance?.accountEncryptedAmount?.incomingAmounts else {
+        guard let incomingAmounts = balance.balance?.accountEncryptedAmount?.incomingAmounts else {
             return false
         }
         return incomingAmounts.count > 0 ? true : false
@@ -396,27 +396,27 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                 guard let balance = savedBalance else { return account }
                 let (finalizedShieldedAmount, shieldedEncryptionStatus) = self.getFinalizedShieldedAmount(balance: balance, account: account)
                 let hasShieldedTransactions = self.getHasShieldedTransactions(balance: balance, account: account)
-                let releaseSchedule = ReleaseScheduleEntity(from: balance.finalizedBalance?.accountReleaseSchedule)
+                let releaseSchedule = ReleaseScheduleEntity(from: balance.balance?.accountReleaseSchedule)
                 let delegation: DelegationDataType?
-                if let accountDelegation = balance.finalizedBalance?.accountDelegation {
+                if let accountDelegation = balance.balance?.accountDelegation {
                     delegation = DelegationEntity(accountDelegationModel: accountDelegation)
                 } else {
                     delegation = nil
                 }
                 let baker: BakerDataType?
-                if let accountBaker = balance.finalizedBalance?.accountBaker {
+                if let accountBaker = balance.balance?.accountBaker {
                     baker = BakerEntity(accountBakerModel: accountBaker)
                 } else {
                     baker = nil
                 }
                 
-                return account.withUpdatedFinalizedBalance((Int(balance.finalizedBalance?.accountAmount ?? "0") ?? 0),
+                return account.withUpdatedFinalizedBalance((Int(balance.balance?.accountAmount ?? "0") ?? 0),
                                                            finalizedShieldedAmount,
                                                            shieldedEncryptionStatus,
-                                                           EncryptedBalanceEntity(accountEncryptedAmount: balance.finalizedBalance?.accountEncryptedAmount),
+                                                           EncryptedBalanceEntity(accountEncryptedAmount: balance.balance?.accountEncryptedAmount),
                                                            hasShieldedTransactions: hasShieldedTransactions,
-                                                           accountNonce: balance.finalizedBalance?.accountNonce ?? 0,
-                                                           accountIndex: balance.finalizedBalance?.accountIndex ?? 0,
+                                                           accountNonce: balance.balance?.accountNonce ?? 0,
+                                                           accountIndex: balance.balance?.accountIndex ?? 0,
                                                            delegation:
                                                             delegation,
                                                            baker: baker,

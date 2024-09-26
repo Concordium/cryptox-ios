@@ -8,7 +8,7 @@
 
 import Foundation
 
-class StakeRowViewModel: Hashable {
+class StakeRowViewModel: Hashable, Identifiable {
     var headerLabel: String
     var valueLabel: String
     

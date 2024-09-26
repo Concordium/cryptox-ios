@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 protocol DelegationCoordinatorDelegate: Coordinator {
     func finished()
@@ -63,7 +64,8 @@ class DelegationCoordinator: Coordinator {
                                                   dependencyProvider: dependencyProvider,
                                                   delegate: self)
         let vc = StakeStatusFactory.create(with: presenter)
-        navigationController.pushViewController(vc, animated: true)
+        let vvc = UIHostingController(rootView: StateStatusView(viewModel: StakeStatusViewModel(account: account, dependencyProvider: dependencyProvider)))
+        navigationController.pushViewController(vvc, animated: true)
     }
     
     func stopDelegation(dataHandler: StakeDataHandler, cost: GTU, energy: Int) {

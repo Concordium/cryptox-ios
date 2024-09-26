@@ -319,6 +319,8 @@ private final class TestAccountDataType: AccountDataType {
     
     var hasShieldedTransactions: Bool
     
+    var cooldowns: [any CooldownDataType]?
+    
     func write(code: (TestAccountDataType) -> Void) -> Result<Void, Error> {
         .success(())
     }

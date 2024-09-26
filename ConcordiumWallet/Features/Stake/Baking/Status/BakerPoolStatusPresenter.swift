@@ -40,7 +40,7 @@ class BakerPoolStatusPresenter: StakeStatusPresenterProtocol {
         dependencyProvider: StakeCoordinatorDependencyProvider,
         delegate: BakerPoolStatusPresenterDelegate? = nil
     ) {
-        self.viewModel = StakeStatusViewModel()
+        self.viewModel = StakeStatusViewModel(account: account, dependencyProvider: dependencyProvider)
         self.delegate = delegate
         self.account = account
         self.status = status
