@@ -39,7 +39,7 @@ class StakeStatusViewModel: ObservableObject {
     
     @Published var updateButtonEnabled: Bool = true
     @Published var buttonLabel: String = ""
-    @Published var accountCooldowns: [CooldownDataType] = []
+    @Published var accountCooldowns: [AccountCooldown] = []
     
     @Published var rows: [StakeRowViewModel] = []
     @Published var error: Error?
@@ -50,7 +50,7 @@ class StakeStatusViewModel: ObservableObject {
     private var stakeService: StakeServiceProtocol
     private var storageManager: StorageManagerProtocol
     private var accountsService: AccountsServiceProtocol
-    weak var delegate: DelegationStatusPresenterDelegate?
+    weak var delegate: DelegationStatusPresenterDelegate? 
     
     init(
         account: AccountDataType,
@@ -209,6 +209,7 @@ extension StakeStatusViewModel {
         placeholderText = nil
         topText = "delegation.status.registered.header".localized
         buttonLabel = "delegation.status.updatebutton".localized
+        accountCooldowns = account.cooldowns.map({AccountCooldown(timestamp: $0.timestamp, amount: $0.amount, status: $0.status.rawValue)})
         switch pendingChanges {
         case .none:
             gracePeriodText = nil

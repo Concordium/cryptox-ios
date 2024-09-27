@@ -409,6 +409,7 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                 } else {
                     baker = nil
                 }
+                let cooldowns: [CooldownDataType] = balance.balance?.accountCooldowns.map({ CooldownEntity(accountCooldownModel: $0) }) ?? []                
                 
                 return account.withUpdatedFinalizedBalance((Int(balance.balance?.accountAmount ?? "0") ?? 0),
                                                            finalizedShieldedAmount,
@@ -420,7 +421,8 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                                                            delegation:
                                                             delegation,
                                                            baker: baker,
-                                                           releaseSchedule: releaseSchedule)
+                                                           releaseSchedule: releaseSchedule,
+                                                           cooldowns: cooldowns)
             })
             .eraseToAnyPublisher()
     }

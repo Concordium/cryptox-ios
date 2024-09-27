@@ -4,16 +4,23 @@
 //   let accountCooldowns = try AccountCooldowns(json)
 
 import Foundation
-struct AccountCooldowns: Codable {
-    let timestamp, amount: Int
-    let status: String
+struct AccountCooldown: Codable, Identifiable {
+    var id: UUID = UUID() 
+    let timestamp: Int
+    let amount, status: String
+    
+    enum CodingKeys: String, CodingKey {
+        case timestamp
+        case amount
+        case status
+    }
 }
 
 // MARK: AccountCooldowns convenience initializers and mutators
 
-extension AccountCooldowns {
+extension AccountCooldown {
     init(data: Data) throws {
-        self = try newJSONDecoder().decode(AccountCooldowns.self, from: data)
+        self = try newJSONDecoder().decode(AccountCooldown.self, from: data)
     }
 
     init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -22,6 +29,16 @@ extension AccountCooldowns {
         }
         try self.init(data: data)
     }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.timestamp = try container.decode(Int.self, forKey: .timestamp)
+        self.amount = try container.decode(String.self, forKey: .amount)
+        self.status = try container.decode(String.self, forKey: .status)
+
+        // Generate a new UUID for id
+        self.id = UUID()
+    }
 
     init(fromURL url: URL) throws {
         try self.init(data: try Data(contentsOf: url))
@@ -29,10 +46,10 @@ extension AccountCooldowns {
 
     func with(
         timestamp: Int? = nil,
-        amount: Int? = nil,
+        amount: String? = nil,
         status: String? = nil
-    ) -> AccountCooldowns {
-        return AccountCooldowns(
+    ) -> AccountCooldown {
+        return AccountCooldown(
             timestamp: timestamp ?? self.timestamp,
             amount: amount ?? self.amount,
             status: status ?? self.status

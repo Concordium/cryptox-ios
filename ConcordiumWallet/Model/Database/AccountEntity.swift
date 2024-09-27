@@ -59,7 +59,8 @@ protocol AccountDataType: DataStoreProtocol {
                                      accountIndex: Int,
                                      delegation: DelegationDataType?,
                                      baker: BakerDataType?,
-                                     releaseSchedule: ReleaseScheduleDataType) -> AccountDataType
+                                     releaseSchedule: ReleaseScheduleDataType,
+                                     cooldowns: [CooldownDataType]) -> AccountDataType
     
     func withUpdatedIdentity(identity: IdentityDataType) -> AccountDataType
     func withUpdatedStatus(status: SubmissionStatusEnum) -> AccountDataType
@@ -93,7 +94,8 @@ extension AccountDataType {
                                      accountIndex: Int,
                                      delegation: DelegationDataType?,
                                      baker: BakerDataType?,
-                                     releaseSchedule: ReleaseScheduleDataType) -> AccountDataType {
+                                     releaseSchedule: ReleaseScheduleDataType,
+                                     cooldowns: [CooldownDataType]) -> AccountDataType {
         _ = write {
             var pAccount = $0
             pAccount.finalizedBalance = finaliedBalance
@@ -106,6 +108,7 @@ extension AccountDataType {
             pAccount.baker = baker
             pAccount.releaseSchedule = releaseSchedule
             pAccount.hasShieldedTransactions = hasShieldedTransactions
+            pAccount.cooldowns = cooldowns
         }
         return self
     }
@@ -254,7 +257,7 @@ extension AccountEntity: AccountDataType {
         set {
             cooldownsList.removeAll()
             let newList = newValue.map({
-                CooldownEntity(accountCooldownModel: AccountCooldowns(timestamp: $0.timestamp, amount: $0.amount, status: $0.status.rawValue))
+                CooldownEntity(accountCooldownModel: AccountCooldown(timestamp: $0.timestamp, amount: $0.amount, status: $0.status.rawValue))
             })
             cooldownsList.append(objectsIn: newList)
         }

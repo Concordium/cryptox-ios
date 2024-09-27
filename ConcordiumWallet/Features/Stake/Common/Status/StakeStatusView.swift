@@ -1,5 +1,5 @@
 //
-//  StateStatusView.swift
+//  StakeStatusView.swift
 //  CryptoX
 //
 //  Created by Zhanna Komar on 26.09.2024.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct StateStatusView: View {
+struct StakeStatusView: View {
     @ObservedObject var viewModel: StakeStatusViewModel
     @State private var updateTimer: Timer?
     @SwiftUI.Environment(\.dismiss) private var dismiss
@@ -58,43 +58,45 @@ struct StateStatusView: View {
                     .padding()
                 }
 
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Inactive Stake")
-                        .font(.satoshi(size: 14, weight: .medium))
-                        .foregroundColor(.white)
-                    
-                    Text("You don’t receive rewards from this part of stake now, this amount will be at disposal after cooldown period.")
-                        .font(.satoshi(size: 12, weight: .regular))
-                        .foregroundColor(.gray)
-                        .lineLimit(3)
-                        .fixedSize(horizontal: false, vertical: true)
-                    
-                    HStack {
-                        Text("5.00")
-                            .font(.satoshi(size: 24, weight: .bold))
-                            .foregroundColor(.white)
-                        Spacer()
-                    }
-                    
-                    HStack {
-                        Text("Cooldown time:")
-                            .font(.satoshi(size: 14, weight: .medium))
-                            .foregroundColor(.gray)
-                        Spacer()
-                        Text("9")
-                            .foregroundColor(.white)
-                            .font(.satoshi(size: 14, weight: .bold))
-                        Text("days left")
-                            .font(.satoshi(size: 14, weight: .medium))
-                            .foregroundColor(.gray)
+                if !viewModel.accountCooldowns.isEmpty {
+                    ForEach(viewModel.accountCooldowns) { cooldown in
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Inactive Stake")
+                                .font(.satoshi(size: 14, weight: .medium))
+                                .foregroundColor(.white)
+                            
+                            Text("You don’t receive rewards from this part of stake now, this amount will be at disposal after cooldown period.")
+                                .font(.satoshi(size: 12, weight: .regular))
+                                .foregroundColor(.gray)
+                                .fixedSize(horizontal: false, vertical: true)
+                            
+                            HStack {
+                                Text(GTU(intValue: Int(cooldown.amount))?.displayValue() ?? "")
+                                    .font(.satoshi(size: 24, weight: .bold))
+                                    .foregroundColor(.white)
+                                Spacer()
+                            }
+                            
+                            HStack {
+                                Text("Cooldown time:")
+                                    .font(.satoshi(size: 14, weight: .medium))
+                                    .foregroundColor(.gray)
+                                Spacer()
+                                Text("\(calculateCooldownTime(from: cooldown.timestamp))")
+                                    .foregroundColor(.white)
+                                    .font(.satoshi(size: 14, weight: .bold))
+                                Text("days left")
+                                    .font(.satoshi(size: 14, weight: .medium))
+                                    .foregroundColor(.gray)
+                            }
+                        }
+                        .padding()
+                        .background(Color(.blackSecondary))
+                        .cornerRadius(16)
+                        .padding([.leading, .trailing], 16)
+                        .padding(.top, 10)
                     }
                 }
-                .padding()
-                .background(Color(.blackSecondary))
-                .cornerRadius(16)
-                .padding([.leading, .trailing], 16)
-                .padding(.top, 10)
-                
                 Spacer()
                 
                 VStack(spacing: 10) {
@@ -110,7 +112,7 @@ struct StateStatusView: View {
                                     .stroke(Color.white, lineWidth: 1))
                                 .foregroundColor(.white)
                         }
-                        .disabled(!viewModel.stopButtonEnabled)
+//                        .disabled(!viewModel.stopButtonEnabled)
                     }
                     Button(action: {
                         viewModel.pressedButton()
@@ -123,7 +125,7 @@ struct StateStatusView: View {
                                 .foregroundColor(.white))
                             .foregroundColor(.black)
                     }
-                    .disabled(!viewModel.updateButtonEnabled)
+//                    .disabled(!viewModel.updateButtonEnabled)
                 }
                 .padding(.horizontal, 16)
                 .padding(.bottom, 20)
@@ -170,8 +172,15 @@ struct StateStatusView: View {
         updateTimer?.invalidate()
         updateTimer = nil
     }
+    
+    func calculateCooldownTime(from timestamp: Int) -> Int {
+        let millisecondsInADay: UInt64 = 1000 * 60 * 60 * 24
+        let endDate = Date(timeIntervalSince1970: TimeInterval(timestamp) / 1000.0)
+        let daysToEndCooldown = Int((endDate.millisecondsSince1970 - Date.now.millisecondsSince1970) / millisecondsInADay)
+        return daysToEndCooldown == 0 ? 1 : daysToEndCooldown
+    }
 }
 
 #Preview {
-    StateStatusView(viewModel: StakeStatusViewModel(account: AccountDataTypeFactory.create(), dependencyProvider: ServicesProvider.defaultProvider()))
+    StakeStatusView(viewModel: StakeStatusViewModel(account: AccountDataTypeFactory.create(), dependencyProvider: ServicesProvider.defaultProvider()))
 }

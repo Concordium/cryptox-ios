@@ -17,16 +17,16 @@ enum CooldownStatus: String {
 
 protocol CooldownDataType: DataStoreProtocol {
     var timestamp: Int { get set }
-    var amount: Int { get set }
+    var amount: String { get set }
     var status: CooldownStatus  { get set }
 }
 
 final class CooldownEntity: Object {
     @objc dynamic var timestamp: Int = 0
-    @objc dynamic var amount: Int = 0
+    @objc dynamic var amount: String = ""
     @objc dynamic var statusString: String = CooldownStatus.preprecooldown.rawValue
     
-    convenience init(accountCooldownModel: AccountCooldowns) {
+    convenience init(accountCooldownModel: AccountCooldown) {
         self.init()
         self.timestamp = accountCooldownModel.timestamp
         self.amount = accountCooldownModel.amount
