@@ -64,7 +64,7 @@ class DelegationCoordinator: Coordinator {
                                                   dependencyProvider: dependencyProvider,
                                                   delegate: self)
         let vc = StakeStatusFactory.create(with: presenter)
-        let vvc = UIHostingController(rootView: StateStatusView(viewModel: StakeStatusViewModel(account: account, dependencyProvider: dependencyProvider)))
+        let vvc = UIHostingController(rootView: StateStatusView(viewModel: StakeStatusViewModel(account: account, dependencyProvider: dependencyProvider, delegate: self)))
         navigationController.pushViewController(vvc, animated: true)
     }
     

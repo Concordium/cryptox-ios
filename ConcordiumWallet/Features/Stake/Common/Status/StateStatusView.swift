@@ -11,41 +11,28 @@ import SwiftUI
 struct StateStatusView: View {
     @ObservedObject var viewModel: StakeStatusViewModel
     @State private var updateTimer: Timer?
+    @SwiftUI.Environment(\.dismiss) private var dismiss
     
     var body: some View {
-            VStack {
-                // Back button and title
-                HStack {
-                    Button(action: {
-                        // Back action
-                    }) {
-                        Image(systemName: "chevron.left")
-                            .foregroundColor(.white)
-                            .padding(.leading)
-                    }
-                    Spacer()
-                    Text(viewModel.title)
-                        .font(.system(size: 18, weight: .semibold))
+        ScrollView {
+            VStack(spacing: 8) {
+                HStack(spacing: 8) {
+                    Image(systemName: "checkmark")
                         .foregroundColor(.white)
-                        .padding(.top, 8)
-                    Spacer()
-                }
-                .padding(.top, 10)
-                
-                HStack(alignment: .center, spacing: 8) {
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(.green)
                         .font(.system(size: 18))
+                    
                     Text(viewModel.topText)
                         .font(.satoshi(size: 20, weight: .medium))
                         .foregroundColor(.white)
+                        .lineLimit(1)
                 }
-                .padding()
-                .background(Color(.blackSecondary))
-                .cornerRadius(20)
-//                .padding([.leading, .trailing], 16)
+                .padding(.vertical, 16)
+                .padding(.horizontal, 16)
+                .frame(maxWidth: .infinity, alignment: .center)
+//                .background(Color(.blackSecondary))
+                .cornerRadius(16)
+                .padding(.horizontal, 16)
                 
-                // Delegation information container
                 if !viewModel.rows.isEmpty {
                     VStack(alignment: .leading, spacing: 8) {
                         ForEach(viewModel.rows) { row in
@@ -70,7 +57,7 @@ struct StateStatusView: View {
                         .stroke(Color.blackAditional, lineWidth: 1))
                     .padding()
                 }
-                // Inactive stake section
+
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Inactive Stake")
                         .font(.satoshi(size: 14, weight: .medium))
@@ -110,9 +97,8 @@ struct StateStatusView: View {
                 
                 Spacer()
                 
-                // Stop delegation and update buttons
                 VStack(spacing: 10) {
-                if viewModel.stopButtonShown {
+                    if viewModel.stopButtonShown {
                         Button(action: {
                             viewModel.pressedStopButton()
                         }) {
@@ -134,7 +120,7 @@ struct StateStatusView: View {
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(RoundedRectangle(cornerRadius: 48)
-                                            .foregroundColor(.white))
+                                .foregroundColor(.white))
                             .foregroundColor(.black)
                     }
                     .disabled(!viewModel.updateButtonEnabled)
@@ -148,12 +134,35 @@ struct StateStatusView: View {
             .onDisappear {
                 stopUpdateTimer()
             }
-            .background(Image("bg_main").resizable().scaledToFill().edgesIgnoringSafeArea(.all))
         }
-    // Timer Logic
+        .modifier(AppBackgroundModifier())
+        .navigationBarBackButtonHidden(true)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    dismiss()
+                    viewModel.closeButtonTapped()
+                } label: {
+                    Image("backButtonIcon")
+                        .foregroundColor(Color.Neutral.tint1)
+                        .frame(width: 35, height: 35)
+                        .contentShape(.circle)
+                }
+            }
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text(viewModel.title)
+                        .font(.satoshi(size: 17, weight: .medium))
+                        .foregroundStyle(Color.white)
+                }
+            }
+        }
+    }
+
     func startUpdateTimer() {
         updateTimer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { _ in
-            //            viewModel.updateStatus()
+            viewModel.updateStatus()
         }
     }
     

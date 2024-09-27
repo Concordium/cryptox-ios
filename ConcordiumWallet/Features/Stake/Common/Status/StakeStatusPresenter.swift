@@ -42,21 +42,27 @@ class StakeStatusViewModel: ObservableObject {
     @Published var accountCooldowns: [CooldownDataType] = []
     
     @Published var rows: [StakeRowViewModel] = []
+    @Published var error: Error?
     
     private var cancellables = Set<AnyCancellable>()
     private var account: AccountDataType
     private var transactionService: TransactionsServiceProtocol
     private var stakeService: StakeServiceProtocol
     private var storageManager: StorageManagerProtocol
+    private var accountsService: AccountsServiceProtocol
+    weak var delegate: DelegationStatusPresenterDelegate?
     
     init(
         account: AccountDataType,
-        dependencyProvider: StakeCoordinatorDependencyProvider
+        dependencyProvider: StakeCoordinatorDependencyProvider,
+        delegate: DelegationStatusPresenterDelegate? = nil
     ) {
         self.account = account
         self.transactionService = dependencyProvider.transactionsService()
         self.stakeService = dependencyProvider.stakeService()
         self.storageManager = dependencyProvider.storageManager()
+        self.accountsService = dependencyProvider.accountsService()
+        self.delegate = delegate
         loadData()
     }
     
@@ -77,15 +83,15 @@ class StakeStatusViewModel: ObservableObject {
     func pressedButton() {
         stakeService.getChainParameters()
             .sink { [weak self] error in
-                print(error.localizedDescription)
+                self?.error = error
             } receiveValue: { [weak self] chainParametersResponse in
                 let params = ChainParametersEntity(delegatorCooldown: chainParametersResponse.delegatorCooldown,
                                                    poolOwnerCooldown: chainParametersResponse.poolOwnerCooldown)
                 do {
                     _ = try self?.storageManager.updateChainParms(params)
-                    // Call the logic for register/update action
+                    self?.delegate?.pressedRegisterOrUpdate()
                 } catch let error {
-                    // handle error
+                    self?.error = error
                 }
             }.store(in: &cancellables)
     }
@@ -94,16 +100,16 @@ class StakeStatusViewModel: ObservableObject {
         stakeService.getChainParameters()
             .zip(transactionService.getTransferCost(transferType: .removeDelegation, costParameters: []))
             .sink { [weak self] error in
-                print(error.localizedDescription)
+                self?.error = error
             } receiveValue: { [weak self] (chainParametersResponse, transferCost) in
                 let params = ChainParametersEntity(delegatorCooldown: chainParametersResponse.delegatorCooldown,
                                                    poolOwnerCooldown: chainParametersResponse.poolOwnerCooldown)
                 do {
                     _ = try self?.storageManager.updateChainParms(params)
                     let cost = GTU(intValue: Int(transferCost.cost) ?? 0)
-                    // Handle stop action
+                    self?.delegate?.pressedStop(cost: cost, energy: transferCost.energy)
                 } catch let error {
-                    // handle error
+                    self?.error = error
                 }
             }.store(in: &cancellables)
     }
@@ -142,6 +148,39 @@ class StakeStatusViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    func closeButtonTapped() {
+        self.delegate?.pressedClose()
+    }
+    
+    func updateStatus() {
+        storageManager.getDelegationTransfers(for: account)
+            .publisher
+            .setFailureType(to: Error.self)
+            .flatMap { [weak self] transfer -> AnyPublisher<TransferDataType, Error> in
+                guard let self = self else {
+                    return AnyPublisher.empty()
+                }
+                
+                return accountsService
+                    .getLocalTransferWithUpdatedStatus(transfer: transfer, for: self.account)
+                    .eraseToAnyPublisher()
+            }
+            .collect()
+            .zip(accountsService.recalculateAccountBalance(account: account, balanceType: .total))
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] (transfers, account) in
+                    if let self = self {
+                        self.setupWith(
+                            account: account,
+                            transfers: transfers
+                        )
+                    }
+                }
+            )
+            .store(in: &cancellables)
     }
 }
 
