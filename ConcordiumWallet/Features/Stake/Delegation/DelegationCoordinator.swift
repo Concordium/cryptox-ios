@@ -60,7 +60,10 @@ class DelegationCoordinator: Coordinator {
     }
 
     func showStatus() {
-        let vc = UIHostingController(rootView: StakeStatusView(viewModel: StakeStatusViewModel(account: account, dependencyProvider: dependencyProvider, delegate: self)))
+        let presenter = DelegationStatusPresenter(account: account,
+                                                         dependencyProvider: dependencyProvider,
+                                                         delegate: self)
+        let vc = UIHostingController(rootView: StakeStatusView(viewModel: presenter.viewModel))
         navigationController.pushViewController(vc, animated: true)
     }
     

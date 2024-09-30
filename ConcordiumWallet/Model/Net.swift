@@ -22,7 +22,7 @@ enum Net: String, Codable {
     #elseif TESTNET
         return .testnet
     #elseif STAGINGNET
-        return .stagenet
+        return .testnet
     #endif
     }
 }

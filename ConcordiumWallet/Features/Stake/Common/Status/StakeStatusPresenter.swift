@@ -12,12 +12,20 @@ import Combine
 
 // MARK: Presenter
 protocol StakeStatusPresenterProtocol: AnyObject {
-	var view: StakeStatusViewProtocol? { get set }
     func viewDidLoad()
     func pressedButton()
     func pressedStopButton()
     func closeButtonTapped()
     func updateStatus()
+}
+
+struct StakeStatusViewModelError: Identifiable {
+    let id = UUID()
+    let error: Error
+
+    init(_ error: Error) {
+        self.error = error
+    }
 }
 
 class StakeStatusViewModel: ObservableObject {
@@ -42,30 +50,21 @@ class StakeStatusViewModel: ObservableObject {
     @Published var accountCooldowns: [AccountCooldown] = []
     
     @Published var rows: [StakeRowViewModel] = []
-    @Published var error: Error?
+    @Published var error: StakeStatusViewModelError? = StakeStatusViewModelError(ViewError.identityMissingKeys)
     
     private var cancellables = Set<AnyCancellable>()
-    private var account: AccountDataType
-    private var transactionService: TransactionsServiceProtocol
     private var stakeService: StakeServiceProtocol
-    private var storageManager: StorageManagerProtocol
-    private var accountsService: AccountsServiceProtocol
-    weak var delegate: DelegationStatusPresenterDelegate? 
-    
-    init(
-        account: AccountDataType,
-        dependencyProvider: StakeCoordinatorDependencyProvider,
-        delegate: DelegationStatusPresenterDelegate? = nil
-    ) {
-        self.account = account
-        self.transactionService = dependencyProvider.transactionsService()
+
+    var presenter: StakeStatusPresenterProtocol?
+
+    init(dependencyProvider: StakeCoordinatorDependencyProvider) {
         self.stakeService = dependencyProvider.stakeService()
-        self.storageManager = dependencyProvider.storageManager()
-        self.accountsService = dependencyProvider.accountsService()
-        self.delegate = delegate
-        loadData()
     }
     
+    func setPresenter(_ presenter: StakeStatusPresenterProtocol) {
+        self.presenter = presenter
+        loadData()
+    }
     
     func setup(dataHandler: StakeDataHandler) {
         rows = dataHandler
@@ -74,44 +73,15 @@ class StakeStatusViewModel: ObservableObject {
     }
     
     func loadData() {
-        setupWith(
-            account: account,
-            transfers: storageManager.getDelegationTransfers(for: account)
-        )
+        presenter?.viewDidLoad()
     }
     
     func pressedButton() {
-        stakeService.getChainParameters()
-            .sink { [weak self] error in
-                self?.error = error
-            } receiveValue: { [weak self] chainParametersResponse in
-                let params = ChainParametersEntity(delegatorCooldown: chainParametersResponse.delegatorCooldown,
-                                                   poolOwnerCooldown: chainParametersResponse.poolOwnerCooldown)
-                do {
-                    _ = try self?.storageManager.updateChainParms(params)
-                    self?.delegate?.pressedRegisterOrUpdate()
-                } catch let error {
-                    self?.error = error
-                }
-            }.store(in: &cancellables)
+        presenter?.pressedButton()
     }
     
     func pressedStopButton() {
-        stakeService.getChainParameters()
-            .zip(transactionService.getTransferCost(transferType: .removeDelegation, costParameters: []))
-            .sink { [weak self] error in
-                self?.error = error
-            } receiveValue: { [weak self] (chainParametersResponse, transferCost) in
-                let params = ChainParametersEntity(delegatorCooldown: chainParametersResponse.delegatorCooldown,
-                                                   poolOwnerCooldown: chainParametersResponse.poolOwnerCooldown)
-                do {
-                    _ = try self?.storageManager.updateChainParms(params)
-                    let cost = GTU(intValue: Int(transferCost.cost) ?? 0)
-                    self?.delegate?.pressedStop(cost: cost, energy: transferCost.energy)
-                } catch let error {
-                    self?.error = error
-                }
-            }.store(in: &cancellables)
+        presenter?.pressedStopButton()
     }
     
     func setupWith(account: AccountDataType, transfers: [TransferDataType]) {
@@ -151,36 +121,11 @@ class StakeStatusViewModel: ObservableObject {
     }
     
     func closeButtonTapped() {
-        self.delegate?.pressedClose()
+        presenter?.closeButtonTapped()
     }
     
     func updateStatus() {
-        storageManager.getDelegationTransfers(for: account)
-            .publisher
-            .setFailureType(to: Error.self)
-            .flatMap { [weak self] transfer -> AnyPublisher<TransferDataType, Error> in
-                guard let self = self else {
-                    return AnyPublisher.empty()
-                }
-                
-                return accountsService
-                    .getLocalTransferWithUpdatedStatus(transfer: transfer, for: self.account)
-                    .eraseToAnyPublisher()
-            }
-            .collect()
-            .zip(accountsService.recalculateAccountBalance(account: account, balanceType: .total))
-            .sink(
-                receiveCompletion: { _ in },
-                receiveValue: { [weak self] (transfers, account) in
-                    if let self = self {
-                        self.setupWith(
-                            account: account,
-                            transfers: transfers
-                        )
-                    }
-                }
-            )
-            .store(in: &cancellables)
+        presenter?.updateStatus()
     }
 }
 

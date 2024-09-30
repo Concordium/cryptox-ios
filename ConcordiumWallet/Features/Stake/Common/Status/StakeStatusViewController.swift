@@ -61,7 +61,6 @@ class StakeStatusViewController: BaseViewController, StakeStatusViewProtocol, St
         dataSource = UITableViewDiffableDataSource<String, StakeRowViewModel>(tableView: tableView, cellProvider: createCell)
         dataSource?.defaultRowAnimation = .none
         
-        presenter.view = self
         presenter.viewDidLoad()
         showCloseButton()
         

@@ -1217,6 +1217,7 @@ Remember to restart your node with the validator keys.";
 "baking.status.pendingchange" = "The following changes will take effect on %@";
 "baking.status.removingbaker" = "The validator will be deregistered, and the stake will be unlocked on the public balance of the account.";
 "baking.status.reducingstake" = "Validator stake will be lowered to";
+"baking.status.settings.title" = "Validator settings";
 
 
 "new_onboarding_welcome_title" = "Welcome to Concordium CryptoX wallet";

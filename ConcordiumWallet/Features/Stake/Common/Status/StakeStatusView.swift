@@ -24,12 +24,10 @@ struct StakeStatusView: View {
                     Text(viewModel.topText)
                         .font(.satoshi(size: 20, weight: .medium))
                         .foregroundColor(.white)
-                        .lineLimit(1)
                 }
                 .padding(.vertical, 16)
                 .padding(.horizontal, 16)
                 .frame(maxWidth: .infinity, alignment: .center)
-//                .background(Color(.blackSecondary))
                 .cornerRadius(16)
                 .padding(.horizontal, 16)
                 
@@ -110,14 +108,14 @@ struct StakeStatusView: View {
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 48)
                                     .stroke(Color.white, lineWidth: 1))
-                                .foregroundColor(.white)
+                                .foregroundColor(Color.errorText)
                         }
-//                        .disabled(!viewModel.stopButtonEnabled)
+                        .disabled(!viewModel.stopButtonEnabled)
                     }
                     Button(action: {
                         viewModel.pressedButton()
                     }) {
-                        Text("Update current delegation")
+                        Text(viewModel.buttonLabel)
                             .font(.satoshi(size: 17, weight: .medium))
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -125,7 +123,7 @@ struct StakeStatusView: View {
                                 .foregroundColor(.white))
                             .foregroundColor(.black)
                     }
-//                    .disabled(!viewModel.updateButtonEnabled)
+                    .disabled(!viewModel.updateButtonEnabled)
                 }
                 .padding(.horizontal, 16)
                 .padding(.bottom, 20)
@@ -136,6 +134,13 @@ struct StakeStatusView: View {
             .onDisappear {
                 stopUpdateTimer()
             }
+            .alert(item: $viewModel.error) { error in
+                Alert(
+                    title: Text("errorAlert.title".localized),
+                    message: Text(ErrorMapper.toViewError(error: error.error).localizedDescription),
+                    dismissButton: .default(Text("errorAlert.okButton".localized))
+                )
+            }
         }
         .modifier(AppBackgroundModifier())
         .navigationBarBackButtonHidden(true)
@@ -143,7 +148,6 @@ struct StakeStatusView: View {
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
-                    dismiss()
                     viewModel.closeButtonTapped()
                 } label: {
                     Image("backButtonIcon")
@@ -179,8 +183,4 @@ struct StakeStatusView: View {
         let daysToEndCooldown = Int((endDate.millisecondsSince1970 - Date.now.millisecondsSince1970) / millisecondsInADay)
         return daysToEndCooldown == 0 ? 1 : daysToEndCooldown
     }
-}
-
-#Preview {
-    StakeStatusView(viewModel: StakeStatusViewModel(account: AccountDataTypeFactory.create(), dependencyProvider: ServicesProvider.defaultProvider()))
 }

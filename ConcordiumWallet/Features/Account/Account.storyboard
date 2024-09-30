@@ -3,7 +3,7 @@
     <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1372,7 +1372,7 @@ process on-chain]</string>
                                             <outlet property="transactionIconStatusView" destination="on3-pT-G6S" id="TPL-p1-Te7"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionDetailInfoCellView" translatesAutoresizingMaskIntoConstraints="NO" id="8aO-Kf-XGe" customClass="TransactionDetailInfoCellView" customModule="ProdMainNet" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionDetailInfoCellView" translatesAutoresizingMaskIntoConstraints="NO" id="8aO-Kf-XGe" customClass="TransactionDetailInfoCellView" customModule="ProdMainNet" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="130" width="390" height="74"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8aO-Kf-XGe" id="UAW-ow-KIf">
@@ -1380,7 +1380,7 @@ process on-chain]</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vtY-Pl-FAw">
-                                                    <rect key="frame" x="15" y="15.999999999999998" width="359" height="18.333333333333329"/>
+                                                    <rect key="frame" x="15" y="15.999999999999998" width="359" height="18.333333333333321"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" name="fadedText"/>
                                                     <nil key="highlightedColor"/>
@@ -1646,6 +1646,16 @@ process on-chain]</string>
                                     <outlet property="delegate" destination="ezT-gf-3hm" id="kez-Lb-EcC"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zMx-oD-UeJ">
+                                <rect key="frame" x="10" y="69" width="40" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="tVr-Mw-TxR"/>
+                                </constraints>
+                                <state key="normal" image="ico_close"/>
+                                <connections>
+                                    <action selector="closeButtonTapped:" destination="ezT-gf-3hm" eventType="touchUpInside" id="eHN-Cz-uT9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="EEG-nY-ckZ"/>
                         <color key="backgroundColor" name="backgroundBurgerMenu"/>
@@ -1653,7 +1663,9 @@ process on-chain]</string>
                         <constraints>
                             <constraint firstItem="Hf8-Vy-nFR" firstAttribute="leading" secondItem="EEG-nY-ckZ" secondAttribute="leading" id="1eJ-iX-GsM"/>
                             <constraint firstItem="EEG-nY-ckZ" firstAttribute="trailing" secondItem="Hf8-Vy-nFR" secondAttribute="trailing" id="PMU-TM-HOU"/>
+                            <constraint firstItem="zMx-oD-UeJ" firstAttribute="leading" secondItem="EEG-nY-ckZ" secondAttribute="leading" constant="10" id="PjY-qc-BhT"/>
                             <constraint firstItem="Hf8-Vy-nFR" firstAttribute="bottom" secondItem="EEG-nY-ckZ" secondAttribute="bottom" id="S7F-t3-C2b"/>
+                            <constraint firstItem="zMx-oD-UeJ" firstAttribute="top" secondItem="EEG-nY-ckZ" secondAttribute="top" constant="10" id="e4s-io-eyf"/>
                             <constraint firstItem="Hf8-Vy-nFR" firstAttribute="top" secondItem="EEG-nY-ckZ" secondAttribute="top" constant="70" id="xU2-kr-Mfe"/>
                         </constraints>
                         <connections>
@@ -1661,6 +1673,7 @@ process on-chain]</string>
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="closeButton" destination="zMx-oD-UeJ" id="6sg-dQ-Tts"/>
                         <outlet property="tableView" destination="Hf8-Vy-nFR" id="K9F-P2-xYN"/>
                     </connections>
                 </viewController>
@@ -2010,13 +2023,13 @@ process on-chain]</string>
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GZa-UC-OzA">
                                                     <rect key="frame" x="353.66666666666669" y="12.666666666666664" width="44.333333333333314" height="22"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Total" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="rhY-LD-9CM">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="rhY-LD-9CM">
                                                             <rect key="frame" x="0.0" y="0.0" width="33.333333333333336" height="22"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" name="text"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z88-dE-twO" userLabel="LockButton">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z88-dE-twO" userLabel="LockButton">
                                                             <rect key="frame" x="33.333333333333314" y="0.0" width="11" height="22"/>
                                                             <state key="normal" image="Icon_Shield"/>
                                                             <connections>
