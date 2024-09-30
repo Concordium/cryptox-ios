@@ -14,134 +14,136 @@ struct StakeStatusView: View {
     @SwiftUI.Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 8) {
-                HStack(spacing: 8) {
-                    Image(systemName: "checkmark")
-                        .foregroundColor(.white)
-                        .font(.system(size: 18))
+        VStack {
+            ScrollView {
+                VStack(spacing: 8) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "checkmark")
+                            .foregroundColor(.white)
+                            .font(.system(size: 18))
+                        
+                        Text(viewModel.topText)
+                            .font(.satoshi(size: 20, weight: .medium))
+                            .foregroundColor(.white)
+                    }
+                    .padding(.vertical, 16)
+                    .padding(.horizontal, 16)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .cornerRadius(16)
+                    .padding(.horizontal, 16)
                     
-                    Text(viewModel.topText)
-                        .font(.satoshi(size: 20, weight: .medium))
-                        .foregroundColor(.white)
-                }
-                .padding(.vertical, 16)
-                .padding(.horizontal, 16)
-                .frame(maxWidth: .infinity, alignment: .center)
-                .cornerRadius(16)
-                .padding(.horizontal, 16)
-                
-                if !viewModel.rows.isEmpty {
-                    VStack(alignment: .leading, spacing: 8) {
-                        ForEach(viewModel.rows) { row in
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text(row.headerLabel)
-                                    .font(.satoshi(size: 14, weight: .medium))
-                                    .foregroundColor(.gray)
-                                
-                                Text(row.valueLabel)
-                                    .font(.satoshi(size: 14, weight: .medium))
-                                    .foregroundColor(.white)
-                                
-                                if row != viewModel.rows.last {
-                                    Divider()
-                                        .tint(Color.blackAditional)
+                    if !viewModel.rows.isEmpty {
+                        VStack(alignment: .leading, spacing: 8) {
+                            ForEach(viewModel.rows) { row in
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Text(row.headerLabel)
+                                        .font(.satoshi(size: 14, weight: .medium))
+                                        .foregroundColor(.gray)
+                                    
+                                    Text(row.valueLabel)
+                                        .font(.satoshi(size: 14, weight: .medium))
+                                        .foregroundColor(.white)
+                                    
+                                    if row != viewModel.rows.last {
+                                        Divider()
+                                            .tint(Color.blackAditional)
+                                    }
                                 }
                             }
                         }
-                    }
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 20)
-                        .stroke(Color.blackAditional, lineWidth: 1))
-                    .padding()
-                }
-
-                if !viewModel.accountCooldowns.isEmpty {
-                    ForEach(viewModel.accountCooldowns) { cooldown in
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("Inactive Stake")
-                                .font(.satoshi(size: 14, weight: .medium))
-                                .foregroundColor(.white)
-                            
-                            Text("You don’t receive rewards from this part of stake now, this amount will be at disposal after cooldown period.")
-                                .font(.satoshi(size: 12, weight: .regular))
-                                .foregroundColor(.gray)
-                                .fixedSize(horizontal: false, vertical: true)
-                            
-                            HStack {
-                                Text(GTU(intValue: Int(cooldown.amount))?.displayValue() ?? "")
-                                    .font(.satoshi(size: 24, weight: .bold))
-                                    .foregroundColor(.white)
-                                Spacer()
-                            }
-                            
-                            HStack {
-                                Text("Cooldown time:")
-                                    .font(.satoshi(size: 14, weight: .medium))
-                                    .foregroundColor(.gray)
-                                Spacer()
-                                Text("\(calculateCooldownTime(from: cooldown.timestamp))")
-                                    .foregroundColor(.white)
-                                    .font(.satoshi(size: 14, weight: .bold))
-                                Text("days left")
-                                    .font(.satoshi(size: 14, weight: .medium))
-                                    .foregroundColor(.gray)
-                            }
-                        }
                         .padding()
-                        .background(Color(.blackSecondary))
-                        .cornerRadius(16)
-                        .padding([.leading, .trailing], 16)
-                        .padding(.top, 10)
+                        .background(RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.blackAditional, lineWidth: 1))
+                        .padding()
+                    }
+                    
+                    if !viewModel.accountCooldowns.isEmpty {
+                        ForEach(viewModel.accountCooldowns) { cooldown in
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("Inactive Stake")
+                                    .font(.satoshi(size: 14, weight: .medium))
+                                    .foregroundColor(.white)
+                                
+                                Text("You don’t receive rewards from this part of stake now, this amount will be at disposal after cooldown period.")
+                                    .font(.satoshi(size: 12, weight: .regular))
+                                    .foregroundColor(.gray)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                
+                                HStack {
+                                    Text(GTU(intValue: Int(cooldown.amount))?.displayValue() ?? "")
+                                        .font(.satoshi(size: 24, weight: .bold))
+                                        .foregroundColor(.white)
+                                    Spacer()
+                                }
+                                
+                                HStack {
+                                    Text("Cooldown time:")
+                                        .font(.satoshi(size: 14, weight: .medium))
+                                        .foregroundColor(.gray)
+                                    Spacer()
+                                    Text("\(calculateCooldownTime(from: cooldown.timestamp))")
+                                        .foregroundColor(.white)
+                                        .font(.satoshi(size: 14, weight: .bold))
+                                    Text("days left")
+                                        .font(.satoshi(size: 14, weight: .medium))
+                                        .foregroundColor(.gray)
+                                }
+                            }
+                            .padding()
+                            .background(Color(.blackSecondary))
+                            .cornerRadius(16)
+                            .padding([.leading, .trailing], 16)
+                            .padding(.top, 10)
+                        }
                     }
                 }
-                Spacer()
-                
-                VStack(spacing: 10) {
-                    if viewModel.stopButtonShown {
-                        Button(action: {
-                            viewModel.pressedStopButton()
-                        }) {
-                            Text(viewModel.stopButtonLabel)
-                                .font(.satoshi(size: 17, weight: .medium))
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(RoundedRectangle(cornerRadius: 48)
-                                    .stroke(Color.white, lineWidth: 1))
-                                .foregroundColor(Color.errorText)
-                        }
-                        .disabled(!viewModel.stopButtonEnabled)
-                    }
+            }
+            Spacer()
+            
+            VStack(spacing: 10) {
+                if viewModel.stopButtonShown {
                     Button(action: {
-                        viewModel.pressedButton()
+                        viewModel.pressedStopButton()
                     }) {
-                        Text(viewModel.buttonLabel)
+                        Text(viewModel.stopButtonLabel)
                             .font(.satoshi(size: 17, weight: .medium))
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(RoundedRectangle(cornerRadius: 48)
-                                .foregroundColor(.white))
-                            .foregroundColor(.black)
+                                .stroke(Color.white, lineWidth: 1))
+                            .foregroundColor(Color.errorText)
                     }
-                    .disabled(!viewModel.updateButtonEnabled)
+                    .disabled(!viewModel.stopButtonEnabled)
                 }
-                .padding(.horizontal, 16)
-                .padding(.bottom, 20)
-            }
-            .onAppear {
-                startUpdateTimer()
-            }
-            .onDisappear {
-                stopUpdateTimer()
-            }
-            .alert(item: $viewModel.error) { error in
-                Alert(
-                    title: Text("errorAlert.title".localized),
-                    message: Text(ErrorMapper.toViewError(error: error.error).localizedDescription),
-                    dismissButton: .default(Text("errorAlert.okButton".localized))
-                )
+                Button(action: {
+                    viewModel.pressedButton()
+                }) {
+                    Text(viewModel.buttonLabel)
+                        .font(.satoshi(size: 17, weight: .medium))
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 48)
+                            .foregroundColor(.white))
+                        .foregroundColor(.black)
+                }
+                .disabled(!viewModel.updateButtonEnabled)
             }
         }
+        .onAppear {
+            startUpdateTimer()
+        }
+        .onDisappear {
+            stopUpdateTimer()
+        }
+        .alert(item: $viewModel.error) { error in
+            Alert(
+                title: Text("errorAlert.title".localized),
+                message: Text(ErrorMapper.toViewError(error: error.error).localizedDescription),
+                dismissButton: .default(Text("errorAlert.okButton".localized))
+            )
+        }
+        .padding(.horizontal, 16)
+        .padding(.bottom, 20)
         .modifier(AppBackgroundModifier())
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
@@ -165,7 +167,7 @@ struct StakeStatusView: View {
             }
         }
     }
-
+    
     func startUpdateTimer() {
         updateTimer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { _ in
             viewModel.updateStatus()

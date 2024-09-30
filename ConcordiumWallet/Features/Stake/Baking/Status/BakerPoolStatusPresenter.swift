@@ -152,6 +152,7 @@ private extension StakeStatusViewModel {
         buttonLabel = "baking.status.updatebutton".localized
         updateButtonEnabled = true
         stopButtonShown = false
+        accountCooldowns = account.cooldowns.map({AccountCooldown(timestamp: $0.timestamp, amount: $0.amount, status: $0.status.rawValue)})
         if let pendingChange = currentSettings.pendingChange, let timestamp = pendingChange.estimatedChangeTime {
             gracePeriodText = String(
                 format: "baking.status.pendingchange".localized,

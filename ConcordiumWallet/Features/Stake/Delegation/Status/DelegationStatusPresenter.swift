@@ -25,9 +25,9 @@ protocol DelegationStatusPresenterDelegate: AnyObject {
 }
 
 class DelegationStatusPresenter: StakeStatusPresenterProtocol {
-
+    
     weak var delegate: DelegationStatusPresenterDelegate?
-
+    
     private var account: AccountDataType
     let viewModel: StakeStatusViewModel
     private var transactionService: TransactionsServiceProtocol
@@ -50,7 +50,7 @@ class DelegationStatusPresenter: StakeStatusPresenterProtocol {
         self.viewModel = StakeStatusViewModel(dependencyProvider: dependencyProvider)
         self.viewModel.setPresenter(self)
     }
-
+    
     func viewDidLoad() {
         setupWith(
             account: account,
@@ -60,7 +60,7 @@ class DelegationStatusPresenter: StakeStatusPresenterProtocol {
     
     func pressedButton() {
         stakeService.getChainParameters()
-//            .showLoadingIndicator(in: self.view)
+        //            .showLoadingIndicator(in: self.view)
             .sink { [weak self] error in
                 self?.viewModel.error = StakeStatusViewModelError(error)
             } receiveValue: { [weak self] chainParametersResponse in
@@ -74,11 +74,11 @@ class DelegationStatusPresenter: StakeStatusPresenterProtocol {
                 }
             }.store(in: &cancellables)
     }
-
+    
     func pressedStopButton() {
         stakeService.getChainParameters()
             .zip(transactionService.getTransferCost(transferType: .removeDelegation, costParameters: []))
-//            .showLoadingIndicator(in: view)
+        //            .showLoadingIndicator(in: view)
             .sink { [weak self] error in
                 self?.viewModel.error = StakeStatusViewModelError(error)
             } receiveValue: {[weak self] (chainParametersResponse, transferCost) in
@@ -176,6 +176,72 @@ extension StorageManagerProtocol {
     func getDelegationTransfers(for account: AccountDataType) -> [TransferDataType] {
         return getTransfers(for: account.address).filter { transfer in
             transfer.transferType.isDelegationTransfer
+        }
+    }
+}
+
+private extension StakeStatusViewModel {
+    // swiftlint:disable function_body_length
+    func setup(
+        account: AccountDataType,
+        pendingChanges: PendingChanges,
+        hasUnfinishedTransaction: Bool
+    ) {
+        setup(dataHandler: DelegationDataHandler(account: account, isRemoving: false))
+        title = "delegation.status.title".localized
+        stopButtonLabel = "delegation.status.stopbutton".localized
+        topImageName = "confirm"
+        if hasUnfinishedTransaction {
+            topImageName = "logo_rotating_arrows"
+            topText = "delegation.status.waiting.header".localized
+            placeholderText = "delegation.status.waiting.placeholder".localized
+            buttonLabel = "delegation.status.updatebutton".localized
+            updateButtonEnabled = false
+            stopButtonEnabled = false
+            rows.removeAll()
+            return
+        }
+        
+        placeholderText = nil
+        topText = "delegation.status.registered.header".localized
+        buttonLabel = "delegation.status.updatebutton".localized
+        accountCooldowns = account.cooldowns.map({AccountCooldown(timestamp: $0.timestamp, amount: $0.amount, status: $0.status.rawValue)})
+        switch pendingChanges {
+        case .none:
+            gracePeriodText = nil
+            bottomInfoMessage = nil
+            bottomImportantMessage = nil
+            newAmount = nil
+            newAmountLabel = nil
+            stopButtonEnabled = true
+            updateButtonEnabled = true
+        case .newDelegationAmount(let cooldownTimestampUTC, let newDelegationAmount):
+            gracePeriodText = String(format: "delegation.status.graceperiod".localized,
+                                     GeneralFormatter.formatDateWithTime(for: GeneralFormatter.dateFrom(timestampUTC: cooldownTimestampUTC)))
+            bottomInfoMessage = nil
+            bottomImportantMessage = nil
+            newAmountLabel = "delegation.status.newamount".localized
+            newAmount = newDelegationAmount.displayValueWithGStroke()
+            stopButtonEnabled = false
+            updateButtonEnabled = true
+        case .stoppedDelegation(let cooldownTimestampUTC):
+            gracePeriodText = String(format: "delegation.status.graceperiod".localized,
+                                     GeneralFormatter.formatDateWithTime(for: GeneralFormatter.dateFrom(timestampUTC: cooldownTimestampUTC)))
+            bottomInfoMessage = "delegation.status.delegationwillstop".localized
+            bottomImportantMessage = nil
+            newAmount = nil
+            newAmountLabel = nil
+            stopButtonEnabled = false
+            updateButtonEnabled = true
+        case .poolWasDeregistered(let cooldownTimestampUTC):
+            gracePeriodText = nil
+            bottomInfoMessage = nil
+            bottomImportantMessage =  String(format: "delegation.status.deregisteredcooldown".localized,
+                                             GeneralFormatter.formatDateWithTime(for: GeneralFormatter.dateFrom(timestampUTC: cooldownTimestampUTC)))
+            newAmount = nil
+            newAmountLabel = nil
+            stopButtonEnabled = true
+            updateButtonEnabled = true
         }
     }
 }
