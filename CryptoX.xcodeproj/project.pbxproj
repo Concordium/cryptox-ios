@@ -1749,11 +1749,8 @@
 		08DB5DED2BC6C22900C29663 /* EarnPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5DE62BC6C22300C29663 /* EarnPresenter.swift */; };
 		08DB5DEE2BC6C22900C29663 /* EarnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5DE42BC6C22300C29663 /* EarnView.swift */; };
 		08DB5DEF2BC6C22900C29663 /* EarnViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5DE52BC6C22300C29663 /* EarnViewModel.swift */; };
-		08DB5DF32BC6C24600C29663 /* StakeStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5DF12BC6C24300C29663 /* StakeStatusViewController.swift */; };
 		08DB5DF42BC6C24600C29663 /* StakeStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5DF22BC6C24300C29663 /* StakeStatusPresenter.swift */; };
-		08DB5DF52BC6C24700C29663 /* StakeStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5DF12BC6C24300C29663 /* StakeStatusViewController.swift */; };
 		08DB5DF62BC6C24700C29663 /* StakeStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5DF22BC6C24300C29663 /* StakeStatusPresenter.swift */; };
-		08DB5DF72BC6C24800C29663 /* StakeStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5DF12BC6C24300C29663 /* StakeStatusViewController.swift */; };
 		08DB5DF82BC6C24800C29663 /* StakeStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5DF22BC6C24300C29663 /* StakeStatusPresenter.swift */; };
 		08DB5DFC2BC6C25700C29663 /* StakeDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5DFA2BC6C25300C29663 /* StakeDataHandler.swift */; };
 		08DB5DFD2BC6C25700C29663 /* StakeEntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5DF92BC6C25300C29663 /* StakeEntryCell.swift */; };
@@ -3147,7 +3144,6 @@
 		08DB5DE42BC6C22300C29663 /* EarnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarnView.swift; sourceTree = "<group>"; };
 		08DB5DE52BC6C22300C29663 /* EarnViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarnViewModel.swift; sourceTree = "<group>"; };
 		08DB5DE62BC6C22300C29663 /* EarnPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarnPresenter.swift; sourceTree = "<group>"; };
-		08DB5DF12BC6C24300C29663 /* StakeStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeStatusViewController.swift; sourceTree = "<group>"; };
 		08DB5DF22BC6C24300C29663 /* StakeStatusPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeStatusPresenter.swift; sourceTree = "<group>"; };
 		08DB5DF92BC6C25300C29663 /* StakeEntryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeEntryCell.swift; sourceTree = "<group>"; };
 		08DB5DFA2BC6C25300C29663 /* StakeDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeDataHandler.swift; sourceTree = "<group>"; };
@@ -5085,7 +5081,6 @@
 			isa = PBXGroup;
 			children = (
 				08DB5DF22BC6C24300C29663 /* StakeStatusPresenter.swift */,
-				08DB5DF12BC6C24300C29663 /* StakeStatusViewController.swift */,
 				157586392CA55E3700205A6E /* StakeStatusView.swift */,
 			);
 			path = Status;
@@ -7559,7 +7554,6 @@
 				08C168972BB7396200E61326 /* Image+Ext.swift in Sources */,
 				08C168982BB7396200E61326 /* CreateSeedIdentityPresenter.swift in Sources */,
 				08C1689A2BB7396200E61326 /* AccountDetailsIdentityDataPresenter.swift in Sources */,
-				08DB5DF72BC6C24800C29663 /* StakeStatusViewController.swift in Sources */,
 				08DB5DF82BC6C24800C29663 /* StakeStatusPresenter.swift in Sources */,
 				08C1689B2BB7396200E61326 /* SeedPhrasePillView.swift in Sources */,
 				08C1689C2BB7396200E61326 /* RoundedBackUpView.swift in Sources */,
@@ -8269,7 +8263,6 @@
 				08520A622B470687008DC851 /* Image+Ext.swift in Sources */,
 				088FEFE42A0271C000042957 /* CreateSeedIdentityPresenter.swift in Sources */,
 				088FEDB82A01676B00042957 /* AccountDetailsIdentityDataPresenter.swift in Sources */,
-				08DB5DF52BC6C24700C29663 /* StakeStatusViewController.swift in Sources */,
 				08DB5DF62BC6C24700C29663 /* StakeStatusPresenter.swift in Sources */,
 				0807481F2B5979B400990ADA /* SeedPhrasePillView.swift in Sources */,
 				D5AF003627A041E100F0C56E /* RoundedBackUpView.swift in Sources */,
@@ -8978,7 +8971,6 @@
 				08520A612B470687008DC851 /* Image+Ext.swift in Sources */,
 				088FF1342A02850100042957 /* RecoveryPhraseCopyPhraseView.swift in Sources */,
 				088FF0C52A02846600042957 /* RecoveryPhraseRecoverIntroView.swift in Sources */,
-				08DB5DF32BC6C24600C29663 /* StakeStatusViewController.swift in Sources */,
 				08DB5DF42BC6C24600C29663 /* StakeStatusPresenter.swift in Sources */,
 				0807481E2B5979B400990ADA /* SeedPhrasePillView.swift in Sources */,
 				088FEDB42A01676B00042957 /* AccountDetailsIdentityDataPresenter.swift in Sources */,
