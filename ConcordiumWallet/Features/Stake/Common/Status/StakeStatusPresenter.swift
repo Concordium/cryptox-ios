@@ -50,7 +50,7 @@ class StakeStatusViewModel: ObservableObject {
     @Published var accountCooldowns: [AccountCooldown] = []
     
     @Published var rows: [StakeRowViewModel] = []
-    @Published var error: StakeStatusViewModelError? = StakeStatusViewModelError(ViewError.identityMissingKeys)
+    @Published var error: StakeStatusViewModelError?
     
     private var cancellables = Set<AnyCancellable>()
     private var stakeService: StakeServiceProtocol
