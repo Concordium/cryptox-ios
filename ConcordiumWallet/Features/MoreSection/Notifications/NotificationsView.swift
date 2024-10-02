@@ -23,7 +23,6 @@ struct NotificationsView: View {
             }
             .toggleStyle(SwitchToggleStyle(tint: Color.greenSecondary))
             .onChange(of: isCCDTransactionNotificationAllowed, perform: { value in
-                // TODO: handle state changed
                 UserDefaults.standard.set(value, forKey: TransactionNotificationNames.ccd.rawValue)
             })
             
@@ -34,7 +33,6 @@ struct NotificationsView: View {
             }
             .toggleStyle(SwitchToggleStyle(tint: Color.greenSecondary))
             .onChange(of: isCIS2TransactionNotificationAllowed, perform: { value in
-                // TODO: handle state changed
                 UserDefaults.standard.set(value, forKey: TransactionNotificationNames.cis2.rawValue)
             })
             Spacer()

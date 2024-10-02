@@ -74,7 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupMatomoTracker()
         
         UNUserNotificationCenter.current().delegate = self
-        transactionNotificationService.configureFirebase()
+        FirebaseApp.configure()
         transactionNotificationService.subscribeToUserDefaultsUpdates()
         Messaging.messaging().delegate = self
 

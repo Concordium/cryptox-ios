@@ -1943,9 +1943,9 @@
 		151A53AC2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
 		151A53AD2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
 		151A53AE2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
-		1557CC942C89B799008ABF67 /* GoogleService-Info-Testnet.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1557CC932C89B799008ABF67 /* GoogleService-Info-Testnet.plist */; };
-		1557CC982C89BBD7008ABF67 /* GoogleService-Info-Stagenet.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1557CC972C89BBD7008ABF67 /* GoogleService-Info-Stagenet.plist */; };
-		1557CC9B2C89BE26008ABF67 /* GoogleService-Info Mainnet.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1557CC9A2C89BE26008ABF67 /* GoogleService-Info Mainnet.plist */; };
+		1557CC942C89B799008ABF67 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1557CC932C89B799008ABF67 /* GoogleService-Info.plist */; };
+		1557CC982C89BBD7008ABF67 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1557CC972C89BBD7008ABF67 /* GoogleService-Info.plist */; };
+		1557CC9B2C89BE26008ABF67 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1557CC9A2C89BE26008ABF67 /* GoogleService-Info.plist */; };
 		1557CC9D2C89BED5008ABF67 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1557CC9C2C89BED5008ABF67 /* FirebaseAuth */; };
 		1557CC9F2C89BEEF008ABF67 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1557CC9E2C89BEEF008ABF67 /* FirebaseAuth */; };
 		1557CCA12C89BEF5008ABF67 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1557CCA02C89BEF5008ABF67 /* FirebaseAuth */; };
@@ -3205,9 +3205,9 @@
 		151A53982C5CF03800EFE20C /* PopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
 		151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsButtonsView.swift; sourceTree = "<group>"; };
-		1557CC932C89B799008ABF67 /* GoogleService-Info-Testnet.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Testnet.plist"; sourceTree = "<group>"; };
-		1557CC972C89BBD7008ABF67 /* GoogleService-Info-Stagenet.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Stagenet.plist"; sourceTree = "<group>"; };
-		1557CC9A2C89BE26008ABF67 /* GoogleService-Info Mainnet.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info Mainnet.plist"; sourceTree = "<group>"; };
+		1557CC932C89B799008ABF67 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1557CC972C89BBD7008ABF67 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1557CC9A2C89BE26008ABF67 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsPopup.swift; sourceTree = "<group>"; };
 		1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTokenViewModel.swift; sourceTree = "<group>"; };
 		15E1BC682C6B588900543242 /* Gate_io.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gate_io.png; sourceTree = "<group>"; };
@@ -3653,6 +3653,7 @@
 		06AA2A9B23F58C420001F964 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1557CC992C89BC43008ABF67 /* Firebase */,
 				15E1BC682C6B588900543242 /* Gate_io.png */,
 				08A6BD972B30A5D300869317 /* fonts */,
 				088FF3762A02CA7900042957 /* RobotoMono.ttf */,
@@ -5314,9 +5315,9 @@
 		1557CC992C89BC43008ABF67 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
-				1557CC972C89BBD7008ABF67 /* GoogleService-Info-Stagenet.plist */,
-				1557CC932C89B799008ABF67 /* GoogleService-Info-Testnet.plist */,
-				1557CC9A2C89BE26008ABF67 /* GoogleService-Info Mainnet.plist */,
+				15F2A3482CAD6AFA00E77DD5 /* Mainnet */,
+				15F2A3462CAD6AEA00E77DD5 /* Stagenet */,
+				15F2A3472CAD6AF100E77DD5 /* Testnet */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -5346,6 +5347,30 @@
 				08E69C9C2A20D071001CCA96 /* ImportTokenView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		15F2A3462CAD6AEA00E77DD5 /* Stagenet */ = {
+			isa = PBXGroup;
+			children = (
+				1557CC972C89BBD7008ABF67 /* GoogleService-Info.plist */,
+			);
+			path = Stagenet;
+			sourceTree = "<group>";
+		};
+		15F2A3472CAD6AF100E77DD5 /* Testnet */ = {
+			isa = PBXGroup;
+			children = (
+				1557CC932C89B799008ABF67 /* GoogleService-Info.plist */,
+			);
+			path = Testnet;
+			sourceTree = "<group>";
+		};
+		15F2A3482CAD6AFA00E77DD5 /* Mainnet */ = {
+			isa = PBXGroup;
+			children = (
+				1557CC9A2C89BE26008ABF67 /* GoogleService-Info.plist */,
+			);
+			path = Mainnet;
 			sourceTree = "<group>";
 		};
 		15F3F0A22C8B030500EF8975 /* Notifications */ = {
@@ -5525,7 +5550,6 @@
 			isa = PBXGroup;
 			children = (
 				15F3F0AB2C8F386500EF8975 /* ProdMainNet.entitlements */,
-				1557CC992C89BC43008ABF67 /* Firebase */,
 				15069A1D2C89A1C000697017 /* ProdTestNet.entitlements */,
 				507629652BF2040B00B4D390 /* CHANGELOG.md */,
 				7FF07A9F23EADBB100F1FC04 /* README.md */,
@@ -6477,7 +6501,7 @@
 				08C1694F2BB7396200E61326 /* NFTWalletCell.xib in Resources */,
 				08C169502BB7396200E61326 /* intro_flow_onboarding_en_1.html in Resources */,
 				08C169522BB7396200E61326 /* QRTransactionView.xib in Resources */,
-				1557CC942C89B799008ABF67 /* GoogleService-Info-Testnet.plist in Resources */,
+				1557CC942C89B799008ABF67 /* GoogleService-Info.plist in Resources */,
 				08C169532BB7396200E61326 /* NFTProviderEmptyCell.xib in Resources */,
 				08C169542BB7396200E61326 /* Collections.storyboard in Resources */,
 				08C169552BB7396200E61326 /* 1.1.2.RX-backend_identity_provider_info.json in Resources */,
@@ -6683,7 +6707,7 @@
 				088FF3642A02CA2C00042957 /* removedelegation_flow_style.css in Resources */,
 				08A6BDBC2B31C01500869317 /* IBMPlexMono-Bold.ttf in Resources */,
 				D589F3A32794B96B003F2FBB /* 1.2.2.RX-lib_create_id_request_and_private_data.json in Resources */,
-				1557CC9B2C89BE26008ABF67 /* GoogleService-Info Mainnet.plist in Resources */,
+				1557CC9B2C89BE26008ABF67 /* GoogleService-Info.plist in Resources */,
 				D589F4132794B96D003F2FBB /* 4.4.1.TX_lib_decrypt_encrypted_amount.json in Resources */,
 				D5962CC22721613E00A757A5 /* TransactionOperationView.xib in Resources */,
 				088FF3722A02CA3300042957 /* updatedelegation_flow_style.css in Resources */,
@@ -6789,7 +6813,7 @@
 				08A6BDB22B31C00F00869317 /* Satoshi-Medium.otf in Resources */,
 				088FF31E2A02CA1500042957 /* seed_identity_onboarding_en_4.html in Resources */,
 				D58927A7275664F9005644B5 /* (null) in Resources */,
-				1557CC982C89BBD7008ABF67 /* GoogleService-Info-Stagenet.plist in Resources */,
+				1557CC982C89BBD7008ABF67 /* GoogleService-Info.plist in Resources */,
 				088FF35D2A02CA2C00042957 /* delegation_remove_flow_en_1.html in Resources */,
 				D589F3D92794B96C003F2FBB /* 3.2.2.RX-lib_create_transfer.json in Resources */,
 				088FF2CC2A02C98700042957 /* delegation_intro_flow_en_2.html in Resources */,

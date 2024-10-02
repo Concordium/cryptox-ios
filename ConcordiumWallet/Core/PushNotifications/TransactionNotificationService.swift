@@ -30,25 +30,7 @@ final class TransactionNotificationService {
     private var cancellables = Set<AnyCancellable>()
     let defaultProvider = ServicesProvider.defaultProvider()
     private var currentFcmToken: String?
-    
-    func configureFirebase() {
-        #if MAINNET
-        if let filePath = Bundle.main.path(forResource: "GoogleService-Info-Mainnet", ofType: "plist"),
-           let options = FirebaseOptions(contentsOfFile: filePath) {
-            FirebaseApp.configure(options: options)
-        } else {
-            fatalError("Couldn't load GoogleService-Info-Mainnet.plist")
-        }
-        #elseif TESTNET
-        if let filePath = Bundle.main.path(forResource: "GoogleService-Info-Testnet", ofType: "plist"),
-           let options = FirebaseOptions(contentsOfFile: filePath) {
-            FirebaseApp.configure(options: options)
-        } else {
-            fatalError("Couldn't load GoogleService-Info-Testnet.plist")
-        }
-        #endif
-    }
-    
+
     func sendTokenToConcordiumServer() {
        guard let currentFcmToken,
              let url = URL(string: AppConstants.Notifications.baseUrl) else { return }
