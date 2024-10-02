@@ -19,7 +19,7 @@
 - Add News Tab
 - Add Expport/Import Wallet Private key
 - Add Push Notifications for incoming transactions both ccd and CIS2Token
-- Add protocol & required changes to support cooldowns 
+- Support for Protocol 7 – reducing validation/delegation stake no longer locks the whole amount 
 
 ### Fixed
 - An issue where signing a text message through WalletConnect did not work
