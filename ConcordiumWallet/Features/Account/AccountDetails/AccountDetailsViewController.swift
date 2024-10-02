@@ -45,6 +45,10 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     @IBOutlet weak var atDisposalView: UIStackView!
     @IBOutlet weak var stakedView: UIStackView!
     
+    @IBOutlet weak var cooldownView: UIStackView!
+    @IBOutlet weak var cooldownValue: UILabel!
+    @IBOutlet weak var cooldownLabel: UILabel!
+    
     @IBOutlet weak var atDisposalLabel: UILabel!
     @IBOutlet weak var stakedValueLabel: UILabel!
     @IBOutlet weak var stakedLabel: UILabel!
@@ -272,6 +276,22 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
                 self?.readOnlyView.setHiddenIfChanged(isReadOnly)
             })
             .store(in: &cancellables)
+        
+        if let cooldowns = viewModel.account?.cooldowns, !cooldowns.isEmpty {
+            cooldownView.isHidden = false
+            viewModel.$cooldownLabel
+                .sink { [weak self](text) in
+                    self?.cooldownLabel.text = text
+                }
+                .store(in: &cancellables)
+            
+            viewModel.$totalCooldown
+                .compactMap { $0 }
+                .assign(to: \.text, on: cooldownValue)
+                .store(in: &cancellables)
+        } else {
+            cooldownView.isHidden = true
+        }
     }
     
     @IBAction func retryAccountCreationTapped(_ sender: Any) {
