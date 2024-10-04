@@ -328,6 +328,7 @@ extension SeedIdentitiesCoordinator: AccountsPresenterDelegate {
 }
 
 extension SeedIdentitiesCoordinator: IdentitiesCoordinatorDelegate, MoreCoordinatorDelegate {
+    func showExportWalletPrivateKey() {}
     func showRevealSeedPrase() {}
     func logoutAccounts() {}
     func finishedDisplayingIdentities() {}

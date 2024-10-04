@@ -24,6 +24,7 @@ enum MenuCell: Hashable {
     
     case revealSeedPhrase(title: String)
     case unshieldAssets(title: String)
+    case exportWalletPrivateKey(title: String)
     
     var title: String {
         switch self {
@@ -37,7 +38,8 @@ enum MenuCell: Hashable {
                     .export(let title),
                     .deleteAccount(let title),
                     .unshieldAssets(let title),
-                    .revealSeedPhrase(let title):
+                    .revealSeedPhrase(let title),
+                    .exportWalletPrivateKey(let title):
                 return title
         }
     }
@@ -66,6 +68,8 @@ enum MenuCell: Hashable {
                 return UIImage(systemName: "eye")
             case .unshieldAssets:
                 return UIImage(systemName: "shield.slash")
+            case .exportWalletPrivateKey:
+                return UIImage(named: "more_export")
         }
     }
     
@@ -149,6 +153,8 @@ extension MoreMenuViewController: UITableViewDelegate {
                 presenter.showRevealSeedPrase()
             case .unshieldAssets:
                 presenter.showUnshieldAssetsFlow()
+            case .exportWalletPrivateKey:
+                presenter.showExportWalletPrivateKey()
         }
     }
 }
@@ -168,6 +174,9 @@ extension MoreMenuViewController {
         } else {
             if presenter.hasSavedSeedPhrase() {
                 snapshot.appendItems([.revealSeedPhrase(title: "more.reveal.seed.phrase".localized)])
+            }
+            if presenter.hasSavedWalletPrivateKey() {
+                snapshot.appendItems([.exportWalletPrivateKey(title: "more.exportWallet.privateKey".localized)])
             }
             snapshot.appendItems([.recovery(title: "more.recovery".localized)])
         }

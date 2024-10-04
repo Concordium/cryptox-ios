@@ -1093,6 +1093,7 @@ Remember to restart your node with the validator keys.";
 "more.deleteAccount" = "Remove wallet";
 "more.deleteAccount.subtitle" = "Remove all sensitive data and private keys from this device";
 "more.funds.to.unshield" = "Funds to Unshield";
+"more.exportWallet.privateKey" = "Export wallet private key";
 
 "analytics.trackMessage" = "To improve the experience, we would like to track your activity in the app (but never your crypto). Of course, it is completely anonymous.";
 "analytics.popupTrackTitle" = "Help us improve";
@@ -1247,9 +1248,13 @@ Remember to restart your node with the validator keys.";
 "enable_face_id_later_button_title" = "Set up later in Settings";
 "seed_phrase_title" = "Your seed phrase";
 "seed_phrase_subtitle" = "Your seed phrase is the access key to all the funds in your wallet. If you forget it you will lose access to your wallet(s). Keep it somewhere safe";
+"wallet_private_key_title" = "Your wallet private key";
+"wallet_private_key_subtitle" = "Your wallet private key is the access key to all the funds in your wallet. Copy it and keep it safe. To avoid mistakes, do not write it down manually.";
+"copy_and_keep_safe" = "Copy and keep safe";
 "transcribe" = "Transcribe";
 "digital_copy" = "Digital copy";
 "screenshot" = "Screenshot";
+"show_wallet_private_key" = "Show wallet private key";
 "seed_phrase_confirm_save" = "I have kept it somewhere safe";
 "continue_btn_title" = "Continue";
 "identity_verification_title" = "Identity verification";
@@ -1280,6 +1285,12 @@ Remember to restart your node with the validator keys.";
 "recovered_accounts_flow_subtitle" = "Recover your accounts and identities to connect them to your wallet";
 "recover_accounts_recover_button_title" = "Recover";
 "recover_accounts_connect_wallet_button_title" = "Connect wallet";
+
+"recover_accounts.info.seedPhraseDescription" = "Consists of 24 words\n Grants access to all connected accounts\nCan be used to recover a seed phrase wallet";
+"recover_accounts.info.WalletKeyDescription" = "Consists of 128 characters long hexadecimal string\nGrants access to all connected accounts\nCan be used to recover a seed phrase wallet\nUsed in older Concordium wallets";
+
+"import.walletPrivateKey.title" = "Your wallet private key";
+"import.walletPrivateKey.subtitle" = "Please enter your wallet private key exactly how it was presented to you";
 
 "more.show.recovery.phrase.title" = "Show recovery phrase";
 "more.show.recovery.phrase.subtitle" = "Show you recovery seed phrase for this account";

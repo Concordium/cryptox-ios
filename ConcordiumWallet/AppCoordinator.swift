@@ -554,6 +554,14 @@ extension AppCoordinator: MoreCoordinatorDelegate {
         ), animated: true)
     }
     
+    func showExportWalletPrivateKey() {
+        navigationController.present(UIHostingController(
+            rootView:
+                ExportWalletPrivateKeyView(viewModel: .init(dependencyProvider: defaultProvider))
+
+        ), animated: true)
+    }
+    
     func logoutAccounts() {
         isAcceptedPrivacy = false
         isRestoredDefaultCIS2Tokens = false

@@ -18,11 +18,14 @@ struct ImportWalletView: View {
     
     enum Flow {
         case recoverPhraseInput
+        case recoverWithWalletKey
     }
     
     @State private var flow: Flow? = nil
     @State private var recoveryPhrase: RecoveryPhrase? = nil
+    @State private var walletPrivateKey: IdentifiableString? = nil
     @State private var isLegacyImportInfoShown: Bool = false
+    @State private var isInfoViewPresented = false
     
     var body: some View {
         NavigationView {
@@ -45,17 +48,14 @@ struct ImportWalletView: View {
                         tag: Flow.recoverPhraseInput,
                         selection: $flow) { EmptyView() }
                     
-                    Card(title: "import_wallet_recover_phrase_title".localized, subtitle: "import_wallet_recover_phrase_subtitle".localized, image: "Frame 1984")
-                        .contentShape(.rect)
-                        .onTapGesture {
-                            self.flow = .recoverPhraseInput
-                        }
+                    NavigationLink(
+                        destination: ImportWalletPrivateKeyView(viewModel: ImportWalletPrivateKeyViewModel.init(recoveryService: defaultProvider.recoveryPhraseService(), onValidPrivateKey: { key in
+                            self.walletPrivateKey = key
+                        })),
+                        tag: Flow.recoverWithWalletKey,
+                        selection: $flow) { EmptyView() }
                     
-                    Card(title: "import_wallet_export_phrase_title".localized, subtitle: "import_wallet_export_phrase_subtitle".localized, image: "Frame 1985")
-                        .contentShape(.rect)
-                        .onTapGesture {
-                            isLegacyImportInfoShown.toggle()
-                        }
+                    optionsView()
                 }
                 
                 Spacer()
@@ -75,25 +75,72 @@ struct ImportWalletView: View {
                 .padding(.trailing, 15)
             }
             .fullScreenCover(item: $recoveryPhrase) { phrase in
-                RecoverAccountsView(viewModel: .init(phrase: phrase, defaultProvider: defaultProvider, onAccountInported: onAccountInported))
+                RecoverAccountsView(viewModel: .init(phrase: phrase, seedString: nil, defaultProvider: defaultProvider, onAccountInported: onAccountInported))
             }
             .fullScreenCover(isPresented: $isLegacyImportInfoShown) {
                 ImportLegacyWalletInfo()
+            }
+            .fullScreenCover(item: $walletPrivateKey) { key in
+                RecoverAccountsView(viewModel: .init(phrase: nil, seedString: key, defaultProvider: defaultProvider, onAccountInported: onAccountInported))
             }
         }
     }
     
     @ViewBuilder
-    func Card(title: String, subtitle: String, image: String) -> some View {
+    func optionsView() -> some View {
         VStack(spacing: 16) {
-            Image(image)
-            VStack(spacing: 4) {
-                Text(title)
+            HStack {
+                Image("Frame 1984")
+                Spacer()
+            }
+            
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Seed phrase wallet")
                     .font(.satoshi(size: 20, weight: .medium))
                     .foregroundStyle(Color.Neutral.tint1)
-                Text(subtitle)
+                Text("import_wallet_recover_phrase_subtitle".localized)
                     .font(.satoshi(size: 14, weight: .regular))
                     .foregroundStyle(Color.Neutral.tint2)
+                    .opacity(0.5)
+            }
+            
+            Divider()
+                .tint(Color("black_secondary"))
+            
+            HStack {
+                Text("Import via seed phrase")
+                    .font(.satoshi(size: 14, weight: .regular))
+                Spacer()
+                Image(systemName: "arrow.right").tint(Color.Neutral.tint1)
+            }
+            .onTapGesture {
+                self.flow = .recoverPhraseInput
+            }
+            
+            Divider()
+                .tint(Color("black_secondary"))
+            
+            HStack {
+                Text("Import via exported file")
+                    .font(.satoshi(size: 14, weight: .regular))
+                Spacer()
+                Image(systemName: "arrow.right").tint(Color.Neutral.tint1)
+            }
+            .onTapGesture {
+                isLegacyImportInfoShown.toggle()
+            }
+            
+            Divider()
+                .tint(Color("black_secondary"))
+            
+            HStack {
+                Text("Import via wallet private key")
+                    .font(.satoshi(size: 14, weight: .regular))
+                Spacer()
+                Image(systemName: "arrow.right").tint(Color.Neutral.tint1)
+            }
+            .onTapGesture {
+                self.flow = .recoverWithWalletKey
             }
         }
         .frame(maxWidth: .infinity)
@@ -105,6 +152,22 @@ struct ImportWalletView: View {
                 .inset(by: 0.5)
                 .stroke(Color(red: 0.92, green: 0.94, blue: 0.94).opacity(0.05), lineWidth: 1)
         )
+        .overlay(
+            HStack {
+                Spacer()
+                VStack {
+                    Image(systemName: "info.circle")
+                        .padding(16)
+                        .onTapGesture {
+                            isInfoViewPresented = true
+                        }
+                    Spacer()
+                }
+            }
+        )
         .contentShape(.rect)
+        .sheet(isPresented: $isInfoViewPresented) {
+            ImportWalletInfoView()
+        }
     }
 }

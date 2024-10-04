@@ -19,6 +19,8 @@ protocol RecoveryPhraseServiceProtocol {
     func validate(recoveryPhrase: [String]) -> Result<RecoveryPhrase, Error>
     
     func store(recoveryPhrase: RecoveryPhrase, with pwHash: String) async throws -> Seed
+    
+    func store(walletPrivateKey: String, with pwHash: String) async throws -> Seed
 }
 
 extension RecoveryPhraseServiceProtocol {
@@ -71,6 +73,10 @@ struct RecoveryPhraseService {
 extension RecoveryPhraseService: RecoveryPhraseServiceProtocol {
     func store(recoveryPhrase: RecoveryPhrase, with pwHash: String) throws -> Seed {
         try mobileWallet.store(recoveryPhrase: recoveryPhrase, with: pwHash).get()
+    }
+    
+    func store(walletPrivateKey: String, with pwHash: String) throws -> Seed {
+        try mobileWallet.store(walletPrivateKey: walletPrivateKey, with: pwHash).get()
     }
 }
 
