@@ -76,6 +76,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         _ = keychain.deleteKeychainItem(withKey: KeychainKeys.password.rawValue)
         _ = keychain.deleteKeychainItem(withKey: KeychainKeys.loginPassword.rawValue)
         UserDefaults.removeNotificationSettings()
+        UIApplication.shared.unregisterForRemoteNotifications()
         try? defaultProvider.seedMobileWallet().removeSeed()
         try? defaultProvider.seedMobileWallet().removeRecoveryPhrase()
     }
