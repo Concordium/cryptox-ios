@@ -3,7 +3,7 @@
     <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -680,13 +680,13 @@ process on-chain]</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gjG-tA-Hp5">
-                                <rect key="frame" x="16" y="113" width="398" height="361"/>
+                                <rect key="frame" x="16" y="113" width="398" height="440"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background_Shield" translatesAutoresizingMaskIntoConstraints="NO" id="aZE-3Y-BSl">
-                                        <rect key="frame" x="161.66666666666666" y="136" width="75" height="89"/>
+                                        <rect key="frame" x="161.66666666666666" y="175.66666666666669" width="75" height="89"/>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Aib-xT-JCv">
-                                        <rect key="frame" x="0.0" y="10" width="398" height="283"/>
+                                        <rect key="frame" x="0.0" y="10" width="398" height="362"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="meu-sp-04b">
                                                 <rect key="frame" x="24" y="24" width="350" height="15"/>
@@ -885,18 +885,75 @@ process on-chain]</string>
                                                     </stackView>
                                                 </subviews>
                                             </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="EXN-sk-uCR">
+                                                <rect key="frame" x="24" y="275" width="350" height="63"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="teF-6L-0pM">
+                                                        <rect key="frame" x="0.0" y="0.0" width="350" height="1"/>
+                                                        <color key="backgroundColor" name="black_aditional"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="1" id="VID-AS-nPr"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="CwZ-0I-oj0">
+                                                        <rect key="frame" x="0.0" y="17" width="350" height="46"/>
+                                                        <subviews>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="cra-HR-HO8">
+                                                                <rect key="frame" x="0.0" y="0.0" width="102.33333333333333" height="20"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Ͼ2000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sar-xQ-nMB">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="58.333333333333336" height="20"/>
+                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
+                                                                        <color key="textColor" name="white_main"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Khu-nu-gqh">
+                                                                        <rect key="frame" x="62.333333333333329" y="0.0" width="40" height="20"/>
+                                                                        <subviews>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CCD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ASW-Fc-7RW">
+                                                                                <rect key="frame" x="4.9999999999999982" y="1.6666666666666856" width="30.333333333333329" height="17"/>
+                                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                                                                <color key="textColor" name="white_main"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" red="0.66274509800000003" green="0.68235294120000001" blue="0.72549019609999998" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="40" id="b37-93-ppC"/>
+                                                                            <constraint firstAttribute="height" constant="20" id="bCv-tx-x3f"/>
+                                                                            <constraint firstItem="ASW-Fc-7RW" firstAttribute="centerX" secondItem="Khu-nu-gqh" secondAttribute="centerX" id="ivt-fv-z6u"/>
+                                                                            <constraint firstItem="ASW-Fc-7RW" firstAttribute="centerY" secondItem="Khu-nu-gqh" secondAttribute="centerY" id="nXi-9d-naz"/>
+                                                                        </constraints>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                                <integer key="value" value="10"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </view>
+                                                                </subviews>
+                                                            </stackView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="[BAKER ID]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jLW-HD-i5T">
+                                                                <rect key="frame" x="0.0" y="28" width="79" height="18"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                                <color key="textColor" name="grey_secondary"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                         <edgeInsets key="layoutMargins" top="24" left="24" bottom="24" right="24"/>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oEm-6q-PDg">
-                                        <rect key="frame" x="0.0" y="300" width="398" height="1"/>
+                                        <rect key="frame" x="0.0" y="379" width="398" height="1"/>
                                         <color key="backgroundColor" name="black_aditional"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="isL-j5-xDe"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="obG-67-TVj" customClass="RoundedCornerView" customModule="ProdMainNet" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="301" width="398" height="60"/>
+                                        <rect key="frame" x="0.0" y="380" width="398" height="60"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C97-ve-JZH">
                                                 <rect key="frame" x="0.0" y="0.0" width="398" height="60"/>
@@ -937,10 +994,10 @@ process on-chain]</string>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" axis="vertical" distribution="fillProportionally" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="p0b-qO-NQn">
-                                <rect key="frame" x="16" y="490" width="398" height="338"/>
+                                <rect key="frame" x="16" y="569" width="398" height="259"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="NHy-rQ-sY3" customClass="WidgetView" customModule="ProdMainNet" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="398" height="338"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="398" height="259"/>
                                         <subviews>
                                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="skE-GC-Z7L">
                                                 <rect key="frame" x="0.0" y="5" width="398" height="40"/>
@@ -949,13 +1006,13 @@ process on-chain]</string>
                                                 </constraints>
                                             </containerView>
                                             <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="z1b-i1-zd6" userLabel="Container View">
-                                                <rect key="frame" x="0.0" y="45" width="398" height="288"/>
+                                                <rect key="frame" x="0.0" y="45" width="398" height="209"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="s8P-h6-OXR" userLabel="Error view">
-                                                        <rect key="frame" x="0.0" y="0.0" width="398" height="288"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="398" height="209"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Buq-rg-Qs5">
-                                                                <rect key="frame" x="0.0" y="0.0" width="398" height="288"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="398" height="209"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="problem_icon" translatesAutoresizingMaskIntoConstraints="NO" id="2Nh-Of-O1G">
                                                                         <rect key="frame" x="175" y="0.0" width="48" height="25.666666666666668"/>
@@ -965,10 +1022,10 @@ process on-chain]</string>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="LZ2-ol-U99" userLabel="ErrorMessageContainerView">
-                                                                        <rect key="frame" x="27" y="45.666666666666643" width="344" height="242.33333333333337"/>
+                                                                        <rect key="frame" x="27" y="45.666666666666629" width="344" height="163.33333333333331"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="[Account creation failed in the process of creation]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oq-fm-ahS">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="344" height="242.33333333333334"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="344" height="163.33333333333334"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <color key="textColor" name="fadedText"/>
                                                                                 <nil key="highlightedColor"/>
@@ -986,7 +1043,7 @@ process on-chain]</string>
                                                                         </constraints>
                                                                     </view>
                                                                     <view hidden="YES" contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="O19-9h-KQp" userLabel="GTU Drop view">
-                                                                        <rect key="frame" x="-177.66666666666666" y="288" width="753.33333333333337" height="100"/>
+                                                                        <rect key="frame" x="-177.66666666666666" y="209" width="753.33333333333337" height="100"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TESTNET GTU DROP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gia-Yh-1nS">
                                                                                 <rect key="frame" x="295.66666666666663" y="10" width="162" height="0.0"/>
@@ -1073,7 +1130,7 @@ process on-chain]</string>
                                         </constraints>
                                     </view>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QhU-KP-8h3" customClass="StandardButton" customModule="ProdMainNet" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="338" width="398" height="48.333333333333314"/>
+                                        <rect key="frame" x="0.0" y="259" width="398" height="48.333333333333314"/>
                                         <color key="backgroundColor" name="primary"/>
                                         <state key="normal" title="[Retry account creation]">
                                             <color key="titleColor" name="buttonText"/>
@@ -1086,7 +1143,7 @@ process on-chain]</string>
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c2h-uj-ha8" customClass="StandardButton" customModule="ProdMainNet" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="338" width="398" height="48.333333333333314"/>
+                                        <rect key="frame" x="0.0" y="259" width="398" height="48.333333333333314"/>
                                         <color key="backgroundColor" name="primary"/>
                                         <state key="normal" title="[Remove account from wallet]">
                                             <color key="titleColor" name="buttonText"/>
@@ -1132,6 +1189,9 @@ process on-chain]</string>
                         <outlet property="balanceNameLabel" destination="dcn-iW-JNg" id="aHh-qO-unf"/>
                         <outlet property="buttonSliderContainer" destination="obG-67-TVj" id="Umb-Wo-co3"/>
                         <outlet property="containerView" destination="z1b-i1-zd6" id="cXc-le-cJy"/>
+                        <outlet property="cooldownLabel" destination="jLW-HD-i5T" id="dBH-j2-Cbz"/>
+                        <outlet property="cooldownValue" destination="Sar-xQ-nMB" id="ztJ-il-Tsf"/>
+                        <outlet property="cooldownView" destination="EXN-sk-uCR" id="A5z-cl-fR7"/>
                         <outlet property="errorMessageLabel" destination="6oq-fm-ahS" id="Eb9-0u-set"/>
                         <outlet property="gtuDropView" destination="O19-9h-KQp" id="4po-bX-XCN"/>
                         <outlet property="readOnlyView" destination="meu-sp-04b" id="UmF-9j-jZI"/>
@@ -1372,7 +1432,7 @@ process on-chain]</string>
                                             <outlet property="transactionIconStatusView" destination="on3-pT-G6S" id="TPL-p1-Te7"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionDetailInfoCellView" translatesAutoresizingMaskIntoConstraints="NO" id="8aO-Kf-XGe" customClass="TransactionDetailInfoCellView" customModule="ProdMainNet" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionDetailInfoCellView" translatesAutoresizingMaskIntoConstraints="NO" id="8aO-Kf-XGe" customClass="TransactionDetailInfoCellView" customModule="ProdMainNet" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="130" width="390" height="74"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8aO-Kf-XGe" id="UAW-ow-KIf">
@@ -1380,7 +1440,7 @@ process on-chain]</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vtY-Pl-FAw">
-                                                    <rect key="frame" x="15" y="15.999999999999998" width="359" height="18.333333333333329"/>
+                                                    <rect key="frame" x="15" y="15.999999999999998" width="359" height="18.333333333333321"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" name="fadedText"/>
                                                     <nil key="highlightedColor"/>
@@ -1646,6 +1706,16 @@ process on-chain]</string>
                                     <outlet property="delegate" destination="ezT-gf-3hm" id="kez-Lb-EcC"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zMx-oD-UeJ">
+                                <rect key="frame" x="10" y="69" width="40" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="tVr-Mw-TxR"/>
+                                </constraints>
+                                <state key="normal" image="ico_close"/>
+                                <connections>
+                                    <action selector="closeButtonTapped:" destination="ezT-gf-3hm" eventType="touchUpInside" id="eHN-Cz-uT9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="EEG-nY-ckZ"/>
                         <color key="backgroundColor" name="backgroundBurgerMenu"/>
@@ -1653,7 +1723,9 @@ process on-chain]</string>
                         <constraints>
                             <constraint firstItem="Hf8-Vy-nFR" firstAttribute="leading" secondItem="EEG-nY-ckZ" secondAttribute="leading" id="1eJ-iX-GsM"/>
                             <constraint firstItem="EEG-nY-ckZ" firstAttribute="trailing" secondItem="Hf8-Vy-nFR" secondAttribute="trailing" id="PMU-TM-HOU"/>
+                            <constraint firstItem="zMx-oD-UeJ" firstAttribute="leading" secondItem="EEG-nY-ckZ" secondAttribute="leading" constant="10" id="PjY-qc-BhT"/>
                             <constraint firstItem="Hf8-Vy-nFR" firstAttribute="bottom" secondItem="EEG-nY-ckZ" secondAttribute="bottom" id="S7F-t3-C2b"/>
+                            <constraint firstItem="zMx-oD-UeJ" firstAttribute="top" secondItem="EEG-nY-ckZ" secondAttribute="top" constant="10" id="e4s-io-eyf"/>
                             <constraint firstItem="Hf8-Vy-nFR" firstAttribute="top" secondItem="EEG-nY-ckZ" secondAttribute="top" constant="70" id="xU2-kr-Mfe"/>
                         </constraints>
                         <connections>
@@ -1661,6 +1733,7 @@ process on-chain]</string>
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="closeButton" destination="zMx-oD-UeJ" id="6sg-dQ-Tts"/>
                         <outlet property="tableView" destination="Hf8-Vy-nFR" id="K9F-P2-xYN"/>
                     </connections>
                 </viewController>
@@ -2010,13 +2083,13 @@ process on-chain]</string>
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GZa-UC-OzA">
                                                     <rect key="frame" x="353.66666666666669" y="12.666666666666664" width="44.333333333333314" height="22"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Total" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="rhY-LD-9CM">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="rhY-LD-9CM">
                                                             <rect key="frame" x="0.0" y="0.0" width="33.333333333333336" height="22"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" name="text"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z88-dE-twO" userLabel="LockButton">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z88-dE-twO" userLabel="LockButton">
                                                             <rect key="frame" x="33.333333333333314" y="0.0" width="11" height="22"/>
                                                             <state key="normal" image="Icon_Shield"/>
                                                             <connections>
@@ -2268,13 +2341,13 @@ process on-chain]</string>
             <color red="1" green="0.73725490196078436" blue="0.066666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="separatorColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -543,12 +543,12 @@ concordium-backup.concordiumwallet securely.";
 "earn.button.baker" = "Continue to validator setup";
 "earn.button.delegation" = "Continue to delegation setup";
 
-"earn.desc.part1" = "There are two options for earning rewards on Concordium: validation and delegation.";
+"earn.desc.part1" = "Below are two options for earning rewards on CryptoX Wallet:";
 "earn.desc.baking.header" = "Validation";
 "earn.desc.baking.text" = "As a validator you participate in the network by producing blocks on the Concordium network. This requires a minimum of %@ and access to a dedicated node.";
 "earn.desc.delegation.header" = "Delegation";
 "earn.desc.delegation.text" = "If you don't have access to your own node you may delegate your stake to one of the other validators. There is no minimum amount of CCD required when delegating.";
-"earn.desc.part2" = "Choose the option that suits you below to learn more.\n\nNOTE: A single account cannot both be a validator and delegator, but it is possible to stop one and change to the other.";
+"earn.desc.part2" = "Please note, a single account cannot both be a validator and delegator but it is possible to stop one and change to the other.";
 
 
 /// After 2023 update
@@ -1217,6 +1217,7 @@ Remember to restart your node with the validator keys.";
 "baking.status.pendingchange" = "The following changes will take effect on %@";
 "baking.status.removingbaker" = "The validator will be deregistered, and the stake will be unlocked on the public balance of the account.";
 "baking.status.reducingstake" = "Validator stake will be lowered to";
+"baking.status.settings.title" = "Validator settings";
 
 
 "new_onboarding_welcome_title" = "Welcome to Concordium CryptoX wallet";

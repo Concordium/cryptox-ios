@@ -59,7 +59,7 @@ class BakingCoordinator: Coordinator {
             dependencyProvider: dependencyProvider,
             delegate: self
         )
-        let vc = StakeStatusFactory.create(with: statusPresenter)
+        let vc = UIHostingController(rootView: StakeStatusView(viewModel: statusPresenter.viewModel))
         navigationController.pushViewController(vc, animated: true)
     }
     

@@ -229,7 +229,7 @@ private extension TestAccountDataType {
     )
 }
 private final class TestAccountDataType: AccountDataType {
-    internal init(name: String? = nil, displayName: String, address: String, accountIndex: Int, submissionId: String? = nil, transactionStatus: SubmissionStatusEnum? = nil, encryptedAccountData: String? = nil, encryptedPrivateKey: String? = nil, encryptedCommitmentsRandomness: String? = nil, identity: IdentityDataType? = nil, revealedAttributes: [String : String], finalizedBalance: Int, forecastBalance: Int, finalizedEncryptedBalance: Int, forecastEncryptedBalance: Int, totalForecastBalance: Int, encryptedBalance: EncryptedBalanceDataType? = nil, encryptedBalanceStatus: ShieldedAccountEncryptionStatus? = nil, accountNonce: Int, credential: Credential? = nil, createdTime: Date, usedIncomingAmountIndex: Int, isReadOnly: Bool, baker: BakerDataType? = nil, delegation: DelegationDataType? = nil, releaseSchedule: ReleaseScheduleDataType? = nil, transferFilters: TransferFilter? = nil, showsShieldedBalance: Bool, hasShieldedTransactions: Bool) {
+    internal init(name: String? = nil, displayName: String, address: String, accountIndex: Int, submissionId: String? = nil, transactionStatus: SubmissionStatusEnum? = nil, encryptedAccountData: String? = nil, encryptedPrivateKey: String? = nil, encryptedCommitmentsRandomness: String? = nil, identity: IdentityDataType? = nil, revealedAttributes: [String : String], finalizedBalance: Int, forecastBalance: Int, finalizedEncryptedBalance: Int, forecastEncryptedBalance: Int, totalForecastBalance: Int, encryptedBalance: EncryptedBalanceDataType? = nil, encryptedBalanceStatus: ShieldedAccountEncryptionStatus? = nil, accountNonce: Int, credential: Credential? = nil, createdTime: Date, usedIncomingAmountIndex: Int, isReadOnly: Bool, baker: BakerDataType? = nil, delegation: DelegationDataType? = nil, cooldowns: [CooldownDataType] = [], releaseSchedule: ReleaseScheduleDataType? = nil, transferFilters: TransferFilter? = nil, showsShieldedBalance: Bool, hasShieldedTransactions: Bool) {
         self.name = name
         self.displayName = displayName
         self.address = address
@@ -259,6 +259,7 @@ private final class TestAccountDataType: AccountDataType {
         self.transferFilters = transferFilters
         self.showsShieldedBalance = showsShieldedBalance
         self.hasShieldedTransactions = hasShieldedTransactions
+        self.cooldowns = cooldowns
     }
     
     var name: String?
@@ -318,6 +319,8 @@ private final class TestAccountDataType: AccountDataType {
     var showsShieldedBalance: Bool
     
     var hasShieldedTransactions: Bool
+    
+    var cooldowns: [any CooldownDataType]
     
     func write(code: (TestAccountDataType) -> Void) -> Result<Void, Error> {
         .success(())

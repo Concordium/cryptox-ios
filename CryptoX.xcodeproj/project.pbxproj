@@ -1749,11 +1749,8 @@
 		08DB5DED2BC6C22900C29663 /* EarnPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5DE62BC6C22300C29663 /* EarnPresenter.swift */; };
 		08DB5DEE2BC6C22900C29663 /* EarnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5DE42BC6C22300C29663 /* EarnView.swift */; };
 		08DB5DEF2BC6C22900C29663 /* EarnViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5DE52BC6C22300C29663 /* EarnViewModel.swift */; };
-		08DB5DF32BC6C24600C29663 /* StakeStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5DF12BC6C24300C29663 /* StakeStatusViewController.swift */; };
 		08DB5DF42BC6C24600C29663 /* StakeStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5DF22BC6C24300C29663 /* StakeStatusPresenter.swift */; };
-		08DB5DF52BC6C24700C29663 /* StakeStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5DF12BC6C24300C29663 /* StakeStatusViewController.swift */; };
 		08DB5DF62BC6C24700C29663 /* StakeStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5DF22BC6C24300C29663 /* StakeStatusPresenter.swift */; };
-		08DB5DF72BC6C24800C29663 /* StakeStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5DF12BC6C24300C29663 /* StakeStatusViewController.swift */; };
 		08DB5DF82BC6C24800C29663 /* StakeStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5DF22BC6C24300C29663 /* StakeStatusPresenter.swift */; };
 		08DB5DFC2BC6C25700C29663 /* StakeDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5DFA2BC6C25300C29663 /* StakeDataHandler.swift */; };
 		08DB5DFD2BC6C25700C29663 /* StakeEntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5DF92BC6C25300C29663 /* StakeEntryCell.swift */; };
@@ -1916,6 +1913,9 @@
 		08FD0B822A7D31D9003774A6 /* GradienBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FD0B812A7D31D9003774A6 /* GradienBackgroundModifier.swift */; };
 		08FD0B832A7D31D9003774A6 /* GradienBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FD0B812A7D31D9003774A6 /* GradienBackgroundModifier.swift */; };
 		08FD0B842A7D31DD003774A6 /* GrayRoundedBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FD0B7F2A7D271B003774A6 /* GrayRoundedBackgroundModifier.swift */; };
+		15184CED2CB0056C00DAE03A /* CooldownCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15184CEC2CB0056C00DAE03A /* CooldownCardView.swift */; };
+		15184CEE2CB0056C00DAE03A /* CooldownCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15184CEC2CB0056C00DAE03A /* CooldownCardView.swift */; };
+		15184CEF2CB0056C00DAE03A /* CooldownCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15184CEC2CB0056C00DAE03A /* CooldownCardView.swift */; };
 		151A53992C5CF03800EFE20C /* PopupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53982C5CF03800EFE20C /* PopupContainer.swift */; };
 		151A539A2C5CF03800EFE20C /* PopupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53982C5CF03800EFE20C /* PopupContainer.swift */; };
 		151A539B2C5CF03800EFE20C /* PopupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53982C5CF03800EFE20C /* PopupContainer.swift */; };
@@ -1940,6 +1940,15 @@
 		1575862E2CA2CA4D00205A6E /* IdentifiableString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1575862D2CA2CA4D00205A6E /* IdentifiableString.swift */; };
 		1575862F2CA2CA4D00205A6E /* IdentifiableString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1575862D2CA2CA4D00205A6E /* IdentifiableString.swift */; };
 		157586302CA2CA4D00205A6E /* IdentifiableString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1575862D2CA2CA4D00205A6E /* IdentifiableString.swift */; };
+		157586322CA43E5500205A6E /* CooldownEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157586312CA43E5500205A6E /* CooldownEntity.swift */; };
+		157586332CA43E5500205A6E /* CooldownEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157586312CA43E5500205A6E /* CooldownEntity.swift */; };
+		157586342CA43E5500205A6E /* CooldownEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157586312CA43E5500205A6E /* CooldownEntity.swift */; };
+		157586362CA441DC00205A6E /* AccountCooldown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157586352CA441DC00205A6E /* AccountCooldown.swift */; };
+		157586372CA441DC00205A6E /* AccountCooldown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157586352CA441DC00205A6E /* AccountCooldown.swift */; };
+		157586382CA441DC00205A6E /* AccountCooldown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157586352CA441DC00205A6E /* AccountCooldown.swift */; };
+		1575863A2CA55E3700205A6E /* StakeStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157586392CA55E3700205A6E /* StakeStatusView.swift */; };
+		1575863B2CA55E3700205A6E /* StakeStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157586392CA55E3700205A6E /* StakeStatusView.swift */; };
+		1575863C2CA55E3700205A6E /* StakeStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157586392CA55E3700205A6E /* StakeStatusView.swift */; };
 		15844E5A2C87445B005A3BF1 /* TransferTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15844E592C87445B005A3BF1 /* TransferTokenViewModel.swift */; };
 		15844E5B2C8744D5005A3BF1 /* TransferTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15844E592C87445B005A3BF1 /* TransferTokenViewModel.swift */; };
 		15844E5C2C8744D5005A3BF1 /* TransferTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15844E592C87445B005A3BF1 /* TransferTokenViewModel.swift */; };
@@ -3138,7 +3147,6 @@
 		08DB5DE42BC6C22300C29663 /* EarnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarnView.swift; sourceTree = "<group>"; };
 		08DB5DE52BC6C22300C29663 /* EarnViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarnViewModel.swift; sourceTree = "<group>"; };
 		08DB5DE62BC6C22300C29663 /* EarnPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarnPresenter.swift; sourceTree = "<group>"; };
-		08DB5DF12BC6C24300C29663 /* StakeStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeStatusViewController.swift; sourceTree = "<group>"; };
 		08DB5DF22BC6C24300C29663 /* StakeStatusPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeStatusPresenter.swift; sourceTree = "<group>"; };
 		08DB5DF92BC6C25300C29663 /* StakeEntryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeEntryCell.swift; sourceTree = "<group>"; };
 		08DB5DFA2BC6C25300C29663 /* StakeDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeDataHandler.swift; sourceTree = "<group>"; };
@@ -3199,6 +3207,7 @@
 		08FD0B7F2A7D271B003774A6 /* GrayRoundedBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayRoundedBackgroundModifier.swift; sourceTree = "<group>"; };
 		08FD0B812A7D31D9003774A6 /* GradienBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradienBackgroundModifier.swift; sourceTree = "<group>"; };
 		15069A1D2C89A1C000697017 /* ProdTestNet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProdTestNet.entitlements; sourceTree = "<group>"; };
+		15184CEC2CB0056C00DAE03A /* CooldownCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CooldownCardView.swift; sourceTree = "<group>"; };
 		151A53982C5CF03800EFE20C /* PopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
 		151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsButtonsView.swift; sourceTree = "<group>"; };
@@ -3207,6 +3216,9 @@
 		1557CC9A2C89BE26008ABF67 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsPopup.swift; sourceTree = "<group>"; };
 		1575862D2CA2CA4D00205A6E /* IdentifiableString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableString.swift; sourceTree = "<group>"; };
+		157586312CA43E5500205A6E /* CooldownEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CooldownEntity.swift; sourceTree = "<group>"; };
+		157586352CA441DC00205A6E /* AccountCooldown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCooldown.swift; sourceTree = "<group>"; };
+		157586392CA55E3700205A6E /* StakeStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeStatusView.swift; sourceTree = "<group>"; };
 		15844E592C87445B005A3BF1 /* TransferTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferTokenViewModel.swift; sourceTree = "<group>"; };
 		1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTokenViewModel.swift; sourceTree = "<group>"; };
 		15E1BC682C6B588900543242 /* Gate_io.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gate_io.png; sourceTree = "<group>"; };
@@ -5073,7 +5085,8 @@
 			isa = PBXGroup;
 			children = (
 				08DB5DF22BC6C24300C29663 /* StakeStatusPresenter.swift */,
-				08DB5DF12BC6C24300C29663 /* StakeStatusViewController.swift */,
+				157586392CA55E3700205A6E /* StakeStatusView.swift */,
+				15184CEC2CB0056C00DAE03A /* CooldownCardView.swift */,
 			);
 			path = Status;
 			sourceTree = "<group>";
@@ -5922,6 +5935,7 @@
 				D5A3757B2909E8E1002B8194 /* TokenEntity.swift */,
 				08B16F172A011A62002E6B33 /* BakerEntity.swift */,
 				08B16F1C2A011A72002E6B33 /* DelegationEntity.swift */,
+				157586312CA43E5500205A6E /* CooldownEntity.swift */,
 				08B16F262A011A9B002E6B33 /* PendingChangeEntity.swift */,
 				08E69CA62A24A2C9001CCA96 /* CIS2TokenMetadataEntity.swift */,
 			);
@@ -5993,6 +6007,7 @@
 				08A044B029FA99BF00DACE1F /* DelegationTarget.swift */,
 				08A044AE29FA99BE00DACE1F /* Description.swift */,
 				08A044CC29FA99C300DACE1F /* Details.swift */,
+				157586352CA441DC00205A6E /* AccountCooldown.swift */,
 				08A044BB29FA99C000DACE1F /* Encrypted.swift */,
 				08A044F529FA99C900DACE1F /* EuroPerEnergy.swift */,
 				08A044EA29FA99C800DACE1F /* GASRewards.swift */,
@@ -7210,6 +7225,7 @@
 				08C167582BB7396200E61326 /* OnboardingCarouselWebContentViewController.swift in Sources */,
 				08C167592BB7396200E61326 /* IdentityProviderWebViewPresenter.swift in Sources */,
 				08C1675A2BB7396200E61326 /* GeneratedBakerKeys.swift in Sources */,
+				157586382CA441DC00205A6E /* AccountCooldown.swift in Sources */,
 				08C1675B2BB7396200E61326 /* CreateSeedIdentityView.swift in Sources */,
 				08C1675C2BB7396200E61326 /* ServicesProvider+prod.swift in Sources */,
 				08C1675D2BB7396200E61326 /* MainPromoView.swift in Sources */,
@@ -7217,6 +7233,7 @@
 				08C167602BB7396200E61326 /* NFTDataItemCell.swift in Sources */,
 				08C167612BB7396200E61326 /* RecoveryPhraseRecoverIntroPresenter.swift in Sources */,
 				08C167622BB7396200E61326 /* RecoveryPhraseGettingStartedViewModel.swift in Sources */,
+				15184CEF2CB0056C00DAE03A /* CooldownCardView.swift in Sources */,
 				509749E32C3E863B00D28D6B /* NewsFeed.swift in Sources */,
 				08C167632BB7396200E61326 /* SubmitSeedAccountPresenter.swift in Sources */,
 				08C167642BB7396200E61326 /* WarningDisplayer.swift in Sources */,
@@ -7270,6 +7287,7 @@
 				08C167922BB7396200E61326 /* ExportIdentityData.swift in Sources */,
 				08C167932BB7396200E61326 /* SeedIdentityStatusPresenter.swift in Sources */,
 				08C167942BB7396200E61326 /* ImportLegacyWalletInfo.swift in Sources */,
+				157586342CA43E5500205A6E /* CooldownEntity.swift in Sources */,
 				509749F32C49203200D28D6B /* MatomoTracker.swift in Sources */,
 				08C167952BB7396200E61326 /* AddMemoPresenter.swift in Sources */,
 				08C167962BB7396200E61326 /* SeedIdentitiesCoordinator.swift in Sources */,
@@ -7509,6 +7527,7 @@
 				08C168742BB7396200E61326 /* Origin.swift in Sources */,
 				08C168752BB7396200E61326 /* ButtonSlider.swift in Sources */,
 				08C168762BB7396200E61326 /* PasscodeFieldViewController.swift in Sources */,
+				1575863C2CA55E3700205A6E /* StakeStatusView.swift in Sources */,
 				08C168772BB7396200E61326 /* PreIdentityObject.swift in Sources */,
 				08C168792BB7396200E61326 /* SubmittedSeedAccountViewModel.swift in Sources */,
 				08C1687A2BB7396200E61326 /* GTUTextFieldDelegate.swift in Sources */,
@@ -7541,7 +7560,6 @@
 				08C168972BB7396200E61326 /* Image+Ext.swift in Sources */,
 				08C168982BB7396200E61326 /* CreateSeedIdentityPresenter.swift in Sources */,
 				08C1689A2BB7396200E61326 /* AccountDetailsIdentityDataPresenter.swift in Sources */,
-				08DB5DF72BC6C24800C29663 /* StakeStatusViewController.swift in Sources */,
 				08DB5DF82BC6C24800C29663 /* StakeStatusPresenter.swift in Sources */,
 				08C1689B2BB7396200E61326 /* SeedPhrasePillView.swift in Sources */,
 				08C1689C2BB7396200E61326 /* RoundedBackUpView.swift in Sources */,
@@ -7917,6 +7935,7 @@
 				088FECE82A01622000042957 /* OnboardingCarouselWebContentViewController.swift in Sources */,
 				088FEEDB2A026EAB00042957 /* IdentityProviderWebViewPresenter.swift in Sources */,
 				08A0461D29FA99D300DACE1F /* GeneratedBakerKeys.swift in Sources */,
+				157586372CA441DC00205A6E /* AccountCooldown.swift in Sources */,
 				088FEFE32A0271C000042957 /* CreateSeedIdentityView.swift in Sources */,
 				D589F3352794B678003F2FBB /* ServicesProvider+prod.swift in Sources */,
 				0832EB4E2B34BDAE00BD2ECD /* MainPromoView.swift in Sources */,
@@ -7924,6 +7943,7 @@
 				D5E6CBDA290F4771009856B7 /* NFTDataItemCell.swift in Sources */,
 				088FF0CC2A02846700042957 /* RecoveryPhraseRecoverIntroPresenter.swift in Sources */,
 				088FF1262A0284F600042957 /* RecoveryPhraseGettingStartedViewModel.swift in Sources */,
+				15184CEE2CB0056C00DAE03A /* CooldownCardView.swift in Sources */,
 				509749E22C3E863B00D28D6B /* NewsFeed.swift in Sources */,
 				088FEFBF2A02717E00042957 /* SubmitSeedAccountPresenter.swift in Sources */,
 				08B16F0B2A0118E1002E6B33 /* WarningDisplayer.swift in Sources */,
@@ -7977,6 +7997,7 @@
 				D589F2012794B5ED003F2FBB /* ExportIdentityData.swift in Sources */,
 				088FEFD52A0271AB00042957 /* SeedIdentityStatusPresenter.swift in Sources */,
 				0835F9AC2B5FCE4500D3716F /* ImportLegacyWalletInfo.swift in Sources */,
+				157586332CA43E5500205A6E /* CooldownEntity.swift in Sources */,
 				509749F22C49203200D28D6B /* MatomoTracker.swift in Sources */,
 				088FF2762A02AE8500042957 /* AddMemoPresenter.swift in Sources */,
 				088FF00F2A0271F700042957 /* SeedIdentitiesCoordinator.swift in Sources */,
@@ -8216,6 +8237,7 @@
 				08A045F629FA99D200DACE1F /* Origin.swift in Sources */,
 				088FEE262A0167FB00042957 /* ButtonSlider.swift in Sources */,
 				088FF05D2A02781C00042957 /* PasscodeFieldViewController.swift in Sources */,
+				1575863B2CA55E3700205A6E /* StakeStatusView.swift in Sources */,
 				08A045FF29FA99D200DACE1F /* PreIdentityObject.swift in Sources */,
 				088FEFAF2A02716800042957 /* SubmittedSeedAccountViewModel.swift in Sources */,
 				088FEE812A025AE300042957 /* GTUTextFieldDelegate.swift in Sources */,
@@ -8248,7 +8270,6 @@
 				08520A622B470687008DC851 /* Image+Ext.swift in Sources */,
 				088FEFE42A0271C000042957 /* CreateSeedIdentityPresenter.swift in Sources */,
 				088FEDB82A01676B00042957 /* AccountDetailsIdentityDataPresenter.swift in Sources */,
-				08DB5DF52BC6C24700C29663 /* StakeStatusViewController.swift in Sources */,
 				08DB5DF62BC6C24700C29663 /* StakeStatusPresenter.swift in Sources */,
 				0807481F2B5979B400990ADA /* SeedPhrasePillView.swift in Sources */,
 				D5AF003627A041E100F0C56E /* RoundedBackUpView.swift in Sources */,
@@ -8624,6 +8645,7 @@
 				088FEED72A026EAA00042957 /* IdentityProviderWebViewPresenter.swift in Sources */,
 				C94ED724246301740071A4FB /* TransactionDetailErrorCellView.swift in Sources */,
 				088FEFDD2A0271BF00042957 /* CreateSeedIdentityView.swift in Sources */,
+				157586362CA441DC00205A6E /* AccountCooldown.swift in Sources */,
 				0832EB4D2B34BDAE00BD2ECD /* MainPromoView.swift in Sources */,
 				08A0447829FA987700DACE1F /* Seed.swift in Sources */,
 				D5E6CBD8290F4771009856B7 /* NFTDataItemCell.swift in Sources */,
@@ -8631,6 +8653,7 @@
 				08B16F092A0118E1002E6B33 /* WarningDisplayer.swift in Sources */,
 				08A0447B29FA987700DACE1F /* SeedIdentityObject.swift in Sources */,
 				088FEFB92A02717D00042957 /* SubmitSeedAccountPresenter.swift in Sources */,
+				15184CED2CB0056C00DAE03A /* CooldownCardView.swift in Sources */,
 				509749E12C3E863B00D28D6B /* NewsFeed.swift in Sources */,
 				088FF0C62A02846600042957 /* RecoveryPhraseRecoverIntroPresenter.swift in Sources */,
 				088FF1202A0284F500042957 /* RecoveryPhraseGettingStartedViewModel.swift in Sources */,
@@ -8684,6 +8707,7 @@
 				7FF07AEE23EB075D00F1FC04 /* Storyboarded.swift in Sources */,
 				0835F9AB2B5FCE4500D3716F /* ImportLegacyWalletInfo.swift in Sources */,
 				08A0455529FA99D100DACE1F /* IPArDatum.swift in Sources */,
+				157586322CA43E5500205A6E /* CooldownEntity.swift in Sources */,
 				509749F12C49203200D28D6B /* MatomoTracker.swift in Sources */,
 				088FEFCF2A0271AA00042957 /* SeedIdentityStatusPresenter.swift in Sources */,
 				08A0456929FA99D100DACE1F /* CurrentPaydayStatus.swift in Sources */,
@@ -8923,6 +8947,7 @@
 				088FECDF2A01621F00042957 /* OnboardingCarouselPresenter.swift in Sources */,
 				08A0455E29FA99D100DACE1F /* Origin.swift in Sources */,
 				088FF1842A02947A00042957 /* InitialAccountInfoViewController.swift in Sources */,
+				1575863A2CA55E3700205A6E /* StakeStatusView.swift in Sources */,
 				08A0456729FA99D100DACE1F /* PreIdentityObject.swift in Sources */,
 				088FEE162A0167FA00042957 /* ButtonSlider.swift in Sources */,
 				088FF04D2A02781B00042957 /* PasscodeFieldViewController.swift in Sources */,
@@ -8954,7 +8979,6 @@
 				08520A612B470687008DC851 /* Image+Ext.swift in Sources */,
 				088FF1342A02850100042957 /* RecoveryPhraseCopyPhraseView.swift in Sources */,
 				088FF0C52A02846600042957 /* RecoveryPhraseRecoverIntroView.swift in Sources */,
-				08DB5DF32BC6C24600C29663 /* StakeStatusViewController.swift in Sources */,
 				08DB5DF42BC6C24600C29663 /* StakeStatusPresenter.swift in Sources */,
 				0807481E2B5979B400990ADA /* SeedPhrasePillView.swift in Sources */,
 				088FEDB42A01676B00042957 /* AccountDetailsIdentityDataPresenter.swift in Sources */,

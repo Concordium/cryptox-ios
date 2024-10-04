@@ -40,6 +40,7 @@ protocol AccountDataType: DataStoreProtocol {
    
     var baker: BakerDataType? { get set }
     var delegation: DelegationDataType? { get set }
+    var cooldowns: [CooldownDataType] { get set }
     
     var releaseSchedule: ReleaseScheduleDataType? { get set }
     var transferFilters: TransferFilter? { get set }
@@ -58,7 +59,8 @@ protocol AccountDataType: DataStoreProtocol {
                                      accountIndex: Int,
                                      delegation: DelegationDataType?,
                                      baker: BakerDataType?,
-                                     releaseSchedule: ReleaseScheduleDataType) -> AccountDataType
+                                     releaseSchedule: ReleaseScheduleDataType,
+                                     cooldowns: [CooldownDataType]) -> AccountDataType
     
     func withUpdatedIdentity(identity: IdentityDataType) -> AccountDataType
     func withUpdatedStatus(status: SubmissionStatusEnum) -> AccountDataType
@@ -92,7 +94,8 @@ extension AccountDataType {
                                      accountIndex: Int,
                                      delegation: DelegationDataType?,
                                      baker: BakerDataType?,
-                                     releaseSchedule: ReleaseScheduleDataType) -> AccountDataType {
+                                     releaseSchedule: ReleaseScheduleDataType,
+                                     cooldowns: [CooldownDataType]) -> AccountDataType {
         _ = write {
             var pAccount = $0
             pAccount.finalizedBalance = finaliedBalance
@@ -105,6 +108,7 @@ extension AccountDataType {
             pAccount.baker = baker
             pAccount.releaseSchedule = releaseSchedule
             pAccount.hasShieldedTransactions = hasShieldedTransactions
+            pAccount.cooldowns = cooldowns
         }
         return self
     }
@@ -183,6 +187,7 @@ final class AccountEntity: Object {
     @objc dynamic var releaseScheduleEntity: ReleaseScheduleEntity?
     @objc dynamic var bakerEntity: BakerEntity?
     @objc dynamic var delegationEntity: DelegationEntity?
+    var cooldownsList = List<CooldownEntity>()
     
     @objc dynamic var transferFilters: TransferFilter? = TransferFilter()
     var revealedAttributesList = List<IdentityAttributeEntity>()
@@ -242,6 +247,19 @@ extension AccountEntity: AccountDataType {
             let attributes = newValue.map { IdentityAttributeEntity(name: $0.key, value: $0.value) }
             revealedAttributesList.removeAll()
             revealedAttributesList.append(objectsIn: attributes)
+        }
+    }
+    
+    var cooldowns: [CooldownDataType] {
+        get {
+            return cooldownsList.map { $0 as CooldownDataType }
+        }
+        set {
+            cooldownsList.removeAll()
+            let newList = newValue.map({
+                CooldownEntity(accountCooldownModel: AccountCooldown(timestamp: $0.timestamp, amount: $0.amount, status: $0.status.rawValue))
+            })
+            cooldownsList.append(objectsIn: newList)
         }
     }
 

@@ -153,9 +153,9 @@ extension SeedAccountsService: SeedAccountsServiceProtocol {
 
                     let accountBalance = try await getAccountBalance(for: request.accountAddress)
 
-                    if accountBalance.finalizedBalance != nil {
-                        account.finalizedBalance = Int(accountBalance.finalizedBalance!.accountAmount!)!
-                        account.accountIndex = accountBalance.finalizedBalance!.accountIndex
+                    if accountBalance.balance != nil {
+                        account.finalizedBalance = Int(accountBalance.balance!.accountAmount!)!
+                        account.accountIndex = accountBalance.balance!.accountIndex
 
                         try await storeAccount(account)
                         accounts.append(account)

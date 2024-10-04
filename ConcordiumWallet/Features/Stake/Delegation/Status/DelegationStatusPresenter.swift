@@ -25,12 +25,11 @@ protocol DelegationStatusPresenterDelegate: AnyObject {
 }
 
 class DelegationStatusPresenter: StakeStatusPresenterProtocol {
-
-    weak var view: StakeStatusViewProtocol?
+    
     weak var delegate: DelegationStatusPresenterDelegate?
-
+    
     private var account: AccountDataType
-    private var viewModel: StakeStatusViewModel
+    let viewModel: StakeStatusViewModel
     private var transactionService: TransactionsServiceProtocol
     private var stakeService: StakeServiceProtocol
     private var accountsService: AccountsServiceProtocol
@@ -48,11 +47,11 @@ class DelegationStatusPresenter: StakeStatusPresenterProtocol {
         self.storageManager = dependencyProvider.storageManager()
         self.accountsService = dependencyProvider.accountsService()
         self.delegate = delegate
-        viewModel = StakeStatusViewModel()
+        self.viewModel = StakeStatusViewModel(dependencyProvider: dependencyProvider)
+        self.viewModel.setPresenter(self)
     }
-
+    
     func viewDidLoad() {
-        self.view?.bind(viewModel: viewModel)
         setupWith(
             account: account,
             transfers: storageManager.getDelegationTransfers(for: account)
@@ -61,9 +60,9 @@ class DelegationStatusPresenter: StakeStatusPresenterProtocol {
     
     func pressedButton() {
         stakeService.getChainParameters()
-            .showLoadingIndicator(in: self.view)
+        //            .showLoadingIndicator(in: self.view)
             .sink { [weak self] error in
-                self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+                self?.viewModel.error = StakeStatusViewModelError(error)
             } receiveValue: { [weak self] chainParametersResponse in
                 let params = ChainParametersEntity(delegatorCooldown: chainParametersResponse.delegatorCooldown,
                                                    poolOwnerCooldown: chainParametersResponse.poolOwnerCooldown)
@@ -71,17 +70,17 @@ class DelegationStatusPresenter: StakeStatusPresenterProtocol {
                     _ = try self?.storageManager.updateChainParms(params)
                     self?.delegate?.pressedRegisterOrUpdate()
                 } catch let error {
-                    self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+                    self?.viewModel.error = StakeStatusViewModelError(error)
                 }
             }.store(in: &cancellables)
     }
-
+    
     func pressedStopButton() {
         stakeService.getChainParameters()
             .zip(transactionService.getTransferCost(transferType: .removeDelegation, costParameters: []))
-            .showLoadingIndicator(in: view)
+        //            .showLoadingIndicator(in: view)
             .sink { [weak self] error in
-                self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+                self?.viewModel.error = StakeStatusViewModelError(error)
             } receiveValue: {[weak self] (chainParametersResponse, transferCost) in
                 let params = ChainParametersEntity(delegatorCooldown: chainParametersResponse.delegatorCooldown,
                                                    poolOwnerCooldown: chainParametersResponse.poolOwnerCooldown)
@@ -90,7 +89,7 @@ class DelegationStatusPresenter: StakeStatusPresenterProtocol {
                     let cost = GTU(intValue: Int(transferCost.cost) ?? 0)
                     self?.delegate?.pressedStop(cost: cost, energy: transferCost.energy)
                 } catch let error {
-                    self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+                    self?.viewModel.error = StakeStatusViewModelError(error)
                 }
             }.store(in: &cancellables)
     }
@@ -122,7 +121,7 @@ class DelegationStatusPresenter: StakeStatusPresenterProtocol {
             case .NoChange, nil:
                 if let bakerId = account.delegation?.delegationTargetBakerID, bakerId != -1 {
                     self.stakeService.getBakerPool(bakerId: bakerId).sink { error in
-                        self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+                        self.viewModel.error = StakeStatusViewModelError(error)
                     } receiveValue: { bakerPoolResponse in
                         if bakerPoolResponse.bakerStakePendingChange.pendingChangeType == "RemovePool" {
                             let effectiveTime = bakerPoolResponse.bakerStakePendingChange.estimatedChangeTime ?? ""
@@ -173,7 +172,7 @@ class DelegationStatusPresenter: StakeStatusPresenterProtocol {
     }
 }
 
-private extension StorageManagerProtocol {
+extension StorageManagerProtocol {
     func getDelegationTransfers(for account: AccountDataType) -> [TransferDataType] {
         return getTransfers(for: account.address).filter { transfer in
             transfer.transferType.isDelegationTransfer
@@ -181,7 +180,7 @@ private extension StorageManagerProtocol {
     }
 }
 
-extension StakeStatusViewModel {
+private extension StakeStatusViewModel {
     // swiftlint:disable function_body_length
     func setup(
         account: AccountDataType,
@@ -206,6 +205,7 @@ extension StakeStatusViewModel {
         placeholderText = nil
         topText = "delegation.status.registered.header".localized
         buttonLabel = "delegation.status.updatebutton".localized
+        accountCooldowns = account.cooldowns.map({AccountCooldown(timestamp: $0.timestamp, amount: $0.amount, status: $0.status.rawValue)})
         switch pendingChanges {
         case .none:
             gracePeriodText = nil
