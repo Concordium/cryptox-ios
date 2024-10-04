@@ -4,6 +4,7 @@
 
 ### Removed
 - Removed Shielding functionalty
+- Removed old-legacy `Send Assets` flow 
 
 ### Added
 - Add Mainnet, Stagenet and Testnet schemas
@@ -16,6 +17,9 @@
 - Add new Unshield Assets flow
 - Add CCD onramp flow
 - Add News Tab
+- Add Expport/Import Wallet Private key
+- Add Push Notifications for incoming transactions both ccd and CIS2Token
+- Support for Protocol 7 – reducing validation/delegation stake no longer locks the whole amount 
 
 ### Fixed
 - An issue where signing a text message through WalletConnect did not work
@@ -26,9 +30,11 @@
 - Possibility of spamming the app with WalletConnect requests from a malfunctioning dApp
 - Fix changing restaking options
 - Fix app crash during identities recover process
+- Fixed Send Assets Flow
 
 ### Changed
 - Baker/baking renamed to Validator/validating
+- Removed all `anon*` references 
 - WalletConnect session proposals are now rejected if the namespace or methods are not supported, or if the wallet contains no accounts.
 - WalletConnect transaction signing request now shows the receiver
 (either smart contract or an account) and amount of CCD to send (not including CIS-2 tokens)
