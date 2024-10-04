@@ -1093,6 +1093,7 @@ Remember to restart your node with the validator keys.";
 "more.deleteAccount" = "Remove wallet";
 "more.deleteAccount.subtitle" = "Remove all sensitive data and private keys from this device";
 "more.funds.to.unshield" = "Funds to Unshield";
+"more.notifications" = "Notifications";
 "more.exportWallet.privateKey" = "Export wallet private key";
 
 "analytics.trackMessage" = "To improve the experience, we would like to track your activity in the app (but never your crypto). Of course, it is completely anonymous.";
@@ -1132,6 +1133,9 @@ Remember to restart your node with the validator keys.";
 "recover.identityKey" = "identity";
 "recover.isNewlyCreatedKey" = "isNewlyCreated";
 
+"notifications.ccdtransactions" = "CCD transactions";
+"notifications.cis2tokentransactions" = "CIS-2 token transactions";
+"notifications.seeTransactionDetails" = "See transaction details";
 
 "accountsettings.navigationtitle" = "Account settings";
 

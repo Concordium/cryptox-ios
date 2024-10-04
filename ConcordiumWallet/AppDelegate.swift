@@ -10,6 +10,8 @@ import UIKit
 import Base58Swift
 import Web3Wallet
 import MatomoTracker
+import FirebaseMessaging
+import FirebaseCore
 
 extension Notification.Name {
     static let didReceiveIdentityData = Notification.Name("didReceiveIdentityData")
@@ -19,7 +21,10 @@ extension Notification.Name {
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var appCoordinator = AppCoordinator()
+    let transactionNotificationService = TransactionNotificationService()
     
+    let gcmMessageIDKey = "gcm.message_id"
+
     private lazy var backgroundWindow: UIWindow = {
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.rootViewController = LaunchScreenFactory.create()
@@ -67,6 +72,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.statusBarStyle = .lightContent
         
         setupMatomoTracker()
+        
+        UNUserNotificationCenter.current().delegate = self
+        FirebaseApp.configure()
+        transactionNotificationService.subscribeToUserDefaultsUpdates()
+        Messaging.messaging().delegate = self
+
+        if let remoteNotification = launchOptions?[.remoteNotification] as? [AnyHashable: Any] {
+            transactionNotificationService.handleNotificationsWithData(data: remoteNotification)
+        }
         
         return true
     }
@@ -198,5 +212,63 @@ extension AppDelegate {
         MatomoTracker.shared.setDimension(version, forIndex: AppConstants.MatomoTracker.versionCustomDimensionId)
         MatomoTracker.shared.setDimension(Net.current.rawValue, forIndex: AppConstants.MatomoTracker.networkCustomDimensionId)
         MatomoTracker.shared.isOptedOut = !UserDefaults.bool(forKey: "isAnalyticsEnabled")
+    }
+}
+
+// MARK: - Notifications handling
+extension AppDelegate: MessagingDelegate {
+    @objc func messaging(_: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        print("Firebase token: \(String(describing: fcmToken))")
+        if UIApplication.shared.isRegisteredForRemoteNotifications {
+            transactionNotificationService.updateFcmToken(fcmToken)
+        }
+    }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
+        return [.banner, .list, .sound]
+    }
+    
+    func userNotificationCenter(
+        _: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        let userInfo = response.notification.request.content.userInfo
+        appCoordinator.handleOpeningTransactionFromNotification(with: userInfo)
+        completionHandler()
+    }
+}
+
+extension AppDelegate {
+    func application(_: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Oh no! Failed to register for remote notifications with error \(error)")
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        var readableToken = ""
+        for index in 0 ..< deviceToken.count {
+            readableToken += String(format: "%02.2hhx", deviceToken[index] as CVarArg)
+        }
+        print("Received an APNs device token: \(readableToken)")
+        
+        Messaging.messaging().apnsToken = deviceToken
+        
+        Messaging.messaging().token { token, error in
+            if let error {
+                print("Error fetching FCM registration token: \(error)")
+            } else if let token {
+                print("FCM registration token: \(token)")
+                self.transactionNotificationService.updateFcmToken(token)
+            }
+        }
+    }
+
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) async -> UIBackgroundFetchResult {
+        transactionNotificationService.handleNotificationsWithData(data: userInfo)
+
+      return UIBackgroundFetchResult.newData
     }
 }

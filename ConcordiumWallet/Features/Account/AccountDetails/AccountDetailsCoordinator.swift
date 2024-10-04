@@ -426,3 +426,9 @@ extension AccountDetailsCoordinator {
         )
     }
 }
+
+extension AccountDetailsCoordinator {
+    func showTransactionDetailsFromNotification(transaction: TransactionViewModel) {
+        showTransactionDetail(viewModel: transaction)
+    }
+}
