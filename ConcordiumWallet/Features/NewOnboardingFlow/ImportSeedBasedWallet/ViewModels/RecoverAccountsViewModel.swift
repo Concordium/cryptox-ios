@@ -108,6 +108,7 @@ final class RecoverAccountsViewModel: ObservableObject {
                     }
                 }
                 
+                TransactionNotificationService().sendTokenToConcordiumServer()
                 await MainActor.run { [recoveredIdentitiesBuffer] in
                     self.handleIdentities(recoveredIdentitiesBuffer, accounts: accounts, failedIdentitiesProviders: failedIdentityProviders)
                 }

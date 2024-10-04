@@ -240,7 +240,8 @@ extension MoreCoordinator: MoreMenuPresenterDelegate {
     
     func notificationsSelected() {
         showNotifications()
-
+    }
+    
     func showExportWalletPrivateKey() {
         parentCoordinator?.showExportWalletPrivateKey()
     }
