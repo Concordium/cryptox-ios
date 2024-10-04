@@ -1913,6 +1913,9 @@
 		08FD0B822A7D31D9003774A6 /* GradienBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FD0B812A7D31D9003774A6 /* GradienBackgroundModifier.swift */; };
 		08FD0B832A7D31D9003774A6 /* GradienBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FD0B812A7D31D9003774A6 /* GradienBackgroundModifier.swift */; };
 		08FD0B842A7D31DD003774A6 /* GrayRoundedBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FD0B7F2A7D271B003774A6 /* GrayRoundedBackgroundModifier.swift */; };
+		15184CED2CB0056C00DAE03A /* CooldownCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15184CEC2CB0056C00DAE03A /* CooldownCardView.swift */; };
+		15184CEE2CB0056C00DAE03A /* CooldownCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15184CEC2CB0056C00DAE03A /* CooldownCardView.swift */; };
+		15184CEF2CB0056C00DAE03A /* CooldownCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15184CEC2CB0056C00DAE03A /* CooldownCardView.swift */; };
 		151A53992C5CF03800EFE20C /* PopupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53982C5CF03800EFE20C /* PopupContainer.swift */; };
 		151A539A2C5CF03800EFE20C /* PopupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53982C5CF03800EFE20C /* PopupContainer.swift */; };
 		151A539B2C5CF03800EFE20C /* PopupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53982C5CF03800EFE20C /* PopupContainer.swift */; };
@@ -3204,6 +3207,7 @@
 		08FD0B7F2A7D271B003774A6 /* GrayRoundedBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayRoundedBackgroundModifier.swift; sourceTree = "<group>"; };
 		08FD0B812A7D31D9003774A6 /* GradienBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradienBackgroundModifier.swift; sourceTree = "<group>"; };
 		15069A1D2C89A1C000697017 /* ProdTestNet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProdTestNet.entitlements; sourceTree = "<group>"; };
+		15184CEC2CB0056C00DAE03A /* CooldownCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CooldownCardView.swift; sourceTree = "<group>"; };
 		151A53982C5CF03800EFE20C /* PopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
 		151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsButtonsView.swift; sourceTree = "<group>"; };
@@ -5082,6 +5086,7 @@
 			children = (
 				08DB5DF22BC6C24300C29663 /* StakeStatusPresenter.swift */,
 				157586392CA55E3700205A6E /* StakeStatusView.swift */,
+				15184CEC2CB0056C00DAE03A /* CooldownCardView.swift */,
 			);
 			path = Status;
 			sourceTree = "<group>";
@@ -7228,6 +7233,7 @@
 				08C167602BB7396200E61326 /* NFTDataItemCell.swift in Sources */,
 				08C167612BB7396200E61326 /* RecoveryPhraseRecoverIntroPresenter.swift in Sources */,
 				08C167622BB7396200E61326 /* RecoveryPhraseGettingStartedViewModel.swift in Sources */,
+				15184CEF2CB0056C00DAE03A /* CooldownCardView.swift in Sources */,
 				509749E32C3E863B00D28D6B /* NewsFeed.swift in Sources */,
 				08C167632BB7396200E61326 /* SubmitSeedAccountPresenter.swift in Sources */,
 				08C167642BB7396200E61326 /* WarningDisplayer.swift in Sources */,
@@ -7937,6 +7943,7 @@
 				D5E6CBDA290F4771009856B7 /* NFTDataItemCell.swift in Sources */,
 				088FF0CC2A02846700042957 /* RecoveryPhraseRecoverIntroPresenter.swift in Sources */,
 				088FF1262A0284F600042957 /* RecoveryPhraseGettingStartedViewModel.swift in Sources */,
+				15184CEE2CB0056C00DAE03A /* CooldownCardView.swift in Sources */,
 				509749E22C3E863B00D28D6B /* NewsFeed.swift in Sources */,
 				088FEFBF2A02717E00042957 /* SubmitSeedAccountPresenter.swift in Sources */,
 				08B16F0B2A0118E1002E6B33 /* WarningDisplayer.swift in Sources */,
@@ -8646,6 +8653,7 @@
 				08B16F092A0118E1002E6B33 /* WarningDisplayer.swift in Sources */,
 				08A0447B29FA987700DACE1F /* SeedIdentityObject.swift in Sources */,
 				088FEFB92A02717D00042957 /* SubmitSeedAccountPresenter.swift in Sources */,
+				15184CED2CB0056C00DAE03A /* CooldownCardView.swift in Sources */,
 				509749E12C3E863B00D28D6B /* NewsFeed.swift in Sources */,
 				088FF0C62A02846600042957 /* RecoveryPhraseRecoverIntroPresenter.swift in Sources */,
 				088FF1202A0284F500042957 /* RecoveryPhraseGettingStartedViewModel.swift in Sources */,
