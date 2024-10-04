@@ -5316,6 +5316,8 @@
 				15F3F0A72C8B1CFF00EF8975 /* TransactionNotificationService.swift */,
 			);
 			path = PushNotifications;
+            sourceTree = "<group>";
+        };
 		15844E582C87444D005A3BF1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -5372,6 +5374,8 @@
 				15F3F0A32C8B032200EF8975 /* NotificationsView.swift */,
 			);
 			path = Notifications;
+               sourceTree = "<group>";
+        };
 		15FC76702C9C269900AC357B /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -9945,32 +9949,12 @@
 			package = 08C166722BB7396200E61326 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
 			productName = SDWebImageSVGCoder;
 		};
-		1557CC9C2C89BED5008ABF67 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1557CC962C89B8DE008ABF67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		1557CC9E2C89BEEF008ABF67 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1557CC962C89B8DE008ABF67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
 		1557CCA02C89BEF5008ABF67 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1557CC962C89B8DE008ABF67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
 		1557CCA22C89CA94008ABF67 /* FirebaseMessaging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1557CC962C89B8DE008ABF67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseMessaging;
-		};
-		1557CCA42C89CA9D008ABF67 /* FirebaseMessaging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1557CC962C89B8DE008ABF67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseMessaging;
-		};
-		1557CCA62C89CAA4008ABF67 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1557CC962C89B8DE008ABF67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
