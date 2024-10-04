@@ -55,6 +55,7 @@ final class AccountsMainRouter: ObservableObject {
     
     @MainActor func showAccountDetail(_ account: AccountDataType) {
         let router = AccountDetailRouter(account: account, navigationController: navigationController, dependencyProvider: dependencyProvider)
+        router.accountMainViewDelegate = self
         let viewModel = AccountDetailViewModel(
             router: router,
             account: account,

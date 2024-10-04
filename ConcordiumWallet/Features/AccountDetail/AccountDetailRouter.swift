@@ -25,6 +25,7 @@ final class AccountDetailRouter: ObservableObject {
     let navigationController: UINavigationController
     let dependencyProvider: ServicesProvider
     let account: AccountDataType
+    weak var accountMainViewDelegate: AccountsMainViewDelegate?
         
     init(account: AccountDataType, navigationController: UINavigationController, dependencyProvider: ServicesProvider) {
         self.navigationController = navigationController
@@ -52,12 +53,14 @@ extension AccountDetailRouter: AccountDetailRoutable {
 
     @MainActor
     func showAccountDetailFlow(for account: AccountDataType) {
-        AccountDetailsCoordinator.init(
+        let accountDetailCoordinator = AccountDetailsCoordinator.init(
             navigationController: navigationController,
             dependencyProvider: dependencyProvider,
             parentCoordinator: self,
             account: account)
-        .showLegacyAccountDetails(account: account)
+        
+        accountDetailCoordinator.accountsMainViewDelegate = accountMainViewDelegate
+        accountDetailCoordinator.showLegacyAccountDetails(account: account)
     }
     
     func showCIS2TokenDetailsFlow(_ token: CIS2Token, account: AccountDataType) {
@@ -114,8 +117,6 @@ extension AccountDetailRouter: AccountDetailsDelegate {
     func accountRemoved() {
         
     }
-    
-    
 }
 
 extension AccountDetailRouter: RequestPasswordDelegate {

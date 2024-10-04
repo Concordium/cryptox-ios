@@ -65,8 +65,7 @@ class DelegationPoolSelectionViewController: KeyboardDismissableBaseViewControll
                                                      right: 0)
         
         UILabel.appearance(whenContainedInInstancesOf: [UISegmentedControl.self]).numberOfLines = 0
-        poolSelectionSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .normal)
-        poolSelectionSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.whiteText], for: .selected)
+        poolSelectionSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
         poolSelectionSegmentedControl.setTitle("delegation.pool.baker".localized, forSegmentAt: 0)
         poolSelectionSegmentedControl.setTitle("delegation.pool.passive".localized, forSegmentAt: 1)
         linkListener = bottomLabel.addOnLinkPressedListener()

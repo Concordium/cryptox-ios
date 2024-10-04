@@ -31,6 +31,7 @@ class AccountDetailsCoordinator: Coordinator,
 {
     var childCoordinators = [Coordinator]()
     weak var parentCoordinator: AccountDetailsDelegate?
+    weak var accountsMainViewDelegate: AccountsMainViewDelegate?
 
     var navigationController: UINavigationController
 
@@ -175,16 +176,7 @@ class AccountDetailsCoordinator: Coordinator,
     }
     
     func showSendFund(balanceType: AccountBalanceTypeEnum = .balance) {
-        let transferType: SendFundTransferType = .simpleTransfer
-        let coordinator = SendFundsCoordinator(navigationController: CXNavigationController(),
-                                               delegate: self,
-                                               dependencyProvider: self.dependencyProvider,
-                                               account: account,
-                                               balanceType: balanceType,
-                                               transferType: transferType)
-        coordinator.start()
-        childCoordinators.append(coordinator)
-        navigationController.present(coordinator.navigationController, animated: true, completion: nil)
+        self.accountsMainViewDelegate?.showSendFundsFlow(account)
     }
     
     func showAccountAddressQR(_ account: AccountDataType) {
@@ -353,13 +345,6 @@ extension AccountDetailsCoordinator: ReleaseSchedulePresenterDelegate {
 extension AccountDetailsCoordinator: TransferFiltersPresenterDelegate {
     func refreshTransactionList() {
         accountDetailsPresenter?.setShouldRefresh(true)
-    }
-}
-
-extension AccountDetailsCoordinator: SendFundsCoordinatorDelegate {
-    func sendFundsCoordinatorFinished() {
-        navigationController.dismiss(animated: true, completion: nil)
-        self.childCoordinators.removeAll {$0 is SendFundsCoordinator}
     }
 }
 

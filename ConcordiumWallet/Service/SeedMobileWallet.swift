@@ -30,6 +30,7 @@ protocol SeedMobileWalletProtocol {
     
     func store(recoveryPhrase: RecoveryPhrase, with pwHash: String) -> Result<Seed, Error>
     func store(recoveryPhrase: RecoveryPhrase, withDelegate requestPasswordDelegate: RequestPasswordDelegate) async throws -> Seed
+    func store(walletPrivateKey: String, with pwHash: String) -> Result<Seed, Error>
     
     func updateSeed(oldPwHash: String, newPwHash: String) throws -> Seed?
  
@@ -121,6 +122,14 @@ class SeedMobileWallet: SeedMobileWalletProtocol {
             try keychain.store(key: recoveryPhraseKey, value: phrase, securedByPassword: pwHash).get()
             
             return Seed(value: seed)
+        }
+    }
+    
+    func store(walletPrivateKey: String, with pwHash: String) -> Result<Seed, Error> {
+        return Result {
+            try keychain.store(key: seedKey, value: walletPrivateKey, securedByPassword: pwHash).get()
+            
+            return Seed(value: walletPrivateKey)
         }
     }
     
