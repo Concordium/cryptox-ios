@@ -34,11 +34,14 @@ struct AppConstants {
         static let baseUrl: String  = {
             var url = ""
             #if MAINNET
-                url = "https://notification-api.mainnet.concordium.software/api/v1/subscription"
+                url = "https://notification-api.mainnet.concordium.software/api/v1/"
             #elseif TESTNET
-                url = "https://notification-api.testnet.concordium.com/api/v1/subscription"
+                url = "https://notification-api.testnet.concordium.com/api/v1/"
             #endif
             return url
         }()
+        
+        static let subscribe = "subscription"
+        static let unsubscribe = "unsubscribe"
     }
 }

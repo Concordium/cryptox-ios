@@ -32,42 +32,57 @@ final class TransactionNotificationService {
     private var currentFcmToken: String?
 
     func sendTokenToConcordiumServer() {
-       guard let currentFcmToken,
-             let url = URL(string: AppConstants.Notifications.baseUrl) else { return }
-        var request = URLRequest(url: url)
-        request.httpMethod = "PUT"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        var preferences = [String]()
-
-        if let isCIS2TransactionNotificationAllowed = UserDefaults().value(forKey: TransactionNotificationNames.cis2.rawValue) as? Bool,
-           isCIS2TransactionNotificationAllowed {
-            preferences.append(TransactionNotificationTypes.cis2.rawValue)
+        guard let preferences = getTransactionNotificationPreferences(), !preferences.isEmpty else {
+            sendRequest(createRequest(isSubscribe: false))
+            return
         }
-        if let isCCDTransactionNotificationAllowed = UserDefaults().value(forKey: TransactionNotificationNames.ccd.rawValue) as? Bool,
-           isCCDTransactionNotificationAllowed{
-            preferences.append(TransactionNotificationTypes.ccd.rawValue)
-        }
-        let accounts = defaultProvider.storageManager().getAccounts().map({$0.address})
         
-        let body: [String : Any] = [
-            "preferences": preferences,
-            "accounts": accounts,
-            "device_token": currentFcmToken
-        ]
+        sendRequest(createRequest(isSubscribe: true, preferences: preferences))
+    }
 
-        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+    private func getTransactionNotificationPreferences() -> [String]? {
+        let cis2Allowed = UserDefaults().bool(forKey: TransactionNotificationNames.cis2.rawValue)
+        let ccdAllowed = UserDefaults().bool(forKey: TransactionNotificationNames.ccd.rawValue)
+        
+        return [cis2Allowed ? TransactionNotificationTypes.cis2.rawValue : nil,
+                ccdAllowed ? TransactionNotificationTypes.ccd.rawValue : nil]
+            .compactMap { $0 }
+    }
 
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+    private func sendRequest(_ request: URLRequest?) {
+        guard let request = request else { return }
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 print("Error subscribing to Concordium server: \(error)")
                 return
-            } else if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+            }
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
                 print("Successfully subscribed to Concordium notification server")
             }
-        }
-        task.resume()
+        }.resume()
     }
+
+    private func createRequest(isSubscribe: Bool, preferences: [String] = []) -> URLRequest? {
+        guard let currentFcmToken,
+              let url = URL(string: AppConstants.Notifications.baseUrl + (isSubscribe ? AppConstants.Notifications.subscribe : AppConstants.Notifications.unsubscribe)) else { return nil }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = isSubscribe ? "PUT" : "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let body: [String: Any] = isSubscribe ? [
+            "preferences": preferences,
+            "accounts": defaultProvider.storageManager().getAccounts().map { $0.address },
+            "device_token": currentFcmToken
+        ] : [
+            "device_token": currentFcmToken
+        ]
+        
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+        return request
+    }
+
     
     func updateFcmToken(_ newToken: String?) {
         currentFcmToken = newToken
