@@ -681,9 +681,7 @@
 		089FF0E72A4F0E67007AB1CF /* AccountQRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089FF0E52A4F0E67007AB1CF /* AccountQRView.swift */; };
 		089FF0EA2A4F4CF0007AB1CF /* JDStatusBarNotification in Frameworks */ = {isa = PBXBuildFile; productRef = 089FF0E92A4F4CF0007AB1CF /* JDStatusBarNotification */; };
 		089FF0EC2A4F4D01007AB1CF /* JDStatusBarNotification in Frameworks */ = {isa = PBXBuildFile; productRef = 089FF0EB2A4F4D01007AB1CF /* JDStatusBarNotification */; };
-		08A0440929FA883E00DACE1F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 08A0440829FA883E00DACE1F /* RealmSwift */; };
 		08A0440B29FA884100DACE1F /* SwiftCBOR in Frameworks */ = {isa = PBXBuildFile; productRef = 08A0440A29FA884100DACE1F /* SwiftCBOR */; };
-		08A0441129FA884F00DACE1F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 08A0441029FA884F00DACE1F /* RealmSwift */; };
 		08A0441329FA885300DACE1F /* SwiftCBOR in Frameworks */ = {isa = PBXBuildFile; productRef = 08A0441229FA885300DACE1F /* SwiftCBOR */; };
 		08A0441829FA887700DACE1F /* MnemonicSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 08A0441729FA887700DACE1F /* MnemonicSwift */; };
 		08A0441C29FA888600DACE1F /* MnemonicSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 08A0441B29FA888600DACE1F /* MnemonicSwift */; };
@@ -1372,7 +1370,6 @@
 		08C168392BB7396200E61326 /* MakeCreateCredentialRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A044B629FA99C000DACE1F /* MakeCreateCredentialRequest.swift */; };
 		08C1683A2BB7396200E61326 /* Aci.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A044F629FA99C900DACE1F /* Aci.swift */; };
 		08C1683B2BB7396200E61326 /* AccountTransactionsDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEDBD2A01677B00042957 /* AccountTransactionsDataViewController.swift */; };
-		08C1683C2BB7396200E61326 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E3C60DD1F86BE4DC76F6 /* AppSettings.swift */; };
 		08C1683D2BB7396200E61326 /* UIView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EC7A96B744D007EE5D7B /* UIView+Additions.swift */; };
 		08C1683E2BB7396200E61326 /* Sizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E113307579CAF5005F21 /* Sizes.swift */; };
 		08C1683F2BB7396200E61326 /* SanityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1D52A02A71C00042957 /* SanityChecker.swift */; };
@@ -1569,7 +1566,6 @@
 		08C1690D2BB7396200E61326 /* RecoveryPhraseConfirmPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF0F52A0284AF00042957 /* RecoveryPhraseConfirmPhraseViewModel.swift */; };
 		08C169102BB7396200E61326 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 08C1666F2BB7396200E61326 /* SDWebImageSwiftUI */; };
 		08C169122BB7396200E61326 /* SwiftCBOR in Frameworks */ = {isa = PBXBuildFile; productRef = 08C1665A2BB7396200E61326 /* SwiftCBOR */; };
-		08C169132BB7396200E61326 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 08C166582BB7396200E61326 /* RealmSwift */; };
 		08C169142BB7396200E61326 /* WalletConnectVerify in Frameworks */ = {isa = PBXBuildFile; productRef = 08C1666B2BB7396200E61326 /* WalletConnectVerify */; };
 		08C169152BB7396200E61326 /* JDStatusBarNotification in Frameworks */ = {isa = PBXBuildFile; productRef = 08C1666D2BB7396200E61326 /* JDStatusBarNotification */; };
 		08C169162BB7396200E61326 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 08C166692BB7396200E61326 /* Starscream */; };
@@ -1579,7 +1575,6 @@
 		08C1691A2BB7396200E61326 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 08C166632BB7396200E61326 /* Kingfisher */; };
 		08C1691B2BB7396200E61326 /* MnemonicSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 08C1665C2BB7396200E61326 /* MnemonicSwift */; };
 		08C1691C2BB7396200E61326 /* WalletConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 08C166672BB7396200E61326 /* WalletConnect */; };
-		08C1691D2BB7396200E61326 /* Base58Swift in Frameworks */ = {isa = PBXBuildFile; productRef = 08C1665E2BB7396200E61326 /* Base58Swift */; };
 		08C1691E2BB7396200E61326 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99CFF6D243EFD7E0045B8E6 /* WebKit.framework */; };
 		08C169212BB7396200E61326 /* intro_flow_onboarding_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2852A02C7E300042957 /* intro_flow_onboarding_en_2.html */; };
 		08C169222BB7396200E61326 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A7723EADB1400F1FC04 /* LaunchScreen.storyboard */; };
@@ -1928,12 +1923,12 @@
 		1557CC942C89B799008ABF67 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1557CC932C89B799008ABF67 /* GoogleService-Info.plist */; };
 		1557CC982C89BBD7008ABF67 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1557CC972C89BBD7008ABF67 /* GoogleService-Info.plist */; };
 		1557CC9B2C89BE26008ABF67 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1557CC9A2C89BE26008ABF67 /* GoogleService-Info.plist */; };
-		1557CC9D2C89BED5008ABF67 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1557CC9C2C89BED5008ABF67 /* FirebaseAuth */; };
-		1557CC9F2C89BEEF008ABF67 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1557CC9E2C89BEEF008ABF67 /* FirebaseAuth */; };
+		1557CC9D2C89BED5008ABF67 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		1557CC9F2C89BEEF008ABF67 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		1557CCA12C89BEF5008ABF67 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1557CCA02C89BEF5008ABF67 /* FirebaseAuth */; };
 		1557CCA32C89CA94008ABF67 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 1557CCA22C89CA94008ABF67 /* FirebaseMessaging */; };
-		1557CCA52C89CA9D008ABF67 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 1557CCA42C89CA9D008ABF67 /* FirebaseMessaging */; };
-		1557CCA72C89CAA4008ABF67 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 1557CCA62C89CAA4008ABF67 /* FirebaseMessaging */; };
+		1557CCA52C89CA9D008ABF67 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		1557CCA72C89CAA4008ABF67 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		1557CCA92C8AF779008ABF67 /* AllowNotificationsPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */; };
 		1557CCAA2C8AF779008ABF67 /* AllowNotificationsPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */; };
 		1557CCAB2C8AF779008ABF67 /* AllowNotificationsPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */; };
@@ -2002,7 +1997,6 @@
 		19C2E468EFC6E715742377B8 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E56CCF5D6B0E255FD1E8 /* BaseViewController.swift */; };
 		19C2E678EF032F92BCB63531 /* Result+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EBFC473BE97DBED4FCC8 /* Result+Additions.swift */; };
 		19C2E724D198C8F480B6ADE2 /* KeychainWrapperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E98D9FF3DA1E0FD8ACB6 /* KeychainWrapperTest.swift */; };
-		19C2E7429349DB90804089D0 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E3C60DD1F86BE4DC76F6 /* AppSettings.swift */; };
 		19C2E8235F5A65E28FB153B6 /* AES256Encryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E9450B1C421941974794 /* AES256Encryption.swift */; };
 		19C2E9D834A3589AECCFDFE6 /* GeneralError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EEBD44B62F16333900D2 /* GeneralError.swift */; };
 		19C2EA06B4E5D36103E1E8A5 /* LegacyLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E837B763654DFA84CC26 /* LegacyLogger.swift */; };
@@ -2050,6 +2044,18 @@
 		509749F52C49207400D28D6B /* UserDefaultsQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749F42C49207400D28D6B /* UserDefaultsQueue.swift */; };
 		509749F62C49207400D28D6B /* UserDefaultsQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749F42C49207400D28D6B /* UserDefaultsQueue.swift */; };
 		509749F72C49207400D28D6B /* UserDefaultsQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749F42C49207400D28D6B /* UserDefaultsQueue.swift */; };
+		509A56292CB40A10005EA908 /* Base58Swift in Frameworks */ = {isa = PBXBuildFile; productRef = 509A56282CB40A10005EA908 /* Base58Swift */; };
+		509A56312CB40BF7005EA908 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 509A56302CB40BF7005EA908 /* RealmSwift */; };
+		509A56322CB40BF7005EA908 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 509A56302CB40BF7005EA908 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		509A56352CB42EFF005EA908 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509A56332CB42EFF005EA908 /* AppSettings.swift */; };
+		509A56362CB42EFF005EA908 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509A56332CB42EFF005EA908 /* AppSettings.swift */; };
+		509A56372CB42EFF005EA908 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509A56332CB42EFF005EA908 /* AppSettings.swift */; };
+		509A56392CB43540005EA908 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 509A56382CB43540005EA908 /* RealmSwift */; };
+		509A563A2CB43540005EA908 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 509A56382CB43540005EA908 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		509A563C2CB43549005EA908 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 509A563B2CB43549005EA908 /* RealmSwift */; };
+		509A563D2CB43549005EA908 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 509A563B2CB43549005EA908 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		509A563F2CB43561005EA908 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 509A563E2CB43561005EA908 /* FirebaseMessaging */; };
+		509A56412CB43568005EA908 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 509A56402CB43568005EA908 /* FirebaseMessaging */; };
 		50D3890D2C05D66A00B3675A /* ConfirmAccountCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE952A026B6400042957 /* ConfirmAccountCreateViewController.swift */; };
 		50D3890E2C05D66A00B3675A /* ConfirmAccountCreatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE972A026B6500042957 /* ConfirmAccountCreatePresenter.swift */; };
 		50D3890F2C05D66B00B3675A /* ConfirmAccountCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE952A026B6400042957 /* ConfirmAccountCreateViewController.swift */; };
@@ -2143,7 +2149,6 @@
 		7F85B86F246A9AB600ED09B8 /* ShowErrorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D342B8245884AA007ED45E /* ShowErrorProtocol.swift */; };
 		7F85B870246A9AB600ED09B8 /* AccountDetailsIdentityDataCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CE0BF2439EDC500B1A88D /* AccountDetailsIdentityDataCellView.swift */; };
 		7F85B886246A9AB600ED09B8 /* LetterSpacingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EBAEE6EC2525447CCDB5 /* LetterSpacingLabel.swift */; };
-		7F85B88C246A9AB600ED09B8 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E3C60DD1F86BE4DC76F6 /* AppSettings.swift */; };
 		7F85B88D246A9AB600ED09B8 /* UIView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EC7A96B744D007EE5D7B /* UIView+Additions.swift */; };
 		7F85B88F246A9AB600ED09B8 /* Sizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E113307579CAF5005F21 /* Sizes.swift */; };
 		7F85B891246A9AB600ED09B8 /* Result+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EBFC473BE97DBED4FCC8 /* Result+Additions.swift */; };
@@ -2640,6 +2645,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				509A563D2CB43549005EA908 /* RealmSwift in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2650,6 +2656,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				509A563A2CB43540005EA908 /* RealmSwift in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2660,6 +2667,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				509A56322CB40BF7005EA908 /* RealmSwift in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3234,7 +3242,6 @@
 		15FC76752C9C26E600AC357B /* RecoverAccountsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverAccountsViewModel.swift; sourceTree = "<group>"; };
 		15FC76792C9D699F00AC357B /* ExportWalletPrivateKeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportWalletPrivateKeyView.swift; sourceTree = "<group>"; };
 		19C2E113307579CAF5005F21 /* Sizes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
-		19C2E3C60DD1F86BE4DC76F6 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSettings.swift; path = Settings/AppSettings.swift; sourceTree = "<group>"; };
 		19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+Utils.swift"; sourceTree = "<group>"; };
 		19C2E3CDEECE4195E320FCBF /* ToastLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastLabel.swift; sourceTree = "<group>"; };
 		19C2E4B1F77014C882288F8E /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -3268,6 +3275,7 @@
 		509749E42C3E886C00D28D6B /* RSSFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeed.swift; sourceTree = "<group>"; };
 		509749F02C49203200D28D6B /* MatomoTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatomoTracker.swift; sourceTree = "<group>"; };
 		509749F42C49207400D28D6B /* UserDefaultsQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsQueue.swift; sourceTree = "<group>"; };
+		509A56332CB42EFF005EA908 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		50D3891C2C107C1E00B3675A /* TokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenView.swift; sourceTree = "<group>"; };
 		50D389222C107C7500B3675A /* CustomSVGDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSVGDecoder.swift; sourceTree = "<group>"; };
 		50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldedAccountsView.swift; sourceTree = "<group>"; };
@@ -3279,8 +3287,8 @@
 		52589B2525128F8700ADD35B /* AccountMultiBalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountMultiBalanceCell.swift; sourceTree = "<group>"; };
 		527DE34F257378DC00333E65 /* ReleaseScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseScheduleCell.swift; sourceTree = "<group>"; };
 		6426D91B260C9F47007021BB /* UIDevice+JailBroken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+JailBroken.swift"; sourceTree = "<group>"; };
-		644BB67225DFB4220086ED48 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = main.swift; path = ConcordiumWallet/main.swift; sourceTree = "<group>"; };
-		644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ConcordiumApplication.swift; path = ConcordiumWallet/ConcordiumApplication.swift; sourceTree = "<group>"; };
+		644BB67225DFB4220086ED48 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcordiumApplication.swift; sourceTree = "<group>"; };
 		7F0573DE24AC710C009517AD /* StorageManagerMockHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageManagerMockHelper.swift; sourceTree = "<group>"; };
 		7F0573DF24AC710C009517AD /* TransactionsServiceMockHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsServiceMockHelper.swift; sourceTree = "<group>"; };
 		7F0573E024AC710C009517AD /* DependencyProviderMockHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyProviderMockHelper.swift; sourceTree = "<group>"; };
@@ -3549,21 +3557,21 @@
 			files = (
 				509749EF2C491A6800D28D6B /* MatomoTracker in Frameworks */,
 				08C169102BB7396200E61326 /* SDWebImageSwiftUI in Frameworks */,
+				509A56292CB40A10005EA908 /* Base58Swift in Frameworks */,
 				08C169122BB7396200E61326 /* SwiftCBOR in Frameworks */,
-				08C169132BB7396200E61326 /* RealmSwift in Frameworks */,
 				08C169142BB7396200E61326 /* WalletConnectVerify in Frameworks */,
 				08C169152BB7396200E61326 /* JDStatusBarNotification in Frameworks */,
 				08C169162BB7396200E61326 /* Starscream in Frameworks */,
 				08C169172BB7396200E61326 /* SDWebImageSVGCoder in Frameworks */,
 				08C169182BB7396200E61326 /* ConcordiumWalletCrypto in Frameworks */,
+				509A56312CB40BF7005EA908 /* RealmSwift in Frameworks */,
 				1557CCA32C89CA94008ABF67 /* FirebaseMessaging in Frameworks */,
 				08C169192BB7396200E61326 /* Web3Wallet in Frameworks */,
 				08C1691A2BB7396200E61326 /* Kingfisher in Frameworks */,
 				08C1691B2BB7396200E61326 /* MnemonicSwift in Frameworks */,
 				08C1691C2BB7396200E61326 /* WalletConnect in Frameworks */,
-				08C1691D2BB7396200E61326 /* Base58Swift in Frameworks */,
 				08C1691E2BB7396200E61326 /* WebKit.framework in Frameworks */,
-				1557CC9D2C89BED5008ABF67 /* FirebaseAuth in Frameworks */,
+				1557CC9D2C89BED5008ABF67 /* (null) in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3571,23 +3579,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				509A563F2CB43561005EA908 /* FirebaseMessaging in Frameworks */,
 				509749ED2C491A6100D28D6B /* MatomoTracker in Frameworks */,
 				5059C9B52C00CF1200E40307 /* SDWebImageSwiftUI in Frameworks */,
 				08A0441329FA885300DACE1F /* SwiftCBOR in Frameworks */,
-				08A0441129FA884F00DACE1F /* RealmSwift in Frameworks */,
 				089B34252A16851700F3CD90 /* WalletConnectVerify in Frameworks */,
 				089FF0EC2A4F4D01007AB1CF /* JDStatusBarNotification in Frameworks */,
 				089B341B2A164BE900F3CD90 /* Starscream in Frameworks */,
 				083505072A9F4F14000D5175 /* SDWebImageSVGCoder in Frameworks */,
 				089E32852A0BA0DE002AE530 /* ConcordiumWalletCrypto in Frameworks */,
-				1557CCA72C89CAA4008ABF67 /* FirebaseMessaging in Frameworks */,
+				1557CCA72C89CAA4008ABF67 /* (null) in Frameworks */,
+				509A56392CB43540005EA908 /* RealmSwift in Frameworks */,
 				0867CAE52A44661C00D7887D /* Web3Wallet in Frameworks */,
 				08A0444729FA906200DACE1F /* Kingfisher in Frameworks */,
 				08A0441C29FA888600DACE1F /* MnemonicSwift in Frameworks */,
 				089B340C2A16377600F3CD90 /* WalletConnect in Frameworks */,
 				08A0442529FA893700DACE1F /* Base58Swift in Frameworks */,
 				7F85B8BA246A9AB600ED09B8 /* WebKit.framework in Frameworks */,
-				1557CC9F2C89BEEF008ABF67 /* FirebaseAuth in Frameworks */,
+				1557CC9F2C89BEEF008ABF67 /* (null) in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3595,16 +3604,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				509A56412CB43568005EA908 /* FirebaseMessaging in Frameworks */,
 				509749EB2C491A0D00D28D6B /* MatomoTracker in Frameworks */,
 				5059C9B72C00CF1700E40307 /* SDWebImageSwiftUI in Frameworks */,
 				08A0442129FA892F00DACE1F /* Base58Swift in Frameworks */,
 				083505002A9E3DFA000D5175 /* SDWebImageSVGCoder in Frameworks */,
-				08A0440929FA883E00DACE1F /* RealmSwift in Frameworks */,
 				089FF0EA2A4F4CF0007AB1CF /* JDStatusBarNotification in Frameworks */,
 				089E32812A0BA0CE002AE530 /* ConcordiumWalletCrypto in Frameworks */,
 				089B340F2A16489700F3CD90 /* Web3Wallet in Frameworks */,
 				08A0444329FA905700DACE1F /* Kingfisher in Frameworks */,
-				1557CCA52C89CA9D008ABF67 /* FirebaseMessaging in Frameworks */,
+				1557CCA52C89CA9D008ABF67 /* (null) in Frameworks */,
+				509A563C2CB43549005EA908 /* RealmSwift in Frameworks */,
 				089B340A2A16376B00F3CD90 /* WalletConnect in Frameworks */,
 				08A0440B29FA884100DACE1F /* SwiftCBOR in Frameworks */,
 				08A0441829FA887700DACE1F /* MnemonicSwift in Frameworks */,
@@ -5322,6 +5332,14 @@
 			path = Firebase;
 			sourceTree = "<group>";
 		};
+		15844E582C87444D005A3BF1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				15844E592C87445B005A3BF1 /* TransferTokenViewModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		15844E632C888BC2005A3BF1 /* PushNotifications */ = {
 			isa = PBXGroup;
 			children = (
@@ -5329,14 +5347,6 @@
 				15F3F0A72C8B1CFF00EF8975 /* TransactionNotificationService.swift */,
 			);
 			path = PushNotifications;
-            sourceTree = "<group>";
-        };
-		15844E582C87444D005A3BF1 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				15844E592C87445B005A3BF1 /* TransferTokenViewModel.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		1599807F2C77391F00AE86B5 /* Models */ = {
@@ -5387,8 +5397,8 @@
 				15F3F0A32C8B032200EF8975 /* NotificationsView.swift */,
 			);
 			path = Notifications;
-               sourceTree = "<group>";
-        };
+			sourceTree = "<group>";
+		};
 		15FC76702C9C269900AC357B /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -5454,6 +5464,14 @@
 				509749F42C49207400D28D6B /* UserDefaultsQueue.swift */,
 			);
 			path = Tracking;
+			sourceTree = "<group>";
+		};
+		509A56342CB42EFF005EA908 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				509A56332CB42EFF005EA908 /* AppSettings.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		50D3891B2C107C1400B3675A /* ImportToken */ = {
@@ -5570,14 +5588,12 @@
 				15069A1D2C89A1C000697017 /* ProdTestNet.entitlements */,
 				507629652BF2040B00B4D390 /* CHANGELOG.md */,
 				7FF07A9F23EADBB100F1FC04 /* README.md */,
-				644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */,
 				0893CC452A66D36C00A10F73 /* Logger.swift */,
 				7FF07A6B23EADB1200F1FC04 /* ConcordiumWallet */,
 				7FF07A8223EADB1500F1FC04 /* ConcordiumWalletTests */,
 				7FA3FE3E23F43AEB00A3D8B8 /* Dependencies */,
 				6BB39F873C67A7442AE8DD30 /* Frameworks */,
 				7FF07A8E23EADBB100F1FC04 /* ioscommon */,
-				644BB67225DFB4220086ED48 /* main.swift */,
 				19C2E793C0A30253D187EC88 /* .swiftlint.yml */,
 				089E327F2A0BA07B002AE530 /* ConcordiumWallet-Briding-Header-File.h */,
 				D589F34F2794B96A003F2FBB /* mock */,
@@ -5599,6 +5615,7 @@
 		7FF07A6B23EADB1200F1FC04 /* ConcordiumWallet */ = {
 			isa = PBXGroup;
 			children = (
+				509A56342CB42EFF005EA908 /* Settings */,
 				50D389202C107C6000B3675A /* Core */,
 				088FEC682A01483D00042957 /* Features */,
 				08B16F352A011E4C002E6B33 /* Design */,
@@ -5612,9 +5629,10 @@
 				507629692BF2293400B4D390 /* LegacyWalletConnect */,
 				7FF07AE323EAE09B00F1FC04 /* Views */,
 				7FF07A6C23EADB1200F1FC04 /* AppDelegate.swift */,
-				19C2E3C60DD1F86BE4DC76F6 /* AppSettings.swift */,
 				D5B87CD927A2EC2F00F27819 /* LaunchScreenViewController.swift */,
 				7FA8F3B4241BAC9400479F83 /* AppCoordinator.swift */,
+				644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */,
+				644BB67225DFB4220086ED48 /* main.swift */,
 			);
 			path = ConcordiumWallet;
 			sourceTree = "<group>";
@@ -6299,10 +6317,8 @@
 			);
 			name = ProdTestNet;
 			packageProductDependencies = (
-				08C166582BB7396200E61326 /* RealmSwift */,
 				08C1665A2BB7396200E61326 /* SwiftCBOR */,
 				08C1665C2BB7396200E61326 /* MnemonicSwift */,
-				08C1665E2BB7396200E61326 /* Base58Swift */,
 				08C166632BB7396200E61326 /* Kingfisher */,
 				08C166652BB7396200E61326 /* ConcordiumWalletCrypto */,
 				08C166672BB7396200E61326 /* WalletConnect */,
@@ -6313,8 +6329,9 @@
 				08C1666F2BB7396200E61326 /* SDWebImageSwiftUI */,
 				08C166712BB7396200E61326 /* SDWebImageSVGCoder */,
 				509749EE2C491A6800D28D6B /* MatomoTracker */,
-				1557CC9C2C89BED5008ABF67 /* FirebaseAuth */,
 				1557CCA22C89CA94008ABF67 /* FirebaseMessaging */,
+				509A56282CB40A10005EA908 /* Base58Swift */,
+				509A56302CB40BF7005EA908 /* RealmSwift */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 08C169C22BB7396200E61326 /* ProdTestNet.app */;
@@ -6336,7 +6353,6 @@
 			);
 			name = ProdMainNet;
 			packageProductDependencies = (
-				08A0441029FA884F00DACE1F /* RealmSwift */,
 				08A0441229FA885300DACE1F /* SwiftCBOR */,
 				08A0441B29FA888600DACE1F /* MnemonicSwift */,
 				08A0442429FA893700DACE1F /* Base58Swift */,
@@ -6350,8 +6366,8 @@
 				083505062A9F4F14000D5175 /* SDWebImageSVGCoder */,
 				5059C9B42C00CF1200E40307 /* SDWebImageSwiftUI */,
 				509749EC2C491A6100D28D6B /* MatomoTracker */,
-				1557CC9E2C89BEEF008ABF67 /* FirebaseAuth */,
-				1557CCA62C89CAA4008ABF67 /* FirebaseMessaging */,
+				509A56382CB43540005EA908 /* RealmSwift */,
+				509A563E2CB43561005EA908 /* FirebaseMessaging */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
@@ -6373,7 +6389,6 @@
 			);
 			name = StagingNet;
 			packageProductDependencies = (
-				08A0440829FA883E00DACE1F /* RealmSwift */,
 				08A0440A29FA884100DACE1F /* SwiftCBOR */,
 				08A0441729FA887700DACE1F /* MnemonicSwift */,
 				08A0442029FA892F00DACE1F /* Base58Swift */,
@@ -6388,7 +6403,8 @@
 				5059C9B62C00CF1700E40307 /* SDWebImageSwiftUI */,
 				509749EA2C491A0D00D28D6B /* MatomoTracker */,
 				1557CCA02C89BEF5008ABF67 /* FirebaseAuth */,
-				1557CCA42C89CA9D008ABF67 /* FirebaseMessaging */,
+				509A563B2CB43549005EA908 /* RealmSwift */,
+				509A56402CB43568005EA908 /* FirebaseMessaging */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
@@ -7399,6 +7415,7 @@
 				08C167F72BB7396200E61326 /* IdentitiesViewController.swift in Sources */,
 				08C167F82BB7396200E61326 /* IdentityWrapperShell.swift in Sources */,
 				08C167F92BB7396200E61326 /* AppSettingsResponse.swift in Sources */,
+				509A56352CB42EFF005EA908 /* AppSettings.swift in Sources */,
 				08C167FB2BB7396200E61326 /* SelectIdentityProviderView.swift in Sources */,
 				08C167FC2BB7396200E61326 /* Reusable.swift in Sources */,
 				08C167FD2BB7396200E61326 /* SeedAccountsService.swift in Sources */,
@@ -7461,7 +7478,6 @@
 				08C168392BB7396200E61326 /* MakeCreateCredentialRequest.swift in Sources */,
 				08C1683A2BB7396200E61326 /* Aci.swift in Sources */,
 				08C1683B2BB7396200E61326 /* AccountTransactionsDataViewController.swift in Sources */,
-				08C1683C2BB7396200E61326 /* AppSettings.swift in Sources */,
 				50EB31012BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */,
 				08C1683D2BB7396200E61326 /* UIView+Additions.swift in Sources */,
 				08E472B92BCEFB53004F0088 /* SessionRequestDataType.swift in Sources */,
@@ -8109,6 +8125,7 @@
 				088FEF102A026F0100042957 /* IdentitiesViewController.swift in Sources */,
 				D589F1E92794B5ED003F2FBB /* IdentityWrapperShell.swift in Sources */,
 				088FF14B2A0286A200042957 /* AppSettingsResponse.swift in Sources */,
+				509A56362CB42EFF005EA908 /* AppSettings.swift in Sources */,
 				088FEFF52A0271D500042957 /* SelectIdentityProviderView.swift in Sources */,
 				D5C9F11B2905DAE3003C8D17 /* Reusable.swift in Sources */,
 				088FF0142A02726000042957 /* SeedAccountsService.swift in Sources */,
@@ -8171,7 +8188,6 @@
 				08A045F229FA99D200DACE1F /* MakeCreateCredentialRequest.swift in Sources */,
 				08A045DD29FA99D200DACE1F /* Aci.swift in Sources */,
 				088FEDCC2A01677F00042957 /* AccountTransactionsDataViewController.swift in Sources */,
-				7F85B88C246A9AB600ED09B8 /* AppSettings.swift in Sources */,
 				50EB31002BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */,
 				7F85B88D246A9AB600ED09B8 /* UIView+Additions.swift in Sources */,
 				08E472B82BCEFB53004F0088 /* SessionRequestDataType.swift in Sources */,
@@ -8819,6 +8835,7 @@
 				088FEF022A026F0000042957 /* IdentitiesViewController.swift in Sources */,
 				088FF1492A0286A200042957 /* AppSettingsResponse.swift in Sources */,
 				D5C9F1192905DAE3003C8D17 /* Reusable.swift in Sources */,
+				509A56372CB42EFF005EA908 /* AppSettings.swift in Sources */,
 				08BC951A2A3717210058F1B9 /* TransferTokenConfirmView.swift in Sources */,
 				088FEFEF2A0271D400042957 /* SelectIdentityProviderView.swift in Sources */,
 				08FD0B822A7D31D9003774A6 /* GradienBackgroundModifier.swift in Sources */,
@@ -8881,7 +8898,6 @@
 				08A0454529FA99D100DACE1F /* Aci.swift in Sources */,
 				088FEDC42A01677E00042957 /* AccountTransactionsDataViewController.swift in Sources */,
 				D5B39402271990D60094A9F5 /* CircleView.swift in Sources */,
-				19C2E7429349DB90804089D0 /* AppSettings.swift in Sources */,
 				50EB30FF2BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */,
 				08E472B72BCEFB53004F0088 /* SessionRequestDataType.swift in Sources */,
 				19C2E1F4C4825F62DEE3EE2B /* UIView+Additions.swift in Sources */,
@@ -9621,8 +9637,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Concordium/concordium-wallet-crypto-swift";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = exactVersion;
+				version = "0.24.0-0";
 			};
 		};
 		089FF0E82A4F4CF0007AB1CF /* XCRemoteSwiftPackageReference "JDStatusBarNotification" */ = {
@@ -9637,8 +9653,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift";
 			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 10.28.0;
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.54.0;
 			};
 		};
 		08A0440529FA883400DACE1F /* XCRemoteSwiftPackageReference "SwiftCBOR" */ = {
@@ -9673,14 +9689,6 @@
 				minimumVersion = 7.0.0;
 			};
 		};
-		08C166592BB7396200E61326 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/realm-swift";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 10.28.0;
-			};
-		};
 		08C1665B2BB7396200E61326 /* XCRemoteSwiftPackageReference "SwiftCBOR" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/unrelentingtech/SwiftCBOR";
@@ -9695,14 +9703,6 @@
 			requirement = {
 				kind = upToNextMinorVersion;
 				minimumVersion = 2.2.0;
-			};
-		};
-		08C1665F2BB7396200E61326 /* XCRemoteSwiftPackageReference "Base58Swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/keefertaylor/Base58Swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
 			};
 		};
 		08C166642BB7396200E61326 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
@@ -9858,20 +9858,10 @@
 			package = 089FF0E82A4F4CF0007AB1CF /* XCRemoteSwiftPackageReference "JDStatusBarNotification" */;
 			productName = JDStatusBarNotification;
 		};
-		08A0440829FA883E00DACE1F /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 08A0440229FA881400DACE1F /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = RealmSwift;
-		};
 		08A0440A29FA884100DACE1F /* SwiftCBOR */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 08A0440529FA883400DACE1F /* XCRemoteSwiftPackageReference "SwiftCBOR" */;
 			productName = SwiftCBOR;
-		};
-		08A0441029FA884F00DACE1F /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 08A0440229FA881400DACE1F /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = RealmSwift;
 		};
 		08A0441229FA885300DACE1F /* SwiftCBOR */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -9908,11 +9898,6 @@
 			package = 08A0443F29FA904B00DACE1F /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
-		08C166582BB7396200E61326 /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 08C166592BB7396200E61326 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = RealmSwift;
-		};
 		08C1665A2BB7396200E61326 /* SwiftCBOR */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 08C1665B2BB7396200E61326 /* XCRemoteSwiftPackageReference "SwiftCBOR" */;
@@ -9922,11 +9907,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 08C1665D2BB7396200E61326 /* XCRemoteSwiftPackageReference "MnemonicSwift" */;
 			productName = MnemonicSwift;
-		};
-		08C1665E2BB7396200E61326 /* Base58Swift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 08C1665F2BB7396200E61326 /* XCRemoteSwiftPackageReference "Base58Swift" */;
-			productName = Base58Swift;
 		};
 		08C166632BB7396200E61326 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -10007,6 +9987,36 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 509749E92C491A0D00D28D6B /* XCRemoteSwiftPackageReference "matomo-sdk-ios" */;
 			productName = MatomoTracker;
+		};
+		509A56282CB40A10005EA908 /* Base58Swift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 08A0441D29FA892800DACE1F /* XCRemoteSwiftPackageReference "Base58Swift" */;
+			productName = Base58Swift;
+		};
+		509A56302CB40BF7005EA908 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 08A0440229FA881400DACE1F /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		509A56382CB43540005EA908 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 08A0440229FA881400DACE1F /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		509A563B2CB43549005EA908 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 08A0440229FA881400DACE1F /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		509A563E2CB43561005EA908 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1557CC962C89B8DE008ABF67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		509A56402CB43568005EA908 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1557CC962C89B8DE008ABF67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

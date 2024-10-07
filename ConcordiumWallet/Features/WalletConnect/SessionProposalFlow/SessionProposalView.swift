@@ -103,7 +103,7 @@ final class SessionProposalViewModel: ObservableObject {
     @MainActor
     func rejectSessionRequest(_ completion: (() -> Void)?) async {
         do {
-            try await Sign.instance.reject(proposalId: sessionProposal.id, reason: .userRejected)
+            try await Sign.instance.rejectSession(proposalId: sessionProposal.id, reason: .userRejected)
             completion?()
         } catch {
             logger.debugLog(error.localizedDescription)
@@ -259,7 +259,7 @@ struct SessionProposalView: View {
     private func sessionProposalView(namespaces: ProposalNamespace) -> some View {
         VStack {
             VStack(alignment: .leading) {
-                TagsView(items: Array(namespaces.chains ?? Set())) {
+                TagsView(items: namespaces.chains ?? []) {
                     Text($0.absoluteString.uppercased())
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(Color.greySecondary)

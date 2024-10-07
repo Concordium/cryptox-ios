@@ -30,15 +30,15 @@ final class WalletConnectService {
             name: "CryptoX",
             description: "CryptoX - Blockchain Wallet",
             url: "https://apps.apple.com/app/cryptox-wallet/id1593386457",
-            icons: ["https://is2-ssl.mzstatic.com/image/thumb/Purple122/v4/d2/76/4f/d2764f4a-cb11-2039-7edf-7bb1a7ea36d8/AppIcon-1x_U007emarketing-0-5-0-sRGB-85-220.png/230x0w.png"]
+            icons: ["https://is2-ssl.mzstatic.com/image/thumb/Purple122/v4/d2/76/4f/d2764f4a-cb11-2039-7edf-7bb1a7ea36d8/AppIcon-1x_U007emarketing-0-5-0-sRGB-85-220.png/230x0w.png"],
+            redirect: try! AppMetadata.Redirect(native: "example://", universal: nil)
         )
         
         Pair.configure(metadata: metadata)
         Networking.configure(
-            projectId: CONCORDIUM_WALLET_CONNECT_PROJECT_ID,
+            groupIdentifier: "group.com.concordium.wallet", projectId: CONCORDIUM_WALLET_CONNECT_PROJECT_ID,
             socketFactory: DefaultSocketFactory()
         )
-        
         initialize()
     }
     
@@ -48,6 +48,7 @@ final class WalletConnectService {
     }
     
     func initialize() {
+        Sign.configure(crypto: WC2CryptoProvider())
         Sign.instance.sessionRequestPublisher.delay(for: 2, scheduler: RunLoop.main)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] session in
@@ -106,4 +107,16 @@ final class WalletConnectService {
                 self?.delegate?.showSessionRequest(with: session.request)
             }.store(in: &publishers)
     }
+}
+
+enum CryptoError: Error {
+    case notImplemented
+}
+
+struct WC2CryptoProvider: CryptoProvider {
+    public func recoverPubKey(signature: EthereumSignature, message: Data) throws -> Data {
+        throw CryptoError.notImplemented
+    }
+
+    public func keccak256(_ data: Data) -> Data { data }
 }

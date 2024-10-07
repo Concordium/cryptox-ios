@@ -145,6 +145,11 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         
         navigationController.popViewController(animated: false)
         
+        if (!accounts.isEmpty && !defaultProvider.seedMobileWallet().isMnemonicPhraseSaved) && !defaultProvider.mobileWallet().isLegacyAccount() {
+            logoutAccounts()
+            return
+        }
+        
         
         if !accounts.isEmpty || !identities.isEmpty {
             navigationController.setViewControllers([UIHostingController(
