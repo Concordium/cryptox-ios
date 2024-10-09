@@ -64,6 +64,8 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         }
 
         AppSettings.hasRunBefore = true
+        
+        legacyLogoutMigration()
         showLogin()
     }
     
@@ -145,12 +147,6 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         
         navigationController.popViewController(animated: false)
         
-        if (!accounts.isEmpty && !defaultProvider.seedMobileWallet().isMnemonicPhraseSaved) && !defaultProvider.mobileWallet().isLegacyAccount() {
-            logoutAccounts()
-            return
-        }
-        
-        
         if !accounts.isEmpty || !identities.isEmpty {
             navigationController.setViewControllers([UIHostingController(
                 rootView:
@@ -171,6 +167,23 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
             }
                 
         }
+    }
+    
+    private func legacyLogoutMigration() {
+        let identities = defaultProvider.storageManager().getIdentities()
+        let accounts = defaultProvider.storageManager().getAccounts()
+                
+        guard (!accounts.isEmpty && !defaultProvider.seedMobileWallet().isMnemonicPhraseSaved) || defaultProvider.mobileWallet().isLegacyAccount() else { return }
+        
+        isAcceptedPrivacy = false
+        isRestoredDefaultCIS2Tokens = false
+        clearAppDataFromPreviousInstall()
+//        accountsCoordinator?.childCoordinators.removeAll()
+//        accountsCoordinator = nil
+//        childCoordinators.removeAll()
+//        navigationController = CXNavigationController()
+//        UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController = navigationController
+//        start()
     }
 
     private func showAnalyticsPopup() {
