@@ -169,15 +169,20 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         }
     }
     
+    @MainActor
     private func legacyLogoutMigration() {
         let identities = defaultProvider.storageManager().getIdentities()
         let accounts = defaultProvider.storageManager().getAccounts()
+        
+        let isEmptyDatabase = identities.isEmpty && accounts.isEmpty
                 
-        guard (!accounts.isEmpty && !defaultProvider.seedMobileWallet().isMnemonicPhraseSaved) || defaultProvider.mobileWallet().isLegacyAccount() else { return }
+        guard (!isEmptyDatabase && !defaultProvider.seedMobileWallet().isMnemonicPhraseSaved) || defaultProvider.mobileWallet().isLegacyAccount() else { return }
         
         isAcceptedPrivacy = false
         isRestoredDefaultCIS2Tokens = false
         clearAppDataFromPreviousInstall()
+        
+        try? defaultProvider.storageManager().removeAllAccounts()
 //        accountsCoordinator?.childCoordinators.removeAll()
 //        accountsCoordinator = nil
 //        childCoordinators.removeAll()
