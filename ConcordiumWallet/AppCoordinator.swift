@@ -175,8 +175,9 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         let accounts = defaultProvider.storageManager().getAccounts()
         
         let isEmptyDatabase = identities.isEmpty && accounts.isEmpty
+        let hasKeychainData = defaultProvider.seedMobileWallet().isMnemonicPhraseSaved || defaultProvider.seedMobileWallet().hasSetupRecoveryPhrase
                 
-        guard (!isEmptyDatabase && !defaultProvider.seedMobileWallet().isMnemonicPhraseSaved) || defaultProvider.mobileWallet().isLegacyAccount() else { return }
+        guard (!isEmptyDatabase && hasKeychainData) || defaultProvider.mobileWallet().isLegacyAccount() else { return }
         
         isAcceptedPrivacy = false
         isRestoredDefaultCIS2Tokens = false
