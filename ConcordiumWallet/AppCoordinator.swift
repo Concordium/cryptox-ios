@@ -46,6 +46,9 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     @AppStorage("isRestoredDefaultCIS2Tokens") private var isRestoredDefaultCIS2Tokens = false
     @AppStorage("isAcceptedPrivacy") private var isAcceptedPrivacy = false
     
+    /// Well this is was done because of keychain migration issue, i guess we can remove this after some migration
+    @AppStorage("shoudlLogoutAllUsers") private var shoudlLogoutAllUsers = true
+    
     @State var isPresentedAnalyticsPopup: Bool = false
 
     override init() {
@@ -171,25 +174,12 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     
     @MainActor
     private func legacyLogoutMigration() {
-        let identities = defaultProvider.storageManager().getIdentities()
-        let accounts = defaultProvider.storageManager().getAccounts()
-        
-        let isEmptyDatabase = identities.isEmpty && accounts.isEmpty
-        let hasKeychainData = defaultProvider.seedMobileWallet().isMnemonicPhraseSaved || defaultProvider.seedMobileWallet().hasSetupRecoveryPhrase
-                
-        guard (!isEmptyDatabase && hasKeychainData) || defaultProvider.mobileWallet().isLegacyAccount() else { return }
-        
+        guard shoudlLogoutAllUsers else { return }
         isAcceptedPrivacy = false
         isRestoredDefaultCIS2Tokens = false
         clearAppDataFromPreviousInstall()
-        
         try? defaultProvider.storageManager().removeAllAccounts()
-//        accountsCoordinator?.childCoordinators.removeAll()
-//        accountsCoordinator = nil
-//        childCoordinators.removeAll()
-//        navigationController = CXNavigationController()
-//        UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController = navigationController
-//        start()
+        shoudlLogoutAllUsers = false
     }
 
     private func showAnalyticsPopup() {
