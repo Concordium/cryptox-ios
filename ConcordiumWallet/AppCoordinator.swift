@@ -46,7 +46,10 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     @AppStorage("isRestoredDefaultCIS2Tokens") private var isRestoredDefaultCIS2Tokens = false
     @AppStorage("isAcceptedPrivacy") private var isAcceptedPrivacy = false
     
-    /// Well this is was done because of keychain migration issue, i guess we can remove this after some migration
+    ///
+    /// Well, this is was done because of keychain migration issue,  we can remove this after some migration
+    /// Release with this changes will be 2.0.0
+    ///
     @AppStorage("shoudlLogoutAllUsers") private var shoudlLogoutAllUsers = true
     
     @State var isPresentedAnalyticsPopup: Bool = false
