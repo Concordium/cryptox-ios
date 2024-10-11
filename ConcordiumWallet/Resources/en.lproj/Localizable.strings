@@ -272,6 +272,7 @@ process on-chain.";
 "sendFund.memo.textValue" = "%@ CCD";
 "sendFund.addMemoButtonTitle" = "Add Memo";
 "sendFund.editMemoButtonTitle" = "Edit Memo";
+"sendFund.confirmation.transfer" = "Transfer Confirmation Details";
 
 "addMemo.pageTitle" = "Add memo";
 "addMemo.pageSubTitle" = "What would you like to name your memo id?";

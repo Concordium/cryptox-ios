@@ -165,7 +165,7 @@ struct TransferTokenConfirmView: View {
             
             Spacer()
             
-            Text("sendFund.memo.text".localized)
+            Text("sendFund.memo.textTitle".localized)
                 .foregroundColor(Color.blackAditional)
                 .font(.system(size: 15, weight: .medium))
 
