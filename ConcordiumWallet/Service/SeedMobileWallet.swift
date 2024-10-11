@@ -10,10 +10,6 @@ import Foundation
 import Combine
 import MnemonicSwift
 
-/*
-    Consider to replace seed storing, in favor of whole mnemonic phrase storing and generating seed on fligt from phrase
- */
-
 protocol SeedMobileWalletProtocol {
     var hasSetupRecoveryPhrase: Bool { get }
     var isMnemonicPhraseSaved: Bool { get }
