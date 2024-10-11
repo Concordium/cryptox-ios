@@ -17,16 +17,7 @@ struct TransferTokenView: View {
     @EnvironmentObject var router: TransferTokenRouter
     
     @State var isPickerPresented = false
-    
-    let numberFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.minimum = .init(integerLiteral: 1)
-        formatter.maximum = .init(integerLiteral: Int.max)
-        formatter.generatesDecimalNumbers = false
-        formatter.maximumFractionDigits = 0
-        return formatter
-    }()
-    
+
     var body: some View {
         VStack {
             List {

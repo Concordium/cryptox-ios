@@ -52,7 +52,9 @@ struct DecimalNumberTextField: View {
                 .foregroundColor(.blackSecondary)
                 .tint(.blackSecondary)
                 .onChange(of: decimalValue) { newDecimalValue in
-                    self.textFieldText = TokenFormatter().plainString(from: newDecimalValue)
+                    if !(newDecimalValue.value == 0) {
+                        self.textFieldText = TokenFormatter().plainString(from: newDecimalValue)
+                    }
                 }
         }
         .frame(height: 30)
@@ -69,11 +71,11 @@ struct DecimalNumberTextField: View {
                 
                 self.textFieldText = formattedValue
                 
-                if let token = TokenFormatter().number(from: formattedValue, precision: value.wrappedValue.precision) {
+                if formattedValue.isEmpty {
+                    value.wrappedValue = BigDecimal.zero(value.wrappedValue.precision)
+                } else if let token = TokenFormatter().number(from: formattedValue, precision: value.wrappedValue.precision) {
                     value.wrappedValue = token
                     print(TokenFormatter().string(from: token))
-                } else {
-                    
                 }
             }
         )
