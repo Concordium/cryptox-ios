@@ -31,7 +31,7 @@ final class WalletConnectService {
             description: "CryptoX - Blockchain Wallet",
             url: "https://apps.apple.com/app/cryptox-wallet/id1593386457",
             icons: ["https://is2-ssl.mzstatic.com/image/thumb/Purple122/v4/d2/76/4f/d2764f4a-cb11-2039-7edf-7bb1a7ea36d8/AppIcon-1x_U007emarketing-0-5-0-sRGB-85-220.png/230x0w.png"],
-            redirect: try! AppMetadata.Redirect(native: "example://", universal: nil)
+            redirect: try! AppMetadata.Redirect(native: "cryptox://", universal: nil)
         )
         
         Pair.configure(metadata: metadata)
