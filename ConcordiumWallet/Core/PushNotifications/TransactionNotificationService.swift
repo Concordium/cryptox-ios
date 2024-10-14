@@ -10,6 +10,7 @@ import Foundation
 import FirebaseCore
 import Combine
 import UIKit
+import BigInt
 
 enum TransactionNotificationTypes: String {
     case cis2 = "cis2-tx"
@@ -176,9 +177,8 @@ extension TransactionNotificationService {
     
     private func composeAndSendNotification(amount: String, symbol: String, data: [AnyHashable: Any]) {
         var formattedAmount: String = amount
-        if let intAmount = Int(amount) {
-            formattedAmount = GTU(intValue: intAmount).displayValue()
-        }
+        let intAmount = Int(BigInt(stringLiteral: amount))
+        formattedAmount = GTU(intValue: intAmount).displayValue()
         let content = UNMutableNotificationContent()
         content.title = "You received \(formattedAmount) \(symbol)"
         content.body = "notifications.seeTransactionDetails".localized
@@ -201,9 +201,7 @@ extension TransactionNotificationService {
     @MainActor
     func tokenObject(from userInfo: [AnyHashable: Any]) async -> CIS2Token? {
         guard
-            let tokenID = userInfo["token_id"] as? String,
-            let contractName = userInfo["contract_name"] as? String,
-            let tokenMetadata = userInfo["token_metadata"]
+            let contractName = userInfo["contract_name"] as? String
         else {
             return nil
         }
