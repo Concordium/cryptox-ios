@@ -226,7 +226,12 @@ struct AccountsMainView: View {
             }
         }
         .overlay(alignment: .center) {
-            if isShouldShowSunsetShieldingView {
+            if isShouldShowSunsetShieldingView && (viewModel.accounts.first {
+                if let selfAmount = $0.encryptedBalance?.selfAmount {
+                    return !selfAmount.isEmpty
+                }
+                return false
+            }) != nil {
                 PopupContainer(icon: "unshield_popup_icon",
                                title: "Transaction Shielding is\ngoing away",
                                subtitle: "We recommend that you unshield any\nShielded balance today.",
