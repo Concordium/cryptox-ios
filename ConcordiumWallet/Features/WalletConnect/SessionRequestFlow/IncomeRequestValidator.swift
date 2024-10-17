@@ -12,7 +12,7 @@ import WalletConnectVerify
 
 enum SessionRequstError: Error {
     case environmentMismatch(chain: String), accountNotFound, accountMissmatch, noValidWCSession(topic: String)
-    case invalidRequestmethod, invalidRequestPayload, unSupportedRequestMethod
+    case invalidRequestMethod, invalidRequestPayload, unSupportedRequestMethod
     
     var errorMessage: String {
         switch self {
@@ -22,7 +22,7 @@ enum SessionRequstError: Error {
                 "Can't find apropriate acount to sign"
             case .noValidWCSession(let topic):
                 "No session found for the received topic: \(topic)"
-            case .invalidRequestmethod: "Unknown sesion requestmethod"
+            case .invalidRequestMethod: "Unknown sesion requestmethod"
             case .invalidRequestPayload: "Invalid request payload"
             case .unSupportedRequestMethod: "Unsupported request method"
         }

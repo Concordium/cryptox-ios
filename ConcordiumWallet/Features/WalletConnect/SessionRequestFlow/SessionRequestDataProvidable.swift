@@ -7,8 +7,6 @@
 //
 
 import Foundation
-//import Web3Wallet
-//import WalletConnectVerify
 import Web3Wallet
 
 protocol SessionRequestDataProvidable {

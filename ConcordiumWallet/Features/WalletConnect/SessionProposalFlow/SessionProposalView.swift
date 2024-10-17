@@ -104,7 +104,7 @@ final class SessionProposalViewModel: ObservableObject {
     @MainActor
     func rejectSessionRequest(_ completion: (() -> Void)?) async {
         do {
-//            try await Sign.instance.rejectSession(proposalId: sessionProposal.id, reason: .userRejected)
+            try await Sign.instance.reject(proposalId: sessionProposal.id, reason: .userRejected)
             completion?()
         } catch {
             logger.debugLog(error.localizedDescription)
