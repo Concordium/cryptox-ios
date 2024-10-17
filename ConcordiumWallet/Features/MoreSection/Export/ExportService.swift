@@ -22,14 +22,14 @@ struct ExportService {
     
     private enum FileHandle {
         case backup
-        case bakerKeys
+        case validatorKeys
         
         var pathComponent: String {
             switch self {
             case .backup:
                 return "concordium-backup.concordiumwallet"
-            case .bakerKeys:
-                return "baker-credentials.json"
+            case .validatorKeys:
+                return "validator-credentials.json"
             }
         }
     }
@@ -67,12 +67,12 @@ struct ExportService {
     }
     
     func deleteBakerKeys() throws {
-        try FileManager.default.removeItem(at: urlForFile(.bakerKeys))
+        try FileManager.default.removeItem(at: urlForFile(.validatorKeys))
     }
     
     func export(bakerKeys: ExportedBakerKeys) throws -> URL {
         let keyData = try bakerKeys.jsonData()
-        let url = urlForFile(.bakerKeys)
+        let url = urlForFile(.validatorKeys)
         
         try keyData.write(to: url, options: .completeFileProtection)
         return url
