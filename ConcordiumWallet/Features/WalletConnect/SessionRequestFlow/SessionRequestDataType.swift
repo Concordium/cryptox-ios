@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Web3Wallet
+import ReownWalletKit
 import WalletConnectVerify
 
 struct SessionRequestType: Codable {

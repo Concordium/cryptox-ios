@@ -6,7 +6,7 @@
 //  Copyright © 2024 pioneeringtechventures. All rights reserved.
 //
 
-import Web3Wallet
+import ReownWalletKit
 import WalletConnectVerify
 
 

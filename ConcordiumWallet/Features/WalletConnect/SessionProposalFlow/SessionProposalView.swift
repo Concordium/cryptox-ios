@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import Web3Wallet
+import ReownWalletKit
 import WalletConnectVerify
 
 enum SessionProposalError: Error {

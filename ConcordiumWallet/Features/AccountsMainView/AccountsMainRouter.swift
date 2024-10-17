@@ -8,7 +8,7 @@
 
 import UIKit
 import WalletConnectPairing
-import Web3Wallet
+import ReownWalletKit
 import Combine
 import SwiftUI
 
@@ -209,8 +209,6 @@ extension AccountsMainRouter: ScanAddressQRPresenterDelegate {
 
 extension AccountsMainRouter {
     public func handlWCDeeplinkConnect(_ url: URL) {
-
-        
         Task {
             await self.walletConnectService.pair(url.absoluteString)
         }

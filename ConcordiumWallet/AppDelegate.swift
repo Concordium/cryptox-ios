@@ -8,10 +8,11 @@
 
 import UIKit
 import Base58Swift
-import Web3Wallet
+import ReownWalletKit
 import MatomoTracker
 import FirebaseMessaging
 import FirebaseCore
+import ReownWalletKit
 
 extension Notification.Name {
     static let didReceiveIdentityData = Notification.Name("didReceiveIdentityData")
@@ -20,8 +21,9 @@ extension Notification.Name {
 //@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    var appCoordinator = AppCoordinator()
+    var appCoordinator: AppCoordinator!
     let transactionNotificationService = TransactionNotificationService()
+    let walletConnectService: WalletConnectService = WalletConnectService()
     
     let gcmMessageIDKey = "gcm.message_id"
 
@@ -34,6 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
+        appCoordinator = AppCoordinator(walletConnectService: walletConnectService)
 
         window?.rootViewController = appCoordinator.navigationController
         window?.makeKeyAndVisible()
@@ -263,6 +266,10 @@ extension AppDelegate {
                 print("FCM registration token: \(token)")
                 self.transactionNotificationService.updateFcmToken(token)
             }
+        }
+        
+        Task {
+            try await WalletKit.instance.register(deviceToken: deviceToken)
         }
     }
 

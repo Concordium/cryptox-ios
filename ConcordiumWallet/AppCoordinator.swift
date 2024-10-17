@@ -13,7 +13,7 @@ import SwiftUI
 import MatomoTracker
 
 import WalletConnectPairing
-import Web3Wallet
+import ReownWalletKit
 
 @MainActor
 class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate {
@@ -32,6 +32,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     private var cancellables: [AnyCancellable] = []
     private var sanityChecker: SanityChecker
     private var accountsCoordinator: AccountsCoordinator?
+    private let walletConnectService: WalletConnectService
     
     private var isMainFlowActive: Bool = false
     var appStartOpenURLAction: AppStartOpenURLAction = .none
@@ -54,7 +55,8 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     
     @State var isPresentedAnalyticsPopup: Bool = false
 
-    override init() {
+    init(walletConnectService: WalletConnectService) {
+        self.walletConnectService = walletConnectService
         navigationController = CXNavigationController()
         sanityChecker = SanityChecker(mobileWallet: defaultProvider.mobileWallet(), storageManager: defaultProvider.storageManager())
         self.defaultCIS2TokenManager = .init(storageManager: defaultProvider.storageManager(), networkManager: defaultProvider.networkManager())
@@ -214,7 +216,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
             navigationController: CXNavigationController(),
             dependencyProvider: defaultProvider,
             appSettingsDelegate: self,
-            walletConnectService: WalletConnectService()
+            walletConnectService: walletConnectService
         )
         self.accountsCoordinator = accountsCoordinator
         
