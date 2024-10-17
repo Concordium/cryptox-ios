@@ -7,7 +7,7 @@
 //
 
 import WalletConnectPairing
-import ReownWalletKit
+import Web3Wallet
 import SwiftUI
 import Combine
 import BigInt
@@ -29,15 +29,14 @@ final class WalletConnectService {
             name: "CryptoX",
             description: "CryptoX - Blockchain Wallet",
             url: "https://apps.apple.com/app/cryptox-wallet/id1593386457",
-            icons: ["https://is2-ssl.mzstatic.com/image/thumb/Purple122/v4/d2/76/4f/d2764f4a-cb11-2039-7edf-7bb1a7ea36d8/AppIcon-1x_U007emarketing-0-5-0-sRGB-85-220.png/230x0w.png"],
-            redirect: try! AppMetadata.Redirect(native: "cryptox://", universal: nil)
+            icons: ["https://is2-ssl.mzstatic.com/image/thumb/Purple122/v4/d2/76/4f/d2764f4a-cb11-2039-7edf-7bb1a7ea36d8/AppIcon-1x_U007emarketing-0-5-0-sRGB-85-220.png/230x0w.png"]
         )
         
-        WalletKit.configure(metadata: metadata, crypto: WC2CryptoProvider(), environment: APNSEnvironment.sandbox)
+//        Pair.configure(metadata: metadata, crypto: WC2CryptoProvider(), environment: APNSEnvironment.sandbox)
         
         Pair.configure(metadata: metadata)
         Networking.configure(
-            groupIdentifier: "group.com.concordium.wallet", projectId: CONCORDIUM_WALLET_CONNECT_PROJECT_ID,
+            projectId: CONCORDIUM_WALLET_CONNECT_PROJECT_ID,
             socketFactory: DefaultSocketFactory()
         )
         initialize()
@@ -49,7 +48,7 @@ final class WalletConnectService {
     }
     
     func initialize() {
-        Sign.configure(crypto: WC2CryptoProvider())
+//        Sign.configure(crypto: WC2CryptoProvider())
         Sign.instance.sessionRequestPublisher.delay(for: 2, scheduler: RunLoop.main)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] session in
@@ -64,27 +63,24 @@ final class WalletConnectService {
                 self?.delegate?.showSessionProposal(with: session.proposal, context: session.context)
             }
             .store(in: &publishers)
-        
-        Sign.instance.setLogging(level: .debug)
-        Events.instance.setLogging(level: .debug)
     }
     
     public func pair(_ address: String) async {
-        LegacyLogger.debug("wc: `pair.address` -- \(address)")
+        guard let uri = WalletConnectURI(string: address) else { return }
+        LegacyLogger.debug("wc: `pair.address` -- \(uri)")
         
         do {
-//            try await Pair.instance.pair(uri: WalletConnectURI(uriString: address))
-            try await WalletKit.instance.pair(uri: WalletConnectURI(uriString: address))
+            try await Pair.instance.pair(uri: uri)
         } catch {
             LegacyLogger.debug("wc: `pair` error -- \(error.localizedDescription)")
-//            if let pairing = Pair.instance.getPairings().first(where: { $0.topic == uri.topic }) {
-//                do {
-//                    try await Pair.instance.disconnect(topic: pairing.topic)
-//                    LegacyLogger.debug("wc: `cleanup.getPairings` -- \(Pair.instance.getPairings())")
-//                } catch {
-//                    LegacyLogger.debug("wc: `disconnectPairing` error -- \(error.localizedDescription)")
-//                }
-//            }
+            if let pairing = Pair.instance.getPairings().first(where: { $0.topic == uri.topic }) {
+                do {
+                    try await Pair.instance.disconnect(topic: pairing.topic)
+                    LegacyLogger.debug("wc: `cleanup.getPairings` -- \(Pair.instance.getPairings())")
+                } catch {
+                    LegacyLogger.debug("wc: `disconnectPairing` error -- \(error.localizedDescription)")
+                }
+            }
         }
     }
     

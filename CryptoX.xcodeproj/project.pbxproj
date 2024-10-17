@@ -2002,6 +2002,9 @@
 		19C2EFF1CEC944A7FCBC63C5 /* SingleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2ED4F802767556C4ABBE9 /* SingleSection.swift */; };
 		5059C9B52C00CF1200E40307 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5059C9B42C00CF1200E40307 /* SDWebImageSwiftUI */; };
 		5059C9B72C00CF1700E40307 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5059C9B62C00CF1700E40307 /* SDWebImageSwiftUI */; };
+		505E11EC2CC1248B0003F6DC /* Web3Wallet in Frameworks */ = {isa = PBXBuildFile; productRef = 505E11EB2CC1248B0003F6DC /* Web3Wallet */; };
+		505E11EE2CC1390E0003F6DC /* Web3Wallet in Frameworks */ = {isa = PBXBuildFile; productRef = 505E11ED2CC1390E0003F6DC /* Web3Wallet */; };
+		505E11F02CC139150003F6DC /* Web3Wallet in Frameworks */ = {isa = PBXBuildFile; productRef = 505E11EF2CC139150003F6DC /* Web3Wallet */; };
 		507629622BECCCE900B4D390 /* Net.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A0449929FA98A400DACE1F /* Net.swift */; };
 		507629632BECCCE900B4D390 /* Net.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A0449929FA98A400DACE1F /* Net.swift */; };
 		507629642BECCCEA00B4D390 /* Net.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A0449929FA98A400DACE1F /* Net.swift */; };
@@ -3553,6 +3556,7 @@
 				08C169152BB7396200E61326 /* JDStatusBarNotification in Frameworks */,
 				08C169162BB7396200E61326 /* Starscream in Frameworks */,
 				08C169172BB7396200E61326 /* SDWebImageSVGCoder in Frameworks */,
+				505E11EC2CC1248B0003F6DC /* Web3Wallet in Frameworks */,
 				08C169182BB7396200E61326 /* ConcordiumWalletCrypto in Frameworks */,
 				509A56312CB40BF7005EA908 /* RealmSwift in Frameworks */,
 				1557CCA32C89CA94008ABF67 /* FirebaseMessaging in Frameworks */,
@@ -3571,6 +3575,7 @@
 				509749ED2C491A6100D28D6B /* MatomoTracker in Frameworks */,
 				5059C9B52C00CF1200E40307 /* SDWebImageSwiftUI in Frameworks */,
 				08A0441329FA885300DACE1F /* SwiftCBOR in Frameworks */,
+				505E11EE2CC1390E0003F6DC /* Web3Wallet in Frameworks */,
 				089FF0EC2A4F4D01007AB1CF /* JDStatusBarNotification in Frameworks */,
 				089B341B2A164BE900F3CD90 /* Starscream in Frameworks */,
 				083505072A9F4F14000D5175 /* SDWebImageSVGCoder in Frameworks */,
@@ -3593,6 +3598,7 @@
 				509749EB2C491A0D00D28D6B /* MatomoTracker in Frameworks */,
 				5059C9B72C00CF1700E40307 /* SDWebImageSwiftUI in Frameworks */,
 				08A0442129FA892F00DACE1F /* Base58Swift in Frameworks */,
+				505E11F02CC139150003F6DC /* Web3Wallet in Frameworks */,
 				083505002A9E3DFA000D5175 /* SDWebImageSVGCoder in Frameworks */,
 				089FF0EA2A4F4CF0007AB1CF /* JDStatusBarNotification in Frameworks */,
 				089E32812A0BA0CE002AE530 /* ConcordiumWalletCrypto in Frameworks */,
@@ -6311,6 +6317,7 @@
 				1557CCA22C89CA94008ABF67 /* FirebaseMessaging */,
 				509A56282CB40A10005EA908 /* Base58Swift */,
 				509A56302CB40BF7005EA908 /* RealmSwift */,
+				505E11EB2CC1248B0003F6DC /* Web3Wallet */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 08C169C22BB7396200E61326 /* ProdTestNet.app */;
@@ -6344,6 +6351,7 @@
 				509749EC2C491A6100D28D6B /* MatomoTracker */,
 				509A56382CB43540005EA908 /* RealmSwift */,
 				509A563E2CB43561005EA908 /* FirebaseMessaging */,
+				505E11ED2CC1390E0003F6DC /* Web3Wallet */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
@@ -6378,6 +6386,7 @@
 				1557CCA02C89BEF5008ABF67 /* FirebaseAuth */,
 				509A563B2CB43549005EA908 /* RealmSwift */,
 				509A56402CB43568005EA908 /* FirebaseMessaging */,
+				505E11EF2CC139150003F6DC /* Web3Wallet */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
@@ -6444,7 +6453,7 @@
 				5076296A2BF2573D00B4D390 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				509749E92C491A0D00D28D6B /* XCRemoteSwiftPackageReference "matomo-sdk-ios" */,
 				1557CC962C89B8DE008ABF67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				505E11E72CC11B0A0003F6DC /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */,
+				505E11EA2CC123EA0003F6DC /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */,
 			);
 			productRefGroup = 7FF07A6A23EADB1200F1FC04 /* Products */;
 			projectDirPath = "";
@@ -9726,12 +9735,12 @@
 				minimumVersion = 11.1.0;
 			};
 		};
-		505E11E72CC11B0A0003F6DC /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */ = {
+		505E11EA2CC123EA0003F6DC /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WalletConnect/WalletConnectSwiftV2.git";
 			requirement = {
-				kind = exactVersion;
-				version = 1.6.11;
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.6.6;
 			};
 		};
 		5076296A2BF2573D00B4D390 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
@@ -9892,6 +9901,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5076296A2BF2573D00B4D390 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		505E11EB2CC1248B0003F6DC /* Web3Wallet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 505E11EA2CC123EA0003F6DC /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
+			productName = Web3Wallet;
+		};
+		505E11ED2CC1390E0003F6DC /* Web3Wallet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 505E11EA2CC123EA0003F6DC /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
+			productName = Web3Wallet;
+		};
+		505E11EF2CC139150003F6DC /* Web3Wallet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 505E11EA2CC123EA0003F6DC /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
+			productName = Web3Wallet;
 		};
 		509749EA2C491A0D00D28D6B /* MatomoTracker */ = {
 			isa = XCSwiftPackageProductDependency;

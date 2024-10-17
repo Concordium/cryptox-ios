@@ -344,7 +344,7 @@ extension AccountsCoordinator: ScanAddressQRPresenterDelegate {
 }
 
 import WalletConnectPairing
-import ReownWalletKit
+import Web3Wallet
 import SwiftUI
 
 extension AccountsCoordinator {

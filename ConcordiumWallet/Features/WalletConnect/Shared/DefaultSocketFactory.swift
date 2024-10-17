@@ -8,7 +8,7 @@
 
 import Foundation
 import Starscream
-import ReownWalletKit
+import Web3Wallet
 
 extension WebSocket: WebSocketConnecting { }
 

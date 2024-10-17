@@ -6,7 +6,7 @@
 //  Copyright © 2024 pioneeringtechventures. All rights reserved.
 //
 
-import ReownWalletKit
+import Web3Wallet
 import WalletConnectVerify
 
 
@@ -50,8 +50,7 @@ final class IncomeRequestValidator {
         // we cannot uniquely determine the correct account address.
         guard
             let session = Sign.instance.getSessions().first(where: { $0.topic == sessionRequest.topic }),
-            session.accounts.count == 1,
-            let walletConnectAccount = session.accounts.first
+            let sessionAccount = session.namespaces.values.compactMap(\.accounts).compactMap(\.first).first
         else {
             throw SessionRequstError.noValidWCSession(topic: sessionRequest.topic)
         }
@@ -62,7 +61,7 @@ final class IncomeRequestValidator {
         }
     
         // Get `Account` associated with Wallet Connect request
-        guard let account = storageManager.getAccounts().first(where: { $0.address == walletConnectAccount.address }) as? AccountEntity else {
+        guard let account = storageManager.getAccounts().first(where: { $0.address == sessionAccount.address }) as? AccountEntity else {
             throw SessionRequstError.accountNotFound
         }
         

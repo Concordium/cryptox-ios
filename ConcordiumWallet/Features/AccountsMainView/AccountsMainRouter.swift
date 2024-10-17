@@ -8,7 +8,7 @@
 
 import UIKit
 import WalletConnectPairing
-import ReownWalletKit
+import Web3Wallet
 import Combine
 import SwiftUI
 
