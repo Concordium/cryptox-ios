@@ -12,7 +12,6 @@ import Web3Wallet
 import MatomoTracker
 import FirebaseMessaging
 import FirebaseCore
-//import Web3Wallet
 
 extension Notification.Name {
     static let didReceiveIdentityData = Notification.Name("didReceiveIdentityData")
@@ -265,10 +264,6 @@ extension AppDelegate {
                 self.transactionNotificationService.updateFcmToken(token)
             }
         }
-        
-//        Task {
-//            try await WalletKit.instance.register(deviceToken: deviceToken)
-//        }
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) async -> UIBackgroundFetchResult {
