@@ -129,6 +129,7 @@ class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusVi
                 }
                 
                 self.handleIdentities(recoveredIdentities, accounts: accounts, failedIdentitiesProviders: failedIdentityProviders)
+                TransactionNotificationService().sendTokenToConcordiumServer()
             } catch {
 
             }

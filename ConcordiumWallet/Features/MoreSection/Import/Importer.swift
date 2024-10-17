@@ -54,6 +54,7 @@ class Importer {
                 .collect()
                 .eraseToAnyPublisher()
             // after all publishers are done we return the import report
+            TransactionNotificationService().sendTokenToConcordiumServer()
             return combinedPublishers.map { _ in self.importReport  }.eraseToAnyPublisher()
         } catch {
             return .fail(error)

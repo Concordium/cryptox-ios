@@ -8,6 +8,7 @@
 
 import UIKit
 import Combine
+import SwiftUI
 
 class MainTabBarController: BaseTabBarController {
     let accountsCoordinator: AccountsCoordinator
@@ -17,6 +18,8 @@ class MainTabBarController: BaseTabBarController {
     
     private var cancellables: [AnyCancellable] = []
     let defaultProvider = ServicesProvider.defaultProvider()
+    @State private var isAlertVisible: Bool = true
+    var transactionNotificationService = TransactionNotificationService()
 
     init(accountsCoordinator: AccountsCoordinator,
          collectionsCoordinator: CollectionsCoordinator,
@@ -43,6 +46,7 @@ class MainTabBarController: BaseTabBarController {
         newsFeedController.extendedLayoutIncludesOpaqueBars = false
         viewControllers = [accountsMainRouter.rootScene(), newsFeedController, collectionsCoordinator.navigationController, moreCoordinator.navigationController]
         hideKeyboardWhenTappedAround()
+        transactionNotificationService.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,32 +84,53 @@ extension MainTabBarController: BackupAlertControllerDelegate {
     }
 }
 
-extension MainTabBarController: NotificationNavigationDelegate {
-    func openTransactionFromNotification(with userInfo: [AnyHashable : Any]) {
-        guard let accountAddress = userInfo["recipient"] as? String,
-              let account = defaultProvider.storageManager().getAccount(withAddress: accountAddress),
-              let selectedNavigationController = selectedViewController as? UINavigationController
+extension MainTabBarController: NotificationNavigationDelegate, TransactionNotificationServiceDelegate {
+    func openTransactionFromNotification(with userInfo: [AnyHashable: Any]) {
+        guard
+            let accountAddress = userInfo["recipient"] as? String,
+            let account = defaultProvider.storageManager().getAccount(withAddress: accountAddress),
+            let selectedNavigationController = selectedViewController as? UINavigationController,
+            let transactionId = userInfo["reference"] as? String
         else { return }
 
-        let accountDetailRouter = AccountDetailsCoordinator(navigationController: selectedNavigationController,
-                                                            dependencyProvider: defaultProvider,
-                                                            parentCoordinator: accountsCoordinator,
-                                                            account: account)
-        guard let transactionId = userInfo["reference"] as? String
-        else { return }
         let notificationType = userInfo["type"] as? String
-        
+        let accountDetailRouter = AccountDetailsCoordinator(
+            navigationController: selectedNavigationController,
+            dependencyProvider: defaultProvider,
+            parentCoordinator: accountsCoordinator,
+            account: account
+        )
+
         if notificationType == TransactionNotificationTypes.ccd.rawValue {
-            TransactionNotificationService().handleCCDTransaction(account: account, transactionId: transactionId, accountDetailRouter: accountDetailRouter) {
-                accountDetailRouter.showTransactionDetail(viewModel: $0)
+            transactionNotificationService.handleCCDTransaction(account: account, transactionId: transactionId, accountDetailRouter: accountDetailRouter) { viewModel in
+                accountDetailRouter.showTransactionDetail(viewModel: viewModel)
             }
         } else {
-            let detailRouter = AccountDetailRouter(account: account, navigationController: selectedNavigationController, dependencyProvider: defaultProvider)
-            Task {
-                if let token = await TransactionNotificationService().tokenObject(from: userInfo) {
-                        detailRouter.showCIS2TokenDetailsFlow(token, account: account)
+            transactionNotificationService.handleCIS2Notification(userInfo: userInfo, account: account, navigationController: selectedNavigationController)
+        }
+    }
+    
+    func presentTokenAlert(userInfo: [AnyHashable: Any], completion: @escaping (CIS2Token) -> Void) {
+        let alertView = NewTokenNotificationPopup(isVisible: Binding(
+            get: { self.isAlertVisible },
+            set: { self.isAlertVisible = $0
+                if !$0 {
+                    self.dismiss(animated: true, completion: nil)
                 }
             }
+        ), userInfo: userInfo) {
+            NotificationTokenService().storeNewToken(from: userInfo) { token in
+                DispatchQueue.main.async {
+                    completion(token)
+                }
+            }
+        }
+        
+        let alertViewController = UIHostingController(rootView: alertView)
+        alertViewController.modalPresentationStyle = .overCurrentContext
+        alertViewController.view.backgroundColor = .clear
+        DispatchQueue.main.async {
+            self.present(alertViewController, animated: true, completion: nil)
         }
     }
 }

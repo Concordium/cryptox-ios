@@ -1920,6 +1920,12 @@
 		151A53AC2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
 		151A53AD2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
 		151A53AE2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
+		1553A2632CBFD323002D9EA8 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1553A2622CBFD323002D9EA8 /* NewTokenNotificationPopup.swift */; };
+		1553A2642CBFD323002D9EA8 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1553A2622CBFD323002D9EA8 /* NewTokenNotificationPopup.swift */; };
+		1553A2652CBFD323002D9EA8 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1553A2622CBFD323002D9EA8 /* NewTokenNotificationPopup.swift */; };
+		1553A2672CC0141B002D9EA8 /* NotificationTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1553A2662CC0141B002D9EA8 /* NotificationTokenService.swift */; };
+		1553A2682CC0141B002D9EA8 /* NotificationTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1553A2662CC0141B002D9EA8 /* NotificationTokenService.swift */; };
+		1553A2692CC0141B002D9EA8 /* NotificationTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1553A2662CC0141B002D9EA8 /* NotificationTokenService.swift */; };
 		1557CC942C89B799008ABF67 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1557CC932C89B799008ABF67 /* GoogleService-Info.plist */; };
 		1557CC982C89BBD7008ABF67 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1557CC972C89BBD7008ABF67 /* GoogleService-Info.plist */; };
 		1557CC9B2C89BE26008ABF67 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1557CC9A2C89BE26008ABF67 /* GoogleService-Info.plist */; };
@@ -3219,6 +3225,8 @@
 		151A53982C5CF03800EFE20C /* PopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
 		151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsButtonsView.swift; sourceTree = "<group>"; };
+		1553A2622CBFD323002D9EA8 /* NewTokenNotificationPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTokenNotificationPopup.swift; sourceTree = "<group>"; };
+		1553A2662CC0141B002D9EA8 /* NotificationTokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTokenService.swift; sourceTree = "<group>"; };
 		1557CC932C89B799008ABF67 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1557CC972C89BBD7008ABF67 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1557CC9A2C89BE26008ABF67 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -5345,6 +5353,8 @@
 			children = (
 				1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */,
 				15F3F0A72C8B1CFF00EF8975 /* TransactionNotificationService.swift */,
+				1553A2662CC0141B002D9EA8 /* NotificationTokenService.swift */,
+				1553A2622CBFD323002D9EA8 /* NewTokenNotificationPopup.swift */,
 			);
 			path = PushNotifications;
 			sourceTree = "<group>";
@@ -7037,6 +7047,7 @@
 				08C1668F2BB7396200E61326 /* ImportWalletSeedPhraseView.swift in Sources */,
 				08C166912BB7396200E61326 /* CreateTransferRequest.swift in Sources */,
 				08C166922BB7396200E61326 /* CreateIDRequest.swift in Sources */,
+				1553A2692CC0141B002D9EA8 /* NotificationTokenService.swift in Sources */,
 				08C166932BB7396200E61326 /* CreateSeedPhraseView.swift in Sources */,
 				1557CCAB2C8AF779008ABF67 /* AllowNotificationsPopup.swift in Sources */,
 				08C166942BB7396200E61326 /* CreationFailedPresenter.swift in Sources */,
@@ -7289,6 +7300,7 @@
 				08C167842BB7396200E61326 /* ShieldedAmountEntity.swift in Sources */,
 				08C167862BB7396200E61326 /* QRTransactionProvider.swift in Sources */,
 				08C167872BB7396200E61326 /* MintDistribution.swift in Sources */,
+				1553A2652CBFD323002D9EA8 /* NewTokenNotificationPopup.swift in Sources */,
 				08C167882BB7396200E61326 /* ExportAccount.swift in Sources */,
 				08C167892BB7396200E61326 /* WidgetView.swift in Sources */,
 				08C1678A2BB7396200E61326 /* NFTRepository.swift in Sources */,
@@ -7747,6 +7759,7 @@
 				0851BFD62B504BDB006373AC /* ImportWalletSeedPhraseView.swift in Sources */,
 				08A0460329FA99D200DACE1F /* CreateTransferRequest.swift in Sources */,
 				08A045F829FA99D200DACE1F /* CreateIDRequest.swift in Sources */,
+				1553A2672CC0141B002D9EA8 /* NotificationTokenService.swift in Sources */,
 				088CA9DC2B35F02700898C85 /* CreateSeedPhraseView.swift in Sources */,
 				1557CCAA2C8AF779008ABF67 /* AllowNotificationsPopup.swift in Sources */,
 				088FEEB92A026B8200042957 /* CreationFailedPresenter.swift in Sources */,
@@ -7999,6 +8012,7 @@
 				D589F1892794B5ED003F2FBB /* ShieldedAmountEntity.swift in Sources */,
 				D5B3940927199BED0094A9F5 /* QRTransactionProvider.swift in Sources */,
 				08A0460829FA99D200DACE1F /* MintDistribution.swift in Sources */,
+				1553A2632CBFD323002D9EA8 /* NewTokenNotificationPopup.swift in Sources */,
 				D589F2112794B5ED003F2FBB /* ExportAccount.swift in Sources */,
 				7F85B83A246A9AB600ED09B8 /* WidgetView.swift in Sources */,
 				D58EA772290F59080033C8FD /* NFTRepository.swift in Sources */,
@@ -8457,6 +8471,7 @@
 				0851BFD52B504BDB006373AC /* ImportWalletSeedPhraseView.swift in Sources */,
 				D5B47104278DE6AC00781EE8 /* RealmHelper.swift in Sources */,
 				088FF0B02A02845B00042957 /* RecoveryPhraseRecoverCompleteView.swift in Sources */,
+				1553A2682CC0141B002D9EA8 /* NotificationTokenService.swift in Sources */,
 				D5962CCF272170BD00A757A5 /* TransactionOperationView.swift in Sources */,
 				1557CCA92C8AF779008ABF67 /* AllowNotificationsPopup.swift in Sources */,
 				088CA9DB2B35F02700898C85 /* CreateSeedPhraseView.swift in Sources */,
@@ -8709,6 +8724,7 @@
 				08A0457029FA99D100DACE1F /* MintDistribution.swift in Sources */,
 				D5CACC4E26ED48DB00D3C3CF /* UIView+Shake.swift in Sources */,
 				D58EA770290F59080033C8FD /* NFTRepository.swift in Sources */,
+				1553A2642CBFD323002D9EA8 /* NewTokenNotificationPopup.swift in Sources */,
 				088FEE1A2A0167FA00042957 /* AccountDetailsViewController.swift in Sources */,
 				D589F1EF2794B5ED003F2FBB /* AccountBalanceTypeEnum.swift in Sources */,
 				088FEDC22A01677E00042957 /* TransactionCellViewModel.swift in Sources */,
