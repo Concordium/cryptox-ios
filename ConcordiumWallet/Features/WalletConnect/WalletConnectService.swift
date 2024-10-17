@@ -25,11 +25,17 @@ final class WalletConnectService {
     private var publishers = [AnyCancellable]()
     
     init() {
+        initialize()
+        subscribeEvents()
+    }
+
+    func initialize() {
         let metadata = AppMetadata(
             name: "CryptoX",
             description: "CryptoX - Blockchain Wallet",
             url: "https://apps.apple.com/app/cryptox-wallet/id1593386457",
-            icons: ["https://is2-ssl.mzstatic.com/image/thumb/Purple122/v4/d2/76/4f/d2764f4a-cb11-2039-7edf-7bb1a7ea36d8/AppIcon-1x_U007emarketing-0-5-0-sRGB-85-220.png/230x0w.png"]
+            icons: ["https://is2-ssl.mzstatic.com/image/thumb/Purple122/v4/d2/76/4f/d2764f4a-cb11-2039-7edf-7bb1a7ea36d8/AppIcon-1x_U007emarketing-0-5-0-sRGB-85-220.png/230x0w.png"],
+            redirect: AppMetadata.Redirect(native: "cryptox://", universal: nil)
         )
                 
         Pair.configure(metadata: metadata)
@@ -37,15 +43,9 @@ final class WalletConnectService {
             projectId: CONCORDIUM_WALLET_CONNECT_PROJECT_ID,
             socketFactory: DefaultSocketFactory()
         )
-        initialize()
     }
     
-    init(delegate: WalletConnectServiceProtocol) {
-        self.delegate = delegate
-        initialize()
-    }
-    
-    func initialize() {
+    func subscribeEvents() {
         Sign.instance.sessionRequestPublisher.delay(for: 2, scheduler: RunLoop.main)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] session in
@@ -70,6 +70,7 @@ final class WalletConnectService {
             try await Pair.instance.pair(uri: uri)
         } catch {
             LegacyLogger.debug("wc: `pair` error -- \(error.localizedDescription)")
+            
             if let pairing = Pair.instance.getPairings().first(where: { $0.topic == uri.topic }) {
                 do {
                     try await Pair.instance.disconnect(topic: pairing.topic)

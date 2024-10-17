@@ -231,7 +231,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         let tabBarController = MainTabBarController(accountsCoordinator: accountsCoordinator,
                                                     collectionsCoordinator: collectionsCoordinator,
                                                     moreCoordinator: moreCoordinator,
-                                                    accountsMainRouter: .init(dependencyProvider: defaultProvider, walletConnectService: .init())
+                                                    accountsMainRouter: .init(dependencyProvider: defaultProvider, walletConnectService: walletConnectService)
                                 )
         self.navigationController.setNavigationBarHidden(true, animated: false)
         self.navigationController.pushViewController(tabBarController, animated: true)
