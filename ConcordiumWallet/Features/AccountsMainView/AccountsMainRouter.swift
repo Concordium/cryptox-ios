@@ -209,8 +209,6 @@ extension AccountsMainRouter: ScanAddressQRPresenterDelegate {
 
 extension AccountsMainRouter {
     public func handlWCDeeplinkConnect(_ url: URL) {
-
-        
         Task {
             await self.walletConnectService.pair(url.absoluteString)
         }

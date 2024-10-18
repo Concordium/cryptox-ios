@@ -1,5 +1,5 @@
 {
-  "originHash" : "b26610c1d8004a482f309deb415d6781bff2217539c8eda020a692a3fa6255a4",
+  "originHash" : "d22a1b34929e39c3973a9b63c796c7642d1ddef4017150499a42a551d1df72db",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -283,10 +283,10 @@
     {
       "identity" : "walletconnectswiftv2",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/WalletConnect/WalletConnectSwiftV2",
+      "location" : "https://github.com/WalletConnect/WalletConnectSwiftV2.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "3327c0a8c014b155534b91520554d812e2960077"
+        "revision" : "afdc8cdbaf99ad741a7716f8475339c80a92441d",
+        "version" : "6.6.6"
       }
     }
   ],

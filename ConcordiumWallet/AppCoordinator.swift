@@ -33,6 +33,8 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     private var sanityChecker: SanityChecker
     private var accountsCoordinator: AccountsCoordinator?
     
+    let walletConnectService: WalletConnectService = WalletConnectService()
+
     private var isMainFlowActive: Bool = false
     var appStartOpenURLAction: AppStartOpenURLAction = .none
     enum AppStartOpenURLAction {
@@ -214,7 +216,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
             navigationController: CXNavigationController(),
             dependencyProvider: defaultProvider,
             appSettingsDelegate: self,
-            walletConnectService: WalletConnectService()
+            walletConnectService: walletConnectService
         )
         self.accountsCoordinator = accountsCoordinator
         
@@ -229,7 +231,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         let tabBarController = MainTabBarController(accountsCoordinator: accountsCoordinator,
                                                     collectionsCoordinator: collectionsCoordinator,
                                                     moreCoordinator: moreCoordinator,
-                                                    accountsMainRouter: .init(dependencyProvider: defaultProvider, walletConnectService: .init())
+                                                    accountsMainRouter: .init(dependencyProvider: defaultProvider, walletConnectService: walletConnectService)
                                 )
         self.navigationController.setNavigationBarHidden(true, animated: false)
         self.navigationController.pushViewController(tabBarController, animated: true)

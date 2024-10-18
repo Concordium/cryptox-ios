@@ -20,7 +20,7 @@ extension Notification.Name {
 //@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    var appCoordinator = AppCoordinator()
+    var appCoordinator: AppCoordinator = AppCoordinator()
     let transactionNotificationService = TransactionNotificationService()
     
     let gcmMessageIDKey = "gcm.message_id"
