@@ -67,11 +67,8 @@ final class TransactionNotificationService {
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
-                print("Error subscribing to Concordium server: \(error)")
+                logger.errorLog("Error subscribing to Concordium server: \(error)")
                 return
-            }
-            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
-                print("Successfully subscribed to Concordium notification server")
             }
         }.resume()
     }
@@ -170,18 +167,7 @@ final class TransactionNotificationService {
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
-                    // Check if the values have changed
-                    if let cis2Value = UserDefaults.standard.value(forKey: TransactionNotificationNames.cis2.rawValue),
-                       cis2Value as? NSObject != self.previousCIS2Value as? NSObject {
-                        self.previousCIS2Value = cis2Value
-                        self.sendTokenToConcordiumServer()
-                    }
-
-                    if let ccdValue = UserDefaults.standard.value(forKey: TransactionNotificationNames.ccd.rawValue),
-                       ccdValue as? NSObject != self.previousCCDValue as? NSObject {
-                        self.previousCCDValue = ccdValue
-                        self.sendTokenToConcordiumServer()
-                    }
+                    self.sendTokenToConcordiumServer()
                 }
             }
             .store(in: &cancellables)

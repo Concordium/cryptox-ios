@@ -262,8 +262,6 @@ extension AppDelegate {
             } else if let token {
                 print("FCM registration token: \(token)")
                 self.transactionNotificationService.updateFcmToken(token)
-                UserDefaults.standard.set(true, forKey: TransactionNotificationNames.ccd.rawValue)
-                UserDefaults.standard.set(true, forKey: TransactionNotificationNames.cis2.rawValue)
             }
         }
     }
