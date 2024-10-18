@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [Released 2.0.0]
 
 ### Removed
 - Removed Shielding functionalty
@@ -31,6 +31,7 @@
 - Fix changing restaking options
 - Fix app crash during identities recover process
 - Fixed Send Assets Flow
+- Fixed Wallet Connect connection issue
 
 ### Changed
 - Baker/baking renamed to Validator/validating
