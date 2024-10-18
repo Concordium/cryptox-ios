@@ -60,6 +60,7 @@ class TransactionDetailViewController: BaseViewController, TransactionDetailView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.isNavigationBarHidden = false
         title = "accountDetails.title".localized
         
         tableView.tableFooterView = UIView(frame: .zero)

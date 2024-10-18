@@ -19,9 +19,13 @@ final class DefaultCIS2TokenManager {
 #endif
     
     private let storageManager: StorageManagerProtocol
+    private let networkManager: NetworkManagerProtocol
+    private let cis2Service: CIS2Service
     
-    init(storageManager: StorageManagerProtocol) {
+    init(storageManager: StorageManagerProtocol, networkManager: NetworkManagerProtocol) {
         self.storageManager = storageManager
+        self.networkManager = networkManager
+        self.cis2Service = CIS2Service(networkManager: networkManager, storageManager: storageManager)
     }
     
     public func initializeDefaultValues() {
@@ -41,7 +45,7 @@ final class DefaultCIS2TokenManager {
         logger.debugLog("started restore default tokens")
         
         for address in Self.defaultCI2TokensIds {
-            let tkns = try await CIS2TokenService.getCIS2Tokens(for: address.index)
+            let tkns = try await cis2Service.fetchAllTokensData(contractIndex: address.index)
             self.storeTokenToAccounts(tkns.first)
         }
     
@@ -50,7 +54,7 @@ final class DefaultCIS2TokenManager {
     
     public func addDefaultCIS2Token(to account: AccountDataType) async throws {
         for address in Self.defaultCI2TokensIds {
-            guard let token = try await CIS2TokenService.getCIS2Tokens(for: address.index).first else { return }
+            guard let token = try await cis2Service.fetchAllTokensData(contractIndex: address.index).first else { return }
             await MainActor.run {
                 storeTokenIfNeeded(token, to: account)
             }

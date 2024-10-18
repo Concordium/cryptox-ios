@@ -6,10 +6,12 @@
 import Foundation
 import UIKit
 import Combine
+import SwiftUI
 
 protocol MoreCoordinatorDelegate: IdentitiesCoordinatorDelegate {
     func logoutAccounts()
     func showRevealSeedPrase()
+    func showExportWalletPrivateKey()
 }
 
 @MainActor
@@ -136,11 +138,27 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
         updatePasswordCoordinator.start()
     }
     
+    // MARK: Analytics
+    
+    func showAnalytics() {
+        let analyticsVc = UIHostingController(rootView: AnalyticsView())
+        analyticsVc.title = "Analytics"
+        navigationController.pushViewController(analyticsVc, animated: true)
+    }
+    
+    
     // MARK: About
     func showAbout() {
         let vc = AboutFactory.create(with: AboutPresenter(delegate: self))
         vc.hidesBottomBarWhenPushed = true
         navigationController.pushViewController(vc, animated: true)
+    }
+    
+    // MARK: Notifications
+    func showNotifications() {
+        let notificationsVc = UIHostingController(rootView: NotificationsView())
+        notificationsVc.title = "more.notifications".localized
+        navigationController.pushViewController(notificationsVc, animated: true)
     }
     
     func logoutAccounts() {}
@@ -212,8 +230,20 @@ extension MoreCoordinator: MoreMenuPresenterDelegate {
         navigationController.present(vc, animated: true)
     }
     
+    func analyticsSelected() {
+        showAnalytics()
+    }
+    
     func aboutSelected() {
         showAbout()
+    }
+    
+    func notificationsSelected() {
+        showNotifications()
+    }
+    
+    func showExportWalletPrivateKey() {
+        parentCoordinator?.showExportWalletPrivateKey()
     }
 }
 

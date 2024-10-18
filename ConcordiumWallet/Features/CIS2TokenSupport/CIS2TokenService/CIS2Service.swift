@@ -9,10 +9,6 @@
 import Foundation
 import CryptoKit
 
-///
-/// [WIP] Tihis service will be replacement for `CIS2TokenService`
-///
-
 protocol CIS2ServiceProtocol {
     func fetchTokens(contractIndex: String, contractSubindex: String, limit: Int) async throws -> CIS2TokenInfoBox
     func fetchTokensMetadata(contractIndex: String, contractSubindex: String, tokenId: String) async throws -> CIS2TokensMetadata
@@ -42,7 +38,15 @@ enum ChecksumError: Error {
 }
 
 extension CIS2Service {
-    func fetchTokens(contractIndex: String, contractSubindex: String = "0", limit: Int = 1000) async throws -> CIS2TokenInfoBox {
+    
+    /// Fetches tokens from the contract based on the provided contract index and subindex.
+    ///
+    /// - Parameters:
+    ///   - contractIndex: The index of the contract.
+    ///   - contractSubindex: The subindex of the contract, default is "0".
+    ///   - limit: The maximum number of tokens to fetch, default is 100.
+    /// - Returns: A `CIS2TokenInfoBox` containing information about the tokens.
+    func fetchTokens(contractIndex: String, contractSubindex: String = "0", limit: Int = 100) async throws -> CIS2TokenInfoBox {
         try await networkManager.load(
             ResourceRequest(
                 url: ApiConstants.CIS2Token.tokens
@@ -53,6 +57,42 @@ extension CIS2Service {
         )
     }
     
+    /// Fetches all tokens data for a given contract.
+    ///
+    /// - Parameters:
+    ///   - contractIndex: The index of the contract.
+    ///   - tokenIds: An optional string of comma-separated token identifiers.
+    /// - Returns: An array of `CIS2Token` objects containing the fetched tokens.
+    func fetchAllTokensData(contractIndex: Int, tokenIds: String? = nil) async throws -> [CIS2Token] {
+        let tokenIdsString: String
+        if let tokenIds {
+            tokenIdsString = tokenIds
+        } else {
+            let tokens = try await fetchTokens(contractIndex: String(contractIndex))
+            tokenIdsString = tokens.tokens.map(\.token).joined(separator: ",")
+        }
+        
+        let metadata = try await fetchTokensMetadata(contractIndex: String(contractIndex), tokenId: tokenIdsString)
+        let tokenMetadataPairs = try await getTokenMetadataPair(metadata: metadata)
+        
+        return tokenMetadataPairs.map { item, tokenMetadata in
+            CIS2Token(
+                tokenId: item.tokenId,
+                metadata: tokenMetadata,
+                contractAddress: SmartContractAddress(index: contractIndex, subindex: 0),
+                contractName: metadata.contractName
+            )
+        }
+    }
+    
+    /// Fetches the balance of tokens for a specific account and token ID.
+    ///
+    /// - Parameters:
+    ///   - contractIndex: The index of the contract.
+    ///   - contractSubindex: The subindex of the contract, default is "0".
+    ///   - accountAddress: The address of the account.
+    ///   - tokenId: The ID of the token.
+    /// - Returns: An array of `CIS2TokenBalance` objects.
     func fetchTokensBalance(contractIndex: String, contractSubindex: String = "0", accountAddress: String, tokenId: String) async throws -> [CIS2TokenBalance] {
         try await networkManager.load(
             ResourceRequest(
@@ -68,16 +108,17 @@ extension CIS2Service {
     /// Fetches metadata for tokens specified by their identifiers within a contract.
     ///
     /// - Parameters:
-    ///   - contractIndex: The index of the contract to fetch token metadata from.
+    ///   - contractIndex: The index of the contract.
     ///   - contractSubindex: The subindex of the contract. Defaults to "0" if not provided.
-    ///   - tokenIds: An string of comma separated string identifiers representing the tokens for which metadata is to be fetched.
-    ///   - API: `GET /v1/CIS2Tokens/{index}/{subindex}`
-    ///
+    ///   - tokenId: A string of comma-separated identifiers representing the tokens for which metadata is to be fetched.
+    /// - Returns: A `CIS2TokensMetadata` object containing the metadata of the specified tokens.
     func fetchTokensMetadata(contractIndex: String, contractSubindex: String = "0", tokenId: String) async throws -> CIS2TokensMetadata {
         try await networkManager.load(
             ResourceRequest(
-                url: ApiConstants.CIS2Token.cis2TokensMetadataV1.appendingPathComponent(contractIndex).appendingPathComponent(contractSubindex),
-                parameters: ["tokenId" : tokenId]
+                url: ApiConstants.CIS2Token.cis2TokensMetadataV1
+                    .appendingPathComponent(contractIndex)
+                    .appendingPathComponent(contractSubindex),
+                parameters: ["tokenId": tokenId]
             )
         )
     }
@@ -85,13 +126,19 @@ extension CIS2Service {
     func getCIS2TokenMetadata(url: URL, metadataChecksum: String?) async throws -> CIS2TokenMetadata {
         let (data, _) = try await session.data(from: url)
         
-        if let metadataChecksum = metadataChecksum {
+        if let metadataChecksum {
             try await verifyChecksum(checksum: metadataChecksum, responseData: data)
         }
         
         return try JSONDecoder().decode(CIS2TokenMetadata.self, from: data)
     }
     
+    /// Verifies the checksum of the response data against a provided checksum.
+    ///
+    /// - Parameters:
+    ///   - checksum: The expected checksum.
+    ///   - responseData: The data to verify.
+    /// - Throws: `ChecksumError.incorrectChecksum` if the checksums do not match.
     func verifyChecksum(checksum: String, responseData: Data) async throws {
         let hash = SHA256.hash(data: responseData)
         let hashString = hash.compactMap { String(format: "%02x", $0) }.joined()

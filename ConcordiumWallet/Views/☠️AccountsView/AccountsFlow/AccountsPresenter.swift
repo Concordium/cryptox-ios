@@ -454,6 +454,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
             delegate?.createNewIdentity()
         default:
             delegate?.createNewAccount()
+            Tracker.trackContentInteraction(name: "Home screen", interaction: .clicked, piece: "Submit account")
         }
     }
     

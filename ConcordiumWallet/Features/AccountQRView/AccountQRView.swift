@@ -80,7 +80,7 @@ struct AccountQRView: View {
                     
                     Button {
                         CopyPasterHelper.copy(string: account.address)
-                        NotificationPresenter.shared().present(text: "general.copied".localized, dismissAfterDelay: 0.5, includedStyle: .success)
+                        NotificationPresenter.shared.present("general.copied".localized, includedStyle: .success, duration: 5)
                     } label: {
                         Text("accountAddress.copy")
                             .frame(maxWidth: .infinity)

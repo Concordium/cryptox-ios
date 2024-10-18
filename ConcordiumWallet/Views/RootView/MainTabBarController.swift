@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import Combine
 
 class MainTabBarController: BaseTabBarController {
     let accountsCoordinator: AccountsCoordinator
     let collectionsCoordinator: CollectionsCoordinator
     let moreCoordinator: MoreCoordinator
     let accountsMainRouter: AccountsMainRouter
+    
+    private var cancellables: [AnyCancellable] = []
+    let defaultProvider = ServicesProvider.defaultProvider()
 
     init(accountsCoordinator: AccountsCoordinator,
          collectionsCoordinator: CollectionsCoordinator,
@@ -34,7 +38,10 @@ class MainTabBarController: BaseTabBarController {
         super.viewDidLoad()
         collectionsCoordinator.start()
         moreCoordinator.start()
-        viewControllers = [accountsMainRouter.rootScene(), collectionsCoordinator.navigationController, moreCoordinator.navigationController]
+        let newsFeedController = SceneViewController(content: NewsFeed())
+        newsFeedController.tabBarItem = UITabBarItem(title: "news_tab_title".localized, image: UIImage(named: "tab_item_news"), tag: 5)
+        newsFeedController.extendedLayoutIncludesOpaqueBars = false
+        viewControllers = [accountsMainRouter.rootScene(), newsFeedController, collectionsCoordinator.navigationController, moreCoordinator.navigationController]
         hideKeyboardWhenTappedAround()
     }
     
@@ -70,5 +77,35 @@ extension MainTabBarController: IdentitiesCoordinatorDelegate {
 extension MainTabBarController: BackupAlertControllerDelegate {
     func didApplyBackupOk() {
         accountsCoordinator.showExport()
+    }
+}
+
+extension MainTabBarController: NotificationNavigationDelegate {
+    func openTransactionFromNotification(with userInfo: [AnyHashable : Any]) {
+        guard let accountAddress = userInfo["recipient"] as? String,
+              let account = defaultProvider.storageManager().getAccount(withAddress: accountAddress),
+              let selectedNavigationController = selectedViewController as? UINavigationController
+        else { return }
+
+        let accountDetailRouter = AccountDetailsCoordinator(navigationController: selectedNavigationController,
+                                                            dependencyProvider: defaultProvider,
+                                                            parentCoordinator: accountsCoordinator,
+                                                            account: account)
+        guard let transactionId = userInfo["reference"] as? String
+        else { return }
+        let notificationType = userInfo["type"] as? String
+        
+        if notificationType == TransactionNotificationTypes.ccd.rawValue {
+            TransactionNotificationService().handleCCDTransaction(account: account, transactionId: transactionId, accountDetailRouter: accountDetailRouter) {
+                accountDetailRouter.showTransactionDetail(viewModel: $0)
+            }
+        } else {
+            let detailRouter = AccountDetailRouter(account: account, navigationController: selectedNavigationController, dependencyProvider: defaultProvider)
+            Task {
+                if let token = await TransactionNotificationService().tokenObject(from: userInfo) {
+                        detailRouter.showCIS2TokenDetailsFlow(token, account: account)
+                }
+            }
+        }
     }
 }

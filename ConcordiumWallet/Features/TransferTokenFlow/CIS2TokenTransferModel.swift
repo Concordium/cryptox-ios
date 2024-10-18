@@ -28,6 +28,7 @@ final class CIS2TokenTransferModel {
     @Published var maxAmountTokenSend: BigDecimal = .zero
     @Published var tokenGeneralBalance: BigDecimal = .zero
     @Published var ccdTokenDisposalBalance: BigDecimal = .zero
+    @Published var memo: Memo?
     
     let account: AccountDataType
     let notifyDestination: TokenTransferNotifyDestination
@@ -38,6 +39,8 @@ final class CIS2TokenTransferModel {
     private var onTxSuccess: (String) -> Void
     private var onTxReject: () -> Void
     
+    let cis2Service: CIS2Service
+    
     ///
     /// `notifyDestination` - describes whch service you need to send ``
     init(
@@ -46,6 +49,7 @@ final class CIS2TokenTransferModel {
         dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
         notifyDestination: TokenTransferNotifyDestination,
         passwordDelegate: RequestPasswordDelegate = DummyRequestPasswordDelegate(),
+        memo: Memo?,
         onTxSuccess: @escaping (String) -> Void,
         onTxReject: @escaping () -> Void
     ) {
@@ -54,9 +58,11 @@ final class CIS2TokenTransferModel {
         self.dependencyProvider = dependencyProvider
         self.notifyDestination = notifyDestination
         self.passwordDelegate = passwordDelegate
+        self.memo = memo
         self.onTxSuccess = onTxSuccess
         self.onTxReject = onTxReject
         
+        self.cis2Service = CIS2Service(networkManager: dependencyProvider.networkManager(), storageManager: dependencyProvider.storageManager())
         subscribe()
         
         Task {
@@ -73,7 +79,7 @@ final class CIS2TokenTransferModel {
             case .ccd:
                 return .init(BigInt(account.forecastAtDisposalBalance) - BigInt(stringLiteral: transaferCost?.cost ?? "0"), 6)
             case .cis2(let cis2Token):
-                return try await CIS2TokenService.getCIS2TokenBalance(index: cis2Token.contractAddress.index, tokenIds: [cis2Token.tokenId], address: self.account.address)
+                return try await cis2Service.fetchTokensBalance(contractIndex: String(cis2Token.contractAddress.index), accountAddress: self.account.address, tokenId: cis2Token.tokenId)
                     .first
                     .map { balance -> BigDecimal in
                         return .init(BigInt(stringLiteral: balance.balance), cis2Token.metadata.decimals ?? 0)
@@ -92,7 +98,7 @@ final class CIS2TokenTransferModel {
     }
     
     private func subscribe() {
-        Publishers.CombineLatest3($recipient, $tokenType, $amountTokenSend).sink(receiveValue: { [weak self] (address, tokenType, amount) in
+        Publishers.CombineLatest4($recipient, $tokenType, $amountTokenSend, $memo).sink(receiveValue: { [weak self] (address, tokenType, amount, memo) in
             await self?.updateMaxAmount()
 
             guard let self = self else { return }
@@ -110,7 +116,7 @@ final class CIS2TokenTransferModel {
     public func getCCDTxCost() async throws -> TransferCost {
         return try await dependencyProvider
             .transactionsService()
-            .getTransferCost(transferType: .simpleTransfer, costParameters: [])
+            .getTransferCost(transferType: .simpleTransfer, costParameters: TransferCostParameter.parametersForMemoSize(memo?.size))
             .async()
     }
     
@@ -128,7 +134,7 @@ final class CIS2TokenTransferModel {
                 self.tokenGeneralBalance = .init(BigInt(account.forecastBalance), 6)
                 self.ccdTokenDisposalBalance = .init(BigInt(account.forecastAtDisposalBalance), 6)
             case .cis2(let token):
-                guard let balance = try? await CIS2TokenService.getCIS2TokenBalance(index: token.contractAddress.index, tokenIds: [token.tokenId], address: self.account.address).first else {
+                guard let balance = try? await cis2Service.fetchTokensBalance(contractIndex: String(token.contractAddress.index), accountAddress: self.account.address, tokenId: token.tokenId).first else {
                     self.maxAmountTokenSend = .zero
                     self.tokenGeneralBalance = .zero
                     self.tokenGeneralBalance = .zero
@@ -179,6 +185,7 @@ extension CIS2TokenTransferModel {
                     .contractSubindex(token.contractAddress.subindex),
                     .receiveName("\(token.contractName).transfer"),
                     .parameter(serializedTransferParams),
+                    .memoSize(memo?.size ?? 0)
                 ]
             )
             .eraseToAnyPublisher()
@@ -189,7 +196,7 @@ extension CIS2TokenTransferModel {
     private func updateCCDTransferCost() async {
         self.transaferCost = try? await dependencyProvider
             .transactionsService()
-            .getTransferCost(transferType: .simpleTransfer, costParameters: [])
+            .getTransferCost(transferType: .simpleTransfer, costParameters: TransferCostParameter.parametersForMemoSize(memo?.size))
             .async()
     }
 }
@@ -216,6 +223,7 @@ extension CIS2TokenTransferModel {
         transfer.toAddress = self.recipient ?? ""
         transfer.cost = self.transaferCost?.cost ?? "100000"
         transfer.energy = self.transaferCost?.energy ?? 0
+        transfer.memo = self.memo?.data.hexDescription
 
         return dependencyProvider.transactionsService()
             .performTransfer(transfer, from: self.account, requestPasswordDelegate: self.passwordDelegate)
@@ -236,6 +244,7 @@ extension CIS2TokenTransferModel {
         transfer.toAddress = to
         transfer.expiry = Date().addingTimeInterval(10 * 60)
         transfer.energy = txCost.energy
+        transfer.memo = self.memo?.data.hexDescription
         
         transfer.receiveName = token.contractName + ".transfer"
         transfer.params = serializedTransferParams

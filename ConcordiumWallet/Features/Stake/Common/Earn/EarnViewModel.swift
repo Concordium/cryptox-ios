@@ -16,12 +16,14 @@ enum EarnEvent {
 
 class EarnViewModel: PageViewModel<EarnEvent> {
     @Published var account: AccountDataType
+    @Published var cooldowns: [AccountCooldown]
     @Published var bakingText = ""
     private var cancellables = Set<AnyCancellable>()
     private weak var view: StakeStatusViewProtocol?
 
     init(account: AccountDataType) {
         self.account = account
+        self.cooldowns = account.cooldowns.map({AccountCooldown(timestamp: $0.timestamp, amount: $0.amount, status: $0.status.rawValue)})
     }
     
     func loadMinStake() {

@@ -21,7 +21,8 @@ final class AccountsMainViewModel: ObservableObject {
     @Published var staked = GTU(intValue: 0)
     @Published var isBackupAlertShown = false
         
-    private let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
+    let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
+    
     private var cancellables = [AnyCancellable]()
     private let walletConnectService: WalletConnectService
     private let defaultCIS2TokenManager: DefaultCIS2TokenManager
@@ -30,7 +31,7 @@ final class AccountsMainViewModel: ObservableObject {
         self.dependencyProvider = dependencyProvider
         self.walletConnectService = walletConnectService
         self.isBackupAlertShown = dependencyProvider.mobileWallet().isLegacyAccount()
-        self.defaultCIS2TokenManager = .init(storageManager: dependencyProvider.storageManager())
+        self.defaultCIS2TokenManager = .init(storageManager: dependencyProvider.storageManager(), networkManager: self.dependencyProvider.networkManager())
         
         accounts = dependencyProvider.storageManager().getAccounts().sorted(by: { t1, t2 in
             if (t1.forecastBalance == t2.forecastBalance) {

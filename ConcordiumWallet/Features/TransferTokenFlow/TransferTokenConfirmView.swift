@@ -78,59 +78,7 @@ struct TransferTokenConfirmView: View {
                     .font(.system(size: 19, weight: .medium))
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
-                    
-                
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text(viewModel.amountDisplay)
-                            .foregroundColor(.white)
-                            .font(.system(size: 19, weight: .medium))
-                            .listRowBackground(Color.clear)
-                        Text(viewModel.ticker)
-                            .foregroundColor(.white)
-                            .font(.system(size: 19, weight: .medium))
-                            .listRowBackground(Color.clear)
-                    }
-                    Text("sendFund.confirmation.line2.to".localized)
-                        .foregroundColor(Color.greyMain)
-                        .font(.system(size: 15, weight: .medium))
-                        
-                    Text(viewModel.recipient.prefix(4) + "..." + viewModel.recipient.suffix(4))
-                        .foregroundColor(.white)
-                        .font(.system(size: 19, weight: .medium))
-                        
-                    
-                    Rectangle()
-                        .fill(Color.blackAditional)
-                        .frame(height: 1)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 12)
-                    
-                    Text("sendFund.feeMessageTitle".localized)
-                        .foregroundColor(Color.blackAditional)
-                        .font(.system(size: 15, weight: .medium))
-        
-                    Text(GTU(intValue: Int(BigInt(stringLiteral: viewModel.tokenTransferModel.transaferCost?.cost ?? "0"))).displayValueWithCCDStroke())
-                        .foregroundColor(.white)
-                        .font(.system(size: 15, weight: .medium))
-                    
-                    HStack {
-                        Text("sendFund.confirmation.line3.fromAccount".localized)
-                            .foregroundColor(Color.blackAditional)
-                            .font(.system(size: 15, weight: .medium))
-                        Spacer()
-                        Text(viewModel.sender.prefix(4) + "..." + viewModel.sender.suffix(4))
-                            .foregroundColor(Color.white)
-                            .font(.system(size: 15, weight: .medium))
-                    }
-                    .padding(.vertical, 4)
-                    .padding(.horizontal, 8)
-                    .overlay(
-                        Capsule(style: .circular)
-                            .stroke(Color.blackAditional, lineWidth: 1)
-                    )
-                    .padding(.top, 24)
-                }
+                transferDetails()
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
                 .padding(20)
@@ -176,6 +124,71 @@ struct TransferTokenConfirmView: View {
                     label: { Image("ico_close") }
             }
             : nil
+        }
+    }
+    
+    @ViewBuilder
+    func transferDetails() -> some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Text(viewModel.amountDisplay)
+                    .foregroundColor(.white)
+                    .font(.system(size: 19, weight: .medium))
+                    .listRowBackground(Color.clear)
+                Text(viewModel.ticker)
+                    .foregroundColor(.white)
+                    .font(.system(size: 19, weight: .medium))
+                    .listRowBackground(Color.clear)
+            }
+            Text("sendFund.confirmation.line2.to".localized)
+                .foregroundColor(Color.greyMain)
+                .font(.system(size: 15, weight: .medium))
+                
+            Text(viewModel.recipient.prefix(4) + "..." + viewModel.recipient.suffix(4))
+                .foregroundColor(.white)
+                .font(.system(size: 19, weight: .medium))
+                
+            
+            Rectangle()
+                .fill(Color.blackAditional)
+                .frame(height: 1)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 12)
+            
+            Text("sendFund.feeMessageTitle".localized)
+                .foregroundColor(Color.blackAditional)
+                .font(.system(size: 15, weight: .medium))
+
+            Text(GTU(intValue: Int(BigInt(stringLiteral: viewModel.tokenTransferModel.transaferCost?.cost ?? "0"))).displayValueWithCCDStroke())
+                .foregroundColor(.white)
+                .font(.system(size: 15, weight: .medium))
+            
+            Spacer()
+            
+            Text("sendFund.memo.textTitle".localized)
+                .foregroundColor(Color.blackAditional)
+                .font(.system(size: 15, weight: .medium))
+
+            Text(viewModel.tokenTransferModel.memo?.displayValue ?? "")
+                .foregroundColor(.white)
+                .font(.system(size: 15, weight: .medium))
+            
+            HStack {
+                Text("sendFund.confirmation.line3.fromAccount".localized)
+                    .foregroundColor(Color.blackAditional)
+                    .font(.system(size: 15, weight: .medium))
+                Spacer()
+                Text(viewModel.sender.prefix(4) + "..." + viewModel.sender.suffix(4))
+                    .foregroundColor(Color.white)
+                    .font(.system(size: 15, weight: .medium))
+            }
+            .padding(.vertical, 4)
+            .padding(.horizontal, 8)
+            .overlay(
+                Capsule(style: .circular)
+                    .stroke(Color.blackAditional, lineWidth: 1)
+            )
+            .padding(.top, 24)
         }
     }
     

@@ -81,6 +81,7 @@ struct TransferTokenSubmittedView: View {
             Button {
                 self.dismiss()
                 self.router.dismissFlow()
+                
             } label: {
                 Text("identitySubmitted.finish".localized)
                     .frame(maxWidth: .infinity)

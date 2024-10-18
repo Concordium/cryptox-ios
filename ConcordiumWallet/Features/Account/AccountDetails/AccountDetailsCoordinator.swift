@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 protocol AccountDetailsDelegate: AnyObject {
     func accountDetailsClosed()
@@ -30,6 +31,7 @@ class AccountDetailsCoordinator: Coordinator,
 {
     var childCoordinators = [Coordinator]()
     weak var parentCoordinator: AccountDetailsDelegate?
+    weak var accountsMainViewDelegate: AccountsMainViewDelegate?
 
     var navigationController: UINavigationController
 
@@ -67,8 +69,12 @@ class AccountDetailsCoordinator: Coordinator,
         }
     }
     
-    func showImportTokenFlow(_ address: String) {
-        let view = ImportTokenView(viewModel: .init(storageManager: self.dependencyProvider.storageManager(), address: address))
+    func showImportTokenFlow(account: AccountDataType) {
+        let view = ImportTokenView(viewModel: .init(storageManager: self.dependencyProvider.storageManager(),
+                                                    networkManager: self.dependencyProvider.networkManager(),
+                                                    account: account),
+                                   searchTokenViewModel: SearchTokenViewModel(cis2Service: CIS2Service(networkManager: self.dependencyProvider.networkManager(),
+                                                                                                       storageManager: self.dependencyProvider.storageManager())))
         let vc = SceneViewController(content: view)
         navigationController.present(vc, animated: true)
     }
@@ -170,16 +176,7 @@ class AccountDetailsCoordinator: Coordinator,
     }
     
     func showSendFund(balanceType: AccountBalanceTypeEnum = .balance) {
-        let transferType: SendFundTransferType = .simpleTransfer
-        let coordinator = SendFundsCoordinator(navigationController: CXNavigationController(),
-                                               delegate: self,
-                                               dependencyProvider: self.dependencyProvider,
-                                               account: account,
-                                               balanceType: balanceType,
-                                               transferType: transferType)
-        coordinator.start()
-        childCoordinators.append(coordinator)
-        navigationController.present(coordinator.navigationController, animated: true, completion: nil)
+        self.accountsMainViewDelegate?.showSendFundsFlow(account)
     }
     
     func showAccountAddressQR(_ account: AccountDataType) {
@@ -289,6 +286,11 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
     func showEarn() {
         showEarn(account: account)
     }
+    
+    func showOnrampFlow() {
+        let childView = UIHostingController(rootView: CCDOnrampView(dependencyProvider: dependencyProvider))
+        navigationController.present(childView, animated: true)
+    }
 
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, retryFailedAccount account: AccountDataType) {
         var accountCopy = AccountDataTypeFactory.create()
@@ -343,13 +345,6 @@ extension AccountDetailsCoordinator: ReleaseSchedulePresenterDelegate {
 extension AccountDetailsCoordinator: TransferFiltersPresenterDelegate {
     func refreshTransactionList() {
         accountDetailsPresenter?.setShouldRefresh(true)
-    }
-}
-
-extension AccountDetailsCoordinator: SendFundsCoordinatorDelegate {
-    func sendFundsCoordinatorFinished() {
-        navigationController.dismiss(animated: true, completion: nil)
-        self.childCoordinators.removeAll {$0 is SendFundsCoordinator}
     }
 }
 
@@ -429,5 +424,11 @@ extension AccountDetailsCoordinator {
             SceneViewController(content: AccountSettingsView(viewModel: .init(account: account))),
             animated: true
         )
+    }
+}
+
+extension AccountDetailsCoordinator {
+    func showTransactionDetailsFromNotification(transaction: TransactionViewModel) {
+        showTransactionDetail(viewModel: transaction)
     }
 }

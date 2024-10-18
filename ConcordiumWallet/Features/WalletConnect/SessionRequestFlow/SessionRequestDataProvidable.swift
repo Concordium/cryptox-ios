@@ -8,7 +8,6 @@
 
 import Foundation
 import Web3Wallet
-import WalletConnectVerify
 
 protocol SessionRequestDataProvidable {
     func checkAllSatisfy() async throws -> Bool

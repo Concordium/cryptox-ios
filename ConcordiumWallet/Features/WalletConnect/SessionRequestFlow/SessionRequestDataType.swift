@@ -70,7 +70,7 @@ enum SessionRequestDataType {
                     throw SessionRequstError.unSupportedRequestMethod
                 }
             default:
-                throw SessionRequstError.invalidRequestmethod
+                throw SessionRequstError.invalidRequestMethod
         }
     }
 }

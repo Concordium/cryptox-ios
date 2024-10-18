@@ -21,6 +21,7 @@ protocol AccountsFlowCoordinatorDependencyProvider: WalletAndStorageDependencyPr
     func transactionsService() -> TransactionsServiceProtocol
     func accountsService() -> AccountsServiceProtocol
     func identitiesService() -> IdentitiesService
+    func networkManager() -> NetworkManagerProtocol
 }
 
 protocol IdentitiesFlowCoordinatorDependencyProvider: WalletAndStorageDependencyProvider {
@@ -113,6 +114,10 @@ extension ServicesProvider: AccountsFlowCoordinatorDependencyProvider {
 
     func transactionsService() -> TransactionsServiceProtocol {
         TransactionsService(networkManager: _networkManager, mobileWallet: _mobileWallet, storageManager: _storageManager)
+    }
+    
+    func networkManager() -> NetworkManagerProtocol {
+        _networkManager
     }
 }
 

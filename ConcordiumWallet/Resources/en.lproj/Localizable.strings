@@ -12,6 +12,7 @@ no = "No"; /*  */
 close = "Close"; /*  */
 start = "Start"; /*  */
 accounts_tab_title = "Accounts"; /*  */
+news_tab_title = "News"; /*  */
 collections_tab_title = "NFT"; /*  */
 identities_tab_title = "Identities"; /*  */
 more_tab_title = "More"; /*  */
@@ -271,6 +272,7 @@ process on-chain.";
 "sendFund.memo.textValue" = "%@ CCD";
 "sendFund.addMemoButtonTitle" = "Add Memo";
 "sendFund.editMemoButtonTitle" = "Edit Memo";
+"sendFund.confirmation.transfer" = "Transfer Confirmation Details";
 
 "addMemo.pageTitle" = "Add memo";
 "addMemo.pageSubTitle" = "What would you like to name your memo id?";
@@ -542,12 +544,12 @@ concordium-backup.concordiumwallet securely.";
 "earn.button.baker" = "Continue to validator setup";
 "earn.button.delegation" = "Continue to delegation setup";
 
-"earn.desc.part1" = "There are two options for earning rewards on Concordium: validation and delegation.";
+"earn.desc.part1" = "Below are two options for earning rewards on CryptoX Wallet:";
 "earn.desc.baking.header" = "Validation";
 "earn.desc.baking.text" = "As a validator you participate in the network by producing blocks on the Concordium network. This requires a minimum of %@ and access to a dedicated node.";
 "earn.desc.delegation.header" = "Delegation";
 "earn.desc.delegation.text" = "If you don't have access to your own node you may delegate your stake to one of the other validators. There is no minimum amount of CCD required when delegating.";
-"earn.desc.part2" = "Choose the option that suits you below to learn more.\n\nNOTE: A single account cannot both be a validator and delegator, but it is possible to stop one and change to the other.";
+"earn.desc.part2" = "Please note, a single account cannot both be a validator and delegator but it is possible to stop one and change to the other.";
 
 
 /// After 2023 update
@@ -767,11 +769,11 @@ If you don’t have enough CCD at disposal on your balance, you might not be abl
 For more info you can visit
 developer.concordium.software";
 
-"delegation.pool.baker" = "Baker";
+"delegation.pool.validator" = "Validator";
 "delegation.pool.passive" = "Passive";
-"delegation.pool.idplaceholder.create" = "Enter baker pool ID";
-"delegation.pool.idplaceholder.update" = "Optional: New baker pool ID";
-"delegation.pool.invalidbakerid" = "Invalid target baker pool ID";
+"delegation.pool.idplaceholder.create" = "Enter validator pool ID";
+"delegation.pool.idplaceholder.update" = "Optional: New validator pool ID";
+"delegation.pool.invalidbakerid" = "Invalid target validator pool ID";
 "delegation.pool.closedpool" = "This pool is closed";
 
 "delegation.pool.sizewarning.title" = "Current delegation amount too large";
@@ -1088,10 +1090,17 @@ Remember to restart your node with the validator keys.";
 "export.title" = "Export";
 "more.update.successfully" = "Passcode was successfully changed";
 "more.recovery" = "Recovery";
+"more.analytics" = "Analytics";
 "more.deleteAccount" = "Remove wallet";
 "more.deleteAccount.subtitle" = "Remove all sensitive data and private keys from this device";
 "more.funds.to.unshield" = "Funds to Unshield";
+"more.notifications" = "Notifications";
+"more.exportWallet.privateKey" = "Export wallet private key";
 
+"analytics.trackMessage" = "To improve the experience, we would like to track your activity in the app (but never your crypto). Of course, it is completely anonymous.";
+"analytics.popupTrackTitle" = "Help us improve";
+"analytics.allowTracking" = "Allow activity tracking";
+"analytics.askNotToTrack" = "Ask not to track";
 
 "delegation.inputamount.title.create" = "Register delegation";
 "delegation.inputamount.title.update" = "Update delegation";
@@ -1125,6 +1134,9 @@ Remember to restart your node with the validator keys.";
 "recover.identityKey" = "identity";
 "recover.isNewlyCreatedKey" = "isNewlyCreated";
 
+"notifications.ccdtransactions" = "CCD transactions";
+"notifications.cis2tokentransactions" = "CIS-2 token transactions";
+"notifications.seeTransactionDetails" = "See transaction details";
 
 "accountsettings.navigationtitle" = "Account settings";
 
@@ -1206,6 +1218,7 @@ Remember to restart your node with the validator keys.";
 "baking.status.pendingchange" = "The following changes will take effect on %@";
 "baking.status.removingbaker" = "The validator will be deregistered, and the stake will be unlocked on the public balance of the account.";
 "baking.status.reducingstake" = "Validator stake will be lowered to";
+"baking.status.settings.title" = "Validator settings";
 
 
 "new_onboarding_welcome_title" = "Welcome to Concordium CryptoX wallet";
@@ -1241,9 +1254,13 @@ Remember to restart your node with the validator keys.";
 "enable_face_id_later_button_title" = "Set up later in Settings";
 "seed_phrase_title" = "Your seed phrase";
 "seed_phrase_subtitle" = "Your seed phrase is the access key to all the funds in your wallet. If you forget it you will lose access to your wallet(s). Keep it somewhere safe";
+"wallet_private_key_title" = "Your wallet private key";
+"wallet_private_key_subtitle" = "Your wallet private key is the access key to all the funds in your wallet. Copy it and keep it safe. To avoid mistakes, do not write it down manually.";
+"copy_and_keep_safe" = "Copy and keep safe";
 "transcribe" = "Transcribe";
 "digital_copy" = "Digital copy";
 "screenshot" = "Screenshot";
+"show_wallet_private_key" = "Show wallet private key";
 "seed_phrase_confirm_save" = "I have kept it somewhere safe";
 "continue_btn_title" = "Continue";
 "identity_verification_title" = "Identity verification";
@@ -1275,6 +1292,12 @@ Remember to restart your node with the validator keys.";
 "recover_accounts_recover_button_title" = "Recover";
 "recover_accounts_connect_wallet_button_title" = "Connect wallet";
 
+"recover_accounts.info.seedPhraseDescription" = "Consists of 24 words\n Grants access to all connected accounts\nCan be used to recover a seed phrase wallet";
+"recover_accounts.info.WalletKeyDescription" = "Consists of 128 characters long hexadecimal string\nGrants access to all connected accounts\nCan be used to recover a seed phrase wallet\nUsed in older Concordium wallets";
+
+"import.walletPrivateKey.title" = "Your wallet private key";
+"import.walletPrivateKey.subtitle" = "Please enter your wallet private key exactly how it was presented to you";
+
 "more.show.recovery.phrase.title" = "Show recovery phrase";
 "more.show.recovery.phrase.subtitle" = "Show you recovery seed phrase for this account";
 "more.remove.account.confirmation.title" = "Are you sure want to remove all account and related data?";
@@ -1296,3 +1319,11 @@ Remember to restart your node with the validator keys.";
 "[%@](https://pioneeringtechventures.com/terms-and-conditions)" = "[%@](https://pioneeringtechventures.com/terms-and-conditions)";
 
 "identityCreation.hasPending" = "You can only have one identity request open at a time. Please wait for your currently pending request to finish before starting a new one.";
+
+"ccd_onramp_list_header_title" = "CCD Listings";
+"ccd_onramp_list_header_subtitle" = "CCD is listed in the following external exchanges and services. Some of these venues will guide you through their onboarding process and wallet choices.";
+"ccd_onramp_list_header_subtitle_more" = "Read our disclaimer for more.";
+"ccd_onramp_list_footer_title" = "Disclaimer";
+"ccd_onramp_list_footer_subtitle" = "The information regarding the CCD on any Concordium website does not constitute an offer or solicitation to purchase CCDs. The information on the CCD on this website is only directed to persons in countries other than the United States. \n\nWithout limiting the foregoing, in no event would any offering of CCD by Concordium be intended to be available to residents of the United States. \n\nBy clicking on any of the above links, you may be getting access to various services, including trading services. \n\nThese services are offered by third parties and the use of such services are subject to terms of conditions defined by such third parties and Concordium is not responsible for and does not assume any liabilities in relation to the use of such services.";
+"ccd_onramp_account_picker_list_header_title" = "Select Account";
+"ccd_onramp_account_picker_list_header_subtitle" = "Which account do you want to use with the external service?";

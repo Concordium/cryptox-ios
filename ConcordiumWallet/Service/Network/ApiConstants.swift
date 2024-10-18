@@ -8,7 +8,7 @@ import Foundation
 struct ApiConstants {
 
 #if TESTNET
-    static let proxyUrl = URL(string: "https://wallet-proxy.testnet.concordium.com")!
+    static let proxyUrl = URL(string: UserDefaults.standard.string(forKey: "proxy") ?? "https://wallet-proxy.testnet.concordium.com")!
 #elseif MAINNET
     static let proxyUrl = URL(string: "https://wallet-proxy.mainnet.concordium.software")!
 #else //Staging
@@ -41,7 +41,7 @@ struct ApiConstants {
     static let accEncryptionKey =       proxyUrl.appendingPathComponent("v0/accEncryptionKey")
     static let submitTransfer =         proxyUrl.appendingPathComponent("v0/submitTransfer")
     static let transferCost =           proxyUrl.appendingPathComponent("v0/transactionCost")
-    static let accountBalance =         proxyUrl.appendingPathComponent("v0/accBalance")
+    static let accountBalance =         proxyUrl.appendingPathComponent("v1/accBalance")
     static let accountTransactions =    proxyUrl.appendingPathComponent("v1/accTransactions")
     static let gtuDrop =                proxyUrl.appendingPathComponent("v0/testnetGTUDrop")
     static let airDrop =                proxyUrl.appendingPathComponent("v0/testnetGTUDrop")
@@ -52,8 +52,6 @@ struct ApiConstants {
     
     struct CIS2Token {
         static let tokens = proxyUrl.appendingPathComponent("/v0/CIS2Tokens")
-        static let tokenMetadata = proxyUrl.appendingPathComponent("/v0/CIS2TokenMetadata")
-        static let tokensBalance = proxyUrl.appendingPathComponent("/v0/CIS2TokenBalance")
         static let cis2TokensMetadataV1 = proxyUrl.appendingPathComponent("v1/CIS2TokenMetadata")
         static let cis2TokenBalanceV1 = proxyUrl.appendingPathComponent("v1/CIS2TokenBalance")
     }

@@ -94,7 +94,7 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
         configuration: Realm.Configuration = RealmHelper.realmConfiguration
     ) {
         self.keychain = keychain
-        self.realm = try! Realm(configuration: RealmHelper.realmConfiguration) // swiftlint:disable:this force_try
+        self.realm = try! Realm(configuration: configuration) // swiftlint:disable:this force_try
         LegacyLogger.debug("Initialized Realm database at \(realm.configuration.fileURL?.absoluteString ?? "")")
         excludeDocumentsAndLibraryFoldersFromBackup()
     }
@@ -517,7 +517,6 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
         let libraryPaths = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)
         var libraryURL = libraryPaths[0]
         excludeFromBackup(url: &libraryURL)
-        
     }
     
     private func excludeFromBackup(url:inout URL) {

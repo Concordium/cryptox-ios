@@ -9,6 +9,7 @@
 import SwiftUI
 import Combine
 import LocalAuthentication
+import MatomoTracker
 
 class PasscodeViewModel: ObservableObject {
     enum State: Equatable {
@@ -38,6 +39,7 @@ class PasscodeViewModel: ObservableObject {
     
     @Published var pin: [Int] = []
     @Published var isRequestFaceIDViewShown = false
+    @Published var isRequestAnalyticsViewShown = false
     @Published var error: GeneralAppError?
     @Published var isWrongPassword: Bool = false
     
@@ -47,6 +49,10 @@ class PasscodeViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private var pwHash: String?
 
+    var shouldShowFaceIDAfterAnalytics: Bool {
+        return UserDefaults.standard.bool(forKey: "isAnalyticsPopupShown")
+    }
+    
     init(keychain: KeychainWrapperProtocol, sanityChecker: SanityChecker, onSuccess: @escaping (String) -> Void) {
         self.keychain = keychain
         self.onSuccess = onSuccess
@@ -64,9 +70,13 @@ class PasscodeViewModel: ObservableObject {
                     clearPin()
                 case .repeatPasscode(let array):
                     if array == pin {
+                        Tracker.trackContentInteraction(name: "Create passcode", interaction: .entered, piece: "Successful 6 digit passcode")
                         keychain.storePassword(password: convertPinToString(array))
                             .onSuccess { [weak self] pwHash in
                                 self?.pwHash = pwHash
+                                if !UserDefaults.bool(forKey: "isAnalyticsPopupShown") {
+                                    self?.isRequestAnalyticsViewShown = true
+                                }
                                 self?.isRequestFaceIDViewShown = true
                             }.onFailure { error in
                                 self.error = .somethingWentWrong
@@ -164,6 +174,7 @@ extension PasscodeViewModel {
                     localizedReason: myLocalizedReasonString) { success, _ in
                 DispatchQueue.main.async {
                     if success {
+                        Tracker.trackContentInteraction(name: "Dialog: enable biometrics", interaction: .clicked, piece: "success")
                         self.keychain.storePasswordBehindBiometrics(pwHash: self.pwHash ?? "")
                             .receive(on: DispatchQueue.main)
                             .sink(receiveError: { _ in }, receiveValue: { [weak self] _ in
@@ -171,11 +182,14 @@ extension PasscodeViewModel {
                                 self?.onSuccess(self?.pwHash ?? "")
                             })
                             .store(in: &self.cancellables)
+                    } else {
+                        Tracker.trackContentInteraction(name: "Dialog: enable biometrics", interaction: .clicked, piece: "not allowed")
                     }
                 }
             }
         } else {
             error = .noCameraAccess
+            Tracker.trackContentInteraction(name: "Dialog: enable biometrics", interaction: .clicked, piece: "error")
         }
     }
     
@@ -221,19 +235,21 @@ struct PasscodeView: View {
             passcodeView()
                 .padding(.bottom, 100)
                 .overlay {
-                    if viewModel.isRequestFaceIDViewShown {
-                        ZStack(alignment: .center) {
-                            Color.black
-                                .opacity(0.3)
-                                .ignoresSafeArea()
-                                .zIndex(1)
-                            enableFaceIdView()
-                                .zIndex(2)
-                        }
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .ignoresSafeArea(.all)
-                        .transition(.opacity)
-                        .animation(.easeInOut(duration: 0.3), value: viewModel.isRequestFaceIDViewShown)
+                    if viewModel.isRequestAnalyticsViewShown {
+                        analyticsPopupView(isPresented: $viewModel.isRequestAnalyticsViewShown)
+                            .onDisappear {
+                                if viewModel.shouldShowFaceIDAfterAnalytics {
+                                    viewModel.isRequestFaceIDViewShown = true
+                                }
+                            }
+                            .transition(.opacity)
+                            .animation(.easeInOut(duration: 0.3), value: viewModel.isRequestAnalyticsViewShown)
+                    }
+                    
+                    if viewModel.isRequestFaceIDViewShown && !viewModel.isRequestAnalyticsViewShown {
+                        enableFaceIdView()
+                            .transition(.opacity)
+                            .animation(.easeInOut(duration: 0.3), value: viewModel.isRequestFaceIDViewShown)
                     }
                 }
         }
@@ -255,57 +271,62 @@ struct PasscodeView: View {
     
     @ViewBuilder
     private func enableFaceIdView() -> some View {
-        VStack(alignment: .center, spacing: 16) {
-            Image("enable)face_id_icon")
-                .padding(.top, 56)
-            
-            VStack(spacing: 8) {
-                Text("enable_face_id_title".localized)
-                    .font(.satoshi(size: 20, weight: .medium))
-                    .foregroundStyle(Color.Neutral.tint7)
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity)
-                    .padding(.horizontal, 24)
-                Text("enable_face_id_subtitle".localized)
-                    .font(.satoshi(size: 14, weight: .regular))
-                    .foregroundStyle(Color.Neutral.tint5)
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity)
-                    .padding(.horizontal, 24)
-                
-                Button(action: { viewModel.enablebiometric() }, label: {
-                    HStack {
-                        Text("enable_face_id_button_title".localized)
-                            .font(Font.satoshi(size: 16, weight: .medium))
-                            .lineSpacing(24)
-                            .foregroundColor(Color.Neutral.tint1)
-                    }
-                    .padding(.horizontal, 24)
-                })
-                .frame(height: 44)
-                .background(Color.Neutral.tint7)
-                .cornerRadius(22, corners: .allCorners)
-                .padding(.horizontal, 16)
-                
-                Button(action: { viewModel.continueWithoutBiometrics() }, label: {
-                    HStack {
-                        Text("enable_face_id_later_button_title".localized)
-                            .font(Font.satoshi(size: 14, weight: .medium))
-                            .foregroundColor(Color.Neutral.tint7)
-                    }
-                    .padding(.horizontal, 24)
-                })
-                .padding(.top, 20)
-                .padding(.bottom, 36)
-            }
-        }
-        .frame(maxWidth: .infinity)
-        .background(Image("modal_bg").resizable().ignoresSafeArea())
-        .cornerRadius(20, corners: .allCorners)
-        .clipped()
-        .padding(.horizontal, 32)
+        
+        PopupContainer(icon: "enable)face_id_icon",
+                       title: "enable_face_id_title".localized,
+                       subtitle: "enable_face_id_subtitle".localized,
+                       content: enableFaceIdViewButtons(),
+                       dismissAction: {
+            viewModel.continueWithoutBiometrics()
+        })
+        .onAppear { Tracker.track(view: ["enable biometrics"]) }
     }
-       
+
+    
+    @ViewBuilder
+    private func enableFaceIdViewButtons() -> some View {
+        Button(action: { viewModel.enablebiometric() }, label: {
+            HStack {
+                Text("enable_face_id_button_title".localized)
+                    .font(Font.satoshi(size: 16, weight: .medium))
+                    .lineSpacing(24)
+                    .foregroundColor(Color.Neutral.tint1)
+            }
+            .padding(.horizontal, 24)
+        })
+        .frame(height: 44)
+        .background(Color.Neutral.tint7)
+        .cornerRadius(22, corners: .allCorners)
+        .padding(.horizontal, 16)
+        
+        Button(action: { viewModel.continueWithoutBiometrics() }, label: {
+            HStack {
+                Text("enable_face_id_later_button_title".localized)
+                    .font(Font.satoshi(size: 14, weight: .medium))
+                    .foregroundColor(Color.Neutral.tint7)
+            }
+            .padding(.horizontal, 24)
+        })
+        .padding(.top, 20)
+        .padding(.bottom, 36)
+    }
+    
+    @ViewBuilder
+    private func analyticsPopupView(isPresented: Binding<Bool>) -> some View {
+        PopupContainer(icon: "analytics_icon",
+                       title: "analytics.popupTrackTitle".localized,
+                       subtitle: "analytics.trackMessage".localized,
+                       content: AnalyticsButtonsView(isPresented: isPresented),
+                       dismissAction: {
+            UserDefaults.standard.set(false, forKey: "isAnalyticsEnabled")
+            MatomoTracker.shared.isOptedOut = true
+            isPresented.wrappedValue = false
+        })
+        .onDisappear {
+            UserDefaults.standard.set(true, forKey: "isAnalyticsPopupShown")
+        }
+    }
+    
     @ViewBuilder
     private func passcodeView() -> some View {
         VStack {

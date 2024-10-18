@@ -25,10 +25,10 @@ struct OnboardingRootView: View {
             if isAcceptedPrivacy {
                 MainPromoView(defaultProvider: defaultProvider, onIdentityCreated: onIdentityCreated, onAccountInported: onAccountInported, onLogout: onLogout)
                     .environmentObject(sanityChecker)
+                    .onAppear { Tracker.track(view: ["Home screen"]) }
             } else {
-                WelcomeView {
-                    isAcceptedPrivacy = true
-                }
+                WelcomeView { isAcceptedPrivacy = true }
+                .onAppear { Tracker.track(view: ["Welcome screen"]) }
             }
         }
         .animation(.easeInOut, value: isAcceptedPrivacy)

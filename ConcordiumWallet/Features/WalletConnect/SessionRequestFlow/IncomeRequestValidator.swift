@@ -12,7 +12,7 @@ import WalletConnectVerify
 
 enum SessionRequstError: Error {
     case environmentMismatch(chain: String), accountNotFound, accountMissmatch, noValidWCSession(topic: String)
-    case invalidRequestmethod, invalidRequestPayload, unSupportedRequestMethod
+    case invalidRequestMethod, invalidRequestPayload, unSupportedRequestMethod
     
     var errorMessage: String {
         switch self {
@@ -22,7 +22,7 @@ enum SessionRequstError: Error {
                 "Can't find apropriate acount to sign"
             case .noValidWCSession(let topic):
                 "No session found for the received topic: \(topic)"
-            case .invalidRequestmethod: "Unknown sesion requestmethod"
+            case .invalidRequestMethod: "Unknown sesion requestmethod"
             case .invalidRequestPayload: "Invalid request payload"
             case .unSupportedRequestMethod: "Unsupported request method"
         }
@@ -50,8 +50,7 @@ final class IncomeRequestValidator {
         // we cannot uniquely determine the correct account address.
         guard
             let session = Sign.instance.getSessions().first(where: { $0.topic == sessionRequest.topic }),
-            session.accounts.count == 1,
-            let walletConnectAccount = session.accounts.first
+            let sessionAccount = session.namespaces.values.compactMap(\.accounts).compactMap(\.first).first
         else {
             throw SessionRequstError.noValidWCSession(topic: sessionRequest.topic)
         }
@@ -62,7 +61,7 @@ final class IncomeRequestValidator {
         }
     
         // Get `Account` associated with Wallet Connect request
-        guard let account = storageManager.getAccounts().first(where: { $0.address == walletConnectAccount.address }) as? AccountEntity else {
+        guard let account = storageManager.getAccounts().first(where: { $0.address == sessionAccount.address }) as? AccountEntity else {
             throw SessionRequstError.accountNotFound
         }
         

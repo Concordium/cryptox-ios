@@ -50,6 +50,7 @@ final class IdentityVerificationViewModel: ObservableObject {
     }
     
     func selectIdentityProvider(_ ipData: IPInfoResponseElement, pwHash: String) {
+        Tracker.trackContentInteraction(name: "Identity verification", interaction: .clicked, piece: "\(ipData.displayName)")
         self.selectedidentity = ipData
         PermissionHelper.requestAccess(for: .camera) { [weak self] permissionGranted in
             guard let self = self else { return }
@@ -218,7 +219,7 @@ struct IdentityVerificationView: View {
                 Image.init(base64String: provider.metadata.icon)?
                     .resizable()
                     .frame(width: 60, height: 60)
-                Text(provider.ipInfo.ipDescription.name)
+                Text(provider.displayName)
                     .font(.satoshi(size: 16, weight: .medium))
                     .foregroundStyle(Color.Neutral.tint1)
                     .multilineTextAlignment(.center)

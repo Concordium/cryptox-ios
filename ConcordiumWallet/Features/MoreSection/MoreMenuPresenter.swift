@@ -20,12 +20,15 @@ protocol MoreMenuPresenterDelegate: AnyObject {
     func addressBookSelected()
     func updateSelected()
     func recoverySelected() async throws
+    func analyticsSelected()
     func aboutSelected()
     func exportSelected()
     func importSelected()
     func logout()
     func showRevealSeedPrase()
     func showUnshieldAssetsFlow()
+    func notificationsSelected()
+    func showExportWalletPrivateKey()
 }
 
 // MARK: -
@@ -37,7 +40,9 @@ protocol MoreMenuPresenterProtocol: AnyObject {
     func userSelectedAddressBook()
     func userSelectedUpdate()
     func userSelectedRecovery() async
+    func userSelectedAnalytics()
     func userSelectedAbout()
+    func userSelectedNotifications()
     
     func userSelectedExport()
     func userSelectedImport()
@@ -46,7 +51,9 @@ protocol MoreMenuPresenterProtocol: AnyObject {
     func showRevealSeedPrase()
     
     func hasSavedSeedPhrase() -> Bool
+    func hasSavedWalletPrivateKey() -> Bool
     func showUnshieldAssetsFlow()
+    func showExportWalletPrivateKey()
 }
 
 class MoreMenuPresenter {
@@ -80,8 +87,16 @@ extension MoreMenuPresenter: MoreMenuPresenterProtocol {
         dependencyProvider.seedIdentitiesService().mobileWallet.isMnemonicPhraseSaved
     }
     
+    func hasSavedWalletPrivateKey() -> Bool {
+        dependencyProvider.seedIdentitiesService().mobileWallet.hasSetupRecoveryPhrase
+    }
+    
     func showRevealSeedPrase() {
         delegate?.showRevealSeedPrase()
+    }
+    
+    func showExportWalletPrivateKey() {
+        delegate?.showExportWalletPrivateKey()
     }
     
     func userSelectedIdentities() {
@@ -104,6 +119,10 @@ extension MoreMenuPresenter: MoreMenuPresenterProtocol {
         }
     }
 
+    func userSelectedAnalytics() {
+        delegate?.analyticsSelected()
+    }
+    
     func userSelectedAbout() {
         delegate?.aboutSelected()
     }
@@ -114,6 +133,10 @@ extension MoreMenuPresenter: MoreMenuPresenterProtocol {
     
     func userSelectedImport() {
         delegate?.importSelected()
+    }
+    
+    func userSelectedNotifications() {
+        delegate?.notificationsSelected()
     }
     
     func logout() {

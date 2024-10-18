@@ -7,8 +7,28 @@
 //
 
 import Foundation
+import SwiftUI
+import Combine
 
-class StakeStatusViewModel {
+// MARK: Presenter
+protocol StakeStatusPresenterProtocol: AnyObject {
+    func viewDidLoad()
+    func pressedButton()
+    func pressedStopButton()
+    func closeButtonTapped()
+    func updateStatus()
+}
+
+struct StakeStatusViewModelError: Identifiable {
+    let id = UUID()
+    let error: Error
+
+    init(_ error: Error) {
+        self.error = error
+    }
+}
+
+class StakeStatusViewModel: ObservableObject {
     @Published var title: String = ""
     @Published var topText: String = ""
     @Published var topImageName: String = ""
@@ -20,23 +40,30 @@ class StakeStatusViewModel {
     
     @Published var newAmount: String?
     @Published var newAmountLabel: String?
-     
+    
     @Published var stopButtonEnabled: Bool = true
     @Published var stopButtonShown: Bool = true
     @Published var stopButtonLabel: String = ""
     
     @Published var updateButtonEnabled: Bool = true
     @Published var buttonLabel: String = ""
+    @Published var accountCooldowns: [AccountCooldown] = []
     
-    @Published var rows: [StakeRowViewModel]
+    @Published var rows: [StakeRowViewModel] = []
+    @Published var error: StakeStatusViewModelError?
     
-    init() {
-        rows = []
+    private var cancellables = Set<AnyCancellable>()
+    private var stakeService: StakeServiceProtocol
+
+    var presenter: StakeStatusPresenterProtocol?
+
+    init(dependencyProvider: StakeCoordinatorDependencyProvider) {
+        self.stakeService = dependencyProvider.stakeService()
     }
     
-    convenience init(dataHandler: StakeDataHandler) {
-        self.init()
-        setup(dataHandler: dataHandler)
+    func setPresenter(_ presenter: StakeStatusPresenterProtocol) {
+        self.presenter = presenter
+        loadData()
     }
     
     func setup(dataHandler: StakeDataHandler) {
@@ -44,15 +71,24 @@ class StakeStatusViewModel {
             .getCurrentOrdered()
             .map { StakeRowViewModel(displayValue: $0) }
     }
-}
-
-// MARK: -
-// MARK: Presenter
-protocol StakeStatusPresenterProtocol: AnyObject {
-	var view: StakeStatusViewProtocol? { get set }
-    func viewDidLoad()
-    func pressedButton()
-    func pressedStopButton()
-    func closeButtonTapped()
-    func updateStatus()
+    
+    func loadData() {
+        presenter?.viewDidLoad()
+    }
+    
+    func pressedButton() {
+        presenter?.pressedButton()
+    }
+    
+    func pressedStopButton() {
+        presenter?.pressedStopButton()
+    }
+    
+    func closeButtonTapped() {
+        presenter?.closeButtonTapped()
+    }
+    
+    func updateStatus() {
+        presenter?.updateStatus()
+    }
 }

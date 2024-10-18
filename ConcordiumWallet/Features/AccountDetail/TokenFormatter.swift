@@ -54,7 +54,7 @@ public class TokenFormatter {
         let integer = parts[0]
         let fractional = parts[1].removingTrailingZeroes
         guard fractional.count <= precision else { return nil }
-        guard let integerNumber = BigInt(integer), let fractionalNumber = BigInt(fractional) else { return nil }
+        guard let integerNumber = BigInt(integer), let fractionalNumber = BigInt(fractional.isEmpty ? "0" : fractional) else { return nil }
         let value = integerNumber * BigInt(10).power(precision) +
             fractionalNumber * BigInt(10).power(precision - fractional.count)
         return BigDecimal(value, precision)

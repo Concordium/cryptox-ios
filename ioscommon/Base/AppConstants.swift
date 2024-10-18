@@ -10,12 +10,38 @@ struct AppConstants {
     }
     
     struct Media {
-        static let youtube = URL(string: "https://youtube.com/@ConcordiumNet?feature=shared")!
+        static let youtube = URL(string: "https://www.youtube.com/watch?v=eVZRuNWYs64")!
         static let ai = URL(string: "https://www.concordium.com/contact")!
     }
     
     struct Email {
         static let contact = "contact@concordium.software"
         static let support = "support@concordium.software"
+    }
+    
+    static let rssFeedURL = URL(string: "https://www.concordium.com/cryptox-news/rss.xml")!
+    
+    struct MatomoTracker {
+        static let baseUrl: String = "https://concordium.matomo.cloud/matomo.php"
+        static let siteId = "9"
+        static let versionCustomDimensionId: Int = 1
+        static let networkCustomDimensionId: Int = 2
+        
+        static let migratedFromFourPointFourSharedInstance = "migratedFromFourPointFourSharedInstance"
+    }
+    
+    struct Notifications {
+        static let baseUrl: String  = {
+            var url = ""
+            #if MAINNET
+                url = "https://notification-api.mainnet.concordium.software/api/v1/"
+            #elseif TESTNET
+                url = "https://notification-api.testnet.concordium.com/api/v1/"
+            #endif
+            return url
+        }()
+        
+        static let subscribe = "subscription"
+        static let unsubscribe = "unsubscribe"
     }
 }

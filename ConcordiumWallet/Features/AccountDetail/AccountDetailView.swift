@@ -88,10 +88,11 @@ final class AccountDetailViewModel: ObservableObject {
     @MainActor
     func reload() async {
         let tokens = storageManager.getAccountSavedCIS2Tokens(account.address)
+        let cis2Service = CIS2Service(networkManager: self.dependencyProvider.networkManager(), storageManager: storageManager)
         if !tokens.isEmpty {
             var tmpAccounts: [AccountDetailAccount] = [.ccd(amount: GTU(intValue: account.forecastBalance).displayValue())]
             do {
-                let balances = try await Self.loadCIS2TokenBalances(tokens, address: account.address)
+                let balances = try await Self.loadCIS2TokenBalances(tokens, address: account.address, cis2Service: cis2Service)
                 var tmpTokens: [AccountDetailAccount] = []
                 tmpTokens = tokens.compactMap { token -> AccountDetailAccount? in
                     let contractTokenBalances = balances.filter { $1 == token.contractAddress.index }.map(\.0).flatMap { $0 }
@@ -108,11 +109,11 @@ final class AccountDetailViewModel: ObservableObject {
         }
     }
     
-    private static func loadCIS2TokenBalances(_ tokens: [CIS2Token], address: String) async throws -> [([CIS2TokenBalance], Int)] {
+    private static func loadCIS2TokenBalances(_ tokens: [CIS2Token], address: String, cis2Service: CIS2Service) async throws -> [([CIS2TokenBalance], Int)] {
         return try await withThrowingTaskGroup(of: ([CIS2TokenBalance], Int).self, body: { group in
             for token in tokens {
                 group.addTask {
-                    try await (CIS2TokenService.getCIS2TokenBalance(index: token.contractAddress.index, tokenIds: [token.tokenId], address: address), token.contractAddress.index)
+                    try await (cis2Service.fetchTokensBalance(contractIndex: token.contractAddress.index.string, accountAddress: address, tokenId: token.tokenId), token.contractAddress.index)
                 }
             }
             
@@ -193,6 +194,7 @@ struct AccountDetailView: View {
             }
         }
         .navigationTitle(viewModel.sceneTitle)
+        .navigationBarBackButtonHidden(false)
     }
 }
 

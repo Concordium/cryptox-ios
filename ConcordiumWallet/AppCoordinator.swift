@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Combine
 import SwiftUI
+import MatomoTracker
 
 import WalletConnectPairing
 import Web3Wallet
@@ -24,6 +25,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     
     var mode: Mode = .standart
     var childCoordinators = [Coordinator]()
+    weak var notificationNavigationDelegate: NotificationNavigationDelegate?
 
     var navigationController: UINavigationController
     let defaultProvider = ServicesProvider.defaultProvider()
@@ -31,22 +33,33 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     private var sanityChecker: SanityChecker
     private var accountsCoordinator: AccountsCoordinator?
     
+    let walletConnectService: WalletConnectService = WalletConnectService()
+
     private var isMainFlowActive: Bool = false
     var appStartOpenURLAction: AppStartOpenURLAction = .none
     enum AppStartOpenURLAction {
         case none
         case openWalletConnect(URL)
+        case openTransactionDetailsFromNotification([AnyHashable: Any])
     }
     
     private let defaultCIS2TokenManager: DefaultCIS2TokenManager
     
     @AppStorage("isRestoredDefaultCIS2Tokens") private var isRestoredDefaultCIS2Tokens = false
     @AppStorage("isAcceptedPrivacy") private var isAcceptedPrivacy = false
+    
+    ///
+    /// Well, this is was done because of keychain migration issue,  we can remove this after some migration
+    /// Release with this changes will be 2.0.0
+    ///
+    @AppStorage("shoudlLogoutAllUsers") private var shoudlLogoutAllUsers = true
+    
+    @State var isPresentedAnalyticsPopup: Bool = false
 
     override init() {
         navigationController = CXNavigationController()
         sanityChecker = SanityChecker(mobileWallet: defaultProvider.mobileWallet(), storageManager: defaultProvider.storageManager())
-        self.defaultCIS2TokenManager = .init(storageManager: defaultProvider.storageManager())
+        self.defaultCIS2TokenManager = .init(storageManager: defaultProvider.storageManager(), networkManager: defaultProvider.networkManager())
         
         super.init()
         sanityChecker.coordinator = self
@@ -59,6 +72,8 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         }
 
         AppSettings.hasRunBefore = true
+        
+        legacyLogoutMigration()
         showLogin()
     }
     
@@ -70,6 +85,8 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         let keychain = defaultProvider.keychainWrapper()
         _ = keychain.deleteKeychainItem(withKey: KeychainKeys.password.rawValue)
         _ = keychain.deleteKeychainItem(withKey: KeychainKeys.loginPassword.rawValue)
+        UserDefaults.removeNotificationSettings()
+        UIApplication.shared.unregisterForRemoteNotifications()
         try? defaultProvider.seedMobileWallet().removeSeed()
         try? defaultProvider.seedMobileWallet().removeRecoveryPhrase()
     }
@@ -86,7 +103,11 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
             showInitialIdentityCreation()
         }
         // Remove login from hierarchy.
-        self.navigationController.viewControllers = [self.navigationController.viewControllers.last!]
+        let lastViewController = self.navigationController.viewControllers.last
+        if #unavailable(iOS 17) {
+            self.navigationController.dismiss(animated: false)
+        }
+        self.navigationController.viewControllers = [lastViewController!]
         childCoordinators.removeAll {$0 is LoginCoordinator}
     }
     
@@ -134,7 +155,6 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         
         navigationController.popViewController(animated: false)
         
-        
         if !accounts.isEmpty || !identities.isEmpty {
             navigationController.setViewControllers([UIHostingController(
                 rootView:
@@ -156,13 +176,47 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
                 
         }
     }
+    
+    @MainActor
+    private func legacyLogoutMigration() {
+        guard shoudlLogoutAllUsers else { return }
+        isAcceptedPrivacy = false
+        isRestoredDefaultCIS2Tokens = false
+        clearAppDataFromPreviousInstall()
+        try? defaultProvider.storageManager().removeAllAccounts()
+        shoudlLogoutAllUsers = false
+    }
 
+    private func showAnalyticsPopup() {
+        guard !UserDefaults.bool(forKey: "isAnalyticsPopupShown") else { return }
+        
+        let popoverAnalyticsVC = UIHostingController<AnyView>(rootView: AnyView(EmptyView()))
+        
+        let buttonsView = AnalyticsButtonsView(isPresented: $isPresentedAnalyticsPopup, container: popoverAnalyticsVC)
+
+        popoverAnalyticsVC.rootView = AnyView(
+            PopupContainer(icon: "analytics_icon",
+                           title: "analytics.popupTrackTitle".localized,
+                           subtitle: "analytics.trackMessage".localized,
+                           content: buttonsView,
+                           dismissAction: {
+                               UserDefaults.standard.set(false, forKey: "isAnalyticsEnabled")
+                               MatomoTracker.shared.isOptedOut = true
+                               popoverAnalyticsVC.dismiss(animated: true)
+                           })
+        )
+        popoverAnalyticsVC.modalPresentationStyle = .overCurrentContext
+        popoverAnalyticsVC.view.backgroundColor = .clear
+        navigationController.present(popoverAnalyticsVC, animated: true)
+        UserDefaults.standard.set(true, forKey: "isAnalyticsPopupShown")
+    }
+    
     func showMainTabbar() {
         let accountsCoordinator = AccountsCoordinator(
             navigationController: CXNavigationController(),
             dependencyProvider: defaultProvider,
             appSettingsDelegate: self,
-            walletConnectService: WalletConnectService()
+            walletConnectService: walletConnectService
         )
         self.accountsCoordinator = accountsCoordinator
         
@@ -177,15 +231,18 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         let tabBarController = MainTabBarController(accountsCoordinator: accountsCoordinator,
                                                     collectionsCoordinator: collectionsCoordinator,
                                                     moreCoordinator: moreCoordinator,
-                                                    accountsMainRouter: .init(dependencyProvider: defaultProvider, walletConnectService: .init())
+                                                    accountsMainRouter: .init(dependencyProvider: defaultProvider, walletConnectService: walletConnectService)
                                 )
         self.navigationController.setNavigationBarHidden(true, animated: false)
         self.navigationController.pushViewController(tabBarController, animated: true)
         
+        self.notificationNavigationDelegate = tabBarController
         self.isMainFlowActive = true
         self.handleOpenURLActionIfNeeded()
         
         self.defaultCIS2TokenManager.initializeDefaultValues()
+        
+        showAnalyticsPopup()
     }
 
     func importWallet(from url: URL) {
@@ -420,36 +477,7 @@ extension AppCoordinator: IdentitiesCoordinatorDelegate {
 
 
 extension AppCoordinator: AppSettingsDelegate {
-    func checkForAppSettings() {
-//        guard needsAppCheck else { return }
-//        needsAppCheck = false
-//
-//        defaultProvider.appSettingsService()
-//            .getAppSettings()
-//            .sink(
-//                receiveCompletion: { _ in },
-//                receiveValue: { [weak self] response in
-//                    self?.handleAppSettings(response: response)
-//                }
-//            )
-//            .store(in: &cancellables)
-    }
-    
-//    private func handleAppSettings(response: AppSettingsResponse) {
-//        showUpdateDialogIfNeeded(
-//            appSettingsResponse: response
-//        ) { action in
-//            switch action {
-//            case .update(let url, let forced):
-//                if forced {
-//                    self.handleAppSettings(response: response)
-//                }
-//                UIApplication.shared.open(url)
-//            case .cancel:
-//                break
-//            }
-//        }
-//    }
+    func checkForAppSettings() {}
 }
 
 extension AppCoordinator: RecoveryPhraseCoordinatorDelegate {
@@ -521,6 +549,14 @@ extension AppCoordinator: MoreCoordinatorDelegate {
         ), animated: true)
     }
     
+    func showExportWalletPrivateKey() {
+        navigationController.present(UIHostingController(
+            rootView:
+                ExportWalletPrivateKeyView(viewModel: .init(dependencyProvider: defaultProvider))
+
+        ), animated: true)
+    }
+    
     func logoutAccounts() {
         isAcceptedPrivacy = false
         isRestoredDefaultCIS2Tokens = false
@@ -547,12 +583,12 @@ extension AppCoordinator {
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             
-            if let error = error { return }
+            if error != nil { return }
             guard let data = data else { return }
             
             do {
                 let dataResponse = try JSONDecoder().decode(QRDataResponse.self, from: data)
-                let t = try JSONSerialization.jsonObject(with: data, options: [])
+                _ = try JSONSerialization.jsonObject(with: data, options: [])
                 
                 DispatchQueue.main.async {
                     let vc = ConnectionRequestVC.instantiate(fromStoryboard: "QRConnect") { coder in
@@ -599,6 +635,22 @@ extension AppCoordinator {
                 logger.debugLog("openWalletConnect -- \(url.absoluteString)")
                 self.openWCConnect(url)
                 self.appStartOpenURLAction = .none
+            case .openTransactionDetailsFromNotification(let userInfo):
+                logger.debugLog("openTransactionDetailsFromNotification")
+                self.handleOpeningTransactionFromNotification(with: userInfo)
+                self.appStartOpenURLAction = .none
         }
+    }
+}
+
+extension AppCoordinator {
+    func handleOpeningTransactionFromNotification(with userInfo: [AnyHashable: Any]) {
+        guard isMainFlowActive else {
+            self.appStartOpenURLAction = .openTransactionDetailsFromNotification(userInfo)
+            logger.debugLog("postponed action -- openTransactionDetailsFromNotification")
+            return
+        }
+        
+        notificationNavigationDelegate?.openTransactionFromNotification(with: userInfo)
     }
 }

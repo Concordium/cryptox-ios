@@ -21,10 +21,9 @@ protocol BakerPoolStatusPresenterDelegate: AnyObject {
 
 class BakerPoolStatusPresenter: StakeStatusPresenterProtocol {
     
-    weak var view: StakeStatusViewProtocol?
     weak var delegate: BakerPoolStatusPresenterDelegate?
     
-    private let viewModel: StakeStatusViewModel
+    let viewModel: StakeStatusViewModel
     private let account: AccountDataType
     private var status: BakerPoolStatus
     private var poolInfo: PoolInfo?
@@ -40,18 +39,17 @@ class BakerPoolStatusPresenter: StakeStatusPresenterProtocol {
         dependencyProvider: StakeCoordinatorDependencyProvider,
         delegate: BakerPoolStatusPresenterDelegate? = nil
     ) {
-        self.viewModel = StakeStatusViewModel()
+        self.viewModel = StakeStatusViewModel(dependencyProvider: dependencyProvider)
         self.delegate = delegate
         self.account = account
         self.status = status
         self.stakeService = dependencyProvider.stakeService()
         self.storageManager = dependencyProvider.storageManager()
         self.accountsService = dependencyProvider.accountsService()
+        self.viewModel.setPresenter(self)
     }
     
     func viewDidLoad() {
-        self.view?.bind(viewModel: viewModel)
-        
         setup(with: status)
     }
     
@@ -59,9 +57,9 @@ class BakerPoolStatusPresenter: StakeStatusPresenterProtocol {
         self.status = status
         if case let .registered(currentSettings) = status {
             stakeService.getBakerPool(bakerId: currentSettings.bakerID)
-                .showLoadingIndicator(in: self.view)
+//                .showLoadingIndicator(in: self.view)
                 .sink { [weak self] error in
-                    self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+                    self?.viewModel.error = StakeStatusViewModelError(error)
                 } receiveValue: { [weak self] bakerPoolResponse in
                     guard let self = self else { return }
                     self.poolInfo = bakerPoolResponse.poolInfo
@@ -154,6 +152,7 @@ private extension StakeStatusViewModel {
         buttonLabel = "baking.status.updatebutton".localized
         updateButtonEnabled = true
         stopButtonShown = false
+        accountCooldowns = account.cooldowns.map({AccountCooldown(timestamp: $0.timestamp, amount: $0.amount, status: $0.status.rawValue)})
         if let pendingChange = currentSettings.pendingChange, let timestamp = pendingChange.estimatedChangeTime {
             gracePeriodText = String(
                 format: "baking.status.pendingchange".localized,

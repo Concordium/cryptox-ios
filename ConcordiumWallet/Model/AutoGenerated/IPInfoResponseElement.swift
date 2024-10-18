@@ -10,6 +10,10 @@ struct IPInfoResponseElement: Codable {
     let ipInfo: IPInfo
     let arsInfos: [String: ArsInfo]
     let metadata: Metadata
+    
+    var displayName: String {
+        metadata.display ?? ipInfo.ipDescription.name
+    }
 }
 
 // MARK: IPInfoResponseElement convenience initializers and mutators

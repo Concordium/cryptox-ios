@@ -14,6 +14,10 @@ protocol EarnPresenterDelegate: AnyObject {
     func delegation()
 }
 
+protocol StakeStatusViewProtocol: Loadable, ShowAlert {
+    func bind(viewModel: StakeStatusViewModel)
+}
+
 class EarnPresenter: SwiftUIPresenter<EarnViewModel> {
     private let account: AccountDataType
     private weak var delegate: EarnPresenterDelegate?

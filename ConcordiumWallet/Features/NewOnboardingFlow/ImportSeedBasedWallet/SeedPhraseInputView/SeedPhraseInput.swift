@@ -7,9 +7,10 @@
 //
 
 import SwiftUI
+import MnemonicSwift
 
 struct SeedPhraseInput: View {
-    let selectedWords: [String]
+    @Binding var selectedWords: [String]
     @Binding var selectedIndex: Int
     let suggestions: [String]
     let editable: Bool
@@ -19,14 +20,14 @@ struct SeedPhraseInput: View {
     @State private var isScrolling = false
     
     init(
-        selectedWords: [String],
+        selectedWords: Binding<[String]>,
         selectedIndex: Binding<Int>,
         suggestions: [String],
         editable: Bool = false,
         currentInput: Binding<String> = .constant(""),
         action: @escaping (String) -> Void
     ) {
-        self.selectedWords = selectedWords
+        self._selectedWords = selectedWords
         self._selectedIndex = selectedIndex
         self.suggestions = suggestions
         self.editable = editable
@@ -37,12 +38,14 @@ struct SeedPhraseInput: View {
     var body: some View {
         HStack(spacing: 18) {
             SeedPhraseInputList(
-                items: selectedWords,
+                items: $selectedWords,
                 selectedIndex: $selectedIndex,
+                currentInput: currentInput,
                 editable: editable,
-                currentInput: currentInput
+                action: action,
+                moveToNextIndex: moveToNextIndex
             )
-
+            
             SuggestionBox(
                 suggestions: suggestions,
                 selectedSuggestion: selectedWords[selectedIndex]
@@ -86,10 +89,14 @@ struct SeedPhraseInputList: View {
         var id: Int { index }
     }
     
-    let items: [String]
+    @Binding var items: [String]
     @Binding var selectedIndex: Int
-    let editable: Bool
     @Binding var currentInput: String
+    @State private var inputArray: [String] = []
+    @State private var isPasted: Bool = false
+    let editable: Bool
+    let action: (String) -> Void
+    let moveToNextIndex: () -> Void
     
     fileprivate static let cellHeight: CGFloat = 42
     @GestureState private var dragOffset: CGFloat = 0
@@ -129,7 +136,18 @@ struct SeedPhraseInputList: View {
                 .onTapGesture {
                     selectedIndex = item.index
                 }
-                
+                .onChange(of: $currentInput.wrappedValue) { newValue in
+                    if UIPasteboard.general.string == newValue {
+                        isPasted = true
+                        do {
+                            try handleInputChange(for: selectedIndex, newValue: newValue)
+                        } catch(let error) {
+                            print("Error handling input change: \(error.localizedDescription)")
+                        }
+                    } else {
+                        isPasted = false
+                    }
+                }
             }
             .offset(y: topOffset)
             .animation(.easeInOut, value: topOffset)
@@ -156,6 +174,22 @@ struct SeedPhraseInputList: View {
         .frame(height: SeedPhraseInputList.cellHeight * 5 + 4*4)
         .clipped()
         .contentShape(Rectangle())
+    }
+    
+    private func handleInputChange(for index: Int, newValue: String) throws {
+        if isPasted {
+            inputArray = newValue.components(separatedBy: " ")
+            if inputArray.count == 24 {
+                try Mnemonic.validate(mnemonic: newValue)
+                items = inputArray
+                currentInput = items[selectedIndex]
+                action(currentInput)
+            }
+        } else {
+            // Handle manual input
+            items[index] = newValue
+            action(newValue)
+        }
     }
     
     private func showSeparator(forCellAt index: Int) -> Bool {

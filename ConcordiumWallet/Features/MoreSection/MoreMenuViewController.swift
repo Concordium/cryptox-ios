@@ -14,6 +14,7 @@ enum MenuCell: Hashable {
     case addressBook(title: String)
     case update(title: String)
     case recovery(title: String)
+    case analytics(title: String)
     case about(title: String)
     
     case export(title: String) // for backward compatibility with legacy wallet
@@ -23,6 +24,8 @@ enum MenuCell: Hashable {
     
     case revealSeedPhrase(title: String)
     case unshieldAssets(title: String)
+    case notifications(title: String)
+    case exportWalletPrivateKey(title: String)
     
     var title: String {
         switch self {
@@ -30,12 +33,15 @@ enum MenuCell: Hashable {
                     .addressBook(let title),
                     .update(let title),
                     .recovery(let title),
+                    .analytics(let title),
                     .about(let title),
                     .import(let title),
                     .export(let title),
                     .deleteAccount(let title),
                     .unshieldAssets(let title),
-                    .revealSeedPhrase(let title):
+                    .notifications(let title),
+                    .revealSeedPhrase(let title),
+                    .exportWalletPrivateKey(let title):
                 return title
         }
     }
@@ -50,6 +56,8 @@ enum MenuCell: Hashable {
                 return UIImage(named: "more_biometric")
             case .recovery:
                 return UIImage(named: "more_recovery")
+            case .analytics:
+                return UIImage(named: "more_analytics")
             case .about:
                 return UIImage(named: "more_info")
             case .export:
@@ -62,6 +70,10 @@ enum MenuCell: Hashable {
                 return UIImage(systemName: "eye")
             case .unshieldAssets:
                 return UIImage(systemName: "shield.slash")
+            case .notifications:
+                return UIImage(named: "more_bell")
+            case .exportWalletPrivateKey:
+                return UIImage(named: "more_export")
         }
     }
     
@@ -131,6 +143,8 @@ extension MoreMenuViewController: UITableViewDelegate {
                 presenter.userSelectedUpdate()
             case .recovery:
                 Task { await presenter.userSelectedRecovery() }
+            case .analytics:
+                presenter.userSelectedAnalytics()
             case .about:
                 presenter.userSelectedAbout()
             case .export:
@@ -143,6 +157,10 @@ extension MoreMenuViewController: UITableViewDelegate {
                 presenter.showRevealSeedPrase()
             case .unshieldAssets:
                 presenter.showUnshieldAssetsFlow()
+            case .notifications:
+                presenter.userSelectedNotifications()
+            case .exportWalletPrivateKey:
+                presenter.showExportWalletPrivateKey()
         }
     }
 }
@@ -154,6 +172,7 @@ extension MoreMenuViewController {
         snapshot.appendItems([.unshieldAssets(title: "more.funds.to.unshield".localized)])
         snapshot.appendItems([.identities(title: "more.identities".localized)])
         snapshot.appendItems([.addressBook(title: "more.addressBook".localized)])
+        snapshot.appendItems([.notifications(title: "more.notifications".localized)])
         snapshot.appendItems([.update(title: "more.update".localized)])
         snapshot.appendItems([.about(title: "more.about".localized)])
         if presenter.isLegacyAccount() {
@@ -163,9 +182,13 @@ extension MoreMenuViewController {
             if presenter.hasSavedSeedPhrase() {
                 snapshot.appendItems([.revealSeedPhrase(title: "more.reveal.seed.phrase".localized)])
             }
+            if presenter.hasSavedWalletPrivateKey() {
+                snapshot.appendItems([.exportWalletPrivateKey(title: "more.exportWallet.privateKey".localized)])
+            }
             snapshot.appendItems([.recovery(title: "more.recovery".localized)])
         }
         
+        snapshot.appendItems([.analytics(title: "more.analytics".localized)])
         snapshot.appendItems([.deleteAccount(title: "more.deleteAccount".localized)])
         DispatchQueue.main.async {
             self.dataSource?.apply(snapshot)

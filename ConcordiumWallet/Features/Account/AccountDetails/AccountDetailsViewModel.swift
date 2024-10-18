@@ -31,6 +31,7 @@ private enum TransactionRequest: Hashable {
 class AccountDetailsViewModel {
     var name: String?
     var address: String?
+    var account: AccountDataType?
     
     @Published var selectedTab: AccountDetailTab = .transfers
     @Published var selectedBalance: AccountBalanceTypeEnum = .balance
@@ -45,12 +46,15 @@ class AccountDetailsViewModel {
     @Published var atDisposal: String = ""
     @Published var stakedValue: String = ""
     @Published var stakedLabel: String?
+    @Published var totalCooldown: String = ""
+    @Published var cooldownLabel: String?
     @Published var hasStaked: Bool = false
     @Published var menuState: AccountMenuState = .closed
     
     private var inflightTransactionRequest = Set<TransactionRequest>()
     
     init(account: AccountDataType, balanceType: AccountBalanceTypeEnum) {
+        self.account = account
         setAccount(account: account, balanceType: balanceType)
     }
     
@@ -76,6 +80,8 @@ class AccountDetailsViewModel {
             stakedLabel = nil
         }
         atDisposal = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
+        totalCooldown = GTU(intValue: account.cooldowns.compactMap { Int($0.amount) }.reduce(0, +)).displayValueWithGStroke()
+        cooldownLabel = "Cooldown"
     }
     
     func toggleMenu() {

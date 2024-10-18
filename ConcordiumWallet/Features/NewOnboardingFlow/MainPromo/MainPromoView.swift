@@ -8,6 +8,10 @@
 
 import SwiftUI
 
+enum MainTabs: Int {
+    case accounts, news, nft, more
+}
+
 struct MainPromoView: View {
     let keychain: KeychainWrapperProtocol
     let identitiesService: SeedIdentitiesService
@@ -19,7 +23,7 @@ struct MainPromoView: View {
     @State var isCreateSeedPhraseFlowShown = false
     
     @State var isCreateIdentityFlowShown = false
-    @State private var selection = 0
+    @State private var selection = MainTabs.accounts
     
     @EnvironmentObject var sanityChecker: SanityChecker
     
@@ -45,38 +49,33 @@ struct MainPromoView: View {
                         .tint(Color.Neutral.tint1)
                         .font(Font.plexSans(size: 12, weight: .regular))
                 }
-                .tag(0)
+                .tag(MainTabs.accounts)
+            NewsFeed()
+                .tabItem {
+                    Label("News", image: "tab_item_news")
+                        .tint(Color.Neutral.tint1)
+                        .font(Font.plexSans(size: 12, weight: .regular))
+                }
+                .tag(MainTabs.news)
             Text("collections_tab_title".localized)
                 .tabItem {
                     Label("collections_tab_title".localized, image: "tab_item_nft")
                         .tint(Color.Neutral.tint1)
                         .font(Font.plexSans(size: 12, weight: .regular))
                 }
-                .tag(1)
-//            Text("Assistant")
-//                .tabItem {
-//                    Label("Assistant", image: "tab_item_assistant")
-//                        .tint(Color.Neutral.tint1)
-//                        .font(Font.plexSans(size: 12, weight: .regular))
-//                }
-//            Text("Notifications")
-//                .tabItem {
-//                    Label("Notifications", image: "tab_item_notifications")
-//                        .tint(Color.Neutral.tint1)
-//                        .font(Font.plexSans(size: 12, weight: .regular))
-//                }
+                .tag(MainTabs.nft)
             MoreTab(identitiesService: identitiesService, onLogout: onLogout)
                 .tabItem {
                     Label("more_tab_title", image: "tab_item_more")
                         .tint(Color.Neutral.tint1)
                         .font(Font.plexSans(size: 12, weight: .regular))
                 }
-                .tag(2)
+                .tag(MainTabs.more)
         }
         .modifier(AppBackgroundModifier())
         .onChange(of: selection) { _ in
-            if selection == 1 {
-                selection = 0
+            if selection == MainTabs.nft {
+                selection = .accounts
                 isCreateAccountSheetShown = true
             }
         }
@@ -84,6 +83,7 @@ struct MainPromoView: View {
         .overlay(alignment: .bottom, content: {
             BottomSheet(isShowing: $isCreateAccountSheetShown) {
                 ActivateAccountSheet()
+                    .onAppear { Tracker.track(view: ["Activate account dialog"]) }
             }
         })
         .fullScreenCover(isPresented: $isCreateIdentityFlowShown) {
@@ -103,104 +103,130 @@ struct MainPromoView: View {
                 .font(Font.satoshi(size: 24, weight: .medium))
                 .foregroundColor(Color.Neutral.tint7)
             
-            
-            VStack(alignment: .leading, spacing: 8) {
-                HStack(spacing: 4){
-                    Text("create_wallet_sheet".localized)
-                        .font(Font.plexMono(size: 15, weight: .medium))
-                        .foregroundColor(Color(red: 0.17, green: 0.38, blue: 0.41))
-                    Image("Burst-pucker-2")
-                }
-                
-                Text("create_wallet_steps_title".localized)
-                    .font(Font.satoshi(size: 14, weight: .medium))
-                    .foregroundColor(Color.Neutral.tint5)
-                    .multilineTextAlignment(.leading)
-
-                VStack(alignment: .leading, spacing: 4) {
-                    HStack(spacing: 6) {
-                        Text("1")
-                            .font(Font.plexSans(size: 12, weight: .regular))
-                            .foregroundColor(Color.MineralBlue.tint2)
-                        Text("create_wallet_step_1_title".localized)
-                            .font(Font.satoshi(size: 14, weight: .medium))
-                            .foregroundColor(Color.Neutral.tint5)
-                        Spacer()
-                    }
-                    HStack(spacing: 6) {
-                        Text("2")
-                            .font(Font.plexSans(size: 12, weight: .regular))
-                            .foregroundColor(Color.MineralBlue.tint2)
-                        Text("create_wallet_step_2_title".localized)
-                            .font(Font.satoshi(size: 14, weight: .medium))
-                            .foregroundColor(Color.Neutral.tint5)
-                        Spacer()
-                    }
-                    HStack(spacing: 6) {
-                        Text("3")
-                            .font(Font.plexSans(size: 12, weight: .regular))
-                            .foregroundColor(Color.MineralBlue.tint2)
-                        Text("create_wallet_step_3_title".localized)
-                            .font(Font.satoshi(size: 14, weight: .medium))
-                            .foregroundColor(Color.Neutral.tint5)
-                        Spacer()
-                    }
-                }
-                
-                Button(action: {
-                    isCreateIdentityFlowShown.toggle()
-                }, label: {
-                    HStack {
-                        Text("create_wallet_sheet".localized)
-                            .font(Font.satoshi(size: 16, weight: .medium))
-                            .foregroundColor(Color.Neutral.tint1)
-                        Spacer()
-                        Image(systemName: "arrow.right").tint(Color.Neutral.tint7)
-                    }
-                    .padding(.horizontal, 24)
-                })
-                .frame(height: 56)
-                .background(Color.Neutral.tint7)
-                .cornerRadius(28, corners: .allCorners)
-                .padding(.top, 16)
-            }
-            .padding(16)
-            .background(
-                LinearGradient(
-                    stops: [
-                        Gradient.Stop(color: Color(red: 0.92, green: 0.98, blue: 0.91), location: 0.00),
-                        Gradient.Stop(color: Color(red: 0.77, green: 0.84, blue: 0.89), location: 1.00),
-                    ],
-                    startPoint: UnitPoint(x: 0.5, y: 0),
-                    endPoint: UnitPoint(x: 0.75, y: 0.72)
-                )
-            )
-            .cornerRadius(20)
-            .overlay(
-                RoundedRectangle(cornerRadius: 20)
-                    .inset(by: 0.5)
-                    .stroke(Color(red: 0.06, green: 0.08, blue: 0.08).opacity(0.05), lineWidth: 1)
-                
-            )
-            
+            sheetView(content: accountViewSheet(), title: "create_wallet_sheet".localized)
             Image("create_wallet_divider")
-                .padding(.top, 24)
-            
-            Text("create_wallet_sheet_import_wallet".localized)
-                .font(Font.satoshi(size: 14, weight: .regular))
-                .foregroundStyle(Color.Neutral.tint5)
-                .multilineTextAlignment(.center)
-                .padding(.top, 24)
-            Button {
-                isImportWalletFlowShown.toggle()
-            } label: {
-                Text("import_wallet".localized).underline()
-                    .font(Font.satoshi(size: 16, weight: .medium))
-                    .foregroundStyle(Color.Neutral.tint7)
-                    
-            }
+            sheetView(content: importWalletView(), title: "import_wallet".localized)
         }
         .padding(16)
         .frame(maxWidth: .infinity)
+    }
+    
+    @ViewBuilder
+    func sheetView(content: some View, title: String) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 4){
+                Text(title)
+                    .font(Font.plexMono(size: 15, weight: .medium))
+                    .foregroundColor(Color(red: 0.17, green: 0.38, blue: 0.41))
+                Image("Burst-pucker-2")
+            }
+            
+            content
+        }
+        .padding(16)
+        .background(
+            LinearGradient(
+                stops: [
+                    Gradient.Stop(color: Color(red: 0.92, green: 0.98, blue: 0.91), location: 0.00),
+                    Gradient.Stop(color: Color(red: 0.77, green: 0.84, blue: 0.89), location: 1.00),
+                ],
+                startPoint: UnitPoint(x: 0.5, y: 0),
+                endPoint: UnitPoint(x: 0.75, y: 0.72)
+            )
+        )
+        .cornerRadius(20)
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .inset(by: 0.5)
+                .stroke(Color(red: 0.06, green: 0.08, blue: 0.08).opacity(0.05), lineWidth: 1)
+            
+        )
+    }
+        
+    @ViewBuilder
+    func accountViewSheet() -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("create_wallet_steps_title".localized)
+                .font(Font.satoshi(size: 14, weight: .medium))
+                .foregroundColor(Color.Neutral.tint5)
+                .multilineTextAlignment(.leading)
+                .lineLimit(nil)
+                .fixedSize(horizontal: false, vertical: true)
+            
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 6) {
+                    Text("1")
+                        .font(Font.plexSans(size: 12, weight: .regular))
+                        .foregroundColor(Color.MineralBlue.tint2)
+                    Text("create_wallet_step_1_title".localized)
+                        .font(Font.satoshi(size: 14, weight: .medium))
+                        .foregroundColor(Color.Neutral.tint5)
+                    Spacer()
+                }
+                HStack(spacing: 6) {
+                    Text("2")
+                        .font(Font.plexSans(size: 12, weight: .regular))
+                        .foregroundColor(Color.MineralBlue.tint2)
+                    Text("create_wallet_step_2_title".localized)
+                        .font(Font.satoshi(size: 14, weight: .medium))
+                        .foregroundColor(Color.Neutral.tint5)
+                    Spacer()
+                }
+                HStack(spacing: 6) {
+                    Text("3")
+                        .font(Font.plexSans(size: 12, weight: .regular))
+                        .foregroundColor(Color.MineralBlue.tint2)
+                    Text("create_wallet_step_3_title".localized)
+                        .font(Font.satoshi(size: 14, weight: .medium))
+                        .foregroundColor(Color.Neutral.tint5)
+                    Spacer()
+                }
+            }
+            Button(action: {
+                isCreateIdentityFlowShown.toggle()
+                Tracker.trackContentInteraction(name: "Activate account dialog", interaction: .clicked, piece: "Create Wallet")
+            }, label: {
+                HStack {
+                    Text("create_wallet_sheet".localized)
+                        .font(Font.satoshi(size: 16, weight: .medium))
+                        .foregroundColor(Color.Neutral.tint1)
+                    Spacer()
+                    Image(systemName: "arrow.right").tint(Color.Neutral.tint1)
+                }
+                .padding(.horizontal, 24)
+            })
+            .frame(height: 56)
+            .background(Color.Neutral.tint7)
+            .cornerRadius(28, corners: .allCorners)
+            .padding(.top, 16)
+        }
+    }
+    
+    @ViewBuilder
+    func importWalletView() -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("create_wallet_sheet_import_wallet".localized)
+                .font(Font.satoshi(size: 14, weight: .regular))
+                .foregroundStyle(Color.Neutral.tint5)
+                .multilineTextAlignment(.leading)
+            
+            Button(action: {
+                isImportWalletFlowShown.toggle()
+                Tracker.trackContentInteraction(name: "Activate account dialog", interaction: .clicked, piece: "Import Wallet")
+            }, label: {
+                HStack {
+                    Text("import_wallet".localized)
+                        .font(Font.satoshi(size: 16, weight: .medium))
+                        .foregroundColor(Color.Neutral.tint1)
+                    Spacer()
+                    Image(systemName: "arrow.right").tint(Color.Neutral.tint1)
+                }
+                .padding(.horizontal, 24)
+            })
+            .frame(height: 56)
+            .background(Color.Neutral.tint7)
+            .cornerRadius(28, corners: .allCorners)
+            .padding(.top, 16)
+        }
     }
 }

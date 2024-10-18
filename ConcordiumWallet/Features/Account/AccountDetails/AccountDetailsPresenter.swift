@@ -35,11 +35,12 @@ protocol AccountDetailsPresenterDelegate: ShowShieldedDelegate {
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, retryFailedAccount: AccountDataType)
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, removeFailedAccount: AccountDataType)
     func showEarn()
+    func showOnrampFlow()
 
     func transactionSelected(viewModel: TransactionViewModel)
     func accountDetailsClosed()
     
-    func showImportTokenFlow(_ address: String)
+    func showImportTokenFlow(account: AccountDataType)
 }
 
 // MARK: -
@@ -58,6 +59,7 @@ protocol AccountDetailsPresenterProtocol: AnyObject {
     func gtuDropTapped()
     func burgerButtonTapped()
     func showEarn()
+    func showOnrampFlow()
 
     func userSelectedIdentityData()
     func userSelectedGeneral()
@@ -108,7 +110,7 @@ class AccountDetailsPresenter {
 extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     
     func showImportTokenFlow() {
-        delegate?.showImportTokenFlow(account.address)
+        delegate?.showImportTokenFlow(account: account)
     }
     
     func showGTUDrop() -> Bool {
@@ -200,6 +202,10 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     
     func showEarn() {
         delegate?.showEarn()
+    }
+    
+    func showOnrampFlow() {
+        delegate?.showOnrampFlow()
     }
     
     func userTappedAddress() {
