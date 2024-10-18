@@ -29,6 +29,10 @@ struct AccountsMainView: View {
     
     @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
     
+    var hasShieldedBalances: Bool {
+        viewModel.accounts.compactMap(\.hasShieldedTransactions).reduce(false, { $0 || $1 })
+    }
+    
     weak var router: AccountsMainViewDelegate?
     
     var body: some View {
@@ -226,12 +230,7 @@ struct AccountsMainView: View {
             }
         }
         .overlay(alignment: .center) {
-            if isShouldShowSunsetShieldingView && (viewModel.accounts.first {
-                if let selfAmount = $0.encryptedBalance?.selfAmount {
-                    return !selfAmount.isEmpty
-                }
-                return false
-            }) != nil {
+            if isShouldShowSunsetShieldingView && hasShieldedBalances {
                 PopupContainer(icon: "unshield_popup_icon",
                                title: "Transaction Shielding is\ngoing away",
                                subtitle: "We recommend that you unshield any\nShielded balance today.",
