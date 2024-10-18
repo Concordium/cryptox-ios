@@ -769,11 +769,11 @@ If you don’t have enough CCD at disposal on your balance, you might not be abl
 For more info you can visit
 developer.concordium.software";
 
-"delegation.pool.baker" = "Baker";
+"delegation.pool.validator" = "Validator";
 "delegation.pool.passive" = "Passive";
-"delegation.pool.idplaceholder.create" = "Enter baker pool ID";
-"delegation.pool.idplaceholder.update" = "Optional: New baker pool ID";
-"delegation.pool.invalidbakerid" = "Invalid target baker pool ID";
+"delegation.pool.idplaceholder.create" = "Enter validator pool ID";
+"delegation.pool.idplaceholder.update" = "Optional: New validator pool ID";
+"delegation.pool.invalidbakerid" = "Invalid target validator pool ID";
 "delegation.pool.closedpool" = "This pool is closed";
 
 "delegation.pool.sizewarning.title" = "Current delegation amount too large";
