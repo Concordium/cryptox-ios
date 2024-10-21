@@ -1644,7 +1644,6 @@
 		08C169742BB7396200E61326 /* icon-22-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FD435FC249A2D34002D2AC3 /* icon-22-29.png */; };
 		08C169752BB7396200E61326 /* 3.3.2.RX_backend_submitTransfer.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3582794B96B003F2FBB /* 3.3.2.RX_backend_submitTransfer.json */; };
 		08C169762BB7396200E61326 /* delegation_intro_flow_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B82A02C96C00042957 /* delegation_intro_flow_en_4.html */; };
-		08C169782BB7396200E61326 /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F779124891F220016F8D1 /* AppIcon.xcassets */; };
 		08C169792BB7396200E61326 /* NFTEmptySearchStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5883FCD29040C290014F83C /* NFTEmptySearchStatusView.xib */; };
 		08C1697A2BB7396200E61326 /* TextEditView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D54ABC1526E100B800F4E773 /* TextEditView.xib */; };
 		08C1697B2BB7396200E61326 /* AccountsTotalHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAAA492B274513F4007EFA61 /* AccountsTotalHeader.xib */; };
@@ -2005,6 +2004,9 @@
 		505E11EC2CC1248B0003F6DC /* Web3Wallet in Frameworks */ = {isa = PBXBuildFile; productRef = 505E11EB2CC1248B0003F6DC /* Web3Wallet */; };
 		505E11EE2CC1390E0003F6DC /* Web3Wallet in Frameworks */ = {isa = PBXBuildFile; productRef = 505E11ED2CC1390E0003F6DC /* Web3Wallet */; };
 		505E11F02CC139150003F6DC /* Web3Wallet in Frameworks */ = {isa = PBXBuildFile; productRef = 505E11EF2CC139150003F6DC /* Web3Wallet */; };
+		505E11F12CC2994A0003F6DC /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F779124891F220016F8D1 /* AppIcon.xcassets */; };
+		505E11F22CC299510003F6DC /* AppIconTestNet.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F778F24891EFB0016F8D1 /* AppIconTestNet.xcassets */; };
+		505E11F32CC299560003F6DC /* AppIconTestNet.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F778F24891EFB0016F8D1 /* AppIconTestNet.xcassets */; };
 		507629622BECCCE900B4D390 /* Net.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A0449929FA98A400DACE1F /* Net.swift */; };
 		507629632BECCCE900B4D390 /* Net.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A0449929FA98A400DACE1F /* Net.swift */; };
 		507629642BECCCEA00B4D390 /* Net.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A0449929FA98A400DACE1F /* Net.swift */; };
@@ -2101,8 +2103,6 @@
 		7F0573F224AC7449009517AD /* GeneralFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0573F124AC7449009517AD /* GeneralFormatterTests.swift */; };
 		7F5F778B24891E9F0016F8D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A7523EADB1400F1FC04 /* Assets.xcassets */; };
 		7F5F778C24891EA00016F8D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A7523EADB1400F1FC04 /* Assets.xcassets */; };
-		7F5F779324891F220016F8D1 /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F779124891F220016F8D1 /* AppIcon.xcassets */; };
-		7F5F779424891F220016F8D1 /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F779124891F220016F8D1 /* AppIcon.xcassets */; };
 		7F85B7D3246A9AB600ED09B8 /* WidgetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D342B624581CD9007ED45E /* WidgetButton.swift */; };
 		7F85B7D7246A9AB600ED09B8 /* BaseTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D178A023F6D54900ABC904 /* BaseTabBar.swift */; };
 		7F85B7DC246A9AB600ED09B8 /* URL+queryParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93A752E24464813003FDBE2 /* URL+queryParameters.swift */; };
@@ -6554,7 +6554,6 @@
 				08C169742BB7396200E61326 /* icon-22-29.png in Resources */,
 				08C169752BB7396200E61326 /* 3.3.2.RX_backend_submitTransfer.json in Resources */,
 				08C169762BB7396200E61326 /* delegation_intro_flow_en_4.html in Resources */,
-				08C169782BB7396200E61326 /* AppIcon.xcassets in Resources */,
 				08C169792BB7396200E61326 /* NFTEmptySearchStatusView.xib in Resources */,
 				08C1697A2BB7396200E61326 /* TextEditView.xib in Resources */,
 				08C1697B2BB7396200E61326 /* AccountsTotalHeader.xib in Resources */,
@@ -6595,6 +6594,7 @@
 				08C169A32BB7396200E61326 /* Onboarding.storyboard in Resources */,
 				08C169A42BB7396200E61326 /* delegation_update_flow_en_1.html in Resources */,
 				08C169A52BB7396200E61326 /* baker_intro_flow_en_3.html in Resources */,
+				505E11F22CC299510003F6DC /* AppIconTestNet.xcassets in Resources */,
 				08C169A62BB7396200E61326 /* 2.2.1.TX-lib_create_credential.json in Resources */,
 				08C169A72BB7396200E61326 /* delegation_intro_flow_en_6.html in Resources */,
 				08C169A82BB7396200E61326 /* SendFund.storyboard in Resources */,
@@ -6695,6 +6695,7 @@
 				D5962CCC2721629E00A757A5 /* TransactionDetailsView.xib in Resources */,
 				D589F3F32794B96C003F2FBB /* 2.5.2.RX_backend_transferCost.json in Resources */,
 				D5087B5928EE49740082A05F /* NFTLoadingStatusView.xib in Resources */,
+				505E11F12CC2994A0003F6DC /* AppIcon.xcassets in Resources */,
 				D589F40F2794B96D003F2FBB /* 3.3.1.TX_backend_submitTransfer.json in Resources */,
 				D589F3CF2794B96C003F2FBB /* 2.4.2.RX_backend_submissionStatus_absent.json in Resources */,
 				D5E6CBEE290F4771009856B7 /* NFTDataEmptyCell.xib in Resources */,
@@ -6702,7 +6703,6 @@
 				7FD43601249A2D34002D2AC3 /* icon-22-29.png in Resources */,
 				D589F39B2794B96B003F2FBB /* 3.3.2.RX_backend_submitTransfer.json in Resources */,
 				088FF2D52A02C98800042957 /* delegation_intro_flow_en_4.html in Resources */,
-				7F5F779424891F220016F8D1 /* AppIcon.xcassets in Resources */,
 				D5883FD129040C290014F83C /* NFTEmptySearchStatusView.xib in Resources */,
 				D54ABC1926E100B800F4E773 /* TextEditView.xib in Resources */,
 				FAAA492D274513F4007EFA61 /* AccountsTotalHeader.xib in Resources */,
@@ -6854,7 +6854,6 @@
 				088FF2C52A02C98700042957 /* delegation_intro_flow_en_4.html in Resources */,
 				D589F3992794B96B003F2FBB /* 3.3.2.RX_backend_submitTransfer.json in Resources */,
 				D5883FCF29040C290014F83C /* NFTEmptySearchStatusView.xib in Resources */,
-				7F5F779324891F220016F8D1 /* AppIcon.xcassets in Resources */,
 				D589F3952794B96B003F2FBB /* 4.2.2.RX_backend_accTransactions.json in Resources */,
 				088FF35F2A02CA2C00042957 /* delegation_remove_flow_en_2.html in Resources */,
 				088FF2CA2A02C98700042957 /* delegation_intro_flow_en_7.html in Resources */,
@@ -6893,6 +6892,7 @@
 				088FF36B2A02CA3200042957 /* delegation_update_flow_en_1.html in Resources */,
 				088FF3382A02CA2100042957 /* baker_intro_flow_en_3.html in Resources */,
 				D589F3BD2794B96C003F2FBB /* 2.2.1.TX-lib_create_credential.json in Resources */,
+				505E11F32CC299560003F6DC /* AppIconTestNet.xcassets in Resources */,
 				088FF2C62A02C98700042957 /* delegation_intro_flow_en_6.html in Resources */,
 				088FF37C2A03B93500042957 /* SendFund.storyboard in Resources */,
 				D589F3AD2794B96C003F2FBB /* 3.1.2.RX_backend_accNonce.json in Resources */,

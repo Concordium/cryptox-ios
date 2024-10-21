@@ -90,25 +90,6 @@ final class TransactionNotificationService {
         sendTokenToConcordiumServer()
     }
     
-    func handleNotificationsWithData(data: [AnyHashable: Any]) {
-        let amount = data["amount"] as? String ?? ""
-        
-        if let type = data["type"] as? String,
-           type == TransactionNotificationTypes.cis2.rawValue,
-           let tokenMetadata = data["token_metadata"] {
-            Task {
-                guard let metadata = await getTokenMetadata(with: tokenMetadata) else {
-                    return
-                }
-                let symbol = metadata.symbol ?? "Unknown Token"
-                self.composeAndSendNotification(amount: amount, symbol: symbol, data: data)
-            }
-        } else {
-            let symbol = "CCDs"
-            composeAndSendNotification(amount: amount, symbol: symbol, data: data)
-        }
-    }
-    
     func handleCCDTransaction(account: AccountDataType, transactionId: String, accountDetailRouter: AccountDetailsCoordinator, completion: @escaping ((TransactionViewModel)-> Void)) {
         let transactionLoadingHandler = TransactionsLoadingHandler(account: account, balanceType: .balance, dependencyProvider: defaultProvider)
         
@@ -175,15 +156,12 @@ extension TransactionNotificationService {
     }
 
     
-    private func composeAndSendNotification(amount: String, symbol: String, data: [AnyHashable: Any]) {
-        var formattedAmount: String = amount
-        let intAmount = Int(BigInt(stringLiteral: amount))
-        formattedAmount = GTU(intValue: intAmount).displayValue()
+    private func composeAndSendNotification(title: String, userInfo: [AnyHashable: Any]) {
         let content = UNMutableNotificationContent()
-        content.title = "You received \(formattedAmount) \(symbol)"
+        content.title = title
         content.body = "notifications.seeTransactionDetails".localized
         content.sound = UNNotificationSound.default
-        content.userInfo = data
+        content.userInfo = userInfo
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
         
@@ -221,5 +199,100 @@ extension TransactionNotificationService {
         }
         
         return defaultProvider.storageManager().getAccountSavedCIS2Tokens(accountAddress).first(where: {$0.contractName == contractName && $0.contractAddress.index == contractIndex && $0.contractAddress.subindex == contractSubindex})
+    }
+}
+
+extension TransactionNotificationService {
+    /// `CIS2Token` send payload example
+    /*
+     {
+       "elements": [
+         {
+           "key": "aps",
+           "value": {
+             "content-available": 1
+           }
+         },
+         {
+           "key": "contract_name",
+           "value": "CIS2-TOKEN"
+         },
+         {
+           "key": "google.c.fid",
+           "value": "eaLv4EKdbE1To6esWIGsJ3"
+         },
+         {
+           "key": "token_id",
+           "value": ""
+         },
+         {
+           "key": "recipient",
+           "value": "2z623igvSJVHxHq1kAdE28yNVPP31MSu57MXcR1Vj8Z15eqdUH"
+         },
+         {
+           "key": "google.c.sender.id",
+           "value": "124880082147"
+         },
+         {
+           "key": "gcm.message_id",
+           "value": "1729500340736196"
+         },
+         {
+           "key": "contract_address",
+           "value": {
+             "index": 4514,
+             "subindex": 0
+           }
+         },
+         {
+           "key": "type",
+           "value": "cis2-tx"
+         },
+         {
+           "key": "token_metadata",
+           "value": {
+             "url": "https://test-metadata.concordex.io/ETH",
+             "hash": null
+           }
+         },
+         {
+           "key": "amount",
+           "value": 100000000000000000000
+         },
+         {
+           "key": "reference",
+           "value": "e110ae8cc284b7f7c7b968e026de76ff97ba860cf185a10e9a57f47b1aec8da5"
+         }
+       ]
+     }
+
+     */
+    
+    func handleNotificationsWithData(data: [AnyHashable: Any]) {
+        let amount = data["amount"] as? String ?? ""
+        
+        if let type = data["type"] as? String,
+           type == TransactionNotificationTypes.cis2.rawValue,
+           let tokenMetadata = data["token_metadata"] {
+            Task {
+                guard let metadata = await getTokenMetadata(with: tokenMetadata) else {
+                    return
+                }
+                let symbol = metadata.symbol ?? ""
+                let formattedAmount = TokenFormatter().string(from: BigDecimal(BigInt(stringLiteral: amount), metadata.decimals ?? 6))
+                
+                self.composeAndSendNotification(
+                    title: "You received \(formattedAmount) \(symbol)",
+                    userInfo: data
+                )
+            }
+        } else {
+            let symbol = "CCDs"
+            let formattedAmount = TokenFormatter().string(from: BigDecimal(BigInt(stringLiteral: amount), 6))
+            self.composeAndSendNotification(
+                title: "You received \(formattedAmount) \(symbol)",
+                userInfo: data
+            )
+        }
     }
 }
