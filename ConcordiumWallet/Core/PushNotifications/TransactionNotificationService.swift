@@ -279,7 +279,7 @@ extension TransactionNotificationService {
                     return
                 }
                 let symbol = metadata.symbol ?? ""
-                let formattedAmount = TokenFormatter().string(from: BigDecimal(BigInt(stringLiteral: amount), metadata.decimals ?? 6))
+                let formattedAmount = TokenFormatter().string(from: BigDecimal(BigInt(stringLiteral: amount), metadata.decimals ?? 0))
                 
                 self.composeAndSendNotification(
                     title: "You received \(formattedAmount) \(symbol)",
