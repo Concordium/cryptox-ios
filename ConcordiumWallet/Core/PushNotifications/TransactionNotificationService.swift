@@ -268,6 +268,12 @@ extension TransactionNotificationService {
 
      */
     
+    ///
+    /// Pay attention, for NFT `decimals` will be nill, thats why we should add this fallback: `metadata.decimals ?? 0`
+    ///
+    /// https://proposals.concordium.software/CIS/cis-2.html#token-metadata-json
+    ///
+    
     func handleNotificationsWithData(data: [AnyHashable: Any]) {
         let amount = data["amount"] as? String ?? ""
         
