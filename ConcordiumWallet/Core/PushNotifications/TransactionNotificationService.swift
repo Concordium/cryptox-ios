@@ -17,6 +17,11 @@ enum TransactionNotificationTypes: String {
     case ccd = "ccd-tx"
 }
 
+enum TokenResult {
+    case tokenFound(CIS2Token)
+    case showAlert
+}
+
 enum TransactionNotificationNames: String {
     case cis2 = "isCIS2TransactionNotificationAllowed"
     case ccd = "isCCDTransactionNotificationAllowed"
@@ -26,11 +31,16 @@ protocol NotificationNavigationDelegate: AnyObject {
     func openTransactionFromNotification(with userInfo: [AnyHashable: Any])
 }
 
+protocol TransactionNotificationServiceDelegate: AnyObject {
+    func presentTokenAlert(userInfo: [AnyHashable: Any], completion: @escaping (CIS2Token) -> Void)
+}
+
 final class TransactionNotificationService {
     
     private var cancellables = Set<AnyCancellable>()
     let defaultProvider = ServicesProvider.defaultProvider()
     private var currentFcmToken: String?
+    weak var delegate: TransactionNotificationServiceDelegate?
 
     func sendTokenToConcordiumServer() {
         guard let preferences = getTransactionNotificationPreferences(), !preferences.isEmpty else {
@@ -55,11 +65,8 @@ final class TransactionNotificationService {
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
-                print("Error subscribing to Concordium server: \(error)")
+                logger.errorLog("Error subscribing to Concordium server: \(error)")
                 return
-            }
-            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
-                print("Successfully subscribed to Concordium notification server")
             }
         }.resume()
     }
@@ -86,6 +93,7 @@ final class TransactionNotificationService {
 
     
     func updateFcmToken(_ newToken: String?) {
+        guard newToken != currentFcmToken else { return }
         currentFcmToken = newToken
         sendTokenToConcordiumServer()
     }
@@ -114,12 +122,29 @@ final class TransactionNotificationService {
             .store(in: &cancellables)
     }
     
+    func handleCIS2Notification(userInfo: [AnyHashable: Any], account: AccountDataType, navigationController: UINavigationController) {
+        let detailRouter = AccountDetailRouter(account: account, navigationController: navigationController, dependencyProvider: defaultProvider)
+        
+        guard let result = NotificationTokenService().checkToken(from: userInfo) else { return }
+        switch result {
+        case .tokenFound(let token):
+            detailRouter.showCIS2TokenDetailsFlow(token, account: account)
+        case .showAlert:
+            delegate?.presentTokenAlert(userInfo: userInfo) { token in
+                DispatchQueue.main.async {
+                    detailRouter.showCIS2TokenDetailsFlow(token, account: account)
+                }
+            }
+        }
+    }
+    
     func subscribeToUserDefaultsUpdates() {
         UserDefaults.standard.publisher(for: TransactionNotificationNames.cis2.rawValue)
             .merge(with: UserDefaults.standard.publisher(for: TransactionNotificationNames.ccd.rawValue))
             .sink { [weak self] _ in
+                guard let self = self else { return }
                 DispatchQueue.main.async {
-                    self?.sendTokenToConcordiumServer()
+                    self.sendTokenToConcordiumServer()
                 }
             }
             .store(in: &cancellables)
@@ -174,31 +199,6 @@ extension TransactionNotificationService {
                 print("Notification scheduled successfully")
             }
         }
-    }
-    
-    @MainActor
-    func tokenObject(from userInfo: [AnyHashable: Any]) async -> CIS2Token? {
-        guard
-            let contractName = userInfo["contract_name"] as? String
-        else {
-            return nil
-        }
-
-        let contractData = (userInfo["contract_address"] as? String)
-        .flatMap { $0.data(using: .utf8) }
-        .flatMap {
-            try? JSONSerialization.jsonObject(with: $0, options: []) as? [String: Any]
-        }
-        
-        guard let contractData,
-              let contractIndex = contractData["index"] as? Int,
-              let contractSubindex = contractData["subindex"] as? Int,
-              let accountAddress = userInfo["recipient"] as? String
-        else {
-            return nil
-        }
-        
-        return defaultProvider.storageManager().getAccountSavedCIS2Tokens(accountAddress).first(where: {$0.contractName == contractName && $0.contractAddress.index == contractIndex && $0.contractAddress.subindex == contractSubindex})
     }
 }
 

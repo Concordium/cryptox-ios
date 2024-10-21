@@ -63,7 +63,7 @@ extension CIS2Service {
     ///   - contractIndex: The index of the contract.
     ///   - tokenIds: An optional string of comma-separated token identifiers.
     /// - Returns: An array of `CIS2Token` objects containing the fetched tokens.
-    func fetchAllTokensData(contractIndex: Int, tokenIds: String? = nil) async throws -> [CIS2Token] {
+    func fetchAllTokensData(contractIndex: Int, subindex: Int = 0, tokenIds: String? = nil) async throws -> [CIS2Token] {
         let tokenIdsString: String
         if let tokenIds {
             tokenIdsString = tokenIds
@@ -79,7 +79,7 @@ extension CIS2Service {
             CIS2Token(
                 tokenId: item.tokenId,
                 metadata: tokenMetadata,
-                contractAddress: SmartContractAddress(index: contractIndex, subindex: 0),
+                contractAddress: SmartContractAddress(index: contractIndex, subindex: subindex),
                 contractName: metadata.contractName
             )
         }

@@ -27,9 +27,9 @@ struct AllowNotificationsPopup: View {
                     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
                         if granted {
                             DispatchQueue.main.async {
-                                UIApplication.shared.registerForRemoteNotifications()
                                 UserDefaults.standard.set(true, forKey: TransactionNotificationNames.ccd.rawValue)
                                 UserDefaults.standard.set(true, forKey: TransactionNotificationNames.cis2.rawValue)
+                                UIApplication.shared.registerForRemoteNotifications()
                             }
                         } else {
                             print("Notifications not granted")
