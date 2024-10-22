@@ -1228,7 +1228,7 @@ Remember to restart your node with the validator keys.";
 "new_onboarding_manage_asssets_subtitle" = "Store, spend and send digital assets like tokens, crypto, unique collectibles";
 "new_onboarding_unlimited_possibilities_title" = "Unlimited possibilities";
 "new_onboarding_unlimited_possibilities_subtitle" = "With CryptoX you can make transactions to invest, earn, sell, play games and more!";
-"new_onb_privacy_read" = "I have read and accept";
+"new_onb_privacy_read" = "I have read and understood the";
 "new_onb_terms" = "Terms and Conditions";
 "and" = "and";
 "new_onb_privacy" = "Privacy policy";
