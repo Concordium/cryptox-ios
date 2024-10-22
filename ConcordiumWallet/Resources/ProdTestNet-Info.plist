@@ -138,7 +138,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Used to scan QR code and to take a picture for your identity</string>
 	<key>NSUserTrackingUsageDescription</key>
-	<string></string>
+	<string>Your data will be used to improve user experience.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Enable FaceID for more convenient login</string>
 	<key>NSMicrophoneUsageDescription</key>
