@@ -8,10 +8,6 @@
 
 import SwiftUI
 
-enum MainTabs: Int {
-    case accounts, news, nft, more
-}
-
 struct MainPromoView: View {
     let keychain: KeychainWrapperProtocol
     let identitiesService: SeedIdentitiesService
@@ -23,7 +19,6 @@ struct MainPromoView: View {
     @State var isCreateSeedPhraseFlowShown = false
     
     @State var isCreateIdentityFlowShown = false
-    @State private var selection = MainTabs.accounts
     
     @EnvironmentObject var sanityChecker: SanityChecker
     
@@ -42,44 +37,7 @@ struct MainPromoView: View {
     }
     
     var body: some View {
-        TabView(selection: $selection) {
-            AccountsTab(keychain: keychain, isCreateAccountSheetShown: $isCreateAccountSheetShown)
-                .tabItem {
-                    Label("accounts_tab_title".localized, image: "tab_item_accounts")
-                        .tint(Color.Neutral.tint1)
-                        .font(Font.plexSans(size: 12, weight: .regular))
-                }
-                .tag(MainTabs.accounts)
-            NewsFeed()
-                .tabItem {
-                    Label("News", image: "tab_item_news")
-                        .tint(Color.Neutral.tint1)
-                        .font(Font.plexSans(size: 12, weight: .regular))
-                }
-                .tag(MainTabs.news)
-            Text("collections_tab_title".localized)
-                .tabItem {
-                    Label("collections_tab_title".localized, image: "tab_item_nft")
-                        .tint(Color.Neutral.tint1)
-                        .font(Font.plexSans(size: 12, weight: .regular))
-                }
-                .tag(MainTabs.nft)
-            MoreTab(identitiesService: identitiesService, onLogout: onLogout)
-                .tabItem {
-                    Label("more_tab_title", image: "tab_item_more")
-                        .tint(Color.Neutral.tint1)
-                        .font(Font.plexSans(size: 12, weight: .regular))
-                }
-                .tag(MainTabs.more)
-        }
-        .modifier(AppBackgroundModifier())
-        .onChange(of: selection) { _ in
-            if selection == MainTabs.nft {
-                selection = .accounts
-                isCreateAccountSheetShown = true
-            }
-        }
-        .accentColor(Color.Neutral.tint1)
+        WelcomeView(isCreateAccountSheetShown: $isCreateAccountSheetShown)
         .overlay(alignment: .bottom, content: {
             BottomSheet(isShowing: $isCreateAccountSheetShown) {
                 ActivateAccountSheet()
@@ -99,13 +57,34 @@ struct MainPromoView: View {
     @ViewBuilder
     func ActivateAccountSheet() -> some View {
         VStack(spacing: 16) {
-            Text("activate_account_title".localized)
+            Text("setup_wallet_title".localized)
                 .font(Font.satoshi(size: 24, weight: .medium))
                 .foregroundColor(Color.Neutral.tint7)
             
             sheetView(content: accountViewSheet(), title: "create_wallet_sheet".localized)
             Image("create_wallet_divider")
-            sheetView(content: importWalletView(), title: "import_wallet".localized)
+            Text("create_wallet_sheet_import_wallet".localized)
+                .font(.satoshi(size: 14, weight: .regular))
+                .foregroundStyle(Color.Neutral.tint5)
+                .multilineTextAlignment(.center)
+            Button {
+                isImportWalletFlowShown.toggle()
+                Tracker.trackContentInteraction(name: "Activate account dialog", interaction: .clicked, piece: "Import Wallet")
+            } label: {
+                VStack(spacing: 2) {
+                    Text("import_wallet".localized)
+                        .font(.satoshi(size: 16, weight: .medium))
+                        .foregroundColor(.black)
+                        .overlay(
+                            Rectangle()
+                                .frame(height: 1)
+                                .foregroundStyle(Color.Neutral.tint7),
+                            alignment: .bottom
+                        )
+                        .padding(.bottom, 3)
+                }
+                
+            }
         }
         .padding(16)
         .frame(maxWidth: .infinity)
@@ -187,35 +166,7 @@ struct MainPromoView: View {
                 Tracker.trackContentInteraction(name: "Activate account dialog", interaction: .clicked, piece: "Create Wallet")
             }, label: {
                 HStack {
-                    Text("create_wallet_sheet".localized)
-                        .font(Font.satoshi(size: 16, weight: .medium))
-                        .foregroundColor(Color.Neutral.tint1)
-                    Spacer()
-                    Image(systemName: "arrow.right").tint(Color.Neutral.tint1)
-                }
-                .padding(.horizontal, 24)
-            })
-            .frame(height: 56)
-            .background(Color.Neutral.tint7)
-            .cornerRadius(28, corners: .allCorners)
-            .padding(.top, 16)
-        }
-    }
-    
-    @ViewBuilder
-    func importWalletView() -> some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text("create_wallet_sheet_import_wallet".localized)
-                .font(Font.satoshi(size: 14, weight: .regular))
-                .foregroundStyle(Color.Neutral.tint5)
-                .multilineTextAlignment(.leading)
-            
-            Button(action: {
-                isImportWalletFlowShown.toggle()
-                Tracker.trackContentInteraction(name: "Activate account dialog", interaction: .clicked, piece: "Import Wallet")
-            }, label: {
-                HStack {
-                    Text("import_wallet".localized)
+                    Text("continue_btn_title".localized)
                         .font(Font.satoshi(size: 16, weight: .medium))
                         .foregroundColor(Color.Neutral.tint1)
                     Spacer()

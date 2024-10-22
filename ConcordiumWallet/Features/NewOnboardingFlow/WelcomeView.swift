@@ -11,18 +11,18 @@ import SwiftUI
 struct WelcomeView: View {
     @State var isChecked: Bool = false
     @SwiftUI.Environment(\.openURL) var openURL
-    @AppStorage("isShouldShowAllowNotificationsView") private var isShouldShowAllowNotificationsView = true
-    
-    var action: () -> Void
+    @AppStorage("isShouldShowAllowNotificationsView") private var isShouldShowAllowNotificationsView = false
+    @Binding var isCreateAccountSheetShown: Bool
+    @AppStorage("isAcceptedPrivacy") private var isAcceptedPrivacy = false
     
     var body: some View {
         ZStack {
             Image("new_bg").resizable().aspectRatio(contentMode: .fill)
                 .ignoresSafeArea(.all)
             VStack {
-                Spacer()
                 Image("Concordium_logo")
-                Spacer()
+                    .padding(.top, 90)
+                    .padding(.bottom, 131)
                 VStack(alignment: .leading) {
                     VStack(alignment: .leading, spacing: 24) {
                         HStack(spacing: 12) {
@@ -73,7 +73,7 @@ struct WelcomeView: View {
                 
                 Spacer()
                 
-                VStack(spacing: 12) {
+                VStack(spacing: 16) {
                     HStack(spacing: 16) {
                         Image(isChecked ? "checkbox_checked" : "checkbox_unchecked")
                             .contentShape(.rect)
@@ -104,7 +104,8 @@ struct WelcomeView: View {
                     
                     Button(
                         action: {
-                            action()
+                            isAcceptedPrivacy = true
+                            isCreateAccountSheetShown.toggle()
                             Tracker.trackContentInteraction(name: "Welcome screen", interaction: .clicked, piece: "Get started")
                         }, label: {
                             HStack {
@@ -134,8 +135,3 @@ struct WelcomeView: View {
         }
     }
 }
-
-#Preview {
-    WelcomeView() {}
-}
-

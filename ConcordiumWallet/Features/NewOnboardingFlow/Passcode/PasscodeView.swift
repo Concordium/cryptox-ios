@@ -48,7 +48,7 @@ class PasscodeViewModel: ObservableObject {
     private let sanityChecker: SanityChecker
     private var cancellables = Set<AnyCancellable>()
     private var pwHash: String?
-
+    
     var shouldShowFaceIDAfterAnalytics: Bool {
         return UserDefaults.standard.bool(forKey: "isAnalyticsPopupShown")
     }
@@ -200,7 +200,7 @@ extension PasscodeViewModel {
         AppSettings.biometricsEnabled = false
         self.onSuccess(self.pwHash ?? "")
     }
-
+    
     func biometricsEnabled() -> Bool {
         let myContext = LAContext()
         var authError: NSError?
@@ -232,6 +232,8 @@ struct PasscodeView: View {
     
     var body: some View {
         ZStack {
+            Image("new_bg").resizable().aspectRatio(contentMode: .fill)
+                .ignoresSafeArea(.all)
             passcodeView()
                 .padding(.bottom, 100)
                 .overlay {
@@ -253,7 +255,6 @@ struct PasscodeView: View {
                     }
                 }
         }
-        .modifier(AppBackgroundModifier())
         .opacity(animatePasscodeIn ? 1.0 : 0)
         .onAppear {
             viewModel.loginWithBiometric()

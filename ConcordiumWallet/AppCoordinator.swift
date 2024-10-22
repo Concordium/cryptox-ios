@@ -117,7 +117,6 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         navigationController.setViewControllers([UIHostingController(
             rootView:
                 OnboardingRootView(
-                    keychain: .init(),
                     identitiesService: defaultProvider.seedIdentitiesService(),
                     defaultProvider: defaultProvider,
                     onIdentityCreated: { [weak self] in
