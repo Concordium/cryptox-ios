@@ -52,7 +52,7 @@ struct CIS2Token: Codable {
 
 extension CIS2Token: Equatable {
     static func == (lhs: CIS2Token, rhs: CIS2Token) -> Bool {
-        lhs.id == rhs.id
+        lhs.id == rhs.id && lhs.metadata == rhs.metadata && lhs.contractAddress == rhs.contractAddress && lhs.contractName == rhs.contractName
     }
 }
 
