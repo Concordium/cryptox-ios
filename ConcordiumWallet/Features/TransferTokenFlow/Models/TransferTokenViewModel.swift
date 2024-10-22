@@ -141,7 +141,9 @@ final class TransferTokenViewModel: ObservableObject {
         Publishers.CombineLatest3($amountTokenSend, tokenTransferModel.$tokenGeneralBalance, $transaferCost)
             .map { (amount, maxAmount, cost) -> Bool in
                 guard let cost = cost else { return true }
-                return amount.value <= maxAmount.value && BigInt(stringLiteral: cost.cost) <= BigInt(account.forecastBalance)
+                let costInt = BigInt(stringLiteral: cost.cost)
+                let generalAmount: BigDecimal = BigDecimal.init((costInt + amount.value), 6)
+                return generalAmount.value <= maxAmount.value && costInt <= BigInt(account.forecastBalance)
             }
             .assign(to: \.isInsuficientFundsErrorHidden, on: self)
             .store(in: &cancellables)
@@ -152,9 +154,12 @@ final class TransferTokenViewModel: ObservableObject {
                 guard recepient != account.address else  { return false }
                 guard !recepient.isEmpty && self.dependencyProvider.mobileWallet().check(accountAddress: recepient) else  { return false }
                 
-                if BigInt(stringLiteral: txCost.cost) >= BigInt(account.forecastBalance) { return false }
+                let costInt = BigInt(stringLiteral: txCost.cost)
+                let generalAmount: BigDecimal = BigDecimal.init((costInt + s.value), 6)
                 
-                return (s.value <= a.value) && s.value > .zero
+                if costInt >= BigInt(account.forecastBalance) { return false }
+                
+                return (generalAmount.value <= a.value) && s.value > .zero
             }
             .assign(to: \.canSend, on: self)
             .store(in: &cancellables)
@@ -218,6 +223,9 @@ final class TransferTokenViewModel: ObservableObject {
 extension TransferTokenViewModel: TransferTokenViewProtocol {
     func setMemo(memo: Memo?) {
         self.addedMemo = memo
+        if self.tokenTransferModel.maxAmountTokenSend == self.amountTokenSend {
+            sendAll()
+        }
     }
     
     func removeMemo() {
