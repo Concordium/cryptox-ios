@@ -9,6 +9,7 @@
 import SwiftUI
 import UIKit
 import MatomoTracker
+import AppTrackingTransparency
 
 struct AnalyticsButtonsView: View {
     
@@ -18,7 +19,14 @@ struct AnalyticsButtonsView: View {
     
     var body: some View {
         Button(action: {
-            updateTrackingProperties(isAllowed: true)
+            ATTrackingManager.requestTrackingAuthorization { status in
+                switch status {
+                case .authorized:
+                    updateTrackingProperties(isAllowed: true)
+                default:
+                    updateTrackingProperties(isAllowed: false)
+                }
+            }
             isPresented = false
             container?.dismiss(animated: true)
         }, label: {

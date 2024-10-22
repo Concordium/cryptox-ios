@@ -132,7 +132,7 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Used during verification identity stage</string>
 	<key>NSUserTrackingUsageDescription</key>
-	<string>CryptoX would take to track problem with the app.</string>
+	<string>Your data will be used to improve user experience.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Satoshi-Regular.otf</string>
