@@ -9,7 +9,12 @@
 import SwiftUI
 import UIKit
 import MatomoTracker
-import AppTrackingTransparency
+
+///
+/// Matomo tracker dosent need `ATTrackingManager.requestTrackingAuthorization`
+///
+/// - https://matomo.org/faq/general/does-apples-ios-14-5-software-update-which-requires-asking-for-consent-for-tracking-impact-matomo/
+///
 
 struct AnalyticsButtonsView: View {
     
@@ -19,14 +24,7 @@ struct AnalyticsButtonsView: View {
     
     var body: some View {
         Button(action: {
-            ATTrackingManager.requestTrackingAuthorization { status in
-                switch status {
-                case .authorized:
-                    updateTrackingProperties(isAllowed: true)
-                default:
-                    updateTrackingProperties(isAllowed: false)
-                }
-            }
+            updateTrackingProperties(isAllowed: true)
             isPresented = false
             container?.dismiss(animated: true)
         }, label: {
