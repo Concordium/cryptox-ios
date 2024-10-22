@@ -142,7 +142,7 @@ final class TransferTokenViewModel: ObservableObject {
             .map { (amount, maxAmount, cost) -> Bool in
                 guard let cost = cost else { return true }
                 let costInt = BigInt(stringLiteral: cost.cost)
-                let generalAmount: BigDecimal = BigDecimal.init((costInt + amount.value), 6)
+                let generalAmount: BigDecimal = BigDecimal((costInt + amount.value), 6)
                 return generalAmount.value <= maxAmount.value && costInt <= BigInt(account.forecastBalance)
             }
             .assign(to: \.isInsuficientFundsErrorHidden, on: self)
@@ -155,7 +155,7 @@ final class TransferTokenViewModel: ObservableObject {
                 guard !recepient.isEmpty && self.dependencyProvider.mobileWallet().check(accountAddress: recepient) else  { return false }
                 
                 let costInt = BigInt(stringLiteral: txCost.cost)
-                let generalAmount: BigDecimal = BigDecimal.init((costInt + s.value), 6)
+                let generalAmount: BigDecimal = BigDecimal((costInt + s.value), 6)
                 
                 if costInt >= BigInt(account.forecastBalance) { return false }
                 
@@ -211,6 +211,10 @@ final class TransferTokenViewModel: ObservableObject {
     }
     
     public func sendAll() {
+        refreshMaxAmountTokenSend()
+    }
+    
+    private func refreshMaxAmountTokenSend() {
         Task {
             await tokenTransferModel.updateMaxAmount()
             DispatchQueue.main.async {
@@ -224,7 +228,7 @@ extension TransferTokenViewModel: TransferTokenViewProtocol {
     func setMemo(memo: Memo?) {
         self.addedMemo = memo
         if self.tokenTransferModel.maxAmountTokenSend == self.amountTokenSend {
-            sendAll()
+            refreshMaxAmountTokenSend()
         }
     }
     
