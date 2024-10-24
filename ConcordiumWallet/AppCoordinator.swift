@@ -97,7 +97,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         let identities = defaultProvider.storageManager().getIdentities()
         let accounts = defaultProvider.storageManager().getAccounts()
         
-        if !accounts.isEmpty || !identities.isEmpty {
+        if !accounts.isEmpty || !identities.isEmpty || defaultProvider.keychainWrapper().passwordCreated() {
             showMainTabbar()
         } else {
             showInitialIdentityCreation()
@@ -154,7 +154,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         
         navigationController.popViewController(animated: false)
         
-        if !accounts.isEmpty || !identities.isEmpty {
+        if !accounts.isEmpty || !identities.isEmpty || defaultProvider.keychainWrapper().passwordCreated() {
             navigationController.setViewControllers([UIHostingController(
                 rootView:
                     PasscodeView(keychain: defaultProvider.keychainWrapper(), sanityChecker: sanityChecker) { _ in
@@ -418,7 +418,7 @@ extension AppCoordinator: LoginCoordinatorDelegate {
         let identities = defaultProvider.storageManager().getIdentities()
         let accounts = defaultProvider.storageManager().getAccounts()
         
-        if !accounts.isEmpty || !identities.isEmpty {
+        if !accounts.isEmpty || !identities.isEmpty || defaultProvider.keychainWrapper().passwordCreated() {
             showMainTabbar()
         } else {
             showInitialIdentityCreation()

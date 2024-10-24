@@ -8,10 +8,11 @@
 
 import SwiftUI
 
-protocol AccountsMainViewDelegate: class {
+protocol AccountsMainViewDelegate: AnyObject {
     func showSendFundsFlow(_ account: AccountDataType)
     func showAccountDetail(_ account: AccountDataType)
     func showCreateIdentityFlow()
+    func showSaveSeedPhraseFlow(pwHash: String, identitiesService: SeedIdentitiesService, completion: @escaping ([String]) -> Void)
     func showCreateAccountFlow()
     func showScanQRFlow()
     func showExportFlow()
@@ -24,7 +25,12 @@ struct AccountsMainView: View {
     
     @State var accountQr: AccountEntity?
     @State var onRampFlowShown: Bool = false
-    
+    let keychain: KeychainWrapperProtocol
+    let identitiesService: SeedIdentitiesService
+    @State var phrase: [String]?
+    @State var isShowPasscodeViewShown: Bool = false
+    @SwiftUI.Environment(\.dismiss) var dismiss
+        
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     
     @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
@@ -36,14 +42,14 @@ struct AccountsMainView: View {
     weak var router: AccountsMainViewDelegate?
     
     var body: some View {
-        List {
+        VStack(spacing: 16) {
             VStack(alignment: .leading, spacing: 16) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("accounts.totalBalanceTitleLabel".localized)
-                        .foregroundColor(Color.Neutral.tint2)
+                        .foregroundColor(Color.MineralBlue.tint1)
                         .font(.satoshi(size: 14, weight: .regular))
                     Text(viewModel.totalBalance.displayValue())
-                        .foregroundColor(Color.Neutral.tint1)
+                        .foregroundColor(Color.MineralBlue.tint1)
                         .font(.satoshi(size: 28, weight: .medium))
                         .overlay(alignment: .bottomTrailing) {
                             Text("CCD")
@@ -51,25 +57,11 @@ struct AccountsMainView: View {
                                 .font(.satoshi(size: 12, weight: .regular))
                                 .offset(x: 26, y: -4)
                         }
+                    
+                    Text("\(viewModel.atDisposal.displayValue()) at disposal")
+                        .foregroundColor(Color.MineralBlue.tint1)
+                        .font(.satoshi(size: 14, weight: .medium))
                 }
-                
-                Divider()
-                
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("accounts.overview.totalatdisposal".localized)
-                        .foregroundColor(Color.Neutral.tint2)
-                        .font(.satoshi(size: 14, weight: .regular))
-                    Text(viewModel.atDisposal.displayValue())
-                        .foregroundColor(Color.Neutral.tint1)
-                        .font(.satoshi(size: 28, weight: .medium))
-                        .overlay(alignment: .bottomTrailing) {
-                            Text("CCD")
-                                .foregroundColor(Color.MineralBlue.tint1)
-                                .font(.satoshi(size: 12, weight: .regular))
-                                .offset(x: 26, y: -4)
-                        }
-                }
-                
                 if viewModel.staked != .zero {
                     Divider()
                     VStack(alignment: .leading, spacing: 4) {
@@ -90,8 +82,7 @@ struct AccountsMainView: View {
                 Divider()
             }
             .padding(16)
-            .listRowSeparator(.hidden)
-            .listRowBackground(Color.clear)
+            Spacer()
             
             switch viewModel.state {
             case .empty:
@@ -107,26 +98,30 @@ struct AccountsMainView: View {
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)
             case .accounts:
-                VStack(spacing: 8) {
-                    OnRampAnchorView()
-                        .onTapGesture {
-                            onRampFlowShown.toggle()
-                        }
-                    
-                    ForEach(viewModel.accountViewModels, id: \.id) { vm in
-                        AccountPreviewView(
-                            viewModel: vm,
-                            onQrTap: { accountQr = (vm.account as? AccountEntity) },
-                            onSendTap: { router?.showSendFundsFlow(vm.account) },
-                            onShowPlusTap: { onRampFlowShown.toggle() }
-                        )
-                        .onTapGesture {
-                            router?.showAccountDetail(vm.account)
+                List {
+                    VStack(spacing: 8) {
+                        OnRampAnchorView()
+                            .onTapGesture {
+                                onRampFlowShown.toggle()
+                            }
+                        
+                        ForEach(viewModel.accountViewModels, id: \.id) { vm in
+                            AccountPreviewView(
+                                viewModel: vm,
+                                onQrTap: { accountQr = (vm.account as? AccountEntity) },
+                                onSendTap: { router?.showSendFundsFlow(vm.account) },
+                                onShowPlusTap: { onRampFlowShown.toggle() }
+                            )
+                            .onTapGesture {
+                                router?.showAccountDetail(vm.account)
+                            }
                         }
                     }
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
                 }
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.clear)
+                .listSectionSeparator(.hidden)
+                .listStyle(.plain)
             case .createAccount:
                 VStack {
                     Spacer()
@@ -153,37 +148,58 @@ struct AccountsMainView: View {
                 .listRowBackground(Color.clear)
             case .createIdentity:
                 VStack {
+                    AccountCreationProgressView(targetProgress: 2 / 3, stepName: "final_step_verify_identity".localized)
+                    
                     Spacer()
-                    HStack {
-                        Spacer()
-                        Button {
+                    
+                    Button(
+                        action: {
                             self.router?.showCreateIdentityFlow()
-                        } label: {
-                            Text("accounts.createNewIdentity".localized)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .foregroundColor(.black)
-                        .font(.system(size: 17, weight: .semibold))
-                        .padding(.vertical, 12)
-                        .background(.white)
-                        .clipShape(Capsule())
-                        
-                        Spacer()
-                    }
-                    Spacer()
+                        }, label: {
+                            HStack {
+                                Text("create_wallet_step_3_title".localized)
+                                    .font(Font.satoshi(size: 16, weight: .medium))
+                                    .lineSpacing(24)
+                                    .foregroundColor(Color.Neutral.tint7)
+                                Spacer()
+                                Image(systemName: "arrow.right").tint(Color.Neutral.tint7)
+                            }
+                            .padding(.horizontal, 24)
+                        })
+                    .frame(height: 56)
+                    .background(Color.EggShell.tint1)
+                    .cornerRadius(28, corners: .allCorners)
                 }
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.clear)
+                
+            case .saveSeedPhrase:
+                VStack {
+                    AccountCreationProgressView(targetProgress: 1 / 3, stepName: "next_step_seed_phrase".localized)
+                    Spacer()
+                    Button(
+                        action: {
+                            isShowPasscodeViewShown = true
+                        }, label: {
+                            HStack {
+                                Text("create_wallet_step_2_title".localized)
+                                    .font(Font.satoshi(size: 16, weight: .medium))
+                                    .lineSpacing(24)
+                                    .foregroundColor(Color.Neutral.tint7)
+                                Spacer()
+                                Image(systemName: "arrow.right").tint(Color.Neutral.tint7)
+                            }
+                            .padding(.horizontal, 24)
+                        })
+                    .frame(height: 56)
+                    .background(Color.EggShell.tint1)
+                    .cornerRadius(28, corners: .allCorners)
+                }
+                
+            case .identityVerification:
+                EmptyView()
             }
-            
-            Color.clear.padding(.bottom, viewModel.isBackupAlertShown ? 48 : 0)
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.clear)
         }
-        .clipped()
-        .modifier(AppBackgroundModifier())
-        .listSectionSeparator(.hidden)
-        .listStyle(.plain)
+        .padding(17)
+        .modifier(AppBlackBackgroundModifier())
         .refreshable { Task { await viewModel.reload() } }
         .onAppear { Task { await viewModel.reload() } }
         .navigationTitle("accounts".localized)
@@ -193,35 +209,37 @@ struct AccountsMainView: View {
                     self.router?.showScanQRFlow()
                 } label: {
                     Image("qr")
+                        .frame(width: 32, height: 32)
                 }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     self.router?.showCreateAccountFlow()
                 } label: {
-                    Image("add")
+                    Image("ico_add")
+                        .frame(width: 32, height: 32)
                 }
             }
         }
         .sheet(item: $accountQr) { account in
             AccountQRView(account: account)
         }
-        .overlay(alignment: .bottom) {
-            if viewModel.isBackupAlertShown && !isUserMakeBackup {
-                HStack {
-                    Text("main_scren_backup_warning_legacy_acount".localized)
-                        .foregroundColor(Color.black)
-                        .font(.system(size: 14, weight: .medium))
-                        .padding()
-                }
-                .frame(maxWidth: .infinity)
-                .background(Color.yellow)
-                .clipped()
-                .onTapGesture {
-                    self.router?.showExportFlow()
-                }
-            }
-        }
+//        .overlay(alignment: .bottom) {
+//            if viewModel.isBackupAlertShown && !isUserMakeBackup {
+//                HStack {
+//                    Text("main_scren_backup_warning_legacy_acount".localized)
+//                        .foregroundColor(Color.black)
+//                        .font(.system(size: 14, weight: .medium))
+//                        .padding()
+//                }
+//                .frame(maxWidth: .infinity)
+//                .background(Color.yellow)
+//                .clipped()
+//                .onTapGesture {
+//                    self.router?.showExportFlow()
+//                }
+//            }
+//        }
         .onAppear { updateTimer.start() }
         .onDisappear { updateTimer.stop() }
         .onReceive(updateTimer.tick) { _ in
@@ -244,6 +262,22 @@ struct AccountsMainView: View {
             CCDOnrampView(dependencyProvider: viewModel.dependencyProvider)
         })
         .onAppear { Tracker.track(view: ["Home screen"]) }
+        .fullScreenCover(isPresented: $isShowPasscodeViewShown, content: {
+            PasscodeView(keychain: keychain,
+                         sanityChecker: SanityChecker(mobileWallet: ServicesProvider.defaultProvider().mobileWallet(),
+                                                      storageManager: ServicesProvider.defaultProvider().storageManager())) { pwHash in
+                isShowPasscodeViewShown = false
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.router?.showSaveSeedPhraseFlow(pwHash: pwHash, identitiesService: identitiesService, completion: { phrase in
+                        if identitiesService.mobileWallet.hasSetupRecoveryPhrase  {
+                            self.phrase = phrase
+                            Task { await viewModel.reload() }
+                        }
+                    })
+                }
+            }
+        })
     }
     
     private func OnRampAnchorView() -> some View {

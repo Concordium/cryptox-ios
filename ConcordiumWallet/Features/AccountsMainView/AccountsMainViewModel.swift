@@ -9,7 +9,7 @@
 import SwiftUI
 import Combine
 enum AccountsMainViewState {
-    case accounts, createAccount, createIdentity, empty
+    case accounts, createAccount, createIdentity, identityVerification, empty, saveSeedPhrase
 }
 
 final class AccountsMainViewModel: ObservableObject {
@@ -22,7 +22,7 @@ final class AccountsMainViewModel: ObservableObject {
     @Published var isBackupAlertShown = false
         
     let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
-    
+    let defaultProvider = ServicesProvider.defaultProvider()
     private var cancellables = [AnyCancellable]()
     private let walletConnectService: WalletConnectService
     private let defaultCIS2TokenManager: DefaultCIS2TokenManager
@@ -75,7 +75,11 @@ final class AccountsMainViewModel: ObservableObject {
     
     private func updateData() {
         accountViewModels = accounts.map { AccountPreviewViewModel.init(account: $0, tokens: dependencyProvider.storageManager().getAccountSavedCIS2Tokens($0.address)) }
-        if accounts.isEmpty {
+        if !defaultProvider.seedMobileWallet().hasSetupRecoveryPhrase {
+            state = .saveSeedPhrase
+        } else if dependencyProvider.storageManager().getIdentities().isEmpty {
+            state = .createIdentity
+        } else if accounts.isEmpty {
             state = .createAccount
         } else {
             state = .accounts

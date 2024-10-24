@@ -62,8 +62,6 @@
 		08520A622B470687008DC851 /* Image+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08520A602B470687008DC851 /* Image+Ext.swift */; };
 		08520A652B474A24008DC851 /* IdentityCreateWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08520A642B474A24008DC851 /* IdentityCreateWebView.swift */; };
 		08520A662B474A24008DC851 /* IdentityCreateWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08520A642B474A24008DC851 /* IdentityCreateWebView.swift */; };
-		08520A692B48278F008DC851 /* CreateIdentityRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08520A682B48278F008DC851 /* CreateIdentityRootView.swift */; };
-		08520A6A2B48278F008DC851 /* CreateIdentityRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08520A682B48278F008DC851 /* CreateIdentityRootView.swift */; };
 		08520A6C2B482994008DC851 /* NewIdentityStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08520A6B2B482994008DC851 /* NewIdentityStatusView.swift */; };
 		08520A6D2B482994008DC851 /* NewIdentityStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08520A6B2B482994008DC851 /* NewIdentityStatusView.swift */; };
 		0867CAE72A45CE5600D7887D /* DummyRequestPasswordDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0867CAE62A45CE5600D7887D /* DummyRequestPasswordDelegate.swift */; };
@@ -1497,7 +1495,6 @@
 		08C168D12BB7396200E61326 /* RecoverAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D103DF2B5692A70057E844 /* RecoverAccountsView.swift */; };
 		08C168D22BB7396200E61326 /* IdentityProviderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEED02A026E9400042957 /* IdentityProviderListViewController.swift */; };
 		08C168D32BB7396200E61326 /* AccountPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089FF0E12A4C4B58007AB1CF /* AccountPreviewView.swift */; };
-		08C168D42BB7396200E61326 /* CreateIdentityRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08520A682B48278F008DC851 /* CreateIdentityRootView.swift */; };
 		08C168D52BB7396200E61326 /* Digest+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E29763276C8E04000DB102 /* Digest+Additions.swift */; };
 		08C168D62BB7396200E61326 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEEC62A026BB800042957 /* Validator.swift */; };
 		08C168D72BB7396200E61326 /* AccountKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A044CA29FA99C300DACE1F /* AccountKeys.swift */; };
@@ -1892,6 +1889,9 @@
 		08FD0B822A7D31D9003774A6 /* GradienBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FD0B812A7D31D9003774A6 /* GradienBackgroundModifier.swift */; };
 		08FD0B832A7D31D9003774A6 /* GradienBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FD0B812A7D31D9003774A6 /* GradienBackgroundModifier.swift */; };
 		08FD0B842A7D31DD003774A6 /* GrayRoundedBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FD0B7F2A7D271B003774A6 /* GrayRoundedBackgroundModifier.swift */; };
+		150569392CCA401A005B81ED /* AccountCreationProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150569382CCA401A005B81ED /* AccountCreationProgressView.swift */; };
+		1505693A2CCA401A005B81ED /* AccountCreationProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150569382CCA401A005B81ED /* AccountCreationProgressView.swift */; };
+		1505693B2CCA401A005B81ED /* AccountCreationProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150569382CCA401A005B81ED /* AccountCreationProgressView.swift */; };
 		15184CED2CB0056C00DAE03A /* CooldownCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15184CEC2CB0056C00DAE03A /* CooldownCardView.swift */; };
 		15184CEE2CB0056C00DAE03A /* CooldownCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15184CEC2CB0056C00DAE03A /* CooldownCardView.swift */; };
 		15184CEF2CB0056C00DAE03A /* CooldownCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15184CEC2CB0056C00DAE03A /* CooldownCardView.swift */; };
@@ -2701,7 +2701,6 @@
 		08520A5D2B45DC2D008DC851 /* IdentityVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityVerificationView.swift; sourceTree = "<group>"; };
 		08520A602B470687008DC851 /* Image+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Ext.swift"; sourceTree = "<group>"; };
 		08520A642B474A24008DC851 /* IdentityCreateWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityCreateWebView.swift; sourceTree = "<group>"; };
-		08520A682B48278F008DC851 /* CreateIdentityRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateIdentityRootView.swift; sourceTree = "<group>"; };
 		08520A6B2B482994008DC851 /* NewIdentityStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewIdentityStatusView.swift; sourceTree = "<group>"; };
 		0867CAE62A45CE5600D7887D /* DummyRequestPasswordDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyRequestPasswordDelegate.swift; sourceTree = "<group>"; };
 		088CA9D62B3590BD00898C85 /* PasscodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeView.swift; sourceTree = "<group>"; };
@@ -3206,6 +3205,7 @@
 		08E69CC62A265E1B001CCA96 /* CIS2TokenDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokenDetailView.swift; sourceTree = "<group>"; };
 		08FD0B7F2A7D271B003774A6 /* GrayRoundedBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayRoundedBackgroundModifier.swift; sourceTree = "<group>"; };
 		08FD0B812A7D31D9003774A6 /* GradienBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradienBackgroundModifier.swift; sourceTree = "<group>"; };
+		150569382CCA401A005B81ED /* AccountCreationProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCreationProgressView.swift; sourceTree = "<group>"; };
 		15069A1D2C89A1C000697017 /* ProdTestNet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProdTestNet.entitlements; sourceTree = "<group>"; };
 		15184CEC2CB0056C00DAE03A /* CooldownCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CooldownCardView.swift; sourceTree = "<group>"; };
 		151A53982C5CF03800EFE20C /* PopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
@@ -3821,7 +3821,6 @@
 		08520A672B482782008DC851 /* CreateIdentity */ = {
 			isa = PBXGroup;
 			children = (
-				08520A682B48278F008DC851 /* CreateIdentityRootView.swift */,
 				08520A5D2B45DC2D008DC851 /* IdentityVerificationView.swift */,
 				08520A6B2B482994008DC851 /* NewIdentityStatusView.swift */,
 				08520A642B474A24008DC851 /* IdentityCreateWebView.swift */,
@@ -4859,6 +4858,7 @@
 				089FF0DB2A4C4516007AB1CF /* AccountsMainView.swift */,
 				089FF0E12A4C4B58007AB1CF /* AccountPreviewView.swift */,
 				0893CC422A66B88600A10F73 /* UpdateTimer.swift */,
+				150569382CCA401A005B81ED /* AccountCreationProgressView.swift */,
 			);
 			path = AccountsMainView;
 			sourceTree = "<group>";
@@ -7616,7 +7616,6 @@
 				15844E5C2C8744D5005A3BF1 /* TransferTokenViewModel.swift in Sources */,
 				08C168D22BB7396200E61326 /* IdentityProviderListViewController.swift in Sources */,
 				08C168D32BB7396200E61326 /* AccountPreviewView.swift in Sources */,
-				08C168D42BB7396200E61326 /* CreateIdentityRootView.swift in Sources */,
 				08C168D52BB7396200E61326 /* Digest+Additions.swift in Sources */,
 				08C168D62BB7396200E61326 /* Validator.swift in Sources */,
 				08C168D72BB7396200E61326 /* AccountKeys.swift in Sources */,
@@ -7670,6 +7669,7 @@
 				08C168FF2BB7396200E61326 /* TransferFiltersViewController.swift in Sources */,
 				08C169002BB7396200E61326 /* BackupAlertController.swift in Sources */,
 				08C169012BB7396200E61326 /* EuroPerEnergy.swift in Sources */,
+				1505693B2CCA401A005B81ED /* AccountCreationProgressView.swift in Sources */,
 				08C169022BB7396200E61326 /* JSONObject.swift in Sources */,
 				50D389112C05D66C00B3675A /* ConfirmAccountCreateViewController.swift in Sources */,
 				50D389122C05D66C00B3675A /* ConfirmAccountCreatePresenter.swift in Sources */,
@@ -8327,7 +8327,6 @@
 				15844E5B2C8744D5005A3BF1 /* TransferTokenViewModel.swift in Sources */,
 				088FEEE32A026EB100042957 /* IdentityProviderListViewController.swift in Sources */,
 				089FF0E32A4C4B58007AB1CF /* AccountPreviewView.swift in Sources */,
-				08520A6A2B48278F008DC851 /* CreateIdentityRootView.swift in Sources */,
 				D5E29767276C8E04000DB102 /* Digest+Additions.swift in Sources */,
 				088FEECA2A026BB800042957 /* Validator.swift in Sources */,
 				08A0462229FA99D300DACE1F /* AccountKeys.swift in Sources */,
@@ -8381,6 +8380,7 @@
 				088FEDF82A0167D200042957 /* TransferFiltersViewController.swift in Sources */,
 				D578396927A08B1200FFD123 /* BackupAlertController.swift in Sources */,
 				08A0461029FA99D200DACE1F /* EuroPerEnergy.swift in Sources */,
+				150569392CCA401A005B81ED /* AccountCreationProgressView.swift in Sources */,
 				D589F2192794B5ED003F2FBB /* JSONObject.swift in Sources */,
 				50D3890F2C05D66B00B3675A /* ConfirmAccountCreateViewController.swift in Sources */,
 				50D389102C05D66B00B3675A /* ConfirmAccountCreatePresenter.swift in Sources */,
@@ -9038,7 +9038,6 @@
 				15844E5A2C87445B005A3BF1 /* TransferTokenViewModel.swift in Sources */,
 				08A0458A29FA99D100DACE1F /* AccountKeys.swift in Sources */,
 				089FF0E22A4C4B58007AB1CF /* AccountPreviewView.swift in Sources */,
-				08520A692B48278F008DC851 /* CreateIdentityRootView.swift in Sources */,
 				088FEEDF2A026EB000042957 /* IdentityProviderListViewController.swift in Sources */,
 				088FEEC82A026BB800042957 /* Validator.swift in Sources */,
 				FAF2C56F26B00DBB00406A86 /* WebSocketService.swift in Sources */,
@@ -9092,6 +9091,7 @@
 				088FEF4E2A0270AF00042957 /* CopyReferenceInfoWidgetPresenter.swift in Sources */,
 				088FEDF42A0167D100042957 /* TransferFiltersViewController.swift in Sources */,
 				08A0457829FA99D100DACE1F /* EuroPerEnergy.swift in Sources */,
+				1505693A2CCA401A005B81ED /* AccountCreationProgressView.swift in Sources */,
 				D589F2172794B5ED003F2FBB /* JSONObject.swift in Sources */,
 				50D3890D2C05D66A00B3675A /* ConfirmAccountCreateViewController.swift in Sources */,
 				50D3890E2C05D66A00B3675A /* ConfirmAccountCreatePresenter.swift in Sources */,

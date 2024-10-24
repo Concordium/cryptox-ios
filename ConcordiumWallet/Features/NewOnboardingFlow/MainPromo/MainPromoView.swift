@@ -18,19 +18,19 @@ struct MainPromoView: View {
     @State var isImportWalletFlowShown = false
     @State var isCreateSeedPhraseFlowShown = false
     
-    @State var isCreateIdentityFlowShown = false
+    @State var isCreatePasswordFlowShown = false
     
     @EnvironmentObject var sanityChecker: SanityChecker
     
-    private var onIdentityCreated: () -> Void
+    private var onPasswordCreated: () -> Void
     private var onAccountInported: () -> Void
     private var onLogout: () -> Void
     
-    init(defaultProvider: ServicesProvider, onIdentityCreated: @escaping () -> Void, onAccountInported: @escaping () -> Void, onLogout: @escaping () -> Void) {
+    init(defaultProvider: ServicesProvider, onPasswordCreated: @escaping () -> Void, onAccountInported: @escaping () -> Void, onLogout: @escaping () -> Void) {
         self.defaultProvider = defaultProvider
         self.keychain = defaultProvider.keychainWrapper()
         self.identitiesService = defaultProvider.seedIdentitiesService()
-        self.onIdentityCreated = onIdentityCreated
+        self.onPasswordCreated = onPasswordCreated
         self.onAccountInported = onAccountInported
         self.onLogout = onLogout
         UITabBar.appearance().unselectedItemTintColor = UIColor.Neutral.tint4
@@ -44,9 +44,10 @@ struct MainPromoView: View {
                     .onAppear { Tracker.track(view: ["Activate account dialog"]) }
             }
         })
-        .fullScreenCover(isPresented: $isCreateIdentityFlowShown) {
-            CreateIdentityRootView(keychain: keychain, identitiesService: identitiesService, onIdentityCreated: onIdentityCreated)
-            .environmentObject(sanityChecker)
+        .fullScreenCover(isPresented: $isCreatePasswordFlowShown) {
+            PasscodeView(keychain: keychain, sanityChecker: sanityChecker) { pwHash in
+                onPasswordCreated()
+            }
             .transition(.fade)
         }
         .fullScreenCover(isPresented: $isImportWalletFlowShown) {
@@ -61,7 +62,7 @@ struct MainPromoView: View {
                 .font(Font.satoshi(size: 24, weight: .medium))
                 .foregroundColor(Color.Neutral.tint7)
             
-            sheetView(content: accountViewSheet(), title: "create_wallet_sheet".localized)
+            sheetView(content: accountViewSheet(), title: "create_wallet_sheet".localized.uppercased())
             Image("create_wallet_divider")
             Text("create_wallet_sheet_import_wallet".localized)
                 .font(.satoshi(size: 14, weight: .regular))
@@ -95,7 +96,7 @@ struct MainPromoView: View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 4){
                 Text(title)
-                    .font(Font.plexMono(size: 15, weight: .medium))
+                    .font(Font.plexMono(size: 14, weight: .medium))
                     .foregroundColor(Color(red: 0.17, green: 0.38, blue: 0.41))
                 Image("Burst-pucker-2")
             }
@@ -162,7 +163,7 @@ struct MainPromoView: View {
                 }
             }
             Button(action: {
-                isCreateIdentityFlowShown.toggle()
+                isCreatePasswordFlowShown.toggle()
                 Tracker.trackContentInteraction(name: "Activate account dialog", interaction: .clicked, piece: "Create Wallet")
             }, label: {
                 HStack {

@@ -1223,11 +1223,11 @@ Remember to restart your node with the validator keys.";
 
 "new_onboarding_welcome_title" = "Welcome to Concordium CryptoX wallet";
 "new_onboarding_safe_secure_title" = "Safe and Secure";
-"new_onboarding_safe_secure_subtitle" = "Trusted by thousands, CryptoX is a secure wallet making the Concordium blockchain accessible to all";
+"new_onboarding_safe_secure_subtitle" = "The CryptoX wallet is self-custodial, has best-in-class security and is trusted by thousands.";
 "new_onboarding_manage_asssets_title" = "Easily manage digital assets";
-"new_onboarding_manage_asssets_subtitle" = "Store, spend and send digital assets like tokens, crypto, unique collectibles";
-"new_onboarding_unlimited_possibilities_title" = "Unlimited possibilities";
-"new_onboarding_unlimited_possibilities_subtitle" = "With CryptoX you can make transactions to invest, earn, sell, play games and more!";
+"new_onboarding_manage_asssets_subtitle" = "Seamlessly store, spend and send tokens, crypto, and collectibles.";
+"new_onboarding_unlimited_possibilities_title" = "For a safer tomorrow";
+"new_onboarding_unlimited_possibilities_subtitle" = "Access a global ecosystem and contribute to a secure digital future.";
 "new_onb_privacy_read" = "I have read and understood the";
 "new_onb_terms" = "Terms and Conditions";
 "and" = "and";
@@ -1249,7 +1249,7 @@ Remember to restart your node with the validator keys.";
 "create_wallet_sheet_import_wallet" = "You can import your wallet with a secret seed phrase or a backup file";
 "import_wallet" = "Import a wallet";
 "enable_face_id_title" = "Enable Face ID for next time?";
-"enable_face_id_subtitle" = "After you log out now, you’ll be able to sin in faster when you come back";
+"enable_face_id_subtitle" = "After you log out now, you’ll be able to sign in faster when you come back";
 "enable_face_id_button_title" = "Enable Face ID";
 "enable_face_id_later_button_title" = "Set up later in Settings";
 "seed_phrase_title" = "Your seed phrase";
@@ -1327,3 +1327,8 @@ Remember to restart your node with the validator keys.";
 "ccd_onramp_list_footer_subtitle" = "The information regarding the CCD on any Concordium website does not constitute an offer or solicitation to purchase CCDs. The information on the CCD on this website is only directed to persons in countries other than the United States. \n\nWithout limiting the foregoing, in no event would any offering of CCD by Concordium be intended to be available to residents of the United States. \n\nBy clicking on any of the above links, you may be getting access to various services, including trading services. \n\nThese services are offered by third parties and the use of such services are subject to terms of conditions defined by such third parties and Concordium is not responsible for and does not assume any liabilities in relation to the use of such services.";
 "ccd_onramp_account_picker_list_header_title" = "Select Account";
 "ccd_onramp_account_picker_list_header_subtitle" = "Which account do you want to use with the external service?";
+
+"setup_progress_title" = "Your account will be here once your set-up is complete";
+"next_step_seed_phrase" = "Next step: Save your seed phrase";
+"final_step_verify_identity" = "Final step: Verify your identity";
+
