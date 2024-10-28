@@ -39,6 +39,7 @@ class MainTabBarController: BaseTabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBar.backgroundColor = .blackMain
         collectionsCoordinator.start()
         moreCoordinator.start()
         let newsFeedController = SceneViewController(content: NewsFeed())

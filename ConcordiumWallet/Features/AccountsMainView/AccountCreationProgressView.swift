@@ -10,75 +10,67 @@ import SwiftUI
 
 struct AccountCreationProgressView: View {
     @State private var progress: Float = 0
-    @State var targetProgress: Float
-    @State var stepName: String
-    private let size: CGFloat = 56.0
+    @State private var targetProgress: Float = 0
+    @State private var title: String = ""
+    @State private var stepName: String = ""
+    var onCreateAccount: (() -> Void)? = nil
+    var onIdentityVerification: (() -> Void)? = nil
+    var state: AccountsMainViewState = .empty
 
     var body: some View {
-        VStack {
+        VStack(alignment: .center) {
             ZStack(alignment: .leading) {
                 Image("card_bg")
                     .padding(.leading, 16)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 VStack(alignment: .leading, spacing: 14) {
-                    Text("setup_progress_title".localized)
-                        .font(.satoshi(size: 14, weight: .medium))
-                        .foregroundStyle(Color.greyMain)
-                    ProgressView(value: progress)
-                        .frame(height: 11)
-                        .progressViewStyle(CustomProgressViewStyle(trackColor: .greenDark, progressColor: .greenMain))
-                        .cornerRadius(5)
-                    Text(stepName)
-                        .font(.satoshi(size: 14, weight: .medium))
-                        .foregroundStyle(Color.greyMain)
+                    setupView()
                 }
-                .padding(16)
-                .cornerRadius(15)
+                .padding(.horizontal, 16)
             }
-
             HStack(alignment: .center) {
                 Spacer()
                 
                 Image("ico_plus")
-                    .frame(width: 26, height: 26)
-                    .foregroundStyle(Color.blackAditional)
+                    .frame(width: 40, height: 40)
                 
                 Spacer()
                 
-                    Divider()
-                        .background(Color.blackAditional)
+                Rectangle()
+                    .frame(width: 1.0)
+                    .foregroundColor(.blackAditional)
+                    .padding(.vertical, -7)
                 
                 Spacer()
                 
                 Image("ico_share")
                     .renderingMode(.template)
-                    .frame(width: 26, height: 26)
-                    .foregroundStyle(Color.blackAditional)
+                    .foregroundStyle(.blackAditional)
+                    .frame(width: 40, height: 40)
                 
                 Spacer()
                 
-                    Divider()
-                        .background(Color.blackAditional)
+                Rectangle()
+                    .frame(width: 1.0)
+                    .foregroundColor(Color.blackAditional)
+                    .padding(.vertical, -7)
                 
                 Spacer()
                 
                 Image("ico_qr")
-                    .frame(width: 26, height: 26)
-                    .foregroundStyle(Color.blackAditional)
+                    .frame(width: 40, height: 40)
                 
                 Spacer()
             }
+            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity)
             .overlay(
                 Rectangle()
                     .frame(height: 1.5)
-                    .foregroundColor(Color.blackAditional)
-                    .frame(maxHeight: .infinity, alignment: .top)
-                    .offset(y: -13)
+                    .foregroundColor(.blackAditional)
+                    .frame(maxHeight: .infinity, alignment: .top),
+                alignment: .top
             )
-            .padding(8)
-            .frame(maxWidth: .infinity)
-
-            Spacer()
         }
         .overlay(
             RoundedRectangle(cornerRadius: 16)
@@ -86,18 +78,139 @@ struct AccountCreationProgressView: View {
                 .stroke(Color.blackAditional, lineWidth: 1.5)
         )
         .onAppear {
+            stateChange()
             withAnimation(.easeInOut(duration: 1.5)) {
                 progress = targetProgress
             }
         }
-        .frame(height: 132)
+    }
+    
+    @ViewBuilder
+    private func setupView() -> some View {
+        switch state {
+        case .saveSeedPhrase, .createIdentity, .identityVerification:
+            HStack(alignment: .lastTextBaseline, spacing: 4) {
+                Text(title)
+                    .font(.satoshi(size: state == .identityVerification ? 16 : 14, weight: .medium))
+                    .foregroundStyle(state == .identityVerification ? .yellowMain : .greyMain)
+                    .padding(.top, 12)
+                    .padding(.bottom, 8)
+
+                if state == .identityVerification {
+                    Circle()
+                        .frame(width: 11, height: 11)
+                        .foregroundStyle(.yellowMain)
+                        .alignmentGuide(.firstTextBaseline) { dimension in
+                            dimension[VerticalAlignment.center]
+                        }
+                }
+            }
+            ProgressView(value: progress)
+                .frame(height: 11)
+                .progressViewStyle(CustomProgressViewStyle(trackColor: .greenDark, progressColor: .greenMain))
+                .cornerRadius(5)
+            
+            Text(stepName)
+                .font(.satoshi(size: 14, weight: .medium))
+                .foregroundStyle(Color.greyMain)
+                .padding(.bottom, 8)
+        case .createAccount:
+            HStack(alignment: .lastTextBaseline, spacing: 4) {
+                Text(title)
+                    .font(.satoshi(size: 16, weight: .medium))
+                    .foregroundStyle(Color.greenMain)
+                    .padding(.top, 12)
+                    .padding(.bottom, 8)
+                Image(systemName: "checkmark")
+                    .foregroundStyle(Color.greenMain)
+            }
+            .padding(.top, 19)
+            
+            Button {
+                guard let onCreateAccount else { return }
+                onCreateAccount()
+            } label: {
+                HStack {
+                    Text("create_account_btn_title".localized)
+                        .foregroundColor(.blackMain)
+                        .font(.satoshi(size: 16, weight: .medium))
+                        .padding(.vertical, 16)
+                    
+                    Spacer()
+                    
+                    Image(systemName: "arrow.right")
+                        .tint(.blackMain)
+                }
+                .padding(.horizontal, 24)
+            }
+            .background(.greenSecondary)
+            .clipShape(Capsule())
+            .padding(.bottom, 22)
+
+        case .verificationFailed:
+            HStack(alignment: .lastTextBaseline, spacing: 4) {
+                Text(title)
+                    .font(.satoshi(size: 16, weight: .medium))
+                    .foregroundStyle(Color.Status.attentionRed)
+                    .padding(.top, 12)
+                    .padding(.bottom, 8)
+                Image(systemName: "xmark")
+                    .foregroundStyle(Color.Status.attentionRed)
+            }
+            .padding(.top, 19)
+            Button {
+                guard let onIdentityVerification else { return }
+                onIdentityVerification()
+            } label: {
+                HStack {
+                    Text("create_wallet_step_3_title".localized)
+                        .foregroundColor(.blackMain)
+                        .font(.satoshi(size: 16, weight: .medium))
+                        .padding(.vertical, 16)
+                    
+                    Spacer()
+                    
+                    Image(systemName: "arrow.right")
+                        .tint(.blackMain)
+                }
+                .padding(.horizontal, 24)
+            }
+            .background(Color.EggShell.tint1)
+            .clipShape(Capsule())
+            .padding(.bottom, 22)
+        default:
+            EmptyView()
+        }
+    }
+    
+    private func stateChange() {
+        switch state {
+        case .accounts, .empty:
+            break
+        case .createAccount:
+            title = "verification.completed".localized
+        case .createIdentity:
+            stepName = "final_step_verify_identity".localized
+            targetProgress = 2 / 3
+            title = "setup_progress_title".localized
+        case .identityVerification:
+            targetProgress = 1
+            stepName = "setup.complete".localized
+            title = "verification.in.progress".localized
+        case .verificationFailed:
+            title = "verification.failed".localized
+        case .saveSeedPhrase:
+            stepName = "next_step_seed_phrase".localized
+            targetProgress = 1 / 3
+            title = "setup_progress_title".localized
+        }
     }
 }
 
 struct CustomProgressViewStyle: ProgressViewStyle {
     var trackColor: Color
     var progressColor: Color
-
+    
     func makeBody(configuration: Configuration) -> some View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
@@ -115,5 +228,6 @@ struct CustomProgressViewStyle: ProgressViewStyle {
 
 
 #Preview {
-    AccountCreationProgressView(targetProgress: 1 / 3, stepName: "STEP 1")
+    AccountCreationProgressView(state: .verificationFailed)
+        .frame(height: 188)
 }

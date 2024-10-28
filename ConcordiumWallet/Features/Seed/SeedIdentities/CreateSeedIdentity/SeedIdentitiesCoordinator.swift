@@ -68,18 +68,15 @@ class SeedIdentitiesCoordinator: Coordinator {
     }
     
     private func showIdentityProviders(enablePop: Bool = true, isNewIdentityAfterSettingUpTheWallet: Bool = false) {
-        let presenter = SelectIdentityProviderPresenter(
-            identitiesService: identititesService,
-            delegate: self,
-            isNewIdentityAfterSettingUpTheWallet: isNewIdentityAfterSettingUpTheWallet
-        )
+        let identityView = IdentityProviderListView(viewModel: .init(identitiesService: identititesService,
+                                                                     delegate: self,
+                                                                     isNewIdentityAfterSettingUpTheWallet: isNewIdentityAfterSettingUpTheWallet))
         
+        let vc = SceneViewController(content: identityView)
         if enablePop {
-            navigationController.pushViewController(
-                presenter.present(SelectIdentityProviderView.self),
-                animated: true)
+            navigationController.pushViewController(vc, animated: true)
         } else {
-            navigationController.setViewControllers([presenter.present(SelectIdentityProviderView.self)], animated: true)
+            navigationController.setViewControllers([vc], animated: true)
         }
     }
     
