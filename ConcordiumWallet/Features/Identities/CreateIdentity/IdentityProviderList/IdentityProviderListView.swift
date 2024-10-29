@@ -94,10 +94,16 @@ struct IdentityProviderListView: View {
     @ViewBuilder
     private func providerCell(_ provider: IPInfoResponseElement) -> some View {
         HStack {
-            (Image.init(base64String: provider.metadata.icon) ?? Image("ccd_logo_dark"))
+            (Image.init(base64String: provider.metadata.icon) ?? Image.init(systemName: "circle.fill"))
                 .resizable()
                 .frame(width: 48, height: 48)
-                .clipShape(Circle())
+                .foregroundStyle(Color(red: 0.1, green: 0.14, blue: 0.14))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 28)
+                        .inset(by: 0.5)
+                        .stroke(Color(red: 0.92, green: 0.94, blue: 0.94).opacity(0.05), lineWidth: 1)
+                )
+                .cornerRadius(28)
             
             Text(provider.displayName)
                 .foregroundColor(.text)

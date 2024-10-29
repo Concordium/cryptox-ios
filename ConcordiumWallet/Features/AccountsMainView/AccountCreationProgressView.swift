@@ -13,6 +13,9 @@ struct AccountCreationProgressView: View {
     @State private var targetProgress: Float = 0
     @State private var title: String = ""
     @State private var stepName: String = ""
+    @State private var isDotPulsating = false
+    @State private var checkmarkOpacity: Double = 0.0
+    @State private var isTransitioning = false
     var onCreateAccount: (() -> Void)? = nil
     var onIdentityVerification: (() -> Void)? = nil
     var state: AccountsMainViewState = .empty
@@ -87,99 +90,125 @@ struct AccountCreationProgressView: View {
     
     @ViewBuilder
     private func setupView() -> some View {
-        switch state {
-        case .saveSeedPhrase, .createIdentity, .identityVerification:
-            HStack(alignment: .lastTextBaseline, spacing: 4) {
-                Text(title)
-                    .font(.satoshi(size: state == .identityVerification ? 16 : 14, weight: .medium))
-                    .foregroundStyle(state == .identityVerification ? .yellowMain : .greyMain)
-                    .padding(.top, 12)
-                    .padding(.bottom, 8)
-
-                if state == .identityVerification {
-                    Circle()
-                        .frame(width: 11, height: 11)
-                        .foregroundStyle(.yellowMain)
-                        .alignmentGuide(.firstTextBaseline) { dimension in
-                            dimension[VerticalAlignment.center]
+        VStack(alignment: .leading) {
+            switch state {
+            case .saveSeedPhrase, .createIdentity, .identityVerification:
+                VStack(alignment: .leading, spacing: 21) {
+                    HStack(alignment: .lastTextBaseline, spacing: 4) {
+                        Text(title)
+                            .font(.satoshi(size: state == .identityVerification ? 16 : 14, weight: .medium))
+                            .foregroundStyle(state == .identityVerification ? .yellowMain : .greyMain)
+                            .padding(.top, 12)
+                            .padding(.bottom, 8)
+                        
+                        if state == .identityVerification {
+                            Circle()
+                                .frame(width: 11, height: 11)
+                                .foregroundStyle(.yellowMain)
+                                .opacity(isDotPulsating ? 0.2 : 1.0)
+                                .animation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true), value: isDotPulsating)
+                                .onAppear {
+                                    isDotPulsating = true
+                                }
                         }
+                    }
+                    
+                    ProgressView(value: progress)
+                        .frame(height: isTransitioning ? 56 : 11)
+                        .progressViewStyle(CustomProgressViewStyle(trackColor: .greenDark, progressColor: .greenMain))
+                        .cornerRadius(5)
+                        .animation(.easeInOut(duration: 1.0), value: progress)
+                    Text(stepName)
+                        .font(.satoshi(size: 14, weight: .medium))
+                        .foregroundStyle(Color.greyMain)
+                        .padding(.bottom, 8)
                 }
-            }
-            ProgressView(value: progress)
-                .frame(height: 11)
-                .progressViewStyle(CustomProgressViewStyle(trackColor: .greenDark, progressColor: .greenMain))
-                .cornerRadius(5)
-            
-            Text(stepName)
-                .font(.satoshi(size: 14, weight: .medium))
-                .foregroundStyle(Color.greyMain)
-                .padding(.bottom, 8)
-        case .createAccount:
-            HStack(alignment: .lastTextBaseline, spacing: 4) {
-                Text(title)
-                    .font(.satoshi(size: 16, weight: .medium))
-                    .foregroundStyle(Color.greenMain)
-                    .padding(.top, 12)
-                    .padding(.bottom, 8)
-                Image(systemName: "checkmark")
-                    .foregroundStyle(Color.greenMain)
-            }
-            .padding(.top, 19)
-            
-            Button {
-                guard let onCreateAccount else { return }
-                onCreateAccount()
-            } label: {
-                HStack {
-                    Text("create_account_btn_title".localized)
-                        .foregroundColor(.blackMain)
+                
+            case .createAccount:
+                VStack(alignment: .leading, spacing: 15) {
+                    HStack(alignment: .lastTextBaseline, spacing: 4) {
+                        Text(title)
+                            .font(.satoshi(size: 16, weight: .medium))
+                            .foregroundStyle(Color.greenMain)
+                            .padding(.top, 12)
+                            .padding(.bottom, 8)
+                        
+                        Image(systemName: "checkmark")
+                            .foregroundStyle(Color.greenMain)
+                            .opacity(checkmarkOpacity)
+                            .onAppear {
+                                withAnimation(.easeIn(duration: 0.5)) {
+                                    checkmarkOpacity = 1.0
+                                }
+                            }
+                    }
+                    .padding(.top, 19)
+                    
+                    Button {
+                        guard let onCreateAccount else { return }
+                        onCreateAccount()
+                    } label: {
+                        HStack {
+                            Text("create_account_btn_title".localized)
+                                .foregroundColor(.blackMain)
+                                .font(.satoshi(size: 16, weight: .medium))
+                                .padding(.vertical, 16)
+                            
+                            Spacer()
+                            
+                            Image(systemName: "arrow.right")
+                                .tint(.blackMain)
+                        }
+                        .padding(.horizontal, 24)
+                    }
+                    .background(.greenSecondary)
+                    .clipShape(Capsule())
+                    .padding(.bottom, 22)
+                    .transition(.scale.combined(with: .opacity))
+                }
+            case .verificationFailed:
+                HStack(alignment: .lastTextBaseline, spacing: 4) {
+                    Text(title)
                         .font(.satoshi(size: 16, weight: .medium))
-                        .padding(.vertical, 16)
-                    
-                    Spacer()
-                    
-                    Image(systemName: "arrow.right")
-                        .tint(.blackMain)
+                        .foregroundStyle(Color.Status.attentionRed)
+                        .padding(.top, 12)
+                        .padding(.bottom, 8)
+                    Image(systemName: "xmark")
+                        .foregroundStyle(Color.Status.attentionRed)
                 }
-                .padding(.horizontal, 24)
-            }
-            .background(.greenSecondary)
-            .clipShape(Capsule())
-            .padding(.bottom, 22)
-
-        case .verificationFailed:
-            HStack(alignment: .lastTextBaseline, spacing: 4) {
-                Text(title)
-                    .font(.satoshi(size: 16, weight: .medium))
-                    .foregroundStyle(Color.Status.attentionRed)
-                    .padding(.top, 12)
-                    .padding(.bottom, 8)
-                Image(systemName: "xmark")
-                    .foregroundStyle(Color.Status.attentionRed)
-            }
-            .padding(.top, 19)
-            Button {
-                guard let onIdentityVerification else { return }
-                onIdentityVerification()
-            } label: {
-                HStack {
-                    Text("create_wallet_step_3_title".localized)
-                        .foregroundColor(.blackMain)
-                        .font(.satoshi(size: 16, weight: .medium))
-                        .padding(.vertical, 16)
-                    
-                    Spacer()
-                    
-                    Image(systemName: "arrow.right")
-                        .tint(.blackMain)
+                .padding(.top, 19)
+                Button {
+                    guard let onIdentityVerification else { return }
+                    onIdentityVerification()
+                } label: {
+                    HStack {
+                        Text("create_wallet_step_3_title".localized)
+                            .foregroundColor(.blackMain)
+                            .font(.satoshi(size: 16, weight: .medium))
+                            .padding(.vertical, 16)
+                        
+                        Spacer()
+                        
+                        Image(systemName: "arrow.right")
+                            .tint(.blackMain)
+                    }
+                    .padding(.horizontal, 24)
                 }
-                .padding(.horizontal, 24)
+                .background(Color.EggShell.tint1)
+                .clipShape(Capsule())
+                .padding(.bottom, 22)
+            default:
+                EmptyView()
             }
-            .background(Color.EggShell.tint1)
-            .clipShape(Capsule())
-            .padding(.bottom, 22)
-        default:
-            EmptyView()
+        }
+        .onChange(of: progress) { newValue in
+            if state == .createAccount {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        isTransitioning = true
+                    }
+                }
+            }
         }
     }
     

@@ -1919,6 +1919,12 @@
 		1557CCA92C8AF779008ABF67 /* AllowNotificationsPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */; };
 		1557CCAA2C8AF779008ABF67 /* AllowNotificationsPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */; };
 		1557CCAB2C8AF779008ABF67 /* AllowNotificationsPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */; };
+		156878CC2CD0FB900080B2F3 /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 156878CB2CD0FB900080B2F3 /* DotLottie */; };
+		156878CE2CD0FBA00080B2F3 /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 156878CD2CD0FBA00080B2F3 /* DotLottie */; };
+		156878D02CD0FBA90080B2F3 /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 156878CF2CD0FBA90080B2F3 /* DotLottie */; };
+		156878D22CD0FC190080B2F3 /* confettiAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 156878D12CD0FC190080B2F3 /* confettiAnimation.json */; };
+		156878D32CD0FC190080B2F3 /* confettiAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 156878D12CD0FC190080B2F3 /* confettiAnimation.json */; };
+		156878D42CD0FC190080B2F3 /* confettiAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 156878D12CD0FC190080B2F3 /* confettiAnimation.json */; };
 		1575862E2CA2CA4D00205A6E /* IdentifiableString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1575862D2CA2CA4D00205A6E /* IdentifiableString.swift */; };
 		1575862F2CA2CA4D00205A6E /* IdentifiableString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1575862D2CA2CA4D00205A6E /* IdentifiableString.swift */; };
 		157586302CA2CA4D00205A6E /* IdentifiableString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1575862D2CA2CA4D00205A6E /* IdentifiableString.swift */; };
@@ -3213,6 +3219,7 @@
 		1557CC972C89BBD7008ABF67 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1557CC9A2C89BE26008ABF67 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsPopup.swift; sourceTree = "<group>"; };
+		156878D12CD0FC190080B2F3 /* confettiAnimation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = confettiAnimation.json; sourceTree = "<group>"; };
 		1575862D2CA2CA4D00205A6E /* IdentifiableString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableString.swift; sourceTree = "<group>"; };
 		157586312CA43E5500205A6E /* CooldownEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CooldownEntity.swift; sourceTree = "<group>"; };
 		157586352CA441DC00205A6E /* AccountCooldown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCooldown.swift; sourceTree = "<group>"; };
@@ -3546,6 +3553,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				509749EF2C491A6800D28D6B /* MatomoTracker in Frameworks */,
+				156878CC2CD0FB900080B2F3 /* DotLottie in Frameworks */,
 				08C169102BB7396200E61326 /* SDWebImageSwiftUI in Frameworks */,
 				509A56292CB40A10005EA908 /* Base58Swift in Frameworks */,
 				08C169122BB7396200E61326 /* SwiftCBOR in Frameworks */,
@@ -3578,6 +3586,7 @@
 				089E32852A0BA0DE002AE530 /* ConcordiumWalletCrypto in Frameworks */,
 				1557CCA72C89CAA4008ABF67 /* (null) in Frameworks */,
 				509A56392CB43540005EA908 /* RealmSwift in Frameworks */,
+				156878D02CD0FBA90080B2F3 /* DotLottie in Frameworks */,
 				08A0444729FA906200DACE1F /* Kingfisher in Frameworks */,
 				08A0441C29FA888600DACE1F /* MnemonicSwift in Frameworks */,
 				08A0442529FA893700DACE1F /* Base58Swift in Frameworks */,
@@ -3601,6 +3610,7 @@
 				08A0444329FA905700DACE1F /* Kingfisher in Frameworks */,
 				1557CCA52C89CA9D008ABF67 /* (null) in Frameworks */,
 				509A563C2CB43549005EA908 /* RealmSwift in Frameworks */,
+				156878CE2CD0FBA00080B2F3 /* DotLottie in Frameworks */,
 				08A0440B29FA884100DACE1F /* SwiftCBOR in Frameworks */,
 				08A0441829FA887700DACE1F /* MnemonicSwift in Frameworks */,
 				C99CFF6E243EFD7E0045B8E6 /* WebKit.framework in Frameworks */,
@@ -3686,6 +3696,7 @@
 				19C2E4C7C42CAF3BEBD66EF0 /* CryptoXStagingNet-Info.plist */,
 				0832EB472B34B8CA00BD2ECD /* Localizable.strings */,
 				08C169C42BB73E5700E61326 /* ProdTestNet-Info.plist */,
+				156878D12CD0FC190080B2F3 /* confettiAnimation.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -6313,6 +6324,7 @@
 				509A56282CB40A10005EA908 /* Base58Swift */,
 				509A56302CB40BF7005EA908 /* RealmSwift */,
 				505E11EB2CC1248B0003F6DC /* Web3Wallet */,
+				156878CB2CD0FB900080B2F3 /* DotLottie */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 08C169C22BB7396200E61326 /* ProdTestNet.app */;
@@ -6347,6 +6359,7 @@
 				509A56382CB43540005EA908 /* RealmSwift */,
 				509A563E2CB43561005EA908 /* FirebaseMessaging */,
 				505E11ED2CC1390E0003F6DC /* Web3Wallet */,
+				156878CF2CD0FBA90080B2F3 /* DotLottie */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
@@ -6382,6 +6395,7 @@
 				509A563B2CB43549005EA908 /* RealmSwift */,
 				509A56402CB43568005EA908 /* FirebaseMessaging */,
 				505E11EF2CC139150003F6DC /* Web3Wallet */,
+				156878CD2CD0FBA00080B2F3 /* DotLottie */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
@@ -6449,6 +6463,7 @@
 				509749E92C491A0D00D28D6B /* XCRemoteSwiftPackageReference "matomo-sdk-ios" */,
 				1557CC962C89B8DE008ABF67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				505E11EA2CC123EA0003F6DC /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */,
+				156878CA2CD0FB900080B2F3 /* XCRemoteSwiftPackageReference "dotlottie-ios" */,
 			);
 			productRefGroup = 7FF07A6A23EADB1200F1FC04 /* Products */;
 			projectDirPath = "";
@@ -6567,6 +6582,7 @@
 				08C1698A2BB7396200E61326 /* Localizable.strings in Resources */,
 				08C1698B2BB7396200E61326 /* QRTransactionBuyView.xib in Resources */,
 				08C1698C2BB7396200E61326 /* delegation_update_flow_en_3.html in Resources */,
+				156878D22CD0FC190080B2F3 /* confettiAnimation.json in Resources */,
 				08C1698D2BB7396200E61326 /* removedelegation_flow_style.css in Resources */,
 				08C1698E2BB7396200E61326 /* IBMPlexMono-Bold.ttf in Resources */,
 				08C1698F2BB7396200E61326 /* 1.2.2.RX-lib_create_id_request_and_private_data.json in Resources */,
@@ -6715,6 +6731,7 @@
 				0832EB452B34B8CA00BD2ECD /* Localizable.strings in Resources */,
 				D5B393F527197CDD0094A9F5 /* QRTransactionBuyView.xib in Resources */,
 				088FF3752A02CA3300042957 /* delegation_update_flow_en_3.html in Resources */,
+				156878D32CD0FC190080B2F3 /* confettiAnimation.json in Resources */,
 				088FF3642A02CA2C00042957 /* removedelegation_flow_style.css in Resources */,
 				08A6BDBC2B31C01500869317 /* IBMPlexMono-Bold.ttf in Resources */,
 				D589F3A32794B96B003F2FBB /* 1.2.2.RX-lib_create_id_request_and_private_data.json in Resources */,
@@ -6863,6 +6880,7 @@
 				088FF36D2A02CA3200042957 /* delegation_update_flow_en_3.html in Resources */,
 				088FF35E2A02CA2C00042957 /* removedelegation_flow_style.css in Resources */,
 				08A6BDB82B31C01500869317 /* IBMPlexMono-Bold.ttf in Resources */,
+				156878D42CD0FC190080B2F3 /* confettiAnimation.json in Resources */,
 				D589F3A12794B96B003F2FBB /* 1.2.2.RX-lib_create_id_request_and_private_data.json in Resources */,
 				D589F4112794B96D003F2FBB /* 4.4.1.TX_lib_decrypt_encrypted_amount.json in Resources */,
 				FAAC232826E54D2A00EFF43F /* AccountConfirmationCardView.xib in Resources */,
@@ -9727,6 +9745,14 @@
 				minimumVersion = 11.1.0;
 			};
 		};
+		156878CA2CD0FB900080B2F3 /* XCRemoteSwiftPackageReference "dotlottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/LottieFiles/dotlottie-ios";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		505E11EA2CC123EA0003F6DC /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WalletConnect/WalletConnectSwiftV2.git";
@@ -9883,6 +9909,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1557CC962C89B8DE008ABF67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		156878CB2CD0FB900080B2F3 /* DotLottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 156878CA2CD0FB900080B2F3 /* XCRemoteSwiftPackageReference "dotlottie-ios" */;
+			productName = DotLottie;
+		};
+		156878CD2CD0FBA00080B2F3 /* DotLottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 156878CA2CD0FB900080B2F3 /* XCRemoteSwiftPackageReference "dotlottie-ios" */;
+			productName = DotLottie;
+		};
+		156878CF2CD0FBA90080B2F3 /* DotLottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 156878CA2CD0FB900080B2F3 /* XCRemoteSwiftPackageReference "dotlottie-ios" */;
+			productName = DotLottie;
 		};
 		5059C9B42C00CF1200E40307 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;

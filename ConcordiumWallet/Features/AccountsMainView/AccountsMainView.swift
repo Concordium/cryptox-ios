@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Combine
+import DotLottie
 
 protocol AccountsMainViewDelegate: AnyObject {
     func showSendFundsFlow(_ account: AccountDataType)
@@ -28,6 +29,7 @@ struct AccountsMainView: View {
     @State var onRampFlowShown = false
     @State var phrase: [String]?
     @State var isShowPasscodeViewShown = false
+    @State private var previousState: AccountsMainViewState?
     
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
@@ -41,30 +43,27 @@ struct AccountsMainView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 32) {
+        VStack(alignment: .leading) {
             if viewModel.state == .accounts {
-                List {
-                    accountBalancesSection
-                    Divider()
-                    contentViewBasedOnState
-                        .listRowSeparator(.hidden)
-                        .listRowBackground(Color.clear)
+                ScrollView {
+                    LazyVStack(alignment: .leading, spacing: 24) {
+                        accountBalancesSection
+                        Divider()
+                        contentViewBasedOnState
+                            .padding(.vertical)
+                            .background(Color.clear)
+                    }
                 }
-                .listStyle(.plain)
             } else {
                 VStack(alignment: .leading, spacing: 32) {
                     accountBalancesSection
                     Divider()
                     contentViewBasedOnState
                 }
-                .padding(16)
             }
         }
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
+        .padding(16)
         .modifier(AppBlackBackgroundModifier())
-        .listSectionSeparator(.hidden)
-        .listStyle(.plain)
         .refreshable { Task { await viewModel.reload() } }
         .onAppear { Task { await viewModel.reload() } }
         .navigationTitle("accounts".localized)
@@ -96,6 +95,11 @@ struct AccountsMainView: View {
                 await self.viewModel.reload()
             }
         }
+        .overlay(content: {
+            if viewModel.state == .accounts && previousState == .createAccount {
+                DotLottieAnimation(fileName: "confettiAnimation", config: AnimationConfig(autoplay: true, loop: false)).view()
+            }
+        })
         .overlay(alignment: .center) {
             if isShouldShowSunsetShieldingView && hasShieldedBalances {
                 PopupContainer(
@@ -116,7 +120,11 @@ struct AccountsMainView: View {
             passcodeView
         })
         .onAppear { Tracker.track(view: ["Home screen"]) }
-
+        .onChange(of: viewModel.state) { newState in
+            if newState != .accounts {
+                previousState = newState
+            }
+        }
     }
 }
 
@@ -160,6 +168,7 @@ extension AccountsMainView {
                 }
             }
         }
+        .background(.clear)
     }
     
     private func disposalText(_ text: String) -> some View {
