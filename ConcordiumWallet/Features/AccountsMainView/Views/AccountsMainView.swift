@@ -196,7 +196,9 @@ extension AccountsMainView {
                     }
                 
                 ForEach(viewModel.accountViewModels, id: \.id) { vm in
-                    AccountPreviewView(
+                    
+                    AccountPreviewCardView(
+                        state: .accounts,
                         viewModel: vm,
                         onQrTap: { accountQr = (vm.account as? AccountEntity) },
                         onSendTap: { router?.showSendFundsFlow(vm.account) },
@@ -211,7 +213,7 @@ extension AccountsMainView {
             
         case .createAccount:
             VStack {
-                AccountCreationProgressView(onCreateAccount: { self.router?.showCreateAccountFlow() }, state: .createAccount)
+                AccountPreviewCardView(onCreateAccount: { self.router?.showCreateAccountFlow() }, state: .createAccount)
                         .fixedSize(horizontal: false, vertical: true)
                 Spacer()
             }
@@ -219,7 +221,7 @@ extension AccountsMainView {
             
         case .createIdentity:
             VStack {
-                AccountCreationProgressView(state: .createIdentity)
+                AccountPreviewCardView(state: .createIdentity)
                         .fixedSize(horizontal: false, vertical: true)
                 
                 Spacer()
@@ -247,7 +249,7 @@ extension AccountsMainView {
 
         case .identityVerification:
             VStack {
-                AccountCreationProgressView(state: .identityVerification)
+                AccountPreviewCardView(state: .identityVerification)
                     .frame(height: 200)
                 Spacer()
             }
@@ -255,7 +257,7 @@ extension AccountsMainView {
 
         case .verificationFailed:
             VStack {
-                AccountCreationProgressView(onIdentityVerification: { self.router?.showCreateIdentityFlow() }, state: .verificationFailed)
+                AccountPreviewCardView(onIdentityVerification: { self.router?.showCreateIdentityFlow() }, state: .verificationFailed)
                         .fixedSize(horizontal: false, vertical: true)
                 Spacer()
             }
@@ -263,7 +265,7 @@ extension AccountsMainView {
 
         case .saveSeedPhrase:
             VStack {
-                AccountCreationProgressView(state: .saveSeedPhrase)
+                AccountPreviewCardView(state: .saveSeedPhrase)
                     .frame(height: 200)
                 Spacer()
                 Button {
