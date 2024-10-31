@@ -1,5 +1,5 @@
 //
-//  AccountCreationProgressView.swift
+//  AccountPreviewCardView.swift
 //  CryptoX
 //
 //  Created by Zhanna Komar on 24.10.2024.

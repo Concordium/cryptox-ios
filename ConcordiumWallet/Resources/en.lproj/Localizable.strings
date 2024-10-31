@@ -1337,4 +1337,6 @@ Remember to restart your node with the validator keys.";
 "verification.completed" = "Verification completed";
 "verification.failed" = "Verification unsuccessful";
 "setup.complete" = "Set-up complete";
-
+"unlock.feature" = "Unlock this feature";
+"unlock.feature.subtitle" = "To use all features please complete your wallet set-up.";
+"go.back" = "Go back";

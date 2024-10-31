@@ -20,6 +20,7 @@ final class AccountsMainRouter: ObservableObject {
     private let dependencyProvider: ServicesProvider
     private let walletConnectService: WalletConnectService
     private let onAccountsUpdate = PassthroughSubject<Void, Never>()
+    weak var configureAccountAlertDelegate: ConfigureAccountAlertDelegate?
 
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
@@ -143,6 +144,10 @@ extension AccountsMainRouter {
         let vc = SceneViewController(content: view)
         vc.hidesBottomBarWhenPushed = true
         navigationController.present(vc, animated: true)
+    }
+    
+    func showNotConfiguredAccountPopup() {
+        configureAccountAlertDelegate?.showConfigureAccountAlert()
     }
 }
 

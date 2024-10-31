@@ -21,13 +21,17 @@ class IdentitiesCoordinator: Coordinator {
 
     private var dependencyProvider: IdentitiesFlowCoordinatorDependencyProvider
     weak var delegate: IdentitiesCoordinatorDelegate?
+    weak var configureAccountAlertDelegate: ConfigureAccountAlertDelegate?
+    
     init(navigationController: UINavigationController,
          dependencyProvider: IdentitiesFlowCoordinatorDependencyProvider,
-         parentCoordinator: IdentitiesCoordinatorDelegate) {
+         parentCoordinator: IdentitiesCoordinatorDelegate,
+         configureAccountAlertDelegate: ConfigureAccountAlertDelegate?) {
 
         self.navigationController = navigationController
         self.dependencyProvider = dependencyProvider
         self.delegate = parentCoordinator
+        self.configureAccountAlertDelegate = configureAccountAlertDelegate
     }
 
     func start() {
@@ -36,7 +40,7 @@ class IdentitiesCoordinator: Coordinator {
 
     func showInitial(animated: Bool = false) {
         let identitiesPresenter = IdentitiesPresenter(dependencyProvider: dependencyProvider, delegate: self)
-        let vc = IdentitiesFactory.create(with: identitiesPresenter, flow: .show)
+        let vc = IdentitiesFactory.create(with: identitiesPresenter, flow: .show, configureAccountAlertDelegate: configureAccountAlertDelegate)
         vc.tabBarItem = UITabBarItem(title: "identities_tab_title".localized, image: UIImage(named: "tab_bar_identities_icon"), tag: 0)
         vc.hidesBottomBarWhenPushed = true
         navigationController.pushViewController(vc, animated: animated)

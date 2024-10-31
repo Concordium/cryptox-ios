@@ -19,6 +19,7 @@ protocol AccountsMainViewDelegate: AnyObject {
     func showScanQRFlow()
     func showExportFlow()
     func showUnshieldAssetsFlow()
+    func showNotConfiguredAccountPopup()
 }
 
 struct AccountsMainView: View {
@@ -30,6 +31,7 @@ struct AccountsMainView: View {
     @State var phrase: [String]?
     @State var isShowPasscodeViewShown = false
     @State private var previousState: AccountsMainViewState?
+    @State private var selected = 1
     
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
@@ -70,7 +72,11 @@ struct AccountsMainView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    self.router?.showScanQRFlow()
+                    if SettingsHelper.isIdentityConfigured() {
+                        self.router?.showScanQRFlow()
+                    } else {
+                        self.router?.showNotConfiguredAccountPopup()
+                    }
                 } label: {
                     Image("qr")
                         .frame(width: 32, height: 32)
@@ -78,7 +84,11 @@ struct AccountsMainView: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    self.router?.showCreateAccountFlow()
+                    if SettingsHelper.isIdentityConfigured() {
+                        self.router?.showCreateAccountFlow()
+                    } else {
+                        self.router?.showNotConfiguredAccountPopup()
+                    }
                 } label: {
                     Image("ico_add")
                         .frame(width: 32, height: 32)
@@ -189,12 +199,20 @@ extension AccountsMainView {
             }
             
         case .accounts:
-            VStack(spacing: 8) {
-                OnRampAnchorView()
-                    .onTapGesture {
-                        onRampFlowShown.toggle()
-                    }
-                
+            VStack(spacing: 15) {
+                TabView {
+                    OnRampAnchorView()
+                        .onTapGesture {
+                            onRampFlowShown.toggle()
+                        }
+                    
+                    OnRampAnchorView()
+                        .onTapGesture {
+                            onRampFlowShown.toggle()
+                        }
+                }
+                .tabViewStyle(.page)
+                .frame(height: 132)
                 ForEach(viewModel.accountViewModels, id: \.id) { vm in
                     
                     AccountPreviewCardView(
@@ -327,7 +345,7 @@ extension AccountsMainView {
                 }
             }
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(16)
         .background(Color(red: 1, green: 0.99, blue: 0.89))
         .cornerRadius(20)
