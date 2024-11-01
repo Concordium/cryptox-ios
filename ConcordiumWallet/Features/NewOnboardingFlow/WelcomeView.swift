@@ -11,7 +11,7 @@ import SwiftUI
 struct WelcomeView: View {
     @State var isChecked: Bool = false
     @SwiftUI.Environment(\.openURL) var openURL
-    @AppStorage("isShouldShowAllowNotificationsView") private var isShouldShowAllowNotificationsView = false
+    @AppStorage("isShouldShowAllowNotificationsView") private var isShouldShowAllowNotificationsView = true
     @Binding var isCreateAccountSheetShown: Bool
     @AppStorage("isAcceptedPrivacy") private var isAcceptedPrivacy = false
     

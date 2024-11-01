@@ -31,7 +31,8 @@ struct AccountsMainView: View {
     @State var phrase: [String]?
     @State var isShowPasscodeViewShown = false
     @State private var previousState: AccountsMainViewState?
-    @State private var selected = 1
+    @State private var selectedPage = 0
+    @State private var showAnimation = true
     
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
@@ -49,22 +50,15 @@ struct AccountsMainView: View {
             if viewModel.state == .accounts {
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 24) {
-                        accountBalancesSection
-                        Divider()
-                        contentViewBasedOnState
-                            .padding(.vertical)
-                            .background(Color.clear)
+                        acocuntViewContent()
                     }
                 }
             } else {
                 VStack(alignment: .leading, spacing: 32) {
-                    accountBalancesSection
-                    Divider()
-                    contentViewBasedOnState
+                    acocuntViewContent()
                 }
             }
         }
-        .padding(16)
         .modifier(AppBlackBackgroundModifier())
         .refreshable { Task { await viewModel.reload() } }
         .onAppear { Task { await viewModel.reload() } }
@@ -106,8 +100,13 @@ struct AccountsMainView: View {
             }
         }
         .overlay(content: {
-            if viewModel.state == .accounts && previousState == .createAccount {
+            if viewModel.state == .accounts && previousState == .createAccount && showAnimation {
                 DotLottieAnimation(fileName: "confettiAnimation", config: AnimationConfig(autoplay: true, loop: false)).view()
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                            showAnimation = false
+                        }
+                    }
             }
         })
         .overlay(alignment: .center) {
@@ -187,6 +186,34 @@ extension AccountsMainView {
             .font(.satoshi(size: 14, weight: .medium))
     }
     
+    private func acocuntViewContent() -> some View {
+        VStack(alignment: .leading) {
+            accountBalancesSection
+                .padding(16)
+            
+            Divider()
+            NewsPageView(selectedTab: $selectedPage, views: {
+                [
+                    AnyView(OnRampAnchorView()
+                        .onTapGesture {
+                            if !SettingsHelper.isIdentityConfigured() {
+                                self.router?.showNotConfiguredAccountPopup()
+                            } else {
+                                onRampFlowShown.toggle()
+                            }
+                        })
+                ]
+            })
+            .frame(maxWidth: .infinity)
+            .frame(height: 150)
+            .padding(.top, 32)
+            contentViewBasedOnState
+                .padding(.horizontal, 16)
+                .padding(.vertical)
+                .background(Color.clear)
+        }
+    }
+    
     // MARK: - Content Based on ViewModel State
     @ViewBuilder
     private var contentViewBasedOnState: some View {
@@ -200,19 +227,6 @@ extension AccountsMainView {
             
         case .accounts:
             VStack(spacing: 15) {
-                TabView {
-                    OnRampAnchorView()
-                        .onTapGesture {
-                            onRampFlowShown.toggle()
-                        }
-                    
-                    OnRampAnchorView()
-                        .onTapGesture {
-                            onRampFlowShown.toggle()
-                        }
-                }
-                .tabViewStyle(.page)
-                .frame(height: 132)
                 ForEach(viewModel.accountViewModels, id: \.id) { vm in
                     
                     AccountPreviewCardView(
@@ -268,7 +282,7 @@ extension AccountsMainView {
         case .identityVerification:
             VStack {
                 AccountPreviewCardView(state: .identityVerification)
-                    .frame(height: 200)
+                    .fixedSize(horizontal: false, vertical: true)
                 Spacer()
             }
             .transition(.opacity)
@@ -284,7 +298,7 @@ extension AccountsMainView {
         case .saveSeedPhrase:
             VStack {
                 AccountPreviewCardView(state: .saveSeedPhrase)
-                    .frame(height: 200)
+                    .fixedSize(horizontal: false, vertical: true)
                 Spacer()
                 Button {
                     isShowPasscodeViewShown = true
@@ -347,13 +361,7 @@ extension AccountsMainView {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(16)
-        .background(Color(red: 1, green: 0.99, blue: 0.89))
-        .cornerRadius(20)
-        .overlay(
-            RoundedRectangle(cornerRadius: 20)
-                .inset(by: 0.5)
-                .stroke(Color(red: 0.06, green: 0.08, blue: 0.08).opacity(0.05), lineWidth: 1)
-        )
+        .background(Color.whiteMain)
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
     }
