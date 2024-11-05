@@ -33,6 +33,7 @@ struct AccountsMainView: View {
     @State private var previousState: AccountsMainViewState?
     @State private var selectedPage = 0
     @State private var showAnimation = true
+    @State private var createAccountHeight: CGFloat?
     
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
@@ -236,6 +237,7 @@ extension AccountsMainView {
                         onSendTap: { router?.showSendFundsFlow(vm.account) },
                         onShowPlusTap: { onRampFlowShown.toggle() }
                     )
+                    .frame(height: createAccountHeight)
                     .onTapGesture {
                         router?.showAccountDetail(vm.account)
                     }
@@ -246,7 +248,17 @@ extension AccountsMainView {
         case .createAccount:
             VStack {
                 AccountPreviewCardView(onCreateAccount: { self.router?.showCreateAccountFlow() }, state: .createAccount)
-                        .fixedSize(horizontal: false, vertical: true)
+                    .background(
+                        GeometryReader { innerGeometry in
+                            Color.clear.onAppear {
+                                // Capture the height for both states
+                                    createAccountHeight = innerGeometry.size.height
+                            }
+                        }
+                    )
+                    .frame(height: createAccountHeight)
+                    .fixedSize(horizontal: false, vertical: true)
+
                 Spacer()
             }
             .transition(.opacity)

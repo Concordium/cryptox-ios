@@ -290,12 +290,6 @@
 		088FEF9D2A02715200042957 /* SelectIdentityPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEF912A02714600042957 /* SelectIdentityPresenter.swift */; };
 		088FEF9E2A02715200042957 /* SelectIdentityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEF902A02714500042957 /* SelectIdentityView.swift */; };
 		088FEF9F2A02715200042957 /* SelectIdentityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEF922A02714600042957 /* SelectIdentityViewModel.swift */; };
-		088FEFA72A02716700042957 /* SubmittedSeedAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFA32A02716200042957 /* SubmittedSeedAccountPresenter.swift */; };
-		088FEFA82A02716700042957 /* SubmittedSeedAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFA12A02716200042957 /* SubmittedSeedAccountView.swift */; };
-		088FEFA92A02716700042957 /* SubmittedSeedAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFA22A02716200042957 /* SubmittedSeedAccountViewModel.swift */; };
-		088FEFAD2A02716800042957 /* SubmittedSeedAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFA32A02716200042957 /* SubmittedSeedAccountPresenter.swift */; };
-		088FEFAE2A02716800042957 /* SubmittedSeedAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFA12A02716200042957 /* SubmittedSeedAccountView.swift */; };
-		088FEFAF2A02716800042957 /* SubmittedSeedAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFA22A02716200042957 /* SubmittedSeedAccountViewModel.swift */; };
 		088FEFB72A02717D00042957 /* SubmitSeedAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFB32A02717800042957 /* SubmitSeedAccountViewModel.swift */; };
 		088FEFB82A02717D00042957 /* SubmitSeedAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFB22A02717700042957 /* SubmitSeedAccountView.swift */; };
 		088FEFB92A02717D00042957 /* SubmitSeedAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFB12A02717700042957 /* SubmitSeedAccountPresenter.swift */; };
@@ -304,12 +298,6 @@
 		088FEFBF2A02717E00042957 /* SubmitSeedAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFB12A02717700042957 /* SubmitSeedAccountPresenter.swift */; };
 		088FEFC32A02718E00042957 /* IdentityCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFC12A02718B00042957 /* IdentityCard.swift */; };
 		088FEFC52A02718F00042957 /* IdentityCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFC12A02718B00042957 /* IdentityCard.swift */; };
-		088FEFCD2A0271AA00042957 /* SeedIdentityStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFC92A0271A400042957 /* SeedIdentityStatusViewModel.swift */; };
-		088FEFCE2A0271AA00042957 /* SeedIdentityStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFC72A0271A400042957 /* SeedIdentityStatusView.swift */; };
-		088FEFCF2A0271AA00042957 /* SeedIdentityStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFC82A0271A400042957 /* SeedIdentityStatusPresenter.swift */; };
-		088FEFD32A0271AB00042957 /* SeedIdentityStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFC92A0271A400042957 /* SeedIdentityStatusViewModel.swift */; };
-		088FEFD42A0271AB00042957 /* SeedIdentityStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFC72A0271A400042957 /* SeedIdentityStatusView.swift */; };
-		088FEFD52A0271AB00042957 /* SeedIdentityStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFC82A0271A400042957 /* SeedIdentityStatusPresenter.swift */; };
 		088FEFDD2A0271BF00042957 /* CreateSeedIdentityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFD82A0271BA00042957 /* CreateSeedIdentityView.swift */; };
 		088FEFDE2A0271BF00042957 /* CreateSeedIdentityPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFD72A0271BA00042957 /* CreateSeedIdentityPresenter.swift */; };
 		088FEFDF2A0271BF00042957 /* CreateSeedIdentityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFD92A0271BB00042957 /* CreateSeedIdentityViewModel.swift */; };
@@ -1049,7 +1037,6 @@
 		08C166EF2BB7396200E61326 /* PasswordFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF03D2A02781400042957 /* PasswordFieldViewController.swift */; };
 		08C166F02BB7396200E61326 /* VersionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CACC5B26ED5B1400D3C3CF /* VersionView.swift */; };
 		08C166F12BB7396200E61326 /* CreateSeedCredentialRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A0445B29FA987200DACE1F /* CreateSeedCredentialRequest.swift */; };
-		08C166F22BB7396200E61326 /* SubmittedSeedAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFA12A02716200042957 /* SubmittedSeedAccountView.swift */; };
 		08C166F32BB7396200E61326 /* LoadProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BFC835242A2FA00063AEE9 /* LoadProtocol.swift */; };
 		08C166F42BB7396200E61326 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE772A025AA800042957 /* ButtonStyles.swift */; };
 		08C166F52BB7396200E61326 /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068DC80F23F2E46E001B2975 /* BaseButton.swift */; };
@@ -1193,7 +1180,6 @@
 		08C167902BB7396200E61326 /* AccountSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FED6F2A01671400042957 /* AccountSettingsView.swift */; };
 		08C167912BB7396200E61326 /* CreateIDRequestV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A0445629FA987100DACE1F /* CreateIDRequestV1.swift */; };
 		08C167922BB7396200E61326 /* ExportIdentityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F1432794B5EC003F2FBB /* ExportIdentityData.swift */; };
-		08C167932BB7396200E61326 /* SeedIdentityStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFC82A0271A400042957 /* SeedIdentityStatusPresenter.swift */; };
 		08C167942BB7396200E61326 /* ImportLegacyWalletInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0835F9AA2B5FCE4500D3716F /* ImportLegacyWalletInfo.swift */; };
 		08C167952BB7396200E61326 /* AddMemoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF26E2A02AD9500042957 /* AddMemoPresenter.swift */; };
 		08C167962BB7396200E61326 /* SeedIdentitiesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFFA2A0271EC00042957 /* SeedIdentitiesCoordinator.swift */; };
@@ -1282,7 +1268,6 @@
 		08C167F12BB7396200E61326 /* SessionProposalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089B341D2A16845600F3CD90 /* SessionProposalView.swift */; };
 		08C167F22BB7396200E61326 /* IdentityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93EFF3124107F26002D6DB7 /* IdentityCell.swift */; };
 		08C167F32BB7396200E61326 /* CurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F7A24426D7C7550061E646 /* CurrencyView.swift */; };
-		08C167F42BB7396200E61326 /* SeedIdentityStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFC92A0271A400042957 /* SeedIdentityStatusViewModel.swift */; };
 		08C167F52BB7396200E61326 /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F1302794B5EC003F2FBB /* Memo.swift */; };
 		08C167F62BB7396200E61326 /* ExportVersionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F1422794B5EC003F2FBB /* ExportVersionContainer.swift */; };
 		08C167F72BB7396200E61326 /* IdentitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEEF52A026EFB00042957 /* IdentitiesViewController.swift */; };
@@ -1295,7 +1280,6 @@
 		08C168012BB7396200E61326 /* RecoveryPhraseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF11C2A0284F000042957 /* RecoveryPhraseCoordinator.swift */; };
 		08C168022BB7396200E61326 /* CreationFailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEEB22A026B7C00042957 /* CreationFailedViewController.swift */; };
 		08C168032BB7396200E61326 /* RecoveryPhraseGettingStartedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1182A0284E800042957 /* RecoveryPhraseGettingStartedView.swift */; };
-		08C168042BB7396200E61326 /* SeedIdentityStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFC72A0271A400042957 /* SeedIdentityStatusView.swift */; };
 		08C168062BB7396200E61326 /* UILabel+localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = C924B2232430799400081E23 /* UILabel+localized.swift */; };
 		08C168072BB7396200E61326 /* DelegationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B16F1C2A011A72002E6B33 /* DelegationEntity.swift */; };
 		08C168082BB7396200E61326 /* IdentityConfirmedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEECE2A026E8200042957 /* IdentityConfirmedViewController.swift */; };
@@ -1304,7 +1288,6 @@
 		08C1680D2BB7396200E61326 /* WidgetAndLabelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEF312A02709A00042957 /* WidgetAndLabelViewController.swift */; };
 		08C1680E2BB7396200E61326 /* ShowErrorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D342B8245884AA007ED45E /* ShowErrorProtocol.swift */; };
 		08C1680F2BB7396200E61326 /* IdentityReccoveryStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF08E2A02840900042957 /* IdentityReccoveryStatusView.swift */; };
-		08C168102BB7396200E61326 /* SubmittedSeedAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFA32A02716200042957 /* SubmittedSeedAccountPresenter.swift */; };
 		08C168112BB7396200E61326 /* AccountDetailsIdentityDataCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CE0BF2439EDC500B1A88D /* AccountDetailsIdentityDataCellView.swift */; };
 		08C168122BB7396200E61326 /* CopyReferenceWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEF2B2A02709800042957 /* CopyReferenceWidgetViewController.swift */; };
 		08C168132BB7396200E61326 /* PrivateIDObjectData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A044C529FA99C200DACE1F /* PrivateIDObjectData.swift */; };
@@ -1401,7 +1384,6 @@
 		08C168752BB7396200E61326 /* ButtonSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE062A0167F100042957 /* ButtonSlider.swift */; };
 		08C168762BB7396200E61326 /* PasscodeFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF0432A02781600042957 /* PasscodeFieldViewController.swift */; };
 		08C168772BB7396200E61326 /* PreIdentityObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A044AD29FA99BE00DACE1F /* PreIdentityObject.swift */; };
-		08C168792BB7396200E61326 /* SubmittedSeedAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFA22A02716200042957 /* SubmittedSeedAccountViewModel.swift */; };
 		08C1687A2BB7396200E61326 /* GTUTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE7D2A025AE300042957 /* GTUTextFieldDelegate.swift */; };
 		08C1687B2BB7396200E61326 /* Locate+Additionals.swift in Sources */ = {isa = PBXBuildFile; fileRef = D521B3742757B20D0020CF16 /* Locate+Additionals.swift */; };
 		08C1687C2BB7396200E61326 /* FilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F7A24C26D7FFC30061E646 /* FilledButton.swift */; };
@@ -1931,6 +1913,9 @@
 		1599807C2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
 		1599807D2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
 		1599807E2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
+		15ABCCD32CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */; };
+		15ABCCD42CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */; };
+		15ABCCD52CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */; };
 		15E1BC692C6B58C000543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
 		15E1BC6A2C6B58C000543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
 		15E1BC6B2C6B58C100543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
@@ -2804,16 +2789,10 @@
 		088FEF902A02714500042957 /* SelectIdentityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIdentityView.swift; sourceTree = "<group>"; };
 		088FEF912A02714600042957 /* SelectIdentityPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIdentityPresenter.swift; sourceTree = "<group>"; };
 		088FEF922A02714600042957 /* SelectIdentityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIdentityViewModel.swift; sourceTree = "<group>"; };
-		088FEFA12A02716200042957 /* SubmittedSeedAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmittedSeedAccountView.swift; sourceTree = "<group>"; };
-		088FEFA22A02716200042957 /* SubmittedSeedAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmittedSeedAccountViewModel.swift; sourceTree = "<group>"; };
-		088FEFA32A02716200042957 /* SubmittedSeedAccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmittedSeedAccountPresenter.swift; sourceTree = "<group>"; };
 		088FEFB12A02717700042957 /* SubmitSeedAccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitSeedAccountPresenter.swift; sourceTree = "<group>"; };
 		088FEFB22A02717700042957 /* SubmitSeedAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitSeedAccountView.swift; sourceTree = "<group>"; };
 		088FEFB32A02717800042957 /* SubmitSeedAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitSeedAccountViewModel.swift; sourceTree = "<group>"; };
 		088FEFC12A02718B00042957 /* IdentityCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityCard.swift; sourceTree = "<group>"; };
-		088FEFC72A0271A400042957 /* SeedIdentityStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedIdentityStatusView.swift; sourceTree = "<group>"; };
-		088FEFC82A0271A400042957 /* SeedIdentityStatusPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedIdentityStatusPresenter.swift; sourceTree = "<group>"; };
-		088FEFC92A0271A400042957 /* SeedIdentityStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedIdentityStatusViewModel.swift; sourceTree = "<group>"; };
 		088FEFD72A0271BA00042957 /* CreateSeedIdentityPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSeedIdentityPresenter.swift; sourceTree = "<group>"; };
 		088FEFD82A0271BA00042957 /* CreateSeedIdentityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSeedIdentityView.swift; sourceTree = "<group>"; };
 		088FEFD92A0271BB00042957 /* CreateSeedIdentityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSeedIdentityViewModel.swift; sourceTree = "<group>"; };
@@ -3210,6 +3189,7 @@
 		157586392CA55E3700205A6E /* StakeStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeStatusView.swift; sourceTree = "<group>"; };
 		15844E592C87445B005A3BF1 /* TransferTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferTokenViewModel.swift; sourceTree = "<group>"; };
 		1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTokenViewModel.swift; sourceTree = "<group>"; };
+		15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedIdentitiesStatusService.swift; sourceTree = "<group>"; };
 		15E1BC682C6B588900543242 /* Gate_io.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gate_io.png; sourceTree = "<group>"; };
 		15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTokenViewModel.swift; sourceTree = "<group>"; };
 		15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
@@ -4245,19 +4225,8 @@
 				088FEFC62A02719B00042957 /* Status */,
 				088FEFC02A02718400042957 /* Shared */,
 				088FEFB02A02716F00042957 /* SubmitAccount */,
-				088FEFA02A02715900042957 /* SubmittedAccount */,
 			);
 			path = CreateSeedIdentity;
-			sourceTree = "<group>";
-		};
-		088FEFA02A02715900042957 /* SubmittedAccount */ = {
-			isa = PBXGroup;
-			children = (
-				088FEFA32A02716200042957 /* SubmittedSeedAccountPresenter.swift */,
-				088FEFA12A02716200042957 /* SubmittedSeedAccountView.swift */,
-				088FEFA22A02716200042957 /* SubmittedSeedAccountViewModel.swift */,
-			);
-			path = SubmittedAccount;
 			sourceTree = "<group>";
 		};
 		088FEFB02A02716F00042957 /* SubmitAccount */ = {
@@ -4281,9 +4250,7 @@
 		088FEFC62A02719B00042957 /* Status */ = {
 			isa = PBXGroup;
 			children = (
-				088FEFC82A0271A400042957 /* SeedIdentityStatusPresenter.swift */,
-				088FEFC72A0271A400042957 /* SeedIdentityStatusView.swift */,
-				088FEFC92A0271A400042957 /* SeedIdentityStatusViewModel.swift */,
+				15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */,
 			);
 			path = Status;
 			sourceTree = "<group>";
@@ -7122,7 +7089,6 @@
 				08C166EF2BB7396200E61326 /* PasswordFieldViewController.swift in Sources */,
 				08C166F02BB7396200E61326 /* VersionView.swift in Sources */,
 				08C166F12BB7396200E61326 /* CreateSeedCredentialRequest.swift in Sources */,
-				08C166F22BB7396200E61326 /* SubmittedSeedAccountView.swift in Sources */,
 				08C166F32BB7396200E61326 /* LoadProtocol.swift in Sources */,
 				08C166F42BB7396200E61326 /* ButtonStyles.swift in Sources */,
 				08C166F52BB7396200E61326 /* BaseButton.swift in Sources */,
@@ -7229,6 +7195,7 @@
 				08C167572BB7396200E61326 /* IdentitiesCoordinator.swift in Sources */,
 				08C167582BB7396200E61326 /* OnboardingCarouselWebContentViewController.swift in Sources */,
 				08C167592BB7396200E61326 /* IdentityProviderWebViewPresenter.swift in Sources */,
+				15ABCCD52CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */,
 				08C1675A2BB7396200E61326 /* GeneratedBakerKeys.swift in Sources */,
 				157586382CA441DC00205A6E /* AccountCooldown.swift in Sources */,
 				08C1675B2BB7396200E61326 /* CreateSeedIdentityView.swift in Sources */,
@@ -7291,7 +7258,6 @@
 				08C167902BB7396200E61326 /* AccountSettingsView.swift in Sources */,
 				08C167912BB7396200E61326 /* CreateIDRequestV1.swift in Sources */,
 				08C167922BB7396200E61326 /* ExportIdentityData.swift in Sources */,
-				08C167932BB7396200E61326 /* SeedIdentityStatusPresenter.swift in Sources */,
 				08C167942BB7396200E61326 /* ImportLegacyWalletInfo.swift in Sources */,
 				157586342CA43E5500205A6E /* CooldownEntity.swift in Sources */,
 				509749F32C49203200D28D6B /* MatomoTracker.swift in Sources */,
@@ -7398,7 +7364,6 @@
 				08C167F12BB7396200E61326 /* SessionProposalView.swift in Sources */,
 				08C167F22BB7396200E61326 /* IdentityCell.swift in Sources */,
 				08C167F32BB7396200E61326 /* CurrencyView.swift in Sources */,
-				08C167F42BB7396200E61326 /* SeedIdentityStatusViewModel.swift in Sources */,
 				08C167F52BB7396200E61326 /* Memo.swift in Sources */,
 				15FC76782C9C26E600AC357B /* RecoverAccountsViewModel.swift in Sources */,
 				08C167F62BB7396200E61326 /* ExportVersionContainer.swift in Sources */,
@@ -7414,7 +7379,6 @@
 				08C168022BB7396200E61326 /* CreationFailedViewController.swift in Sources */,
 				08C169DA2BC04A1E00E61326 /* SignMessageSignature.swift in Sources */,
 				08C168032BB7396200E61326 /* RecoveryPhraseGettingStartedView.swift in Sources */,
-				08C168042BB7396200E61326 /* SeedIdentityStatusView.swift in Sources */,
 				08C168062BB7396200E61326 /* UILabel+localized.swift in Sources */,
 				08C168072BB7396200E61326 /* DelegationEntity.swift in Sources */,
 				08C168082BB7396200E61326 /* IdentityConfirmedViewController.swift in Sources */,
@@ -7423,7 +7387,6 @@
 				08C1680D2BB7396200E61326 /* WidgetAndLabelViewController.swift in Sources */,
 				08C1680E2BB7396200E61326 /* ShowErrorProtocol.swift in Sources */,
 				08C1680F2BB7396200E61326 /* IdentityReccoveryStatusView.swift in Sources */,
-				08C168102BB7396200E61326 /* SubmittedSeedAccountPresenter.swift in Sources */,
 				08C168112BB7396200E61326 /* AccountDetailsIdentityDataCellView.swift in Sources */,
 				08C168122BB7396200E61326 /* CopyReferenceWidgetViewController.swift in Sources */,
 				08C168132BB7396200E61326 /* PrivateIDObjectData.swift in Sources */,
@@ -7535,7 +7498,6 @@
 				08C168762BB7396200E61326 /* PasscodeFieldViewController.swift in Sources */,
 				1575863C2CA55E3700205A6E /* StakeStatusView.swift in Sources */,
 				08C168772BB7396200E61326 /* PreIdentityObject.swift in Sources */,
-				08C168792BB7396200E61326 /* SubmittedSeedAccountViewModel.swift in Sources */,
 				08C1687A2BB7396200E61326 /* GTUTextFieldDelegate.swift in Sources */,
 				08C1687B2BB7396200E61326 /* Locate+Additionals.swift in Sources */,
 				08C1687C2BB7396200E61326 /* FilledButton.swift in Sources */,
@@ -7828,7 +7790,6 @@
 				088FF0622A02781C00042957 /* PasswordFieldViewController.swift in Sources */,
 				D5CACC5F26ED5B1400D3C3CF /* VersionView.swift in Sources */,
 				08A0449329FA987800DACE1F /* CreateSeedCredentialRequest.swift in Sources */,
-				088FEFAE2A02716800042957 /* SubmittedSeedAccountView.swift in Sources */,
 				7F85B7FE246A9AB600ED09B8 /* LoadProtocol.swift in Sources */,
 				088FEE7B2A025AB000042957 /* ButtonStyles.swift in Sources */,
 				7F85B7FF246A9AB600ED09B8 /* BaseButton.swift in Sources */,
@@ -7935,6 +7896,7 @@
 				088FEF142A026F0100042957 /* IdentitiesCoordinator.swift in Sources */,
 				088FECE82A01622000042957 /* OnboardingCarouselWebContentViewController.swift in Sources */,
 				088FEEDB2A026EAB00042957 /* IdentityProviderWebViewPresenter.swift in Sources */,
+				15ABCCD32CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */,
 				08A0461D29FA99D300DACE1F /* GeneratedBakerKeys.swift in Sources */,
 				157586372CA441DC00205A6E /* AccountCooldown.swift in Sources */,
 				088FEFE32A0271C000042957 /* CreateSeedIdentityView.swift in Sources */,
@@ -7997,7 +7959,6 @@
 				088FED7D2A01671900042957 /* AccountSettingsView.swift in Sources */,
 				08A0448E29FA987800DACE1F /* CreateIDRequestV1.swift in Sources */,
 				D589F2012794B5ED003F2FBB /* ExportIdentityData.swift in Sources */,
-				088FEFD52A0271AB00042957 /* SeedIdentityStatusPresenter.swift in Sources */,
 				0835F9AC2B5FCE4500D3716F /* ImportLegacyWalletInfo.swift in Sources */,
 				157586332CA43E5500205A6E /* CooldownEntity.swift in Sources */,
 				509749F22C49203200D28D6B /* MatomoTracker.swift in Sources */,
@@ -8104,7 +8065,6 @@
 				089B34212A16845600F3CD90 /* SessionProposalView.swift in Sources */,
 				7F85B865246A9AB600ED09B8 /* IdentityCell.swift in Sources */,
 				D5F7A24826D7C7550061E646 /* CurrencyView.swift in Sources */,
-				088FEFD32A0271AB00042957 /* SeedIdentityStatusViewModel.swift in Sources */,
 				D589F1C12794B5ED003F2FBB /* Memo.swift in Sources */,
 				15FC76772C9C26E600AC357B /* RecoverAccountsViewModel.swift in Sources */,
 				D589F1FD2794B5ED003F2FBB /* ExportVersionContainer.swift in Sources */,
@@ -8120,7 +8080,6 @@
 				088FEEBA2A026B8200042957 /* CreationFailedViewController.swift in Sources */,
 				08C169D92BC04A1E00E61326 /* SignMessageSignature.swift in Sources */,
 				088FF1282A0284F600042957 /* RecoveryPhraseGettingStartedView.swift in Sources */,
-				088FEFD42A0271AB00042957 /* SeedIdentityStatusView.swift in Sources */,
 				7F85B866246A9AB600ED09B8 /* UILabel+localized.swift in Sources */,
 				08B16F202A011A72002E6B33 /* DelegationEntity.swift in Sources */,
 				088FEEF02A026EB600042957 /* IdentityConfirmedViewController.swift in Sources */,
@@ -8129,7 +8088,6 @@
 				088FEF752A0270B000042957 /* WidgetAndLabelViewController.swift in Sources */,
 				7F85B86F246A9AB600ED09B8 /* ShowErrorProtocol.swift in Sources */,
 				088FF09A2A02840F00042957 /* IdentityReccoveryStatusView.swift in Sources */,
-				088FEFAD2A02716800042957 /* SubmittedSeedAccountPresenter.swift in Sources */,
 				7F85B870246A9AB600ED09B8 /* AccountDetailsIdentityDataCellView.swift in Sources */,
 				088FEF812A0270B000042957 /* CopyReferenceWidgetViewController.swift in Sources */,
 				08A045EE29FA99D200DACE1F /* PrivateIDObjectData.swift in Sources */,
@@ -8241,7 +8199,6 @@
 				088FF05D2A02781C00042957 /* PasscodeFieldViewController.swift in Sources */,
 				1575863B2CA55E3700205A6E /* StakeStatusView.swift in Sources */,
 				08A045FF29FA99D200DACE1F /* PreIdentityObject.swift in Sources */,
-				088FEFAF2A02716800042957 /* SubmittedSeedAccountViewModel.swift in Sources */,
 				088FEE812A025AE300042957 /* GTUTextFieldDelegate.swift in Sources */,
 				D521B3782757B3300020CF16 /* Locate+Additionals.swift in Sources */,
 				D5F7A25026D7FFC30061E646 /* FilledButton.swift in Sources */,
@@ -8537,7 +8494,6 @@
 				088FF0522A02781B00042957 /* PasswordFieldViewController.swift in Sources */,
 				52055F872552C1D90071F7CA /* NibLoadable.swift in Sources */,
 				08A0447729FA987700DACE1F /* CreateSeedCredentialRequest.swift in Sources */,
-				088FEFA82A02716700042957 /* SubmittedSeedAccountView.swift in Sources */,
 				088FEE792A025AAF00042957 /* ButtonStyles.swift in Sources */,
 				088FF1802A02947A00042957 /* GettingStartedViewController.swift in Sources */,
 				D5E6CBFC290F47FC009856B7 /* NFTWalletCell.swift in Sources */,
@@ -8641,6 +8597,7 @@
 				D589F4182794BC12003F2FBB /* ServicesProvider+prod.swift in Sources */,
 				088FEED72A026EAA00042957 /* IdentityProviderWebViewPresenter.swift in Sources */,
 				C94ED724246301740071A4FB /* TransactionDetailErrorCellView.swift in Sources */,
+				15ABCCD42CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */,
 				088FEFDD2A0271BF00042957 /* CreateSeedIdentityView.swift in Sources */,
 				157586362CA441DC00205A6E /* AccountCooldown.swift in Sources */,
 				0832EB4D2B34BDAE00BD2ECD /* MainPromoView.swift in Sources */,
@@ -8707,7 +8664,6 @@
 				08A0455529FA99D100DACE1F /* IPArDatum.swift in Sources */,
 				157586322CA43E5500205A6E /* CooldownEntity.swift in Sources */,
 				509749F12C49203200D28D6B /* MatomoTracker.swift in Sources */,
-				088FEFCF2A0271AA00042957 /* SeedIdentityStatusPresenter.swift in Sources */,
 				08A0456929FA99D100DACE1F /* CurrentPaydayStatus.swift in Sources */,
 				FA7C079F26C5AFF3008714CB /* ConnectionRequestVC.swift in Sources */,
 				088FF00B2A0271F600042957 /* SeedIdentitiesCoordinator.swift in Sources */,
@@ -8811,7 +8767,6 @@
 				C95CE0C02439EDC500B1A88D /* AccountDetailsIdentityDataCellView.swift in Sources */,
 				D589F1BF2794B5ED003F2FBB /* Memo.swift in Sources */,
 				D589F1FB2794B5ED003F2FBB /* ExportVersionContainer.swift in Sources */,
-				088FEFCD2A0271AA00042957 /* SeedIdentityStatusViewModel.swift in Sources */,
 				15FC76762C9C26E600AC357B /* RecoverAccountsViewModel.swift in Sources */,
 				D589F1E72794B5ED003F2FBB /* IdentityWrapperShell.swift in Sources */,
 				088FEF022A026F0000042957 /* IdentitiesViewController.swift in Sources */,
@@ -8826,7 +8781,6 @@
 				088FF12C2A0284F900042957 /* RecoveryPhraseCoordinator.swift in Sources */,
 				088FEEB82A026B8100042957 /* CreationFailedViewController.swift in Sources */,
 				088FF1222A0284F500042957 /* RecoveryPhraseGettingStartedView.swift in Sources */,
-				088FEFCE2A0271AA00042957 /* SeedIdentityStatusView.swift in Sources */,
 				08B16F1E2A011A72002E6B33 /* DelegationEntity.swift in Sources */,
 				08A0447029FA987700DACE1F /* IDPIdentityRequest.swift in Sources */,
 				088FF20C2A02A77100042957 /* ImportReceiptPresenter.swift in Sources */,
@@ -8835,7 +8789,6 @@
 				08A0455629FA99D100DACE1F /* PrivateIDObjectData.swift in Sources */,
 				088FEF4D2A0270AF00042957 /* WidgetAndLabelViewController.swift in Sources */,
 				088FF0942A02840E00042957 /* IdentityReccoveryStatusView.swift in Sources */,
-				088FEFA72A02716700042957 /* SubmittedSeedAccountPresenter.swift in Sources */,
 				D589F32F2794B678003F2FBB /* MobileWallet.swift in Sources */,
 				088FEF592A0270AF00042957 /* CopyReferenceWidgetViewController.swift in Sources */,
 				088FEDD72A01679400042957 /* BurgerMenuOptionCell.swift in Sources */,
@@ -8951,7 +8904,6 @@
 				088FF04D2A02781B00042957 /* PasscodeFieldViewController.swift in Sources */,
 				19C2E32CFA409D5BA9A50A60 /* ToastLabel.swift in Sources */,
 				19C2EA06B4E5D36103E1E8A5 /* LegacyLogger.swift in Sources */,
-				088FEFA92A02716700042957 /* SubmittedSeedAccountViewModel.swift in Sources */,
 				088FEE7F2A025AE300042957 /* GTUTextFieldDelegate.swift in Sources */,
 				080748182B58215F00990ADA /* MoreTab.swift in Sources */,
 				08A0454E29FA99D100DACE1F /* InputEncryptedAmount.swift in Sources */,

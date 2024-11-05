@@ -169,4 +169,13 @@ extension IdentitiesCoordinator: SeedIdentitiesCoordinatorDelegate {
         let identityDict = ["identity" : identity]
         NotificationCenter.default.post(name: Notification.Name("seedIdentityCoordinatorWasFinishedNotification"), object: nil, userInfo: identityDict)
     }
+    
+    func seedIdentityCoordinatorDidFail(with error: IdentityRejectionError) {
+        let alert = UIAlertController(title: "identityStatus.failed".localized, message: error.description, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "identityfailed.tryagain".localized, style: .default, handler: { _ in
+            self.showCreateNewIdentity()
+        }))
+        alert.addAction(UIAlertAction(title: "Try later", style: .default, handler: nil))
+        navigationController.present(alert, animated: true, completion: nil)
+    }
 }

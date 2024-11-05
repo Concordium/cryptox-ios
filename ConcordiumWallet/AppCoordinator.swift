@@ -500,6 +500,10 @@ extension AppCoordinator: SeedIdentitiesCoordinatorDelegate {
     func seedIdentityCoordinatorWasFinished(for identity: IdentityDataType) {
         showMainTabbar()
     }
+    
+    func seedIdentityCoordinatorDidFail(with error: IdentityRejectionError) {
+        showMainTabbar()
+    }
 }
 
 extension AppCoordinator: AccountsCoordinatorDelegate {

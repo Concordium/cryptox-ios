@@ -294,6 +294,11 @@ extension AccountsMainRouter: SeedIdentitiesCoordinatorDelegate {
         onAccountsUpdate.send(())
         #warning("add here handler")
     }
+    
+    func seedIdentityCoordinatorDidFail(with error: IdentityRejectionError) {
+        navigationController.dismiss(animated: true)
+        childCoordinators.removeAll(where: { $0 is SeedIdentitiesCoordinator })
+    }
 }
 
 /// Create new account flow

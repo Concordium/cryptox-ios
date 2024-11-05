@@ -58,6 +58,7 @@ struct AccountPreviewCardView: View {
             }
             buttonSection
                 .background(isAccountState ? Color.Neutral.tint5 : .clear)
+                .fixedSize(horizontal: false, vertical: true)
         }
         .cornerRadius(16)
         .overlay(
