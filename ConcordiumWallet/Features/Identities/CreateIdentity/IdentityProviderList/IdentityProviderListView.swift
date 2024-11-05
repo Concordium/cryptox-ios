@@ -56,6 +56,7 @@ struct IdentityProviderListView: View {
                             providerCell(provider)
                                 .onTapGesture {
                                     viewModel.selectIdentityProvider(provider)
+                                    Tracker.trackContentInteraction(name: "Selected provider", interaction: .clicked, piece: "Identity Providers List")
                                 }
                             if provider.displayName != viewModel.identityProviders.last?.displayName {
                                 Divider().background(Color.greyAdditional)

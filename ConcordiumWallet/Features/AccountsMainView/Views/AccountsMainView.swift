@@ -69,6 +69,7 @@ struct AccountsMainView: View {
                 Button {
                     if SettingsHelper.isIdentityConfigured() {
                         self.router?.showScanQRFlow()
+                        Tracker.trackContentInteraction(name: "Scan QR", interaction: .clicked, piece: "Accounts")
                     } else {
                         self.router?.showNotConfiguredAccountPopup()
                     }
@@ -81,6 +82,7 @@ struct AccountsMainView: View {
                 Button {
                     if SettingsHelper.isIdentityConfigured() {
                         self.router?.showCreateAccountFlow()
+                        Tracker.trackContentInteraction(name: "Add Account", interaction: .clicked, piece: "Accounts")
                     } else {
                         self.router?.showNotConfiguredAccountPopup()
                     }
@@ -240,6 +242,7 @@ extension AccountsMainView {
                     .frame(height: createAccountHeight)
                     .onTapGesture {
                         router?.showAccountDetail(vm.account)
+                        Tracker.trackContentInteraction(name: "Show account detail", interaction: .clicked, piece: "Accounts")
                     }
                 }
             }
@@ -272,6 +275,7 @@ extension AccountsMainView {
                 
                 Button(action: {
                     self.router?.showCreateIdentityFlow()
+                    Tracker.trackContentInteraction(name: "Create Identity", interaction: .clicked, piece: "Accounts")
                 }, label: {
                     HStack {
                         Text("create_wallet_step_3_title".localized)
@@ -314,6 +318,7 @@ extension AccountsMainView {
                 Spacer()
                 Button {
                     isShowPasscodeViewShown = true
+                    Tracker.trackContentInteraction(name: "Save Seed Phrase", interaction: .clicked, piece: "Accounts")
                 } label: {
                     HStack {
                         Text("create_wallet_step_2_title".localized)

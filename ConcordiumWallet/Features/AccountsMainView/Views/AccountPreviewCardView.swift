@@ -144,7 +144,10 @@ struct AccountPreviewCardView: View {
                         }
                     }
             }
-            Button(action: { onCreateAccount?() }) {
+            Button(action: {
+                onCreateAccount?()
+                Tracker.trackContentInteraction(name: "Create Account", interaction: .clicked, piece: "Accounts")
+            }) {
                 buttonLabel("create_account_btn_title".localized)
             }
             .background(.greenSecondary)
@@ -164,7 +167,10 @@ struct AccountPreviewCardView: View {
                 Image(systemName: "xmark")
                     .foregroundStyle(Color.Status.attentionRed)
             }
-            Button(action: { onIdentityVerification?() }) {
+            Button(action: {
+                onIdentityVerification?()
+                Tracker.trackContentInteraction(name: "Verify failed identity", interaction: .clicked, piece: "Accounts")
+            }) {
                 buttonLabel("create_wallet_step_3_title".localized)
             }
             .background(Color.EggShell.tint1)
