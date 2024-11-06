@@ -114,7 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             receivedCreateIdentityCallback(url)
         } else if matchesURLScheme(url.absoluteString) {
             appCoordinator.openWCConnect(url)
-        } else if let scheme = url.scheme, scheme.localizedCaseInsensitiveCompare("tcwb") == .orderedSame, let view = url.host {
+        } else if let scheme = url.scheme, scheme.localizedCaseInsensitiveCompare("tcwb") == .orderedSame, let _ = url.host {
             
             var parameters: [String: String] = [:]
             URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.forEach {

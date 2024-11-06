@@ -48,7 +48,10 @@ class ImportCoordinator: Coordinator {
         let vc = EnterPasswordFactory.create(with: presenter)
         let importPasswordNavigationController = CXNavigationController(rootViewController: vc)
         importPasswordNavigationController.modalPresentationStyle = .fullScreen
-        navigationController.present(importPasswordNavigationController, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.navigationController.present(importPasswordNavigationController, animated: true)
+        }
     }
 
     func importData(exportPassword: String, appPassword pwHash: String) throws -> AnyPublisher<ImportedItemsReport, Error> {
