@@ -40,3 +40,15 @@ extension Coordinator {
         navController.present(vc, animated: true)
     }   
 }
+
+extension Coordinator {
+    func dismissAllPresentedViewControllers(completion: @escaping () -> Void) {
+        if let presentedVC = navigationController.presentedViewController {
+            presentedVC.dismiss(animated: false) {
+                self.dismissAllPresentedViewControllers(completion: completion)
+            }
+        } else {
+            completion()
+        }
+    }
+}

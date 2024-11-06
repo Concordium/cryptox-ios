@@ -253,6 +253,8 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
 
         
         guard defaultProvider.keychainWrapper().passwordCreated() else {
+            navigationController.dismiss(animated: true)
+
             navigationController.present(UIHostingController(
                 rootView:
                     PasscodeView(keychain: defaultProvider.keychainWrapper(), sanityChecker: sanityChecker) { _ in
@@ -271,11 +273,14 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
                                                   parentCoordinator: self,
                                                   importFileUrl: url)
         importCoordinator.navigationController.modalPresentationStyle = .fullScreen
-        navigationController.present(importCoordinator.navigationController, animated: true)
-        importCoordinator.navigationController.presentationController?.delegate = self
-        importCoordinator.start()
-        childCoordinators.append(importCoordinator)
-    }
+        dismissAllPresentedViewControllers {
+               self.navigationController.present(importCoordinator.navigationController, animated: true)
+           }
+
+           importCoordinator.navigationController.presentationController?.delegate = self
+           importCoordinator.start()
+           childCoordinators.append(importCoordinator)
+       }
     
     func showInitialIdentityCreation() {
         if FeatureFlag.enabledFlags.contains(.recoveryCode) {
