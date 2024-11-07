@@ -1103,6 +1103,7 @@ Remember to restart your node with the validator keys.";
 "analytics.popupTrackTitle" = "Help us improve";
 "analytics.allowTracking" = "Allow activity tracking";
 "analytics.askNotToTrack" = "Ask not to track";
+"analytics.trackingConsent" = "I consent to activity tracking inside the app";
 
 "delegation.inputamount.title.create" = "Register delegation";
 "delegation.inputamount.title.update" = "Update delegation";

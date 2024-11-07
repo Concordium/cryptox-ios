@@ -7,9 +7,11 @@
 //
 
 import SwiftUI
+import MatomoTracker
 
 struct WelcomeView: View {
     @State var isChecked: Bool = false
+    @State var isCheckedTracking: Bool = false
     @SwiftUI.Environment(\.openURL) var openURL
     @AppStorage("isShouldShowAllowNotificationsView") private var isShouldShowAllowNotificationsView = true
     @Binding var isCreateAccountSheetShown: Bool
@@ -94,6 +96,25 @@ struct WelcomeView: View {
                             + Text(" ")
                             + Text("[\("new_onb_privacy".localized)](https://www.concordium.com/privacy-policy)").underline()
                         }
+                        .accentColor(Color.Neutral.tint1)
+                        .font(.satoshi(size: 14, weight: .regular))
+                        .foregroundStyle(Color.Neutral.tint1)
+                        
+                        Spacer(minLength: 1)
+                    }
+                    .padding(.horizontal, 16)
+                    
+                    
+                    HStack(spacing: 16) {
+                        Image(isCheckedTracking ? "checkbox_checked" : "checkbox_unchecked")
+                            .contentShape(.rect)
+                            .onTapGesture {
+                                isCheckedTracking.toggle()
+                                UserDefaults.standard.set(isCheckedTracking, forKey: "isAnalyticsEnabled")
+                                MatomoTracker.shared.isOptedOut = !isCheckedTracking
+                                Tracker.trackContentInteraction(name: "Welcome screen", interaction: .checked, piece: "Allow tracking check box")
+                            }
+                        Text("analytics.trackingConsent".localized)
                         .accentColor(Color.Neutral.tint1)
                         .font(.satoshi(size: 14, weight: .regular))
                         .foregroundStyle(Color.Neutral.tint1)

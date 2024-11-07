@@ -1868,9 +1868,6 @@
 		151A53A32C5D1A5500EFE20C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */; };
 		151A53A42C5D1A5500EFE20C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */; };
 		151A53A52C5D1A5500EFE20C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */; };
-		151A53AC2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
-		151A53AD2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
-		151A53AE2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */; };
 		153F2F4B2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */; };
 		153F2F4C2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */; };
 		153F2F4D2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */; };
@@ -3175,7 +3172,6 @@
 		15184CEC2CB0056C00DAE03A /* CooldownCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CooldownCardView.swift; sourceTree = "<group>"; };
 		151A53982C5CF03800EFE20C /* PopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
 		151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
-		151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsButtonsView.swift; sourceTree = "<group>"; };
 		153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTokenNotificationPopup.swift; sourceTree = "<group>"; };
 		153F2F4E2CC2D100009C8347 /* NotificationTokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTokenService.swift; sourceTree = "<group>"; };
 		1557CC932C89B799008ABF67 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -5260,14 +5256,6 @@
 			path = Analytics;
 			sourceTree = "<group>";
 		};
-		151A53AA2C63B67500EFE20C /* PopupButtons */ = {
-			isa = PBXGroup;
-			children = (
-				151A53AB2C63B69E00EFE20C /* AnalyticsButtonsView.swift */,
-			);
-			path = PopupButtons;
-			sourceTree = "<group>";
-		};
 		1557CC992C89BC43008ABF67 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
@@ -5692,7 +5680,6 @@
 		7FF07AE323EAE09B00F1FC04 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				151A53AA2C63B67500EFE20C /* PopupButtons */,
 				D5612B6B28EA19CE00582AD4 /* Collections */,
 				D578396427A08AF200FFD123 /* BackUpAlertController */,
 				FAAA492627450E47007EFA61 /* AccountsTotalHeader */,
@@ -7332,7 +7319,6 @@
 				08DB5E942BC6C34300C29663 /* BakerDataHandler.swift in Sources */,
 				08DB5E952BC6C34300C29663 /* BakingCoordinator.swift in Sources */,
 				08C167D32BB7396200E61326 /* TransferCostParameters.swift in Sources */,
-				151A53AE2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */,
 				08C167D42BB7396200E61326 /* BorderedButton.swift in Sources */,
 				08C167D52BB7396200E61326 /* GrayRoundedBackgroundModifier.swift in Sources */,
 				08C167D62BB7396200E61326 /* CopyReferenceInfoWidgetViewController.swift in Sources */,
@@ -8033,7 +8019,6 @@
 				08DB5E902BC6C34300C29663 /* BakerDataHandler.swift in Sources */,
 				08DB5E912BC6C34300C29663 /* BakingCoordinator.swift in Sources */,
 				08A0464529FAB0EC00DACE1F /* TransferCostParameters.swift in Sources */,
-				151A53AD2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */,
 				D5D52C6126DBF6FC0072D20E /* BorderedButton.swift in Sources */,
 				08FD0B842A7D31DD003774A6 /* GrayRoundedBackgroundModifier.swift in Sources */,
 				088FEF842A0270B000042957 /* CopyReferenceInfoWidgetViewController.swift in Sources */,
@@ -8734,7 +8719,6 @@
 				08DB5E8D2BC6C34200C29663 /* BakingCoordinator.swift in Sources */,
 				D5E29765276C8E04000DB102 /* Digest+Additions.swift in Sources */,
 				08A0464329FAB0EB00DACE1F /* TransferCostParameters.swift in Sources */,
-				151A53AC2C63B69E00EFE20C /* AnalyticsButtonsView.swift in Sources */,
 				088FEEE92A026EB500042957 /* CreateIdentityCoordinator.swift in Sources */,
 				C9DB8A212423C98E008551B8 /* IdentityDataSelectionCell.swift in Sources */,
 				C93EFF3224107F26002D6DB7 /* IdentityCell.swift in Sources */,
