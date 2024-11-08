@@ -123,10 +123,6 @@ class DelegationOnboardingCoordinator: Coordinator {
                 OnboardingPage(
                     title: "onboardingcarousel.removedelegation.page1.title".localized,
                     viewController: OnboardingCarouselWebContentViewController(htmlFilename: "delegation_remove_flow_en_1")
-                ),
-                OnboardingPage(
-                    title: "onboardingcarousel.removedelegation.page2.title".localized,
-                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "delegation_remove_flow_en_2")
                 )
             ]
         )

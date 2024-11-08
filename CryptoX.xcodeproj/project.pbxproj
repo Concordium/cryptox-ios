@@ -619,10 +619,8 @@
 		088FF3592A02CA2700042957 /* baker_update_flow_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3042A02C9D900042957 /* baker_update_flow_en_5.html */; };
 		088FF35D2A02CA2C00042957 /* delegation_remove_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2FC2A02C9BD00042957 /* delegation_remove_flow_en_1.html */; };
 		088FF35E2A02CA2C00042957 /* removedelegation_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2FF2A02C9C800042957 /* removedelegation_flow_style.css */; };
-		088FF35F2A02CA2C00042957 /* delegation_remove_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2FD2A02C9BD00042957 /* delegation_remove_flow_en_2.html */; };
 		088FF3632A02CA2C00042957 /* delegation_remove_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2FC2A02C9BD00042957 /* delegation_remove_flow_en_1.html */; };
 		088FF3642A02CA2C00042957 /* removedelegation_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2FF2A02C9C800042957 /* removedelegation_flow_style.css */; };
-		088FF3652A02CA2C00042957 /* delegation_remove_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2FD2A02C9BD00042957 /* delegation_remove_flow_en_2.html */; };
 		088FF36A2A02CA3200042957 /* updatedelegation_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2FA2A02C9AE00042957 /* updatedelegation_flow_style.css */; };
 		088FF36B2A02CA3200042957 /* delegation_update_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2F62A02C9A100042957 /* delegation_update_flow_en_1.html */; };
 		088FF36C2A02CA3200042957 /* delegation_update_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2F72A02C9A100042957 /* delegation_update_flow_en_2.html */; };
@@ -1648,7 +1646,6 @@
 		08C1697A2BB7396200E61326 /* TextEditView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D54ABC1526E100B800F4E773 /* TextEditView.xib */; };
 		08C1697B2BB7396200E61326 /* AccountsTotalHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAAA492B274513F4007EFA61 /* AccountsTotalHeader.xib */; };
 		08C1697C2BB7396200E61326 /* 4.2.2.RX_backend_accTransactions.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3572794B96B003F2FBB /* 4.2.2.RX_backend_accTransactions.json */; };
-		08C1697D2BB7396200E61326 /* delegation_remove_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2FD2A02C9BD00042957 /* delegation_remove_flow_en_2.html */; };
 		08C1697E2BB7396200E61326 /* delegation_intro_flow_en_7.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B52A02C96B00042957 /* delegation_intro_flow_en_7.html */; };
 		08C1697F2BB7396200E61326 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088FF0742A02784A00042957 /* Login.storyboard */; };
 		08C169802BB7396200E61326 /* Widget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088FEF882A0270BB00042957 /* Widget.storyboard */; };
@@ -2969,7 +2966,6 @@
 		088FF2F82A02C9A200042957 /* delegation_update_flow_en_3.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = delegation_update_flow_en_3.html; sourceTree = "<group>"; };
 		088FF2FA2A02C9AE00042957 /* updatedelegation_flow_style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = updatedelegation_flow_style.css; sourceTree = "<group>"; };
 		088FF2FC2A02C9BD00042957 /* delegation_remove_flow_en_1.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = delegation_remove_flow_en_1.html; sourceTree = "<group>"; };
-		088FF2FD2A02C9BD00042957 /* delegation_remove_flow_en_2.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = delegation_remove_flow_en_2.html; sourceTree = "<group>"; };
 		088FF2FF2A02C9C800042957 /* removedelegation_flow_style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = removedelegation_flow_style.css; sourceTree = "<group>"; };
 		088FF3012A02C9D800042957 /* baker_update_flow_en_3.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = baker_update_flow_en_3.html; sourceTree = "<group>"; };
 		088FF3022A02C9D800042957 /* baker_update_flow_en_2.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = baker_update_flow_en_2.html; sourceTree = "<group>"; };
@@ -4735,7 +4731,6 @@
 			children = (
 				088FF2FE2A02C9C200042957 /* styles */,
 				088FF2FC2A02C9BD00042957 /* delegation_remove_flow_en_1.html */,
-				088FF2FD2A02C9BD00042957 /* delegation_remove_flow_en_2.html */,
 			);
 			path = RemoveDelegationOnboarding;
 			sourceTree = "<group>";
@@ -6568,7 +6563,6 @@
 				08C1697A2BB7396200E61326 /* TextEditView.xib in Resources */,
 				08C1697B2BB7396200E61326 /* AccountsTotalHeader.xib in Resources */,
 				08C1697C2BB7396200E61326 /* 4.2.2.RX_backend_accTransactions.json in Resources */,
-				08C1697D2BB7396200E61326 /* delegation_remove_flow_en_2.html in Resources */,
 				08C1697E2BB7396200E61326 /* delegation_intro_flow_en_7.html in Resources */,
 				08C1697F2BB7396200E61326 /* Login.storyboard in Resources */,
 				08C169802BB7396200E61326 /* Widget.storyboard in Resources */,
@@ -6717,7 +6711,6 @@
 				D54ABC1926E100B800F4E773 /* TextEditView.xib in Resources */,
 				FAAA492D274513F4007EFA61 /* AccountsTotalHeader.xib in Resources */,
 				D589F3972794B96B003F2FBB /* 4.2.2.RX_backend_accTransactions.json in Resources */,
-				088FF3652A02CA2C00042957 /* delegation_remove_flow_en_2.html in Resources */,
 				088FF2DA2A02C98800042957 /* delegation_intro_flow_en_7.html in Resources */,
 				088FF0782A02784A00042957 /* Login.storyboard in Resources */,
 				088FEF8C2A0270C200042957 /* Widget.storyboard in Resources */,
@@ -6865,7 +6858,6 @@
 				D589F3992794B96B003F2FBB /* 3.3.2.RX_backend_submitTransfer.json in Resources */,
 				D5883FCF29040C290014F83C /* NFTEmptySearchStatusView.xib in Resources */,
 				D589F3952794B96B003F2FBB /* 4.2.2.RX_backend_accTransactions.json in Resources */,
-				088FF35F2A02CA2C00042957 /* delegation_remove_flow_en_2.html in Resources */,
 				088FF2CA2A02C98700042957 /* delegation_intro_flow_en_7.html in Resources */,
 				088FF0762A02784A00042957 /* Login.storyboard in Resources */,
 				088FEF8A2A0270C000042957 /* Widget.storyboard in Resources */,
