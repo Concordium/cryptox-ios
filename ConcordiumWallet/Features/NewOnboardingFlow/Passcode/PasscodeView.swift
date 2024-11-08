@@ -215,6 +215,7 @@ struct PasscodeView: View {
     @AppStorage("isFaceIDUnlockEnabled") var isFaceIDUnlockEnabled: Bool = false
     
     @State var animatePasscodeIn: Bool = false
+    @State private var shakeOffset: CGFloat = 0
     
     @SwiftUI.Environment(\.dismiss) var dismiss
     
@@ -324,8 +325,15 @@ struct PasscodeView: View {
                         
                     }
                 }
-                .offset(x: viewModel.isWrongPassword ? 30 : 0)
-
+                .offset(x: shakeOffset)
+                .onChange(of: viewModel.isWrongPassword) { newValue in
+                    if newValue {
+                        withAnimation(.default) {
+                            shake()
+                        }
+                    }
+                }
+                
             }
             .padding(16)
             Spacer()
@@ -381,4 +389,21 @@ struct PasscodeView: View {
         })
         .frame(alignment: .bottom)
     }
+    
+    private func shake() {
+         let shakeAnimation = Animation.default.speed(3)
+         withAnimation(shakeAnimation) {
+             shakeOffset = -10
+         }
+         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+             withAnimation(shakeAnimation) {
+                 shakeOffset = 10
+             }
+         }
+         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+             withAnimation(shakeAnimation) {
+                 shakeOffset = 0
+             }
+         }
+     }
 }
