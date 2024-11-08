@@ -15,9 +15,9 @@ enum IdentitiesFlowMode {
 }
 
 class IdentitiesFactory {
-    class func create(with presenter: IdentitiesPresenterProtocol, flow: IdentitiesFlowMode) -> IdentitiesViewController {
+    class func create(with presenter: IdentitiesPresenterProtocol, flow: IdentitiesFlowMode, configureAccountAlertDelegate: ConfigureAccountAlertDelegate? = nil) -> IdentitiesViewController {
         IdentitiesViewController.instantiate(fromStoryboard: "Identity") { coder in
-            return IdentitiesViewController(coder: coder, presenter: presenter, flowMode: flow)
+            return IdentitiesViewController(coder: coder, presenter: presenter, flowMode: flow, configureAccountAlertDelegate: configureAccountAlertDelegate)
         }
     }
 }
@@ -36,6 +36,7 @@ class IdentitiesViewController: BaseViewController, Storyboarded, ShowToast, Sup
 
     var presenter: IdentitiesPresenterProtocol
     private weak var updateTimer: Timer?
+    weak var configureAccountAlertDelegate: ConfigureAccountAlertDelegate?
     
     @IBOutlet weak var emptyIdentitiesView: UIView!
     @IBOutlet weak var tableView: UITableView!
@@ -43,9 +44,10 @@ class IdentitiesViewController: BaseViewController, Storyboarded, ShowToast, Sup
     
     private var flowMode: IdentitiesFlowMode
 
-    init?(coder: NSCoder, presenter: IdentitiesPresenterProtocol, flowMode: IdentitiesFlowMode) {
+    init?(coder: NSCoder, presenter: IdentitiesPresenterProtocol, flowMode: IdentitiesFlowMode, configureAccountAlertDelegate: ConfigureAccountAlertDelegate? = nil) {
         self.presenter = presenter
         self.flowMode = flowMode
+        self.configureAccountAlertDelegate = configureAccountAlertDelegate
 
         super.init(coder: coder)
     }
@@ -83,6 +85,13 @@ class IdentitiesViewController: BaseViewController, Storyboarded, ShowToast, Sup
                                                             style: .plain,
                                                             target: self,
                                                             action: barButtonSelector)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !SettingsHelper.isIdentityConfigured() {
+            configureAccountAlertDelegate?.showConfigureAccountAlert()
+        }
     }
     
     @objc func refresh(_ sender: AnyObject) {
