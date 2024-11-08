@@ -20,6 +20,7 @@ final class AccountsMainRouter: ObservableObject {
     private let dependencyProvider: ServicesProvider
     private let walletConnectService: WalletConnectService
     private let onAccountsUpdate = PassthroughSubject<Void, Never>()
+    weak var configureAccountAlertDelegate: ConfigureAccountAlertDelegate?
 
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
@@ -36,7 +37,7 @@ final class AccountsMainRouter: ObservableObject {
     
     func rootScene() -> UINavigationController {        
         let viewModel: AccountsMainViewModel = .init(dependencyProvider: dependencyProvider, onReload: onAccountsUpdate.eraseToAnyPublisher(), walletConnectService: walletConnectService)
-        let view = AccountsMainView(viewModel: viewModel, router: self)
+        let view = AccountsMainView(viewModel: viewModel, keychain: dependencyProvider.keychainWrapper(), identitiesService: dependencyProvider.seedIdentitiesService(), router: self)
             .environmentObject(updateTimer)
         let viewController = SceneViewController(content: view)
         viewController.tabBarItem = UITabBarItem(title: "accounts_tab_title".localized, image: UIImage(named: "tab_bar_accounts_icon"), tag: 0)
@@ -119,24 +120,34 @@ extension AccountsMainRouter {
     
     @MainActor
     func showCreateIdentityFlow() {
-        if dependencyProvider.mobileWallet().isLegacyAccount() {
-            let createIdentityCoordinator = CreateIdentityCoordinator(navigationController: CXNavigationController(),
-                    dependencyProvider: dependencyProvider, parentCoordinator: self)
-            childCoordinators.append(createIdentityCoordinator)
-            createIdentityCoordinator.start()
-            navigationController.present(createIdentityCoordinator.navigationController, animated: true, completion: nil)
-        } else {
-            let seedIdentitiesCoordinator = SeedIdentitiesCoordinator(
-                navigationController: CXNavigationController(),
-                action: .createIdentity,
-                dependencyProvider: dependencyProvider,
-                delegate: self
-            )
-
-            childCoordinators.append(seedIdentitiesCoordinator)
-            seedIdentitiesCoordinator.start()
-            navigationController.present(seedIdentitiesCoordinator.navigationController, animated: true)
-        }
+        let seedIdentitiesCoordinator = SeedIdentitiesCoordinator(
+            navigationController: CXNavigationController(),
+            action: .createIdentity,
+            dependencyProvider: dependencyProvider,
+            delegate: self
+        )
+        
+        childCoordinators.append(seedIdentitiesCoordinator)
+        seedIdentitiesCoordinator.start()
+        navigationController.present(seedIdentitiesCoordinator.navigationController, animated: true)
+    }
+    
+    func showSaveSeedPhraseFlow(pwHash: String, identitiesService: SeedIdentitiesService, completion: @escaping ([String]) -> Void) {
+        let view =  CreateSeedPhraseView(
+            viewModel: .init(pwHash: pwHash, identitiesService: identitiesService),
+            onConfirmed: { phrase in
+                DispatchQueue.main.async { [weak self] in
+                    self?.navigationController.dismiss(animated: true, completion: nil)
+                }
+                completion(phrase)
+            })
+        let vc = SceneViewController(content: view)
+        vc.hidesBottomBarWhenPushed = true
+        navigationController.present(vc, animated: true)
+    }
+    
+    func showNotConfiguredAccountPopup() {
+        configureAccountAlertDelegate?.showConfigureAccountAlert()
     }
 }
 
@@ -282,6 +293,11 @@ extension AccountsMainRouter: SeedIdentitiesCoordinatorDelegate {
         NotificationCenter.default.post(name: Notification.Name("seedAccountCoordinatorWasFinishedNotification"), object: nil)
         onAccountsUpdate.send(())
         #warning("add here handler")
+    }
+    
+    func seedIdentityCoordinatorDidFail(with error: IdentityRejectionError) {
+        navigationController.dismiss(animated: true)
+        childCoordinators.removeAll(where: { $0 is SeedIdentitiesCoordinator })
     }
 }
 

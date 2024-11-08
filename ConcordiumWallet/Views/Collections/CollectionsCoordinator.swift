@@ -12,7 +12,7 @@ import UIKit
 class CollectionsCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
-
+    weak var configureAccountAlertDelegate: ConfigureAccountAlertDelegate?
 
     private var dependencyProvider: NFTFlowCoordinatorDependencyProvider
 
@@ -24,7 +24,7 @@ class CollectionsCoordinator: Coordinator {
     }
 
     func start() {
-        let vc = NFTProvidersFactory.create(with: NFTProvidersPresenter(dependencyProvider: dependencyProvider, delegate: self), mode: .marketplace)
+        let vc = NFTProvidersFactory.create(with: NFTProvidersPresenter(dependencyProvider: dependencyProvider, delegate: self), mode: .marketplace, configureAccountAlertDelegate: configureAccountAlertDelegate)
         vc.tabBarItem = UITabBarItem(title: "collections_tab_title".localized, image: UIImage(named: "tab_tokens_icon"), tag: 0)
         navigationController.pushViewController(vc, animated: false)
     }
@@ -44,7 +44,7 @@ extension CollectionsCoordinator: NFTProvidersPresenterDelegate {
     }
     
     func open(mode: NFTProviders.Mode) {
-        let vc = NFTProvidersFactory.create(with: NFTProvidersPresenter(dependencyProvider: dependencyProvider, delegate: self), mode: mode)
+        let vc = NFTProvidersFactory.create(with: NFTProvidersPresenter(dependencyProvider: dependencyProvider, delegate: self), mode: mode, configureAccountAlertDelegate: configureAccountAlertDelegate)
         vc.tabBarItem = UITabBarItem(title: "collections_tab_title".localized, image: UIImage(named: "tab_tokens_icon"), tag: 0)
         navigationController.pushViewController(vc, animated: false)
     }

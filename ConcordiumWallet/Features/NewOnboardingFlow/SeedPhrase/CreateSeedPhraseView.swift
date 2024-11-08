@@ -163,7 +163,7 @@ struct CreateSeedPhraseView: View {
             }
             .padding(.horizontal, 16)
         }
-        .modifier(AppBackgroundModifier())
+        .modifier(AppBlackBackgroundModifier())
         .sheet(item: $shareText) { shareText in
             ActivityView(text: shareText.text)
         }

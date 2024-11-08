@@ -34,3 +34,14 @@ struct AppBackgroundModifier: ViewModifier {
             }
     }
 }
+
+struct AppBlackBackgroundModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .background {
+                Image("new_bg")
+                    .resizable()
+                    .ignoresSafeArea(.all)
+            }
+    }
+}
