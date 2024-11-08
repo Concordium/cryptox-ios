@@ -1058,13 +1058,13 @@ Remember to restart your node with the validator keys.";
 "onboardingcarousel.registerdelegation.page3.title" = "Staking pools";
 "onboardingcarousel.registerdelegation.page4.title" = "Passive delegation";
 "onboardingcarousel.registerdelegation.page5.title" = "Pay days";
-"onboardingcarousel.registerdelegation.page6.title" = "Lock-in and cool-downs";
+"onboardingcarousel.registerdelegation.page6.title" = "Cooldowns";
 "onboardingcarousel.registerdelegation.page7.title" = "The status page";
 
 "onboardingcarousel.updatedelegation.title" = "Delegation";
 "onboardingcarousel.updatedelegation.page1.title" = "Updating your delegation";
 "onboardingcarousel.updatedelegation.page2.title" = "Pay day updates";
-"onboardingcarousel.updatedelegation.page3.title" = "Updates with longer cool-downs";
+"onboardingcarousel.updatedelegation.page3.title" = "Cooldowns";
 
 "onboardingcarousel.removedelegation.title" = "Delegation";
 "onboardingcarousel.removedelegation.page1.title" = "Stop your delegation";
