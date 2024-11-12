@@ -39,6 +39,7 @@ class PasscodeViewModel: ObservableObject {
     
     @Published var pin: [Int] = []
     @Published var isRequestFaceIDViewShown = false
+    @Published var isRequestAnalyticsViewShown = false
     @Published var error: GeneralAppError?
     @Published var isWrongPassword: Bool = false
     
@@ -48,6 +49,10 @@ class PasscodeViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private var pwHash: String?
 
+    var shouldShowFaceIDAfterAnalytics: Bool {
+        return UserDefaults.standard.bool(forKey: "isAnalyticsPopupShown")
+    }
+    
     init(keychain: KeychainWrapperProtocol, sanityChecker: SanityChecker, onSuccess: @escaping (String) -> Void) {
         self.keychain = keychain
         self.onSuccess = onSuccess
@@ -69,6 +74,9 @@ class PasscodeViewModel: ObservableObject {
                         keychain.storePassword(password: convertPinToString(array))
                             .onSuccess { [weak self] pwHash in
                                 self?.pwHash = pwHash
+                                if !UserDefaults.bool(forKey: "isAnalyticsPopupShown") {
+                                    self?.isRequestAnalyticsViewShown = true
+                                }
                                 self?.isRequestFaceIDViewShown = true
                             }.onFailure { error in
                                 self.error = .somethingWentWrong
@@ -192,7 +200,7 @@ extension PasscodeViewModel {
         AppSettings.biometricsEnabled = false
         self.onSuccess(self.pwHash ?? "")
     }
-    
+
     func biometricsEnabled() -> Bool {
         let myContext = LAContext()
         var authError: NSError?
@@ -225,18 +233,28 @@ struct PasscodeView: View {
     
     var body: some View {
         ZStack {
-            Image("new_bg").resizable().aspectRatio(contentMode: .fill)
-                .ignoresSafeArea(.all)
             passcodeView()
                 .padding(.bottom, 100)
                 .overlay {
-                    if viewModel.isRequestFaceIDViewShown {
+                    if viewModel.isRequestAnalyticsViewShown {
+                        analyticsPopupView(isPresented: $viewModel.isRequestAnalyticsViewShown)
+                            .onDisappear {
+                                if viewModel.shouldShowFaceIDAfterAnalytics {
+                                    viewModel.isRequestFaceIDViewShown = true
+                                }
+                            }
+                            .transition(.opacity)
+                            .animation(.easeInOut(duration: 0.3), value: viewModel.isRequestAnalyticsViewShown)
+                    }
+                    
+                    if viewModel.isRequestFaceIDViewShown && !viewModel.isRequestAnalyticsViewShown {
                         enableFaceIdView()
                             .transition(.opacity)
                             .animation(.easeInOut(duration: 0.3), value: viewModel.isRequestFaceIDViewShown)
                     }
                 }
         }
+        .modifier(AppBackgroundModifier())
         .opacity(animatePasscodeIn ? 1.0 : 0)
         .onAppear {
             viewModel.loginWithBiometric()
@@ -293,7 +311,23 @@ struct PasscodeView: View {
         .padding(.top, 20)
         .padding(.bottom, 36)
     }
-
+    
+    @ViewBuilder
+    private func analyticsPopupView(isPresented: Binding<Bool>) -> some View {
+        PopupContainer(icon: "analytics_icon",
+                       title: "analytics.popupTrackTitle".localized,
+                       subtitle: "analytics.trackMessage".localized,
+                       content: AnalyticsButtonsView(isPresented: isPresented),
+                       dismissAction: {
+            UserDefaults.standard.set(false, forKey: "isAnalyticsEnabled")
+            MatomoTracker.shared.isOptedOut = true
+            isPresented.wrappedValue = false
+        })
+        .onDisappear {
+            UserDefaults.standard.set(true, forKey: "isAnalyticsPopupShown")
+        }
+    }
+    
     @ViewBuilder
     private func passcodeView() -> some View {
         VStack {

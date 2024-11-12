@@ -8,7 +8,6 @@ protocol StorageManagerProtocol {
     func getIdentity(matchingSeedIdentityObject seedIdentityObject: SeedIdentityObject) -> IdentityDataType?
     func getConfirmedIdentities() -> [IdentityDataType]
     func getPendingIdentities() -> [IdentityDataType]
-    func getFailedIdentities() -> [IdentityDataType]
     func removeIdentity(_ identity: IdentityDataType?)
     
     func storePrivateIdObjectData(_: PrivateIDObjectData, pwHash: String) -> Result<String, Error>
@@ -134,10 +133,6 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
         return Array(realm.objects(IdentityEntity.self).filter("stateString == '\(IdentityState.pending.rawValue)'"))
     }
 
-    func getFailedIdentities() -> [IdentityDataType] {
-        return Array(realm.objects(IdentityEntity.self).filter("stateString == '\(IdentityState.failed.rawValue)'"))
-    }
-    
     func storePrivateIdObjectData(_ privateIdObjectData: PrivateIDObjectData, pwHash: String) -> Result<String, Error> {
         let id = UUID().uuidString
         do {

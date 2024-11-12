@@ -29,7 +29,6 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
     
     weak var delegate: MoreCoordinatorDelegate?
     weak var parentCoordinator: MoreCoordinatorDelegate?
-    weak var configureAccountAlertDelegate: ConfigureAccountAlertDelegate?
     private var cancellables: [AnyCancellable] = []
     
     init(navigationController: UINavigationController,
@@ -54,8 +53,7 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
     func showIdentities() {
         let identitiesCoordinator = IdentitiesCoordinator(navigationController: navigationController,
                                                           dependencyProvider: dependencyProvider,
-                                                          parentCoordinator: self,
-                                                          configureAccountAlertDelegate: configureAccountAlertDelegate)
+                                                          parentCoordinator: self)
         self.childCoordinators.append(identitiesCoordinator)
         identitiesCoordinator.showInitial(animated: true)
     }
@@ -63,8 +61,7 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
     func showCreateNewIdentity() {
         let identitiesCoordinator = IdentitiesCoordinator(navigationController: navigationController,
                                                           dependencyProvider: dependencyProvider,
-                                                          parentCoordinator: self,
-                                                          configureAccountAlertDelegate: configureAccountAlertDelegate)
+                                                          parentCoordinator: self)
         self.childCoordinators.append(identitiesCoordinator)
         identitiesCoordinator.start()
         identitiesCoordinator.showCreateNewIdentity()
