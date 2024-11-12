@@ -9,13 +9,14 @@
 import SwiftUI
 
 struct AccountPreviewCardView: View {
-    @State private var progress: Float = 0
+    @State private var progress: Float?
     @State private var targetProgress: Float = 0
     @State private var title: String = ""
     @State private var stepName: String = ""
     @State private var isDotPulsating = false
     @State private var checkmarkOpacity: Double = 0.0
     @State private var isTransitioning = false
+    @Binding var isCreatingAccount: Bool
 
     var onCreateAccount: (() -> Void)? = nil
     var onIdentityVerification: (() -> Void)? = nil
@@ -52,8 +53,15 @@ struct AccountPreviewCardView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 VStack(alignment: .leading, spacing: 14) {
                     setupView()
+                        .frame(height: 132)
                         .padding(16)
-
+                }
+                if isCreatingAccount {
+                    LoadingIndicator()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(Color.black.opacity(0.5))
+                        .cornerRadius(8)
+                        .zIndex(1)
                 }
             }
             buttonSection
@@ -117,7 +125,11 @@ struct AccountPreviewCardView: View {
                 .frame(height: isTransitioning ? 56 : 11)
                 .progressViewStyle(CustomProgressViewStyle(trackColor: .greenDark, progressColor: .greenMain))
                 .cornerRadius(5)
-                .animation(.easeInOut(duration: 1.0), value: progress)
+                .onChange(of: targetProgress) { newValue in
+                    withAnimation(.easeInOut(duration: 1.0)) {
+                        progress = newValue
+                    }
+                }
             
             Text(stepName)
                 .font(.satoshi(size: 14, weight: .medium))
@@ -236,13 +248,17 @@ struct AccountPreviewCardView: View {
     private func stateChange() {
         switch state {
         case .createAccount:
+            progress = 1
+            targetProgress = 1
             title = "verification.completed".localized
         case .createIdentity:
             stepName = "final_step_verify_identity".localized
+            progress = 1 / 3
             targetProgress = 2 / 3
             title = "setup_progress_title".localized
             Tracker.track(view: ["Onboarding: Create Identity step"])
         case .identityVerification:
+            progress = 2 / 3
             targetProgress = 1
             stepName = "setup.complete".localized
             title = "verification.in.progress".localized
@@ -252,6 +268,7 @@ struct AccountPreviewCardView: View {
             Tracker.track(view: ["Onboarding: Verification failed step"])
         case .saveSeedPhrase:
             stepName = "next_step_seed_phrase".localized
+            progress = 0
             targetProgress = 1 / 3
             title = "setup_progress_title".localized
             Tracker.track(view: ["Onboarding: Save seed phrase step"])
@@ -278,10 +295,4 @@ struct CustomProgressViewStyle: ProgressViewStyle {
             }
         }
     }
-}
-
-
-#Preview {
-    AccountPreviewCardView(state: .accounts)
-        .frame(height: 188)
 }

@@ -53,7 +53,7 @@ struct AccountInfoView: View {
             }
             
             
-            VStack(alignment: .leading ,spacing: 10) {
+            VStack(alignment: .leading ,spacing: 6) {
                 HStack(spacing: 8) {
                     Text(viewModel.totalAmount)
                         .foregroundColor(Color.Neutral.tint7)
@@ -70,7 +70,7 @@ struct AccountInfoView: View {
                         .font(.plexSans(size: 14, weight: .regular))
                 }
             }
-            .padding(.top, 18)
+            .padding(.top, 16)
             
             let hasCCD = viewModel.account.totalForecastBalance > 0
             if viewModel.tokens.isEmpty == false || hasCCD {
@@ -112,6 +112,7 @@ struct AccountInfoView: View {
                 .padding(.top, 16)
             }
         }
+        .padding(.top, (viewModel.tokens.isEmpty == false || viewModel.account.totalForecastBalance > 0) ? 16 :  0)
     }
 }
 
