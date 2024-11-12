@@ -282,11 +282,6 @@ extension AccountsCoordinator: SeedIdentitiesCoordinatorDelegate {
         
         NotificationCenter.default.post(name: Notification.Name("seedAccountCoordinatorWasFinishedNotification"), object: nil)
     }
-    
-    func seedIdentityCoordinatorDidFail(with error: IdentityRejectionError) {
-        navigationController.dismiss(animated: true)
-        childCoordinators.removeAll(where: { $0 is SeedIdentitiesCoordinator })
-    }
 }
 
 

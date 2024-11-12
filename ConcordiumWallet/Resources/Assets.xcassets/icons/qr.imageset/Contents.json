@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Frame 2003.png",
+      "filename" : "qr.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Frame 2003 (1).png",
+      "filename" : "qr@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Frame 2003 (2).png",
+      "filename" : "qr@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

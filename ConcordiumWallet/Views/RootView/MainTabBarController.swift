@@ -10,10 +10,6 @@ import UIKit
 import Combine
 import SwiftUI
 
-protocol ConfigureAccountAlertDelegate: AnyObject {
-    func showConfigureAccountAlert()
-}
-
 class MainTabBarController: BaseTabBarController {
     let accountsCoordinator: AccountsCoordinator
     let collectionsCoordinator: CollectionsCoordinator
@@ -23,7 +19,6 @@ class MainTabBarController: BaseTabBarController {
     private var cancellables: [AnyCancellable] = []
     let defaultProvider = ServicesProvider.defaultProvider()
     @State private var isAlertVisible: Bool = true
-    @State private var isConfigurePopupVisible = true
     var transactionNotificationService = TransactionNotificationService()
 
     init(accountsCoordinator: AccountsCoordinator,
@@ -44,10 +39,6 @@ class MainTabBarController: BaseTabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabBar.backgroundColor = .blackMain
-        accountsMainRouter.configureAccountAlertDelegate = self
-        collectionsCoordinator.configureAccountAlertDelegate = self
-        moreCoordinator.configureAccountAlertDelegate = self
         collectionsCoordinator.start()
         moreCoordinator.start()
         let newsFeedController = SceneViewController(content: NewsFeed())
@@ -90,32 +81,6 @@ extension MainTabBarController: IdentitiesCoordinatorDelegate {
 extension MainTabBarController: BackupAlertControllerDelegate {
     func didApplyBackupOk() {
         accountsCoordinator.showExport()
-    }
-}
-
-extension MainTabBarController: ConfigureAccountAlertDelegate {
-    func showConfigureAccountAlert() {
-        guard let selectedNavigationController = selectedViewController as? UINavigationController else { return }
-        let view = CompleteSetupPopup(isVisible: Binding(
-            get: { self.isConfigurePopupVisible },
-            set: { self.isConfigurePopupVisible = $0
-                if !$0 {
-                    selectedNavigationController.popToRootViewController(animated: true)
-                    selectedNavigationController.dismiss(animated: true) {
-                        DispatchQueue.main.async {
-                            self.selectedIndex = 0
-                        }
-                    }
-                }
-            }
-        ))
-        
-        let alertViewController = UIHostingController(rootView: view)
-        alertViewController.modalPresentationStyle = .overCurrentContext
-        alertViewController.view.backgroundColor = .clear
-        DispatchQueue.main.async {
-            selectedNavigationController.present(alertViewController, animated: false, completion: nil)
-        }
     }
 }
 

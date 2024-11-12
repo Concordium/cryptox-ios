@@ -7,75 +7,80 @@
 //
 
 import SwiftUI
-import MatomoTracker
 
 struct WelcomeView: View {
     @State var isChecked: Bool = false
-    @State var isCheckedTracking: Bool = false
     @SwiftUI.Environment(\.openURL) var openURL
     @AppStorage("isShouldShowAllowNotificationsView") private var isShouldShowAllowNotificationsView = true
-    @Binding var isCreateAccountSheetShown: Bool
-    @AppStorage("isAcceptedPrivacy") private var isAcceptedPrivacy = false
+    
+    var action: () -> Void
     
     var body: some View {
         ZStack {
-            Image("new_bg").resizable().aspectRatio(contentMode: .fill)
+            Image("welcome_background").resizable().aspectRatio(contentMode: .fill)
                 .ignoresSafeArea(.all)
-            VStack {
-                Image("Concordium_logo")
-                    .padding(.top, 90)
-                    .padding(.bottom, 131)
-                VStack(alignment: .leading) {
-                    VStack(alignment: .leading, spacing: 24) {
-                        HStack(spacing: 12) {
-                            Image("welcome_safe_secure_icon")
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text("new_onboarding_safe_secure_title".localized)
-                                    .font(.satoshi(size: 16, weight: .medium))
-                                    .foregroundStyle(Color.Neutral.tint1)
-                                    .frame(alignment: .leading)
+            
+            VStack(alignment: .leading) {
+                Spacer()
+                VStack {
+                    Text("new_onboarding_welcome_title".localized)
+                        .multilineTextAlignment(.leading)
+                        .font(.satoshi(size: 32, weight: .medium))
+                        .foregroundStyle(Color.Neutral.tint1)
+                        .frame(alignment: .leading)
+                }
+                .padding(24)
+                
+                VStack(alignment: .leading, spacing: 24) {
+                    HStack(spacing: 12) {
+                        Image("welcome_safe_secure_icon")
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("new_onboarding_safe_secure_title".localized)
+                                .font(.satoshi(size: 16, weight: .medium))
+                                .foregroundStyle(Color.Neutral.tint1)
+                                .frame(alignment: .leading)
                                 
-                                Text("new_onboarding_safe_secure_subtitle".localized)
-                                    .multilineTextAlignment(.leading)
-                                    .font(.satoshi(size: 14, weight: .regular))
-                                    .foregroundStyle(Color.Neutral.tint2)
-                            }
+                            Text("new_onboarding_safe_secure_subtitle".localized)
+                                .multilineTextAlignment(.leading)
+                                .font(.satoshi(size: 14, weight: .regular))
+                                .foregroundStyle(Color.Neutral.tint2)
                         }
-                        HStack(spacing: 12) {
-                            Image("welcome_manage_assets_icon")
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text("new_onboarding_manage_asssets_title".localized)
-                                    .font(.satoshi(size: 16, weight: .medium))
-                                    .foregroundStyle(Color.Neutral.tint1)
-                                    .frame(alignment: .leading)
+                    }
+                    HStack(spacing: 12) {
+                        Image("welcome_manage_assets_icon")
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("new_onboarding_manage_asssets_title".localized)
+                                .font(.satoshi(size: 16, weight: .medium))
+                                .foregroundStyle(Color.Neutral.tint1)
+                                .frame(alignment: .leading)
                                 
-                                Text("new_onboarding_manage_asssets_subtitle".localized)
-                                    .multilineTextAlignment(.leading)
-                                    .font(.satoshi(size: 14, weight: .regular))
-                                    .foregroundStyle(Color.Neutral.tint2)
-                            }
+                            Text("new_onboarding_manage_asssets_subtitle".localized)
+                                .multilineTextAlignment(.leading)
+                                .font(.satoshi(size: 14, weight: .regular))
+                                .foregroundStyle(Color.Neutral.tint2)
                         }
-                        HStack(spacing: 12) {
-                            Image("welcome_unlimited_pos_icon")
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text("new_onboarding_unlimited_possibilities_title".localized)
-                                    .font(.satoshi(size: 16, weight: .medium))
-                                    .foregroundStyle(Color.Neutral.tint1)
-                                    .frame(alignment: .leading)
+                    }
+                    HStack(spacing: 12) {
+                        Image("welcome_unlimited_pos_icon")
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("new_onboarding_unlimited_possibilities_title".localized)
+                                .font(.satoshi(size: 16, weight: .medium))
+                                .foregroundStyle(Color.Neutral.tint1)
+                                .frame(alignment: .leading)
                                 
-                                Text("new_onboarding_unlimited_possibilities_subtitle".localized)
-                                    .multilineTextAlignment(.leading)
-                                    .font(.satoshi(size: 14, weight: .regular))
-                                    .foregroundStyle(Color.Neutral.tint2)
-                            }
+                            Text("new_onboarding_unlimited_possibilities_subtitle".localized)
+                                .multilineTextAlignment(.leading)
+                                .font(.satoshi(size: 14, weight: .regular))
+                                .foregroundStyle(Color.Neutral.tint2)
                         }
                     }
                 }
-                .padding([.leading, .trailing], 24)
+                .padding(.leading, 38)
+                .padding(.trailing, 24)
                 
                 Spacer()
                 
-                VStack(spacing: 16) {
+                VStack(spacing: 12) {
                     HStack(spacing: 16) {
                         Image(isChecked ? "checkbox_checked" : "checkbox_unchecked")
                             .contentShape(.rect)
@@ -104,41 +109,21 @@ struct WelcomeView: View {
                     }
                     .padding(.horizontal, 16)
                     
-                    
-                    HStack(spacing: 16) {
-                        Image(isCheckedTracking ? "checkbox_checked" : "checkbox_unchecked")
-                            .contentShape(.rect)
-                            .onTapGesture {
-                                isCheckedTracking.toggle()
-                                UserDefaults.standard.set(isCheckedTracking, forKey: "isAnalyticsEnabled")
-                                MatomoTracker.shared.isOptedOut = !isCheckedTracking
-                                Tracker.trackContentInteraction(name: "Welcome screen", interaction: .checked, piece: "Allow tracking check box")
-                            }
-                        Text("analytics.trackingConsent".localized)
-                        .accentColor(Color.Neutral.tint1)
-                        .font(.satoshi(size: 14, weight: .regular))
-                        .foregroundStyle(Color.Neutral.tint1)
-                        
-                        Spacer(minLength: 1)
-                    }
-                    .padding(.horizontal, 16)
-                    
                     Button(
                         action: {
-                            isAcceptedPrivacy = true
-                            isCreateAccountSheetShown.toggle()
+                        action()
                             Tracker.trackContentInteraction(name: "Welcome screen", interaction: .clicked, piece: "Get started")
-                        }, label: {
-                            HStack {
-                                Text("get_started_btn_title".localized)
-                                    .font(Font.satoshi(size: 16, weight: .medium))
-                                    .lineSpacing(24)
-                                    .foregroundColor(Color.Neutral.tint7)
-                                Spacer()
-                                Image(systemName: "arrow.right").tint(Color.Neutral.tint7)
-                            }
-                            .padding(.horizontal, 24)
-                        })
+                    }, label: {
+                        HStack {
+                            Text("get_started_btn_title".localized)
+                                .font(Font.satoshi(size: 16, weight: .medium))
+                                .lineSpacing(24)
+                                .foregroundColor(Color.Neutral.tint7)
+                            Spacer()
+                            Image(systemName: "arrow.right").tint(Color.Neutral.tint7)
+                        }
+                        .padding(.horizontal, 24)
+                    })
                     .opacity(isChecked ? 1.0 : 0.7)
                     .disabled(!isChecked)
                     .frame(height: 56)
@@ -156,3 +141,8 @@ struct WelcomeView: View {
         }
     }
 }
+
+#Preview {
+    WelcomeView() {}
+}
+

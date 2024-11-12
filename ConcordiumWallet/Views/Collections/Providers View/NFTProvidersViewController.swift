@@ -10,9 +10,9 @@ import UIKit
 
 
 class NFTProvidersFactory {
-    class func create(with presenter: NFTProvidersPresenterProtocol, mode: NFTProviders.Mode, configureAccountAlertDelegate: ConfigureAccountAlertDelegate?) -> NFTProvidersViewController {
+    class func create(with presenter: NFTProvidersPresenterProtocol, mode: NFTProviders.Mode) -> NFTProvidersViewController {
         NFTProvidersViewController.instantiate(fromStoryboard: "Collections") { coder in
-            return NFTProvidersViewController(coder: coder, presenter: presenter, mode: mode, configureAccountAlertDelegate: configureAccountAlertDelegate)
+            return NFTProvidersViewController(coder: coder, presenter: presenter, mode: mode)
         }
     }
 }
@@ -30,7 +30,6 @@ class NFTProvidersViewController: BaseViewController, Storyboarded, SpecificView
 
     let mode: NFTProviders.Mode
     var presenter: NFTProvidersPresenterProtocol?
-    weak var configureAccountAlertDelegate: ConfigureAccountAlertDelegate?
     
     private lazy var searchBarButton: UIBarButtonItem = {
         let closeIcon = UIImage(named: "search")
@@ -59,12 +58,11 @@ class NFTProvidersViewController: BaseViewController, Storyboarded, SpecificView
     }()
     
     
-    init?(coder: NSCoder, presenter: NFTProvidersPresenterProtocol, mode: NFTProviders.Mode, configureAccountAlertDelegate: ConfigureAccountAlertDelegate?) {
+    init?(coder: NSCoder, presenter: NFTProvidersPresenterProtocol, mode: NFTProviders.Mode) {
         self.presenter = presenter
         self.mode = mode
         super.init(coder: coder)
         self.presenter?.view = self
-        self.configureAccountAlertDelegate = configureAccountAlertDelegate
     }
     
     required init?(coder: NSCoder) {
@@ -81,13 +79,6 @@ class NFTProvidersViewController: BaseViewController, Storyboarded, SpecificView
         
         setup()
         didInitiate(action: NFTProviders.Action.fetch(forceReload: true))
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if !SettingsHelper.isIdentityConfigured() {
-            configureAccountAlertDelegate?.showConfigureAccountAlert()
-        }
     }
 }
 

@@ -12,15 +12,10 @@ import SafariServices
 
 protocol SeedIdentitiesCoordinatorDelegate: AnyObject {
     func seedIdentityCoordinatorWasFinished(for identity: IdentityDataType)
-    func seedIdentityCoordinatorDidFail(with error: IdentityRejectionError)
-}
-
-protocol SubmittedSeedAccountPresenterDelegate: AnyObject {
-    func accountHasBeenFinished(for identity: IdentityDataType)
 }
 
 @MainActor
-class SeedIdentitiesCoordinator: Coordinator, ShowAlert {
+class SeedIdentitiesCoordinator: Coordinator {
     enum Action {
         case createInitialIdentity
         case createAccount
@@ -73,15 +68,18 @@ class SeedIdentitiesCoordinator: Coordinator, ShowAlert {
     }
     
     private func showIdentityProviders(enablePop: Bool = true, isNewIdentityAfterSettingUpTheWallet: Bool = false) {
-        let identityView = IdentityProviderListView(viewModel: .init(identitiesService: identititesService,
-                                                                     delegate: self,
-                                                                     isNewIdentityAfterSettingUpTheWallet: isNewIdentityAfterSettingUpTheWallet))
+        let presenter = SelectIdentityProviderPresenter(
+            identitiesService: identititesService,
+            delegate: self,
+            isNewIdentityAfterSettingUpTheWallet: isNewIdentityAfterSettingUpTheWallet
+        )
         
-        let vc = SceneViewController(content: identityView)
         if enablePop {
-            navigationController.pushViewController(vc, animated: true)
+            navigationController.pushViewController(
+                presenter.present(SelectIdentityProviderView.self),
+                animated: true)
         } else {
-            navigationController.present(vc, animated: true)
+            navigationController.setViewControllers([presenter.present(SelectIdentityProviderView.self)], animated: true)
         }
     }
     
@@ -99,13 +97,14 @@ class SeedIdentitiesCoordinator: Coordinator, ShowAlert {
     }
     
     private func showIdentityStatus(identity: IdentityDataType, isNewIdentityAfterSettingUpTheWallet: Bool = false) {
-        navigationController.dismiss(animated: true)
-        _ = SeedIdentityStatusService(
+        let presenter = SeedIdentityStatusPresenter(
             identity: identity,
             identitiesService: identititesService,
-            isNewIdentityAfterSettingUpTheWallet: isNewIdentityAfterSettingUpTheWallet,
-            delegate: self
+            delegate: self,
+            isNewIdentityAfterSettingUpTheWallet: isNewIdentityAfterSettingUpTheWallet
         )
+        
+        navigationController.setViewControllers([presenter.present(SeedIdentityStatusView.self)], animated: true)
     }
     
     private func showSubmitAccount(for identity: IdentityDataType, isNewAccountAfterSettingUpTheWallet: Bool = false) {
@@ -127,6 +126,17 @@ class SeedIdentitiesCoordinator: Coordinator, ShowAlert {
         )
         
         navigationController.pushViewController(presenter.present(SelectIdentityView.self), animated: true)
+    }
+    
+    private func showSubmittedAccount(for identity: IdentityDataType) {
+        let presenter = SubmittedSeedAccountPresenter(
+            identity: identity,
+            identitiesService: identititesService,
+            accountsService: dependencyProvider.seedAccountsService(),
+            delegate: self
+        )
+        
+        navigationController.setViewControllers([presenter.present(SubmittedSeedAccountView.self)], animated: true)
     }
     
     func recoverySelected() async throws {
@@ -232,15 +242,15 @@ extension SeedIdentitiesCoordinator: SeedIdentityStatusPresenterDelegate {
     func makeNewAccount(with identity: IdentityDataType) {
         showSubmitAccount(for: identity, isNewAccountAfterSettingUpTheWallet: true)
     }
-    
-    func seedIdentityStatusDidFail(with error: IdentityRejectionError) {
-        delegate?.seedIdentityCoordinatorDidFail(with: error)
-    }
 }
 
 extension SeedIdentitiesCoordinator: SubmitSeedAccountPresenterDelegate {
     func accountHasBeenSubmitted(_ account: AccountDataType, isNewAccountAfterSettingUpTheWallet: Bool, forIdentity identity: IdentityDataType) {
+        if isNewAccountAfterSettingUpTheWallet {
+            showSubmittedAccount(for: identity)
+        } else {
             delegate?.seedIdentityCoordinatorWasFinished(for: identity)
+        }
     }
     
     func makeNewIdentityRequest() {

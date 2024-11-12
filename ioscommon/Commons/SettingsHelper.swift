@@ -13,8 +13,4 @@ struct SettingsHelper {
         guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
         UIApplication.shared.open(url)
     }
-    
-    static func isIdentityConfigured() -> Bool {
-        return !ServicesProvider.defaultProvider().storageManager().getConfirmedIdentities().isEmpty
-    }
 }
