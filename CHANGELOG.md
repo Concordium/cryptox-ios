@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased 2.0.1]
+
+### Fixed
+- An issue with recovering from file when app is opened
+- An issue with displaying old feed
+
 ## [Released 2.0.0]
 
 ### Removed
