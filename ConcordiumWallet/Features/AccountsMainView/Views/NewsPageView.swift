@@ -58,16 +58,18 @@ struct NewsPageView: View {
             .background(.clear)
             .frame(height: 132)
             
-            HStack {
-                ForEach(0..<viewCount, id: \.self) { idx in
-                    Circle()
-                        .frame(width: 8)
-                        .foregroundColor(idx == selectedTab ? .primary : .secondary.opacity(0.5))
-                        .onTapGesture {
-                            withAnimation {
-                                selectedTab = idx
+            if viewCount > 1 {
+                HStack {
+                    ForEach(0..<viewCount, id: \.self) { idx in
+                        Circle()
+                            .frame(width: 8)
+                            .foregroundColor(idx == selectedTab ? .primary : .secondary.opacity(0.5))
+                            .onTapGesture {
+                                withAnimation {
+                                    selectedTab = idx
+                                }
                             }
-                        }
+                    }
                 }
             }
         }

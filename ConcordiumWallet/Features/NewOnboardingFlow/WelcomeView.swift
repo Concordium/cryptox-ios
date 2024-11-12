@@ -11,7 +11,7 @@ import MatomoTracker
 
 struct WelcomeView: View {
     @State var isChecked: Bool = false
-    @State var isCheckedTracking: Bool = false
+    @State var isCheckedTracking: Bool = true
     @SwiftUI.Environment(\.openURL) var openURL
     @AppStorage("isShouldShowAllowNotificationsView") private var isShouldShowAllowNotificationsView = true
     @Binding var isCreateAccountSheetShown: Bool
@@ -148,6 +148,10 @@ struct WelcomeView: View {
                 }
                 .padding(.bottom, 64)
             }
+        }
+        .onAppear {
+            UserDefaults.standard.set(isCheckedTracking, forKey: "isAnalyticsEnabled")
+            MatomoTracker.shared.isOptedOut = !isCheckedTracking
         }
         .overlay(alignment: .center) {
             if !UIApplication.shared.isRegisteredForRemoteNotifications && isShouldShowAllowNotificationsView {

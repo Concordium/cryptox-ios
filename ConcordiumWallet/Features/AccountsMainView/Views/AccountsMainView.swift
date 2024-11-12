@@ -20,6 +20,7 @@ protocol AccountsMainViewDelegate: AnyObject {
     func showExportFlow()
     func showUnshieldAssetsFlow()
     func showNotConfiguredAccountPopup()
+    func createAccountFromOnboarding(isCreatingAccount: Binding<Bool>)
 }
 
 struct AccountsMainView: View {
@@ -33,7 +34,7 @@ struct AccountsMainView: View {
     @State private var previousState: AccountsMainViewState?
     @State private var selectedPage = 0
     @State private var showAnimation = true
-    @State private var createAccountHeight: CGFloat?
+    @State private var isCreatingAccount = false
     
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
@@ -106,7 +107,7 @@ struct AccountsMainView: View {
             if viewModel.state == .accounts && previousState == .createAccount && showAnimation {
                 DotLottieAnimation(fileName: "confettiAnimation", config: AnimationConfig(autoplay: true, loop: false)).view()
                     .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.3) {
                             showAnimation = false
                         }
                     }
@@ -135,6 +136,9 @@ struct AccountsMainView: View {
         .onChange(of: viewModel.state) { newState in
             if newState != .accounts {
                 previousState = newState
+            }
+            if viewModel.state == .accounts {
+                isCreatingAccount = false
             }
         }
     }
@@ -209,7 +213,7 @@ extension AccountsMainView {
                 ]
             })
             .frame(maxWidth: .infinity)
-            .frame(height: 150)
+            .frame(height: 132)
             .padding(.top, 32)
             contentViewBasedOnState
                 .padding(.horizontal, 16)
@@ -234,13 +238,13 @@ extension AccountsMainView {
                 ForEach(viewModel.accountViewModels, id: \.id) { vm in
                     
                     AccountPreviewCardView(
+                        isCreatingAccount: $isCreatingAccount,
                         state: .accounts,
                         viewModel: vm,
                         onQrTap: { accountQr = (vm.account as? AccountEntity) },
                         onSendTap: { router?.showSendFundsFlow(vm.account) },
                         onShowPlusTap: { onRampFlowShown.toggle() }
                     )
-                    .frame(height: createAccountHeight)
                     .onTapGesture {
                         router?.showAccountDetail(vm.account)
                         Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Show account detail")
@@ -251,16 +255,13 @@ extension AccountsMainView {
             
         case .createAccount:
             VStack {
-                AccountPreviewCardView(onCreateAccount: { self.router?.showCreateAccountFlow() }, state: .createAccount)
-                    .background(
-                        GeometryReader { innerGeometry in
-                            Color.clear.onAppear {
-                                // Capture the height for both states
-                                    createAccountHeight = innerGeometry.size.height
-                            }
-                        }
-                    )
-                    .frame(height: createAccountHeight)
+                AccountPreviewCardView(isCreatingAccount: $isCreatingAccount,
+                                       onCreateAccount: {
+                    self.isCreatingAccount = true
+                    self.router?.createAccountFromOnboarding(isCreatingAccount: $isCreatingAccount)
+                    Task { await viewModel.reload() }
+                },
+                                       state: .createAccount)
                     .fixedSize(horizontal: false, vertical: true)
 
                 Spacer()
@@ -269,7 +270,7 @@ extension AccountsMainView {
             
         case .createIdentity:
             VStack {
-                AccountPreviewCardView(state: .createIdentity)
+                AccountPreviewCardView(isCreatingAccount: $isCreatingAccount, state: .createIdentity)
                         .fixedSize(horizontal: false, vertical: true)
                 
                 Spacer()
@@ -298,7 +299,7 @@ extension AccountsMainView {
 
         case .identityVerification:
             VStack {
-                AccountPreviewCardView(state: .identityVerification)
+                AccountPreviewCardView(isCreatingAccount: $isCreatingAccount, state: .identityVerification)
                     .fixedSize(horizontal: false, vertical: true)
                 Spacer()
             }
@@ -306,7 +307,7 @@ extension AccountsMainView {
 
         case .verificationFailed:
             VStack {
-                AccountPreviewCardView(onIdentityVerification: { self.router?.showCreateIdentityFlow() }, state: .verificationFailed)
+                AccountPreviewCardView(isCreatingAccount: $isCreatingAccount, onIdentityVerification: { self.router?.showCreateIdentityFlow() }, state: .verificationFailed)
                         .fixedSize(horizontal: false, vertical: true)
                 Spacer()
             }
@@ -314,7 +315,7 @@ extension AccountsMainView {
 
         case .saveSeedPhrase:
             VStack {
-                AccountPreviewCardView(state: .saveSeedPhrase)
+                AccountPreviewCardView(isCreatingAccount: $isCreatingAccount, state: .saveSeedPhrase)
                     .fixedSize(horizontal: false, vertical: true)
                 Spacer()
                 Button {

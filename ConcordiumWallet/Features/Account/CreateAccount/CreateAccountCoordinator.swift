@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 protocol CreateNewAccountDelegate: AnyObject {
     func createNewAccountFinished()
@@ -93,6 +94,26 @@ class CreateAccountCoordinator: Coordinator {
     func showAccountFailed(error: Error) {
         let vc = CreationFailedFactory.create(with: CreationFailedPresenter(serverError: error, delegate: self, mode: .account))
         showModally(vc, from: navigationController)
+    }
+  
+    @MainActor
+    func createAccount(isCreatingAccount: Binding<Bool>) {
+        guard let identity = ServicesProvider.defaultProvider().storageManager().getConfirmedIdentities().first else {
+            isCreatingAccount.wrappedValue = false
+            return
+        }
+        Task {
+            do {
+                let account = try await ServicesProvider.defaultProvider().seedAccountsService().generateAccount(
+                    for: identity,
+                    revealedAttributes: [],
+                    requestPasswordDelegate: DummyRequestPasswordDelegate()
+                )
+            } catch {
+                isCreatingAccount.wrappedValue = false
+                showAccountFailed(error: error)
+            }
+        }
     }
 }
 

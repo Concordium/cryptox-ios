@@ -149,6 +149,15 @@ extension AccountsMainRouter {
     func showNotConfiguredAccountPopup() {
         configureAccountAlertDelegate?.showConfigureAccountAlert()
     }
+    
+    @MainActor
+    func createAccountFromOnboarding(isCreatingAccount: Binding<Bool>) {
+        let createAccountCoordinator = CreateAccountCoordinator(navigationController: CXNavigationController(),
+                                                                dependencyProvider: dependencyProvider,
+                                                                parentCoordinator: self
+        )
+        createAccountCoordinator.createAccount(isCreatingAccount: isCreatingAccount)
+    }
 }
 
 extension AccountsMainRouter: CreateNewIdentityDelegate {
