@@ -19,7 +19,7 @@ struct AppConstants {
         static let support = "support@concordium.software"
     }
     
-    static let rssFeedURL = URL(string: "https://www.concordium.com/cryptox-news/rss.xml")!
+    static let rssFeedURL = URL(string: "https://concordium-new.webflow.io/cryptox-news-articles/rss.xml")!
     
     struct MatomoTracker {
         static let baseUrl: String = "https://concordium.matomo.cloud/matomo.php"
