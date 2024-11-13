@@ -206,22 +206,6 @@ struct AccountsMainView: View {
         .sheet(item: $accountQr) { account in
             AccountQRView(account: account)
         }
-        .overlay(alignment: .bottom) {
-            if viewModel.isBackupAlertShown && !isUserMakeBackup {
-                HStack {
-                    Text("main_scren_backup_warning_legacy_acount".localized)
-                        .foregroundColor(Color.black)
-                        .font(.system(size: 14, weight: .medium))
-                        .padding()
-                }
-                .frame(maxWidth: .infinity)
-                .background(Color.yellow)
-                .clipped()
-                .onTapGesture {
-                    self.router?.showExportFlow()
-                }
-            }
-        }
         .onAppear { updateTimer.start() }
         .onDisappear { updateTimer.stop() }
         .onReceive(updateTimer.tick) { _ in
