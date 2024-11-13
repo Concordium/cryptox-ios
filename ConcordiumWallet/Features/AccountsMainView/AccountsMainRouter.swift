@@ -245,7 +245,9 @@ extension AccountsMainRouter: WalletConnectServiceProtocol {
                     storageManager: self.dependencyProvider.storageManager())
             )
         )
-        self.navigationController.present(viewController, animated: true)
+        self.navigationController.dismiss(animated: true) {
+            self.navigationController.present(viewController, animated: true)
+        }
     }
 }
 
