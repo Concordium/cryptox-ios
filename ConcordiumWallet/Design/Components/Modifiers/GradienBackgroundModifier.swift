@@ -28,17 +28,6 @@ struct AppBackgroundModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .background {
-                Image("onboarding_main_bg")
-                    .resizable()
-                    .ignoresSafeArea(.all)
-            }
-    }
-}
-
-struct AppBlackBackgroundModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .background {
                 Image("new_bg")
                     .resizable()
                     .ignoresSafeArea(.all)

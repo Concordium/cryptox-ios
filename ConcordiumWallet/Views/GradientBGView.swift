@@ -39,7 +39,7 @@ class GradientBGView: UIView {
 //        layer.insertSublayer(gradient, at: 0)
         
         let myLayer = CALayer()
-        let myImage = UIImage(named: "onboarding_main_bg")?.cgImage
+        let myImage = UIImage(named: "new_bg")?.cgImage
         myLayer.frame = UIScreen.main.bounds
         myLayer.contents = myImage
         layer.insertSublayer(myLayer, at: 0)

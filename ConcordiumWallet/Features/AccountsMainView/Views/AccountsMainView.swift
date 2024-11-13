@@ -61,7 +61,7 @@ struct AccountsMainView: View {
                 }
             }
         }
-        .modifier(AppBlackBackgroundModifier())
+        .modifier(AppBackgroundModifier())
         .refreshable { Task { await viewModel.reload() } }
         .onAppear { Task { await viewModel.reload() } }
         .navigationTitle("accounts".localized)
