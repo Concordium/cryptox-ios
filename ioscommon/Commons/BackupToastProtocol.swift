@@ -29,7 +29,7 @@ extension AccountsViewController {
             toastView.isUserInteractionEnabled = true
             toastView.addGestureRecognizer(tapRecognizer)
             toastView.tag = 555
-            toastView.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+            toastView.font = UIFont.satoshi(size: 14, weight: .medium)
             toastView.text = toastMessage
             toastView.textColor = UIColor.blackMain
             toastView.backgroundColor = UIColor.yellowMain

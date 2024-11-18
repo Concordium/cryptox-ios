@@ -65,7 +65,7 @@ class ImportStatusCell: UIView {
     private func createTitleLabel(text: String) -> UILabel {
         let accountsTitleLabel = UILabel()
         accountsTitleLabel.textColor = .fadedText
-        accountsTitleLabel.font = .systemFont(ofSize: 14, weight: .bold)
+        accountsTitleLabel.font = .satoshi(size: 14, weight: .bold)
         accountsTitleLabel.text = text
         return accountsTitleLabel
     }

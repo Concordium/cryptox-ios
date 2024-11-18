@@ -368,8 +368,8 @@ extension AccountsMainView {
                         .foregroundColor(Color(red: 0.06, green: 0.08, blue: 0.08))
                         .frame(alignment: .leading)
                     Group {
-                        Text("CCD is listed in the following exchanges and services.")
-                        + Text(" See more")
+                        Text("CCD is listed in the following exchanges and services. ")
+                        + Text("See more")
                             .underline()
                     }
                     .font(.satoshi(size: 14, weight: .regular))

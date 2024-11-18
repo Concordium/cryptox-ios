@@ -23,7 +23,7 @@ class BaseTabBarController: UITabBarController {
         tabBar.unselectedItemTintColor = UIColor.greySecondary
         
         let appearance = UITabBarItem.appearance()
-        let attributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 12, weight: .medium)]
+        let attributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font:UIFont.satoshi(size: 12, weight: .medium)]
         appearance.setTitleTextAttributes(attributes, for: .normal)
     }
 }

@@ -21,6 +21,7 @@ struct NewsFeed: View {
                         RSSItemView(item, size: proxy.size)
                             .listRowBackground(Color.clear)
                             .listRowSeparator(.hidden)
+                            .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
                             .onTapGesture {
                                 if let link = item.link {
                                     openURL(link)
@@ -36,6 +37,7 @@ struct NewsFeed: View {
                         }
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
                     }
                 }
                 .refreshable {

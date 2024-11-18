@@ -15,7 +15,7 @@ extension ShowToast {
     func showToast1(withMessage toastMessage: String?, backgroundColor: UIColor = UIColor.pinkyMain, centeredIn view: UIView? = (UIApplication.shared.delegate as? AppDelegate)?.window, time: Double? = 1) {
         OperationQueue.main.addOperation({
             let toastView = ToastLabel()
-            toastView.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+            toastView.font = UIFont.satoshi(size: 14, weight: .medium)
             toastView.text = toastMessage
             toastView.backgroundColor = backgroundColor
             toastView.textAlignment = .center
@@ -40,7 +40,7 @@ extension ShowToast {
     func showToast(withMessage toastMessage: String?, backgroundColor: UIColor = UIColor.pinkyMain, centeredIn view: UIView? = (UIApplication.shared.delegate as? AppDelegate)?.window, time: Double? = 1) {
         OperationQueue.main.addOperation({
             let toastView = ToastLabel()
-            toastView.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+            toastView.font = UIFont.satoshi(size: 14, weight: .medium)
             toastView.text = toastMessage
             toastView.backgroundColor = backgroundColor
             toastView.textAlignment = .center

@@ -14,7 +14,7 @@ class StandardButton: BaseButton {
     override func initialize() {
         super.initialize()
 
-        titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
+        titleLabel?.font = .satoshi(size: 17, weight: .semibold)
         setTitleColor(UIColor(red: 0.063, green: 0.063, blue: 0.063, alpha: 1), for: .normal)
         setTitleColor(UIColor(red: 0.063, green: 0.063, blue: 0.063, alpha: 0.7), for: .disabled)
         setBackgroundColor(UIColor.white.withAlphaComponent(0.7), for: .disabled)
@@ -36,7 +36,7 @@ class BorderButonButton: BaseButton {
     override func initialize() {
         super.initialize()
 
-        titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
+        titleLabel?.font = .satoshi(size: 17, weight: .semibold)
         setTitleColor(UIColor.white, for: .normal)
         setTitleColor(UIColor.white.withAlphaComponent(0.7), for: .disabled)
         setBackgroundColor(UIColor.clear, for: .disabled)

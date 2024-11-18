@@ -86,17 +86,17 @@ extension TermsAndConditionsViewController {
     private func termsAttributedString() -> NSMutableAttributedString? {
 
         let titleAttribute: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 20),
+            .font: UIFont.satoshi(size: 20, weight: .medium),
             .foregroundColor: UIColor.primary
         ]
 
         let subtitleAttribute: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 16),
+            .font: UIFont.satoshi(size: 16, weight: .medium),
             .foregroundColor: UIColor.primary
         ]
 
         let detailsAttribute: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 14),
+            .font: UIFont.satoshi(size: 14, weight: .medium),
             .foregroundColor: UIColor.fadedText
         ]
 
@@ -105,7 +105,7 @@ extension TermsAndConditionsViewController {
         paragraphStyle.headIndent = 38.0
 
         let paragraphAttribute: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 14),
+            .font: UIFont.satoshi(size: 14, weight: .medium),
             .foregroundColor: UIColor.fadedText,
             .paragraphStyle: paragraphStyle
         ]

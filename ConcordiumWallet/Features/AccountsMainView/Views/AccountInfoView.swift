@@ -61,7 +61,7 @@ struct AccountInfoView: View {
                     Image("ccd_logo_white_large")
                         .frame(width: 20, height: 20)
                 }
-                HStack(spacing: 4) {
+                HStack(alignment: .bottom, spacing: 4) {
                     Text(viewModel.totalAtDisposalAmount)
                         .foregroundColor(Color.Neutral.tint7)
                         .font(.satoshi(size: 16, weight: .medium))
