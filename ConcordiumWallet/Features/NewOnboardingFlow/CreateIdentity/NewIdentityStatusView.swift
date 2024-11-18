@@ -132,6 +132,7 @@ final class NewIdentityStatusViewModel: ObservableObject {
 struct NewIdentityStatusView: View {
     @StateObject var viewModel: NewIdentityStatusViewModel
     var onIdentityCreated: () -> Void
+    var onIdentityCreationFailed: () -> Void
     
     var body: some View {
         ZStack {
@@ -151,6 +152,24 @@ struct NewIdentityStatusView: View {
                     }, label: {
                         HStack {
                             Text("create_account_btn_title".localized)
+                                .font(Font.satoshi(size: 16, weight: .medium))
+                                .lineSpacing(24)
+                                .foregroundColor(Color.Neutral.tint7)
+                            Spacer()
+                            Image(systemName: "arrow.right").tint(Color.Neutral.tint7)
+                        }
+                        .padding(.horizontal, 24)
+                    })
+                    .frame(height: 56)
+                    .background(Color.EggShell.tint1)
+                    .cornerRadius(28, corners: .allCorners)
+                    .padding(16)
+                } else if viewModel.state == .rejected {
+                    Button(action: {
+                        self.onIdentityCreationFailed()
+                    }, label: {
+                        HStack {
+                            Text("identityStatus.failed".localized + ". " + "identityfailed.tryagain".localized)
                                 .font(Font.satoshi(size: 16, weight: .medium))
                                 .lineSpacing(24)
                                 .foregroundColor(Color.Neutral.tint7)
