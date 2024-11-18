@@ -94,7 +94,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     private func onboardingDone() {
         defaultProvider.storageManager().removeAccountsWithoutAddress()
         
-        let identities = defaultProvider.storageManager().getIdentities()
+        let identities = defaultProvider.storageManager().getIdentities().filter({$0.identityCreationError.isEmpty})
         let accounts = defaultProvider.storageManager().getAccounts()
         
         if !accounts.isEmpty || !identities.isEmpty {
@@ -150,7 +150,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     
 
     private func showLogin() {
-        let identities = defaultProvider.storageManager().getIdentities()
+        let identities = defaultProvider.storageManager().getIdentities().filter({$0.identityCreationError.isEmpty})
         let accounts = defaultProvider.storageManager().getAccounts()
         
         navigationController.popViewController(animated: false)

@@ -48,7 +48,7 @@ struct CreateIdentityRootView: View {
                         self.viewState = .pendingIdentity(newIdentity)
                     }))
                 case .pendingIdentity(let identity):
-                    NewIdentityStatusView(viewModel: .init(identity: identity, identitiesService: identitiesService), onIdentityCreated: onIdentityCreated)
+                NewIdentityStatusView(viewModel: .init(identity: identity, identitiesService: identitiesService), onIdentityCreated: onIdentityCreated, onIdentityCreationFailed: { self.viewState = .selectIdentityProvider })
             }
         }
         .overlay(alignment: .topTrailing) {
@@ -64,16 +64,21 @@ struct CreateIdentityRootView: View {
             .padding(.trailing, 15)
         }
         .onChange(of: viewState, perform: { newState in
-            switch newState {
+            withAnimation {
+                switch newState {
                 case .setupPasscode: break
                 case .createSeedPhrase:
                     if identitiesService.mobileWallet.hasSetupRecoveryPhrase  {
                         self.viewState = .selectIdentityProvider
                     }
                 case .selectIdentityProvider:
-                    guard let pendingIdentity = identitiesService.pendingIdentity else { return }
+                    guard let pendingIdentity = identitiesService.pendingIdentity, pendingIdentity.identityCreationError.isEmpty else { return }
                     self.viewState = .pendingIdentity(pendingIdentity)
-                case .pendingIdentity: break
+                case .pendingIdentity(let identity):
+                    if !identity.identityCreationError.isEmpty {
+                        self.viewState = .selectIdentityProvider
+                    }
+                }
             }
         })
     }
