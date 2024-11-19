@@ -315,10 +315,6 @@ extension SeedIdentitiesCoordinator: AccountsPresenterDelegate {
         accountsCoordinator?.userPerformed(action: action, on: account)
     }
 
-    func newTermsAvailable() {
-        accountsCoordinator?.showNewTerms()
-    }
-    
     func showSettings() {
         let moreCoordinator = MoreCoordinator(navigationController: self.navigationController,
                                               dependencyProvider: ServicesProvider.defaultProvider(),

@@ -53,21 +53,10 @@ class LoginCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
 
-    func showTermsAndConditionsScreen() {
-        let TermsAndConditionsPresenter = TermsAndConditionsIntroPresenter(
-            delegate: self,
-            appSettingsDelegate: parentCoordinator
-        )
-        let vc = TermsAndConditionsFactory.create(with: TermsAndConditionsPresenter)
-        navigationController.pushViewController(vc, animated: true)
-    }
-
     func start() {
         let passwordCreated = dependencyProvider.keychainWrapper().passwordCreated()
         if passwordCreated {
             showLogin()
-        } else {    
-            showTermsAndConditionsScreen()
         }
     }
 }
@@ -109,8 +98,3 @@ extension LoginCoordinator: InitialAccountInfoPresenterDelegate {
     }
 }
 
-extension LoginCoordinator: TermsAndConditionsPresenterDelegate {
-    func userTappedAcceptTerms() {
-        showInitialScreen()
-    }
-}

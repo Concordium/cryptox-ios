@@ -538,10 +538,6 @@ extension AppCoordinator {
     func didSelectPendingIdentity(identity: IdentityDataType) {
     }
 
-    func newTermsAvailable() {
-//        accountsCoordinator?.showNewTerms()
-    }
-    
     func showSettings() {}
 }
 
