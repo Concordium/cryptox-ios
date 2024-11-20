@@ -114,7 +114,6 @@ protocol AccountsPresenterDelegate: AnyObject {
     func tryAgainIdentity()
     func didSelectMakeBackup()
     func didSelectPendingIdentity(identity: IdentityDataType)
-    func newTermsAvailable()
     func showSettings()
     func scanQR()
 }
