@@ -1,10 +1,12 @@
 # Changelog
 
-## [Unreleased 2.0.1]
+## [Released 2.0.1] 2024-26-11
 
 ### Fixed
 - An issue with recovering from file when app is opened
 - An issue with displaying old feed
+- Fixed Concordex connectivity issue.
+- Improved recover from file journey.
 
 ## [Released 2.0.0]
 
