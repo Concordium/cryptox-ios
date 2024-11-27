@@ -103,7 +103,7 @@ struct NewsFeed: View {
         .cornerRadius(10)
         .shadow(radius: 5)
         .frame(width: size.width - 64)
-        .frame(height: size.width * 0.6)
+        .frame(height: size.width * 0.4)
         .clipped()
     }
 }
