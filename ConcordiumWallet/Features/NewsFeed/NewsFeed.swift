@@ -98,14 +98,15 @@ struct NewsFeed: View {
         WebImage(url: item.contentURL ?? item.thumbnailURL) { image in
             image
                 .resizable()
-                .aspectRatio(contentMode: ContentMode.fit)
+                .scaledToFill()
         } placeholder: {
             ProgressView()
         }
         .cornerRadius(10)
         .shadow(radius: 5)
-        .frame(maxWidth: .infinity)
-        .frame(height: size.width * 0.6)
+        .frame(width: size.width - 64)
+        .frame(height: size.width * 0.4)
+        .clipped()
     }
 }
 

@@ -46,7 +46,8 @@ struct CCDOnrampView: View {
                                             isAccountsPickerShown = provider
                                         } else {
                                             UIPasteboard.general.string = accounts.first?.address
-                                            openURL(provider.url)
+                                            let url = provider.title == "Swipelux" ? CCDOnrampViewDataProvider.generateSwipeluxURL(baseURL: provider.url, targetAddress: accounts.first?.address) : provider.url
+                                            openURL(url)
                                         }
                                     }
                             }

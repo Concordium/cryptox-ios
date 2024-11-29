@@ -409,11 +409,7 @@ extension MoreCoordinator: AccountsPresenterDelegate {
     func userPerformed(action: AccountCardAction, on account: AccountDataType) {
         accountsCoordinator?.userPerformed(action: action, on: account)
     }
-    
-    func newTermsAvailable() {
-        accountsCoordinator?.showNewTerms()
-    }
-    
+
     func showSettings() {
         let moreCoordinator = MoreCoordinator(navigationController: self.navigationController,
                                               dependencyProvider: ServicesProvider.defaultProvider(),
