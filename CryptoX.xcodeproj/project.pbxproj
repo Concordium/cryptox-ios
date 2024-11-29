@@ -1871,9 +1871,9 @@
 		1557CCA92C8AF779008ABF67 /* AllowNotificationsPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */; };
 		1557CCAA2C8AF779008ABF67 /* AllowNotificationsPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */; };
 		1557CCAB2C8AF779008ABF67 /* AllowNotificationsPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */; };
-		156878CC2CD0FB900080B2F3 /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 156878CB2CD0FB900080B2F3 /* DotLottie */; };
-		156878CE2CD0FBA00080B2F3 /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 156878CD2CD0FBA00080B2F3 /* DotLottie */; };
-		156878D02CD0FBA90080B2F3 /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 156878CF2CD0FBA90080B2F3 /* DotLottie */; };
+		1558E8992CFA2BB500004E71 /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1558E8982CFA2BB500004E71 /* DotLottie */; };
+		1558E89B2CFA2BBF00004E71 /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1558E89A2CFA2BBF00004E71 /* DotLottie */; };
+		1558E89D2CFA2BC700004E71 /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1558E89C2CFA2BC700004E71 /* DotLottie */; };
 		156878D22CD0FC190080B2F3 /* confettiAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 156878D12CD0FC190080B2F3 /* confettiAnimation.json */; };
 		156878D32CD0FC190080B2F3 /* confettiAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 156878D12CD0FC190080B2F3 /* confettiAnimation.json */; };
 		156878D42CD0FC190080B2F3 /* confettiAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 156878D12CD0FC190080B2F3 /* confettiAnimation.json */; };
@@ -3498,7 +3498,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				509749EF2C491A6800D28D6B /* MatomoTracker in Frameworks */,
-				156878CC2CD0FB900080B2F3 /* DotLottie in Frameworks */,
+				1558E89D2CFA2BC700004E71 /* DotLottie in Frameworks */,
 				08C169102BB7396200E61326 /* SDWebImageSwiftUI in Frameworks */,
 				509A56292CB40A10005EA908 /* Base58Swift in Frameworks */,
 				08C169122BB7396200E61326 /* SwiftCBOR in Frameworks */,
@@ -3531,7 +3531,7 @@
 				089E32852A0BA0DE002AE530 /* ConcordiumWalletCrypto in Frameworks */,
 				1557CCA72C89CAA4008ABF67 /* (null) in Frameworks */,
 				509A56392CB43540005EA908 /* RealmSwift in Frameworks */,
-				156878D02CD0FBA90080B2F3 /* DotLottie in Frameworks */,
+				1558E89B2CFA2BBF00004E71 /* DotLottie in Frameworks */,
 				08A0444729FA906200DACE1F /* Kingfisher in Frameworks */,
 				08A0441C29FA888600DACE1F /* MnemonicSwift in Frameworks */,
 				08A0442529FA893700DACE1F /* Base58Swift in Frameworks */,
@@ -3555,7 +3555,7 @@
 				08A0444329FA905700DACE1F /* Kingfisher in Frameworks */,
 				1557CCA52C89CA9D008ABF67 /* (null) in Frameworks */,
 				509A563C2CB43549005EA908 /* RealmSwift in Frameworks */,
-				156878CE2CD0FBA00080B2F3 /* DotLottie in Frameworks */,
+				1558E8992CFA2BB500004E71 /* DotLottie in Frameworks */,
 				08A0440B29FA884100DACE1F /* SwiftCBOR in Frameworks */,
 				08A0441829FA887700DACE1F /* MnemonicSwift in Frameworks */,
 				C99CFF6E243EFD7E0045B8E6 /* WebKit.framework in Frameworks */,
@@ -6236,7 +6236,7 @@
 				509A56282CB40A10005EA908 /* Base58Swift */,
 				509A56302CB40BF7005EA908 /* RealmSwift */,
 				505E11EB2CC1248B0003F6DC /* Web3Wallet */,
-				156878CB2CD0FB900080B2F3 /* DotLottie */,
+				1558E89C2CFA2BC700004E71 /* DotLottie */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 08C169C22BB7396200E61326 /* ProdTestNet.app */;
@@ -6275,7 +6275,7 @@
 				509A56382CB43540005EA908 /* RealmSwift */,
 				509A563E2CB43561005EA908 /* FirebaseMessaging */,
 				505E11ED2CC1390E0003F6DC /* Web3Wallet */,
-				156878CF2CD0FBA90080B2F3 /* DotLottie */,
+				1558E89A2CFA2BBF00004E71 /* DotLottie */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
@@ -6315,7 +6315,7 @@
 				509A563B2CB43549005EA908 /* RealmSwift */,
 				509A56402CB43568005EA908 /* FirebaseMessaging */,
 				505E11EF2CC139150003F6DC /* Web3Wallet */,
-				156878CD2CD0FBA00080B2F3 /* DotLottie */,
+				1558E8982CFA2BB500004E71 /* DotLottie */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
@@ -6383,7 +6383,7 @@
 				509749E92C491A0D00D28D6B /* XCRemoteSwiftPackageReference "matomo-sdk-ios" */,
 				1557CC962C89B8DE008ABF67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				505E11EA2CC123EA0003F6DC /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */,
-				156878CA2CD0FB900080B2F3 /* XCRemoteSwiftPackageReference "dotlottie-ios" */,
+				1558E8972CFA2BA700004E71 /* XCRemoteSwiftPackageReference "dotlottie-ios" */,
 			);
 			productRefGroup = 7FF07A6A23EADB1200F1FC04 /* Products */;
 			projectDirPath = "";
@@ -9620,7 +9620,7 @@
 				minimumVersion = 11.1.0;
 			};
 		};
-		156878CA2CD0FB900080B2F3 /* XCRemoteSwiftPackageReference "dotlottie-ios" */ = {
+		1558E8972CFA2BA700004E71 /* XCRemoteSwiftPackageReference "dotlottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/LottieFiles/dotlottie-ios";
 			requirement = {
@@ -9785,19 +9785,19 @@
 			package = 1557CC962C89B8DE008ABF67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
 		};
-		156878CB2CD0FB900080B2F3 /* DotLottie */ = {
+		1558E8982CFA2BB500004E71 /* DotLottie */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 156878CA2CD0FB900080B2F3 /* XCRemoteSwiftPackageReference "dotlottie-ios" */;
+			package = 1558E8972CFA2BA700004E71 /* XCRemoteSwiftPackageReference "dotlottie-ios" */;
 			productName = DotLottie;
 		};
-		156878CD2CD0FBA00080B2F3 /* DotLottie */ = {
+		1558E89A2CFA2BBF00004E71 /* DotLottie */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 156878CA2CD0FB900080B2F3 /* XCRemoteSwiftPackageReference "dotlottie-ios" */;
+			package = 1558E8972CFA2BA700004E71 /* XCRemoteSwiftPackageReference "dotlottie-ios" */;
 			productName = DotLottie;
 		};
-		156878CF2CD0FBA90080B2F3 /* DotLottie */ = {
+		1558E89C2CFA2BC700004E71 /* DotLottie */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 156878CA2CD0FB900080B2F3 /* XCRemoteSwiftPackageReference "dotlottie-ios" */;
+			package = 1558E8972CFA2BA700004E71 /* XCRemoteSwiftPackageReference "dotlottie-ios" */;
 			productName = DotLottie;
 		};
 		5059C9B42C00CF1200E40307 /* SDWebImageSwiftUI */ = {
