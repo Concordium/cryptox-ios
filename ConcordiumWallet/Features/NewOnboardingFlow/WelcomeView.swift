@@ -11,11 +11,11 @@ import MatomoTracker
 
 struct WelcomeView: View {
     @State var isChecked: Bool = false
-    @State var isCheckedTracking: Bool = true
     @SwiftUI.Environment(\.openURL) var openURL
     @AppStorage("isShouldShowAllowNotificationsView") private var isShouldShowAllowNotificationsView = true
     @Binding var isCreateAccountSheetShown: Bool
     @AppStorage("isAcceptedPrivacy") private var isAcceptedPrivacy = false
+    @AppStorage("isAnalyticsEnabled") private var isAcceptedTracking = true
     
     var body: some View {
         ZStack {
@@ -106,12 +106,11 @@ struct WelcomeView: View {
                     
                     
                     HStack(spacing: 16) {
-                        Image(isCheckedTracking ? "checkbox_checked" : "checkbox_unchecked")
+                        Image(isAcceptedTracking ? "checkbox_checked" : "checkbox_unchecked")
                             .contentShape(.rect)
                             .onTapGesture {
-                                isCheckedTracking.toggle()
-                                UserDefaults.standard.set(isCheckedTracking, forKey: "isAnalyticsEnabled")
-                                MatomoTracker.shared.isOptedOut = !isCheckedTracking
+                                isAcceptedTracking.toggle()
+                                MatomoTracker.shared.isOptedOut = !isAcceptedTracking
                                 Tracker.trackContentInteraction(name: "Welcome screen", interaction: .checked, piece: "Allow tracking check box")
                             }
                         Text("analytics.trackingConsent".localized)
@@ -150,8 +149,8 @@ struct WelcomeView: View {
             }
         }
         .onAppear {
-            UserDefaults.standard.set(isCheckedTracking, forKey: "isAnalyticsEnabled")
-            MatomoTracker.shared.isOptedOut = !isCheckedTracking
+            isAcceptedTracking = true
+            MatomoTracker.shared.isOptedOut = !isAcceptedTracking
         }
         .overlay(alignment: .center) {
             if !UIApplication.shared.isRegisteredForRemoteNotifications && isShouldShowAllowNotificationsView {
