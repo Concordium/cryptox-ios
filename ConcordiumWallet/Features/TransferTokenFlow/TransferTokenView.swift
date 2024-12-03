@@ -141,11 +141,6 @@ struct TransferTokenView: View {
                     HStack {
                         HStack {
                             Spacer()
-                            Image("ico_search")
-                                .resizable()
-                                .renderingMode(.template)
-                                .tint(Color.white)
-                                .frame(width: 14, height: 14)
                             Text("sendFund.addressBook".localized)
                                 .foregroundColor(Color.white)
                                 .font(.system(size: 14, weight: .medium))
@@ -164,11 +159,6 @@ struct TransferTokenView: View {
                         
                         HStack {
                             Spacer()
-                            Image("ico_scan")
-                                .resizable()
-                                .renderingMode(.template)
-                                .tint(Color.white)
-                                .frame(width: 14, height: 14)
                             Text("scanQr.title".localized)
                                 .foregroundColor(Color.white)
                                 .font(.system(size: 14, weight: .medium))

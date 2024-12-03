@@ -54,8 +54,6 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     ///
     @AppStorage("shoudlLogoutAllUsers") private var shoudlLogoutAllUsers = true
     
-    @State var isPresentedAnalyticsPopup: Bool = false
-
     override init() {
         navigationController = CXNavigationController()
         sanityChecker = SanityChecker(mobileWallet: defaultProvider.mobileWallet(), storageManager: defaultProvider.storageManager())
@@ -97,7 +95,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         let identities = defaultProvider.storageManager().getIdentities().filter({$0.identityCreationError.isEmpty})
         let accounts = defaultProvider.storageManager().getAccounts()
         
-        if !accounts.isEmpty || !identities.isEmpty {
+        if !accounts.isEmpty || !identities.isEmpty || defaultProvider.keychainWrapper().passwordCreated() {
             showMainTabbar()
         } else {
             showInitialIdentityCreation()
@@ -117,7 +115,6 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         navigationController.setViewControllers([UIHostingController(
             rootView:
                 OnboardingRootView(
-                    keychain: .init(),
                     identitiesService: defaultProvider.seedIdentitiesService(),
                     defaultProvider: defaultProvider,
                     onIdentityCreated: { [weak self] in
@@ -155,7 +152,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         
         navigationController.popViewController(animated: false)
         
-        if !accounts.isEmpty || !identities.isEmpty {
+        if !accounts.isEmpty || !identities.isEmpty || defaultProvider.keychainWrapper().passwordCreated() {
             navigationController.setViewControllers([UIHostingController(
                 rootView:
                     PasscodeView(keychain: defaultProvider.keychainWrapper(), sanityChecker: sanityChecker) { _ in
@@ -185,30 +182,6 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         clearAppDataFromPreviousInstall()
         try? defaultProvider.storageManager().removeAllAccounts()
         shoudlLogoutAllUsers = false
-    }
-
-    private func showAnalyticsPopup() {
-        guard !UserDefaults.bool(forKey: "isAnalyticsPopupShown") else { return }
-        
-        let popoverAnalyticsVC = UIHostingController<AnyView>(rootView: AnyView(EmptyView()))
-        
-        let buttonsView = AnalyticsButtonsView(isPresented: $isPresentedAnalyticsPopup, container: popoverAnalyticsVC)
-
-        popoverAnalyticsVC.rootView = AnyView(
-            PopupContainer(icon: "analytics_icon",
-                           title: "analytics.popupTrackTitle".localized,
-                           subtitle: "analytics.trackMessage".localized,
-                           content: buttonsView,
-                           dismissAction: {
-                               UserDefaults.standard.set(false, forKey: "isAnalyticsEnabled")
-                               MatomoTracker.shared.isOptedOut = true
-                               popoverAnalyticsVC.dismiss(animated: true)
-                           })
-        )
-        popoverAnalyticsVC.modalPresentationStyle = .overCurrentContext
-        popoverAnalyticsVC.view.backgroundColor = .clear
-        navigationController.present(popoverAnalyticsVC, animated: true)
-        UserDefaults.standard.set(true, forKey: "isAnalyticsPopupShown")
     }
     
     func showMainTabbar() {
@@ -241,8 +214,6 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         self.handleOpenURLActionIfNeeded()
         
         self.defaultCIS2TokenManager.initializeDefaultValues()
-        
-        showAnalyticsPopup()
     }
 
     func importWallet(from url: URL) {
@@ -419,7 +390,7 @@ extension AppCoordinator: LoginCoordinatorDelegate {
         let identities = defaultProvider.storageManager().getIdentities()
         let accounts = defaultProvider.storageManager().getAccounts()
         
-        if !accounts.isEmpty || !identities.isEmpty {
+        if !accounts.isEmpty || !identities.isEmpty || defaultProvider.keychainWrapper().passwordCreated() {
             showMainTabbar()
         } else {
             showInitialIdentityCreation()
@@ -499,6 +470,10 @@ extension AppCoordinator: RecoveryPhraseCoordinatorDelegate {
 
 extension AppCoordinator: SeedIdentitiesCoordinatorDelegate {
     func seedIdentityCoordinatorWasFinished(for identity: IdentityDataType) {
+        showMainTabbar()
+    }
+    
+    func seedIdentityCoordinatorDidFail(with error: IdentityRejectionError) {
         showMainTabbar()
     }
 }

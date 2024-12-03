@@ -34,6 +34,11 @@ class IdentityCardView: UIView, NibLoadable {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        iconImageView?.contentMode = .scaleAspectFit
+        iconImageView?.layer.cornerRadius = 20
+        iconImageView?.layer.masksToBounds = true
+        iconImageView?.layer.borderColor = UIColor.blackMain.cgColor
+        iconImageView?.layer.borderWidth = 1
         addEditListener()
     }
     

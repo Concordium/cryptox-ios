@@ -139,8 +139,8 @@ struct GTU: Codable {
         if !removed {
             fractionVal = String(fractionVal[..<fractionVal.index(fractionVal.endIndex, offsetBy: -length + minimumFractionDigits)])
         }
-        let decimalSeparator = Locale.autoupdatingCurrent.decimalSeparator ?? "."
-        let thousandSeparator = Locale.autoupdatingCurrent.groupingSeparator ?? ","
+        let decimalSeparator = "."
+        let thousandSeparator = ","
         return groups(string: wholeValueString, size: 3).joined(separator: thousandSeparator) + decimalSeparator + fractionVal
     }
     

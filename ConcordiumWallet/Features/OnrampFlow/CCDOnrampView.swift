@@ -76,6 +76,9 @@ struct CCDOnrampView: View {
                 accountModels: dependencyProvider.storageManager().getAccounts().map { AccountPreviewViewModel.init(account: $0, tokens: dependencyProvider.storageManager().getAccountSavedCIS2Tokens($0.address)) },
                 provider: provider)
         })
+        .onAppear {
+            Tracker.track(view: ["CCD Onramp"])
+        }
     }
     
     private func ListHeader() -> some View {
