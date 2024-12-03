@@ -196,32 +196,43 @@ class MobileWallet: MobileWalletProtocol {
                         requestPasswordDelegate: RequestPasswordDelegate,
                         global: GlobalWrapper?,
                         inputEncryptedAmount: InputEncryptedAmount? = nil,
-                        receiverPublicKey: String? = nil)
-                    -> AnyPublisher<CreateTransferRequest, Error> {
-        requestPasswordDelegate.requestUserPassword(keychain: keychain).tryMap { (pwHash: String) in
-            try self.createTransfer(fromAccount: fromAccount,
-                                    toAccount: toAccount,
-                                    expiry: expiry,
-                                    amount: amount,
-                                    nonce: nonce,
-                                    memo: memo,
-                                    capital: capital,
-                                    restakeEarnings: restakeEarnings,
-                                    delegationTarget: delegationTarget,
-                                    openStatus: openStatus,
-                                    metadataURL: metadataURL,
-                                    transactionFeeCommission: transactionFeeCommission,
-                                    bakingRewardCommission: bakingRewardCommission,
-                                    finalizationRewardCommission: finalizationRewardCommission,
-                                    bakerKeys: bakerKeys,
-                                    energy: energy,
-                                    transferType: transferType,
-                                    pwHash: pwHash,
-                                    global: global,
-                                    inputEncryptedAmount: inputEncryptedAmount,
-                                    receiverPublicKey: receiverPublicKey)
+                        receiverPublicKey: String? = nil
+    ) -> AnyPublisher<CreateTransferRequest, Error> {
+        Future { promise in
+            Task {
+                do {
+                    let pwHash = try await requestPasswordDelegate.requestUserPassword(keychain: self.keychain)
+                    let result = try await self.createTransfer(
+                        fromAccount: fromAccount,
+                        toAccount: toAccount,
+                        expiry: expiry,
+                        amount: amount,
+                        nonce: nonce,
+                        memo: memo,
+                        capital: capital,
+                        restakeEarnings: restakeEarnings,
+                        delegationTarget: delegationTarget,
+                        openStatus: openStatus,
+                        metadataURL: metadataURL,
+                        transactionFeeCommission: transactionFeeCommission,
+                        bakingRewardCommission: bakingRewardCommission,
+                        finalizationRewardCommission: finalizationRewardCommission,
+                        bakerKeys: bakerKeys,
+                        energy: energy,
+                        transferType: transferType,
+                        pwHash: pwHash,
+                        global: global,
+                        inputEncryptedAmount: inputEncryptedAmount,
+                        receiverPublicKey: receiverPublicKey
+                    )
+                    promise(.success(result))
+                } catch {
+                    promise(.failure(error))
+                }
+            }
         }.eraseToAnyPublisher()
     }
+
 
     private func createTransfer(fromAccount: AccountDataType,
                                 toAccount: String?,
@@ -245,7 +256,7 @@ class MobileWallet: MobileWalletProtocol {
                                 inputEncryptedAmount: InputEncryptedAmount? = nil,
                                 receiverPublicKey: String? = nil
                                 
-    ) throws -> CreateTransferRequest {
+    ) async throws -> CreateTransferRequest {
         let privateAccountKeys = try getPrivateAccountKeys(for: fromAccount, pwHash: pwHash).get()
         
         var secretEncryptionKey: String?
@@ -281,13 +292,13 @@ class MobileWallet: MobileWalletProtocol {
         
         switch transferType {
         case .simpleTransfer:
-            return try CreateTransferRequest(walletFacade.createTransfer(input: input))
+            return try await CreateTransferRequest(walletFacade.createTransfer(input: makeCreateTransferRequest, pwHash: pwHash, fromAccount: fromAccount))
         case .transferToPublic:
              return try CreateTransferRequest(walletFacade.createUnshielding(input: input))
         case .registerDelegation, .removeDelegation, .updateDelegation:
-            return try CreateTransferRequest(walletFacade.createConfigureDelegation(input: input))
+            return try await CreateTransferRequest(walletFacade.createTransaction(input: makeCreateTransferRequest, pwHash: pwHash, fromAccount: fromAccount, transactionType: .configureDelegation))
         case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
-            return try CreateTransferRequest(walletFacade.createConfigureBaker(input: input))
+            return try await CreateTransferRequest(walletFacade.createTransaction(input: makeCreateTransferRequest, pwHash: pwHash, fromAccount: fromAccount, transactionType: .configureBaker))
         case .transferUpdate:
             return try CreateTransferRequest(walletFacade.createUpdateTransfer(input: input))
         }
