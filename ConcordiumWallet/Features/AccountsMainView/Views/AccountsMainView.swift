@@ -152,7 +152,7 @@ extension AccountsMainView {
                 Text("accounts.totalBalanceTitleLabel".localized)
                     .foregroundColor(Color.MineralBlue.tint1)
                     .font(.satoshi(size: 14, weight: .regular))
-                Text(viewModel.totalBalance.displayValue())
+                Text(viewModel.totalBalance.displayValue() + " ")
                     .foregroundColor(Color.MineralBlue.tint1)
                     .font(.satoshi(size: 28, weight: .medium))
                     .overlay(alignment: .bottomTrailing) {
@@ -201,15 +201,7 @@ extension AccountsMainView {
             Divider()
             NewsPageView(selectedTab: $selectedPage, views: {
                 [
-                    AnyView(OnRampAnchorView()
-                        .onTapGesture {
-                            if !SettingsHelper.isIdentityConfigured() {
-                                self.router?.showNotConfiguredAccountPopup()
-                            } else {
-                                onRampFlowShown.toggle()
-                                Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "OnRamp Banner")
-                            }
-                        })
+                    AnyView(OnRampAnchorView())
                 ]
             })
             .frame(maxWidth: .infinity)
@@ -245,6 +237,7 @@ extension AccountsMainView {
                         onSendTap: { router?.showSendFundsFlow(vm.account) },
                         onShowPlusTap: { onRampFlowShown.toggle() }
                     )
+                    .fixedSize(horizontal: false, vertical: true)
                     .onTapGesture {
                         router?.showAccountDetail(vm.account)
                         Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Show account detail")
@@ -360,21 +353,34 @@ extension AccountsMainView {
     // MARK: - OnRamp Anchor View
     private func OnRampAnchorView() -> some View {
         VStack(alignment: .leading) {
-            HStack(spacing: 16) {
+            HStack(alignment: .top, spacing: 16) {
                 Image("onramp_flow_icon")
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 5) {
                     Text("Where is CCD available?")
-                        .font(.satoshi(size: 16, weight: .medium))
+                        .font(.satoshi(size: 16, weight: .bold))
                         .foregroundColor(Color(red: 0.06, green: 0.08, blue: 0.08))
                         .frame(alignment: .leading)
-                    Group {
-                        Text("CCD is listed in the following exchanges and services. ")
-                        + Text("See more")
-                            .underline()
-                    }
-                    .font(.satoshi(size: 14, weight: .regular))
-                    .foregroundColor(Color(red: 0.3, green: 0.31, blue: 0.28))
-                    .frame(alignment: .leading)
+                    Text("CCD is listed in the following exchanges and services. ")
+                        .font(.satoshi(size: 14, weight: .regular))
+                        .foregroundColor(Color(red: 0.3, green: 0.31, blue: 0.28))
+                        .frame(alignment: .leading)
+                    Button(action: {
+                        if !SettingsHelper.isIdentityConfigured() {
+                            self.router?.showNotConfiguredAccountPopup()
+                        } else {
+                            onRampFlowShown.toggle()
+                            Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "OnRamp Banner")
+                        }
+                    }, label: {
+                        HStack {
+                            Text("See more")
+                                .font(Font.satoshi(size: 14, weight: .bold))
+                                .lineSpacing(24)
+                                .foregroundColor(Color.Neutral.tint7)
+                            Spacer()
+                            Image(systemName: "arrow.right").tint(Color.Neutral.tint7)
+                        }
+                    })
                 }
             }
         }

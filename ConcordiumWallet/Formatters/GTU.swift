@@ -10,7 +10,7 @@ struct Asset {
 }
 
 struct GTU: Codable {
-    static let conversionFactor: Int = 1000000
+    static let conversionFactor: Int = 100
     static let maximumFractionDigits: Int = 6
     
     /// Useful for comparing against 0
@@ -118,7 +118,7 @@ struct GTU: Codable {
         let wholeValueString = String(absValue / conversionFactor)
         var fractionVal = String(absValue % conversionFactor)
         
-        // make it 6 digits
+        // make it 2 digits
         let appendedZeros = String(conversionFactor).count - 1 - fractionVal.count
         if appendedZeros > 0 {
             for _ in 0..<appendedZeros {
