@@ -218,7 +218,7 @@ struct CCDTokenView: View {
                     }
                     VStack(alignment: .leading, spacing: 4) {
                         Text(TokenFormatter()
-                            .string(from: BigDecimal(BigInt(stringLiteral: amount), token.metadata.decimals ?? 0)))
+                            .string(from: BigDecimal(BigInt(stringLiteral: amount), token.metadata.decimals ?? 0), decimalSeparator: ".", thousandSeparator: ","))
                             .foregroundColor(.white)
                         .font(.system(size: 15, weight: .medium))
                         Text(token.metadata.name ?? "")
