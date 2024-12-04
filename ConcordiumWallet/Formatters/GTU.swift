@@ -10,7 +10,7 @@ struct Asset {
 }
 
 struct GTU: Codable {
-    static let conversionFactor: Int = 100
+    static let conversionFactor: Int = 1000000
     static let maximumFractionDigits: Int = 6
     
     /// Useful for comparing against 0
@@ -66,7 +66,8 @@ struct GTU: Codable {
 
         var str = GTU.intValueToUnsignedIntString(intValue,
                                                   minimumFractionDigits: minimumFractionDigits,
-                                                  maxFractionDigits: GTU.maximumFractionDigits)
+                                                  maxFractionDigits: GTU.maximumFractionDigits,
+                                                  conversionFactor: GTU.conversionFactor)
         
         // Unicode for "Latin Capital Letter G with Stroke" = U+01E4
         if intValue < 0 {
@@ -82,7 +83,8 @@ struct GTU: Codable {
 
         var str = GTU.intValueToUnsignedIntString(intValue,
                                                   minimumFractionDigits: minimumFractionDigits,
-                                                  maxFractionDigits: GTU.maximumFractionDigits)
+                                                  maxFractionDigits: GTU.maximumFractionDigits,
+                                                  conversionFactor: GTU.conversionFactor)
         
         // Unicode for "Latin Capital Letter G with Stroke" = U+01E4
         if intValue < 0 {
@@ -93,11 +95,12 @@ struct GTU: Codable {
         return str
     }
 
-    func displayValue() -> String {
+    func displayValue(conversionFactor: Int = conversionFactor) -> String {
         let minimumFractionDigits = 2
         var stringValue = GTU.intValueToUnsignedIntString(intValue,
                                                           minimumFractionDigits: minimumFractionDigits,
-                                                          maxFractionDigits: GTU.maximumFractionDigits)
+                                                          maxFractionDigits: GTU.maximumFractionDigits,
+                                                          conversionFactor: conversionFactor)
         if intValue < 0 {
             stringValue = "-\(stringValue)"
         }
@@ -113,12 +116,12 @@ struct GTU: Codable {
         return (wholeValue * conversionFactor + fractionalValue) * (isNegative ? -1 : 1)
     }
 
-    private static func intValueToUnsignedIntString(_ value: Int, minimumFractionDigits: Int, maxFractionDigits: Int) -> String {
+    private static func intValueToUnsignedIntString(_ value: Int, minimumFractionDigits: Int, maxFractionDigits: Int, conversionFactor: Int) -> String {
         let absValue = abs(value)
         let wholeValueString = String(absValue / conversionFactor)
         var fractionVal = String(absValue % conversionFactor)
         
-        // make it 2 digits
+        // make it 6 digits
         let appendedZeros = String(conversionFactor).count - 1 - fractionVal.count
         if appendedZeros > 0 {
             for _ in 0..<appendedZeros {
