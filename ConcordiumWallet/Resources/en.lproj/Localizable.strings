@@ -1202,7 +1202,7 @@ Remember to restart your node with the validator keys.";
 "create_wallet_step_1_title" = "Create 6-digit passcode";
 "create_wallet_step_2_title" = "Save seed phrase";
 "create_wallet_step_3_title" = "Verify identity";
-"create_wallet_sheet_import_wallet" = "You can import your wallet with a secret seed phrase or a backup file";
+"create_wallet_sheet_import_wallet" = "You can import your wallet with a secret seed phrase, wallet private key or a backup file";
 "import_wallet" = "Import a wallet";
 "enable_face_id_title" = "Enable Face ID for next time?";
 "enable_face_id_subtitle" = "After you log out now, you’ll be able to sign in faster when you come back";
