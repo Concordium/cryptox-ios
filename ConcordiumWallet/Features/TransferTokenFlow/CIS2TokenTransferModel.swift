@@ -140,13 +140,8 @@ final class CIS2TokenTransferModel {
                     self.tokenGeneralBalance = .zero
                     return
                 }
-                if token.metadata.unique == true {
                     self.maxAmountTokenSend = .init(BigInt(stringLiteral: balance.balance), token.metadata.decimals ?? 0)
                     self.tokenGeneralBalance = .init(BigInt(stringLiteral: balance.balance), token.metadata.decimals ?? 0)
-                } else {
-                    self.maxAmountTokenSend = .init(BigInt(stringLiteral: balance.balance), token.metadata.decimals ?? 0)
-                    self.tokenGeneralBalance = .init(BigInt(stringLiteral: balance.balance), token.metadata.decimals ?? 0)
-                }
         }
     }
     
