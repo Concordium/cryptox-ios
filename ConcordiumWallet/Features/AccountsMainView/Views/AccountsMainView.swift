@@ -150,7 +150,7 @@ extension AccountsMainView {
         VStack(alignment: .leading, spacing: 16) {
             VStack(alignment: .leading, spacing: 4) {
                 Text("accounts.totalBalanceTitleLabel".localized)
-                    .foregroundColor(Color.MineralBlue.tint1)
+                    .foregroundColor(Color.Neutral.tint2)
                     .font(.satoshi(size: 14, weight: .regular))
                 Text(viewModel.totalBalance.displayValue())
                     .foregroundColor(Color.MineralBlue.tint1)
