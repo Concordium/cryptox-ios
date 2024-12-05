@@ -73,6 +73,9 @@ struct NewsFeed: View {
             
             Text(item.description)
                 .font(.satoshi(size: 14, weight: .regular))
+                .lineLimit(3)
+                .truncationMode(.tail)
+                .lineSpacing(8)
                 .foregroundColor(.white.opacity(0.8))
                 .multilineTextAlignment(.leading)
                 .opacity(item.description.isEmpty ? 0 : 1.0)
