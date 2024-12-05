@@ -38,7 +38,7 @@ struct AccountInfoView: View {
                     HStack {
                         Text("accounts.overview.readonly".localized)
                             .foregroundColor(.blackAditional)
-                            .font(.system(size: 13, weight: .light))
+                            .font(.satoshi(size: 13, weight: .light))
                         Image("icon_read_only")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -64,10 +64,10 @@ struct AccountInfoView: View {
                 HStack(alignment: .bottom, spacing: 4) {
                     Text(viewModel.totalAtDisposalAmount)
                         .foregroundColor(Color.Neutral.tint7)
-                        .font(.satoshi(size: 16, weight: .medium))
+                        .font(.satoshi(size: 12, weight: .medium))
                     Text("accounts.atdisposal".localized)
                         .foregroundColor(Color.MineralBlue.tint2)
-                        .font(.plexSans(size: 14, weight: .regular))
+                        .font(.plexSans(size: 12, weight: .regular))
                 }
             }
         }

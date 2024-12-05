@@ -79,7 +79,7 @@ class AccountDetailsViewModel {
             self.hasStaked = false
             stakedLabel = nil
         }
-        atDisposal = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
+        atDisposal = GTU(intValue: account.forecastAtDisposalBalance).displayValue()
         totalCooldown = GTU(intValue: account.cooldowns.compactMap { Int($0.amount) }.reduce(0, +)).displayValueWithGStroke()
         cooldownLabel = "Cooldown"
     }

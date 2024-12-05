@@ -13,16 +13,16 @@ struct RecoveryPhraseRecoverIntroView: Page {
     
     var pageBody: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text(viewModel.title).font(.system(size: 19, weight: .medium))
+            Text(viewModel.title).font(.satoshi(size: 19, weight: .medium))
                 .foregroundColor(.white)
                 .frame(alignment: .leading)
             
             VStack(alignment: .leading, spacing: 16) {
                 Text("recover_wallet_seed_phrase_title".localized)
-                    .font(Font.system(size: 19, weight: .medium))
+                    .font(Font.satoshi(size: 19, weight: .medium))
                     .foregroundColor(.white)
                 Text("recover_wallet_seed_phrase_body".localized)
-                    .font(Font.system(size: 15, weight: .medium))
+                    .font(Font.satoshi(size: 15, weight: .medium))
                     .foregroundColor(Color(red: 0.83, green: 0.84, blue: 0.86))
                 Button(viewModel.continueLabel) {
                     viewModel.send(.finish)
@@ -35,11 +35,11 @@ struct RecoveryPhraseRecoverIntroView: Page {
             HStack {
                 VStack(alignment: .leading, spacing: 16) {
                     Text("recover_wallet_export_title".localized)
-                        .font(Font.system(size: 19, weight: .medium))
+                        .font(Font.satoshi(size: 19, weight: .medium))
                         .foregroundColor(.white)
                         .frame(alignment: .leading)
                     Text("recover_wallet_export_body".localized)
-                        .font(Font.system(size: 15, weight: .medium))
+                        .font(Font.satoshi(size: 15, weight: .medium))
                         .foregroundColor(Color(red: 0.83, green: 0.84, blue: 0.86))
                         .frame(alignment: .leading)
                 }

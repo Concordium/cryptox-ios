@@ -143,7 +143,7 @@ struct AccountDetailView: View {
                     SegmentedPicker(items: AccountDetailViewModel.State.allCases, selection: $viewModel.state) { item in
                         Text(item.locTitle)
                             .foregroundColor(.white)
-                            .font(.system(size: 16, weight: .semibold))
+                            .font(.satoshi(size: 16, weight: .semibold))
                     }
                     
                     switch viewModel.state {
@@ -172,7 +172,7 @@ struct AccountDetailView: View {
                                 Text("add.token".localized)
                                     .frame(maxWidth: .infinity)
                                     .foregroundColor(.black)
-                                    .font(.system(size: 17, weight: .semibold))
+                                    .font(.satoshi(size: 17, weight: .semibold))
                                     .padding(.vertical, 11)
                                     .background(.white)
                                     .clipShape(Capsule())
@@ -210,7 +210,7 @@ struct CCDTokenView: View {
                         .frame(width: 40, height: 40)
                     Text(amount + " CCD")
                         .foregroundColor(.white)
-                        .font(.system(size: 15, weight: .medium))
+                        .font(.satoshi(size: 15, weight: .medium))
                 case .token(let token, let amount):
                     if let url = token.metadata.thumbnail?.url {
                         CryptoImage(url: url.toURL, size: .medium)
@@ -220,11 +220,11 @@ struct CCDTokenView: View {
                         Text(TokenFormatter()
                             .string(from: BigDecimal(BigInt(stringLiteral: amount), token.metadata.decimals ?? 0), decimalSeparator: ".", thousandSeparator: ","))
                             .foregroundColor(.white)
-                        .font(.system(size: 15, weight: .medium))
+                        .font(.satoshi(size: 15, weight: .medium))
                         Text(token.metadata.name ?? "")
                             .foregroundColor(.white.opacity(0.8))
                             .lineLimit(1)
-                        .font(.system(size: 13, weight: .medium))
+                        .font(.satoshi(size: 13, weight: .medium))
                     }
             }
             Spacer()

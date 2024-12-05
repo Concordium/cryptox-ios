@@ -99,6 +99,9 @@ struct MainPromoView: View {
                     .font(Font.plexMono(size: 14, weight: .medium))
                     .foregroundColor(Color(red: 0.17, green: 0.38, blue: 0.41))
                 Image("Burst-pucker-2")
+                    .brightness(0.5)
+                    .contrast(2)
+                    .saturation(2)
             }
             
             content
@@ -110,8 +113,8 @@ struct MainPromoView: View {
                     Gradient.Stop(color: Color(red: 0.92, green: 0.98, blue: 0.91), location: 0.00),
                     Gradient.Stop(color: Color(red: 0.77, green: 0.84, blue: 0.89), location: 1.00),
                 ],
-                startPoint: UnitPoint(x: 0.5, y: 0),
-                endPoint: UnitPoint(x: 0.75, y: 0.72)
+                startPoint: UnitPoint(x: 0.5, y: -0.1),
+                endPoint: UnitPoint(x: 0.5, y: 1)
             )
         )
         .cornerRadius(20)
@@ -126,13 +129,6 @@ struct MainPromoView: View {
     @ViewBuilder
     func accountViewSheet() -> some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("create_wallet_steps_title".localized)
-                .font(Font.satoshi(size: 14, weight: .medium))
-                .foregroundColor(Color.Neutral.tint5)
-                .multilineTextAlignment(.leading)
-                .lineLimit(nil)
-                .fixedSize(horizontal: false, vertical: true)
-            
             VStack(alignment: .leading, spacing: 4) {
                 HStack(spacing: 6) {
                     Text("1")

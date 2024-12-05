@@ -17,7 +17,7 @@ struct RecoveryPhraseConfirmPhraseView: Page {
         VStack(spacing: 20) {
             PageIndicator(numberOfPages: 4, currentPage: 2)
             Text(viewModel.title)
-                .font(Font.system(size: 19, weight: .medium))
+                .font(Font.satoshi(size: 19, weight: .medium))
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
                 .modifier(GrayRoundedBackgroundModifier())

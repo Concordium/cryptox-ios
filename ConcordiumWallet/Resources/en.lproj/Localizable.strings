@@ -1198,7 +1198,6 @@ Remember to restart your node with the validator keys.";
 "watch_video" = "Watch video";
 "setup_wallet_title" = "Set up your wallet";
 "create_wallet_sheet" = "Create a new wallet";
-"create_wallet_steps_title" = "You have to complete 3 easy steps to create your wallet:";
 "create_wallet_step_1_title" = "Create 6-digit passcode";
 "create_wallet_step_2_title" = "Save seed phrase";
 "create_wallet_step_3_title" = "Verify identity";
@@ -1262,7 +1261,7 @@ Remember to restart your node with the validator keys.";
 "add.token" = "Add token";
 
 "passcode.view.create.passcode.title" = "Create Passcode";
-"passcode.view.repeate.passcode.title" = "Confirm Passcode";
+"passcode.view.repeate.passcode.title" = "Repeat Passcode";
 "passcode.view.enter.passcode.title" = "Enter Passcode";
 "passcode.view.biometry.passcode.title" = "Enable Biometrics";
 

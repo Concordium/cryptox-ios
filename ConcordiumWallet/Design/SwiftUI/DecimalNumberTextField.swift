@@ -41,14 +41,14 @@ struct DecimalNumberTextField: View {
             if textFieldText.isEmpty {
                 HStack {
                     Text("0.0")
-                        .font(.system(size: 25, weight: .medium))
+                        .font(.satoshi(size: 25, weight: .medium))
                         .foregroundColor(.blackSecondary)
                     Spacer()
                 }
             }
             TextField(placeholder, text: binding(for: $decimalValue))
                 .keyboardType(.decimalPad)
-                .font(.system(size: 25, weight: .medium))
+                .font(.satoshi(size: 25, weight: .medium))
                 .foregroundColor(.blackSecondary)
                 .tint(.blackSecondary)
                 .onChange(of: decimalValue) { newDecimalValue in

@@ -48,10 +48,10 @@ struct AccountQRView: View {
                 
                 VStack(alignment: .leading) {
                     Text(account.displayName)
-                        .font(.system(size: 19).weight(.medium))
+                        .font(.satoshi(size: 19,weight: .medium))
                         .foregroundColor(.white)
                     Text(account.address)
-                        .font(.system(size: 15).weight(.medium))
+                        .font(.satoshi(size: 15, weight: .medium))
                         .foregroundColor(Color(red: 0.66, green: 0.68, blue: 0.73))
                 }
                 .padding(20)
@@ -69,7 +69,7 @@ struct AccountQRView: View {
                         Text("accountAddress.share".localized)
                             .frame(maxWidth: .infinity)
                             .foregroundColor(.white)
-                            .font(.system(size: 17, weight: .semibold))
+                            .font(.satoshi(size: 17, weight: .semibold))
                             .padding(.vertical, 11)
                             .background(Color.clear)
                             .overlay(
@@ -85,7 +85,7 @@ struct AccountQRView: View {
                         Text("accountAddress.copy")
                             .frame(maxWidth: .infinity)
                             .foregroundColor(.black)
-                            .font(.system(size: 17, weight: .semibold))
+                            .font(.satoshi(size: 17, weight: .semibold))
                             .padding(.vertical, 11)
                             .background(.white)
                             .clipShape(Capsule())

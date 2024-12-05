@@ -103,7 +103,7 @@ struct ImportWalletSeedPhraseView: View {
                     viewModel.clearAll()
                     viewModel.selectedIndex = 0
                 }
-                .font(.system(size: 14, weight: .medium))
+                .font(.satoshi(size: 14, weight: .medium))
                 .foregroundColor(Color(red: 0.73, green: 0.75, blue: 0.78))
                 .offset(y: 28)
             }
