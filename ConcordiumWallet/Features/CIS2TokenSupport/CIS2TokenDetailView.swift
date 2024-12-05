@@ -105,7 +105,7 @@ struct CIS2TokenDetailView: View {
                             VStack(alignment: .leading, spacing: 8) {
                                 Text(viewModel.tokenName)
                                     .foregroundColor(Color.white)
-                                    .font(.system(size: 15, weight: .medium))
+                                    .font(.satoshi(size: 15, weight: .medium))
                                 CryptoImage(url: viewModel.display ?? viewModel.thumbnail, size: .custom(width: 300, height: 300))
                                     .aspectRatio(contentMode: .fit)
                                 
@@ -114,19 +114,19 @@ struct CIS2TokenDetailView: View {
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text("cis2token_detail_contract_address_title".localized)
                                         .foregroundColor(Color.blackAditional)
-                                        .font(.system(size: 14, weight: .medium))
+                                        .font(.satoshi(size: 14, weight: .medium))
                                     Text(viewModel.contractAddress)
                                         .foregroundColor(Color.white)
-                                        .font(.system(size: 14, weight: .medium))
+                                        .font(.satoshi(size: 14, weight: .medium))
                                 }
                                 VerticalLine().background(Color.greyMain).opacity(0.2).padding(.vertical, 8)
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text("Symbol")
                                         .foregroundColor(Color.blackAditional)
-                                        .font(.system(size: 14, weight: .medium))
+                                        .font(.satoshi(size: 14, weight: .medium))
                                     Text(viewModel.ticker)
                                         .foregroundColor(Color.white)
-                                        .font(.system(size: 14, weight: .medium))
+                                        .font(.satoshi(size: 14, weight: .medium))
                                 }
                             }
                             
@@ -135,10 +135,10 @@ struct CIS2TokenDetailView: View {
                                     VStack(alignment: .leading, spacing: 4) {
                                         Text("Token ID".localized)
                                             .foregroundColor(Color.blackAditional)
-                                            .font(.system(size: 14, weight: .medium))
+                                            .font(.satoshi(size: 14, weight: .medium))
                                         Text(viewModel.tokenId)
                                             .foregroundColor(Color.white)
-                                            .font(.system(size: 14, weight: .medium))
+                                            .font(.satoshi(size: 14, weight: .medium))
                                     }
                                 }
                                 
@@ -146,22 +146,22 @@ struct CIS2TokenDetailView: View {
                                     VStack(alignment: .leading, spacing: 4) {
                                         Text("Description".localized)
                                             .foregroundColor(Color.blackAditional)
-                                            .font(.system(size: 14, weight: .medium))
+                                            .font(.satoshi(size: 14, weight: .medium))
                                         Text(description)
                                             .multilineTextAlignment(.leading)
                                             .foregroundColor(Color.white)
-                                            .font(.system(size: 14, weight: .medium))
+                                            .font(.satoshi(size: 14, weight: .medium))
                                     }
                                 }
                                 
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text("Decimals")
                                         .foregroundColor(Color.blackAditional)
-                                        .font(.system(size: 14, weight: .medium))
+                                        .font(.satoshi(size: 14, weight: .medium))
                                     Text(viewModel.decimals)
                                         .multilineTextAlignment(.leading)
                                         .foregroundColor(Color.white)
-                                        .font(.system(size: 14, weight: .medium))
+                                        .font(.satoshi(size: 14, weight: .medium))
                                 }
                             }
                         }
@@ -204,13 +204,13 @@ struct CIS2TokenDetailView: View {
             HStack(spacing: 8) {
                 Text(viewModel.balance)
                     .foregroundColor(.white)
-                    .font(.system(size: 19, weight: .medium))
+                    .font(.satoshi(size: 19, weight: .medium))
                 CryptoImage(url: viewModel.thumbnail, size: .small)
                     .aspectRatio(contentMode: .fit)
             }
             Text("accountDetails.generalbalance".localized)
                 .foregroundColor(Color.greySecondary)
-                .font(.system(size: 15, weight: .medium))
+                .font(.satoshi(size: 15, weight: .medium))
             
             Divider().background(Color.greyMain.opacity(0.2))
                 .padding(.top, 12)

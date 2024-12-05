@@ -209,7 +209,7 @@ struct AccountPreviewCardView: View {
         .frame(maxWidth: .infinity)
         .overlay(
             Rectangle()
-                .frame(height: 1.5)
+                .frame(height: isAccountState ? 0 : 1.5)
                 .foregroundColor(.blackAditional)
                 .frame(maxHeight: .infinity, alignment: .top),
             alignment: .top

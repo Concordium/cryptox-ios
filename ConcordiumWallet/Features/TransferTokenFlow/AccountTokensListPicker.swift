@@ -86,13 +86,13 @@ struct AccountTokensListPicker: View {
             if viewModel.error != nil {
                 Text("Failed to load Tokens")
                     .foregroundColor(.white)
-                    .font(.system(size: 17, weight: .semibold))
+                    .font(.satoshi(size: 17, weight: .semibold))
                     .onTapGesture { viewModel.reload() }
             } else {
                 VStack(alignment: .leading) {
                     Text(viewModel.account.displayName + ": " + "select_token".localized)
                         .foregroundColor(.white)
-                        .font(.system(size: 19, weight: .bold))
+                        .font(.satoshi(size: 19, weight: .bold))
                         .onTapGesture { viewModel.reload() }
                         .padding(.horizontal, 18)
                         .padding(.vertical, 24)

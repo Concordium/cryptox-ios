@@ -26,12 +26,12 @@ struct TransferTokenView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("send_token_view_available_title".localized)
                                 .foregroundColor(Color.greySecondary)
-                                .font(.system(size: 15, weight: .medium))
+                                .font(.satoshi(size: 15, weight: .medium))
                                 .multilineTextAlignment(.leading)
                             HStack(spacing: 8) {
                                 Text(viewModel.availableDisplayAmount)
                                     .foregroundColor(.white)
-                                    .font(.system(size: 19, weight: .medium))
+                                    .font(.satoshi(size: 19, weight: .medium))
                                 CryptoImage(url: viewModel.thumbnail, size: .small)
                                 .aspectRatio(contentMode: .fit)
                                 Spacer()
@@ -45,12 +45,12 @@ struct TransferTokenView: View {
                                 VStack(alignment: .leading, spacing: 8) {
                                     Text("accounts.overview.atdisposal".localized)
                                         .foregroundColor(Color.greySecondary)
-                                        .font(.system(size: 15, weight: .medium))
+                                        .font(.satoshi(size: 15, weight: .medium))
                                         .multilineTextAlignment(.leading)
                                     HStack(spacing: 8) {
                                         Text(viewModel.atDisposalCCDDisplayAmount)
                                             .foregroundColor(.white)
-                                            .font(.system(size: 19, weight: .medium))
+                                            .font(.satoshi(size: 19, weight: .medium))
                                         CryptoImage(url: viewModel.thumbnail, size: .small)
                                         .aspectRatio(contentMode: .fit)
                                         Spacer()
@@ -75,14 +75,14 @@ struct TransferTokenView: View {
                     VStack(alignment: .leading) {
                         Text("releaseschedule.amount")
                             .foregroundColor(.blackSecondary)
-                            .font(.system(size: 15, weight: .medium))
+                            .font(.satoshi(size: 15, weight: .medium))
                         HStack {
                             DecimalNumberTextField(decimalValue: $viewModel.amountTokenSend, fraction: $viewModel.fraction)
                             Spacer()
                             Text("send_all".localized)
                                 .underline()
                                 .foregroundColor(.blackSecondary)
-                                .font(.system(size: 15, weight: .medium))
+                                .font(.satoshi(size: 15, weight: .medium))
                                 .contentShape(Rectangle())
                                 .onTapGesture {
                                     viewModel.sendAll()
@@ -93,11 +93,11 @@ struct TransferTokenView: View {
                         HStack {
                             Text("send_token_view_token".localized)
                                 .foregroundColor(.blackSecondary)
-                                .font(.system(size: 15, weight: .medium))
+                                .font(.satoshi(size: 15, weight: .medium))
                             Spacer()
                             Text(viewModel.ticker)
                                 .foregroundColor(.blackSecondary)
-                                .font(.system(size: 15, weight: .medium))
+                                .font(.satoshi(size: 15, weight: .medium))
                             Image("icon_disclosure").resizable().frame(width: 24, height: 24)
                         }
                         .contentShape(Rectangle())
@@ -114,14 +114,14 @@ struct TransferTokenView: View {
                     if viewModel.isInsuficientFundsErrorHidden {
                         Text("sendFund.feeMessageTitle".localized)
                             .foregroundColor(.blackAditional)
-                            .font(.system(size: 15, weight: .medium))
+                            .font(.satoshi(size: 15, weight: .medium))
                         Text(GTU(intValue: Int(viewModel.transaferCost?.cost ?? "0") ?? 0).displayValueWithCCDStroke())
                             .foregroundColor(.white)
-                            .font(.system(size: 15, weight: .medium))
+                            .font(.satoshi(size: 15, weight: .medium))
                     } else {
                         Text("sendFund.insufficientFunds".localized)
                             .foregroundColor(Color(hex: 0xFF163D))
-                            .font(.system(size: 15, weight: .medium))
+                            .font(.satoshi(size: 15, weight: .medium))
                     }
                     
                     Spacer()
@@ -133,17 +133,17 @@ struct TransferTokenView: View {
                 VStack {
                     TextField("sendFund.pasteRecipient".localized, text: $viewModel.recepientAddress)
                         .foregroundColor(Color.init(hex: 0x878787))
-                        .font(.system(size: 19, weight: .regular))
+                        .font(.satoshi(size: 19, weight: .regular))
                     Divider()
                     Text("or".localized)
                         .foregroundColor(Color.init(hex: 0x878787))
-                        .font(.system(size: 15, weight: .medium))
+                        .font(.satoshi(size: 15, weight: .medium))
                     HStack {
                         HStack {
                             Spacer()
                             Text("sendFund.addressBook".localized)
                                 .foregroundColor(Color.white)
-                                .font(.system(size: 14, weight: .medium))
+                                .font(.satoshi(size: 14, weight: .medium))
                             Spacer()
                         }
                         .padding(.vertical ,12)
@@ -161,7 +161,7 @@ struct TransferTokenView: View {
                             Spacer()
                             Text("scanQr.title".localized)
                                 .foregroundColor(Color.white)
-                                .font(.system(size: 14, weight: .medium))
+                                .font(.satoshi(size: 14, weight: .medium))
                             Spacer()
                         }
                         .padding(.vertical ,12)
@@ -226,7 +226,7 @@ struct TransferTokenView: View {
                 Text("sendFund.confirmation.buttonTitle".localized)
                     .frame(maxWidth: .infinity)
                     .foregroundColor(.black)
-                    .font(.system(size: 17, weight: .semibold))
+                    .font(.satoshi(size: 17, weight: .semibold))
                     .padding(.vertical, 11)
                     .background(viewModel.canSend == false ? .white.opacity(0.7) : .white)
                     .clipShape(Capsule())

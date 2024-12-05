@@ -239,7 +239,7 @@ private struct SeedPhraseInputListCell: View {
                     .onAppear { input = label }
             } else {
                 Text(label)
-                    .font(Font.system(size: 15, weight: .medium))
+                    .font(Font.satoshi(size: 15, weight: .medium))
                     .foregroundColor(.greySecondary)
                     .lineLimit(1)
             }

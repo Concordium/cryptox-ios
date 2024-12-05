@@ -16,7 +16,7 @@ struct RecoveryPhraseInputView: Page {
     var pageBody: some View {
         VStack(alignment: .leading) {
             Text(viewModel.title)
-                .font(Font.system(size: 19, weight: .medium))
+                .font(Font.satoshi(size: 19, weight: .medium))
                 .foregroundColor(Color(red: 0.83, green: 0.84, blue: 0.86))
                 .frame(maxWidth: .infinity)
                 .modifier(GrayRoundedBackgroundModifier())
@@ -28,7 +28,7 @@ struct RecoveryPhraseInputView: Page {
                 viewModel.send(.clearAll)
                 selectedIndex = 0
             }
-                .font(.system(size: 14, weight: .medium))
+                .font(.satoshi(size: 14, weight: .medium))
                 .foregroundColor(Color(red: 0.73, green: 0.75, blue: 0.78))
                 .padding(.bottom, 16)
 

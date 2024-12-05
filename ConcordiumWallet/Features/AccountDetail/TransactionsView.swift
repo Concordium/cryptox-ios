@@ -81,7 +81,7 @@ struct TransactionsView: View {
                     .resizable()
                     .frame(width: 80, height: 80)
                 Text("transactions_empty_state_title".localized)
-                    .font(.system(size: 15, weight: .medium))
+                    .font(.satoshi(size: 15, weight: .medium))
                     .foregroundColor(Color.blackAditional)
                     .multilineTextAlignment(.center)
             }
@@ -95,7 +95,7 @@ struct TransactionsView: View {
                             HStack {
                                 Spacer()
                                 Text(Self.relativeDate(date))
-                                    .font(.system(size: 14, weight: .medium))
+                                    .font(.satoshi(size: 14, weight: .medium))
                                     .foregroundColor(Color.blackAditional)
                                     .multilineTextAlignment(.center)
                                 Spacer()

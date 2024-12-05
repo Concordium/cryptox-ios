@@ -71,7 +71,7 @@ struct TransactionListView: View {
                         .frame(width: 20, height: 20)
                     Text("accountDetails.failed".localized)
                         .foregroundColor(Color.white)
-                        .font(.system(size: 15, weight: .medium))
+                        .font(.satoshi(size: 15, weight: .medium))
                     Spacer()
                 }
                 .padding(.vertical, 6)
@@ -84,12 +84,12 @@ struct TransactionListView: View {
             
             HStack {
                 Text(viewModel.title)
-                    .font(.system(size: 15, weight: .medium))
+                    .font(.satoshi(size: 15, weight: .medium))
                     .foregroundColor(Color.white)
                 Spacer()
                 Text(viewModel.total)
                     .foregroundColor(Color.white)
-                    .font(.system(size: 15, weight: .medium))
+                    .font(.satoshi(size: 15, weight: .medium))
                     .padding(.vertical, 4)
                     .padding(.horizontal, 6)
                     .background(viewModel.totalColor)
@@ -98,14 +98,14 @@ struct TransactionListView: View {
             HStack {
                 Text(viewModel.timestamp)
                     .foregroundColor(Color.blackAditional)
-                    .font(.system(size: 14, weight: .medium))
+                    .font(.satoshi(size: 14, weight: .medium))
                 Spacer()
                 Text(viewModel.amount)
                     .foregroundColor(Color.blackAditional)
-                    .font(.system(size: 11, weight: .medium))
+                    .font(.satoshi(size: 11, weight: .medium))
                 Text(viewModel.cost)
                     .foregroundColor(Color.blackAditional)
-                    .font(.system(size: 11, weight: .medium))
+                    .font(.satoshi(size: 11, weight: .medium))
             }
             
             Rectangle().fill(Color.greyMain.opacity(0.2)).frame(maxWidth: .infinity).frame(height: 1).padding(.top, 18)
