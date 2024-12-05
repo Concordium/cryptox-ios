@@ -53,8 +53,8 @@ struct AccountPreviewCardView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 VStack(alignment: .leading, spacing: 14) {
                     setupView()
-                        .frame(height: 132)
                         .padding(16)
+                        .frame(height: 132)
                 }
                 if isCreatingAccount {
                     LoadingIndicator()
