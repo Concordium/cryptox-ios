@@ -277,6 +277,7 @@ extension TransactionNotificationService {
     func handleNotificationsWithData(data: [AnyHashable: Any]) {
         let amount = data["amount"] as? String ?? ""
         
+        let bigIntAmount = BigInt(stringLiteral: amount)
         if let type = data["type"] as? String,
            type == TransactionNotificationTypes.cis2.rawValue,
            let tokenMetadata = data["token_metadata"] {
@@ -285,7 +286,7 @@ extension TransactionNotificationService {
                     return
                 }
                 let symbol = metadata.symbol ?? ""
-                let formattedAmount = TokenFormatter().string(from: BigDecimal(BigInt(stringLiteral: amount), metadata.decimals ?? 0))
+                let formattedAmount = TokenFormatter().string(from: BigDecimal(bigIntAmount, metadata.decimals ?? 0))
                 
                 self.composeAndSendNotification(
                     title: "You received \(formattedAmount) \(symbol)",
@@ -294,7 +295,7 @@ extension TransactionNotificationService {
             }
         } else {
             let symbol = "CCDs"
-            let formattedAmount = TokenFormatter().string(from: BigDecimal(BigInt(stringLiteral: amount), 6))
+            let formattedAmount = TokenFormatter().string(from: BigDecimal(bigIntAmount, 6))
             self.composeAndSendNotification(
                 title: "You received \(formattedAmount) \(symbol)",
                 userInfo: data
