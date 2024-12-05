@@ -18,10 +18,10 @@ struct RecoveryPhraseRecoverCompleteView: Page {
                 
                 VStack(alignment: .leading, spacing: 16) {
                     Text("yay".localized)
-                        .font(Font.system(size: 19, weight: .medium))
+                        .font(Font.satoshi(size: 19, weight: .medium))
                         .foregroundColor(.white)
                     Text(viewModel.title)
-                        .font(Font.system(size: 15, weight: .medium))
+                        .font(Font.satoshi(size: 15, weight: .medium))
                         .foregroundColor(.white)
                 }
                 Spacer()

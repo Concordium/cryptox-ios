@@ -16,10 +16,10 @@ struct IdentityReccoveryStatusView: Page {
             HStack(spacing: 12) {
                 VStack(alignment: .leading, spacing: 16) {
                     Text(viewModel.title)
-                        .font(Font.system(size: 19, weight: .medium))
+                        .font(Font.satoshi(size: 19, weight: .medium))
                         .foregroundColor(.white)
                     Text(viewModel.message)
-                        .font(Font.system(size: 15, weight: .medium))
+                        .font(Font.satoshi(size: 15, weight: .medium))
                         .foregroundColor(.white)
                 }
                 Spacer()
@@ -93,11 +93,11 @@ private struct IdentityList: View {
                 VStack {
                     HStack{
                         Text(identity.nickname)
-                            .font(.system(size: 16, weight: .semibold))
+                            .font(.satoshi(size: 16, weight: .semibold))
                             .foregroundColor(.white)
                         Spacer()
                         Text("Accounts: \(accounts.filter { $0.identity?.id == identity.id }.count)")
-                            .font(.system(size: 15, weight: .medium))
+                            .font(.satoshi(size: 15, weight: .medium))
                             .foregroundColor(Color(red: 0.83, green: 0.84, blue: 0.86))
                             .padding(.horizontal, 12)
                             .padding(.vertical, 4)
@@ -115,11 +115,11 @@ private struct IdentityList: View {
                         if account.identity!.id == identity.id {
                             HStack {
                                 Text(account.displayName)
-                                    .font(.system(size: 15, weight: .medium))
+                                    .font(.satoshi(size: 15, weight: .medium))
                                     .foregroundColor(Color(red: 0.73, green: 0.75, blue: 0.78))
                                 Spacer()
                                 Text(GTU(intValue: account.finalizedBalance).displayValueWithCCDStroke())
-                                    .font(.system(size: 15, weight: .medium))
+                                    .font(.satoshi(size: 15, weight: .medium))
                                     .foregroundColor(.white)
                             }
                             .padding(20)

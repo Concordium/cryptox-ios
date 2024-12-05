@@ -33,17 +33,17 @@ struct TransferTokenSubmittedView: View {
                     Image("ico_tx_submitted")
                     Text("transactionConfirmed.submitted".localized)
                         .foregroundColor(.white)
-                        .font(.system(size: 19, weight: .medium))
+                        .font(.satoshi(size: 19, weight: .medium))
                     Spacer()
                 }
                 
                 Text("amount".localized)
                     .foregroundColor(Color.blackAditional)
-                    .font(.system(size: 15, weight: .medium))
+                    .font(.satoshi(size: 15, weight: .medium))
                     .padding(.top, 32)
                 Text(viewModel.amountText)
                     .foregroundColor(Color.white)
-                .font(.system(size: 16, weight: .semibold))
+                .font(.satoshi(size: 16, weight: .semibold))
                 
                 Rectangle()
                     .fill(Color.blackAditional)
@@ -53,10 +53,10 @@ struct TransferTokenSubmittedView: View {
                 
                 Text("sendFund.feeMessageTitle".localized)
                     .foregroundColor(Color.blackAditional)
-                    .font(.system(size: 15, weight: .medium))
+                    .font(.satoshi(size: 15, weight: .medium))
                 Text(viewModel.fee)
                     .foregroundColor(Color.white)
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(.satoshi(size: 16, weight: .semibold))
                 
                 Rectangle()
                     .fill(Color.blackAditional)
@@ -66,10 +66,10 @@ struct TransferTokenSubmittedView: View {
                 
                 Text("to".localized)
                     .foregroundColor(Color.blackAditional)
-                    .font(.system(size: 15, weight: .medium))
+                    .font(.satoshi(size: 15, weight: .medium))
                 Text(viewModel.to)
                     .foregroundColor(Color.white)
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(.satoshi(size: 16, weight: .semibold))
             }
             .padding(20)
             .overlay(
@@ -86,7 +86,7 @@ struct TransferTokenSubmittedView: View {
                 Text("identitySubmitted.finish".localized)
                     .frame(maxWidth: .infinity)
                     .foregroundColor(.black)
-                    .font(.system(size: 17, weight: .semibold))
+                    .font(.satoshi(size: 17, weight: .semibold))
                     .padding(.vertical, 11)
                     .background(.white)
                     .clipShape(Capsule())

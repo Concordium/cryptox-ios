@@ -25,10 +25,10 @@ struct SessionRequestView: View {
                         VStack(alignment: .leading) {
                             Text("Sign transaction")
                                 .foregroundColor(.white)
-                                .font(.system(size: 28, weight: .semibold))
+                                .font(.satoshi(size: 28, weight: .semibold))
                             Text(viewModel.method)
                                 .foregroundColor(.white.opacity(0.3))
-                                .font(.system(size: 13, weight: .regular))
+                                .font(.satoshi(size: 13, weight: .regular))
                         }
                         .padding(.top, 10)
                         Spacer()
@@ -84,7 +84,7 @@ struct SessionRequestView: View {
                             Text("Decline")
                                 .frame(maxWidth: .infinity)
                                 .foregroundColor(.white)
-                                .font(.system(size: 17, weight: .semibold))
+                                .font(.satoshi(size: 17, weight: .semibold))
                                 .padding(.vertical, 11)
                                 .background(Color.clear)
                                 .overlay(
@@ -101,7 +101,7 @@ struct SessionRequestView: View {
                             Text("Sign")
                                 .frame(maxWidth: .infinity)
                                 .foregroundColor(.black)
-                                .font(.system(size: 17, weight: .semibold))
+                                .font(.satoshi(size: 17, weight: .semibold))
                                 .padding(.vertical, 11)
                                 .background(viewModel.account == nil ? .white.opacity(0.7) : .white)
                                 .clipShape(Capsule())
@@ -132,14 +132,14 @@ struct SessionRequestView: View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
                 Text("Message")
-                    .font(.system(size: 14, weight: .medium))
+                    .font(.satoshi(size: 14, weight: .medium))
                     .foregroundColor(Color.greySecondary)
                 
                 VStack(spacing: 0) {
                     ScrollView {
                         Text(viewModel.message)
                             .foregroundColor(.white)
-                            .font(.system(size: 13, weight: .medium))
+                            .font(.satoshi(size: 13, weight: .medium))
                     }
                     .frame(height: 250)
                 }

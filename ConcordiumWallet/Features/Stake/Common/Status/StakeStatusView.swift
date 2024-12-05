@@ -63,7 +63,7 @@ extension StakeStatusView {
         HStack(spacing: 8) {
             Image(systemName: "checkmark")
                 .foregroundColor(.white)
-                .font(.system(size: 18))
+                .font(.satoshi(size: 18, weight: .medium))
             
             Text(viewModel.topText)
                 .font(.satoshi(size: 20, weight: .medium))

@@ -75,7 +75,7 @@ struct TransferTokenConfirmView: View {
             List {
                 Text("sendFund.confirmation.transfer".localized)
                     .foregroundColor(.white)
-                    .font(.system(size: 19, weight: .medium))
+                    .font(.satoshi(size: 19, weight: .medium))
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
                 transferDetails()
@@ -96,7 +96,7 @@ struct TransferTokenConfirmView: View {
                 Text("sendFund.confirmation.buttonTitle".localized)
                     .frame(maxWidth: .infinity)
                     .foregroundColor(.black)
-                    .font(.system(size: 17, weight: .semibold))
+                    .font(.satoshi(size: 17, weight: .semibold))
                     .padding(.vertical, 11)
                     .background(.white)
                     .clipShape(Capsule())
@@ -133,20 +133,20 @@ struct TransferTokenConfirmView: View {
             HStack {
                 Text(viewModel.amountDisplay)
                     .foregroundColor(.white)
-                    .font(.system(size: 19, weight: .medium))
+                    .font(.satoshi(size: 19, weight: .medium))
                     .listRowBackground(Color.clear)
                 Text(viewModel.ticker)
                     .foregroundColor(.white)
-                    .font(.system(size: 19, weight: .medium))
+                    .font(.satoshi(size: 19, weight: .medium))
                     .listRowBackground(Color.clear)
             }
             Text("sendFund.confirmation.line2.to".localized)
                 .foregroundColor(Color.greyMain)
-                .font(.system(size: 15, weight: .medium))
+                .font(.satoshi(size: 15, weight: .medium))
                 
             Text(viewModel.recipient.prefix(4) + "..." + viewModel.recipient.suffix(4))
                 .foregroundColor(.white)
-                .font(.system(size: 19, weight: .medium))
+                .font(.satoshi(size: 19, weight: .medium))
                 
             
             Rectangle()
@@ -157,30 +157,30 @@ struct TransferTokenConfirmView: View {
             
             Text("sendFund.feeMessageTitle".localized)
                 .foregroundColor(Color.blackAditional)
-                .font(.system(size: 15, weight: .medium))
+                .font(.satoshi(size: 15, weight: .medium))
 
             Text(GTU(intValue: Int(BigInt(stringLiteral: viewModel.tokenTransferModel.transaferCost?.cost ?? "0"))).displayValueWithCCDStroke())
                 .foregroundColor(.white)
-                .font(.system(size: 15, weight: .medium))
+                .font(.satoshi(size: 15, weight: .medium))
             
             Spacer()
             
             Text("sendFund.memo.textTitle".localized)
                 .foregroundColor(Color.blackAditional)
-                .font(.system(size: 15, weight: .medium))
+                .font(.satoshi(size: 15, weight: .medium))
 
             Text(viewModel.tokenTransferModel.memo?.displayValue ?? "")
                 .foregroundColor(.white)
-                .font(.system(size: 15, weight: .medium))
+                .font(.satoshi(size: 15, weight: .medium))
             
             HStack {
                 Text("sendFund.confirmation.line3.fromAccount".localized)
                     .foregroundColor(Color.blackAditional)
-                    .font(.system(size: 15, weight: .medium))
+                    .font(.satoshi(size: 15, weight: .medium))
                 Spacer()
                 Text(viewModel.sender.prefix(4) + "..." + viewModel.sender.suffix(4))
                     .foregroundColor(Color.white)
-                    .font(.system(size: 15, weight: .medium))
+                    .font(.satoshi(size: 15, weight: .medium))
             }
             .padding(.vertical, 4)
             .padding(.horizontal, 8)
