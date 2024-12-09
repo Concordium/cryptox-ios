@@ -75,27 +75,30 @@ final class AccountsMainViewModel: ObservableObject {
     
     private func updateData() {
         accountViewModels = accounts.map { AccountPreviewViewModel.init(account: $0, tokens: dependencyProvider.storageManager().getAccountSavedCIS2Tokens($0.address)) }
-        withAnimation {
-            if !defaultProvider.seedMobileWallet().hasSetupRecoveryPhrase {
-                state = .saveSeedPhrase
-            } else if dependencyProvider.storageManager().getIdentities().isEmpty {
-                state = .createIdentity
-            } else if !dependencyProvider.storageManager().getPendingIdentities().isEmpty {
-                state = .identityVerification
-            } else if !dependencyProvider.storageManager().getFailedIdentities().isEmpty && dependencyProvider.storageManager().getConfirmedIdentities().isEmpty {
-                state = .verificationFailed
-            } else if accounts.isEmpty {
-                state = .createAccount
-            } else {
-                state = .accounts
+        if defaultProvider.mobileWallet().isLegacyAccount() {
+            state = .accounts
+        } else {
+            withAnimation {
+                if !defaultProvider.seedMobileWallet().hasSetupRecoveryPhrase {
+                    state = .saveSeedPhrase
+                } else if dependencyProvider.storageManager().getIdentities().isEmpty {
+                    state = .createIdentity
+                } else if !dependencyProvider.storageManager().getPendingIdentities().isEmpty {
+                    state = .identityVerification
+                } else if !dependencyProvider.storageManager().getFailedIdentities().isEmpty && dependencyProvider.storageManager().getConfirmedIdentities().isEmpty {
+                    state = .verificationFailed
+                } else if accounts.isEmpty {
+                    state = .createAccount
+                } else {
+                    state = .accounts
+                }
             }
-            
+        }
             totalBalance = GTU(intValue: accounts.reduce(into: 0, { $0 += $1.forecastBalance }))
             atDisposal = GTU(intValue: accounts
                 .filter { !$0.isReadOnly }
                 .reduce(into: 0, { $0 += $1.forecastAtDisposalBalance }))
             staked = GTU(intValue: accounts.reduce(into: 0, { $0 += ($1.baker?.stakedAmount ?? 0) }))
-        }
     }
     
     @MainActor
