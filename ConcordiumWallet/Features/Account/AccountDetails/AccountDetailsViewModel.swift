@@ -67,20 +67,20 @@ class AccountDetailsViewModel {
         if let baker = account.baker, baker.bakerID != -1 {
             self.hasStaked = true
             self.stakedLabel = String(format: "accountDetails.bakingstakelabel".localized, String(baker.bakerID))
-            self.stakedValue = GTU(intValue: baker.stakedAmount ).displayValueWithGStroke()
+            self.stakedValue = GTU(intValue: baker.stakedAmount ).displayValue()
             
         } else if let delegation = account.delegation {
             let pool = BakerTarget.from(delegationType: delegation.delegationTargetType, bakerId: delegation.delegationTargetBakerID)
             
             self.hasStaked = true
             self.stakedLabel = pool.getDisplayValueForAccountDetails()
-            self.stakedValue = GTU(intValue: Int(delegation.stakedAmount) ).displayValueWithGStroke()
+            self.stakedValue = GTU(intValue: Int(delegation.stakedAmount) ).displayValue()
         } else {
             self.hasStaked = false
             stakedLabel = nil
         }
         atDisposal = GTU(intValue: account.forecastAtDisposalBalance).displayValue()
-        totalCooldown = GTU(intValue: account.cooldowns.compactMap { Int($0.amount) }.reduce(0, +)).displayValueWithGStroke()
+        totalCooldown = GTU(intValue: account.cooldowns.compactMap { Int($0.amount) }.reduce(0, +)).displayValue()
         cooldownLabel = "Cooldown"
     }
     
