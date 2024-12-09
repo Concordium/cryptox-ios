@@ -66,8 +66,7 @@ struct GTU: Codable {
 
         var str = GTU.intValueToUnsignedIntString(intValue,
                                                   minimumFractionDigits: minimumFractionDigits,
-                                                  maxFractionDigits: GTU.maximumFractionDigits,
-                                                  conversionFactor: GTU.conversionFactor)
+                                                  maxFractionDigits: GTU.maximumFractionDigits)
         
         // Unicode for "Latin Capital Letter G with Stroke" = U+01E4
         if intValue < 0 {
@@ -83,8 +82,7 @@ struct GTU: Codable {
 
         var str = GTU.intValueToUnsignedIntString(intValue,
                                                   minimumFractionDigits: minimumFractionDigits,
-                                                  maxFractionDigits: GTU.maximumFractionDigits,
-                                                  conversionFactor: GTU.conversionFactor)
+                                                  maxFractionDigits: GTU.maximumFractionDigits)
         
         // Unicode for "Latin Capital Letter G with Stroke" = U+01E4
         if intValue < 0 {
@@ -95,16 +93,43 @@ struct GTU: Codable {
         return str
     }
 
-    func displayValue(conversionFactor: Int = conversionFactor) -> String {
+    func displayValue() -> String {
         let minimumFractionDigits = 2
         var stringValue = GTU.intValueToUnsignedIntString(intValue,
                                                           minimumFractionDigits: minimumFractionDigits,
-                                                          maxFractionDigits: GTU.maximumFractionDigits,
-                                                          conversionFactor: conversionFactor)
+                                                          maxFractionDigits: GTU.maximumFractionDigits)
         if intValue < 0 {
             stringValue = "-\(stringValue)"
         }
         return stringValue
+    }
+    
+    func displayValueWithTwoNumbersAfterDecimalPoint() -> String {
+        let minimumFractionDigits = 2
+        var stringValue = GTU.intValueToUnsignedIntString(intValue,
+                                                          minimumFractionDigits: minimumFractionDigits,
+                                                          maxFractionDigits: GTU.maximumFractionDigits)
+        if intValue < 0 {
+            stringValue = "-\(stringValue)"
+        }
+        
+        // Split the input into the whole part and fractional part
+        let components = stringValue.split(separator: ".", maxSplits: 1)
+        guard components.count == 2 else {
+            // No fractional part, return as is
+            return stringValue
+        }
+        
+        let wholePart = components[0]
+        var fractionalPart = components[1]
+        
+        // Remove trailing values while respecting `minimumFractionDigits`
+        while fractionalPart.count > minimumFractionDigits {
+            fractionalPart.removeLast()
+        }
+        
+        // Return the adjusted string
+        return fractionalPart.isEmpty ? String(wholePart) : "\(wholePart).\(fractionalPart)"
     }
     
     static func isValid(displayValue: String) -> Bool {
@@ -116,7 +141,7 @@ struct GTU: Codable {
         return (wholeValue * conversionFactor + fractionalValue) * (isNegative ? -1 : 1)
     }
 
-    private static func intValueToUnsignedIntString(_ value: Int, minimumFractionDigits: Int, maxFractionDigits: Int, conversionFactor: Int) -> String {
+    private static func intValueToUnsignedIntString(_ value: Int, minimumFractionDigits: Int, maxFractionDigits: Int) -> String {
         let absValue = abs(value)
         let wholeValueString = String(absValue / conversionFactor)
         var fractionVal = String(absValue % conversionFactor)

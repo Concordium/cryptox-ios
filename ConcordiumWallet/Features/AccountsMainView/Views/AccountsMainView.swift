@@ -152,7 +152,7 @@ extension AccountsMainView {
                 Text("accounts.totalBalanceTitleLabel".localized)
                     .foregroundColor(Color.Neutral.tint2)
                     .font(.satoshi(size: 14, weight: .regular))
-                Text(viewModel.totalBalance.displayValue(conversionFactor: 100) + " ")
+                Text(viewModel.totalBalance.displayValueWithTwoNumbersAfterDecimalPoint() + " ")
                     .foregroundColor(Color.MineralBlue.tint1)
                     .font(.satoshi(size: 28, weight: .medium))
                     .overlay(alignment: .bottomTrailing) {
@@ -162,7 +162,7 @@ extension AccountsMainView {
                             .offset(x: 26, y: -4)
                     }
                 
-                Text("\(viewModel.atDisposal.displayValue(conversionFactor: 100)) at disposal")
+                Text("\(viewModel.atDisposal.displayValueWithTwoNumbersAfterDecimalPoint()) at disposal")
                     .foregroundColor(Color.MineralBlue.tint1)
                     .font(.satoshi(size: 14, weight: .medium))
             }
