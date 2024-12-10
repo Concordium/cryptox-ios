@@ -75,7 +75,7 @@ final class AccountsMainViewModel: ObservableObject {
     
     private func updateData() {
         accountViewModels = accounts.map { AccountPreviewViewModel.init(account: $0, tokens: dependencyProvider.storageManager().getAccountSavedCIS2Tokens($0.address)) }
-        if defaultProvider.mobileWallet().isLegacyAccount() {
+        if defaultProvider.mobileWallet().isLegacyAccount() && AppSettings.isImportedFromFile {
             state = .accounts
         } else {
             withAnimation {
