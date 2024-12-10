@@ -15,7 +15,7 @@ struct DecimalNumberTextField: View {
     
     @Binding var fraction: Int
     
-    private let placeholder: String = "0.0"
+    private let placeholder: String = "0.00"
     private var decimalNumberFormatter: DecimalNumberFormatter
     private var decimalSeparator: Character { decimalNumberFormatter.decimalSeparator }
     private var groupingSeparator: Character { decimalNumberFormatter.groupingSeparator }
@@ -40,7 +40,7 @@ struct DecimalNumberTextField: View {
         ZStack {
             if textFieldText.isEmpty {
                 HStack {
-                    Text("0.0")
+                    Text("0.00")
                         .font(.satoshi(size: 25, weight: .medium))
                         .foregroundColor(.blackSecondary)
                     Spacer()
@@ -53,7 +53,7 @@ struct DecimalNumberTextField: View {
                 .tint(.blackSecondary)
                 .onChange(of: decimalValue) { newDecimalValue in
                     if !(newDecimalValue.value == 0) {
-                        self.textFieldText = TokenFormatter().plainString(from: newDecimalValue)
+                        self.textFieldText = TokenFormatter().plainString(from: newDecimalValue, decimalSeparator: ".")
                     }
                 }
         }
@@ -69,11 +69,11 @@ struct DecimalNumberTextField: View {
             set: { newValue in
                 let formattedValue = self.formatString(newValue)
                 
-                self.textFieldText = formattedValue
+                self.textFieldText = decimalNumberFormatter.format(value: formattedValue)
                 
                 if formattedValue.isEmpty {
                     value.wrappedValue = BigDecimal.zero(value.wrappedValue.precision)
-                } else if let token = TokenFormatter().number(from: formattedValue, precision: value.wrappedValue.precision) {
+                } else if let token = TokenFormatter().number(from: formattedValue, precision: value.wrappedValue.precision, decimalSeparators: ".") {
                     value.wrappedValue = token
                     print(TokenFormatter().string(from: token))
                 }
@@ -84,6 +84,19 @@ struct DecimalNumberTextField: View {
     private func formatString(_ newValue: String) -> String {
         var numberString = newValue
         
+        if numberString.last == "," {
+            numberString.removeLast()
+            numberString.append(".")
+        }
+        
+        if let decimalIndex = numberString.firstIndex(of: decimalSeparator) {
+            let fractionalPart = numberString[decimalIndex..<numberString.endIndex]
+            let maximumFractionLength = fraction + 1
+            if fractionalPart.count > maximumFractionLength {
+                numberString = String(numberString[..<numberString.index(decimalIndex, offsetBy: maximumFractionLength)])
+            }
+        }
+        
         // If user start enter number with `decimalSeparator` add zero before it
         if numberString == String(decimalSeparator) {
             numberString.insert("0", at: numberString.startIndex)
@@ -100,27 +113,15 @@ struct DecimalNumberTextField: View {
             numberString.removeLast()
         }
         
+        // Remove thousands separator, so we can convert this to BigInt
+        if numberString.contains(groupingSeparator) {
+            numberString = numberString.replacingOccurrences(of: "\(groupingSeparator)", with: "")
+        }
         return numberString
     }
     
     private func updateValues(with newValue: String) {
-        var numberString = newValue
-        
-        // If user start enter number with `decimalSeparator` add zero before it
-        if numberString == String(decimalSeparator) {
-            numberString.insert("0", at: numberString.startIndex)
-        }
-        
-        // If user double tap on zero, add `decimalSeparator` to continue enter number
-        if numberString == "00" {
-            numberString.insert(decimalSeparator, at: numberString.index(before: numberString.endIndex))
-        }
-        
-        // If text already have `decimalSeparator` remove last one
-        if numberString.last == decimalSeparator,
-           numberString.prefix(numberString.count - 1).contains(decimalSeparator) {
-            numberString.removeLast()
-        }
+        var numberString = formatString(newValue)
 
         // Format the string and reduce the tail
         numberString = decimalNumberFormatter.format(value: numberString)
@@ -146,6 +147,8 @@ class DecimalNumberFormatter {
         numberFormatter.numberStyle = .decimal
         numberFormatter.minimumFractionDigits = 0 // Just for case
         numberFormatter.maximumFractionDigits = maximumFractionDigits
+        numberFormatter.groupingSeparator = ","
+        numberFormatter.decimalSeparator = "."
     }
     
     func update(maximumFractionDigits: Int) {

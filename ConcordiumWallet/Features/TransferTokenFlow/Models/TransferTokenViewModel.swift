@@ -160,12 +160,12 @@ final class TransferTokenViewModel: ObservableObject {
         
         
         tokenTransferModel.$tokenGeneralBalance
-            .map { TokenFormatter().string(from: $0) }
+            .map { TokenFormatter().string(from: $0, decimalSeparator: ".", thousandSeparator: ",") }
             .assign(to: \.availableDisplayAmount, on: self)
             .store(in: &cancellables)
         
         tokenTransferModel.$ccdTokenDisposalBalance
-            .map { TokenFormatter().string(from: $0) }
+            .map { TokenFormatter().string(from: $0, decimalSeparator: ".", thousandSeparator: ",") }
             .assign(to: \.atDisposalCCDDisplayAmount, on: self)
             .store(in: &cancellables)
         

@@ -212,7 +212,7 @@ public class TokenFormatter {
         fractional = fractional.removingTrailingZeroes
 
         let integerGroupped = Self.groups(string: integer, size: 3).joined(separator: thousandSeparator)
-        let magnitude = fractional.isEmpty ? integerGroupped : integerGroupped + decimalSeparator + fractional
+        let magnitude = fractional.isEmpty ? integerGroupped + decimalSeparator + "00" : integerGroupped + decimalSeparator + fractional
         let sign = magnitude != "0" ? (isNegative ? negativeSign : positiveSign) : ""
 
         if magnitude == "0" {
@@ -235,7 +235,7 @@ public class TokenFormatter {
         let integer = String(numberString.prefix(numberString.count - fractional.count))
         fractional = fractional.removingTrailingZeroes
         
-        let integerGroupped = Self.groups(string: integer, size: 3).joined(separator: "")
+        let integerGroupped = Self.groups(string: integer, size: 3).joined(separator: ",")
 
         
         return fractional.isEmpty ? integerGroupped : integerGroupped + decimalSeparator + fractional
