@@ -33,6 +33,7 @@ enum UserDefaultKeys: String {
     case dismissedAlertIds
     
     case hasRunBefore
+    case isImportedFromFile
 }
 
 struct AppSettings {
@@ -161,6 +162,15 @@ extension AppSettings {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.hasRunBefore.rawValue)
+        }
+    }
+    
+    static var isImportedFromFile: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: UserDefaultKeys.isImportedFromFile.rawValue)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.isImportedFromFile.rawValue)
         }
     }
 }

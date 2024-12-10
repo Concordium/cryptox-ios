@@ -77,6 +77,7 @@ class ImportCoordinator: Coordinator {
                 receiveValue: { [weak self] (importedItemsReport: ImportedItemsReport?) in
                     guard let self = self, let importedItemsReport = importedItemsReport else { return }
                     self.showImportReceipt(report: importedItemsReport)
+                    AppSettings.isImportedFromFile = true
             })
             .store(in: &cancellables)
     }
