@@ -29,6 +29,7 @@ protocol MoreMenuPresenterDelegate: AnyObject {
     func showUnshieldAssetsFlow()
     func notificationsSelected()
     func showExportWalletPrivateKey()
+    func userSelectedNft()
 }
 
 // MARK: -
@@ -54,6 +55,7 @@ protocol MoreMenuPresenterProtocol: AnyObject {
     func hasSavedWalletPrivateKey() -> Bool
     func showUnshieldAssetsFlow()
     func showExportWalletPrivateKey()
+    func userSelectedNft()
 }
 
 class MoreMenuPresenter {
@@ -137,6 +139,10 @@ extension MoreMenuPresenter: MoreMenuPresenterProtocol {
     
     func userSelectedNotifications() {
         delegate?.notificationsSelected()
+    }
+    
+    func userSelectedNft() {
+        delegate?.userSelectedNft()
     }
     
     func logout() {

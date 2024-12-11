@@ -1051,6 +1051,7 @@ Remember to restart your node with the validator keys.";
 "more.funds.to.unshield" = "Funds to Unshield";
 "more.notifications" = "Notifications";
 "more.exportWallet.privateKey" = "Export wallet private key";
+"more.nft" = "NFT";
 
 "analytics.trackMessage" = "To improve the experience, we would like to track your activity in the app (but never your crypto). Of course, it is completely anonymous.";
 "analytics.popupTrackTitle" = "Help us improve";

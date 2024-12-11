@@ -16,7 +16,7 @@ protocol MoreCoordinatorDelegate: IdentitiesCoordinatorDelegate {
 
 @MainActor
 class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
-    typealias DependencyProvider = MoreFlowCoordinatorDependencyProvider & IdentitiesFlowCoordinatorDependencyProvider
+    typealias DependencyProvider = MoreFlowCoordinatorDependencyProvider & IdentitiesFlowCoordinatorDependencyProvider & NFTFlowCoordinatorDependencyProvider
     
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
@@ -33,7 +33,7 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
     private var cancellables: [AnyCancellable] = []
     
     init(navigationController: UINavigationController,
-         dependencyProvider: DependencyProvider & LoginDependencyProvider & WalletAndStorageDependencyProvider,
+         dependencyProvider: DependencyProvider & LoginDependencyProvider & WalletAndStorageDependencyProvider & NFTFlowCoordinatorDependencyProvider,
          parentCoordinator: MoreCoordinatorDelegate
     ) {
         self.mobileWallet = dependencyProvider.mobileWallet()
@@ -263,6 +263,13 @@ extension MoreCoordinator: SelectRecipientPresenterDelegate {
         DispatchQueue.main.async {
             self.showScanAddressQR()
         }
+    }
+    
+    func userSelectedNft() {
+        let collectionsCoordinator = CollectionsCoordinator(navigationController: navigationController,
+                                                            dependencyProvider: dependencyProvider)
+        collectionsCoordinator.configureAccountAlertDelegate = configureAccountAlertDelegate
+        collectionsCoordinator.start()
     }
 }
 

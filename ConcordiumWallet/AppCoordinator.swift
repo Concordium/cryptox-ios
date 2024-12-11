@@ -192,16 +192,12 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         )
         self.accountsCoordinator = accountsCoordinator
         
-        let collectionsCoordinator = CollectionsCoordinator(navigationController: CXNavigationController(),
-                                                      dependencyProvider: defaultProvider)
-        
         let moreCoordinator = MoreCoordinator(navigationController: CXNavigationController(),
                                               dependencyProvider: defaultProvider,
                                               parentCoordinator: self
         )
         
         let tabBarController = MainTabBarController(accountsCoordinator: accountsCoordinator,
-                                                    collectionsCoordinator: collectionsCoordinator,
                                                     moreCoordinator: moreCoordinator,
                                                     accountsMainRouter: .init(dependencyProvider: defaultProvider, walletConnectService: walletConnectService)
                                 )

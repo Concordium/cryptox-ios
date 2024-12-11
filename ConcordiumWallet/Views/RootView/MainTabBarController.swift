@@ -16,7 +16,6 @@ protocol ConfigureAccountAlertDelegate: AnyObject {
 
 class MainTabBarController: BaseTabBarController {
     let accountsCoordinator: AccountsCoordinator
-    let collectionsCoordinator: CollectionsCoordinator
     let moreCoordinator: MoreCoordinator
     let accountsMainRouter: AccountsMainRouter
     
@@ -27,12 +26,10 @@ class MainTabBarController: BaseTabBarController {
     var transactionNotificationService = TransactionNotificationService()
 
     init(accountsCoordinator: AccountsCoordinator,
-         collectionsCoordinator: CollectionsCoordinator,
          moreCoordinator: MoreCoordinator,
          accountsMainRouter: AccountsMainRouter
     ) {
         self.accountsCoordinator = accountsCoordinator
-        self.collectionsCoordinator = collectionsCoordinator
         self.moreCoordinator = moreCoordinator
         self.accountsMainRouter = accountsMainRouter
         super.init(nibName: nil, bundle: nil)
@@ -46,14 +43,12 @@ class MainTabBarController: BaseTabBarController {
         super.viewDidLoad()
         tabBar.backgroundColor = .blackMain
         accountsMainRouter.configureAccountAlertDelegate = self
-        collectionsCoordinator.configureAccountAlertDelegate = self
         moreCoordinator.configureAccountAlertDelegate = self
-        collectionsCoordinator.start()
         moreCoordinator.start()
         let newsFeedController = SceneViewController(content: NewsFeed())
         newsFeedController.tabBarItem = UITabBarItem(title: "news_tab_title".localized, image: UIImage(named: "tab_item_news"), tag: 5)
         newsFeedController.extendedLayoutIncludesOpaqueBars = false
-        viewControllers = [accountsMainRouter.rootScene(), newsFeedController, collectionsCoordinator.navigationController, moreCoordinator.navigationController]
+        viewControllers = [accountsMainRouter.rootScene(), newsFeedController, moreCoordinator.navigationController]
         hideKeyboardWhenTappedAround()
         transactionNotificationService.delegate = self
     }
