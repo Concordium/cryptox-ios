@@ -56,13 +56,6 @@ struct AccountPreviewCardView: View {
                         .padding(16)
                         .frame(height: 132)
                 }
-                if isCreatingAccount {
-                    LoadingIndicator()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(Color.black.opacity(0.5))
-                        .cornerRadius(8)
-                        .zIndex(1)
-                }
             }
             buttonSection
                 .background(isAccountState ? Color.Neutral.tint5 : .clear)
@@ -147,14 +140,23 @@ struct AccountPreviewCardView: View {
                     .padding(.top, 12)
                     .padding(.bottom, 8)
                 
-                Image(systemName: "checkmark")
-                    .foregroundStyle(Color.greenMain)
-                    .opacity(checkmarkOpacity)
-                    .onAppear {
-                        withAnimation(.easeIn(duration: 0.5)) {
-                            checkmarkOpacity = 1.0
+                if isCreatingAccount {
+                    Circle()
+                        .frame(width: 11, height: 11)
+                        .foregroundStyle(.greenMain)
+                        .opacity(isDotPulsating ? 0.2 : 1.0)
+                        .animation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true), value: isDotPulsating)
+                        .onAppear { isDotPulsating = true }
+                } else {
+                    Image(systemName: "checkmark")
+                        .foregroundStyle(Color.greenMain)
+                        .opacity(checkmarkOpacity)
+                        .onAppear {
+                            withAnimation(.easeIn(duration: 0.5)) {
+                                checkmarkOpacity = 1.0
+                            }
                         }
-                    }
+                }
             }
             Button(action: {
                 onCreateAccount?()
@@ -163,6 +165,8 @@ struct AccountPreviewCardView: View {
                 buttonLabel("create_account_btn_title".localized)
             }
             .background(.greenSecondary)
+            .disabled(isCreatingAccount)
+            .opacity(isCreatingAccount ? 0.5 : 1.0)
             .clipShape(Capsule())
             .padding(.bottom, 22)
         }
@@ -250,7 +254,7 @@ struct AccountPreviewCardView: View {
         case .createAccount:
             progress = 1
             targetProgress = 1
-            title = "verification.completed".localized
+            title = isCreatingAccount ? "finalizing_account".localized : "verification.completed".localized
         case .createIdentity:
             stepName = "final_step_verify_identity".localized
             progress = 1 / 3

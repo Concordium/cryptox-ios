@@ -1293,3 +1293,4 @@ Remember to restart your node with the validator keys.";
 "unlock.feature" = "Unlock this feature";
 "unlock.feature.subtitle" = "To use all features please complete your wallet set-up.";
 "go.back" = "Go back";
+"finalizing_account" = "Finalizing account";

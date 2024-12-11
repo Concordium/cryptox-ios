@@ -47,8 +47,6 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     
     @AppStorage("isRestoredDefaultCIS2Tokens") private var isRestoredDefaultCIS2Tokens = false
     @AppStorage("isAcceptedPrivacy") private var isAcceptedPrivacy = false
-    @AppStorage("isImportedFromFile") private var isImportedFromFile = false
-    
     ///
     /// Well, this is was done because of keychain migration issue,  we can remove this after some migration
     /// Release with this changes will be 2.0.0
@@ -540,9 +538,10 @@ extension AppCoordinator: MoreCoordinatorDelegate {
         clearAppDataFromPreviousInstall()
         accountsCoordinator?.childCoordinators.removeAll()
         accountsCoordinator = nil
-        isImportedFromFile = false
         childCoordinators.removeAll()
+        AppSettings.removeImportedWalletSetings()
         navigationController = CXNavigationController()
+        UserDefaults.standard.set(false, forKey: "showConfettiAnimation")
         UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController = navigationController
         start()
     }
