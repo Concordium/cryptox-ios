@@ -285,7 +285,7 @@ extension TransactionNotificationService {
                     return
                 }
                 let symbol = metadata.symbol ?? ""
-                let formattedAmount = TokenFormatter().string(from: BigDecimal(BigInt(stringLiteral: amount), metadata.decimals ?? 0))
+                let formattedAmount = TokenFormatter().string(from: BigDecimal(BigInt(stringLiteral: amount), metadata.decimals ?? 0), decimalSeparator: ".", thousandSeparator: ",")
                 
                 self.composeAndSendNotification(
                     title: "You received \(formattedAmount) \(symbol)",
@@ -294,7 +294,7 @@ extension TransactionNotificationService {
             }
         } else {
             let symbol = "CCDs"
-            let formattedAmount = TokenFormatter().string(from: BigDecimal(BigInt(stringLiteral: amount), 6))
+            let formattedAmount = TokenFormatter().string(from: BigDecimal(BigInt(stringLiteral: amount), 6), decimalSeparator: ".", thousandSeparator: ",")
             self.composeAndSendNotification(
                 title: "You received \(formattedAmount) \(symbol)",
                 userInfo: data
