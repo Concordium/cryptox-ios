@@ -134,7 +134,7 @@ struct AccountPreviewCardView: View {
     private var createAccountView: some View {
         VStack(alignment: .leading, spacing: 15) {
             HStack(alignment: .lastTextBaseline, spacing: 4) {
-                Text(title)
+                Text(isCreatingAccount ? "finalizing_account".localized : title)
                     .font(.satoshi(size: 16, weight: .medium))
                     .foregroundStyle(Color.greenMain)
                     .padding(.top, 12)
@@ -254,7 +254,7 @@ struct AccountPreviewCardView: View {
         case .createAccount:
             progress = 1
             targetProgress = 1
-            title = isCreatingAccount ? "finalizing_account".localized : "verification.completed".localized
+            title = "verification.completed".localized
         case .createIdentity:
             stepName = "final_step_verify_identity".localized
             progress = 1 / 3
