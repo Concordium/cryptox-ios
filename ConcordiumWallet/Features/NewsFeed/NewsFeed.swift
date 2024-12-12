@@ -59,7 +59,7 @@ struct NewsFeed: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 12){
                 Text(item.title)
-                    .font(.satoshi(size: 18, weight: .bold))
+                    .font(.satoshi(size: 18, weight: .heavy))
                     .foregroundColor(.white.opacity(0.8))
                     .multilineTextAlignment(.leading)
                     .padding(.trailing, 16)
@@ -75,7 +75,7 @@ struct NewsFeed: View {
                 .font(.satoshi(size: 14, weight: .regular))
                 .lineLimit(3)
                 .truncationMode(.tail)
-                .lineSpacing(8)
+                .lineSpacing(5)
                 .foregroundColor(.white.opacity(0.8))
                 .multilineTextAlignment(.leading)
                 .opacity(item.description.isEmpty ? 0 : 1.0)

@@ -173,4 +173,8 @@ extension AppSettings {
             UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.isImportedFromFile.rawValue)
         }
     }
+    
+    static func removeImportedWalletSetings() {
+        UserDefaults.removeObject(forKey: UserDefaultKeys.isImportedFromFile.rawValue)
+    }
 }

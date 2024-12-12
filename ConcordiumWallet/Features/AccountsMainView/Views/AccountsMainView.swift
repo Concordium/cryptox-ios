@@ -33,11 +33,11 @@ struct AccountsMainView: View {
     @State var isShowPasscodeViewShown = false
     @State private var previousState: AccountsMainViewState?
     @State private var selectedPage = 0
-    @State private var showAnimation = true
     @State private var isCreatingAccount = false
     
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
+    @State private var hasShownAnimationKey = "showConfettiAnimation"
     
     let keychain: KeychainWrapperProtocol
     let identitiesService: SeedIdentitiesService
@@ -104,11 +104,11 @@ struct AccountsMainView: View {
             }
         }
         .overlay(content: {
-            if viewModel.state == .accounts && previousState == .createAccount && showAnimation {
+            if viewModel.state == .accounts && !UserDefaults.standard.bool(forKey: hasShownAnimationKey) {
                 DotLottieAnimation(fileName: "confettiAnimation", config: AnimationConfig(autoplay: true, loop: false)).view()
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2.3) {
-                            showAnimation = false
+                            UserDefaults.standard.set(true, forKey: hasShownAnimationKey)
                         }
                     }
             }

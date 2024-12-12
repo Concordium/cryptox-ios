@@ -32,8 +32,12 @@ struct TransferTokenView: View {
                                 Text(viewModel.availableDisplayAmount)
                                     .foregroundColor(.white)
                                     .font(.satoshi(size: 19, weight: .medium))
-                                CryptoImage(url: viewModel.thumbnail, size: .small)
-                                .aspectRatio(contentMode: .fit)
+                                Text("CCD")
+                                    .foregroundColor(.white)
+                                    .font(.satoshi(size: 14, weight: .medium))
+                                    .padding(4)
+                                    .background(.greyAdditionalOpacity40)
+                                    .cornerRadius(20)
                                 Spacer()
                             }
                         }
@@ -51,8 +55,12 @@ struct TransferTokenView: View {
                                         Text(viewModel.atDisposalCCDDisplayAmount)
                                             .foregroundColor(.white)
                                             .font(.satoshi(size: 19, weight: .medium))
-                                        CryptoImage(url: viewModel.thumbnail, size: .small)
-                                        .aspectRatio(contentMode: .fit)
+                                        Text("CCD")
+                                            .foregroundColor(.white)
+                                            .font(.satoshi(size: 14, weight: .medium))
+                                            .padding(4)
+                                            .background(.greyAdditionalOpacity40)
+                                            .cornerRadius(20)
                                         Spacer()
                                     }
                                     
