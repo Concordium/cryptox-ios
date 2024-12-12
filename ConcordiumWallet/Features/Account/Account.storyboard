@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -732,16 +732,16 @@ process on-chain]</string>
                                                 <rect key="frame" x="24" y="55" width="350" height="46"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="jHH-s2-ps5">
-                                                        <rect key="frame" x="0.0" y="0.0" width="333.66666666666669" height="20"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="102.33333333333333" height="20"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="999999990009999990.000000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="P4D-VI-fx0">
-                                                                <rect key="frame" x="0.0" y="0.0" width="289.66666666666669" height="20"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Ͼ2000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4D-VI-fx0">
+                                                                <rect key="frame" x="0.0" y="0.0" width="58.333333333333336" height="20"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
                                                                 <color key="textColor" name="white_main"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xEQ-Dt-TRQ">
-                                                                <rect key="frame" x="293.66666666666669" y="0.0" width="40" height="20"/>
+                                                                <rect key="frame" x="62.333333333333329" y="0.0" width="40" height="20"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CCD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JDq-kf-ESg">
                                                                         <rect key="frame" x="4.9999999999999982" y="1.6666666666666572" width="30.333333333333329" height="17"/>
@@ -1022,7 +1022,7 @@ process on-chain]</string>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="LZ2-ol-U99" userLabel="ErrorMessageContainerView">
-                                                                        <rect key="frame" x="27" y="45.666666666666629" width="344" height="163.33333333333331"/>
+                                                                        <rect key="frame" x="27" y="45.666666666666629" width="344" height="163.33333333333334"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="[Account creation failed in the process of creation]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oq-fm-ahS">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="344" height="163.33333333333334"/>
@@ -2247,32 +2247,6 @@ process on-chain]</string>
             <point key="canvasLocation" x="1782" y="-69"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="89o-5w-snD">
-            <size key="intrinsicContentSize" width="43" height="30"/>
-        </designable>
-        <designable name="ORm-Zf-XcW">
-            <size key="intrinsicContentSize" width="31" height="30"/>
-        </designable>
-        <designable name="QhU-KP-8h3">
-            <size key="intrinsicContentSize" width="167" height="30"/>
-        </designable>
-        <designable name="SWM-ta-B92">
-            <size key="intrinsicContentSize" width="85" height="30"/>
-        </designable>
-        <designable name="ZgW-9v-gsl">
-            <size key="intrinsicContentSize" width="132" height="30"/>
-        </designable>
-        <designable name="a9t-uc-NoB">
-            <size key="intrinsicContentSize" width="152" height="30"/>
-        </designable>
-        <designable name="c2h-uj-ha8">
-            <size key="intrinsicContentSize" width="205" height="30"/>
-        </designable>
-        <designable name="y8I-YT-27p">
-            <size key="intrinsicContentSize" width="119" height="30"/>
-        </designable>
-    </designables>
     <resources>
         <image name="Background_Shield" width="75" height="89"/>
         <image name="Card_Release schedule" width="339" height="48"/>
@@ -2341,13 +2315,13 @@ process on-chain]</string>
             <color red="1" green="0.73725490196078436" blue="0.066666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="separatorColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
