@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased 3.0.0]
+
+### Added
+- New onboarding flow
+
+### Changed
+- Minimum iOS version to 16.4
+
+
 ## [Released 2.0.1] 2024-26-11
 
 ### Fixed
