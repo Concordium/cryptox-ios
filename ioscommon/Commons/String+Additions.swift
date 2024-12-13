@@ -30,7 +30,7 @@ extension String {
     }
     
     var unsignedWholePart: Int {
-        let decimalSeparator = NumberFormatter().decimalSeparator!
+        let decimalSeparator = GTU.decimalSeparator
         let sep = decimalSeparator[decimalSeparator.startIndex]
         let splits = self.split(whereSeparator: {$0 == sep})
         if splits.count == 0 {
@@ -43,7 +43,7 @@ extension String {
     }
     
     func fractionalPart(precision: Int) -> Int {
-        let decimalSeparator = NumberFormatter().decimalSeparator!
+        let decimalSeparator = GTU.decimalSeparator
         let sep = decimalSeparator[decimalSeparator.startIndex]
         let splits = self.split(whereSeparator: {$0 == sep})
         
