@@ -16,7 +16,8 @@ struct GTU: Codable {
     /// Useful for comparing against 0
     static let zero: GTU = GTU(intValue: 0)
     static let max: GTU = GTU(intValue: .max)
-
+    static let groupingSeparator = ","
+    static let decimalSeparator = "."
     private(set) var intValue: Int
 
     init(displayValue: String) {
@@ -25,7 +26,7 @@ struct GTU: Codable {
             return
         }
         
-        let displayValue = displayValue.replacingOccurrences(of: Locale.autoupdatingCurrent.groupingSeparator!, with: "")
+        let displayValue = displayValue.replacingOccurrences(of: GTU.groupingSeparator, with: "")
 
         let wholePart = displayValue.unsignedWholePart
         let fractionalPart = displayValue.fractionalPart(precision: GTU.maximumFractionDigits)
@@ -133,7 +134,7 @@ struct GTU: Codable {
     }
     
     static func isValid(displayValue: String) -> Bool {
-        let displayValue = displayValue.replacingOccurrences(of: Locale.autoupdatingCurrent.groupingSeparator!, with: "")
+        let displayValue = displayValue.replacingOccurrences(of: groupingSeparator, with: "")
         return displayValue.unsignedWholePart <= (Int.max - 999999)/1000000 && displayValue.matches(regex: "^[0-9]*[\\.,]?[0-9]{0,6}$")
     }
 
@@ -167,9 +168,8 @@ struct GTU: Codable {
         if !removed {
             fractionVal = String(fractionVal[..<fractionVal.index(fractionVal.endIndex, offsetBy: -length + minimumFractionDigits)])
         }
-        let decimalSeparator = "."
-        let thousandSeparator = ","
-        return groups(string: wholeValueString, size: 3).joined(separator: thousandSeparator) + decimalSeparator + fractionVal
+        
+        return groups(string: wholeValueString, size: 3).joined(separator: groupingSeparator) + decimalSeparator + fractionVal
     }
     
     /// Splits base-10 integer String into groups of `size` characters, starting from the end of string.

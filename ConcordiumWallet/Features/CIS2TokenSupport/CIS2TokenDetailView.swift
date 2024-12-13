@@ -62,7 +62,7 @@ final class CIS2TokenDetailViewModel: ObservableObject {
         do {
             let balances = try await cis2Service.fetchTokensBalance(contractIndex: token.contractAddress.index.string, accountAddress: account.address, tokenId: token.tokenId)
             if let b = balances.first {
-                self.balance = TokenFormatter().string(from: BigDecimal(BigInt(stringLiteral: b.balance), token.metadata.decimals ?? 0))
+                self.balance = TokenFormatter().string(from: BigDecimal(BigInt(stringLiteral: b.balance), token.metadata.decimals ?? 0), decimalSeparator: ".", thousandSeparator: ",")
             }
         } catch {
             logger.debugLog(error.localizedDescription)
