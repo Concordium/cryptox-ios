@@ -119,7 +119,7 @@ class MoreMenuViewController: BaseViewController, MoreMenuViewProtocol, Storyboa
         presenter.view = self
         presenter.viewDidLoad()
 
-        title = "more_tab_title".localized
+        self.navigationItem.title = "more_tab_title".localized
 
         tableView.tableFooterView = UIView(frame: .zero)
 

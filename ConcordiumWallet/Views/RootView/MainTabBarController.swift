@@ -46,7 +46,12 @@ class MainTabBarController: BaseTabBarController {
         moreCoordinator.configureAccountAlertDelegate = self
         moreCoordinator.start()
         let newsFeedController = SceneViewController(content: NewsFeed())
-        newsFeedController.tabBarItem = UITabBarItem(title: "news_tab_title".localized, image: UIImage(named: "tab_item_news"), tag: 5)
+        newsFeedController.tabBarItem = UITabBarItem(
+            title: nil,
+            image: UIImage(named: "tab_item_news"),
+            tag: 5
+        )
+        newsFeedController.tabBarItem.selectedImage = UIImage(named: "tab_item_news_selected")?.withRenderingMode(.alwaysOriginal)
         newsFeedController.extendedLayoutIncludesOpaqueBars = false
         viewControllers = [accountsMainRouter.rootScene(), newsFeedController, moreCoordinator.navigationController]
         hideKeyboardWhenTappedAround()

@@ -61,7 +61,8 @@ class AccountsCoordinator: Coordinator {
             appSettingsDelegate: appSettingsDelegate
         )
         let accountsViewController = AccountsFactory.create(with: AccountsPresenter)
-        accountsViewController.tabBarItem = UITabBarItem(title: "accounts_tab_title".localized, image: UIImage(named: "tab_bar_accounts_icon"), tag: 0)
+        accountsViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "tab_item_home"), tag: 0)
+        accountsViewController.tabBarItem.selectedImage = UIImage(named: "tab_item_home_selected")?.withRenderingMode(.alwaysOriginal)
         navigationController.viewControllers = [accountsViewController]
     }
 

@@ -40,7 +40,8 @@ final class AccountsMainRouter: ObservableObject {
         let view = AccountsMainView(viewModel: viewModel, keychain: dependencyProvider.keychainWrapper(), identitiesService: dependencyProvider.seedIdentitiesService(), router: self)
             .environmentObject(updateTimer)
         let viewController = SceneViewController(content: view)
-        viewController.tabBarItem = UITabBarItem(title: "accounts_tab_title".localized, image: UIImage(named: "tab_bar_accounts_icon"), tag: 0)
+        viewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "tab_item_home"), tag: 0)
+        viewController.tabBarItem.selectedImage = UIImage(named: "tab_item_home_selected")?.withRenderingMode(.alwaysOriginal)
         navigationController.setViewControllers([viewController], animated: false)
         return navigationController
     }

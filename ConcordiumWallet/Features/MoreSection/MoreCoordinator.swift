@@ -72,7 +72,8 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
     
     func showMenu() {
         let vc = MoreMenuFactory.create(with: MoreMenuPresenter(dependencyProvider: dependencyProvider, delegate: self))
-        vc.tabBarItem = UITabBarItem(title: "more_tab_title".localized, image: UIImage(named: "more_tab_icon"), tag: 0)
+        vc.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "more_tab_icon"), tag: 0)
+        vc.tabBarItem.selectedImage = UIImage(named: "tab_icon_more_selected")?.withRenderingMode(.alwaysOriginal)
         navigationController.pushViewController(vc, animated: false)
     }
     
