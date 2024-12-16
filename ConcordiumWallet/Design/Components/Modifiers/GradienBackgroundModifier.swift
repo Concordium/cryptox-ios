@@ -27,10 +27,6 @@ struct GradienBackgroundModifier: ViewModifier {
 struct AppBackgroundModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .background {
-                Image("new_bg")
-                    .resizable()
-                    .ignoresSafeArea(.all)
-            }
+            .background(Color.blackMain)
     }
 }

@@ -28,9 +28,6 @@ struct IdentityProviderListView: View {
     
     var body: some View {
         ZStack {
-            Image("new_bg")
-                .resizable()
-                .ignoresSafeArea()
             VStack(alignment: .center) {
                 VStack(spacing: 8) {
                     Text("identityVerification.title".localized)
@@ -90,6 +87,7 @@ struct IdentityProviderListView: View {
                 )
             }
         }
+        .modifier(AppBackgroundModifier())
     }
     
     @ViewBuilder

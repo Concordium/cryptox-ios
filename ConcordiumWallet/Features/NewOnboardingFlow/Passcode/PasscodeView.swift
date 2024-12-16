@@ -225,8 +225,6 @@ struct PasscodeView: View {
     
     var body: some View {
         ZStack {
-            Image("new_bg").resizable().aspectRatio(contentMode: .fill)
-                .ignoresSafeArea(.all)
             passcodeView()
                 .padding(.bottom, 100)
                 .overlay {
@@ -250,6 +248,7 @@ struct PasscodeView: View {
                 default: break
             }
         }
+        .modifier(AppBackgroundModifier())
     }
     
     @ViewBuilder
