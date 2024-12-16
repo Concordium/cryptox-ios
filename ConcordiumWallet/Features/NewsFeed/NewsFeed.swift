@@ -44,7 +44,7 @@ struct NewsFeed: View {
                     rssFeed.fetchRSSFeed()
                 }
                 .listStyle(.plain)
-                .navigationTitle("Concordium News")
+                .navigationTitle("Discover")
                 .onAppear {
                     rssFeed.fetchRSSFeed()
                 }
@@ -70,6 +70,7 @@ struct NewsFeed: View {
             }
             
             RSSPostPreview(item, size: size)
+                .cornerRadius(16)
             
             Text(item.description)
                 .font(.satoshi(size: 14, weight: .regular))
@@ -88,13 +89,8 @@ struct NewsFeed: View {
         .frame(maxWidth: .infinity)
         .padding(.horizontal, 16)
         .padding(.vertical, 20)
-        .background(Color(red: 0.08, green: 0.1, blue: 0.11))
+        .background(Color(red: 0.17, green: 0.19, blue: 0.2).opacity(0.3))
         .cornerRadius(16)
-        .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .inset(by: 0.5)
-                .stroke(Color(red: 0.16, green: 0.2, blue: 0.23), lineWidth: 1)
-        )
     }
     
     private func RSSPostPreview(_ item: RSSItem, size: CGSize) -> some View {
