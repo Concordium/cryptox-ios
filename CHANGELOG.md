@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased 3.0.0]
+## [Released 3.0.0] 2024-19-12
 
 ### Added
 - New onboarding flow
