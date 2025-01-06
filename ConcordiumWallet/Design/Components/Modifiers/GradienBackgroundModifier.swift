@@ -30,3 +30,19 @@ struct AppBackgroundModifier: ViewModifier {
             .background(Color.blackMain)
     }
 }
+
+struct RadialGradientForegroundStyleModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .foregroundStyle(RadialGradient(
+                colors: [
+                    Color(red: 0.62, green: 0.95, blue: 0.92),
+                    Color(red: 0.93, green: 0.85, blue: 0.75),
+                    Color(red: 0.64, green: 0.6, blue: 0.89)
+                ],
+                center: .topLeading,
+                startRadius: 50,
+                endRadius: 300
+            ))
+    }
+}

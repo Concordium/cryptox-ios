@@ -9,8 +9,8 @@
 import SwiftUI
 
 final class AccountPreviewViewModel: Identifiable {
-    var totalAmount: String
-    var totalAtDisposalAmount: String
+    var totalAmount: GTU
+    var totalAtDisposalAmount: GTU
     
     var accountName: String
     var accountOwner: String
@@ -39,8 +39,8 @@ final class AccountPreviewViewModel: Identifiable {
         self.tokens = tokens
         self.address = account.address
         
-        self.totalAmount = GTU(intValue: account.totalForecastBalance).displayValue()
-        self.totalAtDisposalAmount = GTU(intValue: account.forecastAtDisposalBalance).displayValue()
+        self.totalAmount = GTU(intValue: account.totalForecastBalance)
+        self.totalAtDisposalAmount = GTU(intValue: account.forecastAtDisposalBalance)
         
         self.accountName = account.displayName
         self.accountOwner = account.identity?.nickname ?? ""

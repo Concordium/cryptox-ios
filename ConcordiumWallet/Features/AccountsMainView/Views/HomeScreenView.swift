@@ -1,0 +1,201 @@
+//
+//  HomeScreenView.swift
+//  CryptoX
+//
+//  Created by Zhanna Komar on 02.01.2025.
+//  Copyright © 2025 pioneeringtechventures. All rights reserved.
+//
+
+import SwiftUI
+import Combine
+
+struct ActionItem: Identifiable {
+    let id = UUID()
+    let iconName: String
+    let label: String
+//    let action: () -> Void
+}
+
+
+struct HomeScreenView: View {
+    @StateObject var viewModel: AccountsMainViewModel
+
+    //    @EnvironmentObject var updateTimer: UpdateTimer
+
+    @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
+    @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
+    var accountDetailViewModel: AccountDetailViewModel2? {
+        guard let selectedAccount = viewModel.selectedAccount else { return nil }
+        return AccountDetailViewModel2(account: selectedAccount)
+    }
+
+    let keychain: KeychainWrapperProtocol
+    let identitiesService: SeedIdentitiesService
+    weak var router: AccountsMainViewDelegate?
+    @State var onRampFlowShown = false
+    @State private var selectedPage = 0
+    let actionItems: [ActionItem]
+    
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 40) {
+                        topBarControls()
+                        balanceSection()
+                        accountActionButtonsSection()
+                    }
+                    .padding(.horizontal, 18)
+                    NewsPageView(selectedTab: $selectedPage, views: {
+                        [
+                            AnyView(onrampView())
+                        ]
+                    })
+                    
+                    if let accountDetailViewModel = accountDetailViewModel {
+                        AccountTokenListView(viewModel: accountDetailViewModel)
+                            .frame(maxWidth: .infinity)
+                            .frame(minHeight: geometry.size.height / 2)
+                    }
+                }
+                infoTooltip
+                    .transition(
+                        .opacity.combined(with: .scale)
+                        .animation(.bouncy(duration: 0.25, extraBounce: 0.2))
+                    )
+            }
+        }
+        .refreshable {
+            await viewModel.reload()
+        }
+        .onAppear {
+            Task {
+                await viewModel.reload()
+            }
+        }
+        .modifier(AppBackgroundModifier())
+    }
+    
+    func topBarControls() -> some View {
+        HStack() {
+            HStack(spacing: 5) {
+                Image(viewModel.dotImageName)
+                Text("\(viewModel.selectedAccount?.displayName ?? "")")
+                    .font(.satoshi(size: 15, weight: .medium))
+                Image(systemName: "chevron.up.chevron.down")
+                    .tint(.greyAdditional)
+            }
+            Spacer()
+            Image("ico_scan")
+                .resizable()
+                .frame(width: 32, height: 32)
+                .tint(.MineralBlue.blueish3)
+                .onTapGesture {
+                    if SettingsHelper.isIdentityConfigured() {
+                        self.router?.showScanQRFlow()
+                        Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Scan QR")
+                    } else {
+                        self.router?.showNotConfiguredAccountPopup()
+                    }
+                }
+        }
+    }
+    
+    func balanceSection() -> some View {
+        VStack(alignment: .leading) {
+            HStack(alignment: .top, spacing: 4) {
+                Text("\(balanceDisplayValue(viewModel.selectedAccount?.forecastBalance)) CCD")
+                    .font(.plexSans(size: 48, weight: .medium))
+                    .modifier(RadialGradientForegroundStyleModifier())
+
+                Button {
+                    
+                } label: {
+                    Image("info_gradient")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .offset(y: 8)
+                }
+            }
+            
+            Text("\(balanceDisplayValue(viewModel.selectedAccount?.forecastAtDisposalBalance)) CCD " + "accounts.atdisposal".localized)
+                .font(.satoshi(size: 15, weight: .medium))
+                .modifier(RadialGradientForegroundStyleModifier())
+        }
+    }
+    
+    func accountActionButtonsSection() -> some View {
+        HStack(alignment: .center) {
+            ForEach(actionItems) { item in
+                VStack {
+                    Image(item.iconName)
+                        .frame(width: 24, height: 24)
+                        .padding(11)
+                        .background(.grey3)
+                        .foregroundColor(.MineralBlue.blueish3)
+                        .cornerRadius(50)
+                    Text(item.label)
+                        .font(.satoshi(size: 12, weight: .medium))
+                        .foregroundColor(.MineralBlue.blueish2)
+                        .padding(.top, 2)
+                }
+                if item.id != actionItems.last?.id {
+                    Spacer()
+                }
+            }
+        }
+    }
+    
+    func onrampView() -> some View {
+        HStack(alignment: .top, spacing: 17) {
+            Image("onramp_ccd")
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Get your CCD")
+                    .font(.satoshi(size: 15, weight: .medium))
+                
+                Text("And be part of a safer digital future")
+                    .font(.satoshi(size: 12, weight: .regular))
+            }
+            Spacer()
+            Image(systemName: "xmark.circle")
+                .tint(.MineralBlue.blueish3)
+        }
+        .onTapGesture {
+            if !SettingsHelper.isIdentityConfigured() {
+                self.router?.showNotConfiguredAccountPopup()
+            } else {
+                onRampFlowShown.toggle()
+                Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "OnRamp Banner")
+            }
+        }
+        .padding(.horizontal, 17)
+        .padding(.vertical, 14)
+        .background(Color(red: 0.09, green: 0.1, blue: 0.1))
+        .cornerRadius(12)
+    }
+    
+    func balanceDisplayValue(_ balance: Int?) -> String {
+        let gtuValue = GTU(intValue: balance)
+        return gtuValue?.displayValueWithTwoNumbersAfterDecimalPoint() ?? "0.00"
+    }
+    
+    @ViewBuilder
+    private var infoTooltip: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text("Total CCD balance")
+                .font(.satoshi(size: 14, weight: .medium))
+                .foregroundColor(.black)
+            
+            Text("This balance shows your total CCD in this account. It does not include any other tokens.")
+                .font(.satoshi(size: 12, weight: .regular))
+                .foregroundColor(.black)
+        }
+        .padding(.horizontal, 12)
+        .padding(.top, 8)
+        .padding(.bottom, 12)
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color(red: 0.97, green: 0.96, blue: 0.96))
+        )
+    }
+}

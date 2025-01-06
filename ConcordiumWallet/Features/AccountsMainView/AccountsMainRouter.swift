@@ -37,13 +37,24 @@ final class AccountsMainRouter: ObservableObject {
     
     func rootScene() -> UINavigationController {        
         let viewModel: AccountsMainViewModel = .init(dependencyProvider: dependencyProvider, onReload: onAccountsUpdate.eraseToAnyPublisher(), walletConnectService: walletConnectService)
-        let view = AccountsMainView(viewModel: viewModel, keychain: dependencyProvider.keychainWrapper(), identitiesService: dependencyProvider.seedIdentitiesService(), router: self)
+        let view = HomeScreenView(viewModel: viewModel, keychain: dependencyProvider.keychainWrapper(), identitiesService: dependencyProvider.seedIdentitiesService(), router: self, actionItems: accountActionItems())
             .environmentObject(updateTimer)
         let viewController = SceneViewController(content: view)
         viewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "tab_item_home"), tag: 0)
         viewController.tabBarItem.selectedImage = UIImage(named: "tab_item_home_selected")?.withRenderingMode(.alwaysOriginal)
         navigationController.setViewControllers([viewController], animated: false)
         return navigationController
+    }
+    
+    private func accountActionItems() -> [ActionItem] {
+        let actionItems = [
+            ActionItem(iconName: "buy", label: "Buy"),
+            ActionItem(iconName: "send", label: "Send"),
+            ActionItem(iconName: "receive", label: "Receive"),
+            ActionItem(iconName: "percent", label: "Earn"),
+            ActionItem(iconName: "activity", label: "Activity")
+        ]
+        return actionItems
     }
     
     @MainActor func showUnshieldAssetsFlow() {

@@ -63,7 +63,7 @@ struct OnrampAccountPicker: View {
                         .font(.satoshi(size: 16, weight: .medium))
                         .foregroundColor(Color(red: 0.92, green: 0.94, blue: 0.94))
                     Spacer()
-                    Text(account.totalAmount)
+                    Text(account.totalAmount.displayValue())
                         .layoutPriority(1)
                         .font(.satoshi(size: 16, weight: .medium))
                         .foregroundColor(Color(red: 0.92, green: 0.94, blue: 0.94))

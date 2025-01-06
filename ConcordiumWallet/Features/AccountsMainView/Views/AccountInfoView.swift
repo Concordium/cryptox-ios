@@ -55,14 +55,14 @@ struct AccountInfoView: View {
             
             VStack(alignment: .leading ,spacing: 6) {
                 HStack(spacing: 8) {
-                    Text(viewModel.totalAmount)
+                    Text(viewModel.totalAmount.displayValue())
                         .foregroundColor(Color.Neutral.tint7)
                         .font(.satoshi(size: 24, weight: .medium))
                     Image("ccd_logo_white_large")
                         .frame(width: 20, height: 20)
                 }
                 HStack(alignment: .bottom, spacing: 4) {
-                    Text(viewModel.totalAtDisposalAmount)
+                    Text(viewModel.totalAtDisposalAmount.displayValue())
                         .foregroundColor(Color.Neutral.tint7)
                         .font(.satoshi(size: 12, weight: .medium))
                     Text("accounts.atdisposal".localized)

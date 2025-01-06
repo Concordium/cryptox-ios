@@ -40,6 +40,7 @@ struct NewsFeed: View {
                         .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
                     }
                 }
+                .padding(.top, 19)
                 .refreshable {
                     rssFeed.fetchRSSFeed()
                 }

@@ -20,7 +20,9 @@ final class AccountsMainViewModel: ObservableObject {
     @Published var atDisposal = GTU(intValue: 0)
     @Published var staked = GTU(intValue: 0)
     @Published var isBackupAlertShown = false
-        
+    @Published var dotImageName: String = ""
+    @Published var selectedAccount: AccountDataType?
+    
     let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     let defaultProvider = ServicesProvider.defaultProvider()
     private var cancellables = [AnyCancellable]()
@@ -44,6 +46,8 @@ final class AccountsMainViewModel: ObservableObject {
             guard let self = self else { return }
             await self.reload()
         }.store(in: &cancellables)
+        let dotImageNumber = Range((1...9)).randomElement()
+        self.dotImageName = "dot" + "\(dotImageNumber ?? 1)"
     }
     
     @MainActor
@@ -56,7 +60,10 @@ final class AccountsMainViewModel: ObservableObject {
         Task {
             checkPendingAccountsStatusesIfNeeded()
         }
-        updateData()        
+        updateData()
+        if selectedAccount == nil {
+            selectedAccount = accounts.first
+        }
     }
     
     @MainActor
@@ -104,6 +111,10 @@ final class AccountsMainViewModel: ObservableObject {
     @MainActor
     private func updateAccountsInfo(_ accounts: [AccountDataType]) async throws -> [AccountDataType] {
         try await dependencyProvider.accountsService().updateAccountsBalances(accounts: accounts).async()
+    }
+    
+    func changeCurrentAccount(_ account: AccountDataType) {
+        selectedAccount = account
     }
 }
 
