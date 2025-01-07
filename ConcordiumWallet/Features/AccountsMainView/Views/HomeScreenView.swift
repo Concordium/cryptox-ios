@@ -13,17 +13,20 @@ struct ActionItem: Identifiable {
     let id = UUID()
     let iconName: String
     let label: String
-//    let action: () -> Void
+    let action: () -> Void
 }
 
 
 struct HomeScreenView: View {
     @StateObject var viewModel: AccountsMainViewModel
-
+    @State var showTooltip: Bool = false
+    @State var accountQr: AccountEntity?
     //    @EnvironmentObject var updateTimer: UpdateTimer
 
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
+    @AppStorage("isShouldShowOnrampMessage") private var isShouldShowOnrampMessage = true
+
     var accountDetailViewModel: AccountDetailViewModel2? {
         guard let selectedAccount = viewModel.selectedAccount else { return nil }
         return AccountDetailViewModel2(account: selectedAccount)
@@ -34,35 +37,43 @@ struct HomeScreenView: View {
     weak var router: AccountsMainViewDelegate?
     @State var onRampFlowShown = false
     @State private var selectedPage = 0
-    let actionItems: [ActionItem]
+    var actionItems: [ActionItem]  {
+        return accountActionItems()
+    }
     
     var body: some View {
         GeometryReader { geometry in
-            ZStack {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 40) {
                         topBarControls()
                         balanceSection()
-                        accountActionButtonsSection()
                     }
                     .padding(.horizontal, 18)
-                    NewsPageView(selectedTab: $selectedPage, views: {
-                        [
-                            AnyView(onrampView())
-                        ]
-                    })
+                    accountActionButtonsSection()
+                        .padding(.top, 40)
+                    if isShouldShowOnrampMessage {
+                        NewsPageView(selectedTab: $selectedPage, views: {
+                            [
+                                AnyView(onrampView())
+                            ]
+                        })
+                    }
                     
                     if let accountDetailViewModel = accountDetailViewModel {
                         AccountTokenListView(viewModel: accountDetailViewModel)
                             .frame(maxWidth: .infinity)
                             .frame(minHeight: geometry.size.height / 2)
+                            .padding(.top, 40)
                     }
-                }
-                infoTooltip
-                    .transition(
-                        .opacity.combined(with: .scale)
-                        .animation(.bouncy(duration: 0.25, extraBounce: 0.2))
-                    )
+            }
+            .onTapGesture {
+                showTooltip = false
+            }
+            .sheet(item: $accountQr) { account in
+                AccountQRView(account: account)
+            }
+            .sheet(isPresented: $onRampFlowShown) {
+                CCDOnrampView(dependencyProvider: viewModel.dependencyProvider)
             }
         }
         .refreshable {
@@ -107,15 +118,21 @@ struct HomeScreenView: View {
                 Text("\(balanceDisplayValue(viewModel.selectedAccount?.forecastBalance)) CCD")
                     .font(.plexSans(size: 48, weight: .medium))
                     .modifier(RadialGradientForegroundStyleModifier())
-
+                
                 Button {
-                    
+                    showTooltip.toggle()
                 } label: {
                     Image("info_gradient")
                         .resizable()
                         .frame(width: 20, height: 20)
                         .offset(y: 8)
                 }
+                .popover(isPresented: $showTooltip, attachmentAnchor: .point(.bottomLeading), arrowEdge: .bottom, content: {
+                    infoTooltip
+                        .frame(width: 200)
+                        .presentationBackground(.white)
+                        .presentationCompactAdaptation(.popover)
+                })
             }
             
             Text("\(balanceDisplayValue(viewModel.selectedAccount?.forecastAtDisposalBalance)) CCD " + "accounts.atdisposal".localized)
@@ -139,8 +156,9 @@ struct HomeScreenView: View {
                         .foregroundColor(.MineralBlue.blueish2)
                         .padding(.top, 2)
                 }
-                if item.id != actionItems.last?.id {
-                    Spacer()
+                .frame(maxWidth: .infinity)
+                .onTapGesture {
+                    item.action()
                 }
             }
         }
@@ -159,6 +177,11 @@ struct HomeScreenView: View {
             Spacer()
             Image(systemName: "xmark.circle")
                 .tint(.MineralBlue.blueish3)
+                .onTapGesture {
+                    withAnimation(.easeInOut) {
+                        isShouldShowOnrampMessage = false
+                    }
+                }
         }
         .onTapGesture {
             if !SettingsHelper.isIdentityConfigured() {
@@ -197,5 +220,27 @@ struct HomeScreenView: View {
             RoundedRectangle(cornerRadius: 8)
                 .fill(Color(red: 0.97, green: 0.96, blue: 0.96))
         )
+    }
+    
+    private func accountActionItems() -> [ActionItem] {
+        let actionItems = [
+            ActionItem(iconName: "buy", label: "Buy", action: {
+                onRampFlowShown.toggle()
+            }),
+            ActionItem(iconName: "send", label: "Send", action: {
+                guard let selectedAccount = viewModel.selectedAccount else { return }
+                router?.showSendFundsFlow(selectedAccount)
+            }),
+            ActionItem(iconName: "receive", label: "Receive", action: {
+                accountQr = (viewModel.selectedAccount as? AccountEntity)
+            }),
+            ActionItem(iconName: "percent", label: "Earn", action: {
+                
+            }),
+            ActionItem(iconName: "activity", label: "Activity", action: {
+                
+            })
+        ]
+        return actionItems
     }
 }
