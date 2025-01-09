@@ -16,6 +16,8 @@ final class AccountPreviewViewModel: Identifiable {
     var accountOwner: String
     var isInitialAccount: Bool
     
+    var stakedAmount: GTU
+    
     var viewState: AccountCardViewState = .basic
     
     let address: String
@@ -45,6 +47,8 @@ final class AccountPreviewViewModel: Identifiable {
         self.accountName = account.displayName
         self.accountOwner = account.identity?.nickname ?? ""
         self.isInitialAccount = account.credential?.value.credential.type == "initial"
+        
+        self.stakedAmount = GTU(intValue: account.baker?.stakedAmount ?? account.delegation?.stakedAmount ?? 0)
         
         if account.baker != nil {
             viewState = .baking

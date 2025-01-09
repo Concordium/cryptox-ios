@@ -11,7 +11,9 @@ import Combine
 import BigInt
 
 struct AccountTokenListView: View {
-    @StateObject var viewModel: AccountDetailViewModel2
+    @ObservedObject var viewModel: AccountDetailViewModel2
+    @Binding var showTokenDetails: Bool
+    @Binding var selectedToken: AccountDetailAccount?
 
     var body: some View {
         ScrollView {
@@ -50,8 +52,14 @@ struct AccountTokenListView: View {
             switch account {
             case .ccd(let amount):
                 Image("onramp_ccd")
-                Text(account.name)
-                    .font(.satoshi(size: 15, weight: .medium))
+                HStack(spacing: 0) {
+                    Text("CCD")
+                        .font(.satoshi(size: 15, weight: .medium))
+                    if viewModel.account?.baker != nil || viewModel.account?.delegation != nil {
+                        Text(" · %")
+                            .font(.satoshi(size: 15, weight: .medium))
+                    }
+                }
                 
                 Spacer()
                 VStack(alignment: .trailing, spacing: 4) {
@@ -69,7 +77,7 @@ struct AccountTokenListView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 40, height: 40)
                 }
-                Text(token.metadata.name ?? "")
+                Text(token.metadata.symbol ?? "")
                     .font(.satoshi(size: 15, weight: .medium))
                 Spacer()
                 Text(TokenFormatter()
@@ -86,6 +94,10 @@ struct AccountTokenListView: View {
         .padding(.vertical, 11)
         .background(Color(red: 0.09, green: 0.1, blue: 0.1))
         .cornerRadius(12)
+        .onTapGesture {
+            showTokenDetails = true
+            selectedToken = account
+        }
     }
 }
 
@@ -101,7 +113,12 @@ final class AccountDetailViewModel2: ObservableObject {
     @Published var state: State = .accounts
     @Published var sceneTitle: String = ""
     @Published var accounts: [AccountDetailAccount] = []
-
+    @Published var totalCooldown: GTU?
+    @Published var atDisposal: GTU?
+    @Published var isReadOnly = false
+    @Published var hasStaked = false
+    @Published var stakedValue: GTU?
+    
     let account: AccountDataType?
     let storageManager: StorageManagerProtocol
     let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
@@ -118,6 +135,19 @@ final class AccountDetailViewModel2: ObservableObject {
         }
         self.account = account
         sceneTitle = account.displayName
+
+        if let baker = account.baker, baker.bakerID != -1 {
+            self.hasStaked = true
+            self.stakedValue = GTU(intValue: baker.stakedAmount )
+            
+        } else if let delegation = account.delegation {
+            self.hasStaked = true
+            self.stakedValue = GTU(intValue: Int(delegation.stakedAmount) )
+        }
+        
+        self.atDisposal = GTU(intValue: account.forecastAtDisposalBalance)
+        self.totalCooldown = GTU(intValue: account.cooldowns.compactMap { Int($0.amount) }.reduce(0, +))
+        self.isReadOnly = account.isReadOnly
         
         storageManager.subscribeCIS2TokensUpdate(account.address).sink { [weak self] val in
             await self?.reload()
@@ -156,7 +186,8 @@ final class AccountDetailViewModel2: ObservableObject {
                 var tmpTokens: [AccountDetailAccount] = []
                 tmpTokens = tokens.compactMap { token -> AccountDetailAccount? in
                     let contractTokenBalances = balances.filter { $1 == token.contractAddress.index }.map(\.0).flatMap { $0 }
-                    guard let tokenBalance = contractTokenBalances.first(where: { $0.tokenId == token.tokenId }) else { return nil }
+                    guard let tokenBalance = contractTokenBalances.first(where: { $0.tokenId == token.tokenId }),
+                          tokenBalance.balance != "0" else { return nil }
                     return AccountDetailAccount.token(token: token, amount: tokenBalance.balance)
                 }
                 

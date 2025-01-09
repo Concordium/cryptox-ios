@@ -20,7 +20,10 @@ struct ActionItem: Identifiable {
 struct HomeScreenView: View {
     @StateObject var viewModel: AccountsMainViewModel
     @State var showTooltip: Bool = false
+    @State var showAccountsOverview: Bool = false
     @State var accountQr: AccountEntity?
+    @State private var showTokenDetails: Bool = false
+    @State private var selectedToken: AccountDetailAccount?
     //    @EnvironmentObject var updateTimer: UpdateTimer
 
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
@@ -59,8 +62,8 @@ struct HomeScreenView: View {
                         })
                     }
                     
-                    if let accountDetailViewModel = accountDetailViewModel {
-                        AccountTokenListView(viewModel: accountDetailViewModel)
+                    if let selectedAccount = viewModel.selectedAccount {
+                        AccountTokenListView(viewModel: AccountDetailViewModel2(account: selectedAccount), showTokenDetails: $showTokenDetails, selectedToken: $selectedToken)
                             .frame(maxWidth: .infinity)
                             .frame(minHeight: geometry.size.height / 2)
                             .padding(.top, 40)
@@ -74,6 +77,17 @@ struct HomeScreenView: View {
             }
             .sheet(isPresented: $onRampFlowShown) {
                 CCDOnrampView(dependencyProvider: viewModel.dependencyProvider)
+            }
+            .fullScreenCover(isPresented: $showAccountsOverview) {
+                AccountsOverviewView(viewModel: viewModel)
+            }
+            .fullScreenCover(isPresented: $showTokenDetails) {
+                if let selectedAccount = viewModel.selectedAccount, let selectedToken {
+                    TokenBalanceView(token: selectedToken, viewModel: AccountDetailViewModel2(account: selectedAccount), router: self.router)
+                }
+            }
+            .onChange(of: selectedToken) { newValue in
+                print("Selected token changed to: \(String(describing: newValue))")
             }
         }
         .refreshable {
@@ -96,6 +110,9 @@ struct HomeScreenView: View {
                 Image(systemName: "chevron.up.chevron.down")
                     .tint(.greyAdditional)
             }
+            .onTapGesture {
+                showAccountsOverview = true
+            }
             Spacer()
             Image("ico_scan")
                 .resizable()
@@ -116,7 +133,11 @@ struct HomeScreenView: View {
         VStack(alignment: .leading) {
             HStack(alignment: .top, spacing: 4) {
                 Text("\(balanceDisplayValue(viewModel.selectedAccount?.forecastBalance)) CCD")
-                    .font(.plexSans(size: 48, weight: .medium))
+                    .font(.plexSans(size: 55, weight: .medium))
+                    .dynamicTypeSize(.xSmall ... .xxLarge)
+                    .minimumScaleFactor(0.5)
+                    .lineLimit(1)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .modifier(RadialGradientForegroundStyleModifier())
                 
                 Button {
@@ -222,6 +243,7 @@ struct HomeScreenView: View {
         )
     }
     
+    // TODO: Add actions
     private func accountActionItems() -> [ActionItem] {
         let actionItems = [
             ActionItem(iconName: "buy", label: "Buy", action: {
