@@ -10,10 +10,19 @@ import SwiftUI
 import Combine
 import BigInt
 
+enum TokenListMode {
+    case normal
+    case manage
+}
+
 struct AccountTokenListView: View {
     @ObservedObject var viewModel: AccountDetailViewModel2
     @Binding var showTokenDetails: Bool
+    @Binding var showManageTokenList: Bool
     @Binding var selectedToken: AccountDetailAccount?
+    
+    var mode: TokenListMode
+    var onHideToken: ((CIS2Token) -> Void)?
 
     var body: some View {
         ScrollView {
@@ -34,6 +43,10 @@ struct AccountTokenListView: View {
                 }
                 .padding(.leading, 24)
                 .padding(.top, 8)
+                .onTapGesture {
+                    showManageTokenList = true
+                }
+                .opacity(mode == .normal ? 1 : 0)
             }
         }
         .padding(.horizontal, 18)
@@ -45,6 +58,11 @@ struct AccountTokenListView: View {
                 await viewModel.reload()
             }
         }
+        .onAppear {
+            showManageTokenList = false
+            showTokenDetails = false
+            selectedToken = nil
+        }
     }
     
     func tokenListViewCell(account: AccountDetailAccount) -> some View {
@@ -55,7 +73,7 @@ struct AccountTokenListView: View {
                 HStack(spacing: 0) {
                     Text("CCD")
                         .font(.satoshi(size: 15, weight: .medium))
-                    if viewModel.account?.baker != nil || viewModel.account?.delegation != nil {
+                    if (viewModel.account?.baker != nil || viewModel.account?.delegation != nil) && mode == .normal {
                         Text(" · %")
                             .font(.satoshi(size: 15, weight: .medium))
                     }
@@ -71,6 +89,7 @@ struct AccountTokenListView: View {
                         .tint(.MineralBlue.blueish3)
                         .opacity(0.5)
                 }
+                .opacity(mode == .normal ? 1 : 0)
             case .token(let token, let amount):
                 if let url = token.metadata.thumbnail?.url {
                     CryptoImage(url: url.toURL, size: .medium)
@@ -84,19 +103,33 @@ struct AccountTokenListView: View {
                     .displayStringWithTwoValuesAfterComma(from: BigDecimal(BigInt(stringLiteral: amount), token.metadata.decimals ?? 0), decimalSeparator: ".", thousandSeparator: ","))
                     .font(.satoshi(size: 15, weight: .medium))
                     .tint(.white)
+                    .opacity(mode == .normal ? 1 : 0)
+                if mode == .manage {
+                    Text("Hide token")
+                        .font(.satoshi(size: 12, weight: .medium))
+                        .foregroundStyle(Color.MineralBlue.blueish2)
+                        .opacity(account.name == "ccd" ? 0 : 1)
+                        .onTapGesture {
+                            onHideToken?(token)
+                        }
+                }
             }
-            Image("caretRight")
-                .renderingMode(.template)
-                .foregroundStyle(.grey4)
-                .frame(width: 30, height: 40)
+            if mode == .normal {
+                Image("caretRight")
+                    .renderingMode(.template)
+                    .foregroundStyle(.grey4)
+                    .frame(width: 30, height: 40)
+            }
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 11)
         .background(Color(red: 0.09, green: 0.1, blue: 0.1))
         .cornerRadius(12)
         .onTapGesture {
-            showTokenDetails = true
-            selectedToken = account
+            if mode == .normal {
+                showTokenDetails = true
+                selectedToken = account
+            }
         }
     }
 }
@@ -214,5 +247,15 @@ final class AccountDetailViewModel2: ObservableObject {
             }
             return result
         })
+    }
+    
+    func removeToken(_ token: CIS2Token) {
+        guard let account else { return }
+        do {
+            try storageManager.removeCIS2Token(token: token, address: account.address)
+            //            self.onDismiss()
+        } catch {
+            logger.debugLog(error.localizedDescription)
+        }
     }
 }

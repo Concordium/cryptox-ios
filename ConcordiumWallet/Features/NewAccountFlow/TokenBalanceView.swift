@@ -17,7 +17,7 @@ struct TokenBalanceView: View {
     @State var onRampFlowShown = false
     @State var accountQr: AccountEntity?
     weak var router: AccountsMainViewDelegate?
-
+    
     // TODO: Add action
     var actionItems: [ActionItem]  {
         var actionItems = accountActionItems()
@@ -31,50 +31,48 @@ struct TokenBalanceView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    balanceSection()
-                        .padding(.horizontal, 18)
-                    accountActionButtonsSection()
-                    tokenDescriptionSection()
-                        .padding(.horizontal, 18)
-                    manageTokenView()
-                        .padding(.horizontal, 18)
-                }
-                .padding(.vertical, 20)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                balanceSection()
+                    .padding(.horizontal, 18)
+                accountActionButtonsSection()
+                tokenDescriptionSection()
+                    .padding(.horizontal, 18)
+                manageTokenView()
+                    .padding(.horizontal, 18)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .navigationBarBackButtonHidden(true)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image("ico_back")
-                            .resizable()
-                            .foregroundColor(.greySecondary)
-                            .frame(width: 32, height: 32)
-                            .contentShape(.circle)
-                    }
-                }
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Text("Balance")
-                            .font(.satoshi(size: 17, weight: .medium))
-                            .foregroundStyle(Color.white)
-                    }
-                }
-            }
-            .sheet(isPresented: $onRampFlowShown) {
-                CCDOnrampView(dependencyProvider: viewModel.dependencyProvider)
-            }
-            .sheet(item: $accountQr) { account in
-                AccountQRView(account: account)
-            }
-            .modifier(AppBackgroundModifier())
+            .padding(.vertical, 20)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image("ico_back")
+                        .resizable()
+                        .foregroundColor(.greySecondary)
+                        .frame(width: 32, height: 32)
+                        .contentShape(.circle)
+                }
+            }
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text("Balance")
+                        .font(.satoshi(size: 17, weight: .medium))
+                        .foregroundStyle(Color.white)
+                }
+            }
+        }
+        .sheet(isPresented: $onRampFlowShown) {
+            CCDOnrampView(dependencyProvider: viewModel.dependencyProvider)
+        }
+        .sheet(item: $accountQr) { account in
+            AccountQRView(account: account)
+        }
+        .modifier(AppBackgroundModifier())
     }
     
     func balanceSection() -> some View {
@@ -130,12 +128,12 @@ struct TokenBalanceView: View {
             case .token(let token, let amount) :
                 Text(TokenFormatter()
                     .string(from: BigDecimal(BigInt(stringLiteral: amount), token.metadata.decimals ?? 0), decimalSeparator: ".", thousandSeparator: ",") + " \(token.metadata.symbol ?? "")")
-                    .font(.plexSans(size: 55, weight: .medium))
-                    .dynamicTypeSize(.xSmall ... .xxLarge)
-                    .minimumScaleFactor(0.3)
-                    .lineLimit(1)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .modifier(RadialGradientForegroundStyleModifier())
+                .font(.plexSans(size: 55, weight: .medium))
+                .dynamicTypeSize(.xSmall ... .xxLarge)
+                .minimumScaleFactor(0.3)
+                .lineLimit(1)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .modifier(RadialGradientForegroundStyleModifier())
             }
         }
     }
@@ -167,7 +165,7 @@ struct TokenBalanceView: View {
             }
         }
     }
-
+    
     func tokenDescriptionSection() -> some View {
         VStack(alignment: .leading, spacing: 8) {
             switch token {

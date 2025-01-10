@@ -3490,6 +3490,7 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		156878E52CD24F4E0080B2F3 /* ViewModels */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ViewModels; sourceTree = "<group>"; };
 		156878E62CD24F6F0080B2F3 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
+		15C202012D300251005CBBD8 /* NewAccountFlow */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = NewAccountFlow; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3801,6 +3802,7 @@
 		088FEC682A01483D00042957 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				15C202012D300251005CBBD8 /* NewAccountFlow */,
 				509749DF2C3E862500D28D6B /* NewsFeed */,
 				509749CE2C3C0D2B00D28D6B /* OnrampFlow */,
 				50EB30FD2BFBA113002B2558 /* UnshieldAssetsFlow */,
@@ -6220,6 +6222,7 @@
 			fileSystemSynchronizedGroups = (
 				156878E52CD24F4E0080B2F3 /* ViewModels */,
 				156878E62CD24F6F0080B2F3 /* Views */,
+				15C202012D300251005CBBD8 /* NewAccountFlow */,
 			);
 			name = ProdTestNet;
 			packageProductDependencies = (
@@ -6259,6 +6262,7 @@
 			fileSystemSynchronizedGroups = (
 				156878E52CD24F4E0080B2F3 /* ViewModels */,
 				156878E62CD24F6F0080B2F3 /* Views */,
+				15C202012D300251005CBBD8 /* NewAccountFlow */,
 			);
 			name = ProdMainNet;
 			packageProductDependencies = (
@@ -6298,6 +6302,7 @@
 			fileSystemSynchronizedGroups = (
 				156878E52CD24F4E0080B2F3 /* ViewModels */,
 				156878E62CD24F6F0080B2F3 /* Views */,
+				15C202012D300251005CBBD8 /* NewAccountFlow */,
 			);
 			name = StagingNet;
 			packageProductDependencies = (

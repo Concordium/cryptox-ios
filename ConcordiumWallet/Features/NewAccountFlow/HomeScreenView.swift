@@ -16,16 +16,27 @@ struct ActionItem: Identifiable {
     let action: () -> Void
 }
 
+fileprivate enum AccountNavigationPaths: Hashable {
+    case accountsOverview
+    case manageTokens
+    case tokenDetails
+    case buy
+    case send
+//    case receive
+    case earn
+    case activity
+}
 
 struct HomeScreenView: View {
     @StateObject var viewModel: AccountsMainViewModel
     @State var showTooltip: Bool = false
-    @State var showAccountsOverview: Bool = false
     @State var accountQr: AccountEntity?
     @State private var showTokenDetails: Bool = false
+    @State private var showManageTokenList: Bool = false
     @State private var selectedToken: AccountDetailAccount?
     //    @EnvironmentObject var updateTimer: UpdateTimer
-
+    @State private var path: [AccountNavigationPaths] = []
+    
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
     @AppStorage("isShouldShowOnrampMessage") private var isShouldShowOnrampMessage = true
@@ -45,7 +56,8 @@ struct HomeScreenView: View {
     }
     
     var body: some View {
-        GeometryReader { geometry in
+        NavigationStack(path: $path) {
+            GeometryReader { geometry in
                 ScrollView {
                     VStack(alignment: .leading, spacing: 40) {
                         topBarControls()
@@ -63,32 +75,56 @@ struct HomeScreenView: View {
                     }
                     
                     if let selectedAccount = viewModel.selectedAccount {
-                        AccountTokenListView(viewModel: AccountDetailViewModel2(account: selectedAccount), showTokenDetails: $showTokenDetails, selectedToken: $selectedToken)
+                        AccountTokenListView(viewModel: AccountDetailViewModel2(account: selectedAccount), showTokenDetails: $showTokenDetails, showManageTokenList: $showManageTokenList, selectedToken: $selectedToken, mode: .normal)
                             .frame(maxWidth: .infinity)
                             .frame(minHeight: geometry.size.height / 2)
                             .padding(.top, 40)
                     }
-            }
-            .onTapGesture {
-                showTooltip = false
-            }
-            .sheet(item: $accountQr) { account in
-                AccountQRView(account: account)
-            }
-            .sheet(isPresented: $onRampFlowShown) {
-                CCDOnrampView(dependencyProvider: viewModel.dependencyProvider)
-            }
-            .fullScreenCover(isPresented: $showAccountsOverview) {
-                AccountsOverviewView(viewModel: viewModel)
-            }
-            .fullScreenCover(isPresented: $showTokenDetails) {
-                if let selectedAccount = viewModel.selectedAccount, let selectedToken {
-                    TokenBalanceView(token: selectedToken, viewModel: AccountDetailViewModel2(account: selectedAccount), router: self.router)
+                }
+                .onTapGesture {
+                    showTooltip = false
+                }
+                .navigationDestination(for: AccountNavigationPaths.self, destination: { path in
+                    switch path {
+                    case .accountsOverview:
+                        AccountsOverviewView(viewModel: viewModel)
+//                    case .receive:
+//                        if let accountQr {
+//                            AccountQRView(account: accountQr)
+//                        }
+                    case .buy:
+                        CCDOnrampView(dependencyProvider: viewModel.dependencyProvider)
+                    case .manageTokens:
+                        if let selectedAccount = viewModel.selectedAccount {
+                            ManageTokensView(viewModel: AccountDetailViewModel2(account: selectedAccount))
+                        }
+                    case .tokenDetails:
+                        if let selectedAccount = viewModel.selectedAccount, let selectedToken {
+                            TokenBalanceView(token: selectedToken, viewModel: AccountDetailViewModel2(account: selectedAccount), router: self.router)
+                        }
+                    case .send:
+                        EmptyView()
+                    case .earn:
+                        EmptyView()
+                    case .activity:
+                        EmptyView()
+                    }
+                })
+                .sheet(item: $accountQr) { account in
+                    AccountQRView(account: account)
+                }
+                .onChange(of: selectedToken) { newValue in
+                    if showTokenDetails {
+                        path.append(.tokenDetails)
+                    }
+                }
+                .onChange(of: showManageTokenList) { newValue in
+                    if showManageTokenList {
+                        path.append(.manageTokens)
+                    }
                 }
             }
-            .onChange(of: selectedToken) { newValue in
-                print("Selected token changed to: \(String(describing: newValue))")
-            }
+            .modifier(AppBackgroundModifier())
         }
         .refreshable {
             await viewModel.reload()
@@ -98,7 +134,6 @@ struct HomeScreenView: View {
                 await viewModel.reload()
             }
         }
-        .modifier(AppBackgroundModifier())
     }
     
     func topBarControls() -> some View {
@@ -111,7 +146,7 @@ struct HomeScreenView: View {
                     .tint(.greyAdditional)
             }
             .onTapGesture {
-                showAccountsOverview = true
+                path.append(.accountsOverview)
             }
             Spacer()
             Image("ico_scan")
@@ -208,7 +243,7 @@ struct HomeScreenView: View {
             if !SettingsHelper.isIdentityConfigured() {
                 self.router?.showNotConfiguredAccountPopup()
             } else {
-                onRampFlowShown.toggle()
+                path.append(.buy)
                 Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "OnRamp Banner")
             }
         }
@@ -247,7 +282,7 @@ struct HomeScreenView: View {
     private func accountActionItems() -> [ActionItem] {
         let actionItems = [
             ActionItem(iconName: "buy", label: "Buy", action: {
-                onRampFlowShown.toggle()
+                path.append(.buy)
             }),
             ActionItem(iconName: "send", label: "Send", action: {
                 guard let selectedAccount = viewModel.selectedAccount else { return }
@@ -255,6 +290,7 @@ struct HomeScreenView: View {
             }),
             ActionItem(iconName: "receive", label: "Receive", action: {
                 accountQr = (viewModel.selectedAccount as? AccountEntity)
+//                path.append(.receive)
             }),
             ActionItem(iconName: "percent", label: "Earn", action: {
                 
