@@ -7,7 +7,8 @@
 //
 
 import Foundation
-import Web3Wallet
+import ReownWalletKit
+
 
 protocol SessionRequestDataProvidable {
     func checkAllSatisfy() async throws -> Bool

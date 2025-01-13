@@ -7,9 +7,9 @@
 //
 
 import Foundation
-import Web3Wallet
-import WalletConnectVerify
 import Combine
+import ReownWalletKit
+
 
 final class SessionRequestViewModel: ObservableObject {
     @Published var account: AccountEntity?

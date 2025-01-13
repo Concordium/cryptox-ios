@@ -609,8 +609,6 @@
 		0893CC472A66D36C00A10F73 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0893CC452A66D36C00A10F73 /* Logger.swift */; };
 		089B34152A164BD900F3CD90 /* DefaultSocketFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089B34132A164BD700F3CD90 /* DefaultSocketFactory.swift */; };
 		089B34172A164BDA00F3CD90 /* DefaultSocketFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089B34132A164BD700F3CD90 /* DefaultSocketFactory.swift */; };
-		089B34192A164BE300F3CD90 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 089B34182A164BE300F3CD90 /* Starscream */; };
-		089B341B2A164BE900F3CD90 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 089B341A2A164BE900F3CD90 /* Starscream */; };
 		089B341F2A16845600F3CD90 /* SessionProposalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089B341D2A16845600F3CD90 /* SessionProposalView.swift */; };
 		089B34212A16845600F3CD90 /* SessionProposalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089B341D2A16845600F3CD90 /* SessionProposalView.swift */; };
 		089B34282A16858D00F3CD90 /* TagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089B34262A16858D00F3CD90 /* TagsView.swift */; };
@@ -1505,7 +1503,6 @@
 		08C169102BB7396200E61326 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 08C1666F2BB7396200E61326 /* SDWebImageSwiftUI */; };
 		08C169122BB7396200E61326 /* SwiftCBOR in Frameworks */ = {isa = PBXBuildFile; productRef = 08C1665A2BB7396200E61326 /* SwiftCBOR */; };
 		08C169152BB7396200E61326 /* JDStatusBarNotification in Frameworks */ = {isa = PBXBuildFile; productRef = 08C1666D2BB7396200E61326 /* JDStatusBarNotification */; };
-		08C169162BB7396200E61326 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 08C166692BB7396200E61326 /* Starscream */; };
 		08C169172BB7396200E61326 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 08C166712BB7396200E61326 /* SDWebImageSVGCoder */; };
 		08C169182BB7396200E61326 /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = 08C166652BB7396200E61326 /* ConcordiumWalletCrypto */; };
 		08C1691A2BB7396200E61326 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 08C166632BB7396200E61326 /* Kingfisher */; };
@@ -1862,12 +1859,7 @@
 		1557CC942C89B799008ABF67 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1557CC932C89B799008ABF67 /* GoogleService-Info.plist */; };
 		1557CC982C89BBD7008ABF67 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1557CC972C89BBD7008ABF67 /* GoogleService-Info.plist */; };
 		1557CC9B2C89BE26008ABF67 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1557CC9A2C89BE26008ABF67 /* GoogleService-Info.plist */; };
-		1557CC9D2C89BED5008ABF67 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		1557CC9F2C89BEEF008ABF67 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		1557CCA12C89BEF5008ABF67 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1557CCA02C89BEF5008ABF67 /* FirebaseAuth */; };
 		1557CCA32C89CA94008ABF67 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 1557CCA22C89CA94008ABF67 /* FirebaseMessaging */; };
-		1557CCA52C89CA9D008ABF67 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		1557CCA72C89CAA4008ABF67 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		1557CCA92C8AF779008ABF67 /* AllowNotificationsPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */; };
 		1557CCAA2C8AF779008ABF67 /* AllowNotificationsPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */; };
 		1557CCAB2C8AF779008ABF67 /* AllowNotificationsPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */; };
@@ -1959,9 +1951,6 @@
 		19C2EFF1CEC944A7FCBC63C5 /* SingleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2ED4F802767556C4ABBE9 /* SingleSection.swift */; };
 		5059C9B52C00CF1200E40307 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5059C9B42C00CF1200E40307 /* SDWebImageSwiftUI */; };
 		5059C9B72C00CF1700E40307 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5059C9B62C00CF1700E40307 /* SDWebImageSwiftUI */; };
-		505E11EC2CC1248B0003F6DC /* Web3Wallet in Frameworks */ = {isa = PBXBuildFile; productRef = 505E11EB2CC1248B0003F6DC /* Web3Wallet */; };
-		505E11EE2CC1390E0003F6DC /* Web3Wallet in Frameworks */ = {isa = PBXBuildFile; productRef = 505E11ED2CC1390E0003F6DC /* Web3Wallet */; };
-		505E11F02CC139150003F6DC /* Web3Wallet in Frameworks */ = {isa = PBXBuildFile; productRef = 505E11EF2CC139150003F6DC /* Web3Wallet */; };
 		505E11F12CC2994A0003F6DC /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F779124891F220016F8D1 /* AppIcon.xcassets */; };
 		505E11F22CC299510003F6DC /* AppIconTestNet.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F778F24891EFB0016F8D1 /* AppIconTestNet.xcassets */; };
 		505E11F32CC299560003F6DC /* AppIconTestNet.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F778F24891EFB0016F8D1 /* AppIconTestNet.xcassets */; };
@@ -2025,6 +2014,12 @@
 		50D389232C107C7500B3675A /* CustomSVGDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D389222C107C7500B3675A /* CustomSVGDecoder.swift */; };
 		50D389242C107C7500B3675A /* CustomSVGDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D389222C107C7500B3675A /* CustomSVGDecoder.swift */; };
 		50D389252C107C7500B3675A /* CustomSVGDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D389222C107C7500B3675A /* CustomSVGDecoder.swift */; };
+		50E0D1652D2ECDDD00853594 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 50E0D1642D2ECDDD00853594 /* Starscream */; };
+		50E0D1672D2ECE1600853594 /* ReownWalletKit in Frameworks */ = {isa = PBXBuildFile; productRef = 50E0D1662D2ECE1600853594 /* ReownWalletKit */; };
+		50E0D1692D35466100853594 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 50E0D1682D35466100853594 /* Starscream */; };
+		50E0D16B2D35466600853594 /* ReownWalletKit in Frameworks */ = {isa = PBXBuildFile; productRef = 50E0D16A2D35466600853594 /* ReownWalletKit */; };
+		50E0D16D2D35466E00853594 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 50E0D16C2D35466E00853594 /* Starscream */; };
+		50E0D16F2D35467500853594 /* ReownWalletKit in Frameworks */ = {isa = PBXBuildFile; productRef = 50E0D16E2D35467500853594 /* ReownWalletKit */; };
 		50EB30FF2BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */; };
 		50EB31002BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */; };
 		50EB31012BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */; };
@@ -3503,16 +3498,15 @@
 				509A56292CB40A10005EA908 /* Base58Swift in Frameworks */,
 				08C169122BB7396200E61326 /* SwiftCBOR in Frameworks */,
 				08C169152BB7396200E61326 /* JDStatusBarNotification in Frameworks */,
-				08C169162BB7396200E61326 /* Starscream in Frameworks */,
 				08C169172BB7396200E61326 /* SDWebImageSVGCoder in Frameworks */,
-				505E11EC2CC1248B0003F6DC /* Web3Wallet in Frameworks */,
+				50E0D1652D2ECDDD00853594 /* Starscream in Frameworks */,
 				08C169182BB7396200E61326 /* ConcordiumWalletCrypto in Frameworks */,
+				50E0D1672D2ECE1600853594 /* ReownWalletKit in Frameworks */,
 				509A56312CB40BF7005EA908 /* RealmSwift in Frameworks */,
 				1557CCA32C89CA94008ABF67 /* FirebaseMessaging in Frameworks */,
 				08C1691A2BB7396200E61326 /* Kingfisher in Frameworks */,
 				08C1691B2BB7396200E61326 /* MnemonicSwift in Frameworks */,
 				08C1691E2BB7396200E61326 /* WebKit.framework in Frameworks */,
-				1557CC9D2C89BED5008ABF67 /* (null) in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3524,19 +3518,17 @@
 				509749ED2C491A6100D28D6B /* MatomoTracker in Frameworks */,
 				5059C9B52C00CF1200E40307 /* SDWebImageSwiftUI in Frameworks */,
 				08A0441329FA885300DACE1F /* SwiftCBOR in Frameworks */,
-				505E11EE2CC1390E0003F6DC /* Web3Wallet in Frameworks */,
 				089FF0EC2A4F4D01007AB1CF /* JDStatusBarNotification in Frameworks */,
-				089B341B2A164BE900F3CD90 /* Starscream in Frameworks */,
 				083505072A9F4F14000D5175 /* SDWebImageSVGCoder in Frameworks */,
 				089E32852A0BA0DE002AE530 /* ConcordiumWalletCrypto in Frameworks */,
-				1557CCA72C89CAA4008ABF67 /* (null) in Frameworks */,
+				50E0D1692D35466100853594 /* Starscream in Frameworks */,
 				509A56392CB43540005EA908 /* RealmSwift in Frameworks */,
 				1558E89B2CFA2BBF00004E71 /* DotLottie in Frameworks */,
 				08A0444729FA906200DACE1F /* Kingfisher in Frameworks */,
 				08A0441C29FA888600DACE1F /* MnemonicSwift in Frameworks */,
 				08A0442529FA893700DACE1F /* Base58Swift in Frameworks */,
+				50E0D16B2D35466600853594 /* ReownWalletKit in Frameworks */,
 				7F85B8BA246A9AB600ED09B8 /* WebKit.framework in Frameworks */,
-				1557CC9F2C89BEEF008ABF67 /* (null) in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3548,19 +3540,17 @@
 				509749EB2C491A0D00D28D6B /* MatomoTracker in Frameworks */,
 				5059C9B72C00CF1700E40307 /* SDWebImageSwiftUI in Frameworks */,
 				08A0442129FA892F00DACE1F /* Base58Swift in Frameworks */,
-				505E11F02CC139150003F6DC /* Web3Wallet in Frameworks */,
 				083505002A9E3DFA000D5175 /* SDWebImageSVGCoder in Frameworks */,
 				089FF0EA2A4F4CF0007AB1CF /* JDStatusBarNotification in Frameworks */,
 				089E32812A0BA0CE002AE530 /* ConcordiumWalletCrypto in Frameworks */,
 				08A0444329FA905700DACE1F /* Kingfisher in Frameworks */,
-				1557CCA52C89CA9D008ABF67 /* (null) in Frameworks */,
+				50E0D16D2D35466E00853594 /* Starscream in Frameworks */,
 				509A563C2CB43549005EA908 /* RealmSwift in Frameworks */,
+				50E0D16F2D35467500853594 /* ReownWalletKit in Frameworks */,
 				1558E8992CFA2BB500004E71 /* DotLottie in Frameworks */,
 				08A0440B29FA884100DACE1F /* SwiftCBOR in Frameworks */,
 				08A0441829FA887700DACE1F /* MnemonicSwift in Frameworks */,
 				C99CFF6E243EFD7E0045B8E6 /* WebKit.framework in Frameworks */,
-				089B34192A164BE300F3CD90 /* Starscream in Frameworks */,
-				1557CCA12C89BEF5008ABF67 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6208,7 +6198,6 @@
 			buildConfigurationList = 08C169BF2BB7396200E61326 /* Build configuration list for PBXNativeTarget "ProdTestNet" */;
 			buildPhases = (
 				08C166732BB7396200E61326 /* Sources */,
-				08C1690E2BB7396200E61326 /* ShellScript */,
 				08C1690F2BB7396200E61326 /* Frameworks */,
 				08C169202BB7396200E61326 /* Resources */,
 				08C169BE2BB7396200E61326 /* Embed Frameworks */,
@@ -6227,7 +6216,6 @@
 				08C1665C2BB7396200E61326 /* MnemonicSwift */,
 				08C166632BB7396200E61326 /* Kingfisher */,
 				08C166652BB7396200E61326 /* ConcordiumWalletCrypto */,
-				08C166692BB7396200E61326 /* Starscream */,
 				08C1666D2BB7396200E61326 /* JDStatusBarNotification */,
 				08C1666F2BB7396200E61326 /* SDWebImageSwiftUI */,
 				08C166712BB7396200E61326 /* SDWebImageSVGCoder */,
@@ -6235,8 +6223,9 @@
 				1557CCA22C89CA94008ABF67 /* FirebaseMessaging */,
 				509A56282CB40A10005EA908 /* Base58Swift */,
 				509A56302CB40BF7005EA908 /* RealmSwift */,
-				505E11EB2CC1248B0003F6DC /* Web3Wallet */,
 				1558E89C2CFA2BC700004E71 /* DotLottie */,
+				50E0D1642D2ECDDD00853594 /* Starscream */,
+				50E0D1662D2ECE1600853594 /* ReownWalletKit */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 08C169C22BB7396200E61326 /* ProdTestNet.app */;
@@ -6247,7 +6236,6 @@
 			buildConfigurationList = 7F85B8C9246A9AB600ED09B8 /* Build configuration list for PBXNativeTarget "ProdMainNet" */;
 			buildPhases = (
 				7F85B7D1246A9AB600ED09B8 /* Sources */,
-				7F85B8B6246A9AB600ED09B8 /* ShellScript */,
 				7F85B8B7246A9AB600ED09B8 /* Frameworks */,
 				7F85B8BC246A9AB600ED09B8 /* Resources */,
 				083EB5CD29FAE1AA007EA4D1 /* Embed Frameworks */,
@@ -6267,15 +6255,15 @@
 				08A0442429FA893700DACE1F /* Base58Swift */,
 				08A0444629FA906200DACE1F /* Kingfisher */,
 				089E32842A0BA0DE002AE530 /* ConcordiumWalletCrypto */,
-				089B341A2A164BE900F3CD90 /* Starscream */,
 				089FF0EB2A4F4D01007AB1CF /* JDStatusBarNotification */,
 				083505062A9F4F14000D5175 /* SDWebImageSVGCoder */,
 				5059C9B42C00CF1200E40307 /* SDWebImageSwiftUI */,
 				509749EC2C491A6100D28D6B /* MatomoTracker */,
 				509A56382CB43540005EA908 /* RealmSwift */,
 				509A563E2CB43561005EA908 /* FirebaseMessaging */,
-				505E11ED2CC1390E0003F6DC /* Web3Wallet */,
 				1558E89A2CFA2BBF00004E71 /* DotLottie */,
+				50E0D1682D35466100853594 /* Starscream */,
+				50E0D16A2D35466600853594 /* ReownWalletKit */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
@@ -6286,7 +6274,6 @@
 			buildConfigurationList = 7FF07A8823EADB1500F1FC04 /* Build configuration list for PBXNativeTarget "StagingNet" */;
 			buildPhases = (
 				7FF07A6523EADB1200F1FC04 /* Sources */,
-				7FF07B0B23EC48C100F1FC04 /* ShellScript */,
 				7FF07A6623EADB1200F1FC04 /* Frameworks */,
 				7FF07A6723EADB1200F1FC04 /* Resources */,
 				083EB5C729FAE1A2007EA4D1 /* Embed Frameworks */,
@@ -6306,16 +6293,15 @@
 				08A0442029FA892F00DACE1F /* Base58Swift */,
 				08A0444229FA905700DACE1F /* Kingfisher */,
 				089E32802A0BA0CE002AE530 /* ConcordiumWalletCrypto */,
-				089B34182A164BE300F3CD90 /* Starscream */,
 				089FF0E92A4F4CF0007AB1CF /* JDStatusBarNotification */,
 				083504FF2A9E3DFA000D5175 /* SDWebImageSVGCoder */,
 				5059C9B62C00CF1700E40307 /* SDWebImageSwiftUI */,
 				509749EA2C491A0D00D28D6B /* MatomoTracker */,
-				1557CCA02C89BEF5008ABF67 /* FirebaseAuth */,
 				509A563B2CB43549005EA908 /* RealmSwift */,
 				509A56402CB43568005EA908 /* FirebaseMessaging */,
-				505E11EF2CC139150003F6DC /* Web3Wallet */,
 				1558E8982CFA2BB500004E71 /* DotLottie */,
+				50E0D16C2D35466E00853594 /* Starscream */,
+				50E0D16E2D35467500853594 /* ReownWalletKit */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
@@ -6376,14 +6362,14 @@
 				08A0441D29FA892800DACE1F /* XCRemoteSwiftPackageReference "Base58Swift" */,
 				08A0443F29FA904B00DACE1F /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				089E32782A0B9F27002AE530 /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */,
-				089B34102A164BCD00F3CD90 /* XCRemoteSwiftPackageReference "Starscream" */,
 				089FF0E82A4F4CF0007AB1CF /* XCRemoteSwiftPackageReference "JDStatusBarNotification" */,
 				083504FE2A9E3DF9000D5175 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 				5076296A2BF2573D00B4D390 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				509749E92C491A0D00D28D6B /* XCRemoteSwiftPackageReference "matomo-sdk-ios" */,
 				1557CC962C89B8DE008ABF67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				505E11EA2CC123EA0003F6DC /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */,
 				1558E8972CFA2BA700004E71 /* XCRemoteSwiftPackageReference "dotlottie-ios" */,
+				501F5AE02D2ECA1F00C55008 /* XCRemoteSwiftPackageReference "reown-swift" */,
+				50E0D1632D2ECDDD00853594 /* XCRemoteSwiftPackageReference "Starscream" */,
 			);
 			productRefGroup = 7FF07A6A23EADB1200F1FC04 /* Products */;
 			projectDirPath = "";
@@ -6853,60 +6839,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		08C1690E2BB7396200E61326 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#if which swiftlint >/dev/null; then\n#  echo \"warning: SwiftLint installed\"\n#else\n#  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n#fi\n";
-		};
-		7F85B8B6246A9AB600ED09B8 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#if which swiftlint >/dev/null; then\n#  echo \"warning: SwiftLint installed\"\n#else\n#  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n#fi\n";
-		};
-		7FF07B0B23EC48C100F1FC04 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#if which swiftlint >/dev/null; then\n#  echo \"warning: SwiftLint installed\"\n#else\n#  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n#fi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		08C166732BB7396200E61326 /* Sources */ = {
@@ -9484,14 +9416,6 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		089B34102A164BCD00F3CD90 /* XCRemoteSwiftPackageReference "Starscream" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/daltoniam/Starscream";
-			requirement = {
-				kind = exactVersion;
-				version = 3.1.2;
-			};
-		};
 		089E32782A0B9F27002AE530 /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Concordium/concordium-wallet-crypto-swift";
@@ -9580,14 +9504,6 @@
 				kind = branch;
 			};
 		};
-		08C1666A2BB7396200E61326 /* XCRemoteSwiftPackageReference "Starscream" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/daltoniam/Starscream";
-			requirement = {
-				kind = exactVersion;
-				version = 3.1.2;
-			};
-		};
 		08C1666E2BB7396200E61326 /* XCRemoteSwiftPackageReference "JDStatusBarNotification" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/calimarkus/JDStatusBarNotification";
@@ -9628,12 +9544,12 @@
 				kind = branch;
 			};
 		};
-		505E11EA2CC123EA0003F6DC /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */ = {
+		501F5AE02D2ECA1F00C55008 /* XCRemoteSwiftPackageReference "reown-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/WalletConnect/WalletConnectSwiftV2.git";
+			repositoryURL = "https://github.com/reown-com/reown-swift";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.6.6;
+				kind = exactVersion;
+				version = 1.1.1;
 			};
 		};
 		5076296A2BF2573D00B4D390 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
@@ -9652,6 +9568,14 @@
 				version = 7.6.0;
 			};
 		};
+		50E0D1632D2ECDDD00853594 /* XCRemoteSwiftPackageReference "Starscream" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/daltoniam/Starscream";
+			requirement = {
+				kind = exactVersion;
+				version = 3.1.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -9664,16 +9588,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 083504FE2A9E3DF9000D5175 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
 			productName = SDWebImageSVGCoder;
-		};
-		089B34182A164BE300F3CD90 /* Starscream */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 089B34102A164BCD00F3CD90 /* XCRemoteSwiftPackageReference "Starscream" */;
-			productName = Starscream;
-		};
-		089B341A2A164BE900F3CD90 /* Starscream */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 089B34102A164BCD00F3CD90 /* XCRemoteSwiftPackageReference "Starscream" */;
-			productName = Starscream;
 		};
 		089E32802A0BA0CE002AE530 /* ConcordiumWalletCrypto */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -9755,11 +9669,6 @@
 			package = 08C166662BB7396200E61326 /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */;
 			productName = ConcordiumWalletCrypto;
 		};
-		08C166692BB7396200E61326 /* Starscream */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 08C1666A2BB7396200E61326 /* XCRemoteSwiftPackageReference "Starscream" */;
-			productName = Starscream;
-		};
 		08C1666D2BB7396200E61326 /* JDStatusBarNotification */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 08C1666E2BB7396200E61326 /* XCRemoteSwiftPackageReference "JDStatusBarNotification" */;
@@ -9774,11 +9683,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 08C166722BB7396200E61326 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
 			productName = SDWebImageSVGCoder;
-		};
-		1557CCA02C89BEF5008ABF67 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1557CC962C89B8DE008ABF67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
 		};
 		1557CCA22C89CA94008ABF67 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -9809,21 +9713,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5076296A2BF2573D00B4D390 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
-		};
-		505E11EB2CC1248B0003F6DC /* Web3Wallet */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 505E11EA2CC123EA0003F6DC /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
-			productName = Web3Wallet;
-		};
-		505E11ED2CC1390E0003F6DC /* Web3Wallet */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 505E11EA2CC123EA0003F6DC /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
-			productName = Web3Wallet;
-		};
-		505E11EF2CC139150003F6DC /* Web3Wallet */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 505E11EA2CC123EA0003F6DC /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
-			productName = Web3Wallet;
 		};
 		509749EA2C491A0D00D28D6B /* MatomoTracker */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -9869,6 +9758,36 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1557CC962C89B8DE008ABF67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		50E0D1642D2ECDDD00853594 /* Starscream */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 50E0D1632D2ECDDD00853594 /* XCRemoteSwiftPackageReference "Starscream" */;
+			productName = Starscream;
+		};
+		50E0D1662D2ECE1600853594 /* ReownWalletKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 501F5AE02D2ECA1F00C55008 /* XCRemoteSwiftPackageReference "reown-swift" */;
+			productName = ReownWalletKit;
+		};
+		50E0D1682D35466100853594 /* Starscream */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 50E0D1632D2ECDDD00853594 /* XCRemoteSwiftPackageReference "Starscream" */;
+			productName = Starscream;
+		};
+		50E0D16A2D35466600853594 /* ReownWalletKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 501F5AE02D2ECA1F00C55008 /* XCRemoteSwiftPackageReference "reown-swift" */;
+			productName = ReownWalletKit;
+		};
+		50E0D16C2D35466E00853594 /* Starscream */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 50E0D1632D2ECDDD00853594 /* XCRemoteSwiftPackageReference "Starscream" */;
+			productName = Starscream;
+		};
+		50E0D16E2D35467500853594 /* ReownWalletKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 501F5AE02D2ECA1F00C55008 /* XCRemoteSwiftPackageReference "reown-swift" */;
+			productName = ReownWalletKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

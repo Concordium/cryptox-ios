@@ -12,9 +12,6 @@ import Combine
 import SwiftUI
 import MatomoTracker
 
-import WalletConnectPairing
-import Web3Wallet
-
 @MainActor
 class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate {
     

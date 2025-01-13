@@ -1,5 +1,5 @@
 {
-  "originHash" : "f097b66dd2a7cbb12055e4e41f097c33398877c1d8107f14dfbff5edee4e1f87",
+  "originHash" : "24de4d6574098dd0c65ab58a3182045cdee4af9d1c50eed29d9c43b3db23d8e5",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -209,6 +209,15 @@
       }
     },
     {
+      "identity" : "reown-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/reown-com/reown-swift",
+      "state" : {
+        "revision" : "b51cc1d267b64a682e5bdb95960be4132b4e5e78",
+        "version" : "1.1.1"
+      }
+    },
+    {
       "identity" : "sdwebimage",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
@@ -290,12 +299,12 @@
       }
     },
     {
-      "identity" : "walletconnectswiftv2",
+      "identity" : "wallet-mobile-sdk",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/WalletConnect/WalletConnectSwiftV2",
+      "location" : "https://github.com/MobileWalletProtocol/wallet-mobile-sdk",
       "state" : {
-        "revision" : "afdc8cdbaf99ad741a7716f8475339c80a92441d",
-        "version" : "6.6.6"
+        "revision" : "4aa89e682f8d7ab1515d85d0797f0d25306bb56a",
+        "version" : "1.0.5"
       }
     }
   ],

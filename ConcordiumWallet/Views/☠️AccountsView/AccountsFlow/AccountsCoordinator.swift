@@ -330,9 +330,10 @@ extension AccountsCoordinator: ScanAddressQRPresenterDelegate {
     }
 }
 
-import WalletConnectPairing
-import Web3Wallet
+//import WalletConnectPairing
+//import WalletConnectKMS
 import SwiftUI
+import ReownWalletKit
 
 extension AccountsCoordinator {
     func showWalletConnectFlow(_ address: String) {
