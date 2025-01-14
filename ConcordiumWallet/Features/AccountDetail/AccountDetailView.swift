@@ -133,12 +133,6 @@ struct AccountDetailView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                LinearGradient(
-                    colors: [Color(hex: 0x242427), Color(hex: 0x09090B)],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                ).ignoresSafeArea()
-                
                 VStack {
                     SegmentedPicker(items: AccountDetailViewModel.State.allCases, selection: $viewModel.state) { item in
                         Text(item.locTitle)
@@ -195,6 +189,7 @@ struct AccountDetailView: View {
         }
         .navigationTitle(viewModel.sceneTitle)
         .navigationBarBackButtonHidden(false)
+        .modifier(AppBackgroundModifier())
     }
 }
 

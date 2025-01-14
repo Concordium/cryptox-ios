@@ -99,39 +99,11 @@ struct ManageTokensView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image("ico_back")
-                        .resizable()
-                        .foregroundColor(.greySecondary)
-                        .frame(width: 32, height: 32)
-                        .contentShape(.circle)
-                }
-            }
-            ToolbarItem(placement: .principal) {
-                VStack {
-                    Text("Manage token list")
-                        .font(.satoshi(size: 17, weight: .medium))
-                        .foregroundStyle(Color.white)
-                }
-            }
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    path.append(.addToken)
-                } label: {
-                    Image("ico_add")
-                        .resizable()
-                        .foregroundColor(.greySecondary)
-                        .frame(width: 32, height: 32)
-                        .contentShape(.circle)
-                }
-            }
-        }
+        .modifier(NavigationViewModifier(title: "Manage token list", backAction: {
+            dismiss()
+        }, trailingAction: {
+            path.append(.addToken)
+        }, trailingIcon: Image("ico_add")))
         .modifier(AppBackgroundModifier())
     }
     

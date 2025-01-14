@@ -103,13 +103,7 @@ struct TransferTokenConfirmView: View {
             }
             .padding()
         }
-        .background {
-            LinearGradient(
-                colors: [Color(hex: 0x242427), Color(hex: 0x09090B)],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            ).ignoresSafeArea()
-        }
+        .modifier(AppBackgroundModifier())
         .onChange(of: viewModel.transferDataType) { transferDataType in
             guard let transferDataType = transferDataType else { return }
             self.router.transactionSuccessFlow(transferDataType, tokenTransferModel: viewModel.tokenTransferModel)

@@ -248,13 +248,7 @@ struct TransferTokenView: View {
             .disabled(!viewModel.canSend)
             .padding()
         }
-        .background(
-            LinearGradient(
-                colors: [Color(hex: 0x242427), Color(hex: 0x09090B)],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            ).ignoresSafeArea()
-        )
+        .modifier(AppBackgroundModifier())
         .errorAlert(error: $viewModel.error, action: { error in
             guard let error = error else { return }
             switch error {

@@ -50,28 +50,9 @@ struct TokenBalanceView: View {
             .padding(.vertical, 20)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image("ico_back")
-                        .resizable()
-                        .foregroundColor(.greySecondary)
-                        .frame(width: 32, height: 32)
-                        .contentShape(.circle)
-                }
-            }
-            ToolbarItem(placement: .principal) {
-                VStack {
-                    Text("Balance")
-                        .font(.satoshi(size: 17, weight: .medium))
-                        .foregroundStyle(Color.white)
-                }
-            }
-        }
+        .modifier(NavigationViewModifier(title: "Balance") {
+            dismiss()
+        })
         .sheet(isPresented: $onRampFlowShown) {
             CCDOnrampView(dependencyProvider: viewModel.dependencyProvider)
         }

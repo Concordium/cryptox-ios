@@ -8,26 +8,71 @@
 
 import SwiftUI
 
-struct GradienBackgroundModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .background(
-                LinearGradient(
-                    stops: [
-                        Gradient.Stop(color: Color(red: 0.14, green: 0.14, blue: 0.15), location: 0.00),
-                        Gradient.Stop(color: Color(red: 0.03, green: 0.03, blue: 0.04), location: 1.00),
-                    ],
-                    startPoint: UnitPoint(x: 0.5, y: 0),
-                    endPoint: UnitPoint(x: 0.5, y: 1)
-                )
-            )
-    }
-}
-
 struct AppBackgroundModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .background(Color.blackMain)
+    }
+}
+
+struct NavigationViewModifier: ViewModifier {
+    
+    let navigationTitle: String
+    let leadingAction: (() -> Void)?
+    let trailingAction: (() -> Void)?
+    let tralingIcon: Image?
+    let iconSize: CGSize?
+    
+    init(title: String, backAction: (() -> Void)? = nil, trailingAction: (() -> Void)? = nil, trailingIcon: Image? = nil, iconSize: CGSize? = nil) {
+        self.navigationTitle = title
+        self.leadingAction = backAction
+        self.trailingAction = trailingAction
+        self.tralingIcon = trailingIcon
+        self.iconSize = iconSize
+    }
+    
+    func body(content: Content) -> some View {
+        content
+            .navigationBarBackButtonHidden(true)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                if leadingAction != nil {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            leadingAction?()
+                        } label: {
+                            Image("ico_back")
+                                .resizable()
+                                .foregroundColor(.greySecondary)
+                                .frame(width: 32, height: 32)
+                                .contentShape(.circle)
+                        }
+                    }
+                }
+                ToolbarItem(placement: .principal) {
+                    VStack {
+                        Text(navigationTitle)
+                            .font(.satoshi(size: 17, weight: .medium))
+                            .foregroundStyle(Color.white)
+                    }
+                }
+                
+                if trailingAction != nil {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            trailingAction?()
+                        } label: {
+                            if let tralingIcon {
+                                tralingIcon
+                                    .resizable()
+                                    .foregroundColor(.greySecondary)
+                                    .frame(width: iconSize?.width ?? 32, height: iconSize?.height ?? 32)
+                                    .contentShape(.circle)
+                            }
+                        }
+                    }
+                }
+            }
     }
 }
 

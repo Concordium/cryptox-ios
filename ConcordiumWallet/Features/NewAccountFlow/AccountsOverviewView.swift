@@ -9,9 +9,12 @@
 import SwiftUI
 
 struct AccountsOverviewView: View {
+    
+    @Binding var path: [AccountNavigationPaths]
     @StateObject var viewModel: AccountsMainViewModel
     @SwiftUI.Environment(\.dismiss) private var dismiss
-    
+    weak var router: AccountsMainViewDelegate?
+
     var body: some View {
         VStack {
             LazyVStack(spacing: 4) {
@@ -22,7 +25,7 @@ struct AccountsOverviewView: View {
             Spacer()
             
             Button {
-                
+                router?.showCreateAccountFlow()
             } label: {
                 Spacer()
                 Text("Create new account")
@@ -38,39 +41,11 @@ struct AccountsOverviewView: View {
         .padding(.vertical, 20)
         .padding(.horizontal, 18)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image("ico_back")
-                        .resizable()
-                        .foregroundColor(.greySecondary)
-                        .frame(width: 32, height: 32)
-                        .contentShape(.circle)
-                }
-            }
-            ToolbarItem(placement: .principal) {
-                VStack {
-                    Text("Your Accounts")
-                        .font(.satoshi(size: 17, weight: .medium))
-                        .foregroundStyle(Color.white)
-                }
-            }
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    // Handle settings action
-                } label: {
-                    Image("settingsGear")
-                        .resizable()
-                        .foregroundColor(.greySecondary)
-                        .frame(width: 20, height: 20)
-                        .contentShape(.circle)
-                }
-            }
-        }
+        .modifier(NavigationViewModifier(title: "Your accounts", backAction: {
+            dismiss()
+        }, trailingAction: {
+            path.append(.accountSettings)
+        }, trailingIcon: Image("settingsGear"), iconSize: CGSize(width: 20, height: 20)))
         .modifier(AppBackgroundModifier())
     }
     
@@ -131,8 +106,4 @@ struct AccountsOverviewView: View {
             dismiss()
         }
     }
-}
-
-#Preview {
-    AccountsOverviewView(viewModel: .init(dependencyProvider: ServicesProvider.defaultProvider(), onReload: .empty(), walletConnectService: WalletConnectService()))
 }

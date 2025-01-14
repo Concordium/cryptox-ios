@@ -113,13 +113,7 @@ struct AccountTokensListPicker: View {
                 }
             }
         }
-        .background {
-            LinearGradient(
-                colors: [Color(hex: 0x242427), Color(hex: 0x09090B)],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            ).ignoresSafeArea()
-        }
+        .modifier(AppBackgroundModifier())
     }
 }
 

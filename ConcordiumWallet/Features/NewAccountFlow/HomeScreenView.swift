@@ -27,6 +27,7 @@ enum AccountNavigationPaths: Hashable {
     case activity
     case addToken
     case addTokenDetails(token: AccountDetailAccount)
+    case accountSettings
 }
 
 struct HomeScreenView: View {
@@ -43,12 +44,12 @@ struct HomeScreenView: View {
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
     @AppStorage("isShouldShowOnrampMessage") private var isShouldShowOnrampMessage = true
-
+    
     var accountDetailViewModel: AccountDetailViewModel2? {
         guard let selectedAccount = viewModel.selectedAccount else { return nil }
         return AccountDetailViewModel2(account: selectedAccount)
     }
-
+    
     let keychain: KeychainWrapperProtocol
     let identitiesService: SeedIdentitiesService
     weak var router: AccountsMainViewDelegate?
@@ -89,66 +90,7 @@ struct HomeScreenView: View {
                     showTooltip = false
                 }
                 .navigationDestination(for: AccountNavigationPaths.self, destination: { destination in
-                    switch destination {
-                    case .accountsOverview:
-                        AccountsOverviewView(viewModel: viewModel)
-                        //                    case .receive:
-                        //                        if let accountQr {
-                        //                            AccountQRView(account: accountQr)
-                        //                        }
-                    case .buy:
-                        CCDOnrampView(dependencyProvider: viewModel.dependencyProvider)
-                    case .manageTokens:
-                        if let vm = accountDetailViewModel {
-                            ManageTokensView(viewModel: vm, path: $path, isNewTokenAdded: $isNewTokenAdded)
-                        }
-                    case .tokenDetails:
-                        if let vm = accountDetailViewModel, let selectedToken {
-                            TokenBalanceView(token: selectedToken, viewModel: vm, router: self.router)
-                        }
-                    case .send:
-                        EmptyView()
-                    case .earn:
-                        EmptyView()
-                    case .activity:
-                        EmptyView()
-                    case .addToken:
-                        if let selectedAccount = viewModel.selectedAccount {
-                            AddTokenView(path: $path,
-                                         viewModel: .init(storageManager: self.dependencyProvider.storageManager(),
-                                                          networkManager: self.dependencyProvider.networkManager(),
-                                                          account: selectedAccount),
-                                         searchTokenViewModel: SearchTokenViewModel(cis2Service:
-                                                                                        CIS2Service(networkManager: self.dependencyProvider.networkManager(),
-                                                                                                    storageManager: self.dependencyProvider.storageManager())), onTokenAdded: {
-                                isNewTokenAdded = true
-                            })
-                        }
-                    case .addTokenDetails(let token):
-                        TokenDetailsView(token: token, isAddTokenDetails: true)
-                            .navigationBarBackButtonHidden(true)
-                            .navigationBarTitleDisplayMode(.inline)
-                            .toolbar {
-                                ToolbarItem(placement: .topBarLeading) {
-                                    Button {
-                                        path.removeLast()
-                                    } label: {
-                                        Image("ico_back")
-                                            .resizable()
-                                            .foregroundColor(.greySecondary)
-                                            .frame(width: 32, height: 32)
-                                            .contentShape(.circle)
-                                    }
-                                }
-                                ToolbarItem(placement: .principal) {
-                                    VStack {
-                                        Text("Add token")
-                                            .font(.satoshi(size: 17, weight: .medium))
-                                            .foregroundStyle(Color.white)
-                                    }
-                                }
-                            }
-                    }
+                    navigateTo(destination)
                 })
                 .sheet(item: $accountQr) { account in
                     AccountQRView(account: account)
@@ -330,7 +272,7 @@ struct HomeScreenView: View {
             }),
             ActionItem(iconName: "receive", label: "Receive", action: {
                 accountQr = (viewModel.selectedAccount as? AccountEntity)
-//                path.append(.receive)
+                //                path.append(.receive)
             }),
             ActionItem(iconName: "percent", label: "Earn", action: {
                 
@@ -340,5 +282,65 @@ struct HomeScreenView: View {
             })
         ]
         return actionItems
+    }
+    
+    private func navigateTo(_ destination: AccountNavigationPaths) -> some View {
+        Group {
+            switch destination {
+            case .accountsOverview:
+                AccountsOverviewView(path: $path, viewModel: viewModel, router: router)
+            case .buy:
+                CCDOnrampView(dependencyProvider: viewModel.dependencyProvider)
+                    .modifier(NavigationViewModifier(title: "Buy CCD") {
+                        path.removeLast()
+                    })
+            case .manageTokens:
+                if let vm = accountDetailViewModel {
+                    ManageTokensView(viewModel: vm, path: $path, isNewTokenAdded: $isNewTokenAdded)
+                } else {
+                    EmptyView()
+                }
+            case .tokenDetails:
+                if let vm = accountDetailViewModel, let selectedToken {
+                    TokenBalanceView(token: selectedToken, viewModel: vm, router: self.router)
+                } else {
+                    EmptyView()
+                }
+            case .send, .earn, .activity:
+                EmptyView()
+            case .addToken:
+                if let selectedAccount = viewModel.selectedAccount {
+                    AddTokenView(
+                        path: $path,
+                        viewModel: .init(storageManager: dependencyProvider.storageManager(),
+                                         networkManager: dependencyProvider.networkManager(),
+                                         account: selectedAccount),
+                        searchTokenViewModel: SearchTokenViewModel(
+                            cis2Service: CIS2Service(
+                                networkManager: dependencyProvider.networkManager(),
+                                storageManager: dependencyProvider.storageManager()
+                            )
+                        ),
+                        onTokenAdded: { isNewTokenAdded = true }
+                    )
+                } else {
+                    EmptyView()
+                }
+            case .addTokenDetails(let token):
+                TokenDetailsView(token: token, isAddTokenDetails: true)
+                    .modifier(NavigationViewModifier(title: "Add token", backAction: {
+                        path.removeLast()
+                    }))
+            case .accountSettings:
+                if let selectedAccount = viewModel.selectedAccount {
+                    AccountSettingsView(viewModel: AccountSettingsViewModel(account: selectedAccount))
+                        .modifier(NavigationViewModifier(title: "accountsettings.navigationtitle".localized, backAction: {
+                            path.removeLast()
+                        }))
+                } else {
+                    EmptyView()
+                }
+            }
+        }
     }
 }
