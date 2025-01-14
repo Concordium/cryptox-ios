@@ -147,6 +147,7 @@ struct SessionRequestView: View {
             }
             .background(.clear)
         }
+        .clipped()
         .frame(maxWidth: .infinity)
         .padding(16)
         .overlay(

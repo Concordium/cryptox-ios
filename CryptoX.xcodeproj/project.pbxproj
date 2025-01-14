@@ -2020,6 +2020,9 @@
 		50E0D16B2D35466600853594 /* ReownWalletKit in Frameworks */ = {isa = PBXBuildFile; productRef = 50E0D16A2D35466600853594 /* ReownWalletKit */; };
 		50E0D16D2D35466E00853594 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 50E0D16C2D35466E00853594 /* Starscream */; };
 		50E0D16F2D35467500853594 /* ReownWalletKit in Frameworks */ = {isa = PBXBuildFile; productRef = 50E0D16E2D35467500853594 /* ReownWalletKit */; };
+		50E0D1712D35593100853594 /* ReownSessionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E0D1702D35593100853594 /* ReownSessionRequest.swift */; };
+		50E0D1722D35593100853594 /* ReownSessionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E0D1702D35593100853594 /* ReownSessionRequest.swift */; };
+		50E0D1732D35593100853594 /* ReownSessionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E0D1702D35593100853594 /* ReownSessionRequest.swift */; };
 		50EB30FF2BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */; };
 		50EB31002BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */; };
 		50EB31012BFBA902002B2558 /* ShieldedAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */; };
@@ -3210,6 +3213,7 @@
 		509A56332CB42EFF005EA908 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		50D3891C2C107C1E00B3675A /* TokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenView.swift; sourceTree = "<group>"; };
 		50D389222C107C7500B3675A /* CustomSVGDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSVGDecoder.swift; sourceTree = "<group>"; };
+		50E0D1702D35593100853594 /* ReownSessionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReownSessionRequest.swift; sourceTree = "<group>"; };
 		50EB30FE2BFBA902002B2558 /* ShieldedAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldedAccountsView.swift; sourceTree = "<group>"; };
 		50EB31022BFCABAA002B2558 /* UnshieldAssetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnshieldAssetsView.swift; sourceTree = "<group>"; };
 		50EB31062BFFF4E9002B2558 /* ShieldedAccountsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldedAccountsViewModel.swift; sourceTree = "<group>"; };
@@ -5161,6 +5165,7 @@
 		08E472A52BCEE84F004F0088 /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
+				50E0D1702D35593100853594 /* ReownSessionRequest.swift */,
 				08E472A62BCEE85C004F0088 /* SignMessageRequestModel.swift */,
 				08E472AA2BCEE883004F0088 /* TransferUpdateRequestModel.swift */,
 				08E472AE2BCEF308004F0088 /* SimpleTrasferRequestModel.swift */,
@@ -7346,6 +7351,7 @@
 				08C168562BB7396200E61326 /* ArsInfo.swift in Sources */,
 				08C168572BB7396200E61326 /* ShowShieldedDelegate.swift in Sources */,
 				08C168582BB7396200E61326 /* Shape+Extensions.swift in Sources */,
+				50E0D1722D35593100853594 /* ReownSessionRequest.swift in Sources */,
 				08C168592BB7396200E61326 /* NFTDataStatusView.swift in Sources */,
 				08C1685A2BB7396200E61326 /* MoreMenuPresenter.swift in Sources */,
 				08C1685C2BB7396200E61326 /* DeleteIdentityButtonWidgetPresenter.swift in Sources */,
@@ -8041,6 +8047,7 @@
 				08A045F529FA99D200DACE1F /* ArsInfo.swift in Sources */,
 				088FEE272A0167FB00042957 /* ShowShieldedDelegate.swift in Sources */,
 				088FEE8B2A025CD900042957 /* Shape+Extensions.swift in Sources */,
+				50E0D1712D35593100853594 /* ReownSessionRequest.swift in Sources */,
 				D5CCCB4928EE42C400350D83 /* NFTDataStatusView.swift in Sources */,
 				088FF1B72A02A70300042957 /* MoreMenuPresenter.swift in Sources */,
 				088FEF782A0270B000042957 /* DeleteIdentityButtonWidgetPresenter.swift in Sources */,
@@ -8736,6 +8743,7 @@
 				D5962CD4272170DB00A757A5 /* TransactionAccountView.swift in Sources */,
 				08A0455D29FA99D100DACE1F /* ArsInfo.swift in Sources */,
 				088FEE172A0167FA00042957 /* ShowShieldedDelegate.swift in Sources */,
+				50E0D1732D35593100853594 /* ReownSessionRequest.swift in Sources */,
 				088FF1B42A02A70200042957 /* MoreMenuPresenter.swift in Sources */,
 				088FEE892A025CD900042957 /* Shape+Extensions.swift in Sources */,
 				D5CCCB4728EE42C400350D83 /* NFTDataStatusView.swift in Sources */,
