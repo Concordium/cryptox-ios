@@ -36,10 +36,16 @@ struct TokenBalanceView: View {
                 balanceSection()
                     .padding(.horizontal, 18)
                 accountActionButtonsSection()
-                tokenDescriptionSection()
+                TokenDetailsView(token: token)
+                if token.name != "ccd" {
+                    HStack(spacing: 8) {
+                        Image("eyeSlash")
+                        Text("Hide token from account")
+                            .font(.satoshi(size: 15, weight: .medium))
+                            .foregroundStyle(.attentionRed)
+                    }
                     .padding(.horizontal, 18)
-                manageTokenView()
-                    .padding(.horizontal, 18)
+                }
             }
             .padding(.vertical, 20)
         }
@@ -164,115 +170,6 @@ struct TokenBalanceView: View {
                 }
             }
         }
-    }
-    
-    func tokenDescriptionSection() -> some View {
-        VStack(alignment: .leading, spacing: 8) {
-            switch token {
-            case .ccd(_):
-                HStack(spacing: 8) {
-                    Image("ccd")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                    Text("CCD token")
-                        .font(.satoshi(size: 16, weight: .semibold))
-                        .foregroundStyle(.whiteMain)
-                }
-                Text("Description")
-                    .font(.satoshi(size: 12, weight: .medium))
-                    .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
-                Text("CCD is the native token of the Concordium blockchain. Its main use cases are the payment of transaction fees, the payment for the execution of smart contracts, payments between users, payments for commercial transactions, staking, and the rewards offered to node operators. ")
-                    .font(.satoshi(size: 12, weight: .medium))
-                    .foregroundStyle(.whiteMain)
-                    .frame(maxWidth: .infinity, alignment: .topLeading)
-                Rectangle()
-                    .foregroundColor(.clear)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 1)
-                    .background(.white.opacity(0.1))
-                
-                Text("Decimals")
-                    .font(.satoshi(size: 12, weight: .medium))
-                    .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
-                
-                Text("0-6")
-                    .font(.satoshi(size: 12, weight: .medium))
-                    .foregroundStyle(.whiteMain)
-                    .frame(maxWidth: .infinity, alignment: .topLeading)
-                
-            case .token(let token, _):
-                HStack(spacing: 8) {
-                    if let url = token.metadata.thumbnail?.url {
-                        CryptoImage(url: url.toURL, size: .custom(width: 20, height: 20))
-                            .aspectRatio(contentMode: .fit)
-                    }
-                    Text(token.metadata.name ?? "")
-                        .font(.satoshi(size: 16, weight: .semibold))
-                        .foregroundStyle(.whiteMain)
-                }
-                Text("Description")
-                    .font(.satoshi(size: 12, weight: .medium))
-                    .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
-                Text(token.metadata.description ?? "")
-                    .font(.satoshi(size: 12, weight: .medium))
-                    .foregroundStyle(.whiteMain)
-                    .frame(maxWidth: .infinity, alignment: .topLeading)
-                Rectangle()
-                    .foregroundColor(.clear)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 1)
-                    .background(.white.opacity(0.1))
-                
-                Text("Decimals")
-                    .font(.satoshi(size: 12, weight: .medium))
-                    .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
-                
-                Text(token.metadata.decimals?.string ?? "")
-                    .font(.satoshi(size: 12, weight: .medium))
-                    .foregroundStyle(.whiteMain)
-                    .frame(maxWidth: .infinity, alignment: .topLeading)
-                
-                Rectangle()
-                    .foregroundColor(.clear)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 1)
-                    .background(.white.opacity(0.1))
-                
-                Text("Contract index, subindex")
-                    .font(.satoshi(size: 12, weight: .medium))
-                    .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
-                
-                Text("\(token.contractAddress.index), \(token.contractAddress.subindex)")
-                    .font(.satoshi(size: 12, weight: .medium))
-                    .foregroundStyle(.whiteMain)
-                    .frame(maxWidth: .infinity, alignment: .topLeading)
-                
-            }
-        }
-        .padding(16)
-        .background(.grey3.opacity(0.3))
-        .cornerRadius(12)
-    }
-    
-    // TODO: Add actions
-    func manageTokenView() -> some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack(spacing: 8) {
-                Image("notebook")
-                Text("Show raw metadata")
-                    .font(.satoshi(size: 15, weight: .medium))
-                    .foregroundStyle(.whiteMain)
-            }
-            if token.name != "ccd" {
-                HStack(spacing: 8) {
-                    Image("eyeSlash")
-                    Text("Hide token from account")
-                        .font(.satoshi(size: 15, weight: .medium))
-                        .foregroundStyle(.attentionRed)
-                }
-            }
-        }
-        .padding(.top, 11)
     }
     
     // TODO: Add actions

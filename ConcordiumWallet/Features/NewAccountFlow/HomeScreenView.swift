@@ -16,7 +16,7 @@ struct ActionItem: Identifiable {
     let action: () -> Void
 }
 
-fileprivate enum AccountNavigationPaths: Hashable {
+enum AccountNavigationPaths: Hashable {
     case accountsOverview
     case manageTokens
     case tokenDetails
@@ -25,6 +25,8 @@ fileprivate enum AccountNavigationPaths: Hashable {
 //    case receive
     case earn
     case activity
+    case addToken
+    case addTokenDetails(token: AccountDetailAccount)
 }
 
 struct HomeScreenView: View {
@@ -36,6 +38,7 @@ struct HomeScreenView: View {
     @State private var selectedToken: AccountDetailAccount?
     //    @EnvironmentObject var updateTimer: UpdateTimer
     @State private var path: [AccountNavigationPaths] = []
+    @State private var isNewTokenAdded: Bool = false
     
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
@@ -54,6 +57,7 @@ struct HomeScreenView: View {
     var actionItems: [ActionItem]  {
         return accountActionItems()
     }
+    var dependencyProvider = ServicesProvider.defaultProvider()
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -74,8 +78,8 @@ struct HomeScreenView: View {
                         })
                     }
                     
-                    if let selectedAccount = viewModel.selectedAccount {
-                        AccountTokenListView(viewModel: AccountDetailViewModel2(account: selectedAccount), showTokenDetails: $showTokenDetails, showManageTokenList: $showManageTokenList, selectedToken: $selectedToken, mode: .normal)
+                    if let vm = accountDetailViewModel {
+                        AccountTokenListView(viewModel: vm, showTokenDetails: $showTokenDetails, showManageTokenList: $showManageTokenList, selectedToken: $selectedToken, mode: .normal)
                             .frame(maxWidth: .infinity)
                             .frame(minHeight: geometry.size.height / 2)
                             .padding(.top, 40)
@@ -84,23 +88,23 @@ struct HomeScreenView: View {
                 .onTapGesture {
                     showTooltip = false
                 }
-                .navigationDestination(for: AccountNavigationPaths.self, destination: { path in
-                    switch path {
+                .navigationDestination(for: AccountNavigationPaths.self, destination: { destination in
+                    switch destination {
                     case .accountsOverview:
                         AccountsOverviewView(viewModel: viewModel)
-//                    case .receive:
-//                        if let accountQr {
-//                            AccountQRView(account: accountQr)
-//                        }
+                        //                    case .receive:
+                        //                        if let accountQr {
+                        //                            AccountQRView(account: accountQr)
+                        //                        }
                     case .buy:
                         CCDOnrampView(dependencyProvider: viewModel.dependencyProvider)
                     case .manageTokens:
-                        if let selectedAccount = viewModel.selectedAccount {
-                            ManageTokensView(viewModel: AccountDetailViewModel2(account: selectedAccount))
+                        if let vm = accountDetailViewModel {
+                            ManageTokensView(viewModel: vm, path: $path, isNewTokenAdded: $isNewTokenAdded)
                         }
                     case .tokenDetails:
-                        if let selectedAccount = viewModel.selectedAccount, let selectedToken {
-                            TokenBalanceView(token: selectedToken, viewModel: AccountDetailViewModel2(account: selectedAccount), router: self.router)
+                        if let vm = accountDetailViewModel, let selectedToken {
+                            TokenBalanceView(token: selectedToken, viewModel: vm, router: self.router)
                         }
                     case .send:
                         EmptyView()
@@ -108,6 +112,42 @@ struct HomeScreenView: View {
                         EmptyView()
                     case .activity:
                         EmptyView()
+                    case .addToken:
+                        if let selectedAccount = viewModel.selectedAccount {
+                            AddTokenView(path: $path,
+                                         viewModel: .init(storageManager: self.dependencyProvider.storageManager(),
+                                                          networkManager: self.dependencyProvider.networkManager(),
+                                                          account: selectedAccount),
+                                         searchTokenViewModel: SearchTokenViewModel(cis2Service:
+                                                                                        CIS2Service(networkManager: self.dependencyProvider.networkManager(),
+                                                                                                    storageManager: self.dependencyProvider.storageManager())), onTokenAdded: {
+                                isNewTokenAdded = true
+                            })
+                        }
+                    case .addTokenDetails(let token):
+                        TokenDetailsView(token: token, isAddTokenDetails: true)
+                            .navigationBarBackButtonHidden(true)
+                            .navigationBarTitleDisplayMode(.inline)
+                            .toolbar {
+                                ToolbarItem(placement: .topBarLeading) {
+                                    Button {
+                                        path.removeLast()
+                                    } label: {
+                                        Image("ico_back")
+                                            .resizable()
+                                            .foregroundColor(.greySecondary)
+                                            .frame(width: 32, height: 32)
+                                            .contentShape(.circle)
+                                    }
+                                }
+                                ToolbarItem(placement: .principal) {
+                                    VStack {
+                                        Text("Add token")
+                                            .font(.satoshi(size: 17, weight: .medium))
+                                            .foregroundStyle(Color.white)
+                                    }
+                                }
+                            }
                     }
                 })
                 .sheet(item: $accountQr) { account in

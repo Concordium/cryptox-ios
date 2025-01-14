@@ -1898,6 +1898,9 @@
 		15ABCCD32CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */; };
 		15ABCCD42CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */; };
 		15ABCCD52CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */; };
+		15B527582D36666E005FA701 /* AddTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B527502D36666E005FA701 /* AddTokenView.swift */; };
+		15B527602D36666E005FA701 /* AddTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B527502D36666E005FA701 /* AddTokenView.swift */; };
+		15B527682D36666E005FA701 /* AddTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B527502D36666E005FA701 /* AddTokenView.swift */; };
 		15E1BC692C6B58C000543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
 		15E1BC6A2C6B58C000543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
 		15E1BC6B2C6B58C100543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
@@ -3166,6 +3169,7 @@
 		15844E592C87445B005A3BF1 /* TransferTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferTokenViewModel.swift; sourceTree = "<group>"; };
 		1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTokenViewModel.swift; sourceTree = "<group>"; };
 		15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedIdentitiesStatusService.swift; sourceTree = "<group>"; };
+		15B527502D36666E005FA701 /* AddTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTokenView.swift; sourceTree = "<group>"; };
 		15E1BC682C6B588900543242 /* Gate_io.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gate_io.png; sourceTree = "<group>"; };
 		15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTokenViewModel.swift; sourceTree = "<group>"; };
 		15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
@@ -5267,6 +5271,7 @@
 		159980802C77392D00AE86B5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				15B527502D36666E005FA701 /* AddTokenView.swift */,
 				50D3891C2C107C1E00B3675A /* TokenView.swift */,
 				08E69C9C2A20D071001CCA96 /* ImportTokenView.swift */,
 			);
@@ -7476,6 +7481,7 @@
 				08C168922BB7396200E61326 /* RecoveryPhraseGettingStartedPresenter.swift in Sources */,
 				08C168932BB7396200E61326 /* GTU.swift in Sources */,
 				08C168942BB7396200E61326 /* RecoveryPhraseCopyPhraseView.swift in Sources */,
+				15B527582D36666E005FA701 /* AddTokenView.swift in Sources */,
 				08C168952BB7396200E61326 /* RecoveryPhraseRecoverIntroView.swift in Sources */,
 				08C168962BB7396200E61326 /* IDRequest.swift in Sources */,
 				08C168972BB7396200E61326 /* Image+Ext.swift in Sources */,
@@ -8171,6 +8177,7 @@
 				088FF1272A0284F600042957 /* RecoveryPhraseGettingStartedPresenter.swift in Sources */,
 				7F85B8AA246A9AB600ED09B8 /* GTU.swift in Sources */,
 				088FF13A2A02850200042957 /* RecoveryPhraseCopyPhraseView.swift in Sources */,
+				15B527682D36666E005FA701 /* AddTokenView.swift in Sources */,
 				088FF0CB2A02846700042957 /* RecoveryPhraseRecoverIntroView.swift in Sources */,
 				08A0461829FA99D300DACE1F /* IDRequest.swift in Sources */,
 				08520A622B470687008DC851 /* Image+Ext.swift in Sources */,
@@ -8866,6 +8873,7 @@
 				08A0456329FA99D100DACE1F /* ValueCredential.swift in Sources */,
 				088FF17F2A02947A00042957 /* InitialAccountSummaryPresenter.swift in Sources */,
 				08A0458029FA99D100DACE1F /* IDRequest.swift in Sources */,
+				15B527602D36666E005FA701 /* AddTokenView.swift in Sources */,
 				088FF1212A0284F500042957 /* RecoveryPhraseGettingStartedPresenter.swift in Sources */,
 				08520A612B470687008DC851 /* Image+Ext.swift in Sources */,
 				088FF1342A02850100042957 /* RecoveryPhraseCopyPhraseView.swift in Sources */,

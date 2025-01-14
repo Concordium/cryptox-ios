@@ -15,7 +15,10 @@ struct ManageTokensView: View {
     @State private var isPresentingAlert = false
     @State private var selectedToken: CIS2Token?
     @State var showRemovedTokenTip: Bool = false
-    
+    @State var showTokenListUpdated: Bool = false
+    @Binding var path: [AccountNavigationPaths]
+    @Binding var isNewTokenAdded: Bool
+
     var body: some View {
         ZStack {
             ScrollView {
@@ -57,7 +60,7 @@ struct ManageTokensView: View {
             VStack {
                 Spacer()
                 if showRemovedTokenTip {
-                    tokenRemovedTip(tokenName: selectedToken?.metadata.name ?? "")
+                    tokenListUpdatedTip(tokenRemoved: true, tokenName: selectedToken?.metadata.name ?? "")
                         .frame(maxWidth: .infinity)
                         .padding(.horizontal, 46)
                         .padding(.bottom, 16)
@@ -71,6 +74,28 @@ struct ManageTokensView: View {
                         .transition(.opacity.combined(with: .scale(scale: 0.9)))
                         .animation(.easeInOut(duration: 0.3), value: showRemovedTokenTip)
                 }
+                
+                if showTokenListUpdated {
+                    tokenListUpdatedTip(tokenRemoved: false, tokenName: "")
+                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal, 46)
+                        .padding(.bottom, 16)
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                withAnimation {
+                                    showTokenListUpdated = false
+                                }
+                            }
+                        }
+                        .transition(.opacity.combined(with: .scale(scale: 0.9)))
+                        .animation(.easeInOut(duration: 0.3), value: showTokenListUpdated)
+                }
+            }
+        }
+        .onChange(of: isNewTokenAdded) { _ in
+            if isNewTokenAdded {
+                showTokenListUpdated = true
+                isNewTokenAdded = false
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -97,7 +122,7 @@ struct ManageTokensView: View {
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    dismiss()
+                    path.append(.addToken)
                 } label: {
                     Image("ico_add")
                         .resizable()
@@ -110,10 +135,10 @@ struct ManageTokensView: View {
         .modifier(AppBackgroundModifier())
     }
     
-    func tokenRemovedTip(tokenName: String) -> some View {
+    func tokenListUpdatedTip(tokenRemoved: Bool, tokenName: String) -> some View {
         VStack(alignment: .center) {
             HStack(spacing: 16) {
-                Image("eyeSlash")
+                Image(tokenRemoved ? "eyeSlash" : "ico_successfully")
                     .resizable()
                     .renderingMode(.template)
                     .foregroundStyle(.stone)
@@ -122,9 +147,11 @@ struct ManageTokensView: View {
                     Text("Token list updated")
                         .font(.satoshi(size: 15, weight: .medium))
                         .foregroundStyle(.grey2)
-                    Text("\(tokenName) hidden from your wallet")
-                        .font(.satoshi(size: 12, weight: .medium))
-                        .foregroundStyle(.grey2)
+                    if tokenRemoved {
+                        Text("\(tokenName) hidden from your wallet")
+                            .font(.satoshi(size: 12, weight: .medium))
+                            .foregroundStyle(.grey2)
+                    }
                 }
             }
         }

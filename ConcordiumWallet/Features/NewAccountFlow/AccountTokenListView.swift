@@ -219,8 +219,7 @@ final class AccountDetailViewModel2: ObservableObject {
                 var tmpTokens: [AccountDetailAccount] = []
                 tmpTokens = tokens.compactMap { token -> AccountDetailAccount? in
                     let contractTokenBalances = balances.filter { $1 == token.contractAddress.index }.map(\.0).flatMap { $0 }
-                    guard let tokenBalance = contractTokenBalances.first(where: { $0.tokenId == token.tokenId }),
-                          tokenBalance.balance != "0" else { return nil }
+                    guard let tokenBalance = contractTokenBalances.first(where: { $0.tokenId == token.tokenId }) else { return nil }
                     return AccountDetailAccount.token(token: token, amount: tokenBalance.balance)
                 }
                 

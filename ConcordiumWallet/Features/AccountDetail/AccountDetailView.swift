@@ -10,7 +10,7 @@ import SwiftUI
 import BigInt
 import Combine
 
-enum AccountDetailAccount: Equatable, Identifiable {
+enum AccountDetailAccount: Equatable, Identifiable, Hashable {
     case ccd(amount: String), token(token: CIS2Token, amount: String)
     
     var id: Int {
