@@ -14,6 +14,7 @@ protocol AccountDetailRoutable: AnyObject {
     func showAccountDetailFlow(for account: AccountDataType)
     func showCIS2TokenDetailsFlow(_ token: CIS2Token, account: AccountDataType)
     func showTx(_ tx: TransactionViewModel)
+    func showEarnFlow(_ account: AccountDataType)
 }
 
 protocol CIS2TokenDetailRoutable: AnyObject {
@@ -61,6 +62,18 @@ extension AccountDetailRouter: AccountDetailRoutable {
         
         accountDetailCoordinator.accountsMainViewDelegate = accountMainViewDelegate
         accountDetailCoordinator.showLegacyAccountDetails(account: account)
+    }
+    
+    @MainActor
+    func showEarnFlow(_ account: AccountDataType) {
+        let accountDetailCoordinator = AccountDetailsCoordinator.init(
+            navigationController: navigationController,
+            dependencyProvider: dependencyProvider,
+            parentCoordinator: self,
+            account: account)
+        
+        accountDetailCoordinator.accountsMainViewDelegate = accountMainViewDelegate
+        accountDetailCoordinator.start(entryPoint: .earn)
     }
     
     func showCIS2TokenDetailsFlow(_ token: CIS2Token, account: AccountDataType) {

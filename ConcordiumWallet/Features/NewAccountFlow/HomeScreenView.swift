@@ -272,10 +272,10 @@ struct HomeScreenView: View {
             }),
             ActionItem(iconName: "receive", label: "Receive", action: {
                 accountQr = (viewModel.selectedAccount as? AccountEntity)
-                //                path.append(.receive)
             }),
             ActionItem(iconName: "percent", label: "Earn", action: {
-                
+                guard let selectedAccount = viewModel.selectedAccount else { return }
+                router?.showEarnFlow(selectedAccount)
             }),
             ActionItem(iconName: "activity", label: "Activity", action: {
                 
@@ -301,8 +301,8 @@ struct HomeScreenView: View {
                     EmptyView()
                 }
             case .tokenDetails:
-                if let vm = accountDetailViewModel, let selectedToken {
-                    TokenBalanceView(token: selectedToken, viewModel: vm, router: self.router)
+                if let vm = accountDetailViewModel, let selectedToken, let selectedAccount = viewModel.selectedAccount {
+                    TokenBalanceView(token: selectedToken, selectedAccount: selectedAccount, viewModel: vm, router: self.router)
                 } else {
                     EmptyView()
                 }

@@ -97,7 +97,6 @@ struct AccountQRView: View {
             .padding(18)
             .modifier(AppBackgroundModifier())
         }
-        .navigationTitle("accountAddress.title".localized)
         .onAppear {
             generateImage()
         }

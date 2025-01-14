@@ -19,7 +19,13 @@ class BakingCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     
-    private weak var delegate: BakingCoordinatorDelegate?
+    private var delegate: BakingCoordinatorDelegate? {
+        willSet {
+            if newValue == nil {
+                self.childCoordinators.removeAll(where: { $0 is BakingCoordinator })
+            }
+        }
+    }
     private let account: AccountDataType
     private let dependencyProvider: StakeCoordinatorDependencyProvider
     private lazy var storageManager = dependencyProvider.storageManager()
@@ -38,6 +44,7 @@ class BakingCoordinator: Coordinator {
     }
     
     func start() {
+        self.childCoordinators.append(self)
         if storageManager.hasPendingBakerRegistration(for: account.address) {
             showStatus(status: .pendingTransfer)
         } else if let currentSettings = account.baker {
@@ -237,6 +244,7 @@ extension BakingCoordinator: BakingOnboardingCoordinatorDelegate {
     func closed() {
         self.childCoordinators.removeAll(where: { $0 is BakingOnboardingCoordinator })
         self.delegate?.finishedBakingCoordinator()
+        self.delegate = nil
     }
 }
 
@@ -259,6 +267,7 @@ extension BakingCoordinator: BakerPoolSettingsPresenterDelegate {
     
     func closedPoolSettings() {
         self.delegate?.finishedBakingCoordinator()
+        self.delegate = nil
     }
 }
 
@@ -273,6 +282,7 @@ extension BakingCoordinator: BakerPoolGenerateKeyPresenterDelegate {
     
     func pressedClose() {
         delegate?.finishedBakingCoordinator()
+        delegate = nil
     }
 }
 
@@ -287,6 +297,7 @@ extension BakingCoordinator: BakerMetadataPresenterDelegate {
     
     func closedMetadata() {
         delegate?.finishedBakingCoordinator()
+        self.delegate = nil
     }
 }
 
@@ -318,6 +329,7 @@ extension BakingCoordinator: BakerPoolReceiptConfirmationPresenterDelegate {
 extension BakingCoordinator: BakerPoolReceiptPresenterDelegate {
     func finishedShowingReceipt() {
         self.delegate?.finishedBakingCoordinator()
+        self.delegate = nil
     }
 }
 

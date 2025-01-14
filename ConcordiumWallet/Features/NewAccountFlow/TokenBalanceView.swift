@@ -12,22 +12,15 @@ import BigInt
 struct TokenBalanceView: View {
     
     var token: AccountDetailAccount
+    var selectedAccount: AccountDataType
     @ObservedObject var viewModel: AccountDetailViewModel2
     @SwiftUI.Environment(\.dismiss) private var dismiss
     @State var onRampFlowShown = false
     @State var accountQr: AccountEntity?
     weak var router: AccountsMainViewDelegate?
     
-    // TODO: Add action
     var actionItems: [ActionItem]  {
-        var actionItems = accountActionItems()
-        if token.name == "ccd" {
-            let earnAction = ActionItem(iconName: "percent", label: "Earn", action: {
-                
-            })
-            actionItems.insert(earnAction, at: 3)
-        }
-        return actionItems
+        return accountActionItems()
     }
     
     var body: some View {
@@ -153,9 +146,8 @@ struct TokenBalanceView: View {
         }
     }
     
-    // TODO: Add actions
     private func accountActionItems() -> [ActionItem] {
-        let actionItems = [
+        var actionItems = [
             ActionItem(iconName: "buy", label: "Buy", action: {
                 onRampFlowShown.toggle()
             }),
@@ -170,6 +162,12 @@ struct TokenBalanceView: View {
                 
             })
         ]
+        if token.name == "ccd" {
+            let earnAction = ActionItem(iconName: "percent", label: "Earn", action: {
+                router?.showEarnFlow(selectedAccount)
+            })
+            actionItems.insert(earnAction, at: 3)
+        }
         return actionItems
     }
 }

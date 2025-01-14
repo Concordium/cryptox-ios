@@ -70,6 +70,13 @@ final class AccountsMainRouter: ObservableObject {
         navigationController.pushViewController(viewController, animated: true)
     }
     
+    @MainActor
+    func showEarnFlow(_ account: AccountDataType) {
+        let router = AccountDetailRouter(account: account, navigationController: navigationController, dependencyProvider: dependencyProvider)
+        router.accountMainViewDelegate = self
+        router.showEarnFlow(account)
+    }
+    
     func showSendFundsFlow(_ account: AccountDataType) {
         //TODO: - add tip here why this (`SendToken`) button isnt tappable
         guard account.isReadOnly == false else { return }
