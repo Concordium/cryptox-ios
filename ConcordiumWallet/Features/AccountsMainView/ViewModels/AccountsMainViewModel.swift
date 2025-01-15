@@ -20,7 +20,6 @@ final class AccountsMainViewModel: ObservableObject {
     @Published var atDisposal = GTU(intValue: 0)
     @Published var staked = GTU(intValue: 0)
     @Published var isBackupAlertShown = false
-    @Published var dotImageName: String = ""
     @Published var selectedAccount: AccountDataType?
     
     let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
@@ -46,8 +45,6 @@ final class AccountsMainViewModel: ObservableObject {
             guard let self = self else { return }
             await self.reload()
         }.store(in: &cancellables)
-        let dotImageNumber = Range((1...9)).randomElement()
-        self.dotImageName = "dot" + "\(dotImageNumber ?? 1)"
     }
     
     @MainActor
@@ -82,6 +79,7 @@ final class AccountsMainViewModel: ObservableObject {
     
     private func updateData() {
         accountViewModels = accounts.map { AccountPreviewViewModel.init(account: $0, tokens: dependencyProvider.storageManager().getAccountSavedCIS2Tokens($0.address)) }
+        updateDotImageNames()
         if defaultProvider.mobileWallet().isLegacyAccount() && AppSettings.isImportedFromFile {
             state = .accounts
         } else {
@@ -205,5 +203,12 @@ extension AccountsMainViewModel {
 //                            self.identities = self.dependencyProvider.storageManager().getIdentities()
 //                            self.checkIfConfirmedOrFailed()
                         }).store(in: &cancellables)
+    }
+    
+    func updateDotImageNames() {
+        let dotImages = ["dot1", "dot2", "dot3", "dot4", "dot5", "dot6", "dot7", "dot8", "dot9"]
+        accountViewModels.enumerated().forEach { index, account in
+            account.dotImageIndex = index % dotImages.count + 1
+        }
     }
 }

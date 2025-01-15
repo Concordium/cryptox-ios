@@ -76,6 +76,18 @@ extension AccountDetailRouter: AccountDetailRoutable {
         accountDetailCoordinator.start(entryPoint: .earn)
     }
     
+    @MainActor
+    func showAccountSettings(_ account: AccountDataType) {
+        let accountDetailCoordinator = AccountDetailsCoordinator.init(
+            navigationController: navigationController,
+            dependencyProvider: dependencyProvider,
+            parentCoordinator: self,
+            account: account)
+        
+        accountDetailCoordinator.accountsMainViewDelegate = accountMainViewDelegate
+        accountDetailCoordinator.start(entryPoint: .settings)
+    }
+    
     func showCIS2TokenDetailsFlow(_ token: CIS2Token, account: AccountDataType) {
         let viewModel = CIS2TokenDetailViewModel(
             token,

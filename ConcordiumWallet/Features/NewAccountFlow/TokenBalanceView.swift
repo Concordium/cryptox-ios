@@ -12,35 +12,59 @@ import BigInt
 struct TokenBalanceView: View {
     
     var token: AccountDetailAccount
+    @Binding var path: [AccountNavigationPaths]
     var selectedAccount: AccountDataType
     @ObservedObject var viewModel: AccountDetailViewModel2
     @SwiftUI.Environment(\.dismiss) private var dismiss
     @State var onRampFlowShown = false
     @State var accountQr: AccountEntity?
     weak var router: AccountsMainViewDelegate?
-    
+    @State private var isPresentingAlert = false
+
     var actionItems: [ActionItem]  {
         return accountActionItems()
     }
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                balanceSection()
-                    .padding(.horizontal, 18)
-                accountActionButtonsSection()
-                TokenDetailsView(token: token)
-                if token.name != "ccd" {
-                    HStack(spacing: 8) {
-                        Image("eyeSlash")
-                        Text("Hide token from account")
-                            .font(.satoshi(size: 15, weight: .medium))
-                            .foregroundStyle(.attentionRed)
+        ZStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    balanceSection()
+                        .padding(.horizontal, 18)
+                    accountActionButtonsSection()
+                    TokenDetailsView(token: token)
+                    if token.name != "ccd" {
+                        HStack(spacing: 8) {
+                            Image("eyeSlash")
+                            Text("Hide token from account")
+                                .font(.satoshi(size: 15, weight: .medium))
+                                .foregroundStyle(.attentionRed)
+                        }
+                        .onTapGesture {
+                            isPresentingAlert = true
+                        }
+                        .padding(.horizontal, 18)
                     }
-                    .padding(.horizontal, 18)
+                }
+                .padding(.vertical, 20)
+            }
+            if isPresentingAlert {
+                Color.black.opacity(0.4)
+                    .ignoresSafeArea()
+                    .transition(.opacity)
+                    .animation(.easeInOut(duration: 0.3), value: isPresentingAlert)
+                if let cis2Token = token.cis2Token {
+                    HideTokenPopup(
+                        tokenName: cis2Token.metadata.name ?? "",
+                        isPresentingAlert: $isPresentingAlert
+                    ) {
+                        viewModel.removeToken(cis2Token)
+                        dismiss()
+                    }
+                    .transition(.scale(scale: 0.9).combined(with: .opacity))
+                    .animation(.easeInOut(duration: 0.3), value: isPresentingAlert)
                 }
             }
-            .padding(.vertical, 20)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .modifier(NavigationViewModifier(title: "Balance") {
@@ -150,6 +174,7 @@ struct TokenBalanceView: View {
         var actionItems = [
             ActionItem(iconName: "buy", label: "Buy", action: {
                 onRampFlowShown.toggle()
+//                path.append(.buy)
             }),
             ActionItem(iconName: "send", label: "Send", action: {
                 guard let account = viewModel.account else { return }

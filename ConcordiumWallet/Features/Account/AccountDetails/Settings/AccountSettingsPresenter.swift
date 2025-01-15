@@ -18,7 +18,7 @@ protocol AccountSettingsPresenterDelegate: AnyObject {
 
 class AccountSettingsPresenter: SwiftUIPresenter<AccountSettingsViewModel> {
     private let account: AccountDataType
-    private weak var delegate: AccountSettingsPresenterDelegate?
+    private var delegate: AccountSettingsPresenterDelegate?
     
     init(
         account: AccountDataType,
@@ -46,5 +46,9 @@ class AccountSettingsPresenter: SwiftUIPresenter<AccountSettingsViewModel> {
                 delegate?.renameAccountTapped()
             }
         }
+    }
+    
+    deinit {
+        delegate = nil
     }
 }

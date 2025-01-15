@@ -26,6 +26,13 @@ enum AccountDetailAccount: Equatable, Identifiable, Hashable {
             case .token(let token, _): return token.metadata.name ?? ""
         }
     }
+    
+    var cis2Token: CIS2Token? {
+        switch self {
+        case .ccd: return nil
+        case let .token(token, _): return token
+        }
+    }
 }
 
 final class AccountDetailViewModel: ObservableObject {

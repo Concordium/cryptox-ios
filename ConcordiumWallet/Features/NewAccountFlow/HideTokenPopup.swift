@@ -21,6 +21,7 @@ struct HideTokenPopup: View {
                 .foregroundStyle(.grey1)
             Text("Are you sure you want to hide \(tokenName) token from your wallet?")
                 .font(.satoshi(size: 15, weight: .regular))
+                .multilineTextAlignment(.center)
                 .foregroundStyle(.grey1)
             VStack(spacing: 16) {
                 Button {
@@ -47,18 +48,7 @@ struct HideTokenPopup: View {
         .padding(.top, 60)
         .padding(.bottom, 30)
         .frame(width: 327, alignment: .top)
-        .background(
-            RoundedRectangle(cornerRadius: 40)
-                .fill(
-                    RadialGradient(gradient: Gradient(colors:
-                                                        [Color(red: 0.62, green: 0.95, blue: 0.92),
-                                                         Color(red: 0.93, green: 0.85, blue: 0.75),
-                                                         Color(red: 0.64, green: 0.6, blue: 0.89)
-                                                        ]),
-                                   center: .center,
-                                   startRadius: 0,
-                                   endRadius: 400))
-        )
+        .modifier(FloatingGradientBGStyleModifier())
         .cornerRadius(16)
     }
 }

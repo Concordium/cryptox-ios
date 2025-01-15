@@ -20,6 +20,7 @@ final class AccountPreviewViewModel: Identifiable {
     
     var viewState: AccountCardViewState = .basic
     
+    var dotImageIndex: Int = 1
     let address: String
     
     var id: Int {

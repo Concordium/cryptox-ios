@@ -79,7 +79,7 @@ struct TokenDetailsView: View {
                             .font(.satoshi(size: 12, weight: .medium))
                             .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
                         
-                        Text(token.metadata.decimals?.string ?? "")
+                        Text("0-\(token.metadata.decimals?.string ?? "")")
                             .font(.satoshi(size: 12, weight: .medium))
                             .foregroundStyle(.whiteMain)
                             .frame(maxWidth: .infinity, alignment: .topLeading)

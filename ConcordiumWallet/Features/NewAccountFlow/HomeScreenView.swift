@@ -22,12 +22,10 @@ enum AccountNavigationPaths: Hashable {
     case tokenDetails
     case buy
     case send
-//    case receive
     case earn
     case activity
     case addToken
     case addTokenDetails(token: AccountDetailAccount)
-    case accountSettings
 }
 
 struct HomeScreenView: View {
@@ -121,7 +119,7 @@ struct HomeScreenView: View {
     func topBarControls() -> some View {
         HStack() {
             HStack(spacing: 5) {
-                Image(viewModel.dotImageName)
+                Image("dot\(getDotImageIndex())")
                 Text("\(viewModel.selectedAccount?.displayName ?? "")")
                     .font(.satoshi(size: 15, weight: .medium))
                 Image(systemName: "chevron.up.chevron.down")
@@ -302,7 +300,7 @@ struct HomeScreenView: View {
                 }
             case .tokenDetails:
                 if let vm = accountDetailViewModel, let selectedToken, let selectedAccount = viewModel.selectedAccount {
-                    TokenBalanceView(token: selectedToken, selectedAccount: selectedAccount, viewModel: vm, router: self.router)
+                    TokenBalanceView(token: selectedToken, path: $path, selectedAccount: selectedAccount, viewModel: vm, router: self.router)
                 } else {
                     EmptyView()
                 }
@@ -331,16 +329,13 @@ struct HomeScreenView: View {
                     .modifier(NavigationViewModifier(title: "Add token", backAction: {
                         path.removeLast()
                     }))
-            case .accountSettings:
-                if let selectedAccount = viewModel.selectedAccount {
-                    AccountSettingsView(viewModel: AccountSettingsViewModel(account: selectedAccount))
-                        .modifier(NavigationViewModifier(title: "accountsettings.navigationtitle".localized, backAction: {
-                            path.removeLast()
-                        }))
-                } else {
-                    EmptyView()
-                }
             }
         }
+    }
+    
+    private func getDotImageIndex() -> Int {
+        guard let selectedAccount = viewModel.selectedAccount else { return 1 }
+        let matchingAcc = viewModel.accountViewModels.first { $0.account.address == selectedAccount.address }
+        return matchingAcc?.dotImageIndex ?? 1
     }
 }

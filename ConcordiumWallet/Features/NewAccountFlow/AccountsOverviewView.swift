@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct AccountsOverviewView: View {
     
@@ -14,12 +15,15 @@ struct AccountsOverviewView: View {
     @StateObject var viewModel: AccountsMainViewModel
     @SwiftUI.Environment(\.dismiss) private var dismiss
     weak var router: AccountsMainViewDelegate?
+    private let dotImages = ["dot1", "dot2", "dot3", "dot4", "dot5", "dot6", "dot7", "dot8", "dot9"]
 
     var body: some View {
         VStack {
-            LazyVStack(spacing: 4) {
-                ForEach(viewModel.accountViewModels, id: \.id) { account in
-                    accountsView(account)
+            ScrollView {
+                LazyVStack(spacing: 4) {
+                    ForEach(viewModel.accountViewModels, id: \.id) { account in
+                        accountsView(account)
+                    }
                 }
             }
             Spacer()
@@ -44,7 +48,9 @@ struct AccountsOverviewView: View {
         .modifier(NavigationViewModifier(title: "Your accounts", backAction: {
             dismiss()
         }, trailingAction: {
-            path.append(.accountSettings)
+            if let selectedAccount = viewModel.selectedAccount {
+                router?.showSettings(selectedAccount)
+            }
         }, trailingIcon: Image("settingsGear"), iconSize: CGSize(width: 20, height: 20)))
         .modifier(AppBackgroundModifier())
     }
@@ -53,7 +59,7 @@ struct AccountsOverviewView: View {
         HStack {
             VStack(alignment: .leading, spacing: 15) {
                 HStack(spacing: 5) {
-                    Image("")
+                    Image("dot\(account.dotImageIndex)")
                         .frame(width: 12, height: 12)
                     Text(account.accountName)
                         .font(.satoshi(size: 15, weight: .medium))

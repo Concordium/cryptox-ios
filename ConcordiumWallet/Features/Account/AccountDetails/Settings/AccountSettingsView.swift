@@ -36,7 +36,6 @@ struct AccountSettingsView: Page {
                 }
             }
             .animation(.default)
-            .listRowBackground(selectedMenuItemText == menuItem.text ? Color.init(white: 0.85) : .clear)
             .listRowBackground(selectedMenuItemText == menuItem.text ? Color.grey3.opacity(0.5) : .clear)
         }
         .listStyle(.plain)

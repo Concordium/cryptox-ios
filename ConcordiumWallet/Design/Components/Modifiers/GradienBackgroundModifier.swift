@@ -77,17 +77,62 @@ struct NavigationViewModifier: ViewModifier {
 }
 
 struct RadialGradientForegroundStyleModifier: ViewModifier {
+    @State private var animated = false
+    
     func body(content: Content) -> some View {
         content
-            .foregroundStyle(RadialGradient(
-                colors: [
-                    Color(red: 0.62, green: 0.95, blue: 0.92),
-                    Color(red: 0.93, green: 0.85, blue: 0.75),
-                    Color(red: 0.64, green: 0.6, blue: 0.89)
-                ],
-                center: .topLeading,
-                startRadius: 50,
-                endRadius: 300
-            ))
+            .foregroundStyle(
+                RadialGradient(
+                    colors: animated ? [
+                        Color(red: 0.93, green: 0.85, blue: 0.75),
+                        Color(red: 0.64, green: 0.6, blue: 0.89),
+                        Color(red: 0.62, green: 0.95, blue: 0.92)
+                    ] : [
+                        Color(red: 0.62, green: 0.95, blue: 0.92),
+                        Color(red: 0.93, green: 0.85, blue: 0.75),
+                        Color(red: 0.64, green: 0.6, blue: 0.89)
+                    ],
+                    center: animated ? .bottomTrailing : .topLeading,
+                    startRadius: animated ? 100 : 50,
+                    endRadius: animated ? 400 : 300
+                )
+            )
+            .onAppear {
+                withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
+                    animated.toggle()
+                }
+            }
+    }
+}
+
+
+struct FloatingGradientBGStyleModifier: ViewModifier {
+    @State private var animated = false
+    
+    func body(content: Content) -> some View {
+        content
+            .background(
+                RoundedRectangle(cornerRadius: 40)
+                    .fill(
+                        RadialGradient(
+                            gradient: Gradient(colors: animated ?
+                                               [Color(red: 0.93, green: 0.85, blue: 0.75),
+                                                Color(red: 0.64, green: 0.6, blue: 0.89),
+                                                Color(red: 0.62, green: 0.95, blue: 0.92)]
+                                               :
+                                                [Color(red: 0.62, green: 0.95, blue: 0.92),
+                                                 Color(red: 0.93, green: 0.85, blue: 0.75),
+                                                 Color(red: 0.64, green: 0.6, blue: 0.89)]),
+                            center: animated ? .topTrailing : .center,
+                            startRadius: animated ? 50 : 0,
+                            endRadius: animated ? 500 : 400
+                        )
+                    )
+                    .onAppear {
+                        withAnimation(.easeInOut(duration: 3).repeatForever(autoreverses: true)) {
+                            animated.toggle()
+                        }
+                    }
+            )
     }
 }

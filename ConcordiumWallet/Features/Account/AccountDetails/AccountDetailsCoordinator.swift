@@ -20,6 +20,7 @@ enum AccountDetailsFlowEntryPoint {
     case send
     case receive
     case earn
+    case settings
 }
 
 @MainActor
@@ -66,7 +67,14 @@ class AccountDetailsCoordinator: Coordinator,
                 showAccountAddressQR(account)
         case .earn:
             showEarn(account: account)
+        case .settings:
+            showSettings()
         }
+    }
+    
+    func showSettings() {
+        let presenter = AccountSettingsPresenter(account: account, delegate: self)
+        navigationController.pushViewController(presenter.present(AccountSettingsView.self), animated: true)
     }
     
     func showImportTokenFlow(account: AccountDataType) {

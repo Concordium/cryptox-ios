@@ -22,6 +22,7 @@ protocol AccountsMainViewDelegate: AnyObject {
     func showNotConfiguredAccountPopup()
     func createAccountFromOnboarding(isCreatingAccount: Binding<Bool>)
     func showEarnFlow(_ account: AccountDataType)
+    func showSettings(_ account: AccountDataType)
 }
 
 struct AccountsMainView: View {
