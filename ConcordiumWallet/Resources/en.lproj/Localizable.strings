@@ -1295,3 +1295,5 @@ Remember to restart your node with the validator keys.";
 "unlock.feature.subtitle" = "To use all features please complete your wallet set-up.";
 "go.back" = "Go back";
 "finalizing_account" = "Finalizing account";
+
+"backup.recommendation.message" = "We recommend that you migrate to a seed phrase wallet in order to make use of the full range of CryptoX features.";

@@ -31,7 +31,7 @@ final class AccountsMainViewModel: ObservableObject {
     init(dependencyProvider: AccountsFlowCoordinatorDependencyProvider, onReload: AnyPublisher<Void, Never>, walletConnectService: WalletConnectService) {
         self.dependencyProvider = dependencyProvider
         self.walletConnectService = walletConnectService
-        self.isBackupAlertShown = dependencyProvider.mobileWallet().isLegacyAccount()
+        self.isBackupAlertShown = dependencyProvider.mobileWallet().isLegacyAccount() && AppSettings.isImportedFromFile
         self.defaultCIS2TokenManager = .init(storageManager: dependencyProvider.storageManager(), networkManager: self.dependencyProvider.networkManager())
         
         accounts = dependencyProvider.storageManager().getAccounts().sorted(by: { t1, t2 in
