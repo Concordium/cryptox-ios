@@ -20,6 +20,7 @@ struct TokenBalanceView: View {
     @State var accountQr: AccountEntity?
     weak var router: AccountsMainViewDelegate?
     @State private var isPresentingAlert = false
+    @State private var showRawMdPopup = false
 
     var actionItems: [ActionItem]  {
         return accountActionItems()
@@ -32,7 +33,7 @@ struct TokenBalanceView: View {
                     balanceSection()
                         .padding(.horizontal, 18)
                     accountActionButtonsSection()
-                    TokenDetailsView(token: token)
+                    TokenDetailsView(token: token, showRawMd: $showRawMdPopup)
                     if token.name != "ccd" {
                         HStack(spacing: 8) {
                             Image("eyeSlash")
@@ -64,6 +65,17 @@ struct TokenBalanceView: View {
                     .transition(.scale(scale: 0.9).combined(with: .opacity))
                     .animation(.easeInOut(duration: 0.3), value: isPresentingAlert)
                 }
+            }
+            
+            if showRawMdPopup {
+                Color.black.opacity(0.4)
+                    .ignoresSafeArea()
+                    .transition(.opacity)
+                    .animation(.easeInOut(duration: 0.3), value: isPresentingAlert)
+                
+                rawMetadataView()
+                    .transition(.scale(scale: 0.9).combined(with: .opacity))
+                    .animation(.easeInOut(duration: 0.3), value: isPresentingAlert)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -170,11 +182,34 @@ struct TokenBalanceView: View {
         }
     }
     
+    func rawMetadataView() -> some View {
+        VStack(alignment: .leading, spacing: 20) {
+            HStack(alignment: .top) {
+                Spacer()
+                
+                Image("close_icon")
+                    .renderingMode(.template)
+                    .foregroundStyle(.grey1)
+                    .onTapGesture {
+                        showRawMdPopup = false
+                    }
+            }
+            Text(token.cis2Token?.metadata.toString() ?? "")
+                .font(.satoshi(size: 12, weight: .medium))
+                .foregroundStyle(.grey1)
+        }
+        .padding(.horizontal, 60)
+        .padding(.top, 60)
+        .padding(.bottom, 30)
+        .frame(width: 327, alignment: .top)
+        .modifier(FloatingGradientBGStyleModifier())
+        .cornerRadius(16)
+    }
+    
     private func accountActionItems() -> [ActionItem] {
         var actionItems = [
             ActionItem(iconName: "buy", label: "Buy", action: {
                 onRampFlowShown.toggle()
-//                path.append(.buy)
             }),
             ActionItem(iconName: "send", label: "Send", action: {
                 guard let account = viewModel.account else { return }
@@ -184,7 +219,7 @@ struct TokenBalanceView: View {
                 accountQr = (viewModel.account as? AccountEntity)
             }),
             ActionItem(iconName: "activity", label: "Activity", action: {
-                
+                path.append(.activity)
             })
         ]
         if token.name == "ccd" {

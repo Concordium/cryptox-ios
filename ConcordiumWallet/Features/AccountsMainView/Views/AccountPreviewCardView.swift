@@ -30,42 +30,19 @@ struct AccountPreviewCardView: View {
         state == .accounts
     }
 
-    private var backgroundGradient: some View {
-        Group {
-            if isAccountState {
-                LinearGradient(
-                    gradient: Gradient(colors: [Color(red: 0.92, green: 0.98, blue: 0.91), Color(red: 0.77, green: 0.84, blue: 0.89)]),
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-            } else {
-                Color.clear
-            }
-        }
-    }
-
     var body: some View {
-        VStack(alignment: .center, spacing: 0) {
-            ZStack(alignment: .leading) {
-                backgroundGradient
-                Image(isAccountState ? "card_bg_gradient" : "card_bg")
-                    .padding(.leading, 16)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                VStack(alignment: .leading, spacing: 14) {
-                    setupView()
-                        .padding(16)
-                        .frame(height: 132)
-                }
-            }
-            buttonSection
-                .background(isAccountState ? Color.Neutral.tint5 : .clear)
-                .fixedSize(horizontal: false, vertical: true)
+        VStack(alignment: .leading, spacing: 14) {
+            setupView()
+                .padding(16)
+                .frame(height: 132)
         }
         .cornerRadius(16)
+        .background(.clear)
         .overlay(
             RoundedRectangle(cornerRadius: 16)
-                .inset(by: 0.5)
-                .stroke(isAccountState ? Color.Neutral.tint1.opacity(0.05) : .blackAditional, lineWidth: 1.5)
+                .inset(by: 0.75)
+                .stroke(Color(red: 0.53, green: 0.53, blue: 0.53), lineWidth: 1.5)
+            
         )
         .onAppear {
             stateChange()
@@ -85,10 +62,6 @@ struct AccountPreviewCardView: View {
                 createAccountView
             case .verificationFailed:
                 verificationFailedView
-            case .accounts:
-                if let viewModel {
-                    AccountInfoView(viewModel: viewModel)
-                }
             default:
                 EmptyView()
             }
@@ -99,10 +72,12 @@ struct AccountPreviewCardView: View {
         VStack(alignment: .leading, spacing: 21) {
             HStack(alignment: .lastTextBaseline, spacing: 4) {
                 Text(title)
-                    .font(.satoshi(size: state == .identityVerification ? 16 : 14, weight: .medium))
+                    .font(.satoshi(size: 14, weight: .medium))
                     .foregroundStyle(state == .identityVerification ? .yellowMain : .greyMain)
                     .padding(.top, 12)
                     .padding(.bottom, 8)
+                    .lineLimit(nil)
+                    .fixedSize(horizontal: false, vertical: true)
                 
                 if state == .identityVerification {
                     Circle()
@@ -116,7 +91,7 @@ struct AccountPreviewCardView: View {
             
             ProgressView(value: progress)
                 .frame(height: isTransitioning ? 56 : 11)
-                .progressViewStyle(CustomProgressViewStyle(trackColor: .greenDark, progressColor: .greenMain))
+                .progressViewStyle(CustomProgressViewStyle(trackColor: Color(red: 0.09, green: 0.1, blue: 0.1)))
                 .cornerRadius(5)
                 .onChange(of: targetProgress) { newValue in
                     withAnimation(.easeInOut(duration: 1.0)) {
@@ -135,7 +110,7 @@ struct AccountPreviewCardView: View {
         VStack(alignment: .leading, spacing: 15) {
             HStack(alignment: .lastTextBaseline, spacing: 4) {
                 Text(isCreatingAccount ? "finalizing_account".localized : title)
-                    .font(.satoshi(size: 16, weight: .medium))
+                    .font(.satoshi(size: 14, weight: .medium))
                     .foregroundStyle(Color.greenMain)
                     .padding(.top, 12)
                     .padding(.bottom, 8)
@@ -176,7 +151,7 @@ struct AccountPreviewCardView: View {
         VStack(alignment: .leading, spacing: 15) {
             HStack(alignment: .lastTextBaseline, spacing: 4) {
                 Text(title)
-                    .font(.satoshi(size: 16, weight: .medium))
+                    .font(.satoshi(size: 14, weight: .medium))
                     .foregroundStyle(Color.Status.attentionRed)
                     .padding(.top, 12)
                     .padding(.bottom, 8)
@@ -195,58 +170,16 @@ struct AccountPreviewCardView: View {
         }
     }
 
-    private var buttonSection: some View {
-        HStack(alignment: .center) {
-            Spacer()
-            controlButton(imageName: "ico_plus", action: onShowPlusTap)
-            Spacer()
-            dividerLine
-            Spacer()
-            controlButton(imageName: "ico_share", action: onSendTap)
-            Spacer()
-            dividerLine
-            Spacer()
-            controlButton(imageName: "ico_qr", action: onQrTap)
-            Spacer()
-        }
-        .padding(.vertical, 8)
-        .frame(maxWidth: .infinity)
-        .overlay(
-            Rectangle()
-                .frame(height: isAccountState ? 0 : 1.5)
-                .foregroundColor(.blackAditional)
-                .frame(maxHeight: .infinity, alignment: .top),
-            alignment: .top
-        )
-    }
-
-    private func controlButton(imageName: String, action: (() -> Void)?) -> some View {
-        Button(action: { action?() }) {
-            Image(imageName)
-                .foregroundStyle(isAccountState ? Color.Neutral.tint1 : .blackAditional)
-        }
-        .disabled(!isAccountState)
-        .frame(width: 40, height: 40)
-    }
-
-    private var dividerLine: some View {
-        Rectangle()
-            .frame(width: 1.0)
-            .foregroundColor(isAccountState ? Color.Neutral.tint1.opacity(0.05) : .blackAditional)
-            .padding(.vertical, -7)
-    }
-
     private func buttonLabel(_ text: String) -> some View {
-        HStack {
-            Text(text)
-                .foregroundColor(.blackMain)
-                .font(.satoshi(size: 16, weight: .medium))
-                .padding(.vertical, 16)
-            Spacer()
-            Image(systemName: "arrow.right")
-                .tint(.blackMain)
-        }
-        .padding(.horizontal, 24)
+        Text(text)
+            .font(Font.satoshi(size: 15, weight: .medium))
+            .foregroundColor(.blackMain)
+            .padding(.horizontal, 24)
+            .frame(maxWidth: .infinity)
+            .frame(height: 56)
+            .background(.white)
+            .cornerRadius(28)
+        
     }
 
     private func stateChange() {
@@ -284,7 +217,13 @@ struct AccountPreviewCardView: View {
 
 struct CustomProgressViewStyle: ProgressViewStyle {
     var trackColor: Color
-    var progressColor: Color
+    var gradientColors: [Color] {
+        return [Color(red: 0.62, green: 0.95, blue: 0.92),
+                Color(red: 0.93, green: 0.85, blue: 0.75),
+                Color(red: 0.64, green: 0.6, blue: 0.89)]
+    }
+    
+    @State private var gradientOffset: CGFloat = 0.0
     
     func makeBody(configuration: Configuration) -> some View {
         GeometryReader { geometry in
@@ -293,9 +232,20 @@ struct CustomProgressViewStyle: ProgressViewStyle {
                     .frame(width: geometry.size.width, height: geometry.size.height)
                     .cornerRadius(5)
                 
-                progressColor
-                    .frame(width: geometry.size.width * CGFloat(configuration.fractionCompleted ?? 0), height: geometry.size.height)
-                    .cornerRadius(5)
+                LinearGradient(
+                    gradient: Gradient(colors: gradientColors),
+                    startPoint: .init(x: gradientOffset, y: 0),
+                    endPoint: .init(x: gradientOffset + 1, y: 0)
+                )
+                .frame(width: geometry.size.width * CGFloat(configuration.fractionCompleted ?? 0), height: geometry.size.height)
+                .cornerRadius(5)
+                .onAppear {
+                    withAnimation(
+                        Animation.linear(duration: 3.0).repeatForever(autoreverses: true)
+                    ) {
+                        gradientOffset = 1.0
+                    }
+                }
             }
         }
     }

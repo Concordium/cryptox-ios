@@ -180,9 +180,7 @@ struct AccountDetailView: View {
                             }
                             .padding()
                         case .transactions:
-                            TransactionsView(viewModel: .init(account: viewModel.account, dependencyProvider: viewModel.dependencyProvider)) { tx in
-                                viewModel.didTapOnTx(tx)
-                            }
+                            EmptyView()
                     }
                 }
                 .background(Color.blackSecondary.cornerRadius(24))

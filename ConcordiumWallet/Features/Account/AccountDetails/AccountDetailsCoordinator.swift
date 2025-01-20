@@ -197,8 +197,8 @@ class AccountDetailsCoordinator: Coordinator,
     }
     
     func showTransactionDetail(viewModel: TransactionViewModel) {
-        let vc = TransactionDetailFactory.create(with: TransactionDetailPresenter(delegate: self, viewModel: viewModel))
-        navigationController.pushViewController(vc, animated: true)
+//        let vc = TransactionDetailFactory.create(with: TransactionDetailPresenter(delegate: self, viewModel: viewModel))
+//        navigationController.pushViewController(vc, animated: true)
     }
     
     func showReleaseSchedule(account: AccountDataType) {

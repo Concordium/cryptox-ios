@@ -13,6 +13,8 @@ struct TokenDetailsView: View {
     var token: AccountDetailAccount
     var isAddTokenDetails: Bool = false
 
+    @Binding var showRawMd: Bool
+    
     var body: some View {
         ZStack {
             Color.blackMain
@@ -47,7 +49,7 @@ struct TokenDetailsView: View {
                             .font(.satoshi(size: 12, weight: .medium))
                             .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
                         
-                        Text("0-6")
+                        Text("0 – 6")
                             .font(.satoshi(size: 12, weight: .medium))
                             .foregroundStyle(.whiteMain)
                             .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -79,7 +81,7 @@ struct TokenDetailsView: View {
                             .font(.satoshi(size: 12, weight: .medium))
                             .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
                         
-                        Text("0-\(token.metadata.decimals?.string ?? "")")
+                        Text("0 – \(token.metadata.decimals?.string ?? "")")
                             .font(.satoshi(size: 12, weight: .medium))
                             .foregroundStyle(.whiteMain)
                             .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -109,6 +111,9 @@ struct TokenDetailsView: View {
                     Text("Show raw metadata")
                         .font(.satoshi(size: 15, weight: .medium))
                         .foregroundStyle(.whiteMain)
+                }
+                .onTapGesture {
+                    showRawMd = true
                 }
                 if isAddTokenDetails {
                     Spacer()

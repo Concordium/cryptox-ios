@@ -70,19 +70,14 @@ class AccountTransactionsDataViewController: BaseViewController, AccountTransact
                 return tableView.dequeueReusableCell(withIdentifier: "AccountTransactionsLoadingCell",
                                                      for: indexPath) as? AccountTransactionsLoadingCellView
             case .transaction(let transactionVM):
-                let cell = tableView.dequeueReusableCell(withIdentifier: "AccountTransactionsDataCellView", for: indexPath)
-                    as? AccountTransactionsDataCellView
-                cell?.delegate = self
-                cell?.transactionHash = transactionVM.details.transactionHash
-                updateCellUI(cell, for: transactionVM)
-                return cell
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "AccountTransactionsDataCellView", for: indexPath)
+//                    as? AccountTransactionsDataCellView
+//                cell?.delegate = self
+//                cell?.transactionHash = transactionVM.details.transactionHash
+//                updateCellUI(cell, for: transactionVM)
+//                return cell
+            return nil
         }
-    }
-    
-    private func updateCellUI(_ cell: AccountTransactionsDataCellView?,
-                              for viewModel: TransactionViewModel) {
-        let cellVM = TransactionCellViewModel(transactionVM: viewModel)
-        cell?.updateUIBasedOn(cellVM)
     }
 
     func bind(to viewModel: TransactionsListViewModel) {
@@ -148,13 +143,5 @@ extension AccountTransactionsDataViewController: UITableViewDelegate {
 
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         tableHeaderHeight
-    }
-}
-
-extension AccountTransactionsDataViewController: AccountTransactionsDataCellViewDelegate {
-    func lockButtonPressed(from cell: AccountTransactionsDataCellView) {
-        if cell.transactionHash != nil {
-            presenter?.userSelectedDecryption(for: cell.transactionHash!)
-        }
     }
 }

@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Combine
+import DotLottie
 
 struct ActionItem: Identifiable {
     let id = UUID()
@@ -26,6 +27,7 @@ enum AccountNavigationPaths: Hashable {
     case activity
     case addToken
     case addTokenDetails(token: AccountDetailAccount)
+    case transactionDetails(transaction: TransactionDetailViewModel)
 }
 
 struct HomeScreenView: View {
@@ -35,9 +37,17 @@ struct HomeScreenView: View {
     @State private var showTokenDetails: Bool = false
     @State private var showManageTokenList: Bool = false
     @State private var selectedToken: AccountDetailAccount?
-    //    @EnvironmentObject var updateTimer: UpdateTimer
+    @EnvironmentObject var updateTimer: UpdateTimer
     @State private var path: [AccountNavigationPaths] = []
     @State private var isNewTokenAdded: Bool = false
+    @State private var previousState: AccountsMainViewState?
+    @State var onRampFlowShown = false
+    @State private var selectedPage = 0
+    @State private var isCreatingAccount = false
+    @State private var hasShownAnimationKey = "showConfettiAnimation"
+    @State private var geometrySize: CGSize?
+    @State var isShowPasscodeViewShown = false
+    @State var phrase: [String]?
     
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
@@ -51,8 +61,6 @@ struct HomeScreenView: View {
     let keychain: KeychainWrapperProtocol
     let identitiesService: SeedIdentitiesService
     weak var router: AccountsMainViewDelegate?
-    @State var onRampFlowShown = false
-    @State private var selectedPage = 0
     var actionItems: [ActionItem]  {
         return accountActionItems()
     }
@@ -61,28 +69,15 @@ struct HomeScreenView: View {
     var body: some View {
         NavigationStack(path: $path) {
             GeometryReader { geometry in
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 40) {
-                        topBarControls()
-                        balanceSection()
-                    }
-                    .padding(.horizontal, 18)
-                    accountActionButtonsSection()
-                        .padding(.top, 40)
-                    if isShouldShowOnrampMessage {
-                        NewsPageView(selectedTab: $selectedPage, views: {
-                            [
-                                AnyView(onrampView())
-                            ]
-                        })
+                VStack {
+                    if viewModel.state == .accounts {
+                        ScrollView {
+                            homeViewContent()
+                        }
+                    } else {
+                        homeViewContent()
                     }
                     
-                    if let vm = accountDetailViewModel {
-                        AccountTokenListView(viewModel: vm, showTokenDetails: $showTokenDetails, showManageTokenList: $showManageTokenList, selectedToken: $selectedToken, mode: .normal)
-                            .frame(maxWidth: .infinity)
-                            .frame(minHeight: geometry.size.height / 2)
-                            .padding(.top, 40)
-                    }
                 }
                 .onTapGesture {
                     showTooltip = false
@@ -93,6 +88,9 @@ struct HomeScreenView: View {
                 .sheet(item: $accountQr) { account in
                     AccountQRView(account: account)
                 }
+                .fullScreenCover(isPresented: $isShowPasscodeViewShown, content: {
+                    passcodeView
+                })
                 .onChange(of: selectedToken) { newValue in
                     if showTokenDetails {
                         path.append(.tokenDetails)
@@ -103,30 +101,81 @@ struct HomeScreenView: View {
                         path.append(.manageTokens)
                     }
                 }
+                .onChange(of: viewModel.state) { newState in
+                    if newState != .accounts {
+                        previousState = newState
+                    }
+                    if viewModel.state == .accounts {
+                        isCreatingAccount = false
+                    }
+                }
+                .overlay(content: {
+                    if viewModel.state == .accounts && !UserDefaults.standard.bool(forKey: hasShownAnimationKey) {
+                        DotLottieAnimation(fileName: "confettiAnimation", config: AnimationConfig(autoplay: true, loop: false)).view()
+                            .onAppear {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.3) {
+                                    UserDefaults.standard.set(true, forKey: hasShownAnimationKey)
+                                }
+                            }
+                    }
+                })
+                .onChange(of: geometry.size) { _ in
+                    geometrySize = geometry.size
+                }
             }
             .modifier(AppBackgroundModifier())
         }
         .refreshable {
             await viewModel.reload()
         }
-        .onAppear {
+        .onAppear { updateTimer.start()
             Task {
-                await viewModel.reload()
+                await self.viewModel.reload()
             }
+        }
+        .onDisappear { updateTimer.stop() }
+        .onReceive(updateTimer.tick) { _ in
+            Task {
+                await self.viewModel.reload()
+            }
+        }
+    }
+    
+    func homeViewContent() -> some View {
+        VStack(spacing: 0) {
+            VStack(alignment: .leading, spacing: 20) {
+                topBarControls()
+                balanceSection()
+            }
+            .padding(.horizontal, 18)
+            accountActionButtonsSection()
+                .padding(.top, 40)
+            if isShouldShowOnrampMessage {
+                NewsPageView(selectedTab: $selectedPage, views: {
+                    [
+                        AnyView(onrampView())
+                    ]
+                })
+            }
+            
+            contentViewBasedOnState
+                .padding(.horizontal, viewModel.state != .accounts ? 18 : 0)
         }
     }
     
     func topBarControls() -> some View {
         HStack() {
-            HStack(spacing: 5) {
-                Image("dot\(getDotImageIndex())")
-                Text("\(viewModel.selectedAccount?.displayName ?? "")")
-                    .font(.satoshi(size: 15, weight: .medium))
-                Image(systemName: "chevron.up.chevron.down")
-                    .tint(.greyAdditional)
-            }
-            .onTapGesture {
-                path.append(.accountsOverview)
+            if !viewModel.accounts.isEmpty {
+                HStack(spacing: 5) {
+                    Image("dot\(getDotImageIndex())")
+                    Text("\(viewModel.selectedAccount?.displayName ?? "")")
+                        .font(.satoshi(size: 15, weight: .medium))
+                    Image(systemName: "chevron.up.chevron.down")
+                        .tint(.greyAdditional)
+                }
+                .onTapGesture {
+                    path.append(.accountsOverview)
+                }
             }
             Spacer()
             Image("ico_scan")
@@ -146,14 +195,15 @@ struct HomeScreenView: View {
     
     func balanceSection() -> some View {
         VStack(alignment: .leading) {
-            HStack(alignment: .top, spacing: 4) {
+            ZStack(alignment: .topTrailing) {
                 Text("\(balanceDisplayValue(viewModel.selectedAccount?.forecastBalance)) CCD")
                     .font(.plexSans(size: 55, weight: .medium))
                     .dynamicTypeSize(.xSmall ... .xxLarge)
                     .minimumScaleFactor(0.5)
                     .lineLimit(1)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(alignment: .leading)
                     .modifier(RadialGradientForegroundStyleModifier())
+                    .padding(.trailing, 30)
                 
                 Button {
                     showTooltip.toggle()
@@ -161,24 +211,27 @@ struct HomeScreenView: View {
                     Image("info_gradient")
                         .resizable()
                         .frame(width: 20, height: 20)
-                        .offset(y: 8)
                 }
-                .popover(isPresented: $showTooltip, attachmentAnchor: .point(.bottomLeading), arrowEdge: .bottom, content: {
+                .popover(isPresented: $showTooltip, attachmentAnchor: .rect(.bounds), arrowEdge: .bottom, content: {
                     infoTooltip
                         .frame(width: 200)
                         .presentationBackground(.white)
                         .presentationCompactAdaptation(.popover)
                 })
+                .offset(x: -5, y: 5)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             
-            Text("\(balanceDisplayValue(viewModel.selectedAccount?.forecastAtDisposalBalance)) CCD " + "accounts.atdisposal".localized)
-                .font(.satoshi(size: 15, weight: .medium))
-                .modifier(RadialGradientForegroundStyleModifier())
+            if let account = viewModel.selectedAccount, account.isStaking {
+                Text("\(balanceDisplayValue(viewModel.selectedAccount?.forecastAtDisposalBalance)) CCD " + "accounts.atdisposal".localized)
+                    .font(.satoshi(size: 15, weight: .medium))
+                    .modifier(RadialGradientForegroundStyleModifier())
+            }
         }
     }
     
     func accountActionButtonsSection() -> some View {
-        HStack(alignment: .center) {
+        HStack {
             ForEach(actionItems) { item in
                 VStack {
                     Image(item.iconName)
@@ -194,7 +247,12 @@ struct HomeScreenView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .onTapGesture {
-                    item.action()
+                    if SettingsHelper.isIdentityConfigured() {
+                        item.action()
+                    }
+                    else {
+                        self.router?.showNotConfiguredAccountPopup()
+                    }
                 }
             }
         }
@@ -258,25 +316,29 @@ struct HomeScreenView: View {
         )
     }
     
-    // TODO: Add actions
     private func accountActionItems() -> [ActionItem] {
         let actionItems = [
             ActionItem(iconName: "buy", label: "Buy", action: {
                 path.append(.buy)
+                Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Buy")
             }),
             ActionItem(iconName: "send", label: "Send", action: {
                 guard let selectedAccount = viewModel.selectedAccount else { return }
                 router?.showSendFundsFlow(selectedAccount)
+                Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Send funds")
             }),
             ActionItem(iconName: "receive", label: "Receive", action: {
                 accountQr = (viewModel.selectedAccount as? AccountEntity)
+                Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Account QR")
             }),
             ActionItem(iconName: "percent", label: "Earn", action: {
                 guard let selectedAccount = viewModel.selectedAccount else { return }
                 router?.showEarnFlow(selectedAccount)
+                Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Earn")
             }),
             ActionItem(iconName: "activity", label: "Activity", action: {
-                
+                path.append(.activity)
+                Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Activity")
             })
         ]
         return actionItems
@@ -304,7 +366,7 @@ struct HomeScreenView: View {
                 } else {
                     EmptyView()
                 }
-            case .send, .earn, .activity:
+            case .send, .earn:
                 EmptyView()
             case .addToken:
                 if let selectedAccount = viewModel.selectedAccount {
@@ -325,8 +387,23 @@ struct HomeScreenView: View {
                     EmptyView()
                 }
             case .addTokenDetails(let token):
-                TokenDetailsView(token: token, isAddTokenDetails: true)
+                TokenDetailsView(token: token, isAddTokenDetails: true, showRawMd: .constant(false))
                     .modifier(NavigationViewModifier(title: "Add token", backAction: {
+                        path.removeLast()
+                    }))
+            case .activity:
+                if let selectedAccount = viewModel.selectedAccount {
+                    TransactionsView(viewModel: TransactionsViewModel(account: selectedAccount, dependencyProvider: ServicesProvider.defaultProvider())) { vm in
+                        path.append(.transactionDetails(transaction: vm))
+                    }
+                    .modifier(AppBackgroundModifier())
+                    .modifier(NavigationViewModifier(title: "Activity") {
+                        path.removeLast()
+                    })
+                }
+            case .transactionDetails(let transaction):
+                TransactionDetailView(viewModel: transaction)
+                    .modifier(NavigationViewModifier(title: "Transaction Details", backAction: {
                         path.removeLast()
                     }))
             }
@@ -337,5 +414,122 @@ struct HomeScreenView: View {
         guard let selectedAccount = viewModel.selectedAccount else { return 1 }
         let matchingAcc = viewModel.accountViewModels.first { $0.account.address == selectedAccount.address }
         return matchingAcc?.dotImageIndex ?? 1
+    }
+}
+
+extension HomeScreenView {
+    // MARK: - Content Based on ViewModel State
+    @ViewBuilder
+    private var contentViewBasedOnState: some View {
+        switch viewModel.state {
+        case .empty:
+            VStack {
+                Spacer()
+                EmptyView()
+                Spacer()
+            }
+            
+        case .accounts:
+            if let vm = accountDetailViewModel {
+                AccountTokenListView(viewModel: vm, showTokenDetails: $showTokenDetails, showManageTokenList: $showManageTokenList, selectedToken: $selectedToken, mode: .normal)
+                    .frame(maxWidth: .infinity)
+                    .frame(minHeight: (geometrySize?.height ?? 100) / 2)
+                    .transition(.opacity)
+            }
+            
+        case .createAccount:
+            VStack {
+                AccountPreviewCardView(isCreatingAccount: $isCreatingAccount,
+                                       onCreateAccount: {
+                    self.isCreatingAccount = true
+                    self.router?.createAccountFromOnboarding(isCreatingAccount: $isCreatingAccount)
+                    Task { await viewModel.reload() }
+                },
+                                       state: .createAccount)
+                .fixedSize(horizontal: false, vertical: true)
+                
+                Spacer()
+            }
+            .transition(.opacity)
+            
+        case .createIdentity:
+            VStack {
+                AccountPreviewCardView(isCreatingAccount: $isCreatingAccount, state: .createIdentity)
+                    .fixedSize(horizontal: false, vertical: true)
+                
+                Spacer()
+                
+                Button(action: {
+                    self.router?.showCreateIdentityFlow()
+                    Tracker.trackContentInteraction(name: "Onboarding", interaction: .clicked, piece: "Create Identity")
+                }, label: {
+                    Text("create_wallet_step_3_title".localized)
+                        .font(Font.satoshi(size: 15, weight: .medium))
+                        .foregroundColor(.blackMain)
+                        .padding(.horizontal, 24)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 56)
+                        .background(.white)
+                        .cornerRadius(28)
+                })
+                .padding(.bottom, 23)
+            }
+            .transition(.opacity)
+            
+        case .identityVerification:
+            VStack {
+                AccountPreviewCardView(isCreatingAccount: $isCreatingAccount, state: .identityVerification)
+                    .fixedSize(horizontal: false, vertical: true)
+                Spacer()
+            }
+            .transition(.opacity)
+            
+        case .verificationFailed:
+            VStack {
+                AccountPreviewCardView(isCreatingAccount: $isCreatingAccount, onIdentityVerification: { self.router?.showCreateIdentityFlow() }, state: .verificationFailed)
+                    .fixedSize(horizontal: false, vertical: true)
+                Spacer()
+            }
+            .transition(.opacity)
+            
+        case .saveSeedPhrase:
+            VStack {
+                AccountPreviewCardView(isCreatingAccount: $isCreatingAccount, state: .saveSeedPhrase)
+                    .fixedSize(horizontal: false, vertical: true)
+                Spacer()
+                Button {
+                    isShowPasscodeViewShown = true
+                    Tracker.trackContentInteraction(name: "Onboarding", interaction: .clicked, piece: "Save Seed Phrase")
+                } label: {
+                    Text("create_wallet_step_2_title".localized)
+                        .font(Font.satoshi(size: 15, weight: .medium))
+                        .foregroundColor(.blackMain)
+                        .padding(.horizontal, 24)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 56)
+                        .background(.white)
+                        .cornerRadius(28)
+                }
+                .padding(.bottom, 23)
+            }
+            .transition(.opacity)
+        }
+    }
+    
+    // MARK: - Passcode View
+    private var passcodeView: some View {
+        PasscodeView(keychain: keychain,
+                     sanityChecker: SanityChecker(mobileWallet: ServicesProvider.defaultProvider().mobileWallet(),
+                                                  storageManager: ServicesProvider.defaultProvider().storageManager())) { pwHash in
+            isShowPasscodeViewShown = false
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.router?.showSaveSeedPhraseFlow(pwHash: pwHash, identitiesService: identitiesService) { phrase in
+                    if identitiesService.mobileWallet.hasSetupRecoveryPhrase {
+                        self.phrase = phrase
+                        Task { await viewModel.reload() }
+                    }
+                }
+            }
+        }
     }
 }

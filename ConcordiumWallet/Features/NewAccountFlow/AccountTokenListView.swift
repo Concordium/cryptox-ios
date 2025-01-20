@@ -96,7 +96,7 @@ struct AccountTokenListView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 40, height: 40)
                 }
-                Text(token.metadata.symbol ?? "")
+                Text(token.metadata.symbol ?? token.metadata.name ?? "")
                     .font(.satoshi(size: 15, weight: .medium))
                 Spacer()
                 Text(TokenFormatter()

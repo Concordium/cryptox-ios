@@ -103,8 +103,8 @@ extension AccountDetailRouter: AccountDetailRoutable {
         navigationController.pushViewController(viewController, animated: true)
     }
     func showTx(_ tx: TransactionViewModel) {
-        let vc = TransactionDetailFactory.create(with: TransactionDetailPresenter(delegate: self, viewModel: tx))
-        navigationController.pushViewController(vc, animated: true)
+//        let vc = TransactionDetailFactory.create(with: TransactionDetailPresenter(delegate: self, viewModel: tx))
+//        navigationController.pushViewController(vc, animated: true)
     }
 }
 

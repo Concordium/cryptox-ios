@@ -203,7 +203,7 @@ process on-chain.";
 "accountDetails.bakingstakelabel" = "Stake with validator %@";
 "accountDetails.passivevalue" = "Passive delegation";
 "accountDetails.bakerpoolvalue" = "Delegation with staking pool %d";
-
+"accountDetails.events" = "Events";
 
 "sendFund.pageTitle.send" = "Send Funds";
 "sendFund.pageTitle.unshieldAmount" = "Unshield Amount";

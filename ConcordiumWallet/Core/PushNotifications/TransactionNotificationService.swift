@@ -124,7 +124,7 @@ final class TransactionNotificationService {
     
     func handleCIS2Notification(userInfo: [AnyHashable: Any], account: AccountDataType, navigationController: UINavigationController) {
         let detailRouter = AccountDetailRouter(account: account, navigationController: navigationController, dependencyProvider: defaultProvider)
-        
+        let tokenDetailsView = TransactionDetailsView()
         guard let result = NotificationTokenService().checkToken(from: userInfo) else { return }
         switch result {
         case .tokenFound(let token):

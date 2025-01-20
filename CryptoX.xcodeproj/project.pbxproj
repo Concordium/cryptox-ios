@@ -1099,7 +1099,6 @@
 		08C167462BB7396200E61326 /* CIS2TokenMetadataEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CA62A24A2C9001CCA96 /* CIS2TokenMetadataEntity.swift */; };
 		08C167482BB7396200E61326 /* NFTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5612B7E28EA2B2800582AD4 /* NFTService.swift */; };
 		08C167492BB7396200E61326 /* ExternalPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07319026CD249F00CEE8F0 /* ExternalPaymentVC.swift */; };
-		08C1674A2BB7396200E61326 /* AccountTransactionsDataCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96632542459B9260087A1F2 /* AccountTransactionsDataCellView.swift */; };
 		08C1674B2BB7396200E61326 /* String+Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE712A025A7800042957 /* String+Links.swift */; };
 		08C1674C2BB7396200E61326 /* CredentialPublicKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A044E729FA99C700DACE1F /* CredentialPublicKeys.swift */; };
 		08C1674D2BB7396200E61326 /* NFTProvidersDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E6CBC4290F405B009856B7 /* NFTProvidersDataFlow.swift */; };
@@ -1901,6 +1900,9 @@
 		15B527582D36666E005FA701 /* AddTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B527502D36666E005FA701 /* AddTokenView.swift */; };
 		15B527602D36666E005FA701 /* AddTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B527502D36666E005FA701 /* AddTokenView.swift */; };
 		15B527682D36666E005FA701 /* AddTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B527502D36666E005FA701 /* AddTokenView.swift */; };
+		15B80E942D3A67DC00C5650C /* TransactionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B80E932D3A67DC00C5650C /* TransactionDetailView.swift */; };
+		15B80E952D3A67DC00C5650C /* TransactionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B80E932D3A67DC00C5650C /* TransactionDetailView.swift */; };
+		15B80E962D3A67DC00C5650C /* TransactionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B80E932D3A67DC00C5650C /* TransactionDetailView.swift */; };
 		15E1BC692C6B58C000543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
 		15E1BC6A2C6B58C000543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
 		15E1BC6B2C6B58C100543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
@@ -2086,7 +2088,6 @@
 		7F85B811246A9AB600ED09B8 /* AttributesFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BB9FDE244426B100AE0884 /* AttributesFormatter.swift */; };
 		7F85B813246A9AB600ED09B8 /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9623EADBB100F1FC04 /* UIViewController+Additions.swift */; };
 		7F85B81A246A9AB600ED09B8 /* IdentityDataRowCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9874ECA2417FC0F006EF386 /* IdentityDataRowCellView.swift */; };
-		7F85B81D246A9AB600ED09B8 /* AccountTransactionsDataCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96632542459B9260087A1F2 /* AccountTransactionsDataCellView.swift */; };
 		7F85B824246A9AB600ED09B8 /* RoundedCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C939821C240F8D7000C72FE2 /* RoundedCornerView.swift */; };
 		7F85B82C246A9AB600ED09B8 /* TransactionDetailErrorCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94ED723246301740071A4FB /* TransactionDetailErrorCellView.swift */; };
 		7F85B83A246A9AB600ED09B8 /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEE69223F4065800D14834 /* WidgetView.swift */; };
@@ -2146,7 +2147,6 @@
 		C94ED724246301740071A4FB /* TransactionDetailErrorCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94ED723246301740071A4FB /* TransactionDetailErrorCellView.swift */; };
 		C94ED727246302160071A4FB /* TransactionDetailInfoCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94ED726246302160071A4FB /* TransactionDetailInfoCellView.swift */; };
 		C95CE0C02439EDC500B1A88D /* AccountDetailsIdentityDataCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CE0BF2439EDC500B1A88D /* AccountDetailsIdentityDataCellView.swift */; };
-		C96632552459B9260087A1F2 /* AccountTransactionsDataCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96632542459B9260087A1F2 /* AccountTransactionsDataCellView.swift */; };
 		C9874ECB2417FC0F006EF386 /* IdentityDataRowCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9874ECA2417FC0F006EF386 /* IdentityDataRowCellView.swift */; };
 		C99CFF6E243EFD7E0045B8E6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99CFF6D243EFD7E0045B8E6 /* WebKit.framework */; };
 		C9BB9FDF244426B100AE0884 /* AttributesFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BB9FDE244426B100AE0884 /* AttributesFormatter.swift */; };
@@ -3170,6 +3170,7 @@
 		1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTokenViewModel.swift; sourceTree = "<group>"; };
 		15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedIdentitiesStatusService.swift; sourceTree = "<group>"; };
 		15B527502D36666E005FA701 /* AddTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTokenView.swift; sourceTree = "<group>"; };
+		15B80E932D3A67DC00C5650C /* TransactionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailView.swift; sourceTree = "<group>"; };
 		15E1BC682C6B588900543242 /* Gate_io.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gate_io.png; sourceTree = "<group>"; };
 		15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTokenViewModel.swift; sourceTree = "<group>"; };
 		15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
@@ -3269,7 +3270,6 @@
 		C94ED723246301740071A4FB /* TransactionDetailErrorCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailErrorCellView.swift; sourceTree = "<group>"; };
 		C94ED726246302160071A4FB /* TransactionDetailInfoCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionDetailInfoCellView.swift; sourceTree = "<group>"; };
 		C95CE0BF2439EDC500B1A88D /* AccountDetailsIdentityDataCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsIdentityDataCellView.swift; sourceTree = "<group>"; };
-		C96632542459B9260087A1F2 /* AccountTransactionsDataCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTransactionsDataCellView.swift; sourceTree = "<group>"; };
 		C9874ECA2417FC0F006EF386 /* IdentityDataRowCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityDataRowCellView.swift; sourceTree = "<group>"; };
 		C99CFF6D243EFD7E0045B8E6 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		C9BB9FDE244426B100AE0884 /* AttributesFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesFormatter.swift; sourceTree = "<group>"; };
@@ -5193,6 +5193,7 @@
 				08E69CC12A26279C001CCA96 /* TransactionListView.swift */,
 				08E69CB22A254570001CCA96 /* TokenFormatter.swift */,
 				08E69CB72A25FA73001CCA96 /* SegmentedPicker.swift */,
+				15B80E932D3A67DC00C5650C /* TransactionDetailView.swift */,
 			);
 			path = AccountDetail;
 			sourceTree = "<group>";
@@ -5709,7 +5710,6 @@
 			children = (
 				C95CE0BF2439EDC500B1A88D /* AccountDetailsIdentityDataCellView.swift */,
 				52589B2525128F8700ADD35B /* AccountMultiBalanceCell.swift */,
-				C96632542459B9260087A1F2 /* AccountTransactionsDataCellView.swift */,
 				19C2ED0E82FC1B8F4D86D8B8 /* AccountTransactionsLoadingCellView.swift */,
 				C9874ECA2417FC0F006EF386 /* IdentityDataRowCellView.swift */,
 				C9DB8A202423C98E008551B8 /* IdentityDataSelectionCell.swift */,
@@ -7141,7 +7141,6 @@
 				08C167462BB7396200E61326 /* CIS2TokenMetadataEntity.swift in Sources */,
 				08C167482BB7396200E61326 /* NFTService.swift in Sources */,
 				08C167492BB7396200E61326 /* ExternalPaymentVC.swift in Sources */,
-				08C1674A2BB7396200E61326 /* AccountTransactionsDataCellView.swift in Sources */,
 				08C1674B2BB7396200E61326 /* String+Links.swift in Sources */,
 				08C1674C2BB7396200E61326 /* CredentialPublicKeys.swift in Sources */,
 				08C1674D2BB7396200E61326 /* NFTProvidersDataFlow.swift in Sources */,
@@ -7207,6 +7206,7 @@
 				08C167862BB7396200E61326 /* QRTransactionProvider.swift in Sources */,
 				08C167872BB7396200E61326 /* MintDistribution.swift in Sources */,
 				153F2F4C2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */,
+				15B80E952D3A67DC00C5650C /* TransactionDetailView.swift in Sources */,
 				08C167882BB7396200E61326 /* ExportAccount.swift in Sources */,
 				08C167892BB7396200E61326 /* WidgetView.swift in Sources */,
 				08C1678A2BB7396200E61326 /* NFTRepository.swift in Sources */,
@@ -7837,7 +7837,6 @@
 				08E69CAA2A24A2C9001CCA96 /* CIS2TokenMetadataEntity.swift in Sources */,
 				D5612B8228EA2B2800582AD4 /* NFTService.swift in Sources */,
 				FA07319426CD249F00CEE8F0 /* ExternalPaymentVC.swift in Sources */,
-				7F85B81D246A9AB600ED09B8 /* AccountTransactionsDataCellView.swift in Sources */,
 				088FEE752A025A7800042957 /* String+Links.swift in Sources */,
 				08A045E729FA99D200DACE1F /* CredentialPublicKeys.swift in Sources */,
 				D5E6CBC8290F405B009856B7 /* NFTProvidersDataFlow.swift in Sources */,
@@ -7903,6 +7902,7 @@
 				D5B3940927199BED0094A9F5 /* QRTransactionProvider.swift in Sources */,
 				08A0460829FA99D200DACE1F /* MintDistribution.swift in Sources */,
 				153F2F4D2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */,
+				15B80E962D3A67DC00C5650C /* TransactionDetailView.swift in Sources */,
 				D589F2112794B5ED003F2FBB /* ExportAccount.swift in Sources */,
 				7F85B83A246A9AB600ED09B8 /* WidgetView.swift in Sources */,
 				D58EA772290F59080033C8FD /* NFTRepository.swift in Sources */,
@@ -8484,7 +8484,6 @@
 				C9874ECB2417FC0F006EF386 /* IdentityDataRowCellView.swift in Sources */,
 				52055F8C2552C51F0071F7CA /* IdentityProviderCell.swift in Sources */,
 				D5B87CDB27A2EC2F00F27819 /* LaunchScreenViewController.swift in Sources */,
-				C96632552459B9260087A1F2 /* AccountTransactionsDataCellView.swift in Sources */,
 				088FEE192A0167FA00042957 /* AccountDetailsPresenter.swift in Sources */,
 				08B16F042A011899002E6B33 /* AlertDisplayer.swift in Sources */,
 				08DB5E692BC6C31C00C29663 /* BakerPoolGenerateKeyViewController.swift in Sources */,
@@ -8599,6 +8598,7 @@
 				D5CACC4E26ED48DB00D3C3CF /* UIView+Shake.swift in Sources */,
 				D58EA770290F59080033C8FD /* NFTRepository.swift in Sources */,
 				153F2F4B2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */,
+				15B80E942D3A67DC00C5650C /* TransactionDetailView.swift in Sources */,
 				088FEE1A2A0167FA00042957 /* AccountDetailsViewController.swift in Sources */,
 				D589F1EF2794B5ED003F2FBB /* AccountBalanceTypeEnum.swift in Sources */,
 				088FEDC22A01677E00042957 /* TransactionCellViewModel.swift in Sources */,

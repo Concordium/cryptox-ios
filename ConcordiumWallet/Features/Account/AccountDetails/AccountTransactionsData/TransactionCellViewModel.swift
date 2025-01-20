@@ -7,9 +7,9 @@
 //
 
 import Foundation
-import UIKit
+import SwiftUI
 
-struct TransactionCellViewModel {
+struct TransactionCellViewModel: Equatable, Hashable {
     var title = ""
     var date = ""
     var memo: String?
@@ -17,10 +17,10 @@ struct TransactionCellViewModel {
     var total = ""
     var amount = ""
     var cost = ""
-    var titleColor: UIColor = .text
-    var totalColor: UIColor = .text
-    var amountColor: UIColor = .text
-    var costColor: UIColor = .text
+    var titleColor: Color = .white
+    var totalColor: Color = .white
+    var amountColor: Color = .white
+    var costColor: Color = .white
     var showCostAndAmount = true
     var showErrorIcon = true
     var showStatusIcon = true
@@ -31,9 +31,9 @@ struct TransactionCellViewModel {
     init(transactionVM: TransactionViewModel) {
         title = transactionVM.title
         date = GeneralFormatter.formatTime(for: transactionVM.date)
-        memo = transactionVM.memo?.displayValue ?? ""
+        memo = transactionVM.memo?.displayValue
         fullDate = GeneralFormatter.formatDateWithTime(for: transactionVM.date)
-        total = transactionVM.total?.displayValueWithGStroke() ?? ""
+        total = transactionVM.total?.displayValueWithTwoNumbersAfterDecimalPoint() ?? ""
         
         if transactionVM.status == .received
             || (transactionVM.status == .committed && transactionVM.outcome == .ambiguous) {
@@ -41,6 +41,7 @@ struct TransactionCellViewModel {
             statusIcon = #imageLiteral(resourceName: "time")
             costColor = .primary
             showCostAsEstimate = true
+            totalColor = .white
         } else if transactionVM.status == .absent {
             titleColor = .fadedText
             amountColor = .fadedText
@@ -51,7 +52,7 @@ struct TransactionCellViewModel {
             showErrorIcon = false
             statusIcon = #imageLiteral(resourceName: "ok")
             if let total = transactionVM.total?.intValue, total > 0 {
-                totalColor = .success
+                totalColor = .white
             }
         } else if transactionVM.status == .finalized && transactionVM.outcome == .success {
             showErrorIcon = false
@@ -67,10 +68,10 @@ struct TransactionCellViewModel {
             amountColor = .fadedText
         }
         
-        if let cost = transactionVM.cost?.displayValueWithGStroke(),
-           let amount = transactionVM.amount?.displayValueWithGStroke() {
+        if let cost = transactionVM.cost?.displayValueWithTwoNumbersAfterDecimalPoint(),
+           let amount = transactionVM.amount?.displayValueWithTwoNumbersAfterDecimalPoint() {
             self.amount = amount
-            self.cost = " - " + cost + " Fee"
+            self.cost = "with fee " + cost + "CCD"
             
             // Prepend with ~ if cost is estimated.
             if showCostAsEstimate {
