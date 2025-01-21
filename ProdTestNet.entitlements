@@ -8,5 +8,9 @@
 	<array>
 		<string>applinks:cryptox</string>
 	</array>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.reown.testnet</string>
+	</array>
 </dict>
 </plist>

@@ -7,10 +7,9 @@
 //
 
 import UIKit
-import WalletConnectPairing
-import Web3Wallet
 import Combine
 import SwiftUI
+import ReownWalletKit
 
 extension AccountsMainRouter: AccountsMainViewDelegate {}
 

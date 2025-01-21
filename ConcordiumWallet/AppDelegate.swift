@@ -8,7 +8,6 @@
 
 import UIKit
 import Base58Swift
-import Web3Wallet
 import MatomoTracker
 import FirebaseMessaging
 import FirebaseCore
@@ -17,10 +16,9 @@ extension Notification.Name {
     static let didReceiveIdentityData = Notification.Name("didReceiveIdentityData")
 }
 
-//@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    var appCoordinator: AppCoordinator = AppCoordinator()
+    var appCoordinator: AppCoordinator = AppCoordinator(/*walletConnectService: WalletConnectService()*/)
     let transactionNotificationService = TransactionNotificationService()
     
     let gcmMessageIDKey = "gcm.message_id"

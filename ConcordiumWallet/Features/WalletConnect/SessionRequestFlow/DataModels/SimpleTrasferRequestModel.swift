@@ -7,10 +7,9 @@
 //
 
 import Foundation
-import Web3Wallet
-import WalletConnectVerify
 import Combine
 import BigInt
+import ReownWalletKit
 
 final class SimpleTrasferRequestModel: SessionRequestDataProvidable {
     private let transactionsService: TransactionsServiceProtocol

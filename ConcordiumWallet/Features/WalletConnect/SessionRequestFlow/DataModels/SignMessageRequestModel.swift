@@ -7,9 +7,8 @@
 //
 
 import Foundation
-import Web3Wallet
-import WalletConnectVerify
 import Combine
+import ReownWalletKit
 
 final class SignMessageRequestModel: SessionRequestDataProvidable {
     private let transactionsService: TransactionsServiceProtocol

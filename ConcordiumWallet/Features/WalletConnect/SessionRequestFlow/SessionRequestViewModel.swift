@@ -7,9 +7,9 @@
 //
 
 import Foundation
-import Web3Wallet
-import WalletConnectVerify
 import Combine
+import ReownWalletKit
+
 
 final class SessionRequestViewModel: ObservableObject {
     @Published var account: AccountEntity?
@@ -27,6 +27,10 @@ final class SessionRequestViewModel: ObservableObject {
     
     @Published var requestType: SessionRequestDataType?
     
+    /// Model will be used for future iteration of UI when we wanted to show more user-friedly request parameters, instead of
+    /// showing them as plain json inside message scroll view
+    @Published var reownSessionRequest: ReownSessionRequest?
+    
     init(
         sessionRequest: Request,
         transactionsService: TransactionsServiceProtocol,
@@ -37,6 +41,16 @@ final class SessionRequestViewModel: ObservableObject {
         self.sessionRequest = sessionRequest
         self.message = String(describing: sessionRequest.params.value)
         self.method = sessionRequest.method
+                
+        if let json = try? sessionRequest.params.json(), let jsonData = json.data(using: .utf8) {
+            let decoder = JSONDecoder()
+            do {
+                let sessionRequest = try decoder.decode(ReownSessionRequest.self, from: jsonData)
+                self.reownSessionRequest = sessionRequest
+            } catch {
+                print("Error decoding session request: \(error)")
+            }
+        }
                 
         Task {
             await MainActor.run {
