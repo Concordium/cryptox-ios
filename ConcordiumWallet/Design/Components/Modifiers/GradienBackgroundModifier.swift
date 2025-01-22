@@ -97,6 +97,7 @@ struct RadialGradientForegroundStyleModifier: ViewModifier {
                     endRadius: animated ? 400 : 300
                 )
             )
+            .saturation(2)
             .onAppear {
                 withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
                     animated.toggle()

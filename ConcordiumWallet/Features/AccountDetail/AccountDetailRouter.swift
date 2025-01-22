@@ -10,7 +10,6 @@ import UIKit
 import Combine
 
 protocol AccountDetailRoutable: AnyObject {
-    func showImportTokenFlow(for account: AccountDataType)
     func showAccountDetailFlow(for account: AccountDataType)
     func showCIS2TokenDetailsFlow(_ token: CIS2Token, account: AccountDataType)
     func showTx(_ tx: TransactionViewModel)
@@ -40,17 +39,6 @@ final class AccountDetailRouter: ObservableObject {
 
 extension AccountDetailRouter: TransactionDetailPresenterDelegate {}
 extension AccountDetailRouter: AccountDetailRoutable {
-    @MainActor
-    func showImportTokenFlow(for account: AccountDataType) {
-        let view = ImportTokenView(viewModel: .init(storageManager: self.dependencyProvider.storageManager(),
-                                                    networkManager: self.dependencyProvider.networkManager(),
-                                                    account: account),
-                                   searchTokenViewModel: SearchTokenViewModel(cis2Service:
-                                                                                CIS2Service(networkManager: self.dependencyProvider.networkManager(),
-                                                                                            storageManager: self.dependencyProvider.storageManager())))
-        let vc = SceneViewController(content: view)
-        navigationController.present(vc, animated: true)
-    }
 
     @MainActor
     func showAccountDetailFlow(for account: AccountDataType) {

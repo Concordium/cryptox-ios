@@ -8,6 +8,10 @@
 
 import SwiftUI
 
+enum ImportTokenError {
+    case tokeSaveFailed
+}
+
 struct AddTokenView: View {
     
     @SwiftUI.Environment(\.dismiss) private var dismiss
@@ -53,7 +57,10 @@ struct AddTokenView: View {
                     .frame(width: 20, height: 20)
                     .onTapGesture {
                         if !contractIndex.isEmpty {
-                            contractIndex = ""
+                            withAnimation {
+                                contractIndex = ""
+                                tokenId = ""
+                            }
                         }
                     }
             }
@@ -82,18 +89,16 @@ struct AddTokenView: View {
                                 .onChange(of: tokenId) { value in
                                     if value.isEmpty {
                                         searchTokenViewModel.state = .idle
-                                    } else {
-                                        searchTokenViewModel.runSearch(tokenId, contractIndex: Int(contractIndex) ?? 0)
                                     }
                                 }
                         }
-                        Image(systemName: tokenId.isEmpty ? "magnifyingglass" : "xmark")
+                        Image(systemName: "magnifyingglass")
                             .resizable()
                             .scaledToFit()
                             .foregroundStyle(Color.MineralBlue.blueish3)
                             .frame(width: 20, height: 20)
                             .onTapGesture {
-                                tokenId = ""
+                                searchTokenViewModel.runSearch(tokenId, contractIndex: Int(contractIndex) ?? 0)
                             }
                     }
                     .padding(.horizontal, 16)

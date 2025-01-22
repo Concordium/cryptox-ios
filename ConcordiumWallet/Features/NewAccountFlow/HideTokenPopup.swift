@@ -26,7 +26,9 @@ struct HideTokenPopup: View {
             VStack(spacing: 16) {
                 Button {
                     onHideToken()
-                    isPresentingAlert = false
+                    withAnimation {
+                        isPresentingAlert = false
+                    }
                 } label: {
                     Text("Yes, hide it")
                         .font(.satoshi(size: 14, weight: .medium))
@@ -40,7 +42,9 @@ struct HideTokenPopup: View {
                     .font(.satoshi(size: 14, weight: .medium))
                     .foregroundStyle(.blackMain)
                     .onTapGesture {
-                        isPresentingAlert = false
+                        withAnimation {
+                            isPresentingAlert = false
+                        }
                     }
             }
         }

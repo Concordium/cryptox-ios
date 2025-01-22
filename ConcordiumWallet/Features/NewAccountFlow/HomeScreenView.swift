@@ -63,14 +63,24 @@ struct HomeScreenView: View {
         NavigationStack(path: $navigationManager.path) {
             GeometryReader { geometry in
                 VStack {
-                    if viewModel.state == .accounts {
+                    if viewModel.isLoading {
                         ScrollView {
-                            homeViewContent()
+                            HomeScreenViewSkeleton()
                         }
                     } else {
-                        homeViewContent()
+                        if viewModel.state == .accounts {
+                            ScrollView {
+                                homeViewContent()
+                            }
+                        } else {
+                            homeViewContent()
+                        }
                     }
-                    
+                }
+                .onReceive(updateTimer.tick) { _ in
+                    Task {
+                        await self.viewModel.reload()
+                    }
                 }
                 .padding(.bottom, 20)
                 .onTapGesture {
@@ -115,11 +125,6 @@ struct HomeScreenView: View {
                 .onAppear { Task { await viewModel.reload() } }
                 .onAppear { updateTimer.start() }
                 .onDisappear { updateTimer.stop() }
-//                .onReceive(updateTimer.tick) { _ in
-//                    Task {
-//                        await self.viewModel.reload()
-//                    }
-//                }
                 .onAppear { Tracker.track(view: ["Home screen"]) }
             }
             .modifier(AppBackgroundModifier())
@@ -390,7 +395,6 @@ extension HomeScreenView {
             if let vm = viewModel.accountDetailViewModel {
                 AccountTokenListView(viewModel: vm, showManageTokenList: $showManageTokenList, path: $navigationManager.path, mode: .normal)
                     .frame(maxWidth: .infinity)
-                    .frame(minHeight: (geometrySize?.height ?? 100) / 2)
                     .transition(.opacity)
                     .padding(.top, isShouldShowOnrampMessage ? 0 : 40)
             }
@@ -575,5 +579,71 @@ class NavigationManager: ObservableObject {
     
     func reset() {
         path.removeAll()
+    }
+}
+
+struct HomeScreenViewSkeleton: View {
+    var body: some View {
+        NavigationStack {
+            GeometryReader { geometry in
+                VStack(spacing: 0) {
+                    // Placeholder for top bar
+                    HStack {
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.gray.opacity(0.3))
+                            .frame(width: 100, height: 32)
+                        Spacer()
+                        Circle()
+                            .fill(Color.gray.opacity(0.3))
+                            .frame(width: 32, height: 32)
+                    }
+                    .padding(.horizontal, 18)
+                    .padding(.top, 20)
+
+                    // Placeholder for balance section
+                    VStack(alignment: .leading, spacing: 16) {
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.gray.opacity(0.3))
+                            .frame(height: 40)
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.gray.opacity(0.3))
+                            .frame(height: 20)
+                    }
+                    .padding(.horizontal, 18)
+                    .padding(.top, 20)
+
+                    // Placeholder for action buttons
+                    HStack {
+                        ForEach(0..<5) { _ in
+                            VStack {
+                                Circle()
+                                    .fill(Color.gray.opacity(0.3))
+                                    .frame(width: 48, height: 48)
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(Color.gray.opacity(0.3))
+                                    .frame(width: 50, height: 12)
+                            }
+                            .frame(maxWidth: .infinity)
+                        }
+                    }
+                    .padding(.top, 40)
+                    .padding(.horizontal, 18)
+
+                    // Placeholder for account states
+                    Spacer()
+                        .padding(.bottom, 40)
+                    ForEach(0..<4) { _ in
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.gray.opacity(0.3))
+                            .frame(height: 50)
+                            .padding(.horizontal, 18)
+                            .padding(.vertical, 11)
+                    }
+                }
+                .redacted(reason: .placeholder)
+                .padding(.bottom, 20)
+            }
+            .modifier(AppBackgroundModifier())
+        }
     }
 }

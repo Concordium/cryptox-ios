@@ -73,17 +73,7 @@ class AccountDetailsCoordinator: Coordinator,
         let presenter = AccountSettingsPresenter(account: account, delegate: self)
         navigationController.pushViewController(presenter.present(AccountSettingsView.self), animated: true)
     }
-    
-    func showImportTokenFlow(account: AccountDataType) {
-        let view = ImportTokenView(viewModel: .init(storageManager: self.dependencyProvider.storageManager(),
-                                                    networkManager: self.dependencyProvider.networkManager(),
-                                                    account: account),
-                                   searchTokenViewModel: SearchTokenViewModel(cis2Service: CIS2Service(networkManager: self.dependencyProvider.networkManager(),
-                                                                                                       storageManager: self.dependencyProvider.storageManager())))
-        let vc = SceneViewController(content: view)
-        navigationController.present(vc, animated: true)
-    }
-    
+
     func showOldAccountDetails(account: AccountDataType)  {
         accountDetailsPresenter = AccountDetailsPresenter(dependencyProvider: dependencyProvider,
                                                           account: account,

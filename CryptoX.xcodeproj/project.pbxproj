@@ -1346,7 +1346,6 @@
 		08C1685F2BB7396200E61326 /* ToastLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E3CDEECE4195E320FCBF /* ToastLabel.swift */; };
 		08C168602BB7396200E61326 /* OnboardingCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FECD42A01621900042957 /* OnboardingCarouselView.swift */; };
 		08C168612BB7396200E61326 /* ObjectWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A0445329FA987100DACE1F /* ObjectWrapper.swift */; };
-		08C168622BB7396200E61326 /* ImportTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69C9C2A20D071001CCA96 /* ImportTokenView.swift */; };
 		08C168632BB7396200E61326 /* IdentityProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F13D2794B5EC003F2FBB /* IdentityProviderError.swift */; };
 		08C168642BB7396200E61326 /* TransactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CBC2A25FC1D001CCA96 /* TransactionsView.swift */; };
 		08C168652BB7396200E61326 /* CreateExportPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1A92A02A67E00042957 /* CreateExportPasswordCoordinator.swift */; };
@@ -1818,8 +1817,6 @@
 		08E69C852A1D2183001CCA96 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69C812A1D2183001CCA96 /* AccountView.swift */; };
 		08E69C992A1FCAA5001CCA96 /* AccountTokensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69C972A1FCAA5001CCA96 /* AccountTokensView.swift */; };
 		08E69C9B2A1FCAA5001CCA96 /* AccountTokensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69C972A1FCAA5001CCA96 /* AccountTokensView.swift */; };
-		08E69C9E2A20D071001CCA96 /* ImportTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69C9C2A20D071001CCA96 /* ImportTokenView.swift */; };
-		08E69CA02A20D071001CCA96 /* ImportTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69C9C2A20D071001CCA96 /* ImportTokenView.swift */; };
 		08E69CA32A20DADA001CCA96 /* CIS2TokenModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CA12A20DADA001CCA96 /* CIS2TokenModels.swift */; };
 		08E69CA52A20DADA001CCA96 /* CIS2TokenModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CA12A20DADA001CCA96 /* CIS2TokenModels.swift */; };
 		08E69CA82A24A2C9001CCA96 /* CIS2TokenMetadataEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CA62A24A2C9001CCA96 /* CIS2TokenMetadataEntity.swift */; };
@@ -3139,7 +3136,6 @@
 		08E472BA2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequestDataProvidable.swift; sourceTree = "<group>"; };
 		08E69C812A1D2183001CCA96 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		08E69C972A1FCAA5001CCA96 /* AccountTokensView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTokensView.swift; sourceTree = "<group>"; };
-		08E69C9C2A20D071001CCA96 /* ImportTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTokenView.swift; sourceTree = "<group>"; };
 		08E69CA12A20DADA001CCA96 /* CIS2TokenModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokenModels.swift; sourceTree = "<group>"; };
 		08E69CA62A24A2C9001CCA96 /* CIS2TokenMetadataEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokenMetadataEntity.swift; sourceTree = "<group>"; };
 		08E69CAD2A24D085001CCA96 /* AccountDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailView.swift; sourceTree = "<group>"; };
@@ -5274,7 +5270,6 @@
 			children = (
 				15B527502D36666E005FA701 /* AddTokenView.swift */,
 				50D3891C2C107C1E00B3675A /* TokenView.swift */,
-				08E69C9C2A20D071001CCA96 /* ImportTokenView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -7432,7 +7427,6 @@
 				08C1685F2BB7396200E61326 /* ToastLabel.swift in Sources */,
 				08C168602BB7396200E61326 /* OnboardingCarouselView.swift in Sources */,
 				08C168612BB7396200E61326 /* ObjectWrapper.swift in Sources */,
-				08C168622BB7396200E61326 /* ImportTokenView.swift in Sources */,
 				08C168632BB7396200E61326 /* IdentityProviderError.swift in Sources */,
 				15FC766F2C9C0F7700AC357B /* ImportWalletPrivateKeyView.swift in Sources */,
 				08C168642BB7396200E61326 /* TransactionsView.swift in Sources */,
@@ -8128,7 +8122,6 @@
 				7F85B8A0246A9AB600ED09B8 /* ToastLabel.swift in Sources */,
 				088FECEA2A01622000042957 /* OnboardingCarouselView.swift in Sources */,
 				08A0448D29FA987800DACE1F /* ObjectWrapper.swift in Sources */,
-				08E69CA02A20D071001CCA96 /* ImportTokenView.swift in Sources */,
 				D589F1ED2794B5ED003F2FBB /* IdentityProviderError.swift in Sources */,
 				15FC766E2C9C0F7700AC357B /* ImportWalletPrivateKeyView.swift in Sources */,
 				08E69CC02A25FC1D001CCA96 /* TransactionsView.swift in Sources */,
@@ -8823,7 +8816,6 @@
 				088FEF502A0270AF00042957 /* DeleteIdentityButtonWidgetPresenter.swift in Sources */,
 				088FEE182A0167FA00042957 /* ButtonsShielded.swift in Sources */,
 				D589F1B72794B5ED003F2FBB /* ReleaseScheduleEntity.swift in Sources */,
-				08E69C9E2A20D071001CCA96 /* ImportTokenView.swift in Sources */,
 				D5D52C6A26DE45530072D20E /* RoundedCurrencyView.swift in Sources */,
 				08E69CBE2A25FC1D001CCA96 /* TransactionsView.swift in Sources */,
 				15FC766D2C9C0F7700AC357B /* ImportWalletPrivateKeyView.swift in Sources */,

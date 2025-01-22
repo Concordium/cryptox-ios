@@ -30,14 +30,7 @@ struct NewsFeed: View {
                     }
                     
                     if rssFeed.isLoading {
-                        HStack(alignment: .center) {
-                            Spacer()
-                            ProgressView()
-                            Spacer()
-                        }
-                        .listRowBackground(Color.clear)
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
+                        NewsFeedSkeleton()
                     }
                 }
                 .padding(.top, 19)
@@ -112,4 +105,34 @@ struct NewsFeed: View {
 
 #Preview {
     NewsFeed()
+}
+
+struct NewsFeedSkeleton: View {
+    var body: some View {
+        ForEach(0..<5) { _ in
+            VStack(alignment: .leading, spacing: 12) {
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(Color.gray.opacity(0.3))
+                    .frame(height: 20)
+                
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(Color.gray.opacity(0.3))
+                    .frame(height: 150)
+                
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(Color.gray.opacity(0.3))
+                    .frame(height: 20)
+                
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(Color.gray.opacity(0.3))
+                    .frame(width: 100, height: 15)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal, 18)
+            .padding(.vertical, 20)
+            .background(Color(red: 0.17, green: 0.19, blue: 0.2).opacity(0.3))
+            .cornerRadius(16)
+            .redacted(reason: .placeholder)
+        }
+    }
 }

@@ -96,7 +96,7 @@ struct TokenBalanceView: View {
             
             switch token {
             case .ccd(let amount):
-                Text("\(amount) CCD")
+                Text("\(amount.displayValue()) CCD")
                     .font(.plexSans(size: 55, weight: .medium))
                     .dynamicTypeSize(.xSmall ... .xxLarge)
                     .minimumScaleFactor(0.3)
@@ -104,15 +104,17 @@ struct TokenBalanceView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .modifier(RadialGradientForegroundStyleModifier())
                 VStack(spacing: 4) {
-                    HStack {
-                        Text("At disposal")
-                            .font(.satoshi(size: 12, weight: .medium))
-                            .foregroundStyle(Color.MineralBlue.blueish2)
-                        Spacer()
-                        Text("\(viewModel.atDisposal?.displayValueWithTwoNumbersAfterDecimalPoint() ?? "0.00") CCD")
-                            .font(.satoshi(size: 12, weight: .medium))
-                            .foregroundStyle(.white)
-                            .multilineTextAlignment(.trailing)
+                    if viewModel.hasStaked {
+                        HStack {
+                            Text("At disposal")
+                                .font(.satoshi(size: 12, weight: .medium))
+                                .foregroundStyle(Color.MineralBlue.blueish2)
+                            Spacer()
+                            Text("\(viewModel.atDisposal?.displayValueWithTwoNumbersAfterDecimalPoint() ?? "0.00") CCD")
+                                .font(.satoshi(size: 12, weight: .medium))
+                                .foregroundStyle(.white)
+                                .multilineTextAlignment(.trailing)
+                        }
                     }
                     
                     if let value = viewModel.totalCooldown, value.intValue > 0 {

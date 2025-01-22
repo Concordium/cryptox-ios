@@ -35,7 +35,7 @@ struct TokenDetailsView: View {
                         Text("Description")
                             .font(.satoshi(size: 12, weight: .medium))
                             .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
-                        Text("CCD is the native token of the Concordium blockchain. Its main use cases are the payment of transaction fees, the payment for the execution of smart contracts, payments between users, payments for commercial transactions, staking, and the rewards offered to node operators. ")
+                        Text("ccd.description".localized)
                             .font(.satoshi(size: 12, weight: .medium))
                             .foregroundStyle(.whiteMain)
                             .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -106,14 +106,16 @@ struct TokenDetailsView: View {
                 .background(.grey3.opacity(0.3))
                 .cornerRadius(12)
                 
-                HStack(spacing: 8) {
-                    Image("notebook")
-                    Text("Show raw metadata")
-                        .font(.satoshi(size: 15, weight: .medium))
-                        .foregroundStyle(.whiteMain)
-                }
-                .onTapGesture {
-                    showRawMd = true
+                if token.name != "ccd" {
+                    HStack(spacing: 8) {
+                        Image("notebook")
+                        Text("Show raw metadata")
+                            .font(.satoshi(size: 15, weight: .medium))
+                            .foregroundStyle(.whiteMain)
+                    }
+                    .onTapGesture {
+                        showRawMd = true
+                    }
                 }
                 if isAddTokenDetails {
                     Spacer()

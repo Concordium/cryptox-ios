@@ -38,7 +38,7 @@ struct ManageTokensView: View {
             }
             
             if isPresentingAlert {
-                Color.black.opacity(0.4)
+                Color.black.opacity(0.8)
                     .ignoresSafeArea()
                     .transition(.opacity)
                     .animation(.easeInOut(duration: 0.3), value: isPresentingAlert)
@@ -53,6 +53,7 @@ struct ManageTokensView: View {
                     }
                 }
                 .transition(.scale(scale: 0.9).combined(with: .opacity))
+                .zIndex(2)
                 .animation(.easeInOut(duration: 0.3), value: isPresentingAlert)
             }
             

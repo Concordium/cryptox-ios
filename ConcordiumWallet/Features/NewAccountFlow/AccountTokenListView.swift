@@ -31,6 +31,7 @@ struct AccountTokenListView: View {
                     tokenListViewCell(account: account)
                         .background(Color.clear)
                         .contentShape(Rectangle())
+                        .transition(.opacity)
                 }
                 HStack(spacing: 8) {
                     Image("settingsGear")
@@ -48,6 +49,7 @@ struct AccountTokenListView: View {
                 }
                 .opacity(mode == .normal ? 1 : 0)
             }
+            .animation(.easeInOut, value: viewModel.accounts)
         }
         .padding(.horizontal, 18)
         .refreshable {
@@ -67,7 +69,9 @@ struct AccountTokenListView: View {
         HStack(alignment: .center, spacing: 17) {
             switch account {
             case .ccd(let amount):
-                Image("onramp_ccd")
+                Image("ccd")
+                    .resizable()
+                    .frame(width: 40, height: 40)
                 HStack(spacing: 0) {
                     Text("CCD")
                         .font(.satoshi(size: 15, weight: .medium))
@@ -79,7 +83,7 @@ struct AccountTokenListView: View {
                 
                 Spacer()
                 VStack(alignment: .trailing, spacing: 4) {
-                    Text(amount.displayValue())
+                    Text(amount.displayValueWithTwoNumbersAfterDecimalPoint())
                         .font(.satoshi(size: 15, weight: .medium))
                         .tint(.white)
                     Text("\(viewModel.ccdEuroEquivalent ?? "") EUR")
@@ -90,9 +94,8 @@ struct AccountTokenListView: View {
                 .opacity(mode == .normal ? 1 : 0)
             case .token(let token, let amount):
                 if let url = token.metadata.thumbnail?.url {
-                    CryptoImage(url: url.toURL, size: .medium)
+                    CryptoImage(url: url.toURL, size: .custom(width: 40, height: 40))
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 40, height: 40)
                 }
                 Text(token.metadata.symbol ?? token.metadata.name ?? "")
                     .font(.satoshi(size: 15, weight: .medium))
