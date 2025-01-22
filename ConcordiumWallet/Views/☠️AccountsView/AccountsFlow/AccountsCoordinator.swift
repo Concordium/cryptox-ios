@@ -171,7 +171,7 @@ extension AccountsCoordinator: AccountsPresenterDelegate {
         let entryPoint: AccountDetailsFlowEntryPoint!
         switch action {
         case .tap, .more:
-            entryPoint = .details
+            entryPoint = .settings
         case .send:
             entryPoint = .send
         case .earn:

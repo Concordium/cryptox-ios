@@ -14,7 +14,7 @@ struct TokenBalanceView: View {
     var token: AccountDetailAccount
     @Binding var path: [AccountNavigationPaths]
     var selectedAccount: AccountDataType
-    @ObservedObject var viewModel: AccountDetailViewModel2
+    @ObservedObject var viewModel: AccountDetailViewModel
     @SwiftUI.Environment(\.dismiss) private var dismiss
     @State var onRampFlowShown = false
     @State var accountQr: AccountEntity?

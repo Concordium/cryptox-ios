@@ -124,28 +124,25 @@ extension MainTabBarController: NotificationNavigationDelegate, TransactionNotif
         guard
             let accountAddress = userInfo["recipient"] as? String,
             let account = defaultProvider.storageManager().getAccount(withAddress: accountAddress),
-            let selectedNavigationController = selectedViewController as? UINavigationController,
             let transactionId = userInfo["reference"] as? String
         else { return }
 
         let notificationType = userInfo["type"] as? String
-        let accountDetailRouter = AccountDetailsCoordinator(
-            navigationController: selectedNavigationController,
-            dependencyProvider: defaultProvider,
-            parentCoordinator: accountsCoordinator,
-            account: account
-        )
 
         if notificationType == TransactionNotificationTypes.ccd.rawValue {
-            transactionNotificationService.handleCCDTransaction(account: account, transactionId: transactionId, accountDetailRouter: accountDetailRouter) { viewModel in
-                accountDetailRouter.showTransactionDetail(viewModel: viewModel)
+            transactionNotificationService.handleCCDTransaction(account: account, transactionId: transactionId) { viewModel in
+                self.accountsMainRouter.showTransactionDetailFromNotifications(for: account, tx: TransactionDetailViewModel(transaction: viewModel))
             }
         } else {
-            transactionNotificationService.handleCIS2Notification(userInfo: userInfo, account: account, navigationController: selectedNavigationController)
+            transactionNotificationService.handleCIS2Notification(userInfo: userInfo) { token, balance in
+                DispatchQueue.main.async {
+                    self.accountsMainRouter.showCIS2TokenDetailsFromNotification(for: account, token: AccountDetailAccount.token(token: token, amount: balance?.balance ?? "0.00"))
+                }
+            }
         }
     }
 
-    func presentTokenAlert(userInfo: [AnyHashable: Any], completion: @escaping (CIS2Token) -> Void) {
+    func presentTokenAlert(userInfo: [AnyHashable: Any], completion: @escaping (CIS2Token, CIS2TokenBalance?) -> Void) {
         let alertView = NewTokenNotificationPopup(isVisible: Binding(
             get: { self.isAlertVisible },
             set: { self.isAlertVisible = $0
@@ -154,9 +151,9 @@ extension MainTabBarController: NotificationNavigationDelegate, TransactionNotif
                 }
             }
         ), userInfo: userInfo) {
-            NotificationTokenService().storeNewToken(from: userInfo) { token in
+            NotificationTokenService().storeNewToken(from: userInfo) { token, balance in
                 DispatchQueue.main.async {
-                    completion(token)
+                    completion(token, balance)
                 }
             }
         }

@@ -32,7 +32,7 @@ final class AccountTokensListPickerViewModel: ObservableObject {
     @MainActor
     func reload() {
         let tokens = storageManager.getAccountSavedCIS2Tokens(account.address)
-        var tmpAccounts: [AccountDetailAccount] = [.ccd(amount: GTU(intValue: account.forecastBalance).displayValue())]
+        var tmpAccounts: [AccountDetailAccount] = [.ccd(amount: GTU(intValue: account.forecastBalance))]
         if !tokens.isEmpty {
             Task {
                 do {

@@ -12,6 +12,20 @@ import Web3Wallet
 import Combine
 import SwiftUI
 
+protocol AccountsMainViewDelegate: AnyObject {
+    func showSendFundsFlow(_ account: AccountDataType)
+    func showCreateIdentityFlow()
+    func showSaveSeedPhraseFlow(pwHash: String, identitiesService: SeedIdentitiesService, completion: @escaping ([String]) -> Void)
+    func showCreateAccountFlow()
+    func showScanQRFlow()
+    func showExportFlow()
+    func showUnshieldAssetsFlow()
+    func showNotConfiguredAccountPopup()
+    func createAccountFromOnboarding(isCreatingAccount: Binding<Bool>)
+    func showEarnFlow(_ account: AccountDataType)
+    func showSettings(_ account: AccountDataType)
+}
+
 extension AccountsMainRouter: AccountsMainViewDelegate {}
 
 final class AccountsMainRouter: ObservableObject {
@@ -21,6 +35,7 @@ final class AccountsMainRouter: ObservableObject {
     private let walletConnectService: WalletConnectService
     private let onAccountsUpdate = PassthroughSubject<Void, Never>()
     weak var configureAccountAlertDelegate: ConfigureAccountAlertDelegate?
+    private let navigationManager = NavigationManager()
 
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
@@ -28,22 +43,37 @@ final class AccountsMainRouter: ObservableObject {
     /// Legacy codebase support
     var childCoordinators = [Coordinator]()
     let updateTimer = UpdateTimer()
-
+    lazy var accountsViewModel: AccountsMainViewModel = {
+        let viewModel: AccountsMainViewModel = .init(dependencyProvider: dependencyProvider, onReload: onAccountsUpdate.eraseToAnyPublisher(), walletConnectService: walletConnectService)
+        return viewModel
+    }()
+    
     init(dependencyProvider: ServicesProvider, walletConnectService: WalletConnectService) {
         self.dependencyProvider = dependencyProvider
         self.walletConnectService = walletConnectService
         self.walletConnectService.delegate = self
     }
     
-    func rootScene() -> UINavigationController {        
-        let viewModel: AccountsMainViewModel = .init(dependencyProvider: dependencyProvider, onReload: onAccountsUpdate.eraseToAnyPublisher(), walletConnectService: walletConnectService)
-        let view = HomeScreenView(viewModel: viewModel, keychain: dependencyProvider.keychainWrapper(), identitiesService: dependencyProvider.seedIdentitiesService(), router: self)
+    func rootScene() -> UINavigationController {
+        let view = HomeScreenView(viewModel: self.accountsViewModel, keychain: dependencyProvider.keychainWrapper(), identitiesService: dependencyProvider.seedIdentitiesService(), router: self)
             .environmentObject(updateTimer)
+            .environmentObject(navigationManager)
         let viewController = SceneViewController(content: view)
         viewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "tab_item_home"), tag: 0)
         viewController.tabBarItem.selectedImage = UIImage(named: "tab_item_home_selected")?.withRenderingMode(.alwaysOriginal)
         navigationController.setViewControllers([viewController], animated: false)
         return navigationController
+    }
+    
+    func showTransactionDetailFromNotifications(for account: AccountDataType, tx: TransactionDetailViewModel) {
+        accountsViewModel.selectedAccount = account
+        navigationManager.navigate(to: .transactionDetails(transaction: tx))
+    }
+    
+    @MainActor
+    func showCIS2TokenDetailsFromNotification(for account: AccountDataType, token: AccountDetailAccount) {
+        accountsViewModel.selectedAccount = account
+        navigationManager.navigate(to: .tokenDetails(token: token))
     }
     
     @MainActor func showUnshieldAssetsFlow() {
@@ -53,21 +83,6 @@ final class AccountsMainRouter: ObservableObject {
         viewController.hidesBottomBarWhenPushed = true
         viewController.modalPresentationStyle = .overFullScreen
         navigationController.present(viewController, animated: true, completion: nil)
-    }
-    
-    @MainActor func showAccountDetail(_ account: AccountDataType) {
-        let router = AccountDetailRouter(account: account, navigationController: navigationController, dependencyProvider: dependencyProvider)
-        router.accountMainViewDelegate = self
-        let viewModel = AccountDetailViewModel(
-            router: router,
-            account: account,
-            storageManager: dependencyProvider.storageManager(),
-            dependencyProvider: dependencyProvider
-        )
-        let view = AccountDetailView(viewModel: viewModel)
-        let viewController = SceneViewController(content: view)
-        viewController.hidesBottomBarWhenPushed = true
-        navigationController.pushViewController(viewController, animated: true)
     }
     
     @MainActor

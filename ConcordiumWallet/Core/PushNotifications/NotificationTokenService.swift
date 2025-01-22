@@ -12,6 +12,9 @@ import RealmSwift
 final class NotificationTokenService {
     
     let defaultProvider = ServicesProvider.defaultProvider()
+    lazy var cis2Service: CIS2Service = {
+        CIS2Service(networkManager: defaultProvider.networkManager(), storageManager: defaultProvider.storageManager())
+    }()
 
     // Parse token metadata from userInfo
     private func parseTokenMetadata(metadata: Any?) -> [String: Any] {
@@ -43,9 +46,10 @@ final class NotificationTokenService {
     }
 
     // Check if a token exists for a given contract or show alert if not
-    func checkToken(from userInfo: [AnyHashable: Any]) -> TokenResult? {
+    func checkToken(from userInfo: [AnyHashable: Any], completion: @escaping (TokenResult?) -> Void) {
         guard let (contractName, contractIndex, contractSubindex, accountAddress) = extractContractDetails(from: userInfo) else {
-            return nil
+            completion(nil)
+            return
         }
 
         let savedTokens = defaultProvider.storageManager().getAccountSavedCIS2Tokens(accountAddress)
@@ -55,28 +59,37 @@ final class NotificationTokenService {
             $0.contractAddress.index == contractIndex &&
             $0.contractAddress.subindex == contractSubindex
         }) {
-            return .tokenFound(savedToken)
+            Task {
+                do {
+                    let balance = try await cis2Service.fetchTokensBalance(contractIndex: savedToken.contractAddress.index.string, accountAddress: accountAddress, tokenId: savedToken.tokenId).first
+                    if let balance {
+                        completion(.tokenFound(savedToken, balance))
+                    }
+                } catch {
+                    completion(.showAlert)
+                }
+            }
         } else {
-            return .showAlert
+            completion(.showAlert)
         }
     }
 
     // Store a new token based on userInfo details
-    func storeNewToken(from userInfo: [AnyHashable: Any], completion: @escaping (CIS2Token) -> Void) {
+    func storeNewToken(from userInfo: [AnyHashable: Any], completion: @escaping (CIS2Token, CIS2TokenBalance?) -> Void) {
         guard let (contractName, contractIndex, contractSubindex, accountAddress) = extractContractDetails(from: userInfo),
               let tokenId = userInfo["token_id"] as? String else {
             return
         }
 
-        let cis2Service = CIS2Service(networkManager: defaultProvider.networkManager(), storageManager: defaultProvider.storageManager())
         Task {
             do {
                 let tokens = try await cis2Service.fetchAllTokensData(contractIndex: contractIndex, subindex: contractSubindex, tokenIds: tokenId)
                 guard let token = tokens.first(where: { $0.contractName == contractName }) else { return }
+                let balance = try await cis2Service.fetchTokensBalance(contractIndex: token.contractAddress.index.string, accountAddress: accountAddress, tokenId: token.tokenId).first
                 try await MainActor.run {
                     try defaultProvider.storageManager().storeCIS2Token(token: token, address: accountAddress)
                 }
-                completion(token)
+                completion(token, balance)
             } catch {
                 print("Error storing token: \(error.localizedDescription)")
             }

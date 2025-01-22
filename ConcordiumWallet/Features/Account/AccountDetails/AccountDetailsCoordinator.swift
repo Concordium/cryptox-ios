@@ -16,7 +16,6 @@ protocol AccountDetailsDelegate: AnyObject {
 }
 
 enum AccountDetailsFlowEntryPoint {
-    case details
     case send
     case receive
     case earn
@@ -54,13 +53,11 @@ class AccountDetailsCoordinator: Coordinator,
     }
     
     func start() {
-        start(entryPoint: .details)
+        start(entryPoint: .settings)
     }
     
     func start(entryPoint: AccountDetailsFlowEntryPoint) {
         switch entryPoint {
-        case .details:
-            showAccountDetails(account: account)
         case .send:
             showSendFund()
         case .receive:
@@ -93,20 +90,6 @@ class AccountDetailsCoordinator: Coordinator,
                                                           delegate: self)
         let vc = AccountDetailsFactory.create(with: accountDetailsPresenter!)
         navigationController.pushViewController(vc, animated: true)
-    }
-    
-    func showAccountDetails(account: AccountDataType) {
-        let router = AccountDetailRouter(account: account, navigationController: navigationController, dependencyProvider: dependencyProvider as! ServicesProvider)
-        let viewModel = AccountDetailViewModel(
-            router: router,
-            account: account,
-            storageManager: dependencyProvider.storageManager(),
-            dependencyProvider: dependencyProvider
-        )
-        let view = AccountDetailView(viewModel: viewModel)
-        let viewController = SceneViewController(content: view)
-        viewController.hidesBottomBarWhenPushed = true
-        navigationController.pushViewController(viewController, animated: true)
     }
     
     func showLegacyAccountDetails(account: AccountDataType) {
@@ -197,7 +180,8 @@ class AccountDetailsCoordinator: Coordinator,
     }
     
     func showTransactionDetail(viewModel: TransactionViewModel) {
-//        let vc = TransactionDetailFactory.create(with: TransactionDetailPresenter(delegate: self, viewModel: viewModel))
+//        let tokenDetailsView = TransactionDetailsView()
+//        tokenDetailsView.
 //        navigationController.pushViewController(vc, animated: true)
     }
     

@@ -22,6 +22,11 @@ final class AccountsMainViewModel: ObservableObject {
     @Published var isBackupAlertShown = false
     @Published var selectedAccount: AccountDataType?
     
+    var accountDetailViewModel: AccountDetailViewModel? {
+        guard let selectedAccount = selectedAccount else { return nil }
+        return AccountDetailViewModel(account: selectedAccount)
+    }
+    
     let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     let defaultProvider = ServicesProvider.defaultProvider()
     private var cancellables = [AnyCancellable]()

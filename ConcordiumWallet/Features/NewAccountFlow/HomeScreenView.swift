@@ -20,7 +20,7 @@ struct ActionItem: Identifiable {
 enum AccountNavigationPaths: Hashable {
     case accountsOverview
     case manageTokens
-    case tokenDetails
+    case tokenDetails(token: AccountDetailAccount)
     case buy
     case send
     case earn
@@ -32,13 +32,11 @@ enum AccountNavigationPaths: Hashable {
 
 struct HomeScreenView: View {
     @StateObject var viewModel: AccountsMainViewModel
+    @EnvironmentObject var navigationManager: NavigationManager
     @State var showTooltip: Bool = false
     @State var accountQr: AccountEntity?
-    @State private var showTokenDetails: Bool = false
     @State private var showManageTokenList: Bool = false
-    @State private var selectedToken: AccountDetailAccount?
     @EnvironmentObject var updateTimer: UpdateTimer
-    @State private var path: [AccountNavigationPaths] = []
     @State private var isNewTokenAdded: Bool = false
     @State private var previousState: AccountsMainViewState?
     @State var onRampFlowShown = false
@@ -53,11 +51,6 @@ struct HomeScreenView: View {
     @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
     @AppStorage("isShouldShowOnrampMessage") private var isShouldShowOnrampMessage = true
     
-    var accountDetailViewModel: AccountDetailViewModel2? {
-        guard let selectedAccount = viewModel.selectedAccount else { return nil }
-        return AccountDetailViewModel2(account: selectedAccount)
-    }
-    
     let keychain: KeychainWrapperProtocol
     let identitiesService: SeedIdentitiesService
     weak var router: AccountsMainViewDelegate?
@@ -67,7 +60,7 @@ struct HomeScreenView: View {
     var dependencyProvider = ServicesProvider.defaultProvider()
     
     var body: some View {
-        NavigationStack(path: $path) {
+        NavigationStack(path: $navigationManager.path) {
             GeometryReader { geometry in
                 VStack {
                     if viewModel.state == .accounts {
@@ -79,6 +72,7 @@ struct HomeScreenView: View {
                     }
                     
                 }
+                .padding(.bottom, 20)
                 .onTapGesture {
                     showTooltip = false
                 }
@@ -91,14 +85,9 @@ struct HomeScreenView: View {
                 .fullScreenCover(isPresented: $isShowPasscodeViewShown, content: {
                     passcodeView
                 })
-                .onChange(of: selectedToken) { newValue in
-                    if showTokenDetails {
-                        path.append(.tokenDetails)
-                    }
-                }
                 .onChange(of: showManageTokenList) { newValue in
                     if showManageTokenList {
-                        path.append(.manageTokens)
+                        navigationManager.navigate(to: .manageTokens)
                     }
                 }
                 .onChange(of: viewModel.state) { newState in
@@ -122,22 +111,18 @@ struct HomeScreenView: View {
                 .onChange(of: geometry.size) { _ in
                     geometrySize = geometry.size
                 }
+                .refreshable { Task { await viewModel.reload() } }
+                .onAppear { Task { await viewModel.reload() } }
+                .onAppear { updateTimer.start() }
+                .onDisappear { updateTimer.stop() }
+//                .onReceive(updateTimer.tick) { _ in
+//                    Task {
+//                        await self.viewModel.reload()
+//                    }
+//                }
+                .onAppear { Tracker.track(view: ["Home screen"]) }
             }
             .modifier(AppBackgroundModifier())
-        }
-        .refreshable {
-            await viewModel.reload()
-        }
-        .onAppear { updateTimer.start()
-            Task {
-                await self.viewModel.reload()
-            }
-        }
-        .onDisappear { updateTimer.stop() }
-        .onReceive(updateTimer.tick) { _ in
-            Task {
-                await self.viewModel.reload()
-            }
         }
     }
     
@@ -209,7 +194,7 @@ struct HomeScreenView: View {
                         .tint(.greyAdditional)
                 }
                 .onTapGesture {
-                    path.append(.accountsOverview)
+                    navigationManager.navigate(to: .accountsOverview)
                 }
             }
             Spacer()
@@ -247,13 +232,13 @@ struct HomeScreenView: View {
                         .resizable()
                         .frame(width: 20, height: 20)
                 }
-                .popover(isPresented: $showTooltip, attachmentAnchor: .rect(.bounds), arrowEdge: .bottom, content: {
+                .popover(isPresented: $showTooltip, attachmentAnchor: .rect(.bounds), arrowEdge: .trailing, content: {
                     infoTooltip
                         .frame(width: 200)
                         .presentationBackground(.white)
                         .presentationCompactAdaptation(.popover)
                 })
-                .offset(x: -5, y: 5)
+                .offset(x: -5, y: 10)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -316,7 +301,7 @@ struct HomeScreenView: View {
             if !SettingsHelper.isIdentityConfigured() {
                 self.router?.showNotConfiguredAccountPopup()
             } else {
-                path.append(.buy)
+                navigationManager.navigate(to: .buy)
                 Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "OnRamp Banner")
             }
         }
@@ -336,6 +321,7 @@ struct HomeScreenView: View {
             Text("This balance shows your total CCD in this account. It does not include any other tokens.")
                 .font(.satoshi(size: 12, weight: .regular))
                 .foregroundColor(.black)
+                .lineLimit(nil)
         }
         .padding(.horizontal, 12)
         .padding(.top, 8)
@@ -351,7 +337,7 @@ struct HomeScreenView: View {
     private func accountActionItems() -> [ActionItem] {
         let actionItems = [
             ActionItem(iconName: "buy", label: "Buy", action: {
-                path.append(.buy)
+                navigationManager.navigate(to: .buy)
                 Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Buy")
             }),
             ActionItem(iconName: "send", label: "Send", action: {
@@ -369,7 +355,7 @@ struct HomeScreenView: View {
                 Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Earn")
             }),
             ActionItem(iconName: "activity", label: "Activity", action: {
-                path.append(.activity)
+                navigationManager.navigate(to: .activity)
                 Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Activity")
             })
         ]
@@ -401,11 +387,12 @@ extension HomeScreenView {
             }
             
         case .accounts:
-            if let vm = accountDetailViewModel {
-                AccountTokenListView(viewModel: vm, showTokenDetails: $showTokenDetails, showManageTokenList: $showManageTokenList, selectedToken: $selectedToken, mode: .normal)
+            if let vm = viewModel.accountDetailViewModel {
+                AccountTokenListView(viewModel: vm, showManageTokenList: $showManageTokenList, path: $navigationManager.path, mode: .normal)
                     .frame(maxWidth: .infinity)
                     .frame(minHeight: (geometrySize?.height ?? 100) / 2)
                     .transition(.opacity)
+                    .padding(.top, isShouldShowOnrampMessage ? 0 : 40)
             }
             
         case .createAccount:
@@ -510,21 +497,21 @@ extension HomeScreenView {
         Group {
             switch destination {
             case .accountsOverview:
-                AccountsOverviewView(path: $path, viewModel: viewModel, router: router)
+                AccountsOverviewView(path: $navigationManager.path, viewModel: viewModel, router: router)
             case .buy:
                 CCDOnrampView(dependencyProvider: viewModel.dependencyProvider)
                     .modifier(NavigationViewModifier(title: "Buy CCD") {
-                        path.removeLast()
+                        navigationManager.pop()
                     })
             case .manageTokens:
-                if let vm = accountDetailViewModel {
-                    ManageTokensView(viewModel: vm, path: $path, isNewTokenAdded: $isNewTokenAdded)
+                if let vm = viewModel.accountDetailViewModel {
+                    ManageTokensView(viewModel: vm, path: $navigationManager.path, isNewTokenAdded: $isNewTokenAdded)
                 } else {
                     EmptyView()
                 }
-            case .tokenDetails:
-                if let vm = accountDetailViewModel, let selectedToken, let selectedAccount = viewModel.selectedAccount {
-                    TokenBalanceView(token: selectedToken, path: $path, selectedAccount: selectedAccount, viewModel: vm, router: self.router)
+            case .tokenDetails(let token):
+                if let vm = viewModel.accountDetailViewModel, let selectedAccount = viewModel.selectedAccount {
+                    TokenBalanceView(token: token, path: $navigationManager.path, selectedAccount: selectedAccount, viewModel: vm, router: self.router)
                 } else {
                     EmptyView()
                 }
@@ -533,7 +520,7 @@ extension HomeScreenView {
             case .addToken:
                 if let selectedAccount = viewModel.selectedAccount {
                     AddTokenView(
-                        path: $path,
+                        path: $navigationManager.path,
                         viewModel: .init(storageManager: dependencyProvider.storageManager(),
                                          networkManager: dependencyProvider.networkManager(),
                                          account: selectedAccount),
@@ -551,24 +538,42 @@ extension HomeScreenView {
             case .addTokenDetails(let token):
                 TokenDetailsView(token: token, isAddTokenDetails: true, showRawMd: .constant(false))
                     .modifier(NavigationViewModifier(title: "Add token", backAction: {
-                        path.removeLast()
+                        navigationManager.pop()
                     }))
             case .activity:
                 if let selectedAccount = viewModel.selectedAccount {
                     TransactionsView(viewModel: TransactionsViewModel(account: selectedAccount, dependencyProvider: ServicesProvider.defaultProvider())) { vm in
-                        path.append(.transactionDetails(transaction: vm))
+                        navigationManager.navigate(to: .transactionDetails(transaction: vm))
                     }
                     .modifier(AppBackgroundModifier())
                     .modifier(NavigationViewModifier(title: "Activity") {
-                        path.removeLast()
+                        navigationManager.pop()
                     })
                 }
             case .transactionDetails(let transaction):
                 TransactionDetailView(viewModel: transaction)
                     .modifier(NavigationViewModifier(title: "Transaction Details", backAction: {
-                        path.removeLast()
+                        navigationManager.pop()
                     }))
             }
         }
+    }
+}
+
+class NavigationManager: ObservableObject {
+    @Published var path: [AccountNavigationPaths] = []
+    
+    func navigate(to destination: AccountNavigationPaths) {
+        path.append(destination)
+    }
+    
+    func pop() {
+        if !path.isEmpty {
+            path.removeLast()
+        }
+    }
+    
+    func reset() {
+        path.removeAll()
     }
 }

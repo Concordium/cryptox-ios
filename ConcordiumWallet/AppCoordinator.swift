@@ -31,6 +31,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     let defaultProvider = ServicesProvider.defaultProvider()
     private var cancellables: [AnyCancellable] = []
     private var sanityChecker: SanityChecker
+    private var navigationManager = NavigationManager()
     private var accountsCoordinator: AccountsCoordinator?
     
     let walletConnectService: WalletConnectService = WalletConnectService()

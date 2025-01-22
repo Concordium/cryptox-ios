@@ -11,7 +11,7 @@ import SwiftUI
 struct ManageTokensView: View {
     
     @SwiftUI.Environment(\.dismiss) private var dismiss
-    @ObservedObject var viewModel: AccountDetailViewModel2
+    @ObservedObject var viewModel: AccountDetailViewModel
     @State private var isPresentingAlert = false
     @State private var selectedToken: CIS2Token?
     @State var showRemovedTokenTip: Bool = false
@@ -24,9 +24,8 @@ struct ManageTokensView: View {
             ScrollView {
                 AccountTokenListView(
                     viewModel: viewModel,
-                    showTokenDetails: .constant(false),
                     showManageTokenList: .constant(false),
-                    selectedToken: .constant(nil),
+                    path: $path,
                     mode: .manage,
                     onHideToken: { token in
                         withAnimation {

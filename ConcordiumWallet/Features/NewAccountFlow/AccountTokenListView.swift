@@ -16,13 +16,13 @@ enum TokenListMode {
 }
 
 struct AccountTokenListView: View {
-    @ObservedObject var viewModel: AccountDetailViewModel2
-    @Binding var showTokenDetails: Bool
+    @ObservedObject var viewModel: AccountDetailViewModel
     @Binding var showManageTokenList: Bool
-    @Binding var selectedToken: AccountDetailAccount?
+    @Binding var path: [AccountNavigationPaths]
     
     var mode: TokenListMode
     var onHideToken: ((CIS2Token) -> Void)?
+    var euroAmount: String?
 
     var body: some View {
         ScrollView {
@@ -60,8 +60,6 @@ struct AccountTokenListView: View {
         }
         .onAppear {
             showManageTokenList = false
-            showTokenDetails = false
-            selectedToken = nil
         }
     }
     
@@ -81,10 +79,10 @@ struct AccountTokenListView: View {
                 
                 Spacer()
                 VStack(alignment: .trailing, spacing: 4) {
-                    Text(amount)
+                    Text(amount.displayValue())
                         .font(.satoshi(size: 15, weight: .medium))
                         .tint(.white)
-                    Text("23456 EUR")
+                    Text("\(viewModel.ccdEuroEquivalent ?? "") EUR")
                         .font(.satoshi(size: 12, weight: .regular))
                         .tint(.MineralBlue.blueish3)
                         .opacity(0.5)
@@ -127,14 +125,13 @@ struct AccountTokenListView: View {
         .cornerRadius(12)
         .onTapGesture {
             if mode == .normal {
-                showTokenDetails = true
-                selectedToken = account
+                path.append(.tokenDetails(token: account))
             }
         }
     }
 }
 
-final class AccountDetailViewModel2: ObservableObject {
+final class AccountDetailViewModel: ObservableObject {
     enum State: String, CaseIterable {
         case accounts, transactions
         
@@ -151,6 +148,7 @@ final class AccountDetailViewModel2: ObservableObject {
     @Published var isReadOnly = false
     @Published var hasStaked = false
     @Published var stakedValue: GTU?
+    @Published var ccdEuroEquivalent: String?
     
     let account: AccountDataType?
     let storageManager: StorageManagerProtocol
@@ -186,26 +184,6 @@ final class AccountDetailViewModel2: ObservableObject {
             await self?.reload()
         }.store(in: &cancellables)
     }
-//    
-//    @MainActor
-//    func showImportTokensFlow() {
-//        self.router.showImportTokenFlow(for: self.account)
-//    }
-//    
-//    @MainActor
-//    func didTapOnToken(_ token: AccountDetailAccount) {
-//        switch token {
-//            case .ccd:
-//                self.router.showAccountDetailFlow(for: account)
-//            case .token(let token, _):
-//                self.router.showCIS2TokenDetailsFlow(token, account: account)
-//        }
-//    }
-//    
-//    @MainActor
-//    func didTapOnTx(_ tx: TransactionViewModel) {
-//        router.showTx(tx)
-//    }
     
     @MainActor
     func reload() async {
@@ -213,7 +191,7 @@ final class AccountDetailViewModel2: ObservableObject {
         let tokens = storageManager.getAccountSavedCIS2Tokens(account.address)
         let cis2Service = CIS2Service(networkManager: self.dependencyProvider.networkManager(), storageManager: storageManager)
         if !tokens.isEmpty {
-            var tmpAccounts: [AccountDetailAccount] = [.ccd(amount: GTU(intValue: account.forecastBalance).displayValue())]
+            var tmpAccounts: [AccountDetailAccount] = [.ccd(amount: GTU(intValue: account.forecastBalance))]
             do {
                 let balances = try await Self.loadCIS2TokenBalances(tokens, address: account.address, cis2Service: cis2Service)
                 var tmpTokens: [AccountDetailAccount] = []
@@ -228,8 +206,27 @@ final class AccountDetailViewModel2: ObservableObject {
             
             self.accounts = tmpAccounts
         } else {
-            self.accounts = [.ccd(amount: GTU(intValue: account.forecastBalance).displayValue())]
+            self.accounts = [.ccd(amount: GTU(intValue: account.forecastBalance))]
         }
+        getEuroValueForCCD()
+    }
+    
+    func getEuroValueForCCD() {
+        guard let account else { return }
+        let ccd = GTU(intValue: account.forecastBalance)
+        ServicesProvider.defaultProvider().stakeService().getChainParameters()
+            .sink(receiveCompletion: { completionResult in
+                switch completionResult {
+                default:
+                    break
+                }
+            }, receiveValue: { [weak self] chainParameters in
+                let microGTUPerEuro = chainParameters.microGTUPerEuro
+                let euroEquivalent = Double(ccd.intValue) * (Double(microGTUPerEuro.denominator) / Double(microGTUPerEuro.numerator))
+                let rounded = (euroEquivalent * 100).rounded() / 100
+                self?.ccdEuroEquivalent = rounded.string
+            })
+            .store(in: &cancellables)
     }
     
     private static func loadCIS2TokenBalances(_ tokens: [CIS2Token], address: String, cis2Service: CIS2Service) async throws -> [([CIS2TokenBalance], Int)] {
