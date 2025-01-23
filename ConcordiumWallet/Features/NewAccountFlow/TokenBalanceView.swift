@@ -97,7 +97,7 @@ struct TokenBalanceView: View {
             switch token {
             case .ccd(let amount):
                 Text("\(amount.displayValue()) CCD")
-                    .font(.plexSans(size: 55, weight: .medium))
+                    .font(.plexSans(size: 55, weight: .bold))
                     .dynamicTypeSize(.xSmall ... .xxLarge)
                     .minimumScaleFactor(0.3)
                     .lineLimit(1)
@@ -146,7 +146,7 @@ struct TokenBalanceView: View {
             case .token(let token, let amount) :
                 Text(TokenFormatter()
                     .string(from: BigDecimal(BigInt(stringLiteral: amount), token.metadata.decimals ?? 0), decimalSeparator: ".", thousandSeparator: ",") + " \(token.metadata.symbol ?? "")")
-                .font(.plexSans(size: 55, weight: .medium))
+                .font(.plexSans(size: 55, weight: .bold))
                 .dynamicTypeSize(.xSmall ... .xxLarge)
                 .minimumScaleFactor(0.3)
                 .lineLimit(1)

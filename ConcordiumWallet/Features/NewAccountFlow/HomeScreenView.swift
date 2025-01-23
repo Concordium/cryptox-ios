@@ -222,7 +222,7 @@ struct HomeScreenView: View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topTrailing) {
                 Text("\(balanceDisplayValue(viewModel.selectedAccount?.forecastBalance)) CCD")
-                    .font(.plexSans(size: 55, weight: .medium))
+                    .font(.plexSans(size: 55, weight: .bold))
                     .dynamicTypeSize(.xSmall ... .xxLarge)
                     .minimumScaleFactor(0.5)
                     .lineLimit(1)
@@ -366,13 +366,13 @@ struct HomeScreenView: View {
         ]
         return actionItems
     }
-
+    
     private func getDotImageIndex() -> Int {
         guard let selectedAccount = viewModel.selectedAccount else { return 1 }
         let matchingAcc = viewModel.accountViewModels.first { $0.account.address == selectedAccount.address }
         return matchingAcc?.dotImageIndex ?? 1
     }
-        
+    
     func balanceDisplayValue(_ balance: Int?) -> String {
         let gtuValue = GTU(intValue: balance)
         return gtuValue?.displayValueWithTwoNumbersAfterDecimalPoint() ?? "0.00"
@@ -584,66 +584,64 @@ class NavigationManager: ObservableObject {
 
 struct HomeScreenViewSkeleton: View {
     var body: some View {
-        NavigationStack {
-            GeometryReader { geometry in
-                VStack(spacing: 0) {
-                    // Placeholder for top bar
-                    HStack {
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.gray.opacity(0.3))
-                            .frame(width: 100, height: 32)
-                        Spacer()
-                        Circle()
-                            .fill(Color.gray.opacity(0.3))
-                            .frame(width: 32, height: 32)
-                    }
-                    .padding(.horizontal, 18)
-                    .padding(.top, 20)
-
-                    // Placeholder for balance section
-                    VStack(alignment: .leading, spacing: 16) {
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.gray.opacity(0.3))
-                            .frame(height: 40)
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.gray.opacity(0.3))
-                            .frame(height: 20)
-                    }
-                    .padding(.horizontal, 18)
-                    .padding(.top, 20)
-
-                    // Placeholder for action buttons
-                    HStack {
-                        ForEach(0..<5) { _ in
-                            VStack {
-                                Circle()
-                                    .fill(Color.gray.opacity(0.3))
-                                    .frame(width: 48, height: 48)
-                                RoundedRectangle(cornerRadius: 8)
-                                    .fill(Color.gray.opacity(0.3))
-                                    .frame(width: 50, height: 12)
-                            }
-                            .frame(maxWidth: .infinity)
-                        }
-                    }
-                    .padding(.top, 40)
-                    .padding(.horizontal, 18)
-
-                    // Placeholder for account states
+        GeometryReader { geometry in
+            VStack(spacing: 0) {
+                // Placeholder for top bar
+                HStack {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.gray.opacity(0.3))
+                        .frame(width: 100, height: 32)
                     Spacer()
-                        .padding(.bottom, 40)
-                    ForEach(0..<4) { _ in
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.gray.opacity(0.3))
-                            .frame(height: 50)
-                            .padding(.horizontal, 18)
-                            .padding(.vertical, 11)
+                    Circle()
+                        .fill(Color.gray.opacity(0.3))
+                        .frame(width: 32, height: 32)
+                }
+                .padding(.horizontal, 18)
+                .padding(.top, 20)
+                
+                // Placeholder for balance section
+                VStack(alignment: .leading, spacing: 16) {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.gray.opacity(0.3))
+                        .frame(height: 40)
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.gray.opacity(0.3))
+                        .frame(height: 20)
+                }
+                .padding(.horizontal, 18)
+                .padding(.top, 20)
+                
+                // Placeholder for action buttons
+                HStack {
+                    ForEach(0..<5) { _ in
+                        VStack {
+                            Circle()
+                                .fill(Color.gray.opacity(0.3))
+                                .frame(width: 48, height: 48)
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(Color.gray.opacity(0.3))
+                                .frame(width: 50, height: 12)
+                        }
+                        .frame(maxWidth: .infinity)
                     }
                 }
-                .redacted(reason: .placeholder)
-                .padding(.bottom, 20)
+                .padding(.top, 40)
+                .padding(.horizontal, 18)
+                
+                // Placeholder for account states
+                Spacer()
+                    .padding(.bottom, 40)
+                ForEach(0..<4) { _ in
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.gray.opacity(0.3))
+                        .frame(height: 50)
+                        .padding(.horizontal, 18)
+                        .padding(.vertical, 11)
+                }
             }
-            .modifier(AppBackgroundModifier())
+            .redacted(reason: .placeholder)
+            .padding(.bottom, 20)
         }
+        .modifier(AppBackgroundModifier())
     }
 }
