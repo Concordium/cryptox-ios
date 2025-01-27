@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -18,9 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="new_bg" translatesAutoresizingMaskIntoConstraints="NO" id="elr-9S-ua5">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                            </imageView>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k9G-VL-cKd">
                                 <rect key="frame" x="18" y="71" width="354" height="76"/>
                                 <subviews>
@@ -130,14 +127,10 @@
                             <constraint firstItem="k9G-VL-cKd" firstAttribute="top" secondItem="Eds-YD-a5e" secondAttribute="top" constant="24" id="JKt-54-LNn"/>
                             <constraint firstItem="xW0-tr-peB" firstAttribute="centerX" secondItem="tFw-is-USo" secondAttribute="centerX" id="KgS-JT-hKG"/>
                             <constraint firstItem="Eds-YD-a5e" firstAttribute="trailing" secondItem="SzM-0l-Pwn" secondAttribute="trailing" id="LnJ-vY-RH5"/>
-                            <constraint firstItem="elr-9S-ua5" firstAttribute="top" secondItem="tFw-is-USo" secondAttribute="top" id="Pkz-d4-Hb8"/>
                             <constraint firstAttribute="trailing" secondItem="heD-hR-Wdq" secondAttribute="trailing" constant="19" id="WTA-2c-LVo"/>
                             <constraint firstItem="k9G-VL-cKd" firstAttribute="leading" secondItem="Eds-YD-a5e" secondAttribute="leading" constant="18" id="WYp-ZG-uc3"/>
-                            <constraint firstAttribute="bottom" secondItem="elr-9S-ua5" secondAttribute="bottom" id="cnu-fg-l0Z"/>
                             <constraint firstItem="Eds-YD-a5e" firstAttribute="bottom" secondItem="uln-a0-lso" secondAttribute="bottom" priority="999" id="cvh-LM-lIu"/>
                             <constraint firstItem="CBK-SI-obb" firstAttribute="bottom" secondItem="Eds-YD-a5e" secondAttribute="bottom" priority="999" constant="20" id="dK0-T4-aqM"/>
-                            <constraint firstItem="elr-9S-ua5" firstAttribute="trailing" secondItem="tFw-is-USo" secondAttribute="trailing" id="eMB-xK-3Qi"/>
-                            <constraint firstItem="elr-9S-ua5" firstAttribute="leading" secondItem="tFw-is-USo" secondAttribute="leading" id="fdo-98-qlj"/>
                             <constraint firstItem="SzM-0l-Pwn" firstAttribute="leading" secondItem="Eds-YD-a5e" secondAttribute="leading" id="h57-Zz-Kbd"/>
                             <constraint firstItem="Eds-YD-a5e" firstAttribute="trailing" secondItem="uln-a0-lso" secondAttribute="trailing" constant="10" id="iak-3E-YHk"/>
                             <constraint firstItem="SzM-0l-Pwn" firstAttribute="top" secondItem="k9G-VL-cKd" secondAttribute="bottom" constant="80" id="rBe-B8-jY3"/>
@@ -601,7 +594,7 @@ login]</string>
     <resources>
         <image name="faceid" catalog="system" width="128" height="115"/>
         <image name="ico_info" width="18" height="18"/>
-        <image name="new_bg" width="375" height="812"/>
+        <image name="new_bg" width="750" height="1624"/>
         <namedColor name="black_secondary">
             <color red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

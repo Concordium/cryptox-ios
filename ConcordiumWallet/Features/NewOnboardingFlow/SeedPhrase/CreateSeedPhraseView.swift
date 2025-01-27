@@ -157,7 +157,7 @@ struct CreateSeedPhraseView: View {
                     .opacity(isChecked ? 1.0 : 0.7)
                     .disabled(!isChecked)
                     .frame(height: 56)
-                    .background(Color.EggShell.tint1)
+                    .background(.whiteMain)
                     .cornerRadius(28, corners: .allCorners)
                 }
             }

@@ -139,7 +139,12 @@ struct AccountPreviewCardView: View {
             }) {
                 buttonLabel("create_account_btn_title".localized)
             }
-            .background(.greenSecondary)
+            .background(isCreatingAccount ? .blackMain : .white)
+            .overlay(
+                RoundedRectangle(cornerRadius: 48)
+                    .inset(by: 0.5)
+                    .stroke(Color(red: 0.44, green: 0.47, blue: 0.49), lineWidth: isCreatingAccount ? 1 : 0)
+            )
             .disabled(isCreatingAccount)
             .opacity(isCreatingAccount ? 0.5 : 1.0)
             .clipShape(Capsule())
@@ -173,11 +178,11 @@ struct AccountPreviewCardView: View {
     private func buttonLabel(_ text: String) -> some View {
         Text(text)
             .font(Font.satoshi(size: 15, weight: .medium))
-            .foregroundColor(.blackMain)
+            .foregroundColor(isCreatingAccount ? .grey4 : .blackMain)
             .padding(.horizontal, 24)
             .frame(maxWidth: .infinity)
             .frame(height: 56)
-            .background(.white)
+            .background(isCreatingAccount ? .blackMain : .white)
             .cornerRadius(28)
         
     }

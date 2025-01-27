@@ -167,7 +167,7 @@ class EnterPasswordViewController: BaseViewController, Storyboarded {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        view.backgroundColor = .blackMain
         presenter.view = self
         presenter.viewDidLoad()
     }

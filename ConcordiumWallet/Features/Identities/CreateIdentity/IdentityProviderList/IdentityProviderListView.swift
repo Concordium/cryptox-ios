@@ -66,6 +66,7 @@ struct IdentityProviderListView: View {
             }
             .padding(.leading, 20)
             .padding(.trailing, 15)
+            .frame(maxWidth: .infinity)
         }
         .alert(item: $viewModel.error) { error in
             switch error {
