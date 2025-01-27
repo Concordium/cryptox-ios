@@ -44,9 +44,60 @@ class RecipientViewModel: Hashable {
     }
 }
 
-class RecipientListViewModel {
-    @Published var recipients = [RecipientViewModel]()
-    @Published var mode: SelectRecipientMode = .selectRecipientFromPublic    
+class RecipientListViewModel: ObservableObject {
+    @Published var recipients = [RecipientDataType]()
+    @Published var mode: SelectRecipientMode = .selectRecipientFromPublic
+    @Published var originalRecipientsViewModels = [RecipientViewModel]() // Full list of recipients
+    @Published var filteredRecipientsViewModels = [RecipientViewModel]() // Filtered list displayed in the UI
+
+    private var storageManager: StorageManagerProtocol
+    private var ownAccount: AccountDataType?
+    private var cancellables: [AnyCancellable] = []
+    private var dependencyProvider = ServicesProvider.defaultProvider()
+    
+    init(storageManager: StorageManagerProtocol,
+         mode: SelectRecipientMode,
+         ownAccount: AccountDataType? = nil) {
+        self.storageManager = storageManager
+        self.mode = mode
+        self.ownAccount = ownAccount
+        
+        $recipients.sink { (recipients) in
+            self.originalRecipientsViewModels.removeAll()
+                        
+            for (index, recipient) in recipients.enumerated() {
+                self.originalRecipientsViewModels.append(RecipientViewModel(recipient: recipient, realIndex: index, isEncrypted: false))
+            }
+
+            self.originalRecipientsViewModels = Array((NSOrderedSet(array: (self.originalRecipientsViewModels)).array as? [RecipientViewModel]) ?? [])
+            
+            // Filter out own account.
+            self.originalRecipientsViewModels = self.originalRecipientsViewModels
+                .filter {$0.address != ownAccount?.address}
+                .sorted(by: { $0.name.lowercased() < $1.name.lowercased() })
+            self.filteredRecipientsViewModels = self.originalRecipientsViewModels
+            
+        }.store(in: &cancellables)
+    }
+
+    func refreshData() {
+        recipients = storageManager.getRecipients()
+    }
+
+    func filterRecipients(searchText: String) {
+        if searchText.isEmpty {
+            self.filteredRecipientsViewModels = self.originalRecipientsViewModels
+        } else {
+            self.filteredRecipientsViewModels = originalRecipientsViewModels.filter { viewModel in
+                viewModel.address.lowercased().contains(searchText.lowercased())
+            }
+            if filteredRecipientsViewModels.isEmpty && !searchText.isEmpty {
+                if dependencyProvider.mobileWallet().check(accountAddress: searchText) {
+                    self.filteredRecipientsViewModels.append(RecipientViewModel(name: searchText, address: searchText))
+                }
+            }
+        }
+    }
 }
 
 // MARK: View
@@ -89,7 +140,7 @@ class SelectRecipientPresenter {
 
     private var cancellables: [AnyCancellable] = []
     
-    private var viewModel = RecipientListViewModel()
+    private var viewModel: RecipientListViewModel
     
     @Published private var recipients = [RecipientDataType]()
     @Published var originalRecipientsViewModels = [RecipientViewModel]()
@@ -105,7 +156,8 @@ class SelectRecipientPresenter {
         self.closure = closure
         self.storageManger = storageManager
         
-        viewModel.mode = mode
+        viewModel = RecipientListViewModel(storageManager: storageManager, mode: mode)
+//        viewModel.mode = mode
         
         $recipients.sink { (recipients) in
             self.originalRecipientsViewModels.removeAll()
@@ -130,24 +182,25 @@ class SelectRecipientPresenter {
          ownAccount: AccountDataType? = nil) {
         self.delegate = delegate
         self.storageManger = storageManager
-        
-        viewModel.mode = mode
-        
-        $recipients.sink { (recipients) in
-            self.originalRecipientsViewModels.removeAll()
-                        
-            for (index, recipient) in recipients.enumerated() {
-                self.originalRecipientsViewModels.append(RecipientViewModel(recipient: recipient, realIndex: index, isEncrypted: false))
-            }
+        viewModel = RecipientListViewModel(storageManager: storageManager, mode: mode)
 
-            self.originalRecipientsViewModels = Array((NSOrderedSet(array: (self.originalRecipientsViewModels)).array as? [RecipientViewModel]) ?? [])
-            
-            // Filter out own account.
-            self.originalRecipientsViewModels = self.originalRecipientsViewModels
-                .filter {$0.address != ownAccount?.address}
-                .sorted(by: { $0.name.lowercased() < $1.name.lowercased() })
-            
-        }.store(in: &cancellables)
+//        viewModel.mode = mode
+//        
+//        $recipients.sink { (recipients) in
+//            self.originalRecipientsViewModels.removeAll()
+//                        
+//            for (index, recipient) in recipients.enumerated() {
+//                self.originalRecipientsViewModels.append(RecipientViewModel(recipient: recipient, realIndex: index, isEncrypted: false))
+//            }
+//
+//            self.originalRecipientsViewModels = Array((NSOrderedSet(array: (self.originalRecipientsViewModels)).array as? [RecipientViewModel]) ?? [])
+//            
+//            // Filter out own account.
+//            self.originalRecipientsViewModels = self.originalRecipientsViewModels
+//                .filter {$0.address != ownAccount?.address}
+//                .sorted(by: { $0.name.lowercased() < $1.name.lowercased() })
+//            
+//        }.store(in: &cancellables)
     }
 
     func viewDidLoad() {
@@ -164,13 +217,13 @@ class SelectRecipientPresenter {
     }
 
     private func filterRecipients(searchText: String) {
-        if searchText.isEmpty {
-            viewModel.recipients = originalRecipientsViewModels
-        } else {
-            viewModel.recipients = originalRecipientsViewModels.filter({ (viewModel) -> Bool in
-                viewModel.name.lowercased().contains(searchText.lowercased())
-            })
-        }
+//        if searchText.isEmpty {
+////            viewModel.recipients = originalRecipientsViewModels
+//        } else {
+//            viewModel.recipients = originalRecipientsViewModels.filter({ (viewModel) -> Bool in
+//                viewModel.name.lowercased().contains(searchText.lowercased())
+//            })
+//        }
     }
 }
 
@@ -181,9 +234,9 @@ extension SelectRecipientPresenter: SelectRecipientPresenterProtocol {
     }
 
     func userSelectRecipient(with index: Int) {
-        let realIndex = viewModel.recipients[index].realIndex
-        delegate?.didSelect(recipient: recipients[realIndex])
-        closure?(recipients[realIndex])
+//        let realIndex = viewModel.recipients[index].realIndex
+//        delegate?.didSelect(recipient: recipients[realIndex])
+//        closure?(recipients[realIndex])
     }
 
     func createRecipient() {

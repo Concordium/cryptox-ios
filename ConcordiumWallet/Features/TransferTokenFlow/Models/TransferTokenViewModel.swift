@@ -41,7 +41,7 @@ enum GeneralAppError: LocalizedError {
     }
 }
 
-enum CXTokenType {
+enum CXTokenType: Hashable, Equatable {
     case cis2(CIS2Token), ccd
     
     var isCIS2Token: Bool {
@@ -70,12 +70,7 @@ enum CXTokenType {
     }
 }
 
-
-protocol TransferTokenViewProtocol {
-    func setMemo(memo: Memo?)
-}
-
-final class TransferTokenViewModel: ObservableObject {
+final class TransferTokenViewModel: ObservableObject, Hashable, Equatable {
     @Published var amount: Decimal = .zero
     
     @Published var availableDisplayAmount: String = ""
@@ -97,6 +92,7 @@ final class TransferTokenViewModel: ObservableObject {
     @Published var addedMemo: Memo?
     @Published var showMemoRemoveButton: Bool = false
     @Published var addMemoText: String = ""
+    @Published var euroEquivalentForCCD: String = ""
     
     var tokenTransferModel: CIS2TokenTransferModel
     private var cost: GTU?
@@ -108,18 +104,15 @@ final class TransferTokenViewModel: ObservableObject {
     private var cancellables = [AnyCancellable]()
     let account: AccountDataType
     private let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
-    private let proxy: TransferTokenRouter
     
     init(
         tokenType: CXTokenType,
         account: AccountDataType,
-        proxy: TransferTokenRouter,
         dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
         tokenTransferModel: CIS2TokenTransferModel,
         onRecipientPicked: AnyPublisher<String, Never>
     ) {
         self.tokenTransferModel = tokenTransferModel
-        self.proxy = proxy
         self.dependencyProvider = dependencyProvider
         self.account = account
         
@@ -136,6 +129,7 @@ final class TransferTokenViewModel: ObservableObject {
         
         tokenTransferModel.$tokenType.sink { type in
             self.amount = .zero
+            self.amountTokenSend = .zero
         }.store(in: &cancellables)
         
         Publishers.CombineLatest3($amountTokenSend, tokenTransferModel.$tokenGeneralBalance, $transaferCost)
@@ -175,33 +169,15 @@ final class TransferTokenViewModel: ObservableObject {
         .assign(to: \.amountTokenSend, on: self)
         .store(in: &cancellables)
         
+        $amountTokenSend.sink { _ in
+            self.getEuroValueForCCD()
+        }.store(in: &cancellables)
+        
         $recepientAddress.sink { address in
             if self.dependencyProvider.mobileWallet().check(accountAddress: address) == false {
                 
             }
         }.store(in: &cancellables)
-        
-        proxy.transferTokenViewDelegate = self
-    }
-    
-    public func showQrScanner() {
-        PermissionHelper.requestAccess(for: .camera) { [weak self] permissionGranted in
-            guard let self = self else { return }
-            
-            guard permissionGranted else {
-                self.error = GeneralAppError.noCameraAccess
-                return
-            }
-            self.proxy.showQrAddressPicker { address in
-                self.recepientAddress = address
-            }
-        }
-    }
-    
-    public func showRecepientPicker() {
-        self.proxy.showRecepientPicker { address in
-            self.recepientAddress = address
-        }
     }
     
     public func sendAll() {
@@ -216,9 +192,72 @@ final class TransferTokenViewModel: ObservableObject {
             }
         }
     }
+ 
+    private func getEuroValueForCCD() {
+        let value = Decimal(string: amountTokenSend.value.description) ?? 0
+        ServicesProvider.defaultProvider().stakeService().getChainParameters()
+            .sink(receiveCompletion: { completionResult in
+                switch completionResult {
+                default:
+                    break
+                }
+            }, receiveValue: { chainParameters in
+                let microGTUPerEuro = chainParameters.microGTUPerEuro
+                var euroEquivalent = value * (Decimal(microGTUPerEuro.denominator) / Decimal(microGTUPerEuro.numerator))
+                // Round the value to 2 decimal places.
+                var roundedValue = Decimal()
+                NSDecimalRound(&roundedValue, &euroEquivalent, 2, .plain)
+                self.euroEquivalentForCCD = NSDecimalNumber(decimal: roundedValue).stringValue
+            })
+            .store(in: &cancellables)
+    }
+    
+    // MARK: - Hashable
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(account.address)
+        hasher.combine(tokenTransferModel.maxAmountTokenSend)
+        hasher.combine(tokenTransferModel.recipient)
+        hasher.combine(tokenTransferModel.tokenGeneralBalance)
+        hasher.combine(tokenTransferModel.notifyDestination)
+        hasher.combine(tokenTransferModel.ccdTokenDisposalBalance)
+        hasher.combine(tokenTransferModel.tokenType)
+        hasher.combine(tokenTransferModel.memo)
+        hasher.combine(amount)
+        hasher.combine(availableDisplayAmount)
+        hasher.combine(atDisposalCCDDisplayAmount)
+        hasher.combine(amountTokenSend)
+        hasher.combine(recepientAddress)
+        hasher.combine(canSend)
+        hasher.combine(ticker)
+        hasher.combine(isInsuficientFundsErrorHidden)
+        hasher.combine(fraction)
+        hasher.combine(addMemoText)
+    }
+
+    // MARK: - Equatable
+    static func == (lhs: TransferTokenViewModel, rhs: TransferTokenViewModel) -> Bool {
+        return lhs.account.address == rhs.account.address
+        && lhs.tokenTransferModel.maxAmountTokenSend == rhs.tokenTransferModel.maxAmountTokenSend
+        && lhs.tokenTransferModel.recipient == rhs.tokenTransferModel.recipient
+        && lhs.tokenTransferModel.tokenGeneralBalance == rhs.tokenTransferModel.tokenGeneralBalance
+        && lhs.tokenTransferModel.notifyDestination == rhs.tokenTransferModel.notifyDestination
+        && lhs.tokenTransferModel.ccdTokenDisposalBalance == rhs.tokenTransferModel.ccdTokenDisposalBalance
+        && lhs.tokenTransferModel.tokenType == rhs.tokenTransferModel.tokenType
+        && lhs.tokenTransferModel.memo == rhs.tokenTransferModel.memo
+        && lhs.amount == rhs.amount
+        && lhs.availableDisplayAmount == rhs.availableDisplayAmount
+        && lhs.atDisposalCCDDisplayAmount == rhs.atDisposalCCDDisplayAmount
+        && lhs.amountTokenSend == rhs.amountTokenSend
+        && lhs.recepientAddress == rhs.recepientAddress
+        && lhs.canSend == rhs.canSend
+        && lhs.ticker == rhs.ticker
+        && lhs.isInsuficientFundsErrorHidden == rhs.isInsuficientFundsErrorHidden
+        && lhs.fraction == rhs.fraction
+        && lhs.addMemoText == rhs.addMemoText
+    }
 }
 
-extension TransferTokenViewModel: TransferTokenViewProtocol {
+extension TransferTokenViewModel {
     func setMemo(memo: Memo?) {
         self.addedMemo = memo
         if self.tokenTransferModel.maxAmountTokenSend == self.amountTokenSend {

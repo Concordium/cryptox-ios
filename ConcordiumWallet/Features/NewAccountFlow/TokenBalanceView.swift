@@ -215,7 +215,7 @@ struct TokenBalanceView: View {
             }),
             ActionItem(iconName: "send", label: "Send", action: {
                 guard let account = viewModel.account else { return }
-                router?.showSendFundsFlow(account)
+//                router?.showSendFundsFlow(account)
             }),
             ActionItem(iconName: "receive", label: "Receive", action: {
                 accountQr = (viewModel.account as? AccountEntity)

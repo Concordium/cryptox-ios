@@ -28,6 +28,8 @@ enum AccountNavigationPaths: Hashable {
     case addToken
     case addTokenDetails(token: AccountDetailAccount)
     case transactionDetails(transaction: TransactionDetailViewModel)
+    case chooseTokenToSend(transferTokenVM: TransferTokenViewModel)
+    case selectRecipient
 }
 
 struct HomeScreenView: View {
@@ -54,6 +56,7 @@ struct HomeScreenView: View {
     let keychain: KeychainWrapperProtocol
     let identitiesService: SeedIdentitiesService
     weak var router: AccountsMainViewDelegate?
+    var onAddressPicked = PassthroughSubject<String, Never>()
     var actionItems: [ActionItem]  {
         return accountActionItems()
     }
@@ -353,8 +356,7 @@ struct HomeScreenView: View {
                 Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Buy")
             }),
             ActionItem(iconName: "send", label: "Send", action: {
-                guard let selectedAccount = viewModel.selectedAccount else { return }
-                router?.showSendFundsFlow(selectedAccount)
+                navigationManager.navigate(to: .send)
                 Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Send funds")
             }),
             ActionItem(iconName: "receive", label: "Receive", action: {
@@ -401,6 +403,7 @@ extension HomeScreenView {
         case .accounts:
             if let vm = viewModel.accountDetailViewModel {
                 AccountTokenListView(viewModel: vm, showManageTokenList: $showManageTokenList, path: $navigationManager.path, mode: .normal)
+                    .frame(height: 200)
                     .frame(maxWidth: .infinity)
                     .transition(.opacity)
                     .padding(.top, isShouldShowOnrampMessage ? 0 : 40)
@@ -526,7 +529,37 @@ extension HomeScreenView {
                 } else {
                     EmptyView()
                 }
-            case .send, .earn:
+            case .send:
+                if let selectedAccount = viewModel.selectedAccount {
+                    SendTokenView(path: $navigationManager.path,
+                                  viewModel: .init(
+                        tokenType: .ccd,
+                        account: selectedAccount,
+                        dependencyProvider: dependencyProvider,
+                        tokenTransferModel: CIS2TokenTransferModel(
+                            tokenType: .ccd,
+                            account: selectedAccount,
+                            dependencyProvider: dependencyProvider,
+                            notifyDestination: .none,
+                            memo: nil,
+                            onTxSuccess: { _ in },
+                            onTxReject: {}
+                        ),
+                        onRecipientPicked: onAddressPicked.eraseToAnyPublisher()))
+                    .modifier(NavigationViewModifier(title: "Send", backAction: {
+                        navigationManager.pop()
+                    }))
+                }
+            case .chooseTokenToSend(let transferTokenVM):
+                if let vm = viewModel.accountDetailViewModel {
+                    ChooseTokenView(viewModel: vm, transferTokenViewModel: transferTokenVM) {
+                        navigationManager.pop()
+                    }
+                        .modifier(NavigationViewModifier(title: "Choose token", backAction: {
+                            navigationManager.pop()
+                        }))
+                }
+            case .earn:
                 EmptyView()
             case .addToken:
                 if let selectedAccount = viewModel.selectedAccount {
@@ -566,6 +599,16 @@ extension HomeScreenView {
                     .modifier(NavigationViewModifier(title: "Transaction Details", backAction: {
                         navigationManager.pop()
                     }))
+            case .selectRecipient:
+                if let selectedAccount = viewModel.selectedAccount {
+                    SelectRecipientView(viewModel: RecipientListViewModel(storageManager: dependencyProvider.storageManager(), mode: .addressBook, ownAccount: selectedAccount)) { address in
+                        onAddressPicked.send(address)
+                        navigationManager.pop()
+                    }
+                        .modifier(NavigationViewModifier(title: "Choose recipient", backAction: {
+                            navigationManager.pop()
+                        }))
+                }
             }
         }
     }

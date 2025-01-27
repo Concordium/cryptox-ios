@@ -1,112 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Add Memo View Controller-->
-        <scene sceneID="K5P-jQ-RDO">
-            <objects>
-                <viewController storyboardIdentifier="AddMemoViewController" id="BB8-VP-N4y" customClass="AddMemoViewController" customModule="ProdMainNet" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="2NL-r3-lO8">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LeW-bp-GZz" userLabel="Text Container">
-                                <rect key="frame" x="20" y="156" width="374" height="631"/>
-                                <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="IUX-hJ-3lD">
-                                        <rect key="frame" x="0.0" y="299" width="374" height="33"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <color key="textColor" systemColor="labelColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                                    </textView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[You can enter an optional memo here]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="adN-xe-4fz">
-                                        <rect key="frame" x="0.0" y="298" width="374" height="37"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" name="fadedText"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oV1-Jt-W50" userLabel="Separator">
-                                        <rect key="frame" x="0.0" y="332" width="374" height="1"/>
-                                        <color key="backgroundColor" name="separator"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="HVe-hm-Wal"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstItem="IUX-hJ-3lD" firstAttribute="top" relation="lessThanOrEqual" secondItem="LeW-bp-GZz" secondAttribute="top" constant="299" id="9iF-9Y-waA"/>
-                                    <constraint firstItem="adN-xe-4fz" firstAttribute="bottom" secondItem="IUX-hJ-3lD" secondAttribute="bottom" constant="3" id="Nla-JX-8Z4"/>
-                                    <constraint firstItem="IUX-hJ-3lD" firstAttribute="leading" secondItem="LeW-bp-GZz" secondAttribute="leading" id="PaS-HQ-o9b"/>
-                                    <constraint firstAttribute="bottom" secondItem="IUX-hJ-3lD" secondAttribute="bottom" constant="299" id="aT1-R2-Gef"/>
-                                    <constraint firstItem="adN-xe-4fz" firstAttribute="leading" secondItem="IUX-hJ-3lD" secondAttribute="leading" id="dNp-WE-KC8"/>
-                                    <constraint firstItem="adN-xe-4fz" firstAttribute="top" secondItem="IUX-hJ-3lD" secondAttribute="top" constant="-1" id="dgB-ZZ-dmN"/>
-                                    <constraint firstItem="adN-xe-4fz" firstAttribute="trailing" secondItem="IUX-hJ-3lD" secondAttribute="trailing" id="fAY-EB-31e"/>
-                                    <constraint firstItem="oV1-Jt-W50" firstAttribute="top" secondItem="IUX-hJ-3lD" secondAttribute="bottom" id="jKv-aL-ROL"/>
-                                    <constraint firstAttribute="trailing" secondItem="IUX-hJ-3lD" secondAttribute="trailing" id="jkA-pC-KQF"/>
-                                    <constraint firstItem="oV1-Jt-W50" firstAttribute="leading" secondItem="IUX-hJ-3lD" secondAttribute="leading" id="rj1-Fc-G8M"/>
-                                    <constraint firstItem="oV1-Jt-W50" firstAttribute="trailing" secondItem="IUX-hJ-3lD" secondAttribute="trailing" id="uvA-ji-Fjc"/>
-                                </constraints>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Enter your memo below.]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DND-DT-YLk">
-                                <rect key="frame" x="20" y="88" width="374" height="43"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ysE-7N-kLa" customClass="StandardButton" customModule="ProdMainNet" customModuleProvider="target">
-                                <rect key="frame" x="20" y="802" width="374" height="50"/>
-                                <color key="backgroundColor" name="primary"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="yXV-S8-hwu"/>
-                                </constraints>
-                                <state key="normal" title="[Add memo to transfer]">
-                                    <color key="titleColor" name="buttonText"/>
-                                </state>
-                                <state key="disabled">
-                                    <color key="titleColor" name="whiteText"/>
-                                </state>
-                                <connections>
-                                    <action selector="addMemoTapped:" destination="BB8-VP-N4y" eventType="touchUpInside" id="upT-Eo-7GR"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="cPM-tG-bAu"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="cPM-tG-bAu" firstAttribute="bottom" secondItem="LeW-bp-GZz" secondAttribute="bottom" constant="75" id="0er-ua-uwI"/>
-                            <constraint firstItem="cPM-tG-bAu" firstAttribute="bottom" secondItem="ysE-7N-kLa" secondAttribute="bottom" constant="10" id="40n-Sc-Xf9"/>
-                            <constraint firstItem="DND-DT-YLk" firstAttribute="leading" secondItem="cPM-tG-bAu" secondAttribute="leading" constant="20" id="6WT-gN-nRg"/>
-                            <constraint firstItem="DND-DT-YLk" firstAttribute="top" secondItem="cPM-tG-bAu" secondAttribute="top" constant="40" id="Cbu-0n-fWI"/>
-                            <constraint firstItem="LeW-bp-GZz" firstAttribute="top" secondItem="DND-DT-YLk" secondAttribute="bottom" constant="25" id="Cr6-6V-0RO"/>
-                            <constraint firstItem="cPM-tG-bAu" firstAttribute="trailing" secondItem="ysE-7N-kLa" secondAttribute="trailing" constant="20" id="IM7-FG-iwe"/>
-                            <constraint firstItem="cPM-tG-bAu" firstAttribute="trailing" secondItem="LeW-bp-GZz" secondAttribute="trailing" constant="20" id="J4f-7O-H5x"/>
-                            <constraint firstItem="LeW-bp-GZz" firstAttribute="leading" secondItem="cPM-tG-bAu" secondAttribute="leading" constant="20" id="YyG-5Q-5Nl"/>
-                            <constraint firstItem="ysE-7N-kLa" firstAttribute="leading" secondItem="cPM-tG-bAu" secondAttribute="leading" constant="20" id="cVT-k0-gUx"/>
-                            <constraint firstItem="cPM-tG-bAu" firstAttribute="trailing" secondItem="DND-DT-YLk" secondAttribute="trailing" constant="20" id="mb2-j2-WC6"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="addMemoButton" destination="ysE-7N-kLa" id="l8D-w1-r5O"/>
-                        <outlet property="addMemoButtonBottomConstraint" destination="40n-Sc-Xf9" id="Gcw-fO-0BI"/>
-                        <outlet property="memoTextView" destination="IUX-hJ-3lD" id="RRI-Gk-i7x"/>
-                        <outlet property="memoTextViewPlaceholderLabel" destination="adN-xe-4fz" id="nWf-xM-urD"/>
-                        <outlet property="memoTitleLabel" destination="DND-DT-YLk" id="ms0-5J-hhg"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ey1-cU-Dvb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6350.7246376811599" y="-85.044642857142847"/>
-        </scene>
         <!--Select Recipient View Controller-->
         <scene sceneID="hAX-JY-YTX">
             <objects>
@@ -382,30 +285,18 @@
         <namedColor name="buttonText">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
-        <namedColor name="fadedText">
-            <color red="0.58823529411764708" green="0.58823529411764708" blue="0.58823529411764708" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
         <namedColor name="grey_main">
             <color red="0.66274509803921566" green="0.67843137254901964" blue="0.72156862745098038" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="primary">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="separator">
-            <color red="0.91764705882352937" green="0.91764705882352937" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="text">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="whiteText">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="white_main">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

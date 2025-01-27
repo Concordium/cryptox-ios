@@ -11,7 +11,6 @@ import SwiftUI
 private let size: CGFloat = 60.0
 
 struct ButtonSlider: View {
-    var actionSend: () -> Void
     var actionReceive: () -> Void
     var actionEarn: () -> Void
     var onPlus: () -> Void
@@ -21,8 +20,6 @@ struct ButtonSlider: View {
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
             ActionButton(imageName: "ico_onramp", disabled: disabled, action: onPlus)
-            VerticalLine()
-            ActionButton(imageName: "button_slider_send", disabled: disabled, action: actionSend)
             VerticalLine()
             ActionButton(imageName: "button_slider_receive", disabled: disabled, action: actionReceive)
             VerticalLine()
@@ -62,8 +59,7 @@ struct VerticalLine: View {
 struct ButtonSlider_Previews: PreviewProvider {
     static var previews: some View {
         ButtonSlider(
-            actionSend: {
-            }, actionReceive: {
+            actionReceive: {
             }, actionEarn: {
             }, onPlus: {
             })

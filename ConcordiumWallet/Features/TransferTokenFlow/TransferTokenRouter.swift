@@ -19,9 +19,7 @@ final class TransferTokenRouter: ObservableObject {
     private let navigationController: UINavigationController
     
     private var onAddressPicked = PassthroughSubject<String, Never>()
-    
-    var transferTokenViewDelegate: TransferTokenViewProtocol?
-    
+        
     init(
         root: UINavigationController,
         account: AccountDataType,
@@ -35,31 +33,6 @@ final class TransferTokenRouter: ObservableObject {
         self.navigationController.hidesBottomBarWhenPushed = true
         self.navigationController.modalPresentationStyle = .overFullScreen
         root.present(self.navigationController, animated: true)
-    }
-    
-    func showSendTokenFlow(tokenType: CXTokenType) {
-        let viewModel = TransferTokenViewModel(
-            tokenType: tokenType,
-            account: account,
-            proxy: self,
-            dependencyProvider: dependencyProvider,
-            tokenTransferModel: CIS2TokenTransferModel(
-                tokenType: tokenType,
-                account: account,
-                dependencyProvider: dependencyProvider,
-                notifyDestination: .none,
-                memo: nil,
-                onTxSuccess: { _ in },
-                onTxReject: {
-                    
-                }
-            ), onRecipientPicked: onAddressPicked.eraseToAnyPublisher()
-        )
-        let view = TransferTokenView(viewModel: viewModel).environmentObject(self)
-        let viewController = SceneViewController(content: view)
-        viewController.hidesBottomBarWhenPushed = true
-        viewController.modalPresentationStyle = .overFullScreen
-        self.navigationController.setViewControllers([viewController], animated: false)
     }
     
     func dismissFlow() {
@@ -160,17 +133,6 @@ extension TransferTokenRouter {
                                                                               ownAccount: account))
         navigationController.pushViewController(vc, animated: true)
     }
-    
-    func showAddMemo(memo: Memo?) {
-        let addMemoPresenter = AddMemoPresenter(delegate: self, memo: memo)
-        let addMemoViewController = AddMemoFactory.create(with: addMemoPresenter)
-        navigationController.pushViewController(addMemoViewController, animated: true)
-    }
-    
-    func addedMemo(_ memo: Memo) {
-        navigationController.popViewController(animated: true)
-        transferTokenViewDelegate?.setMemo(memo: memo)
-    }
 }
 
 extension TransferTokenRouter: SelectRecipientPresenterDelegate {
@@ -223,11 +185,5 @@ extension TransferTokenRouter: AddRecipientPresenterDelegate {
         vcs.insert(vc, at: vcs.count-1)
         navigationController.setViewControllers(vcs, animated: false)
         return vc
-    }
-}
-
-extension TransferTokenRouter: AddMemoPresenterDelegate {
-    func addMemoDidAddMemoToTransfer(memo: Memo) {
-        addedMemo(memo)
     }
 }

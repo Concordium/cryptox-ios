@@ -112,32 +112,6 @@ final class ImportTokenViewModel: ObservableObject {
         error = nil
     }
     
-    func showCIS2TokenDetailsFlow(_ token: CIS2Token, onDismiss: @escaping (() -> Void)) -> some View {
-        let viewModel = CIS2TokenDetailViewModel(
-            token,
-            account: account,
-            storageManager: storageManager,
-            networkManager: networkManager,
-            onDismiss: { onDismiss() })
-        let detailTokenView = CIS2TokenDetailView(viewModel: viewModel, showRemoveTokenButton: false)
-            .navigationBarBackButtonHidden()
-            
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                       onDismiss()
-                    } label: {
-                        Image("backButtonIcon")
-                            .foregroundColor(Color.Neutral.tint1)
-                            .frame(width: 35, height: 35)
-                            .contentShape(.circle)
-                    }
-                }
-            }
-        return detailTokenView
-            .environmentObject(self)
-    }
-    
     func isTokenAlreadyImported(tokenId: String) -> Bool {
         return accountSavedCIS2Tokens.filter { $0.contractAddress.index == contractIndex }.contains { $0.tokenId == tokenId }
     }

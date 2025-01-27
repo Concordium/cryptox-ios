@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 public enum QRScannerOutput {
     case address(String)
@@ -91,5 +92,26 @@ class ScanAddressQRPresenter: ScanAddressQRPresenterProtocol {
                 view?.showQrInvalid()
             }
         }
+    }
+}
+
+struct ScanAddressQRView: UIViewControllerRepresentable {
+    typealias UIViewControllerType = UINavigationController
+    
+    var dependencyProvider = ServicesProvider.defaultProvider()
+    var onPicked: (String) -> Void
+
+    func makeUIViewController(context: Context) -> UINavigationController {
+        let navigationController = UINavigationController()
+        let vc = ScanAddressQRFactory.create(with: ScanAddressQRPresenter(wallet: dependencyProvider.mobileWallet(), closure: { output in
+            onPicked(output.address)
+            navigationController.popViewController(animated: true)
+        }))
+        navigationController.pushViewController(vc, animated: false)
+        return navigationController
+    }
+
+    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
+        // No need to update anything dynamically
     }
 }

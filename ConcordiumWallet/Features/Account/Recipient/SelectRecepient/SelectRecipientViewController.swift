@@ -72,13 +72,13 @@ class SelectRecipientViewController: BaseViewController, SelectRecipientViewProt
     }
     
     func bind(to viewModel: RecipientListViewModel) {
-        viewModel.$recipients.sink {
-            var snapshot = NSDiffableDataSourceSnapshot<String, RecipientViewModel>()
-            snapshot.appendSections(["me", "others"])
-            snapshot.appendItems($0, toSection: "others")
-            self.dataSource?.apply(snapshot)
-            self.tableView.reloadData()
-        }.store(in: &cancellables)
+//        viewModel.$recipients.sink {
+//            var snapshot = NSDiffableDataSourceSnapshot<String, RecipientViewModel>()
+//            snapshot.appendSections(["me", "others"])
+////            snapshot.appendItems($0, toSection: "others")
+//            self.dataSource?.apply(snapshot)
+//            self.tableView.reloadData()
+//        }.store(in: &cancellables)
         
         viewModel.$mode.sink {
             self.dataSource?.mode = $0

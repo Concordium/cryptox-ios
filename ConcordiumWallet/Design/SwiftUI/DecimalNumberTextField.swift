@@ -41,19 +41,28 @@ struct DecimalNumberTextField: View {
             if textFieldText.isEmpty {
                 HStack {
                     Text("0.00")
-                        .font(.satoshi(size: 25, weight: .medium))
-                        .foregroundColor(.blackSecondary)
+                        .font(.plexSans(size: 55, weight: .medium))
+                        .dynamicTypeSize(.xSmall ... .xxLarge)
+                        .minimumScaleFactor(0.5)
+                        .lineLimit(1)
+                        .modifier(RadialGradientForegroundStyleModifier())
+                        .opacity(0.5)
                     Spacer()
                 }
             }
             TextField(placeholder, text: binding(for: $decimalValue))
                 .keyboardType(.decimalPad)
-                .font(.satoshi(size: 25, weight: .medium))
-                .foregroundColor(.blackSecondary)
-                .tint(.blackSecondary)
+                .font(.plexSans(size: 55, weight: .medium))
+                .dynamicTypeSize(.xSmall ... .xxLarge)
+                .minimumScaleFactor(0.5)
+                .lineLimit(1)
+                .opacity(1)
+                .modifier(RadialGradientForegroundStyleModifier())
                 .onChange(of: decimalValue) { newDecimalValue in
                     if !(newDecimalValue.value == 0) {
                         self.textFieldText = TokenFormatter().plainString(from: newDecimalValue, decimalSeparator: ".")
+                    } else if newDecimalValue == .zero {
+                        self.textFieldText = ""
                     }
                 }
         }
