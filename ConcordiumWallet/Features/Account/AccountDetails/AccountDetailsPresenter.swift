@@ -39,8 +39,6 @@ protocol AccountDetailsPresenterDelegate: ShowShieldedDelegate {
 
     func transactionSelected(viewModel: TransactionViewModel)
     func accountDetailsClosed()
-    
-    func showImportTokenFlow(account: AccountDataType)
 }
 
 // MARK: -
@@ -69,8 +67,6 @@ protocol AccountDetailsPresenterProtocol: AnyObject {
     func getIdentityDataPresenter() -> AccountDetailsIdentityDataPresenter
     func getTransactionsDataPresenter() -> AccountTransactionsDataPresenter
     func updateTransfersOnChanges()
-    
-    func showImportTokenFlow()
 }
 
 class AccountDetailsPresenter {
@@ -108,10 +104,6 @@ class AccountDetailsPresenter {
 }
 
 extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
-    
-    func showImportTokenFlow() {
-        delegate?.showImportTokenFlow(account: account)
-    }
     
     func showGTUDrop() -> Bool {
         return true

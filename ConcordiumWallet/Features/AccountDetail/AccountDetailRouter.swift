@@ -10,10 +10,10 @@ import UIKit
 import Combine
 
 protocol AccountDetailRoutable: AnyObject {
-    func showImportTokenFlow(for account: AccountDataType)
     func showAccountDetailFlow(for account: AccountDataType)
     func showCIS2TokenDetailsFlow(_ token: CIS2Token, account: AccountDataType)
     func showTx(_ tx: TransactionViewModel)
+    func showEarnFlow(_ account: AccountDataType)
 }
 
 protocol CIS2TokenDetailRoutable: AnyObject {
@@ -39,17 +39,6 @@ final class AccountDetailRouter: ObservableObject {
 
 extension AccountDetailRouter: TransactionDetailPresenterDelegate {}
 extension AccountDetailRouter: AccountDetailRoutable {
-    @MainActor
-    func showImportTokenFlow(for account: AccountDataType) {
-        let view = ImportTokenView(viewModel: .init(storageManager: self.dependencyProvider.storageManager(),
-                                                    networkManager: self.dependencyProvider.networkManager(),
-                                                    account: account),
-                                   searchTokenViewModel: SearchTokenViewModel(cis2Service:
-                                                                                CIS2Service(networkManager: self.dependencyProvider.networkManager(),
-                                                                                            storageManager: self.dependencyProvider.storageManager())))
-        let vc = SceneViewController(content: view)
-        navigationController.present(vc, animated: true)
-    }
 
     @MainActor
     func showAccountDetailFlow(for account: AccountDataType) {
@@ -61,6 +50,30 @@ extension AccountDetailRouter: AccountDetailRoutable {
         
         accountDetailCoordinator.accountsMainViewDelegate = accountMainViewDelegate
         accountDetailCoordinator.showLegacyAccountDetails(account: account)
+    }
+    
+    @MainActor
+    func showEarnFlow(_ account: AccountDataType) {
+        let accountDetailCoordinator = AccountDetailsCoordinator.init(
+            navigationController: navigationController,
+            dependencyProvider: dependencyProvider,
+            parentCoordinator: self,
+            account: account)
+        
+        accountDetailCoordinator.accountsMainViewDelegate = accountMainViewDelegate
+        accountDetailCoordinator.start(entryPoint: .earn)
+    }
+    
+    @MainActor
+    func showAccountSettings(_ account: AccountDataType) {
+        let accountDetailCoordinator = AccountDetailsCoordinator.init(
+            navigationController: navigationController,
+            dependencyProvider: dependencyProvider,
+            parentCoordinator: self,
+            account: account)
+        
+        accountDetailCoordinator.accountsMainViewDelegate = accountMainViewDelegate
+        accountDetailCoordinator.start(entryPoint: .settings)
     }
     
     func showCIS2TokenDetailsFlow(_ token: CIS2Token, account: AccountDataType) {
@@ -78,8 +91,8 @@ extension AccountDetailRouter: AccountDetailRoutable {
         navigationController.pushViewController(viewController, animated: true)
     }
     func showTx(_ tx: TransactionViewModel) {
-        let vc = TransactionDetailFactory.create(with: TransactionDetailPresenter(delegate: self, viewModel: tx))
-        navigationController.pushViewController(vc, animated: true)
+//        let vc = TransactionDetailFactory.create(with: TransactionDetailPresenter(delegate: self, viewModel: tx))
+//        navigationController.pushViewController(vc, animated: true)
     }
 }
 

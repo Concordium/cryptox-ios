@@ -16,10 +16,10 @@ protocol AccountDetailsDelegate: AnyObject {
 }
 
 enum AccountDetailsFlowEntryPoint {
-    case details
     case send
     case receive
     case earn
+    case settings
 }
 
 @MainActor
@@ -53,52 +53,33 @@ class AccountDetailsCoordinator: Coordinator,
     }
     
     func start() {
-        start(entryPoint: .details)
+        start(entryPoint: .settings)
     }
     
     func start(entryPoint: AccountDetailsFlowEntryPoint) {
         switch entryPoint {
-        case .details:
-            showAccountDetails(account: account)
         case .send:
             showSendFund()
         case .receive:
                 showAccountAddressQR(account)
         case .earn:
             showEarn(account: account)
+        case .settings:
+            showSettings()
         }
     }
     
-    func showImportTokenFlow(account: AccountDataType) {
-        let view = ImportTokenView(viewModel: .init(storageManager: self.dependencyProvider.storageManager(),
-                                                    networkManager: self.dependencyProvider.networkManager(),
-                                                    account: account),
-                                   searchTokenViewModel: SearchTokenViewModel(cis2Service: CIS2Service(networkManager: self.dependencyProvider.networkManager(),
-                                                                                                       storageManager: self.dependencyProvider.storageManager())))
-        let vc = SceneViewController(content: view)
-        navigationController.present(vc, animated: true)
+    func showSettings() {
+        let presenter = AccountSettingsPresenter(account: account, delegate: self)
+        navigationController.pushViewController(presenter.present(AccountSettingsView.self), animated: true)
     }
-    
+
     func showOldAccountDetails(account: AccountDataType)  {
         accountDetailsPresenter = AccountDetailsPresenter(dependencyProvider: dependencyProvider,
                                                           account: account,
                                                           delegate: self)
         let vc = AccountDetailsFactory.create(with: accountDetailsPresenter!)
         navigationController.pushViewController(vc, animated: true)
-    }
-    
-    func showAccountDetails(account: AccountDataType) {
-        let router = AccountDetailRouter(account: account, navigationController: navigationController, dependencyProvider: dependencyProvider as! ServicesProvider)
-        let viewModel = AccountDetailViewModel(
-            router: router,
-            account: account,
-            storageManager: dependencyProvider.storageManager(),
-            dependencyProvider: dependencyProvider
-        )
-        let view = AccountDetailView(viewModel: viewModel)
-        let viewController = SceneViewController(content: view)
-        viewController.hidesBottomBarWhenPushed = true
-        navigationController.pushViewController(viewController, animated: true)
     }
     
     func showLegacyAccountDetails(account: AccountDataType) {
@@ -189,8 +170,9 @@ class AccountDetailsCoordinator: Coordinator,
     }
     
     func showTransactionDetail(viewModel: TransactionViewModel) {
-        let vc = TransactionDetailFactory.create(with: TransactionDetailPresenter(delegate: self, viewModel: viewModel))
-        navigationController.pushViewController(vc, animated: true)
+//        let tokenDetailsView = TransactionDetailsView()
+//        tokenDetailsView.
+//        navigationController.pushViewController(vc, animated: true)
     }
     
     func showReleaseSchedule(account: AccountDataType) {

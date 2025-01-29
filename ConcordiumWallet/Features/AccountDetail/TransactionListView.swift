@@ -15,6 +15,8 @@ final class TransactionListViewModel: ObservableObject {
     let timestamp: String
     var amount: String = ""
     var cost: String = ""
+    var memo: Memo?
+    var sender: String?
     
     var showCostAsEstimate = false
     var isFailed: Bool = false
@@ -24,7 +26,7 @@ final class TransactionListViewModel: ObservableObject {
         self.total = tx.total?.displayValueWithCCDStroke() ?? "0.0 CCD"
         self.timestamp = GeneralFormatter.formatTime(for: tx.date)
         if let cost = tx.total?.intValue {
-            self.totalColor =  cost < 0 ? Color.blackAditional.opacity(0.12) : Color.init(hex: 0x09CFA0, alpha: 0.12)
+            self.totalColor =  cost < 0 ? .white : .success
         }
         
         switch tx.status {
@@ -43,12 +45,7 @@ final class TransactionListViewModel: ObservableObject {
         if let cost = tx.cost?.displayValueWithCCDStroke(),
            let amount = tx.amount?.displayValueWithCCDStroke() {
             self.amount = amount
-            self.cost = " - " + cost + " Fee"
-            
-            // Prepend with ~ if cost is estimated.
-            if showCostAsEstimate {
-                self.cost = self.cost.replacingOccurrences(of: "- ", with: "- ~", options: NSString.CompareOptions.literal, range: nil)
-            }
+            self.cost = "with fee " + cost
         }
         
         if tx.status == .committed && tx.outcome == .reject {
@@ -56,6 +53,9 @@ final class TransactionListViewModel: ObservableObject {
         } else if tx.status == .finalized && tx.outcome == .reject {
             isFailed = true
         }
+        
+        self.memo = tx.memo
+        self.sender = tx.details.fromAddressName
     }
 }
 
@@ -63,7 +63,7 @@ struct TransactionListView: View {
     @StateObject var viewModel: TransactionListViewModel
     
     var body: some View {
-        VStack(spacing: 4) {
+        VStack(alignment: .leading, spacing: 4) {
             if viewModel.isFailed {
                 HStack {
                     Image("ico_tx_failed")
@@ -80,37 +80,52 @@ struct TransactionListView: View {
                 .clipShape(Capsule())
                 .frame(maxWidth: .infinity)
             }
-            
-            
-            HStack {
-                Text(viewModel.title)
-                    .font(.satoshi(size: 15, weight: .medium))
-                    .foregroundColor(Color.white)
+            HStack(alignment: .center, spacing: 8) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(viewModel.title)
+                        .font(.satoshi(size: 15, weight: .medium))
+                        .foregroundColor(Color.white)
+                    Text(viewModel.timestamp)
+                        .foregroundColor(Color.MineralBlue.blueish3.opacity(0.5))
+                        .font(.satoshi(size: 14, weight: .medium))
+                }
                 Spacer()
-                Text(viewModel.total)
-                    .foregroundColor(Color.white)
-                    .font(.satoshi(size: 15, weight: .medium))
-                    .padding(.vertical, 4)
-                    .padding(.horizontal, 6)
-                    .background(viewModel.totalColor)
-                    .clipShape(Capsule())
-            }
-            HStack {
-                Text(viewModel.timestamp)
-                    .foregroundColor(Color.blackAditional)
-                    .font(.satoshi(size: 14, weight: .medium))
-                Spacer()
-                Text(viewModel.amount)
-                    .foregroundColor(Color.blackAditional)
-                    .font(.satoshi(size: 11, weight: .medium))
-                Text(viewModel.cost)
-                    .foregroundColor(Color.blackAditional)
-                    .font(.satoshi(size: 11, weight: .medium))
+                
+                VStack(alignment: .trailing, spacing: 4) {
+                    Text(viewModel.total)
+                        .foregroundStyle(viewModel.totalColor)
+                        .font(.satoshi(size: 15, weight: .medium))
+                    if !viewModel.cost.isEmpty {
+                        Text(viewModel.cost)
+                            .foregroundColor(Color.MineralBlue.blueish3.opacity(0.5))
+                            .font(.satoshi(size: 12, weight: .medium))
+                    }
+                }
+                
+                Image("button_slider_forward")
+                    .renderingMode(.template)
+                    .foregroundStyle(.grey4)
+                    .frame(width: 24, height: 24)
             }
             
-            Rectangle().fill(Color.greyMain.opacity(0.2)).frame(maxWidth: .infinity).frame(height: 1).padding(.top, 18)
-            
+            if let memo = viewModel.memo {
+                Divider()
+                    .foregroundStyle(.white.opacity(0.1))
+                
+                HStack(spacing: 6) {
+                    Image("note")
+                    
+                    Text(memo.displayValue)
+                        .font(.satoshi(size: 12, weight: .medium))
+                        .foregroundStyle(Color.MineralBlue.blueish2)
+                }
+            }
         }
+        .padding(.horizontal, 8)
+        .padding(.vertical, 15)
+        .background(Color(red: 0.17, green: 0.19, blue: 0.2).opacity(0.3))
+
+        .cornerRadius(12)
         .opacity(viewModel.isFailed ? 0.5 : 1.0)
         .listRowBackground(Color.clear)
     }

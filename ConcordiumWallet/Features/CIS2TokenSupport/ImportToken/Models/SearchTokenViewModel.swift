@@ -35,7 +35,7 @@ final class SearchTokenViewModel: ObservableObject {
         self.cis2Service = cis2Service
     }
     
-    func runSearch(_ tokenIndex: String, contractIndex: Int) {
+    func runSearch(_ tokenIndex: String? = nil, contractIndex: Int) {
         guard !state.isSearching else { return }
         
         state = .searching
@@ -53,7 +53,7 @@ final class SearchTokenViewModel: ObservableObject {
         }
     }
     
-    private func searchTokenData(by tokenId: String, contractIndex: Int) async throws -> [CIS2Token] {
+    private func searchTokenData(by tokenId: String? = nil, contractIndex: Int) async throws -> [CIS2Token] {
         var tokens = [CIS2Token]()
         do {
             tokens = try await cis2Service.fetchAllTokensData(contractIndex: contractIndex, tokenIds: tokenId)

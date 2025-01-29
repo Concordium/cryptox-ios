@@ -16,7 +16,7 @@ protocol MoreCoordinatorDelegate: IdentitiesCoordinatorDelegate {
 
 @MainActor
 class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
-    typealias DependencyProvider = MoreFlowCoordinatorDependencyProvider & IdentitiesFlowCoordinatorDependencyProvider
+    typealias DependencyProvider = MoreFlowCoordinatorDependencyProvider & IdentitiesFlowCoordinatorDependencyProvider & NFTFlowCoordinatorDependencyProvider
     
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
@@ -33,7 +33,7 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
     private var cancellables: [AnyCancellable] = []
     
     init(navigationController: UINavigationController,
-         dependencyProvider: DependencyProvider & LoginDependencyProvider & WalletAndStorageDependencyProvider,
+         dependencyProvider: DependencyProvider & LoginDependencyProvider & WalletAndStorageDependencyProvider & NFTFlowCoordinatorDependencyProvider,
          parentCoordinator: MoreCoordinatorDelegate
     ) {
         self.mobileWallet = dependencyProvider.mobileWallet()
@@ -72,7 +72,8 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
     
     func showMenu() {
         let vc = MoreMenuFactory.create(with: MoreMenuPresenter(dependencyProvider: dependencyProvider, delegate: self))
-        vc.tabBarItem = UITabBarItem(title: "more_tab_title".localized, image: UIImage(named: "more_tab_icon"), tag: 0)
+        vc.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "more_tab_icon"), tag: 0)
+        vc.tabBarItem.selectedImage = UIImage(named: "tab_icon_more_selected")?.withRenderingMode(.alwaysOriginal)
         navigationController.pushViewController(vc, animated: false)
     }
     
@@ -263,6 +264,13 @@ extension MoreCoordinator: SelectRecipientPresenterDelegate {
         DispatchQueue.main.async {
             self.showScanAddressQR()
         }
+    }
+    
+    func userSelectedNft() {
+        let collectionsCoordinator = CollectionsCoordinator(navigationController: navigationController,
+                                                            dependencyProvider: dependencyProvider)
+        collectionsCoordinator.configureAccountAlertDelegate = configureAccountAlertDelegate
+        collectionsCoordinator.start()
     }
 }
 

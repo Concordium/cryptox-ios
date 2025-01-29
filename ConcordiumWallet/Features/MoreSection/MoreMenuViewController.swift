@@ -26,6 +26,7 @@ enum MenuCell: Hashable {
     case unshieldAssets(title: String)
     case notifications(title: String)
     case exportWalletPrivateKey(title: String)
+    case nft(title: String)
     
     var title: String {
         switch self {
@@ -41,7 +42,8 @@ enum MenuCell: Hashable {
                     .unshieldAssets(let title),
                     .notifications(let title),
                     .revealSeedPhrase(let title),
-                    .exportWalletPrivateKey(let title):
+                    .exportWalletPrivateKey(let title),
+                    .nft(let title):
                 return title
         }
     }
@@ -74,6 +76,8 @@ enum MenuCell: Hashable {
                 return UIImage(named: "more_bell")
             case .exportWalletPrivateKey:
                 return UIImage(named: "more_export")
+            case .nft:
+                return UIImage(named: "more_nft")
         }
     }
     
@@ -115,7 +119,7 @@ class MoreMenuViewController: BaseViewController, MoreMenuViewProtocol, Storyboa
         presenter.view = self
         presenter.viewDidLoad()
 
-        title = "more_tab_title".localized
+        self.navigationItem.title = "more_tab_title".localized
 
         tableView.tableFooterView = UIView(frame: .zero)
 
@@ -161,6 +165,8 @@ extension MoreMenuViewController: UITableViewDelegate {
                 presenter.userSelectedNotifications()
             case .exportWalletPrivateKey:
                 presenter.showExportWalletPrivateKey()
+            case .nft:
+                presenter.userSelectedNft()
         }
     }
 }
@@ -171,10 +177,7 @@ extension MoreMenuViewController {
         snapshot.appendSections([.main])
         snapshot.appendItems([.unshieldAssets(title: "more.funds.to.unshield".localized)])
         snapshot.appendItems([.identities(title: "more.identities".localized)])
-        snapshot.appendItems([.addressBook(title: "more.addressBook".localized)])
-        snapshot.appendItems([.notifications(title: "more.notifications".localized)])
         snapshot.appendItems([.update(title: "more.update".localized)])
-        snapshot.appendItems([.about(title: "more.about".localized)])
         if presenter.isLegacyAccount() {
             snapshot.appendItems([.import(title: "more.import".localized)])
             snapshot.appendItems([.export(title: "more.export".localized)])
@@ -187,8 +190,12 @@ extension MoreMenuViewController {
             }
             snapshot.appendItems([.recovery(title: "more.recovery".localized)])
         }
-        
+        snapshot.appendItems([.notifications(title: "more.notifications".localized)])
+        snapshot.appendItems([.addressBook(title: "more.addressBook".localized)])
         snapshot.appendItems([.analytics(title: "more.analytics".localized)])
+        snapshot.appendItems([.nft(title: "more.nft".localized)])
+        snapshot.appendItems([.about(title: "more.about".localized)])
+        
         snapshot.appendItems([.deleteAccount(title: "more.deleteAccount".localized)])
         DispatchQueue.main.async {
             self.dataSource?.apply(snapshot)

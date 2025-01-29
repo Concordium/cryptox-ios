@@ -30,21 +30,15 @@ struct NewsFeed: View {
                     }
                     
                     if rssFeed.isLoading {
-                        HStack(alignment: .center) {
-                            Spacer()
-                            ProgressView()
-                            Spacer()
-                        }
-                        .listRowBackground(Color.clear)
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
+                        NewsFeedSkeleton()
                     }
                 }
+                .padding(.top, 19)
                 .refreshable {
                     rssFeed.fetchRSSFeed()
                 }
                 .listStyle(.plain)
-                .navigationTitle("Concordium News")
+                .navigationTitle("Discover")
                 .onAppear {
                     rssFeed.fetchRSSFeed()
                 }
@@ -70,6 +64,7 @@ struct NewsFeed: View {
             }
             
             RSSPostPreview(item, size: size)
+                .cornerRadius(16)
             
             Text(item.description)
                 .font(.satoshi(size: 14, weight: .regular))
@@ -88,13 +83,8 @@ struct NewsFeed: View {
         .frame(maxWidth: .infinity)
         .padding(.horizontal, 16)
         .padding(.vertical, 20)
-        .background(Color(red: 0.08, green: 0.1, blue: 0.11))
+        .background(Color(red: 0.17, green: 0.19, blue: 0.2).opacity(0.3))
         .cornerRadius(16)
-        .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .inset(by: 0.5)
-                .stroke(Color(red: 0.16, green: 0.2, blue: 0.23), lineWidth: 1)
-        )
     }
     
     private func RSSPostPreview(_ item: RSSItem, size: CGSize) -> some View {
@@ -115,4 +105,34 @@ struct NewsFeed: View {
 
 #Preview {
     NewsFeed()
+}
+
+struct NewsFeedSkeleton: View {
+    var body: some View {
+        ForEach(0..<5) { _ in
+            VStack(alignment: .leading, spacing: 12) {
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(Color.gray.opacity(0.3))
+                    .frame(height: 20)
+                
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(Color.gray.opacity(0.3))
+                    .frame(height: 150)
+                
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(Color.gray.opacity(0.3))
+                    .frame(height: 20)
+                
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(Color.gray.opacity(0.3))
+                    .frame(width: 100, height: 15)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal, 18)
+            .padding(.vertical, 20)
+            .background(Color(red: 0.17, green: 0.19, blue: 0.2).opacity(0.3))
+            .cornerRadius(16)
+            .redacted(reason: .placeholder)
+        }
+    }
 }

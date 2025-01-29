@@ -12,10 +12,10 @@ no = "No"; /*  */
 close = "Close"; /*  */
 start = "Start"; /*  */
 accounts_tab_title = "Accounts"; /*  */
-news_tab_title = "News"; /*  */
+news_tab_title = "Discover"; /*  */
 collections_tab_title = "NFT"; /*  */
 identities_tab_title = "Identities"; /*  */
-more_tab_title = "More"; /*  */
+more_tab_title = "Wallet Settings"; /*  */
 identity_provider_list_title = "Initial account creation"; /*  */
 passcode_selection_title = "Select Passcode"; /*  */
 add_identity_data = "Reveal Identity Data";
@@ -104,7 +104,7 @@ add_identity_data = "Reveal Identity Data";
 "account.accounttotal" = "Account Total";
 "accounts.initial" = "(Initial)";
 "accounts.overview.atdisposal" = "At disposal";
-"accounts.overview.staked" = "Staked";
+"accounts.overview.staked" = "staked";
 "accounts.totalatdisposal" = "Total currently at disposal";
 
 
@@ -203,7 +203,7 @@ process on-chain.";
 "accountDetails.bakingstakelabel" = "Stake with validator %@";
 "accountDetails.passivevalue" = "Passive delegation";
 "accountDetails.bakerpoolvalue" = "Delegation with staking pool %d";
-
+"accountDetails.events" = "Events";
 
 "sendFund.pageTitle.send" = "Send Funds";
 "sendFund.pageTitle.unshieldAmount" = "Unshield Amount";
@@ -1051,6 +1051,7 @@ Remember to restart your node with the validator keys.";
 "more.funds.to.unshield" = "Funds to Unshield";
 "more.notifications" = "Notifications";
 "more.exportWallet.privateKey" = "Export wallet private key";
+"more.nft" = "NFT";
 
 "analytics.trackMessage" = "To improve the experience, we would like to track your activity in the app (but never your crypto). Of course, it is completely anonymous.";
 "analytics.popupTrackTitle" = "Help us improve";
@@ -1294,3 +1295,6 @@ Remember to restart your node with the validator keys.";
 "unlock.feature.subtitle" = "To use all features please complete your wallet set-up.";
 "go.back" = "Go back";
 "finalizing_account" = "Finalizing account";
+
+"backup.recommendation.message" = "We recommend that you migrate to a seed phrase wallet in order to make use of the full range of CryptoX features.";
+"ccd.description" = "CCD is the native token of the Concordium blockchain. Its main use cases are the payment of transaction fees, the payment for the execution of smart contracts, payments between users, payments for commercial transactions, staking, and the rewards offered to node operators.";

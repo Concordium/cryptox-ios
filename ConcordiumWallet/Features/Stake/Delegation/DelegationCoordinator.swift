@@ -18,7 +18,7 @@ class DelegationCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     
-    weak var delegate: DelegationCoordinatorDelegate?
+    var delegate: DelegationCoordinatorDelegate?
     private var account: AccountDataType
     
     private var dependencyProvider: StakeCoordinatorDependencyProvider
@@ -124,6 +124,7 @@ class DelegationCoordinator: Coordinator {
     func cleanup() {
         childCoordinators.removeAll(where: { $0 is DelegationOnboardingCoordinator })
         self.delegate?.finished()
+        self.delegate = nil
     }
 }
 

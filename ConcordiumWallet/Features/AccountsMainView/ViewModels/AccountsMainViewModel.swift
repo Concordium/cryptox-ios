@@ -20,7 +20,14 @@ final class AccountsMainViewModel: ObservableObject {
     @Published var atDisposal = GTU(intValue: 0)
     @Published var staked = GTU(intValue: 0)
     @Published var isBackupAlertShown = false
-        
+    @Published var selectedAccount: AccountDataType?
+    @Published var isLoading: Bool = false
+    
+    var accountDetailViewModel: AccountDetailViewModel? {
+        guard let selectedAccount = selectedAccount else { return nil }
+        return AccountDetailViewModel(account: selectedAccount)
+    }
+    
     let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     let defaultProvider = ServicesProvider.defaultProvider()
     private var cancellables = [AnyCancellable]()
@@ -30,7 +37,7 @@ final class AccountsMainViewModel: ObservableObject {
     init(dependencyProvider: AccountsFlowCoordinatorDependencyProvider, onReload: AnyPublisher<Void, Never>, walletConnectService: WalletConnectService) {
         self.dependencyProvider = dependencyProvider
         self.walletConnectService = walletConnectService
-        self.isBackupAlertShown = dependencyProvider.mobileWallet().isLegacyAccount()
+        self.isBackupAlertShown = dependencyProvider.mobileWallet().isLegacyAccount() && AppSettings.isImportedFromFile
         self.defaultCIS2TokenManager = .init(storageManager: dependencyProvider.storageManager(), networkManager: self.dependencyProvider.networkManager())
         
         accounts = dependencyProvider.storageManager().getAccounts().sorted(by: { t1, t2 in
@@ -48,6 +55,7 @@ final class AccountsMainViewModel: ObservableObject {
     
     @MainActor
     func reload() async {
+        isLoading = true
         accounts = dependencyProvider.storageManager().getAccounts()
         
         await reloadAccounts()
@@ -56,7 +64,11 @@ final class AccountsMainViewModel: ObservableObject {
         Task {
             checkPendingAccountsStatusesIfNeeded()
         }
-        updateData()        
+        updateData()
+        if selectedAccount == nil {
+            selectedAccount = accounts.first
+        }
+        isLoading = false
     }
     
     @MainActor
@@ -75,6 +87,7 @@ final class AccountsMainViewModel: ObservableObject {
     
     private func updateData() {
         accountViewModels = accounts.map { AccountPreviewViewModel.init(account: $0, tokens: dependencyProvider.storageManager().getAccountSavedCIS2Tokens($0.address)) }
+        updateDotImageNames()
         if defaultProvider.mobileWallet().isLegacyAccount() && AppSettings.isImportedFromFile {
             state = .accounts
         } else {
@@ -104,6 +117,10 @@ final class AccountsMainViewModel: ObservableObject {
     @MainActor
     private func updateAccountsInfo(_ accounts: [AccountDataType]) async throws -> [AccountDataType] {
         try await dependencyProvider.accountsService().updateAccountsBalances(accounts: accounts).async()
+    }
+    
+    func changeCurrentAccount(_ account: AccountDataType) {
+        selectedAccount = account
     }
 }
 
@@ -194,5 +211,12 @@ extension AccountsMainViewModel {
 //                            self.identities = self.dependencyProvider.storageManager().getIdentities()
 //                            self.checkIfConfirmedOrFailed()
                         }).store(in: &cancellables)
+    }
+    
+    func updateDotImageNames() {
+        let dotImages = ["dot1", "dot2", "dot3", "dot4", "dot5", "dot6", "dot7", "dot8", "dot9"]
+        accountViewModels.enumerated().forEach { index, account in
+            account.dotImageIndex = index % dotImages.count + 1
+        }
     }
 }

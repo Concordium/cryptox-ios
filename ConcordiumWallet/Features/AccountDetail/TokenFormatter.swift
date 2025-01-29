@@ -226,6 +226,30 @@ public class TokenFormatter {
         return sign + magnitude + literal
     }
     
+    public func displayStringWithTwoValuesAfterComma(from number: BigDecimal,
+                                                     decimalSeparator: String = Locale.autoupdatingCurrent.decimalSeparator ?? ".",
+                                                     thousandSeparator: String = Locale.autoupdatingCurrent.groupingSeparator ?? ",") -> String {
+        let stringValue = string(from: number, decimalSeparator: decimalSeparator, thousandSeparator: thousandSeparator)
+        let minimumFractionDigits = 2
+        // Split the input into the whole part and fractional part
+        let components = stringValue.split(separator: ".", maxSplits: 1)
+        guard components.count == 2 else {
+            // No fractional part, return as is
+            return stringValue
+        }
+        
+        let wholePart = components[0]
+        var fractionalPart = components[1]
+        
+        // Remove trailing values while respecting `minimumFractionDigits`
+        while fractionalPart.count > minimumFractionDigits {
+            fractionalPart.removeLast()
+        }
+        
+        // Return the adjusted string
+        return fractionalPart.isEmpty ? String(wholePart) : "\(wholePart).\(fractionalPart)"
+    }
+    
     public func plainString(from number: BigDecimal, decimalSeparator: String = Locale.autoupdatingCurrent.decimalSeparator ?? ".") -> String {
         var numberString = String(abs(number.value))
         let leadingZeroesForSmallNumbers = String(repeating: "0",

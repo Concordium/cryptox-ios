@@ -19,6 +19,17 @@ struct AppConstants {
         static let support = "support@concordium.software"
     }
     
+    struct Transaction {
+        static let ccdExplorer: String = {
+            var url = ""
+            #if MAINNET
+            url = "https://ccdexplorer.io/mainnet/transaction/"
+            #elseif TESTNET
+            url = "https://ccdexplorer.io/testnet/transaction/"
+#endif
+            return url
+        }()
+    }
     static let rssFeedURL = URL(string: "https://concordium-new.webflow.io/cryptox-news-articles/rss.xml")!
     static let apiKey = "6515da6d-a065-4676-a214-c83e5b18f5f3"
     

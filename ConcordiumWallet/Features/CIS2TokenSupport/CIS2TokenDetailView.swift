@@ -89,13 +89,6 @@ struct CIS2TokenDetailView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                LinearGradient(
-                    colors: [Color(hex: 0x242427), Color(hex: 0x09090B)],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .ignoresSafeArea()
-                
                 ScrollView {
                     LazyVStack {
                         TokenPreviewHeaderView()
@@ -251,6 +244,6 @@ struct CIS2TokenDetailView: View {
         .padding(.top, 20)
         .padding(.bottom, 12)
         .frame(maxWidth: .infinity)
-        .background(Color.blackSecondary)
+        .modifier(AppBackgroundModifier())
     }
 }

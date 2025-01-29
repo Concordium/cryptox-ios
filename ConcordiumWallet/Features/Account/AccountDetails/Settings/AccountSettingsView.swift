@@ -23,7 +23,6 @@ struct AccountSettingsView: Page {
             HStack {
                 Text(menuItem.text)
                 Spacer()
-                Image(systemName: "chevron.right")
             }
             .padding([.top, .bottom], 8)
             .contentShape(Rectangle())
@@ -37,9 +36,11 @@ struct AccountSettingsView: Page {
                 }
             }
             .animation(.default)
-            .listRowBackground(selectedMenuItemText == menuItem.text ? Color.init(white: 0.85) : .clear)
+            .listRowBackground(selectedMenuItemText == menuItem.text ? Color.grey3.opacity(0.5) : .clear)
         }
         .listStyle(.plain)
+        .padding(.top, 20)
+        .modifier(AppBackgroundModifier())
     }
     
     private func getMenuItems() -> [AccountSettingsMenuItem] {

@@ -58,7 +58,7 @@ struct EarnView: Page {
                 viewModel.loadMinStake()
             })
         }
-        .background(Image("bg_main").resizable().ignoresSafeArea(.all))
+        .modifier(AppBackgroundModifier())
     }
     
     @ViewBuilder

@@ -18,7 +18,7 @@ enum TransactionNotificationTypes: String {
 }
 
 enum TokenResult {
-    case tokenFound(CIS2Token)
+    case tokenFound(CIS2Token, CIS2TokenBalance)
     case showAlert
 }
 
@@ -32,7 +32,7 @@ protocol NotificationNavigationDelegate: AnyObject {
 }
 
 protocol TransactionNotificationServiceDelegate: AnyObject {
-    func presentTokenAlert(userInfo: [AnyHashable: Any], completion: @escaping (CIS2Token) -> Void)
+    func presentTokenAlert(userInfo: [AnyHashable: Any], completion: @escaping (CIS2Token, CIS2TokenBalance?) -> Void)
 }
 
 final class TransactionNotificationService {
@@ -98,7 +98,7 @@ final class TransactionNotificationService {
         sendTokenToConcordiumServer()
     }
     
-    func handleCCDTransaction(account: AccountDataType, transactionId: String, accountDetailRouter: AccountDetailsCoordinator, completion: @escaping ((TransactionViewModel)-> Void)) {
+    func handleCCDTransaction(account: AccountDataType, transactionId: String, completion: @escaping ((TransactionViewModel)-> Void)) {
         let transactionLoadingHandler = TransactionsLoadingHandler(account: account, balanceType: .balance, dependencyProvider: defaultProvider)
         
         transactionLoadingHandler.getTransactions()
@@ -122,18 +122,19 @@ final class TransactionNotificationService {
             .store(in: &cancellables)
     }
     
-    func handleCIS2Notification(userInfo: [AnyHashable: Any], account: AccountDataType, navigationController: UINavigationController) {
-        let detailRouter = AccountDetailRouter(account: account, navigationController: navigationController, dependencyProvider: defaultProvider)
-        
-        guard let result = NotificationTokenService().checkToken(from: userInfo) else { return }
-        switch result {
-        case .tokenFound(let token):
-            detailRouter.showCIS2TokenDetailsFlow(token, account: account)
-        case .showAlert:
-            delegate?.presentTokenAlert(userInfo: userInfo) { token in
-                DispatchQueue.main.async {
-                    detailRouter.showCIS2TokenDetailsFlow(token, account: account)
+    func handleCIS2Notification(userInfo: [AnyHashable: Any], completion: @escaping ((CIS2Token, CIS2TokenBalance?)-> Void)) {
+        NotificationTokenService().checkToken(from: userInfo) { result in
+            switch result {
+            case .tokenFound(let token, let balance):
+                completion(token, balance)
+            case .showAlert:
+                self.delegate?.presentTokenAlert(userInfo: userInfo) { token, balance in
+                    DispatchQueue.main.async {
+                        completion(token, balance)
+                    }
                 }
+            case .none:
+                break
             }
         }
     }

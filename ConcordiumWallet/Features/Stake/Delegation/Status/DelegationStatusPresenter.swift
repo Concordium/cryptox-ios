@@ -26,7 +26,7 @@ protocol DelegationStatusPresenterDelegate: AnyObject {
 
 class DelegationStatusPresenter: StakeStatusPresenterProtocol {
     
-    weak var delegate: DelegationStatusPresenterDelegate?
+    var delegate: DelegationStatusPresenterDelegate?
     
     private var account: AccountDataType
     let viewModel: StakeStatusViewModel
@@ -139,6 +139,7 @@ class DelegationStatusPresenter: StakeStatusPresenterProtocol {
     
     func closeButtonTapped() {
         self.delegate?.pressedClose()
+        self.delegate = nil
     }
     
     func updateStatus() {

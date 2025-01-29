@@ -9,15 +9,18 @@
 import SwiftUI
 
 final class AccountPreviewViewModel: Identifiable {
-    var totalAmount: String
-    var totalAtDisposalAmount: String
+    var totalAmount: GTU
+    var totalAtDisposalAmount: GTU
     
     var accountName: String
     var accountOwner: String
     var isInitialAccount: Bool
     
+    var stakedAmount: GTU
+    
     var viewState: AccountCardViewState = .basic
     
+    var dotImageIndex: Int = 1
     let address: String
     
     var id: Int {
@@ -39,12 +42,14 @@ final class AccountPreviewViewModel: Identifiable {
         self.tokens = tokens
         self.address = account.address
         
-        self.totalAmount = GTU(intValue: account.totalForecastBalance).displayValue()
-        self.totalAtDisposalAmount = GTU(intValue: account.forecastAtDisposalBalance).displayValue()
+        self.totalAmount = GTU(intValue: account.totalForecastBalance)
+        self.totalAtDisposalAmount = GTU(intValue: account.forecastAtDisposalBalance)
         
         self.accountName = account.displayName
         self.accountOwner = account.identity?.nickname ?? ""
         self.isInitialAccount = account.credential?.value.credential.type == "initial"
+        
+        self.stakedAmount = GTU(intValue: account.baker?.stakedAmount ?? account.delegation?.stakedAmount ?? 0)
         
         if account.baker != nil {
             viewState = .baking

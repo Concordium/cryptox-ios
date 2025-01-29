@@ -26,11 +26,12 @@ class BaseViewController: UIViewController {
 //        gradientLayer.frame = view.bounds
 //        view.layer.insertSublayer(gradientLayer, at: 0)
         
-        let myLayer = CALayer()
-        let myImage = UIImage(named: "new_bg")?.cgImage
-        myLayer.frame = view.bounds
-        myLayer.contents = myImage
-        view.layer.insertSublayer(myLayer, at: 0)
+//        let myLayer = CALayer()
+//        let myImage = UIImage(named: "new_bg")?.cgImage
+//        myLayer.frame = view.bounds
+//        myLayer.contents = myImage
+//        view.layer.insertSublayer(myLayer, at: 0)
+        view.backgroundColor = .blackMain
     }
 
     func keyboardWillShow(_ keyboardHeight: CGFloat) { }

@@ -76,6 +76,16 @@ extension AccountDataType {
         return forecastBalance - max(stakedAmount, scheduledTotal)
     }
     
+    var isStaking: Bool {
+        baker != nil || delegation != nil
+    }
+    
+    var stakedAmount: GTU {
+        let stakedSum = (baker?.stakedAmount ?? 0) + (delegation?.stakedAmount ?? 0)
+        let gtu = GTU(intValue: stakedSum)
+        return gtu
+    }
+    
     func withUpdatedForecastBalance(_ forecastBalance: Int, forecastShieldedBalance: Int) -> AccountDataType {
         _ = write {
             var pAccount = $0
