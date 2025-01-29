@@ -30,6 +30,8 @@ enum AccountNavigationPaths: Hashable {
     case transactionDetails(transaction: TransactionDetailViewModel)
     case chooseTokenToSend(transferTokenVM: TransferTokenViewModel)
     case selectRecipient
+    case confirmTransaction(_ vm: TransferTokenViewModel)
+    case transferSendingStatus(_ vm: TransferTokenConfirmViewModel)
 }
 
 struct HomeScreenView: View {
@@ -609,6 +611,16 @@ extension HomeScreenView {
                             navigationManager.pop()
                         }))
                 }
+            case .confirmTransaction(let vm):
+                ConfirmTransactionView(viewModel: vm, path: $navigationManager.path)
+                    .modifier(NavigationViewModifier(title: "Confirmation", backAction: {
+                        navigationManager.pop()
+                    }))
+            case .transferSendingStatus(let vm):
+                TransferSendingStatusView(viewModel: vm, path: $navigationManager.path)
+                    .modifier(NavigationViewModifier(title: "Sending", backAction: {
+                        navigationManager.reset()
+                    }))
             }
         }
     }

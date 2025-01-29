@@ -1871,6 +1871,21 @@
 		1580E9782D43C5700051C55D /* ShakeViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1580E9772D43C5700051C55D /* ShakeViewModifier.swift */; };
 		1580E9792D43C5700051C55D /* ShakeViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1580E9772D43C5700051C55D /* ShakeViewModifier.swift */; };
 		1580E97A2D43C5700051C55D /* ShakeViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1580E9772D43C5700051C55D /* ShakeViewModifier.swift */; };
+		1580EBC52D490C040051C55D /* loadingAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 1580EBC42D490C040051C55D /* loadingAnimation.json */; };
+		1580EBC62D490C040051C55D /* loadingAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 1580EBC42D490C040051C55D /* loadingAnimation.json */; };
+		1580EBC72D490C040051C55D /* loadingAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 1580EBC42D490C040051C55D /* loadingAnimation.json */; };
+		1580EBCB2D49113C0051C55D /* failure.json in Resources */ = {isa = PBXBuildFile; fileRef = 1580EBC82D49113B0051C55D /* failure.json */; };
+		1580EBCC2D49113C0051C55D /* loadingAnimation copy.json in Resources */ = {isa = PBXBuildFile; fileRef = 1580EBC92D49113B0051C55D /* loadingAnimation copy.json */; };
+		1580EBCD2D49113C0051C55D /* success.json in Resources */ = {isa = PBXBuildFile; fileRef = 1580EBCA2D49113B0051C55D /* success.json */; };
+		1580EBCE2D49113C0051C55D /* failure.json in Resources */ = {isa = PBXBuildFile; fileRef = 1580EBC82D49113B0051C55D /* failure.json */; };
+		1580EBCF2D49113C0051C55D /* loadingAnimation copy.json in Resources */ = {isa = PBXBuildFile; fileRef = 1580EBC92D49113B0051C55D /* loadingAnimation copy.json */; };
+		1580EBD02D49113C0051C55D /* success.json in Resources */ = {isa = PBXBuildFile; fileRef = 1580EBCA2D49113B0051C55D /* success.json */; };
+		1580EBD12D49113C0051C55D /* failure.json in Resources */ = {isa = PBXBuildFile; fileRef = 1580EBC82D49113B0051C55D /* failure.json */; };
+		1580EBD22D49113C0051C55D /* loadingAnimation copy.json in Resources */ = {isa = PBXBuildFile; fileRef = 1580EBC92D49113B0051C55D /* loadingAnimation copy.json */; };
+		1580EBD32D49113C0051C55D /* success.json in Resources */ = {isa = PBXBuildFile; fileRef = 1580EBCA2D49113B0051C55D /* success.json */; };
+		1580EBD92D4919C30051C55D /* SliderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1580EBD82D4919C30051C55D /* SliderButton.swift */; };
+		1580EBDA2D4919C30051C55D /* SliderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1580EBD82D4919C30051C55D /* SliderButton.swift */; };
+		1580EBDB2D4919C30051C55D /* SliderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1580EBD82D4919C30051C55D /* SliderButton.swift */; };
 		15844E5A2C87445B005A3BF1 /* TransferTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15844E592C87445B005A3BF1 /* TransferTokenViewModel.swift */; };
 		15844E5B2C8744D5005A3BF1 /* TransferTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15844E592C87445B005A3BF1 /* TransferTokenViewModel.swift */; };
 		15844E5C2C8744D5005A3BF1 /* TransferTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15844E592C87445B005A3BF1 /* TransferTokenViewModel.swift */; };
@@ -3152,6 +3167,11 @@
 		157586352CA441DC00205A6E /* AccountCooldown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCooldown.swift; sourceTree = "<group>"; };
 		157586392CA55E3700205A6E /* StakeStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeStatusView.swift; sourceTree = "<group>"; };
 		1580E9772D43C5700051C55D /* ShakeViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeViewModifier.swift; sourceTree = "<group>"; };
+		1580EBC42D490C040051C55D /* loadingAnimation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = loadingAnimation.json; sourceTree = "<group>"; };
+		1580EBC82D49113B0051C55D /* failure.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = failure.json; sourceTree = "<group>"; };
+		1580EBC92D49113B0051C55D /* loadingAnimation copy.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "loadingAnimation copy.json"; sourceTree = "<group>"; };
+		1580EBCA2D49113B0051C55D /* success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = success.json; sourceTree = "<group>"; };
+		1580EBD82D4919C30051C55D /* SliderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderButton.swift; sourceTree = "<group>"; };
 		15844E592C87445B005A3BF1 /* TransferTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferTokenViewModel.swift; sourceTree = "<group>"; };
 		1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTokenViewModel.swift; sourceTree = "<group>"; };
 		15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedIdentitiesStatusService.swift; sourceTree = "<group>"; };
@@ -3630,6 +3650,10 @@
 				0832EB472B34B8CA00BD2ECD /* Localizable.strings */,
 				08C169C42BB73E5700E61326 /* ProdTestNet-Info.plist */,
 				156878D12CD0FC190080B2F3 /* confettiAnimation.json */,
+				1580EBC82D49113B0051C55D /* failure.json */,
+				1580EBC92D49113B0051C55D /* loadingAnimation copy.json */,
+				1580EBCA2D49113B0051C55D /* success.json */,
+				1580EBC42D490C040051C55D /* loadingAnimation.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -4011,6 +4035,7 @@
 				08BFE22C2A3C9320007A7B1E /* DecimalNumberTextField.swift */,
 				083505012A9F46D4000D5175 /* CryptoImage.swift */,
 				15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */,
+				1580EBD82D4919C30051C55D /* SliderButton.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -6457,6 +6482,7 @@
 				08C1696D2BB7396200E61326 /* NFTLoadingStatusView.xib in Resources */,
 				08C1696F2BB7396200E61326 /* 3.3.1.TX_backend_submitTransfer.json in Resources */,
 				08C169712BB7396200E61326 /* 2.4.2.RX_backend_submissionStatus_absent.json in Resources */,
+				1580EBC72D490C040051C55D /* loadingAnimation.json in Resources */,
 				08C169722BB7396200E61326 /* NFTDataEmptyCell.xib in Resources */,
 				08C169732BB7396200E61326 /* 1.2.1.TX-lib_create_id_request_and_private_data.json in Resources */,
 				08C169742BB7396200E61326 /* icon-22-29.png in Resources */,
@@ -6495,6 +6521,9 @@
 				08C1699A2BB7396200E61326 /* NFTProviderHeaderView.xib in Resources */,
 				08C1699B2BB7396200E61326 /* IBMPlexMono-Medium.ttf in Resources */,
 				08C1699C2BB7396200E61326 /* Account.storyboard in Resources */,
+				1580EBD12D49113C0051C55D /* failure.json in Resources */,
+				1580EBD22D49113C0051C55D /* loadingAnimation copy.json in Resources */,
+				1580EBD32D49113C0051C55D /* success.json in Resources */,
 				08C1699E2BB7396200E61326 /* bakerupdate_flow_style.css in Resources */,
 				08C1699F2BB7396200E61326 /* More.storyboard in Resources */,
 				08C169A02BB7396200E61326 /* seed_identity_onboarding_en_2.html in Resources */,
@@ -6606,6 +6635,7 @@
 				505E11F12CC2994A0003F6DC /* AppIcon.xcassets in Resources */,
 				D589F40F2794B96D003F2FBB /* 3.3.1.TX_backend_submitTransfer.json in Resources */,
 				D589F3CF2794B96C003F2FBB /* 2.4.2.RX_backend_submissionStatus_absent.json in Resources */,
+				1580EBC52D490C040051C55D /* loadingAnimation.json in Resources */,
 				D5E6CBEE290F4771009856B7 /* NFTDataEmptyCell.xib in Resources */,
 				D589F3B32794B96C003F2FBB /* 1.2.1.TX-lib_create_id_request_and_private_data.json in Resources */,
 				7FD43601249A2D34002D2AC3 /* icon-22-29.png in Resources */,
@@ -6644,6 +6674,9 @@
 				D589F3932794B96B003F2FBB /* 4.2.2.RX_backend_accTransactions_mock.json in Resources */,
 				D58EA77A290FAEB70033C8FD /* NFTProviderHeaderView.xib in Resources */,
 				08A6BDBD2B31C01500869317 /* IBMPlexMono-Medium.ttf in Resources */,
+				1580EBCE2D49113C0051C55D /* failure.json in Resources */,
+				1580EBCF2D49113C0051C55D /* loadingAnimation copy.json in Resources */,
+				1580EBD02D49113C0051C55D /* success.json in Resources */,
 				088FEE902A02609A00042957 /* Account.storyboard in Resources */,
 				088FF3542A02CA2700042957 /* bakerupdate_flow_style.css in Resources */,
 				088FF21D2A02A78300042957 /* More.storyboard in Resources */,
@@ -6755,6 +6788,7 @@
 				D589F3F12794B96C003F2FBB /* 2.5.2.RX_backend_transferCost.json in Resources */,
 				D5087B5728EE49740082A05F /* NFTLoadingStatusView.xib in Resources */,
 				D589F40D2794B96D003F2FBB /* 3.3.1.TX_backend_submitTransfer.json in Resources */,
+				1580EBC62D490C040051C55D /* loadingAnimation.json in Resources */,
 				D589F3CD2794B96C003F2FBB /* 2.4.2.RX_backend_submissionStatus_absent.json in Resources */,
 				D5E6CBEC290F4771009856B7 /* NFTDataEmptyCell.xib in Resources */,
 				D589F3B12794B96C003F2FBB /* 1.2.1.TX-lib_create_id_request_and_private_data.json in Resources */,
@@ -6793,6 +6827,9 @@
 				D58EA778290FAEB70033C8FD /* NFTProviderHeaderView.xib in Resources */,
 				D5CACC5826ED5AF800D3C3CF /* VersionView.xib in Resources */,
 				088FF3482A02CA2700042957 /* bakerupdate_flow_style.css in Resources */,
+				1580EBCB2D49113C0051C55D /* failure.json in Resources */,
+				1580EBCC2D49113C0051C55D /* loadingAnimation copy.json in Resources */,
+				1580EBCD2D49113C0051C55D /* success.json in Resources */,
 				088FF21B2A02A78300042957 /* More.storyboard in Resources */,
 				088FF31C2A02CA1500042957 /* seed_identity_onboarding_en_2.html in Resources */,
 				088FF31D2A02CA1500042957 /* seed_identity_onboarding_en_1.html in Resources */,
@@ -6895,6 +6932,7 @@
 				08C166A62BB7396200E61326 /* CIS2TokenModels.swift in Sources */,
 				08C166A72BB7396200E61326 /* EncryptedBalance.swift in Sources */,
 				08C166A82BB7396200E61326 /* NFTProviderEmptyCell.swift in Sources */,
+				1580EBDB2D4919C30051C55D /* SliderButton.swift in Sources */,
 				08C166A92BB7396200E61326 /* CredentialResponse.swift in Sources */,
 				08C166AA2BB7396200E61326 /* MainTabBarController.swift in Sources */,
 				08C166AB2BB7396200E61326 /* CIS2TokenTransferModel.swift in Sources */,
@@ -7589,6 +7627,7 @@
 				08E69CA52A20DADA001CCA96 /* CIS2TokenModels.swift in Sources */,
 				D589F1912794B5ED003F2FBB /* EncryptedBalance.swift in Sources */,
 				D58EA794290FB7E90033C8FD /* NFTProviderEmptyCell.swift in Sources */,
+				1580EBD92D4919C30051C55D /* SliderButton.swift in Sources */,
 				D589F1D12794B5ED003F2FBB /* CredentialResponse.swift in Sources */,
 				7F85B7E2246A9AB600ED09B8 /* MainTabBarController.swift in Sources */,
 				08BFE2262A3B2DC4007A7B1E /* CIS2TokenTransferModel.swift in Sources */,
@@ -8283,6 +8322,7 @@
 				08E69CA32A20DADA001CCA96 /* CIS2TokenModels.swift in Sources */,
 				088FEFC32A02718E00042957 /* IdentityCard.swift in Sources */,
 				08A0458429FA99D100DACE1F /* RewardParameters.swift in Sources */,
+				1580EBDA2D4919C30051C55D /* SliderButton.swift in Sources */,
 				D589F3232794B678003F2FBB /* NetworkManager.swift in Sources */,
 				08A0454D29FA99D100DACE1F /* ArDatum.swift in Sources */,
 				08BFE2242A3B2DC4007A7B1E /* CIS2TokenTransferModel.swift in Sources */,

@@ -86,6 +86,8 @@ struct SendTokenView: View {
             Button(action: {
                 if viewModel.addedMemo != nil {
                     showConfirmationAlertForMemo = true
+                } else {
+                    path.append(.confirmTransaction(viewModel))
                 }
                 Tracker.trackContentInteraction(name: "Send token", interaction: .clicked, piece: "Continue")
             }, label: {
@@ -113,11 +115,13 @@ struct SendTokenView: View {
                 primaryButton: .default(Text("errorAlert.okButton".localized)) {
                     // Completion for OK button
                     showConfirmationAlertForMemo = false
+                    path.append(.confirmTransaction(viewModel))
                 },
                 secondaryButton: .default(Text("warningAlert.dontShowAgainButton".localized)) {
                     // Dont show again logic
                     AppSettings.dontShowMemoAlertWarning = true
                     showConfirmationAlertForMemo = false
+                    path.append(.confirmTransaction(viewModel))
                 }
             )
         }
