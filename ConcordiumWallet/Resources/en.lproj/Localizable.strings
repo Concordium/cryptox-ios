@@ -104,7 +104,7 @@ add_identity_data = "Reveal Identity Data";
 "account.accounttotal" = "Account Total";
 "accounts.initial" = "(Initial)";
 "accounts.overview.atdisposal" = "At disposal";
-"accounts.overview.staked" = "Staked";
+"accounts.overview.staked" = "staked";
 "accounts.totalatdisposal" = "Total currently at disposal";
 
 

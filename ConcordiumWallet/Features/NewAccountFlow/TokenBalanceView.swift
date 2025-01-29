@@ -225,7 +225,7 @@ struct TokenBalanceView: View {
             })
         ]
         if token.name == "ccd" {
-            let earnAction = ActionItem(iconName: "percent", label: "Earn", action: {
+            let earnAction = ActionItem(iconName: "Percent", label: "Earn", action: {
                 router?.showEarnFlow(selectedAccount)
             })
             actionItems.insert(earnAction, at: 3)

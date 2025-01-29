@@ -252,6 +252,13 @@ struct HomeScreenView: View {
                     .font(.satoshi(size: 15, weight: .medium))
                     .modifier(RadialGradientForegroundStyleModifier())
             }
+            if viewModel.staked != .zero {
+                Text("\(viewModel.staked.displayValue()) CCD \("accounts.overview.staked".localized)")
+                    .foregroundColor(Color.Neutral.tint1)
+                    .font(.satoshi(size: 15, weight: .medium))
+                    .padding(.top, 5)
+                
+            }
         }
     }
     
@@ -354,7 +361,7 @@ struct HomeScreenView: View {
                 accountQr = (viewModel.selectedAccount as? AccountEntity)
                 Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Account QR")
             }),
-            ActionItem(iconName: "percent", label: "Earn", action: {
+            ActionItem(iconName: "Percent", label: "Earn", action: {
                 guard let selectedAccount = viewModel.selectedAccount else { return }
                 router?.showEarnFlow(selectedAccount)
                 Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Earn")
