@@ -11,7 +11,7 @@ import Foundation
 
 struct AccountsOverviewView: View {
     
-    @Binding var path: [AccountNavigationPaths]
+    @Binding var path: [NavigationPaths]
     @StateObject var viewModel: AccountsMainViewModel
     @SwiftUI.Environment(\.dismiss) private var dismiss
     weak var router: AccountsMainViewDelegate?

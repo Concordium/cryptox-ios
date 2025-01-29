@@ -11,7 +11,7 @@ import BigInt
 
 struct SendTokenView: View {
     
-    @Binding var path: [AccountNavigationPaths]
+    @Binding var path: [NavigationPaths]
     @StateObject var viewModel: TransferTokenViewModel
     @StateObject var addMemoViewModel = AddMemoViewModel()
     @State var showConfirmationAlertForMemo: Bool = false

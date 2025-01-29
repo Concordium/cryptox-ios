@@ -15,7 +15,7 @@ enum ImportTokenError {
 struct AddTokenView: View {
     
     @SwiftUI.Environment(\.dismiss) private var dismiss
-    @Binding var path: [AccountNavigationPaths]
+    @Binding var path: [NavigationPaths]
     @StateObject var viewModel: ImportTokenViewModel
     @StateObject var searchTokenViewModel: SearchTokenViewModel
     var onTokenAdded: (() -> Void)

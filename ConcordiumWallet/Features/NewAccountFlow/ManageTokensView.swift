@@ -16,7 +16,7 @@ struct ManageTokensView: View {
     @State private var selectedToken: CIS2Token?
     @State var showRemovedTokenTip: Bool = false
     @State var showTokenListUpdated: Bool = false
-    @Binding var path: [AccountNavigationPaths]
+    @Binding var path: [NavigationPaths]
     @Binding var isNewTokenAdded: Bool
 
     var body: some View {

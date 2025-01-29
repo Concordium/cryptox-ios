@@ -19,7 +19,7 @@ struct TransferSendingStatusView: View {
     @State private var animationState: LoadingAnimationState = .loader
     @State private var animationConfig = AnimationConfig(autoplay: true, loop: true, segments: (0, 120))
     @ObservedObject var viewModel: TransferTokenConfirmViewModel
-    @Binding var path: [AccountNavigationPaths]
+    @EnvironmentObject var navigationManager: NavigationManager
     @State private var hasStartedTransaction = false
     var animation: DotLottieAnimation {
         DotLottieAnimation(fileName: "loadingAnimation", config: animationConfig)
@@ -71,7 +71,7 @@ struct TransferSendingStatusView: View {
                 if viewModel.isLoading {
                     viewModel.dismiss()
                 }
-                path.removeAll()
+                navigationManager.reset()
             }, label: {
                 Text("close".localized)
                     .font(Font.satoshi(size: 15, weight: .medium))

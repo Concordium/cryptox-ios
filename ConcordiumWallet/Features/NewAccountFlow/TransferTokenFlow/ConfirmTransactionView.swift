@@ -11,7 +11,7 @@ import BigInt
 
 struct ConfirmTransactionView: View {
     @ObservedObject var viewModel: TransferTokenViewModel
-    @Binding var path: [AccountNavigationPaths]
+    @Binding var path: [NavigationPaths]
     
     var body: some View {
         GeometryReader { geometry in

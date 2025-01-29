@@ -18,7 +18,7 @@ enum TokenListMode {
 struct AccountTokenListView: View {
     @ObservedObject var viewModel: AccountDetailViewModel
     @Binding var showManageTokenList: Bool
-    @Binding var path: [AccountNavigationPaths]
+    @Binding var path: [NavigationPaths]
     
     var mode: TokenListMode
     var onHideToken: ((CIS2Token) -> Void)?

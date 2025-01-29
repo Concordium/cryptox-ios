@@ -17,7 +17,8 @@ final class TransferTokenRouter: ObservableObject {
     private let account: AccountDataType
     private let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     private let navigationController: UINavigationController
-    
+    private let navigationManager = NavigationManager()
+
     private var onAddressPicked = PassthroughSubject<String, Never>()
         
     init(
@@ -37,13 +38,6 @@ final class TransferTokenRouter: ObservableObject {
     
     func dismissFlow() {
         rootController.dismiss(animated: true)
-    }
-    
-    func showTransferConfirmFlow(tokenTransferModel: CIS2TokenTransferModel) {
-        let viewModel: TransferTokenConfirmViewModel = .init(tokenTransferModel: tokenTransferModel, transactionsService: dependencyProvider.transactionsService(), storageManager: dependencyProvider.storageManager())
-        let view = TransferTokenConfirmView(viewModel: viewModel, isPresented: false).environmentObject(self)
-        let viewController = SceneViewController(content: view)
-        self.navigationController.pushViewController(viewController, animated: true)
     }
     
     func showMemoWarningAlert(_ completion: @escaping () -> Void) {
@@ -74,17 +68,6 @@ final class TransferTokenRouter: ObservableObject {
         self.navigationController.present(alert, animated: true)
     }
     
-    func transactionSuccessFlow(_ transferDataType: TransferEntity, tokenTransferModel: CIS2TokenTransferModel) {
-        let viewModel = TransferTokenSubmittedViewModel(transferDataType: transferDataType, tokenTransferModel: tokenTransferModel)
-        let view = TransferTokenSubmittedView().environmentObject(viewModel).environmentObject(self)
-        let viewController = SceneViewController(content: view)
-        viewController.hidesBottomBarWhenPushed = true
-        viewController.modalPresentationStyle = .overFullScreen
-        
-        navigationController.popToRootViewController(animated: false)
-        navigationController.present(viewController, animated: true)
-    }
-    
     func showSimpleTransferConfirmFlow(
         data: SimpleTransferObject,
         onTxSuccess: @escaping (_ submissionId: String) -> Void,
@@ -104,7 +87,8 @@ final class TransferTokenRouter: ObservableObject {
         tokenTransferModel.tokenType = .ccd
         
         let viewModel: TransferTokenConfirmViewModel = .init(tokenTransferModel: tokenTransferModel, transactionsService: dependencyProvider.transactionsService(), storageManager: dependencyProvider.storageManager())
-        let view = TransferTokenConfirmView(viewModel: viewModel, isPresented: true).environmentObject(self)
+        let view = TransferSendingStatusView(viewModel: viewModel)
+            .environmentObject(navigationManager)
         let viewController = SceneViewController(content: view)
         self.navigationController.pushViewController(viewController, animated: true)
     }

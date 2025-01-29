@@ -17,23 +17,6 @@ struct ActionItem: Identifiable {
     let action: () -> Void
 }
 
-enum AccountNavigationPaths: Hashable {
-    case accountsOverview
-    case manageTokens
-    case tokenDetails(token: AccountDetailAccount)
-    case buy
-    case send
-    case earn
-    case activity
-    case addToken
-    case addTokenDetails(token: AccountDetailAccount)
-    case transactionDetails(transaction: TransactionDetailViewModel)
-    case chooseTokenToSend(transferTokenVM: TransferTokenViewModel)
-    case selectRecipient
-    case confirmTransaction(_ vm: TransferTokenViewModel)
-    case transferSendingStatus(_ vm: TransferTokenConfirmViewModel)
-}
-
 struct HomeScreenView: View {
     @StateObject var viewModel: AccountsMainViewModel
     @EnvironmentObject var navigationManager: NavigationManager
@@ -91,9 +74,6 @@ struct HomeScreenView: View {
                 .onTapGesture {
                     showTooltip = false
                 }
-                .navigationDestination(for: AccountNavigationPaths.self, destination: { destination in
-                    navigateTo(destination)
-                })
                 .sheet(item: $accountQr) { account in
                     AccountQRView(account: account)
                 }
@@ -133,6 +113,7 @@ struct HomeScreenView: View {
                 .onAppear { Tracker.track(view: ["Home screen"]) }
             }
             .modifier(AppBackgroundModifier())
+            .modifier(NavigationDestinationBuilder(viewModel: viewModel, router: router, isNewTokenAdded: $isNewTokenAdded, onAddressPicked: onAddressPicked))
         }
     }
     
@@ -505,142 +486,6 @@ extension HomeScreenView {
                 }
             }
         }
-    }
-    
-    // MARK: - Navigation
-    
-    private func navigateTo(_ destination: AccountNavigationPaths) -> some View {
-        Group {
-            switch destination {
-            case .accountsOverview:
-                AccountsOverviewView(path: $navigationManager.path, viewModel: viewModel, router: router)
-            case .buy:
-                CCDOnrampView(dependencyProvider: viewModel.dependencyProvider)
-                    .modifier(NavigationViewModifier(title: "Buy CCD") {
-                        navigationManager.pop()
-                    })
-            case .manageTokens:
-                if let vm = viewModel.accountDetailViewModel {
-                    ManageTokensView(viewModel: vm, path: $navigationManager.path, isNewTokenAdded: $isNewTokenAdded)
-                } else {
-                    EmptyView()
-                }
-            case .tokenDetails(let token):
-                if let vm = viewModel.accountDetailViewModel, let selectedAccount = viewModel.selectedAccount {
-                    TokenBalanceView(token: token, path: $navigationManager.path, selectedAccount: selectedAccount, viewModel: vm, router: self.router)
-                } else {
-                    EmptyView()
-                }
-            case .send:
-                if let selectedAccount = viewModel.selectedAccount {
-                    SendTokenView(path: $navigationManager.path,
-                                  viewModel: .init(
-                        tokenType: .ccd,
-                        account: selectedAccount,
-                        dependencyProvider: dependencyProvider,
-                        tokenTransferModel: CIS2TokenTransferModel(
-                            tokenType: .ccd,
-                            account: selectedAccount,
-                            dependencyProvider: dependencyProvider,
-                            notifyDestination: .none,
-                            memo: nil,
-                            onTxSuccess: { _ in },
-                            onTxReject: {}
-                        ),
-                        onRecipientPicked: onAddressPicked.eraseToAnyPublisher()))
-                    .modifier(NavigationViewModifier(title: "Send", backAction: {
-                        navigationManager.pop()
-                    }))
-                }
-            case .chooseTokenToSend(let transferTokenVM):
-                if let vm = viewModel.accountDetailViewModel {
-                    ChooseTokenView(viewModel: vm, transferTokenViewModel: transferTokenVM) {
-                        navigationManager.pop()
-                    }
-                        .modifier(NavigationViewModifier(title: "Choose token", backAction: {
-                            navigationManager.pop()
-                        }))
-                }
-            case .earn:
-                EmptyView()
-            case .addToken:
-                if let selectedAccount = viewModel.selectedAccount {
-                    AddTokenView(
-                        path: $navigationManager.path,
-                        viewModel: .init(storageManager: dependencyProvider.storageManager(),
-                                         networkManager: dependencyProvider.networkManager(),
-                                         account: selectedAccount),
-                        searchTokenViewModel: SearchTokenViewModel(
-                            cis2Service: CIS2Service(
-                                networkManager: dependencyProvider.networkManager(),
-                                storageManager: dependencyProvider.storageManager()
-                            )
-                        ),
-                        onTokenAdded: { isNewTokenAdded = true }
-                    )
-                } else {
-                    EmptyView()
-                }
-            case .addTokenDetails(let token):
-                TokenDetailsView(token: token, isAddTokenDetails: true, showRawMd: .constant(false))
-                    .modifier(NavigationViewModifier(title: "Add token", backAction: {
-                        navigationManager.pop()
-                    }))
-            case .activity:
-                if let selectedAccount = viewModel.selectedAccount {
-                    TransactionsView(viewModel: TransactionsViewModel(account: selectedAccount, dependencyProvider: ServicesProvider.defaultProvider())) { vm in
-                        navigationManager.navigate(to: .transactionDetails(transaction: vm))
-                    }
-                    .modifier(AppBackgroundModifier())
-                    .modifier(NavigationViewModifier(title: "Activity") {
-                        navigationManager.pop()
-                    })
-                }
-            case .transactionDetails(let transaction):
-                TransactionDetailView(viewModel: transaction)
-                    .modifier(NavigationViewModifier(title: "Transaction Details", backAction: {
-                        navigationManager.pop()
-                    }))
-            case .selectRecipient:
-                if let selectedAccount = viewModel.selectedAccount {
-                    SelectRecipientView(viewModel: RecipientListViewModel(storageManager: dependencyProvider.storageManager(), mode: .addressBook, ownAccount: selectedAccount)) { address in
-                        onAddressPicked.send(address)
-                        navigationManager.pop()
-                    }
-                        .modifier(NavigationViewModifier(title: "Choose recipient", backAction: {
-                            navigationManager.pop()
-                        }))
-                }
-            case .confirmTransaction(let vm):
-                ConfirmTransactionView(viewModel: vm, path: $navigationManager.path)
-                    .modifier(NavigationViewModifier(title: "Confirmation", backAction: {
-                        navigationManager.pop()
-                    }))
-            case .transferSendingStatus(let vm):
-                TransferSendingStatusView(viewModel: vm, path: $navigationManager.path)
-                    .modifier(NavigationViewModifier(title: "Sending", backAction: {
-                        navigationManager.reset()
-                    }))
-            }
-        }
-    }
-}
-
-class NavigationManager: ObservableObject {
-    @Published var path: [AccountNavigationPaths] = []
-    
-    func navigate(to destination: AccountNavigationPaths) {
-        path.append(destination)
-    }
-    
-    func pop() {
-        if !path.isEmpty {
-            path.removeLast()
-        }
-    }
-    
-    func reset() {
-        path.removeAll()
     }
 }
 

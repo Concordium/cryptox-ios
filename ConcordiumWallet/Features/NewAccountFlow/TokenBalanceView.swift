@@ -12,7 +12,7 @@ import BigInt
 struct TokenBalanceView: View {
     
     var token: AccountDetailAccount
-    @Binding var path: [AccountNavigationPaths]
+    @Binding var path: [NavigationPaths]
     var selectedAccount: AccountDataType
     @ObservedObject var viewModel: AccountDetailViewModel
     @SwiftUI.Environment(\.dismiss) private var dismiss
