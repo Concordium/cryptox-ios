@@ -68,7 +68,7 @@ struct AccountsOverviewView: View {
                 HStack(alignment: .firstTextBaseline, spacing: 4) {
                     Text(account.totalAmount.displayValueWithTwoNumbersAfterDecimalPoint())
                         .font(.satoshi(size: 15, weight: .medium))
-                    Image("blockchain")
+                    Image("Blockchain")
                         .resizable()
                         .frame(width: 10, height: 15)
                     HStack(alignment: .firstTextBaseline, spacing: 4) {
@@ -77,7 +77,7 @@ struct AccountsOverviewView: View {
                             .frame(width: 4, height: 15, alignment: .topLeading)
                         Text(account.stakedAmount.displayValueWithTwoNumbersAfterDecimalPoint())
                             .font(.satoshi(size: 15, weight: .medium))
-                        Image("blockchain")
+                        Image("Blockchain")
                             .resizable()
                             .frame(width: 10, height: 15)
                     }

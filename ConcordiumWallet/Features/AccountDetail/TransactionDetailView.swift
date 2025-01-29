@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import JDStatusBarNotification
 
 struct TransactionDetailView: View {
     
@@ -17,18 +18,30 @@ struct TransactionDetailView: View {
             HStack(spacing: 2) {
                 Spacer()
                 HStack(alignment: .center, spacing: 8) {
-                    Image("copy")
+                    Image("Copy")
+                }
+                .onTapGesture {
+                    CopyPasterHelper.copy(string: viewModel.transaction.details.transactionHash ?? "")
+                    NotificationPresenter.shared.present("general.copied".localized, includedStyle: .success, duration: 5)
                 }
                 .padding(8)
                 .background(.white.opacity(0.07))
                 .cornerRadius(4)
                 
-                HStack(alignment: .center, spacing: 8) {
-                    Image("arrowSquareOut")
+                if let transactionHash = viewModel.transaction.details.transactionHash {
+                    HStack(alignment: .center, spacing: 8) {
+                        Image("ArrowSquareOut")
+                    }
+                    .onTapGesture {
+                        let urlString = AppConstants.Transaction.ccdExplorer + (transactionHash)
+                        if let url = URL(string: urlString), UIApplication.shared.canOpenURL(url) {
+                            UIApplication.shared.open(url)
+                        }
+                    }
+                    .padding(8)
+                    .background(.white.opacity(0.07))
+                    .cornerRadius(4)
                 }
-                .padding(8)
-                .background(.white.opacity(0.07))
-                .cornerRadius(4)
             }
             
             VStack(alignment: .leading, spacing: 8) {

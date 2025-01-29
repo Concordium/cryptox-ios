@@ -33,7 +33,7 @@ struct TransactionCellViewModel: Equatable, Hashable {
         date = GeneralFormatter.formatTime(for: transactionVM.date)
         memo = transactionVM.memo?.displayValue
         fullDate = GeneralFormatter.formatDateWithTime(for: transactionVM.date)
-        total = transactionVM.total?.displayValueWithTwoNumbersAfterDecimalPoint() ?? ""
+        total = transactionVM.total?.displayValue() ?? ""
         
         if transactionVM.status == .received
             || (transactionVM.status == .committed && transactionVM.outcome == .ambiguous) {

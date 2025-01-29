@@ -252,8 +252,8 @@ struct HomeScreenView: View {
                     .font(.satoshi(size: 15, weight: .medium))
                     .modifier(RadialGradientForegroundStyleModifier())
             }
-            if viewModel.staked != .zero {
-                Text("\(viewModel.staked.displayValue()) CCD \("accounts.overview.staked".localized)")
+            if let stakedAmount = viewModel.selectedAccount?.stakedAmount, stakedAmount != .zero {
+                Text("\(stakedAmount.displayValueWithTwoNumbersAfterDecimalPoint()) CCD \("accounts.overview.staked".localized)")
                     .foregroundColor(Color.Neutral.tint1)
                     .font(.satoshi(size: 15, weight: .medium))
                     .padding(.top, 5)

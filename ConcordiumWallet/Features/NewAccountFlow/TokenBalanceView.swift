@@ -62,7 +62,7 @@ struct TokenBalanceView: View {
                         viewModel.removeToken(cis2Token)
                         dismiss()
                     }
-                    .transition(.scale(scale: 0.9).combined(with: .opacity))
+                    .transition(.scale(scale: 0.9, anchor: .top).combined(with: .opacity))
                     .animation(.easeInOut(duration: 0.3), value: isPresentingAlert)
                 }
             }
@@ -71,11 +71,11 @@ struct TokenBalanceView: View {
                 Color.black.opacity(0.4)
                     .ignoresSafeArea()
                     .transition(.opacity)
-                    .animation(.easeInOut(duration: 0.3), value: isPresentingAlert)
+                    .animation(.easeInOut(duration: 0.3), value: showRawMdPopup)
                 
                 rawMetadataView()
                     .transition(.scale(scale: 0.9).combined(with: .opacity))
-                    .animation(.easeInOut(duration: 0.3), value: isPresentingAlert)
+                    .animation(.easeInOut(duration: 0.3), value: showRawMdPopup)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
