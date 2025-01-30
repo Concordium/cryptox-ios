@@ -102,7 +102,9 @@ struct ManageTokensView: View {
         .modifier(NavigationViewModifier(title: "Manage token list", backAction: {
             dismiss()
         }, trailingAction: {
-            path.append(.addToken)
+            if let account = viewModel.account as? AccountEntity {
+                path.append(.addToken(account))
+            }
         }, trailingIcon: Image("ico_add")))
         .modifier(AppBackgroundModifier())
     }

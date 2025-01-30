@@ -53,6 +53,24 @@ struct TransferSendingStatusView: View {
                         .font(.satoshi(size: 12, weight: .medium))
                         .foregroundStyle(.white)
                 }
+                
+                if viewModel.transferDataType?.transactionStatus == .finalized && viewModel.error == nil {
+                    Divider()
+                        .background(.white.opacity(0.1))
+                    
+                    Button {
+                        
+                    } label: {
+                        HStack(spacing: 8) {
+                            Text("accountDetails.title".localized)
+                                .font(.satoshi(size: 12, weight: .medium))
+                                .foregroundStyle(.white)
+                            Image("ico_back")
+                                .rotationEffect(.degrees(180))
+                        }
+                    }
+
+                }
             }
             .padding(.vertical, 30)
             .padding(.horizontal, 14)

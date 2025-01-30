@@ -294,7 +294,7 @@ process on-chain.";
 "accountDetails.generalbalance" = "Balance";
 "accountDetails.generalshieldedbalance" = "Shielded Balance";
 
-"accountDetails.title" = "Transaction Details";
+"accountDetails.title" = "Transaction details";
 "accountDetails.origin" = "Origin";
 "accountDetails.fromAddress" = "From Address: ";
 "accountDetails.transactionHash" = "Transaction Hash";

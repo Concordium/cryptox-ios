@@ -221,7 +221,9 @@ struct TokenBalanceView: View {
                 accountQr = (viewModel.account as? AccountEntity)
             }),
             ActionItem(iconName: "activity", label: "Activity", action: {
-                path.append(.activity)
+                if let account = selectedAccount as? AccountEntity {
+                    path.append(.activity(account))
+                }
             })
         ]
         if token.name == "ccd" {

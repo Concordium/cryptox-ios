@@ -71,7 +71,7 @@ final class AccountsMainRouter: ObservableObject {
     @MainActor
     func showCIS2TokenDetailsFromNotification(for account: AccountDataType, token: AccountDetailAccount) {
         accountsViewModel.selectedAccount = account
-        navigationManager.navigate(to: .tokenDetails(token: token))
+        navigationManager.navigate(to: .tokenDetails(token: token, AccountDetailViewModel(account: account)))
     }
     
     @MainActor func showUnshieldAssetsFlow() {

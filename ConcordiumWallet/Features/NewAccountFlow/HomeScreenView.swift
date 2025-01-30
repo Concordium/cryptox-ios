@@ -82,7 +82,7 @@ struct HomeScreenView: View {
                 })
                 .onChange(of: showManageTokenList) { newValue in
                     if showManageTokenList {
-                        navigationManager.navigate(to: .manageTokens)
+                        navigationManager.navigate(to: .manageTokens(viewModel))
                     }
                 }
                 .onChange(of: viewModel.state) { newState in
@@ -113,7 +113,7 @@ struct HomeScreenView: View {
                 .onAppear { Tracker.track(view: ["Home screen"]) }
             }
             .modifier(AppBackgroundModifier())
-            .modifier(NavigationDestinationBuilder(viewModel: viewModel, router: router, isNewTokenAdded: $isNewTokenAdded, onAddressPicked: onAddressPicked))
+            .modifier(NavigationDestinationBuilder(router: router, onAddressPicked: onAddressPicked))
         }
     }
     
@@ -185,7 +185,7 @@ struct HomeScreenView: View {
                         .tint(.greyAdditional)
                 }
                 .onTapGesture {
-                    navigationManager.navigate(to: .accountsOverview)
+                    navigationManager.navigate(to: .accountsOverview(viewModel))
                 }
             }
             Spacer()
@@ -339,7 +339,7 @@ struct HomeScreenView: View {
                 Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Buy")
             }),
             ActionItem(iconName: "send", label: "Send", action: {
-                navigationManager.navigate(to: .send)
+                navigationManager.navigate(to: .send(viewModel))
                 Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Send funds")
             }),
             ActionItem(iconName: "receive", label: "Receive", action: {
@@ -352,8 +352,10 @@ struct HomeScreenView: View {
                 Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Earn")
             }),
             ActionItem(iconName: "activity", label: "Activity", action: {
-                navigationManager.navigate(to: .activity)
-                Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Activity")
+                if let account = viewModel.selectedAccount as? AccountEntity {
+                    navigationManager.navigate(to: .activity(account))
+                    Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Activity")
+                }
             })
         ]
         return actionItems

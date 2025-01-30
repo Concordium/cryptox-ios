@@ -12,7 +12,7 @@ enum AccountsMainViewState {
     case accounts, createAccount, createIdentity, identityVerification, verificationFailed, empty, saveSeedPhrase
 }
 
-final class AccountsMainViewModel: ObservableObject {
+final class AccountsMainViewModel: ObservableObject, Hashable, Equatable {
     @Published var accounts = [AccountDataType]()
     @Published var accountViewModels = [AccountPreviewViewModel]()
     @Published var state: AccountsMainViewState = .empty
@@ -218,5 +218,38 @@ extension AccountsMainViewModel {
         accountViewModels.enumerated().forEach { index, account in
             account.dotImageIndex = index % dotImages.count + 1
         }
+    }
+}
+
+extension AccountsMainViewModel {
+    // MARK: - Equatable
+    static func == (lhs: AccountsMainViewModel, rhs: AccountsMainViewModel) -> Bool {
+        return lhs.accounts.map(\.address) == rhs.accounts.map(\.address) &&
+        lhs.accounts.map(\.name) == rhs.accounts.map(\.name) &&
+        lhs.accounts.map(\.forecastBalance) == rhs.accounts.map(\.forecastBalance) &&
+        lhs.accounts.map(\.forecastAtDisposalBalance) == rhs.accounts.map(\.forecastAtDisposalBalance) &&
+        lhs.accounts.map(\.identity?.id) == rhs.accounts.map(\.identity?.id) &&
+               lhs.totalBalance == rhs.totalBalance &&
+               lhs.atDisposal == rhs.atDisposal &&
+               lhs.staked == rhs.staked &&
+               lhs.isBackupAlertShown == rhs.isBackupAlertShown &&
+               lhs.selectedAccount?.address == rhs.selectedAccount?.address &&
+               lhs.isLoading == rhs.isLoading
+    }
+
+    // MARK: - Hashable
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(accounts.map(\.address))
+        hasher.combine(accounts.map(\.name))
+        hasher.combine(accounts.map(\.forecastBalance))
+        hasher.combine(accounts.map(\.forecastAtDisposalBalance))
+        hasher.combine(accounts.map(\.identity?.id))
+        hasher.combine(totalBalance)
+        hasher.combine(atDisposal)
+        hasher.combine(staked)
+        hasher.combine(isBackupAlertShown)
+        hasher.combine(selectedAccount?.address)
+        hasher.combine(selectedAccount?.name)
+        hasher.combine(isLoading)
     }
 }

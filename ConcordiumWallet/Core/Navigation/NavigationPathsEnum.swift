@@ -9,18 +9,20 @@
 import Foundation
 
 enum NavigationPaths: Hashable {
-    case accountsOverview
-    case manageTokens
-    case tokenDetails(token: AccountDetailAccount)
+    case accountsOverview(_ viewModel: AccountsMainViewModel)
+    case manageTokens(_ viewModel: AccountsMainViewModel)
+    case tokenDetails(token: AccountDetailAccount, _ viewModel: AccountDetailViewModel)
     case buy
-    case send
+    case send(_ viewModel: AccountsMainViewModel)
     case earn
-    case activity
-    case addToken
+    case activity(_ account: AccountEntity)
+    case addToken(_ account: AccountEntity)
     case addTokenDetails(token: AccountDetailAccount)
     case transactionDetails(transaction: TransactionDetailViewModel)
-    case chooseTokenToSend(transferTokenVM: TransferTokenViewModel)
-    case selectRecipient
+    case chooseTokenToSend(transferTokenVM: TransferTokenViewModel, _ viewModel: AccountDetailViewModel)
+    case selectRecipient(_ account: AccountEntity, mode: SelectRecipientMode)
     case confirmTransaction(_ vm: TransferTokenViewModel)
     case transferSendingStatus(_ vm: TransferTokenConfirmViewModel)
+    case addRecipient(mode: EditRecipientMode)
 }
+

@@ -128,13 +128,13 @@ struct AccountTokenListView: View {
         .cornerRadius(12)
         .onTapGesture {
             if mode == .normal {
-                path.append(.tokenDetails(token: account))
+                path.append(.tokenDetails(token: account, viewModel))
             }
         }
     }
 }
 
-final class AccountDetailViewModel: ObservableObject {
+final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
     enum State: String, CaseIterable {
         case accounts, transactions
         
@@ -256,5 +256,33 @@ final class AccountDetailViewModel: ObservableObject {
         } catch {
             logger.debugLog(error.localizedDescription)
         }
+    }
+}
+
+extension AccountDetailViewModel {
+    // MARK: - Equatable
+    static func == (lhs: AccountDetailViewModel, rhs: AccountDetailViewModel) -> Bool {
+        return lhs.state.rawValue == rhs.state.rawValue &&
+        lhs.sceneTitle == rhs.sceneTitle &&
+        lhs.accounts.map(\.id) == rhs.accounts.map(\.id) &&
+        lhs.totalCooldown?.intValue == rhs.totalCooldown?.intValue &&
+        lhs.atDisposal?.intValue == rhs.atDisposal?.intValue &&
+        lhs.isReadOnly == rhs.isReadOnly &&
+        lhs.hasStaked == rhs.hasStaked &&
+        lhs.stakedValue?.intValue == rhs.stakedValue?.intValue &&
+        lhs.ccdEuroEquivalent == rhs.ccdEuroEquivalent
+    }
+
+    // MARK: - Hashable
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(state.rawValue)
+        hasher.combine(sceneTitle)
+        hasher.combine(accounts.map(\.id))
+        hasher.combine(totalCooldown?.intValue)
+        hasher.combine(atDisposal?.intValue)
+        hasher.combine(isReadOnly)
+        hasher.combine(hasStaked)
+        hasher.combine(stakedValue?.intValue)
+        hasher.combine(ccdEuroEquivalent)
     }
 }

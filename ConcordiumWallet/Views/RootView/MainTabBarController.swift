@@ -56,6 +56,7 @@ class MainTabBarController: BaseTabBarController {
         viewControllers = [accountsMainRouter.rootScene(), newsFeedController, moreCoordinator.navigationController]
         hideKeyboardWhenTappedAround()
         transactionNotificationService.delegate = self
+        hidesBottomBarWhenPushed = true
     }
     
     override func viewWillAppear(_ animated: Bool) {

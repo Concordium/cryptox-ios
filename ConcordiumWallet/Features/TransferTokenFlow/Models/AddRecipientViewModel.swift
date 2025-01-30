@@ -1,0 +1,112 @@
+//
+//  AddRecipientViewModel.swift
+//  CryptoX
+//
+//  Created by Zhanna Komar on 30.01.2025.
+//  Copyright © 2025 pioneeringtechventures. All rights reserved.
+//
+
+import Foundation
+
+enum AddRecipientError: LocalizedError {
+    case addressNotValid
+    case addressAlreadyExists(_ address: String)
+    case somethingWentWrong(_ description: String)
+    
+    var errorDescription: String? {
+        switch self {
+            case .addressNotValid:
+                return "addRecipient.addressInvalid".localized
+            case .addressAlreadyExists(let address):
+                return "viewError.duplicateRecipient" + address
+            case .somethingWentWrong(let description):
+                return description
+        }
+    }
+}
+
+enum EditRecipientMode: Equatable, Hashable {
+    case add
+    case edit(recipient: RecipientEntity)
+}
+
+class AddRecipientViewModel: ObservableObject {
+    @Published var address: String = ""
+    @Published var name: String = ""
+    @Published var title: String = ""
+    @Published var enableSave = false
+    @Published var error: AddRecipientError?
+    var shouldShowErrorAlert: Bool {
+        return error != nil
+    }
+    private var storageManager: StorageManagerProtocol
+    private var mode: EditRecipientMode
+    private var wallet: MobileWalletProtocol
+
+    init(dependencyProvider: WalletAndStorageDependencyProvider, mode: EditRecipientMode) {
+        self.storageManager = dependencyProvider.storageManager()
+        self.mode = mode
+        self.wallet = dependencyProvider.mobileWallet()
+        switch mode {
+        case .add:
+            title = "addRecipient.title".localized
+        case .edit(let recipient):
+            title = "editAddress.title".localized
+            name = recipient.name
+            address = recipient.address
+        }
+    }
+    
+    func addRecipient(name: String, address: String) {
+        let recipient = RecipientEntity()
+        recipient.name = name
+        recipient.address = address
+        _ = try? storageManager.storeRecipient(recipient)
+    }
+    
+    func calculateSaveButtonState() {
+        switch mode {
+        case .add:
+            enableSave = !name.isEmpty && !address.isEmpty
+        case .edit(let recipient):
+            enableSave = (name != recipient.name) || (address != recipient.address)
+            && (!name.isEmpty && !address.isEmpty)
+        }
+    }
+    
+    func saveTapped(){
+        let qrValid = wallet.check(accountAddress: address)
+        if !qrValid {
+            error = .addressNotValid
+            return
+        }
+
+        var newRecipient = RecipientDataTypeFactory.create()
+        newRecipient.name = name
+        newRecipient.address = address
+        
+        switch mode {
+        case .add:
+            if let existingRecipient = storageManager.getRecipient(withAddress: address) {
+                error = .addressAlreadyExists(existingRecipient.name)
+                return
+            }
+        default: break
+        }
+
+        switch mode {
+            case .add:
+                do {
+                    try storageManager.storeRecipient(newRecipient)
+                } catch let error {
+                    self.error = .somethingWentWrong(error.localizedDescription)
+            }
+            case .edit(let recipient):
+                do {
+                    try storageManager.editRecipient(oldRecipient: recipient, newRecipient: newRecipient)
+                } catch let error {
+                    self.error = .somethingWentWrong(error.localizedDescription)
+            }
+        }
+    }
+}
