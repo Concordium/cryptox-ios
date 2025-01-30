@@ -60,74 +60,76 @@ struct HomeScreenView: View {
     var dependencyProvider = ServicesProvider.defaultProvider()
     
     var body: some View {
-        NavigationStack(path: $navigationManager.path) {
-            GeometryReader { geometry in
-                VStack {
-                    if viewModel.isLoading {
-                        ScrollView {
-                            HomeScreenViewSkeleton()
-                        }
-                    } else {
-                        if viewModel.state == .accounts {
+        TabView {
+            NavigationStack(path: $navigationManager.path) {
+                GeometryReader { geometry in
+                    VStack {
+                        if viewModel.isLoading {
                             ScrollView {
-                                homeViewContent()
+                                HomeScreenViewSkeleton()
                             }
                         } else {
-                            homeViewContent()
+                            if viewModel.state == .accounts {
+                                ScrollView {
+                                    homeViewContent()
+                                }
+                            } else {
+                                homeViewContent()
+                            }
                         }
                     }
-                }
-                .onReceive(updateTimer.tick) { _ in
-                    Task {
-                        await self.viewModel.reload()
+                    .onReceive(updateTimer.tick) { _ in
+                        Task {
+                            await self.viewModel.reload()
+                        }
                     }
-                }
-                .padding(.bottom, 20)
-                .onTapGesture {
-                    showTooltip = false
-                }
-                .navigationDestination(for: AccountNavigationPaths.self, destination: { destination in
-                    navigateTo(destination)
-                })
-                .sheet(item: $accountQr) { account in
-                    AccountQRView(account: account)
-                }
-                .fullScreenCover(isPresented: $isShowPasscodeViewShown, content: {
-                    passcodeView
-                })
-                .onChange(of: showManageTokenList) { newValue in
-                    if showManageTokenList {
-                        navigationManager.navigate(to: .manageTokens)
+                    .padding(.bottom, 20)
+                    .onTapGesture {
+                        showTooltip = false
                     }
-                }
-                .onChange(of: viewModel.state) { newState in
-                    if newState != .accounts {
-                        previousState = newState
+                    .navigationDestination(for: AccountNavigationPaths.self, destination: { destination in
+                        navigateTo(destination)
+                    })
+                    .sheet(item: $accountQr) { account in
+                        AccountQRView(account: account)
                     }
-                    if viewModel.state == .accounts {
-                        isCreatingAccount = false
+                    .fullScreenCover(isPresented: $isShowPasscodeViewShown, content: {
+                        passcodeView
+                    })
+                    .onChange(of: showManageTokenList) { newValue in
+                        if showManageTokenList {
+                            navigationManager.navigate(to: .manageTokens)
+                        }
                     }
-                }
-                .overlay(content: {
-                    if viewModel.state == .accounts && !UserDefaults.standard.bool(forKey: hasShownAnimationKey) {
-                        DotLottieAnimation(fileName: "confettiAnimation", config: AnimationConfig(autoplay: true, loop: false)).view()
-                            .onAppear {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.3) {
-                                    UserDefaults.standard.set(true, forKey: hasShownAnimationKey)
+                    .onChange(of: viewModel.state) { newState in
+                        if newState != .accounts {
+                            previousState = newState
+                        }
+                        if viewModel.state == .accounts {
+                            isCreatingAccount = false
+                        }
+                    }
+                    .overlay(content: {
+                        if viewModel.state == .accounts && !UserDefaults.standard.bool(forKey: hasShownAnimationKey) {
+                            DotLottieAnimation(fileName: "confettiAnimation", config: AnimationConfig(autoplay: true, loop: false)).view()
+                                .onAppear {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.3) {
+                                        UserDefaults.standard.set(true, forKey: hasShownAnimationKey)
+                                    }
                                 }
-                            }
+                        }
+                    })
+                    .onChange(of: geometry.size) { _ in
+                        geometrySize = geometry.size
                     }
-                })
-                .onChange(of: geometry.size) { _ in
-                    geometrySize = geometry.size
+                    .refreshable { Task { await viewModel.reload() } }
+                    .onAppear { Task { await viewModel.reload() } }
+                    .onAppear { updateTimer.start() }
+                    .onDisappear { updateTimer.stop() }
+                    .onAppear { Tracker.track(view: ["Home screen"]) }
                 }
-                .refreshable { Task { await viewModel.reload() } }
-                .onAppear { Task { await viewModel.reload() } }
-                .onAppear { updateTimer.start() }
-                .onDisappear { updateTimer.stop() }
-                .onAppear { Tracker.track(view: ["Home screen"]) }
+                .modifier(AppBackgroundModifier())
             }
-            .modifier(AppBackgroundModifier())
         }
     }
     
@@ -161,6 +163,7 @@ struct HomeScreenView: View {
             }
             .padding(.horizontal, 18)
             accountActionButtonsSection()
+                .padding(.horizontal, 5)
                 .padding(.top, 40)
             
             if viewModel.isBackupAlertShown {
@@ -192,10 +195,12 @@ struct HomeScreenView: View {
         HStack() {
             if !viewModel.accounts.isEmpty {
                 HStack(spacing: 5) {
-                    Image("dot\(getDotImageIndex())")
+                    Image(getDotImageIndex() == 1 ? "Dot\(getDotImageIndex())" : "dot\(getDotImageIndex())")
                     Text("\(viewModel.selectedAccount?.displayName ?? "")")
                         .font(.satoshi(size: 15, weight: .medium))
-                    Image(systemName: "chevron.up.chevron.down")
+                    Image("CaretUpDown")
+                        .resizable()
+                        .frame(width: 16, height: 16)
                         .tint(.greyAdditional)
                 }
                 .onTapGesture {
@@ -204,9 +209,6 @@ struct HomeScreenView: View {
             }
             Spacer()
             Image("ico_scan")
-                .resizable()
-                .frame(width: 32, height: 32)
-                .tint(.MineralBlue.blueish3)
                 .onTapGesture {
                     if SettingsHelper.isIdentityConfigured() {
                         self.router?.showScanQRFlow()
@@ -590,6 +592,8 @@ class NavigationManager: ObservableObject {
 }
 
 struct HomeScreenViewSkeleton: View {
+    @State private var isAnimating = false
+    
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
@@ -650,5 +654,10 @@ struct HomeScreenViewSkeleton: View {
             .padding(.bottom, 20)
         }
         .modifier(AppBackgroundModifier())
+        .onAppear {
+            withAnimation(Animation.linear(duration: 0.3).repeatForever(autoreverses: false)) {
+                isAnimating = true
+            }
+        }
     }
 }

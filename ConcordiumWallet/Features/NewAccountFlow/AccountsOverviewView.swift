@@ -15,7 +15,7 @@ struct AccountsOverviewView: View {
     @StateObject var viewModel: AccountsMainViewModel
     @SwiftUI.Environment(\.dismiss) private var dismiss
     weak var router: AccountsMainViewDelegate?
-    private let dotImages = ["dot1", "dot2", "dot3", "dot4", "dot5", "dot6", "dot7", "dot8", "dot9"]
+    private let dotImages = ["Dot1", "dot2", "dot3", "dot4", "dot5", "dot6", "dot7", "dot8", "dot9"]
 
     var body: some View {
         VStack {
@@ -59,7 +59,7 @@ struct AccountsOverviewView: View {
         HStack {
             VStack(alignment: .leading, spacing: 15) {
                 HStack(spacing: 5) {
-                    Image("dot\(account.dotImageIndex)")
+                    Image(account.dotImageIndex == 1 ? "Dot\(account.dotImageIndex)" : "dot\(account.dotImageIndex)")
                         .frame(width: 12, height: 12)
                     Text(account.accountName)
                         .font(.satoshi(size: 15, weight: .medium))

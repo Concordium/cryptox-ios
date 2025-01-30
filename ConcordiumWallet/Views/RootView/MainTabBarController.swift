@@ -18,7 +18,8 @@ class MainTabBarController: BaseTabBarController {
     let accountsCoordinator: AccountsCoordinator
     let moreCoordinator: MoreCoordinator
     let accountsMainRouter: AccountsMainRouter
-    
+    @State private var navigationPath = NavigationManager()
+
     private var cancellables: [AnyCancellable] = []
     let defaultProvider = ServicesProvider.defaultProvider()
     @State private var isAlertVisible: Bool = true
@@ -163,6 +164,22 @@ extension MainTabBarController: NotificationNavigationDelegate, TransactionNotif
         alertViewController.view.backgroundColor = .clear
         DispatchQueue.main.async {
             self.present(alertViewController, animated: false, completion: nil)
+        }
+    }
+}
+
+extension MainTabBarController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        // Check if the selected view controller is the one with a NavigationStack
+        if let navigationController = viewController as? UINavigationController {
+            if let topViewController = navigationController.topViewController {
+                // Reset the navigation path to make it appear as if we've popped to root
+                self.navigationPath = NavigationManager()
+                self.navigationPath.reset()
+            }
+        } else {
+            // If it's not a navigation controller, just select the tab as usual
+            tabBarController.selectedViewController = viewController
         }
     }
 }

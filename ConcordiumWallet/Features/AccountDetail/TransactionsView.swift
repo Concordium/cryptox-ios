@@ -107,14 +107,16 @@ struct TransactionsView: View {
                                 let components = Calendar.current.dateComponents([.day, .month, .year], from: transaction.date)
                                 return Calendar.current.date(from: components)!
                             })
+                            let sortedArrayOfDays = transactionsByDay.keys.sorted(by: >)
 
                             // Iterate over days within the month
-                            ForEach(transactionsByDay.keys.sorted(by: >), id: \.self) { dayDate in
+                            ForEach(sortedArrayOfDays, id: \.self) { dayDate in
                                 // Day Header
+                                let isFirstDate = dayDate == sortedArrayOfDays.first
                                 Text(Self.relativeDate(dayDate))
                                     .font(.satoshi(size: 14, weight: .medium))
                                     .foregroundColor(Color.MineralBlue.blueish3.opacity(0.5))
-                                    .padding(.top, 20)
+                                    .padding(.top, isFirstDate ? 4 : 20)
                                     .padding(.bottom, 8)
                                     .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -147,6 +149,7 @@ struct TransactionsView: View {
                 }
             }
             .padding(.horizontal, 18)
+            .padding(.top, 20)
             .onAppear { Task { await viewModel.reload() } }
             .listStyle(.plain)
             .refreshable { await viewModel.reload() }

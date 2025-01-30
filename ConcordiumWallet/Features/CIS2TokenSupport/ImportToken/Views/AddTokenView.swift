@@ -43,6 +43,7 @@ struct AddTokenView: View {
                     TextField("", text: $contractIndex)
                         .foregroundColor(.white)
                         .font(.system(size: 16))
+                        .keyboardType(.numberPad)
                         .onChange(of: contractIndex) { value in
                             handleContractIndexSearch(value)
                         }
