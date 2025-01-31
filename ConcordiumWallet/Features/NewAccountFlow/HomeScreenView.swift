@@ -60,76 +60,77 @@ struct HomeScreenView: View {
     var dependencyProvider = ServicesProvider.defaultProvider()
     
     var body: some View {
-        TabView {
-            NavigationStack(path: $navigationManager.path) {
-                GeometryReader { geometry in
-                    VStack {
-                        if viewModel.isLoading {
+        NavigationStack(path: $navigationManager.path) {
+            GeometryReader { geometry in
+                VStack {
+                    if viewModel.isLoading {
+                        ScrollView {
+                            HomeScreenViewSkeleton()
+                        }
+                    } else {
+                        if viewModel.state == .accounts {
                             ScrollView {
-                                HomeScreenViewSkeleton()
-                            }
-                        } else {
-                            if viewModel.state == .accounts {
-                                ScrollView {
-                                    homeViewContent()
-                                }
-                            } else {
                                 homeViewContent()
                             }
+                        } else {
+                            homeViewContent()
                         }
                     }
-                    .onReceive(updateTimer.tick) { _ in
-                        Task {
-                            await self.viewModel.reload()
-                        }
-                    }
-                    .padding(.bottom, 20)
-                    .onTapGesture {
-                        showTooltip = false
-                    }
-                    .navigationDestination(for: AccountNavigationPaths.self, destination: { destination in
-                        navigateTo(destination)
-                    })
-                    .sheet(item: $accountQr) { account in
-                        AccountQRView(account: account)
-                    }
-                    .fullScreenCover(isPresented: $isShowPasscodeViewShown, content: {
-                        passcodeView
-                    })
-                    .onChange(of: showManageTokenList) { newValue in
-                        if showManageTokenList {
-                            navigationManager.navigate(to: .manageTokens)
-                        }
-                    }
-                    .onChange(of: viewModel.state) { newState in
-                        if newState != .accounts {
-                            previousState = newState
-                        }
-                        if viewModel.state == .accounts {
-                            isCreatingAccount = false
-                        }
-                    }
-                    .overlay(content: {
-                        if viewModel.state == .accounts && !UserDefaults.standard.bool(forKey: hasShownAnimationKey) {
-                            DotLottieAnimation(fileName: "confettiAnimation", config: AnimationConfig(autoplay: true, loop: false)).view()
-                                .onAppear {
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.3) {
-                                        UserDefaults.standard.set(true, forKey: hasShownAnimationKey)
-                                    }
-                                }
-                        }
-                    })
-                    .onChange(of: geometry.size) { _ in
-                        geometrySize = geometry.size
-                    }
-                    .refreshable { Task { await viewModel.reload() } }
-                    .onAppear { Task { await viewModel.reload() } }
-                    .onAppear { updateTimer.start() }
-                    .onDisappear { updateTimer.stop() }
-                    .onAppear { Tracker.track(view: ["Home screen"]) }
                 }
-                .modifier(AppBackgroundModifier())
+                .onReceive(updateTimer.tick) { _ in
+                    Task {
+                        await self.viewModel.reload()
+                    }
+                }
+                .padding(.bottom, 20)
+                .onTapGesture {
+                    showTooltip = false
+                }
+                .navigationDestination(for: AccountNavigationPaths.self, destination: { destination in
+                    navigateTo(destination)
+                })
+                .sheet(item: $accountQr) { account in
+                    AccountQRView(account: account)
+                }
+                .fullScreenCover(isPresented: $isShowPasscodeViewShown, content: {
+                    passcodeView
+                })
+                .onChange(of: showManageTokenList) { newValue in
+                    if showManageTokenList {
+                        navigationManager.navigate(to: .manageTokens)
+                    }
+                }
+                .onChange(of: viewModel.state) { newState in
+                    if newState != .accounts {
+                        previousState = newState
+                    }
+                    if viewModel.state == .accounts {
+                        isCreatingAccount = false
+                    }
+                }
+                .overlay(content: {
+                    if viewModel.state == .accounts && !UserDefaults.standard.bool(forKey: hasShownAnimationKey) {
+                        DotLottieAnimation(fileName: "confettiAnimation", config: AnimationConfig(autoplay: true, loop: false)).view()
+                            .onAppear {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.3) {
+                                    UserDefaults.standard.set(true, forKey: hasShownAnimationKey)
+                                }
+                            }
+                    }
+                })
+                .onChange(of: geometry.size) { _ in
+                    geometrySize = geometry.size
+                }
+                .refreshable { Task { await viewModel.reload() } }
+                .onAppear { Task { await viewModel.reload() } }
+                .onAppear { updateTimer.start() }
+                .onDisappear { updateTimer.stop() }
+                .onAppear { Tracker.track(view: ["Home screen"]) }
+                .onAppear {
+                    notifyTabBarHidden(false)
+                }
             }
+            .modifier(AppBackgroundModifier())
         }
     }
     
@@ -511,6 +512,9 @@ extension HomeScreenView {
             switch destination {
             case .accountsOverview:
                 AccountsOverviewView(path: $navigationManager.path, viewModel: viewModel, router: router)
+                    .onAppear {
+                        notifyTabBarHidden(true)
+                    }
             case .buy:
                 CCDOnrampView(dependencyProvider: viewModel.dependencyProvider)
                     .modifier(NavigationViewModifier(title: "Buy CCD") {
@@ -519,6 +523,9 @@ extension HomeScreenView {
             case .manageTokens:
                 if let vm = viewModel.accountDetailViewModel {
                     ManageTokensView(viewModel: vm, path: $navigationManager.path, isNewTokenAdded: $isNewTokenAdded)
+                        .onAppear {
+                            notifyTabBarHidden(true)
+                        }
                 } else {
                     EmptyView()
                 }
@@ -545,6 +552,9 @@ extension HomeScreenView {
                         ),
                         onTokenAdded: { isNewTokenAdded = true }
                     )
+                    .onAppear {
+                        notifyTabBarHidden(true)
+                    }
                 } else {
                     EmptyView()
                 }
@@ -571,6 +581,13 @@ extension HomeScreenView {
             }
         }
     }
+    
+    private func notifyTabBarHidden(_ isHidden: Bool) {
+        NotificationCenter.default.post(name: .hideTabBar, object: nil, userInfo: ["isHidden": isHidden])
+    }
+}
+extension Notification.Name {
+    static let hideTabBar = Notification.Name("hideTabBar")
 }
 
 class NavigationManager: ObservableObject {

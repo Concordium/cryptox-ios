@@ -42,7 +42,7 @@ struct AccountsOverviewView: View {
             .background(.whiteMain)
             .cornerRadius(28)
         }
-        .padding(.vertical, 20)
+        .padding(.top, 20)
         .padding(.horizontal, 18)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .modifier(NavigationViewModifier(title: "Your accounts", backAction: {

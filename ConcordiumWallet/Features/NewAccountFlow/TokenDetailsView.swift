@@ -106,7 +106,7 @@ struct TokenDetailsView: View {
                 .background(.grey3.opacity(0.3))
                 .cornerRadius(12)
                 
-                if token.name != "ccd" {
+                if token.name != "ccd" && isAddTokenDetails {
                     HStack(spacing: 8) {
                         Image("notebook")
                         Text("Show raw metadata")

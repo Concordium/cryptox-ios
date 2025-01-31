@@ -18,7 +18,6 @@ class MainTabBarController: BaseTabBarController {
     let accountsCoordinator: AccountsCoordinator
     let moreCoordinator: MoreCoordinator
     let accountsMainRouter: AccountsMainRouter
-    @State private var navigationPath = NavigationManager()
 
     private var cancellables: [AnyCancellable] = []
     let defaultProvider = ServicesProvider.defaultProvider()
@@ -57,6 +56,11 @@ class MainTabBarController: BaseTabBarController {
         viewControllers = [accountsMainRouter.rootScene(), newsFeedController, moreCoordinator.navigationController]
         hideKeyboardWhenTappedAround()
         transactionNotificationService.delegate = self
+        NotificationCenter.default.addObserver(forName: .hideTabBar, object: nil, queue: .main) { notification in
+            if let isHidden = notification.userInfo?["isHidden"] as? Bool {
+                self.tabBar.isHidden = isHidden
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -164,22 +168,6 @@ extension MainTabBarController: NotificationNavigationDelegate, TransactionNotif
         alertViewController.view.backgroundColor = .clear
         DispatchQueue.main.async {
             self.present(alertViewController, animated: false, completion: nil)
-        }
-    }
-}
-
-extension MainTabBarController: UITabBarControllerDelegate {
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        // Check if the selected view controller is the one with a NavigationStack
-        if let navigationController = viewController as? UINavigationController {
-            if let topViewController = navigationController.topViewController {
-                // Reset the navigation path to make it appear as if we've popped to root
-                self.navigationPath = NavigationManager()
-                self.navigationPath.reset()
-            }
-        } else {
-            // If it's not a navigation controller, just select the tab as usual
-            tabBarController.selectedViewController = viewController
         }
     }
 }
