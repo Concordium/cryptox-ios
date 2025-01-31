@@ -8,6 +8,7 @@
 
 import SwiftUI
 import BigInt
+import Combine
 
 struct SendTokenView: View {
     
@@ -15,11 +16,9 @@ struct SendTokenView: View {
     @StateObject var viewModel: TransferTokenViewModel
     @StateObject var addMemoViewModel = AddMemoViewModel()
     @State var showConfirmationAlertForMemo: Bool = false
-    private var isContinueDisabled: Bool {
-        !viewModel.canSend || (viewModel.addedMemo != nil && !addMemoViewModel.enableAddMemoToTransferButton)
-    }
-    
-    
+    @State private var isContinueDisabled: Bool = true
+    @State private var cancellables = Set<AnyCancellable>()
+
     var body: some View {
         VStack {
             ScrollView {
@@ -99,13 +98,13 @@ struct SendTokenView: View {
                     .frame(height: 56)
                     .background(isContinueDisabled ? .clear : .white)
                     .cornerRadius(48)
-                    .disabled(isContinueDisabled)
                     .overlay(
                         RoundedRectangle(cornerRadius: 48)
                             .inset(by: 0.5)
                             .stroke(isContinueDisabled ? .grey4 : .clear)
                     )
             })
+            .disabled(isContinueDisabled)
             .padding(.bottom, 20)
         }
         .alert(isPresented: $showConfirmationAlertForMemo) {
@@ -124,6 +123,9 @@ struct SendTokenView: View {
                     path.append(.confirmTransaction(viewModel))
                 }
             )
+        }
+        .onAppear {
+            setupBinding()
         }
         .padding(.horizontal, 18)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -150,5 +152,21 @@ struct SendTokenView: View {
                 path.append(.selectRecipient(account, mode: .selectRecipientFromPublic))
             }
         }
+    }
+    
+    private func setupBinding() {
+        Publishers.CombineLatest(
+            viewModel.$canSend,
+            addMemoViewModel.$enableAddMemoToTransferButton
+        )
+        .map { [weak viewModel] canSend, enableMemoButton in
+            guard let viewModel = viewModel else { return true }
+            return !canSend || (viewModel.addedMemo != nil && !enableMemoButton)
+        }
+        .receive(on: RunLoop.main)
+        .sink { newValue in
+            self.isContinueDisabled = newValue
+        }
+        .store(in: &cancellables)
     }
 }

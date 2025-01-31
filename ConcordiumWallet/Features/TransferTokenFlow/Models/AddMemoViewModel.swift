@@ -10,7 +10,7 @@ import Combine
 
 class AddMemoViewModel: ObservableObject {
     @Published var memo: Memo?
-    @Published var enableAddMemoToTransferButton = false
+    @Published var enableAddMemoToTransferButton = true
     @Published var invalidMemoSizeError = false
     @Published var shakeTextView = false
     private var cancellables = [AnyCancellable]()
@@ -47,10 +47,11 @@ class AddMemoViewModel: ObservableObject {
 
     
     func updateMemo(_ text: String) {
-        memo = !invalidMemoSizeError ? Memo(text) : nil
+        memo = Memo(text)
     }
     
     func removeMemo() {
         memo = nil
+        invalidMemoSizeError = false
     }
 }

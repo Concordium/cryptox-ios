@@ -18,7 +18,7 @@ enum AddRecipientError: LocalizedError {
             case .addressNotValid:
                 return "addRecipient.addressInvalid".localized
             case .addressAlreadyExists(let address):
-                return "viewError.duplicateRecipient" + address
+            return "viewError.duplicateRecipient".localized + address
             case .somethingWentWrong(let description):
                 return description
         }
@@ -67,10 +67,10 @@ class AddRecipientViewModel: ObservableObject {
     func calculateSaveButtonState() {
         switch mode {
         case .add:
-            enableSave = !name.isEmpty && !address.isEmpty
+            enableSave = !name.isEmpty && !address.isEmpty && error == nil
         case .edit(let recipient):
             enableSave = (name != recipient.name) || (address != recipient.address)
-            && (!name.isEmpty && !address.isEmpty)
+            && (!name.isEmpty && !address.isEmpty) && error == nil
         }
     }
     
@@ -89,6 +89,8 @@ class AddRecipientViewModel: ObservableObject {
         case .add:
             if let existingRecipient = storageManager.getRecipient(withAddress: address) {
                 error = .addressAlreadyExists(existingRecipient.name)
+                self.name = ""
+                self.address = ""
                 return
             }
         default: break

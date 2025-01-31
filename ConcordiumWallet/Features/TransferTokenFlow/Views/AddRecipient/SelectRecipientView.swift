@@ -100,6 +100,9 @@ struct SelectRecipientView: View {
         .sheet(isPresented: $isPresentingScanner) {
             ScanAddressQRView(onPicked: { address in
                 onRecipientSelected(address)
+                if viewModel.mode == .addressBook {
+                    accountAddressText = address
+                }
                 isPresentingScanner = false
             }
             )

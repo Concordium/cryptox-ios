@@ -75,18 +75,20 @@ struct AddRecipientView: View {
                             }
                         }
                 }
-                Image(systemName: !viewModel.address.isEmpty ? "xmark" : "magnifyingglass")
-                    .resizable()
-                    .scaledToFit()
-                    .foregroundStyle(Color.MineralBlue.blueish3)
-                    .frame(width: 18, height: 18)
-                    .onTapGesture {
-                        if !viewModel.address.isEmpty {
-                            withAnimation {
-                                viewModel.address = ""
+                if !viewModel.address.isEmpty {
+                    Image(systemName: "xmark")
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundStyle(Color.MineralBlue.blueish3)
+                        .frame(width: 18, height: 18)
+                        .onTapGesture {
+                            if !viewModel.address.isEmpty {
+                                withAnimation {
+                                    viewModel.address = ""
+                                }
                             }
                         }
-                    }
+                }
             }
             .padding(.horizontal, 16)
             .padding(.top, 8)
@@ -140,11 +142,13 @@ struct AddRecipientView: View {
         .alert(isPresented: $showErrorAlert) {
             Alert(title: Text(viewModel.error?.errorDescription ?? ""), dismissButton: .default(Text("errorAlert.okButton".localized), action: {
                 showErrorAlert = false
+                viewModel.calculateSaveButtonState()
             }))
         }
         .sheet(isPresented: $isPresentingScanner) {
             ScanAddressQRView(onPicked: { address in
                 viewModel.address = address
+                viewModel.name = address.prefix(4) + "..." + address.suffix(4)
                 isPresentingScanner = false
             })
         }
