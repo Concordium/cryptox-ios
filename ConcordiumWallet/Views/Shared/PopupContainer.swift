@@ -55,24 +55,8 @@ struct PopupContainer<Content: View>: View {
                     .offset(x: -12, y: 12)
                 }
             }
-            .background(
-                LinearGradient(
-                    stops: [
-                        Gradient.Stop(color: Color(red: 0.92, green: 0.94, blue: 0.94).opacity(0.2), location: 0.00),
-                        Gradient.Stop(color: Color(red: 0.02, green: 0.15, blue: 0.21).opacity(0.2), location: 1.00),
-                    ],
-                    startPoint: UnitPoint(x: 0.5, y: 0.5),
-                    endPoint: UnitPoint(x: 0.5, y: 1)
-                )
-            )
-            .background(Color(red: 0.92, green: 0.94, blue: 0.94))
+            .modifier(FloatingGradientBGStyleModifier())
             .cornerRadius(20)
-            .overlay(
-                RoundedRectangle(cornerRadius: 20)
-                    .inset(by: 0.5)
-                    .stroke(Color(red: 0.73, green: 0.73, blue: 0.73), lineWidth: 1)
-                
-            )
             .padding(.horizontal, 32)
             .clipped()
         }

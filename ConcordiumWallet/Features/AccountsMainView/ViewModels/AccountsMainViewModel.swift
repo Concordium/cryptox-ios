@@ -21,7 +21,6 @@ final class AccountsMainViewModel: ObservableObject {
     @Published var staked = GTU(intValue: 0)
     @Published var isBackupAlertShown = false
     @Published var selectedAccount: AccountDataType?
-    @Published var isLoading: Bool = false
     
     var accountDetailViewModel: AccountDetailViewModel? {
         guard let selectedAccount = selectedAccount else { return nil }
@@ -55,7 +54,6 @@ final class AccountsMainViewModel: ObservableObject {
     
     @MainActor
     func reload() async {
-        isLoading = true
         accounts = dependencyProvider.storageManager().getAccounts()
         
         await reloadAccounts()
@@ -68,7 +66,6 @@ final class AccountsMainViewModel: ObservableObject {
         if selectedAccount == nil {
             selectedAccount = accounts.first
         }
-        isLoading = false
     }
     
     @MainActor

@@ -141,7 +141,7 @@ struct WelcomeView: View {
                     .opacity(isChecked ? 1.0 : 0.7)
                     .disabled(!isChecked)
                     .frame(height: 56)
-                    .background(Color.EggShell.tint1)
+                    .background(.white)
                     .cornerRadius(28, corners: .allCorners)
                     .padding(.horizontal, 16)
                 }

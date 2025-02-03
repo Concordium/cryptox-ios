@@ -127,7 +127,7 @@ struct ImportWalletPrivateKeyView: View {
             }
             .disabled(!viewModel.isValidPhrase)
             .frame(height: 56)
-            .background(Color.EggShell.tint1)
+            .background(.white)
             .cornerRadius(28)
             .opacity(viewModel.isValidPhrase ? 1.0 : 0)
             .animation(.easeInOut, value: viewModel.isValidPhrase)

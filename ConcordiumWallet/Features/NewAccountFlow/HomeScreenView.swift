@@ -31,7 +31,8 @@ enum AccountNavigationPaths: Hashable {
 }
 
 struct HomeScreenView: View {
-    @StateObject var viewModel: AccountsMainViewModel
+    @ObservedObject var viewModel: AccountsMainViewModel
+    @State private var activeAccountViewModel: AccountDetailViewModel?
     @EnvironmentObject var navigationManager: NavigationManager
     @State var showTooltip: Bool = false
     @State var accountQr: AccountEntity?
@@ -46,6 +47,7 @@ struct HomeScreenView: View {
     @State private var geometrySize: CGSize?
     @State var isShowPasscodeViewShown = false
     @State var phrase: [String]?
+    @State var isLoading = false
     
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
@@ -63,7 +65,7 @@ struct HomeScreenView: View {
         NavigationStack(path: $navigationManager.path) {
             GeometryReader { geometry in
                 VStack {
-                    if viewModel.isLoading {
+                    if isLoading {
                         ScrollView {
                             HomeScreenViewSkeleton()
                         }
@@ -119,18 +121,24 @@ struct HomeScreenView: View {
                     }
                 })
                 .onChange(of: geometry.size) { _ in
-                    geometrySize = geometry.size
+                        geometrySize = geometry.size
+                }
+                .onChange(of: viewModel.selectedAccount?.address) { _ in
+                    changeAccountDetailViewModel()
                 }
                 .refreshable { Task { await viewModel.reload() } }
-                .onAppear { Task { await viewModel.reload() } }
-                .onAppear { updateTimer.start() }
-                .onDisappear { updateTimer.stop() }
-                .onAppear { Tracker.track(view: ["Home screen"]) }
                 .onAppear {
+                    updateTimer.start()
                     notifyTabBarHidden(false)
                     returnToHome()
+                    Task {
+                        isLoading = true
+                        await viewModel.reload()
+                        isLoading = false
+                    }
+                    Tracker.track(view: ["Home screen"])
                 }
-            }
+                .onDisappear { updateTimer.stop() }            }
             .modifier(AppBackgroundModifier())
         }
     }
@@ -190,6 +198,7 @@ struct HomeScreenView: View {
             
             accountStatesView
                 .padding(.horizontal, viewModel.state != .accounts ? 18 : 0)
+                .padding(.top, isShouldShowOnrampMessage ? 0 : 40)
         }
     }
     
@@ -388,6 +397,14 @@ struct HomeScreenView: View {
         let gtuValue = GTU(intValue: balance)
         return gtuValue?.displayValueWithTwoNumbersAfterDecimalPoint() ?? "0.00"
     }
+    
+    func changeAccountDetailViewModel() {
+        if let selectedAccount = viewModel.selectedAccount {
+            if activeAccountViewModel?.account?.address != selectedAccount.address {
+                activeAccountViewModel = AccountDetailViewModel(account: selectedAccount)
+            }
+        }
+    }
 }
 
 extension HomeScreenView {
@@ -403,11 +420,15 @@ extension HomeScreenView {
             }
             
         case .accounts:
-            if let vm = viewModel.accountDetailViewModel {
-                AccountTokenListView(viewModel: vm, showManageTokenList: $showManageTokenList, path: $navigationManager.path, mode: .normal)
-                    .frame(maxWidth: .infinity)
-                    .transition(.opacity)
-                    .padding(.top, isShouldShowOnrampMessage ? 0 : 40)
+            if let vm = activeAccountViewModel {
+                AccountTokenListView(
+                    viewModel: vm,
+                    showManageTokenList: $showManageTokenList,
+                    path: $navigationManager.path,
+                    mode: .normal
+                )
+                .frame(maxWidth: .infinity)
+                .transition(.opacity)
             }
             
         case .createAccount:
@@ -445,7 +466,6 @@ extension HomeScreenView {
                         .background(.white)
                         .cornerRadius(28)
                 })
-                .padding(.bottom, 23)
             }
             .transition(.opacity)
             
@@ -483,7 +503,6 @@ extension HomeScreenView {
                         .background(.white)
                         .cornerRadius(28)
                 }
-                .padding(.bottom, 23)
             }
             .transition(.opacity)
         }
