@@ -26,6 +26,7 @@ final class TransferTokenConfirmViewModel: ObservableObject, Equatable, Hashable
     
     @Published var error: Error?
     @Published var isLoading: Bool = true
+    private var dependencyProvider = ServicesProvider.defaultProvider()
     var transactionStatusLabel: String {
         withAnimation(.easeInOut(duration: 1)) {
             if isLoading {
@@ -76,6 +77,16 @@ final class TransferTokenConfirmViewModel: ObservableObject, Equatable, Hashable
             self.error = error
             self.isLoading = false
         }
+    }
+    
+    func getTransactionViewModel() -> TransactionViewModel? {
+        guard let transferDataType else { return nil }
+        let viewModel = TransactionViewModel(localTransferData: transferDataType, submissionStatus: nil, account: tokenTransferModel.account, balanceType: .balance) { _ in
+            return nil
+        } recipientListLookup: { _ in
+            return nil
+        }
+        return viewModel
     }
     
     func dismiss() {

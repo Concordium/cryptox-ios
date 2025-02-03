@@ -77,7 +77,6 @@ struct ConfirmTransactionView: View {
                 SliderButton(text: "Submit delegation") {
                     path.append(.transferSendingStatus(TransferTokenConfirmViewModel(tokenTransferModel: viewModel.tokenTransferModel, transactionsService: ServicesProvider.defaultProvider().transactionsService(), storageManager: ServicesProvider.defaultProvider().storageManager())))
                 }
-                .padding(.bottom, 18)
             }
             .padding(18)
             .frame(maxWidth: .infinity, maxHeight: .infinity)

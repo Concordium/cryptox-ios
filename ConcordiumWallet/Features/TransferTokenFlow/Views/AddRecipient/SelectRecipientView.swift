@@ -17,6 +17,7 @@ struct SelectRecipientView: View {
     @State private var isPresentingScanner = false
     @State var error: GeneralAppError?
     @EnvironmentObject var navigationManager: NavigationManager
+    private let dependencyProvider = ServicesProvider.defaultProvider()
     
     var body: some View {
         if viewModel.mode == .addressBook {
@@ -95,6 +96,9 @@ struct SelectRecipientView: View {
         .onAppear {
             viewModel.refreshData()
         }
+        .refreshable {
+            viewModel.refreshData()
+        }
         .padding(.horizontal, 18)
         .padding(.vertical, 40)
         .sheet(isPresented: $isPresentingScanner) {
@@ -116,12 +120,10 @@ struct SelectRecipientView: View {
             }
         })
         .modifier(NavigationViewModifier(title: viewModel.mode == .addressBook ? "sendFund.addressBook".localized : "Choose recipient", backAction: viewModel.mode == .addressBook ? {
-                onBackTapped()
+            onBackTapped()
         } : nil, trailingAction: {
-            if viewModel.mode == .addressBook {
-                navigationManager.navigate(to: .addRecipient(mode: .add))
-            }
-        }, trailingIcon: viewModel.mode == .addressBook ? Image("ico_add") : nil))
+            navigationManager.navigate(to: .addRecipient(mode: .add))
+        }, trailingIcon: Image("ico_add")))
         .modifier(AppBackgroundModifier())
     }
     
@@ -148,10 +150,7 @@ struct SelectRecipientView: View {
                 .background(Color(red: 0.09, green: 0.1, blue: 0.1))
                 .cornerRadius(12)
                 .onTapGesture {
-                    onRecipientSelected(recipient.address)
-                    if viewModel.mode == .addressBook, let recipientDataType = recipient.recipient {
-                        navigationManager.navigate(to: .addRecipient(mode: .edit(recipient: RecipientEntity(name: recipientDataType.name, address: recipientDataType.address))))
-                    }
+                    recipientSelected(recipient.address)
                 }
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
@@ -165,6 +164,13 @@ struct SelectRecipientView: View {
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
+    }
+    
+    private func recipientSelected(_ address: String) {
+        onRecipientSelected(address)
+        if viewModel.mode == .addressBook {
+            navigationManager.navigate(to: .addRecipient(mode: .edit(address: address)))
+        }
     }
 }
 

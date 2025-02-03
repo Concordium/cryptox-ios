@@ -8,6 +8,7 @@
 
 import SwiftUI
 import DotLottie
+import Combine
 
 enum LoadingAnimationState: String {
     case loader = "loader"
@@ -21,6 +22,9 @@ struct TransferSendingStatusView: View {
     @ObservedObject var viewModel: TransferTokenConfirmViewModel
     @EnvironmentObject var navigationManager: NavigationManager
     @State private var hasStartedTransaction = false
+    @State private var isTransactionDetailsVisible: Bool = true
+    @State private var cancellables = Set<AnyCancellable>()
+    
     var animation: DotLottieAnimation {
         DotLottieAnimation(fileName: "loadingAnimation", config: animationConfig)
     }
@@ -53,24 +57,7 @@ struct TransferSendingStatusView: View {
                         .font(.satoshi(size: 12, weight: .medium))
                         .foregroundStyle(.white)
                 }
-                
-                if viewModel.transferDataType?.transactionStatus == .finalized && viewModel.error == nil {
-                    Divider()
-                        .background(.white.opacity(0.1))
-                    
-                    Button {
-                        
-                    } label: {
-                        HStack(spacing: 8) {
-                            Text("accountDetails.title".localized)
-                                .font(.satoshi(size: 12, weight: .medium))
-                                .foregroundStyle(.white)
-                            Image("ico_back")
-                                .rotationEffect(.degrees(180))
-                        }
-                    }
-
-                }
+                transactionDetailsSection()
             }
             .padding(.vertical, 30)
             .padding(.horizontal, 14)
@@ -112,9 +99,38 @@ struct TransferSendingStatusView: View {
                     await viewModel.callTransaction()
                 }
             }
+//            setupBinding()
         }
         .onChange(of: viewModel.isLoading) { _ in
             playAnimationBasedOnState()
+        }
+    }
+    
+    private func transactionDetailsSection() -> some View {
+        Group {
+            VStack(spacing: 30) {
+                Divider()
+                    .background(.white.opacity(0.1))
+                    .transition(.opacity)
+                
+                Button {
+                    if let transaction = viewModel.getTransactionViewModel() {
+                        navigationManager.navigate(to: .transactionDetails(transaction: TransactionDetailViewModel(transaction: transaction)))
+                    }
+                } label: {
+                    HStack(spacing: 8) {
+                        Text("accountDetails.title".localized)
+                            .font(.satoshi(size: 12, weight: .medium))
+                            .foregroundStyle(.white)
+                        Image("ico_back")
+                            .rotationEffect(.degrees(180))
+                    }
+                }
+                .transition(.opacity)
+            }
+            .opacity(!viewModel.isLoading ? 1 : 0)
+            .transition(.opacity)
+            .animation(.easeInOut(duration: 1), value: !viewModel.isLoading)
         }
     }
     
@@ -138,5 +154,21 @@ struct TransferSendingStatusView: View {
             animationConfig = AnimationConfig(autoplay: true, loop: false, segments: (121, 239))
             _ = animation.play()
         }
+    }
+    
+    private func setupBinding() {
+        Publishers.CombineLatest(
+            viewModel.$transferDataType,
+            viewModel.$error
+        )
+        .map { [weak viewModel] transferDataType, error in
+            guard let viewModel = viewModel else { return true }
+            return transferDataType != nil && error == nil
+        }
+        .receive(on: RunLoop.main)
+        .sink { newValue in
+            self.isTransactionDetailsVisible = newValue
+        }
+        .store(in: &cancellables)
     }
 }

@@ -27,7 +27,7 @@ enum AddRecipientError: LocalizedError {
 
 enum EditRecipientMode: Equatable, Hashable {
     case add
-    case edit(recipient: RecipientEntity)
+    case edit(address: String)
 }
 
 class AddRecipientViewModel: ObservableObject {
@@ -50,10 +50,12 @@ class AddRecipientViewModel: ObservableObject {
         switch mode {
         case .add:
             title = "addRecipient.title".localized
-        case .edit(let recipient):
+        case .edit(let address):
             title = "editAddress.title".localized
-            name = recipient.name
-            address = recipient.address
+            if let recipient = storageManager.getRecipient(withAddress: address) {
+                name = recipient.name
+                self.address = recipient.address
+            }
         }
     }
     
@@ -68,9 +70,11 @@ class AddRecipientViewModel: ObservableObject {
         switch mode {
         case .add:
             enableSave = !name.isEmpty && !address.isEmpty && error == nil
-        case .edit(let recipient):
-            enableSave = (name != recipient.name) || (address != recipient.address)
-            && (!name.isEmpty && !address.isEmpty) && error == nil
+        case .edit(let address):
+            if let recipient = storageManager.getRecipient(withAddress: address) {
+                enableSave = (name != recipient.name) || (address != recipient.address)
+                && (!name.isEmpty && !address.isEmpty) && error == nil
+            }
         }
     }
     
@@ -103,9 +107,11 @@ class AddRecipientViewModel: ObservableObject {
                 } catch let error {
                     self.error = .somethingWentWrong(error.localizedDescription)
             }
-            case .edit(let recipient):
+            case .edit(let address):
                 do {
-                    try storageManager.editRecipient(oldRecipient: recipient, newRecipient: newRecipient)
+                    if let recipient = storageManager.getRecipient(withAddress: address) {
+                        try storageManager.editRecipient(oldRecipient: recipient, newRecipient: newRecipient)
+                    }
                 } catch let error {
                     self.error = .somethingWentWrong(error.localizedDescription)
             }
