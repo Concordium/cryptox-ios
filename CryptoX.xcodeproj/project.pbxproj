@@ -1846,6 +1846,9 @@
 		151A53A32C5D1A5500EFE20C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */; };
 		151A53A42C5D1A5500EFE20C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */; };
 		151A53A52C5D1A5500EFE20C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */; };
+		152AE6382D50D68B00B0B073 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152AE6372D50D68B00B0B073 /* NotificationNames.swift */; };
+		152AE6392D50D68B00B0B073 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152AE6372D50D68B00B0B073 /* NotificationNames.swift */; };
+		152AE63A2D50D68B00B0B073 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152AE6372D50D68B00B0B073 /* NotificationNames.swift */; };
 		153F2F4B2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */; };
 		153F2F4C2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */; };
 		153F2F4D2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */; };
@@ -3149,6 +3152,7 @@
 		15184CEC2CB0056C00DAE03A /* CooldownCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CooldownCardView.swift; sourceTree = "<group>"; };
 		151A53982C5CF03800EFE20C /* PopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
 		151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
+		152AE6372D50D68B00B0B073 /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTokenNotificationPopup.swift; sourceTree = "<group>"; };
 		153F2F4E2CC2D100009C8347 /* NotificationTokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTokenService.swift; sourceTree = "<group>"; };
 		1557CC932C89B799008ABF67 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -5618,6 +5622,7 @@
 				088FEE472A016B3400042957 /* Publisher+Async.swift */,
 				15F3F0AC2C90488300EF8975 /* UserDefaults+Extensions.swift */,
 				1575862D2CA2CA4D00205A6E /* IdentifiableString.swift */,
+				152AE6372D50D68B00B0B073 /* NotificationNames.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -7060,6 +7065,7 @@
 				08C169CD2BBFE2CD00E61326 /* ContractUpdateRequestParams.swift in Sources */,
 				08C167372BB7396200E61326 /* LoadingIndicator.swift in Sources */,
 				08C167392BB7396200E61326 /* TransactionDetailPresenter.swift in Sources */,
+				152AE6382D50D68B00B0B073 /* NotificationNames.swift in Sources */,
 				08C1673A2BB7396200E61326 /* SeedPhraseInput.swift in Sources */,
 				08C1673B2BB7396200E61326 /* ContactSupportButtonWidgetViewController.swift in Sources */,
 				08C1673C2BB7396200E61326 /* WidgetViewController.swift in Sources */,
@@ -7756,6 +7762,7 @@
 				08C169CC2BBFE2CD00E61326 /* ContractUpdateRequestParams.swift in Sources */,
 				088FEE312A01687400042957 /* LoadingIndicator.swift in Sources */,
 				088FEE042A0167E600042957 /* TransactionDetailPresenter.swift in Sources */,
+				152AE63A2D50D68B00B0B073 /* NotificationNames.swift in Sources */,
 				0851BFD92B5059E8006373AC /* SeedPhraseInput.swift in Sources */,
 				088FEF7F2A0270B000042957 /* ContactSupportButtonWidgetViewController.swift in Sources */,
 				088FEF372A0270AB00042957 /* WidgetViewController.swift in Sources */,
@@ -8452,6 +8459,7 @@
 				08A0457529FA99D100DACE1F /* BakerPoolResponse.swift in Sources */,
 				088FEE002A0167E500042957 /* TransactionDetailPresenter.swift in Sources */,
 				0851BFD82B5059E8006373AC /* SeedPhraseInput.swift in Sources */,
+				152AE6392D50D68B00B0B073 /* NotificationNames.swift in Sources */,
 				08B16F3D2A011F1F002E6B33 /* AccountsCoordinator.swift in Sources */,
 				D5F7A24E26D7FFC30061E646 /* FilledButton.swift in Sources */,
 				088FF1C22A02A70700042957 /* ExportViewController.swift in Sources */,

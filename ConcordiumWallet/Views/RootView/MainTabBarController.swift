@@ -42,6 +42,7 @@ class MainTabBarController: BaseTabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBar.backgroundColor = .blackMain
+        self.delegate = self
         accountsMainRouter.configureAccountAlertDelegate = self
         moreCoordinator.configureAccountAlertDelegate = self
         moreCoordinator.start()
@@ -168,6 +169,16 @@ extension MainTabBarController: NotificationNavigationDelegate, TransactionNotif
         alertViewController.view.backgroundColor = .clear
         DispatchQueue.main.async {
             self.present(alertViewController, animated: false, completion: nil)
+        }
+    }
+}
+
+extension MainTabBarController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if let selectedIndex = tabBarController.viewControllers?.firstIndex(of: viewController),
+           let item = tabBar.items?[selectedIndex],
+           item.tag == 0 {
+            NotificationCenter.default.post(name: .returnToHomeTabBar, object: nil, userInfo: ["returnToHomeTabBar": true])
         }
     }
 }

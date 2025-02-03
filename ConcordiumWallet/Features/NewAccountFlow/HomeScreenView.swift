@@ -128,6 +128,7 @@ struct HomeScreenView: View {
                 .onAppear { Tracker.track(view: ["Home screen"]) }
                 .onAppear {
                     notifyTabBarHidden(false)
+                    returnToHome()
                 }
             }
             .modifier(AppBackgroundModifier())
@@ -585,9 +586,14 @@ extension HomeScreenView {
     private func notifyTabBarHidden(_ isHidden: Bool) {
         NotificationCenter.default.post(name: .hideTabBar, object: nil, userInfo: ["isHidden": isHidden])
     }
-}
-extension Notification.Name {
-    static let hideTabBar = Notification.Name("hideTabBar")
+    
+    private func returnToHome() {
+        NotificationCenter.default.addObserver(forName: .returnToHomeTabBar, object: nil, queue: .main) { notification in
+            if let needToReturn = notification.userInfo?["returnToHomeTabBar"] as? Bool {
+                self.navigationManager.reset()
+            }
+        }
+    }
 }
 
 class NavigationManager: ObservableObject {
