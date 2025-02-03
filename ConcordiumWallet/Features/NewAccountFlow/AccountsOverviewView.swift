@@ -16,7 +16,8 @@ struct AccountsOverviewView: View {
     @SwiftUI.Environment(\.dismiss) private var dismiss
     weak var router: AccountsMainViewDelegate?
     private let dotImages = ["Dot1", "dot2", "dot3", "dot4", "dot5", "dot6", "dot7", "dot8", "dot9"]
-
+    @State private var createAccountPressed: Bool = false
+    
     var body: some View {
         VStack {
             ScrollView {
@@ -31,18 +32,16 @@ struct AccountsOverviewView: View {
             Button {
                 router?.showCreateAccountFlow()
             } label: {
-                Spacer()
-                Text("Create new account")
-                    .font(.satoshi(size: 14, weight: .medium))
-                    .foregroundStyle(.blackMain)
-                    .padding(.vertical, 18.5)
-                Spacer()
+                HStack {
+                    Spacer()
+                    Text("Create new account")
+                        .font(.satoshi(size: 14, weight: .medium))
+                    Spacer()
+                }
             }
-            .padding(.horizontal, 18)
-            .background(.whiteMain)
-            .cornerRadius(28)
+            .buttonStyle(PressedButtonStyle())
         }
-        .padding(.top, 20)
+        .padding(.vertical, 20)
         .padding(.horizontal, 18)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .modifier(NavigationViewModifier(title: "Your accounts", backAction: {

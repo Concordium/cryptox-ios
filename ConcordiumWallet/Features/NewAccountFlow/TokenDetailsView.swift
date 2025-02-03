@@ -14,6 +14,7 @@ struct TokenDetailsView: View {
     var isAddTokenDetails: Bool = false
 
     @Binding var showRawMd: Bool
+    @State private var showRawMdTapped = false
     
     var body: some View {
         ZStack {
@@ -106,15 +107,21 @@ struct TokenDetailsView: View {
                 .background(.grey3.opacity(0.3))
                 .cornerRadius(12)
                 
-                if token.name != "ccd" && isAddTokenDetails {
+                if token.name != "ccd" && !isAddTokenDetails {
                     HStack(spacing: 8) {
                         Image("notebook")
+                            .renderingMode(.template)
+                            .foregroundStyle(showRawMdTapped ? .buttonPressed : .whiteMain)
                         Text("Show raw metadata")
                             .font(.satoshi(size: 15, weight: .medium))
-                            .foregroundStyle(.whiteMain)
+                            .foregroundStyle(showRawMdTapped ? .buttonPressed : .whiteMain)
                     }
                     .onTapGesture {
-                        showRawMd = true
+                        showRawMdTapped = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            showRawMdTapped = false
+                            showRawMd = true
+                        }
                     }
                 }
                 if isAddTokenDetails {

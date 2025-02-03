@@ -589,7 +589,7 @@ extension HomeScreenView {
     
     private func returnToHome() {
         NotificationCenter.default.addObserver(forName: .returnToHomeTabBar, object: nil, queue: .main) { notification in
-            if let needToReturn = notification.userInfo?["returnToHomeTabBar"] as? Bool {
+            if let needToReturn = notification.userInfo?["returnToHomeTabBar"] as? Bool, needToReturn {
                 self.navigationManager.reset()
             }
         }

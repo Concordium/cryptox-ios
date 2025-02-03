@@ -19,6 +19,8 @@ struct AccountTokenListView: View {
     @ObservedObject var viewModel: AccountDetailViewModel
     @Binding var showManageTokenList: Bool
     @Binding var path: [AccountNavigationPaths]
+    @State private var selectedAccountID: Int?
+    @State private var managePressed: Bool = false
     
     var mode: TokenListMode
     var onHideToken: ((CIS2Token) -> Void)?
@@ -36,16 +38,20 @@ struct AccountTokenListView: View {
                 HStack(spacing: 8) {
                     Image("settingsGear")
                         .renderingMode(.template)
-                        .foregroundStyle(.greyAdditional)
+                        .foregroundStyle(managePressed ? Color.buttonPressed : .greyAdditional)
                     Text("Manage token list")
                         .font(.satoshi(size: 15, weight: .medium))
-                        .foregroundStyle(.greyAdditional)
+                        .foregroundStyle(managePressed ? Color.buttonPressed : .greyAdditional)
                     
                 }
                 .padding(.leading, 24)
                 .padding(.top, 8)
                 .onTapGesture {
-                    showManageTokenList = true
+                    managePressed = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        managePressed = false
+                        showManageTokenList = true
+                    }
                 }
                 .opacity(mode == .normal ? 1 : 0)
             }
@@ -124,11 +130,15 @@ struct AccountTokenListView: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 11)
-        .background(Color(red: 0.09, green: 0.1, blue: 0.1))
+        .background(selectedAccountID == account.id ? .selectedCell : Color(red: 0.09, green: 0.1, blue: 0.1))
         .cornerRadius(12)
         .onTapGesture {
             if mode == .normal {
-                path.append(.tokenDetails(token: account))
+                selectedAccountID = account.id
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    selectedAccountID = nil
+                    path.append(.tokenDetails(token: account))
+                }
             }
         }
     }
