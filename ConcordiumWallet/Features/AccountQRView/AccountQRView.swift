@@ -19,84 +19,68 @@ struct AccountQRView: View {
     @State private var showShareSheet = false
     
     var body: some View {
-        NavigationView {
-            VStack(spacing: 16) {
-                VStack {
-                    if let image = image {
-                        Image(uiImage: image)
-                            .resizable()
-                            .interpolation(.none)
-                            .aspectRatio(1.0, contentMode: .fit)
-                            .tint(Color.white)
-                            .background(Color.clear)
-                            .padding(60)
-                    }
+        VStack(spacing: 14) {
+            Text("to \(account.displayName)")
+                .font(.satoshi(size: 12, weight: .medium))
+                .foregroundStyle(Color.MineralBlue.blueish2)
+            VStack(alignment: .center, spacing: 30) {
+                if let image = image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .renderingMode(.template)
+                        .interpolation(.none)
+                        .aspectRatio(1.0, contentMode: .fit)
+                        .foregroundStyle(.white)
                 }
-                .background(.white.opacity(0.63))
-                .background(
-                    EllipticalGradient(
-                        stops: [
-                            Gradient.Stop(color: Color(red: 0.62, green: 0.95, blue: 0.92), location: 0.00),
-                            Gradient.Stop(color: Color(red: 0.93, green: 0.85, blue: 0.75), location: 0.27),
-                            Gradient.Stop(color: Color(red: 0.62, green: 0.6, blue: 0.71), location: 1.00),
-                        ],
-                        center: UnitPoint(x: 0.09, y: 0.18))
-                )
-                .cornerRadius(24, corners: .allCorners)
-                .aspectRatio(1.0, contentMode: .fit)
-                .padding(18)
                 
-                VStack(alignment: .leading) {
-                    Text(account.displayName)
-                        .font(.satoshi(size: 19,weight: .medium))
-                        .foregroundColor(.white)
-                    Text(account.address)
-                        .font(.satoshi(size: 15, weight: .medium))
-                        .foregroundColor(Color(red: 0.66, green: 0.68, blue: 0.73))
-                }
-                .padding(20)
-                .cornerRadius(24)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 24)
-                        .inset(by: 0.5)
-                        .stroke(Color(red: 0.2, green: 0.2, blue: 0.2), lineWidth: 1)
-                )
-                Spacer()
-                HStack(spacing: 20) {
-                    Button {
-                        showShareSheet.toggle()
-                    } label: {
-                        Text("accountAddress.share".localized)
-                            .frame(maxWidth: .infinity)
-                            .foregroundColor(.white)
-                            .font(.satoshi(size: 17, weight: .semibold))
-                            .padding(.vertical, 11)
-                            .background(Color.clear)
-                            .overlay(
-                                Capsule(style: .circular)
-                                    .stroke(.white, lineWidth: 2)
-                            )
-                    }
+                Text(account.address)
+                    .font(.satoshi(size: 15, weight: .medium))
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.leading)
+                
+                HStack(spacing: 35) {
                     
                     Button {
                         CopyPasterHelper.copy(string: account.address)
                         NotificationPresenter.shared.present("general.copied".localized, includedStyle: .success, duration: 5)
                     } label: {
-                        Text("accountAddress.copy")
-                            .frame(maxWidth: .infinity)
-                            .foregroundColor(.black)
-                            .font(.satoshi(size: 17, weight: .semibold))
-                            .padding(.vertical, 11)
-                            .background(.white)
-                            .clipShape(Capsule())
+                        HStack(spacing: 8) {
+                            Image("Copy")
+                            Text("accountAddress.copy")
+                                .foregroundColor(.white)
+                                .font(.satoshi(size: 12, weight: .medium))
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(8)
+                        .background(.white.opacity(0.07))
+                        .cornerRadius(4)
+                    }
+                    
+                    Button {
+                        showShareSheet.toggle()
+                    } label: {
+                        HStack(spacing: 8) {
+                            Image("PaperPlaneTilt")
+                            Text("accountAddress.share".localized)
+                                .foregroundColor(.white)
+                                .font(.satoshi(size: 12, weight: .medium))
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(8)
+                        .background(.white.opacity(0.07))
+                        .cornerRadius(4)
                     }
                 }
-                .padding(.top, 25)
-                .padding(.bottom, 24)
             }
-            .padding(18)
-            .modifier(AppBackgroundModifier())
+            .padding(60)
+            .modifier(FloatingGradientBGStyleModifier())
+            .cornerRadius(16)
+            Spacer()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(.top, 20)
+        .padding(18)
+        .modifier(AppBackgroundModifier())
         .onAppear {
             generateImage()
         }
@@ -194,4 +178,8 @@ struct ShareSheet: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
+}
+
+#Preview {
+    AccountQRView(account: AccountDataTypeFactory.create())
 }

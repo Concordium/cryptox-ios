@@ -13,7 +13,8 @@ enum NavigationPaths: Hashable {
     case manageTokens(_ viewModel: AccountsMainViewModel)
     case tokenDetails(token: AccountDetailAccount, _ viewModel: AccountDetailViewModel)
     case buy
-    case send(_ viewModel: AccountsMainViewModel)
+    case send(_ account: AccountEntity)
+    case receive(_ account: AccountEntity)
     case earn
     case activity(_ account: AccountEntity)
     case addToken(_ account: AccountEntity)

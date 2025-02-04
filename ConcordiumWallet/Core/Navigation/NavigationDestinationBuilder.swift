@@ -41,27 +41,25 @@ struct NavigationDestinationBuilder: ViewModifier {
                             EmptyView()
                         }
 
-                    case .send(let viewModel):
-                        if let selectedAccount = viewModel.selectedAccount {
-                            SendTokenView(path: $navigationManager.path,
-                                          viewModel: .init(
+                    case .send(let account):
+                        SendTokenView(path: $navigationManager.path,
+                                      viewModel: .init(
+                                        tokenType: .ccd,
+                                        account: account,
+                                        dependencyProvider: dependencyProvider,
+                                        tokenTransferModel: CIS2TokenTransferModel(
                                             tokenType: .ccd,
-                                            account: selectedAccount,
+                                            account: account,
                                             dependencyProvider: dependencyProvider,
-                                            tokenTransferModel: CIS2TokenTransferModel(
-                                                tokenType: .ccd,
-                                                account: selectedAccount,
-                                                dependencyProvider: dependencyProvider,
-                                                notifyDestination: .none,
-                                                memo: nil,
-                                                onTxSuccess: { _ in },
-                                                onTxReject: {}
-                                            ),
-                                            onRecipientPicked: onAddressPicked.eraseToAnyPublisher()))
-                            .modifier(NavigationViewModifier(title: "Send", backAction: {
-                                navigationManager.pop()
-                            }))
-                        }
+                                            notifyDestination: .none,
+                                            memo: nil,
+                                            onTxSuccess: { _ in },
+                                            onTxReject: {}
+                                        ),
+                                        onRecipientPicked: onAddressPicked.eraseToAnyPublisher()))
+                        .modifier(NavigationViewModifier(title: "Send", backAction: {
+                            navigationManager.pop()
+                        }))
                     case .chooseTokenToSend(let transferTokenVM, let viewModel):
                         ChooseTokenView(viewModel: viewModel, transferTokenViewModel: transferTokenVM) {
                             navigationManager.pop()
@@ -129,6 +127,11 @@ struct NavigationDestinationBuilder: ViewModifier {
                         AddRecipientView(viewModel: AddRecipientViewModel(dependencyProvider: ServicesProvider.defaultProvider(), mode: mode)) {
                             navigationManager.pop()
                         }
+                    case .receive(let account):
+                        AccountQRView(account: account)
+                            .modifier(NavigationViewModifier(title: "Receive funds", backAction: {
+                                navigationManager.pop()
+                            }))
                     }
                 }
             }

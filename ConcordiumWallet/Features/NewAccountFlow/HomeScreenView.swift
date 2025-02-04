@@ -21,7 +21,6 @@ struct HomeScreenView: View {
     @StateObject var viewModel: AccountsMainViewModel
     @EnvironmentObject var navigationManager: NavigationManager
     @State var showTooltip: Bool = false
-    @State var accountQr: AccountEntity?
     @State private var showManageTokenList: Bool = false
     @EnvironmentObject var updateTimer: UpdateTimer
     @State private var isNewTokenAdded: Bool = false
@@ -73,9 +72,6 @@ struct HomeScreenView: View {
                 .padding(.bottom, 20)
                 .onTapGesture {
                     showTooltip = false
-                }
-                .sheet(item: $accountQr) { account in
-                    AccountQRView(account: account)
                 }
                 .fullScreenCover(isPresented: $isShowPasscodeViewShown, content: {
                     passcodeView
@@ -339,12 +335,16 @@ struct HomeScreenView: View {
                 Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Buy")
             }),
             ActionItem(iconName: "send", label: "Send", action: {
-                navigationManager.navigate(to: .send(viewModel))
-                Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Send funds")
+                if let account = viewModel.selectedAccount as? AccountEntity {
+                    navigationManager.navigate(to: .send(account))
+                    Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Send funds")
+                }
             }),
             ActionItem(iconName: "receive", label: "Receive", action: {
-                accountQr = (viewModel.selectedAccount as? AccountEntity)
-                Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Account QR")
+                if let account = viewModel.selectedAccount as? AccountEntity {
+                    navigationManager.navigate(to: .receive(account))
+                    Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Account QR")
+                }
             }),
             ActionItem(iconName: "Percent", label: "Earn", action: {
                 guard let selectedAccount = viewModel.selectedAccount else { return }
@@ -388,7 +388,6 @@ extension HomeScreenView {
         case .accounts:
             if let vm = viewModel.accountDetailViewModel {
                 AccountTokenListView(viewModel: vm, showManageTokenList: $showManageTokenList, path: $navigationManager.path, mode: .normal)
-                    .frame(height: 200)
                     .frame(maxWidth: .infinity)
                     .transition(.opacity)
                     .padding(.top, isShouldShowOnrampMessage ? 0 : 40)

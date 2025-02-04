@@ -16,7 +16,6 @@ struct TokenBalanceView: View {
     var selectedAccount: AccountDataType
     @ObservedObject var viewModel: AccountDetailViewModel
     @SwiftUI.Environment(\.dismiss) private var dismiss
-    @State var onRampFlowShown = false
     @State var accountQr: AccountEntity?
     weak var router: AccountsMainViewDelegate?
     @State private var isPresentingAlert = false
@@ -82,9 +81,6 @@ struct TokenBalanceView: View {
         .modifier(NavigationViewModifier(title: "Balance") {
             dismiss()
         })
-        .sheet(isPresented: $onRampFlowShown) {
-            CCDOnrampView(dependencyProvider: viewModel.dependencyProvider)
-        }
         .sheet(item: $accountQr) { account in
             AccountQRView(account: account)
         }
@@ -211,14 +207,15 @@ struct TokenBalanceView: View {
     private func accountActionItems() -> [ActionItem] {
         var actionItems = [
             ActionItem(iconName: "buy", label: "Buy", action: {
-                onRampFlowShown.toggle()
+                path.append(.buy)
             }),
             ActionItem(iconName: "send", label: "Send", action: {
-                guard let account = viewModel.account else { return }
-//                router?.showSendFundsFlow(account)
+                guard let account = viewModel.account as? AccountEntity else { return }
+                path.append(.send(account))
             }),
             ActionItem(iconName: "receive", label: "Receive", action: {
-                accountQr = (viewModel.account as? AccountEntity)
+                guard let account = viewModel.account as? AccountEntity else { return }
+                path.append(.receive(account))
             }),
             ActionItem(iconName: "activity", label: "Activity", action: {
                 if let account = selectedAccount as? AccountEntity {
