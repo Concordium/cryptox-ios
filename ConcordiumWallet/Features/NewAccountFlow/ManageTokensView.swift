@@ -65,7 +65,7 @@ struct ManageTokensView: View {
                         .padding(.horizontal, 46)
                         .padding(.bottom, 16)
                         .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                                 withAnimation {
                                     showRemovedTokenTip = false
                                 }
@@ -81,7 +81,7 @@ struct ManageTokensView: View {
                         .padding(.horizontal, 46)
                         .padding(.bottom, 16)
                         .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                                 withAnimation {
                                     showTokenListUpdated = false
                                 }

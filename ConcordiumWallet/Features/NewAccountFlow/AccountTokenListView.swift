@@ -19,7 +19,13 @@ struct AccountTokenListView: View {
     @ObservedObject var viewModel: AccountDetailViewModel
     @Binding var showManageTokenList: Bool
     @Binding var path: [NavigationPaths]
+    @State private var selectedAccountID: Int?
+    @State private var managePressed: Bool = false
+    @State private var hideTokenID: Int?
     
+    var pressedButtonColor: Color {
+        managePressed ? Color.buttonPressed : .greyAdditional
+    }
     var mode: TokenListMode
     var onHideToken: ((CIS2Token) -> Void)?
     var euroAmount: String?
@@ -36,16 +42,20 @@ struct AccountTokenListView: View {
                 HStack(spacing: 8) {
                     Image("settingsGear")
                         .renderingMode(.template)
-                        .foregroundStyle(.greyAdditional)
+                        .foregroundStyle(pressedButtonColor)
                     Text("Manage token list")
                         .font(.satoshi(size: 15, weight: .medium))
-                        .foregroundStyle(.greyAdditional)
+                        .foregroundStyle(pressedButtonColor)
                     
                 }
                 .padding(.leading, 24)
                 .padding(.top, 8)
                 .onTapGesture {
-                    showManageTokenList = true
+                    managePressed = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        managePressed = false
+                        showManageTokenList = true
+                    }
                 }
                 .opacity(mode == .normal ? 1 : 0)
             }
@@ -86,7 +96,7 @@ struct AccountTokenListView: View {
                     Text(amount.displayValueWithTwoNumbersAfterDecimalPoint())
                         .font(.satoshi(size: 15, weight: .medium))
                         .tint(.white)
-                    Text("\(viewModel.ccdEuroEquivalent ?? "") EUR")
+                    Text("\(viewModel.ccdEuroEquivalent)")
                         .font(.satoshi(size: 12, weight: .regular))
                         .tint(.MineralBlue.blueish3)
                         .opacity(0.5)
@@ -108,10 +118,14 @@ struct AccountTokenListView: View {
                 if mode == .manage {
                     Text("Hide token")
                         .font(.satoshi(size: 12, weight: .medium))
-                        .foregroundStyle(Color.MineralBlue.blueish2)
+                        .foregroundStyle(hideTokenID == token.id ? .buttonPressed : Color.MineralBlue.blueish2)
                         .opacity(account.name == "ccd" ? 0 : 1)
                         .onTapGesture {
-                            onHideToken?(token)
+                            hideTokenID = token.id
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                hideTokenID = nil
+                                onHideToken?(token)
+                            }
                         }
                 }
             }
@@ -124,11 +138,15 @@ struct AccountTokenListView: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 11)
-        .background(Color(red: 0.09, green: 0.1, blue: 0.1))
+        .background(selectedAccountID == account.id ? .selectedCell : Color(red: 0.09, green: 0.1, blue: 0.1))
         .cornerRadius(12)
         .onTapGesture {
             if mode == .normal {
-                path.append(.tokenDetails(token: account, viewModel))
+                selectedAccountID = account.id
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    selectedAccountID = nil
+                    path.append(.tokenDetails(token: account))
+                }
             }
         }
     }
@@ -151,7 +169,7 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
     @Published var isReadOnly = false
     @Published var hasStaked = false
     @Published var stakedValue: GTU?
-    @Published var ccdEuroEquivalent: String?
+    @Published var ccdEuroEquivalent: String = "0.00 CCD"
     
     let account: AccountDataType?
     let storageManager: StorageManagerProtocol
@@ -227,7 +245,7 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
                 let microGTUPerEuro = chainParameters.microGTUPerEuro
                 let euroEquivalent = Double(ccd.intValue) * (Double(microGTUPerEuro.denominator) / Double(microGTUPerEuro.numerator))
                 let rounded = (euroEquivalent * 100).rounded() / 100
-                self?.ccdEuroEquivalent = rounded.string
+                self?.ccdEuroEquivalent = GTU(displayValue: rounded.string).displayValueWithCCDStroke()
             })
             .store(in: &cancellables)
     }

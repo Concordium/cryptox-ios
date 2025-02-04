@@ -12,10 +12,6 @@ import MatomoTracker
 import FirebaseMessaging
 import FirebaseCore
 
-extension Notification.Name {
-    static let didReceiveIdentityData = Notification.Name("didReceiveIdentityData")
-}
-
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var appCoordinator: AppCoordinator = AppCoordinator(/*walletConnectService: WalletConnectService()*/)

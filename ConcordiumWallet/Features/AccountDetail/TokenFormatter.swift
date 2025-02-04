@@ -245,9 +245,9 @@ public class TokenFormatter {
         while fractionalPart.count > minimumFractionDigits {
             fractionalPart.removeLast()
         }
-        
+        let adjustedString = fractionalPart.isEmpty ? String(wholePart) : "\(wholePart).\(fractionalPart)"
         // Return the adjusted string
-        return fractionalPart.isEmpty ? String(wholePart) : "\(wholePart).\(fractionalPart)"
+        return adjustedString == "0" ? "0.00" : adjustedString
     }
     
     public func plainString(from number: BigDecimal, decimalSeparator: String = Locale.autoupdatingCurrent.decimalSeparator ?? ".") -> String {

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-final class AccountPreviewViewModel: Identifiable {
+final class AccountPreviewViewModel: Identifiable, Equatable {
     var totalAmount: GTU
     var totalAtDisposalAmount: GTU
     
@@ -58,5 +58,13 @@ final class AccountPreviewViewModel: Identifiable {
         } else if account.isReadOnly {
             viewState = .readonly
         }
+    }
+    
+    static func == (lhs: AccountPreviewViewModel, rhs: AccountPreviewViewModel) -> Bool {
+        return lhs.totalAmount == rhs.totalAmount &&
+        lhs.totalAtDisposalAmount == rhs.totalAtDisposalAmount &&
+        lhs.accountName == rhs.accountName &&
+        lhs.accountOwner == rhs.accountOwner &&
+        lhs.address == rhs.address
     }
 }
