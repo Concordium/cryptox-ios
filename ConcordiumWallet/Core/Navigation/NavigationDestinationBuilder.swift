@@ -23,6 +23,9 @@ struct NavigationDestinationBuilder: ViewModifier {
                     switch destination {
                     case .accountsOverview(let viewModel):
                         AccountsOverviewView(path: $navigationManager.path, viewModel: viewModel, router: router)
+                            .onAppear {
+                                notifyTabBarHidden(true)
+                            }
                     case .buy:
                         CCDOnrampView(dependencyProvider: dependencyProvider)
                             .modifier(NavigationViewModifier(title: "Buy CCD") {
@@ -31,6 +34,9 @@ struct NavigationDestinationBuilder: ViewModifier {
                     case .manageTokens(let viewModel):
                         if let vm = viewModel.accountDetailViewModel {
                             ManageTokensView(viewModel: vm, path: $navigationManager.path, isNewTokenAdded: $isNewTokenAdded)
+                                .onAppear {
+                                    notifyTabBarHidden(true)
+                                }
                         } else {
                             EmptyView()
                         }
@@ -60,6 +66,9 @@ struct NavigationDestinationBuilder: ViewModifier {
                         .modifier(NavigationViewModifier(title: "Send", backAction: {
                             navigationManager.pop()
                         }))
+                        .onAppear {
+                            notifyTabBarHidden(true)
+                        }
                     case .chooseTokenToSend(let transferTokenVM, let viewModel):
                         ChooseTokenView(viewModel: viewModel, transferTokenViewModel: transferTokenVM) {
                             navigationManager.pop()
@@ -132,8 +141,18 @@ struct NavigationDestinationBuilder: ViewModifier {
                             .modifier(NavigationViewModifier(title: "Receive funds", backAction: {
                                 navigationManager.pop()
                             }))
+                            .onAppear {
+                                notifyTabBarHidden(true)
+                            }
                     }
                 }
             }
+            .onAppear {
+                notifyTabBarHidden(false)
+            }
+    }
+    
+    func notifyTabBarHidden(_ isHidden: Bool) {
+        NotificationCenter.default.post(name: .hideTabBar, object: nil, userInfo: ["isHidden": isHidden])
     }
 }

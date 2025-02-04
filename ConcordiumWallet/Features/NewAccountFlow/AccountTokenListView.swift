@@ -145,7 +145,7 @@ struct AccountTokenListView: View {
                 selectedAccountID = account.id
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     selectedAccountID = nil
-                    path.append(.tokenDetails(token: account))
+                    path.append(.tokenDetails(token: account, viewModel))
                 }
             }
         }

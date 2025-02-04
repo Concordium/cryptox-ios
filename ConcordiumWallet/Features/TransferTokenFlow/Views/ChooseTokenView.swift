@@ -21,20 +21,20 @@ struct ChooseTokenView: View {
                 switch token {
                 case .ccd(_):
                     SendTokenCell(tokenType: .ccd(displayAmount: transferTokenViewModel.atDisposalCCDDisplayAmount))
-                        .listRowBackground(Color.clear)
-                        .padding(.vertical, 4)
-                        .onTapGesture {
+                        .modifier(TappedCellEffect(onTap: {
                             transferTokenViewModel.tokenTransferModel.tokenType = .ccd
                             onTokenSelected()
-                        }
-                case .token(let token, let amount):
-                    SendTokenCell(tokenType: .cis2(token: token, availableAmount: TokenFormatter().string(from: BigDecimal(BigInt(stringLiteral: amount), token.metadata.decimals ?? 0), decimalSeparator: ".", thousandSeparator: ",")))
+                        }))
                         .listRowBackground(Color.clear)
                         .padding(.vertical, 4)
-                        .onTapGesture {
+                case .token(let token, let amount):
+                    SendTokenCell(tokenType: .cis2(token: token, availableAmount: TokenFormatter().string(from: BigDecimal(BigInt(stringLiteral: amount), token.metadata.decimals ?? 0), decimalSeparator: ".", thousandSeparator: ",")))
+                        .modifier(TappedCellEffect(onTap: {
                             transferTokenViewModel.tokenTransferModel.tokenType = .cis2(token)
                             onTokenSelected()
-                        }
+                        }))
+                        .listRowBackground(Color.clear)
+                        .padding(.vertical, 4)
                 }
             }
         }

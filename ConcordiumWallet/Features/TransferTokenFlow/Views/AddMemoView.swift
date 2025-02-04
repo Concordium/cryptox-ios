@@ -13,7 +13,8 @@ struct AddMemoView: View {
 
     @State private var memoText: String = ""
     @State private var shouldShake: Bool = false
-    
+    @FocusState private var isTextFieldFocused: Bool
+
     var onMemoAdded: ((Memo?) -> Void)
     @State private var isPlaceholderHidden: Bool = false
 
@@ -32,6 +33,7 @@ struct AddMemoView: View {
                     .background(.clear)
                     .scrollContentBackground(.hidden)
                     .tint(.white)
+                    .focused($isTextFieldFocused)
                     .onChange(of: memoText) { newValue in
                         isPlaceholderHidden = !newValue.isEmpty
                         newValue.isEmpty ? viewModel.removeMemo() : viewModel.updateMemo(newValue)
@@ -62,7 +64,7 @@ struct AddMemoView: View {
         .background(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(
-                    viewModel.invalidMemoSizeError ? Color.attentionRed : Color(red: 0.17, green: 0.19, blue: 0.2),
+                    viewModel.invalidMemoSizeError ? Color.attentionRed : (isTextFieldFocused ? Color.MineralBlue.blueish3 : Color(red: 0.17, green: 0.19, blue: 0.2)),
                     lineWidth: 1
                 )
         )

@@ -230,8 +230,7 @@ extension AccountsMainViewModel {
                lhs.atDisposal == rhs.atDisposal &&
                lhs.staked == rhs.staked &&
                lhs.isBackupAlertShown == rhs.isBackupAlertShown &&
-               lhs.selectedAccount?.address == rhs.selectedAccount?.address &&
-               lhs.isLoading == rhs.isLoading
+               lhs.selectedAccount?.address == rhs.selectedAccount?.address
     }
 
     // MARK: - Hashable
@@ -247,6 +246,5 @@ extension AccountsMainViewModel {
         hasher.combine(isBackupAlertShown)
         hasher.combine(selectedAccount?.address)
         hasher.combine(selectedAccount?.name)
-        hasher.combine(isLoading)
     }
 }

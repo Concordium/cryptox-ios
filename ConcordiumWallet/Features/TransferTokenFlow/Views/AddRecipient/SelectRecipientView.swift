@@ -18,7 +18,7 @@ struct SelectRecipientView: View {
     @State var error: GeneralAppError?
     @EnvironmentObject var navigationManager: NavigationManager
     private let dependencyProvider = ServicesProvider.defaultProvider()
-    
+    @FocusState private var isAddressFieldFocused: Bool
     var body: some View {
         if viewModel.mode == .addressBook {
             NavigationStack(path: $navigationManager.path) {
@@ -41,6 +41,8 @@ struct SelectRecipientView: View {
                         .multilineTextAlignment(.leading)
                     TextField("", text: $accountAddressText)
                         .foregroundColor(.white)
+                        .focused($isAddressFieldFocused)
+                        .tint(.white)
                         .font(.system(size: 16))
                         .onChange(of: accountAddressText) { value in
                             viewModel.filterRecipients(searchText: accountAddressText)
@@ -81,7 +83,7 @@ struct SelectRecipientView: View {
             .padding(.bottom, 12)
             .background(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.grey3, lineWidth: 1)
+                    .stroke(isAddressFieldFocused ? Color.MineralBlue.blueish3 : Color.grey3, lineWidth: 1)
                     .background(.clear)
                     .cornerRadius(12)
             )
@@ -147,11 +149,9 @@ struct SelectRecipientView: View {
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 11)
-                .background(Color(red: 0.09, green: 0.1, blue: 0.1))
-                .cornerRadius(12)
-                .onTapGesture {
+                .modifier(TappedCellEffect(onTap: {
                     recipientSelected(recipient.address)
-                }
+                }))
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
                 .listRowInsets(.init(top: 0, leading: 0, bottom: 4, trailing: 0))

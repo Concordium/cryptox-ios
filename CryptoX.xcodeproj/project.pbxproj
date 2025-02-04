@@ -1859,6 +1859,9 @@
 		1575863A2CA55E3700205A6E /* StakeStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157586392CA55E3700205A6E /* StakeStatusView.swift */; };
 		1575863B2CA55E3700205A6E /* StakeStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157586392CA55E3700205A6E /* StakeStatusView.swift */; };
 		1575863C2CA55E3700205A6E /* StakeStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157586392CA55E3700205A6E /* StakeStatusView.swift */; };
+		157BB91F2D525EDA002CAD7B /* TappedCellModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157BB91E2D525EDA002CAD7B /* TappedCellModifier.swift */; };
+		157BB9202D525EDA002CAD7B /* TappedCellModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157BB91E2D525EDA002CAD7B /* TappedCellModifier.swift */; };
+		157BB9212D525EDA002CAD7B /* TappedCellModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157BB91E2D525EDA002CAD7B /* TappedCellModifier.swift */; };
 		1580E9782D43C5700051C55D /* ShakeViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1580E9772D43C5700051C55D /* ShakeViewModifier.swift */; };
 		1580E9792D43C5700051C55D /* ShakeViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1580E9772D43C5700051C55D /* ShakeViewModifier.swift */; };
 		1580E97A2D43C5700051C55D /* ShakeViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1580E9772D43C5700051C55D /* ShakeViewModifier.swift */; };
@@ -3196,6 +3199,7 @@
 		157586312CA43E5500205A6E /* CooldownEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CooldownEntity.swift; sourceTree = "<group>"; };
 		157586352CA441DC00205A6E /* AccountCooldown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCooldown.swift; sourceTree = "<group>"; };
 		157586392CA55E3700205A6E /* StakeStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeStatusView.swift; sourceTree = "<group>"; };
+		157BB91E2D525EDA002CAD7B /* TappedCellModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappedCellModifier.swift; sourceTree = "<group>"; };
 		1580E9772D43C5700051C55D /* ShakeViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeViewModifier.swift; sourceTree = "<group>"; };
 		1580EBC42D490C040051C55D /* loadingAnimation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = loadingAnimation.json; sourceTree = "<group>"; };
 		1580EBC82D49113B0051C55D /* failure.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = failure.json; sourceTree = "<group>"; };
@@ -5249,6 +5253,7 @@
 			children = (
 				08FD0B7F2A7D271B003774A6 /* GrayRoundedBackgroundModifier.swift */,
 				08FD0B812A7D31D9003774A6 /* GradienBackgroundModifier.swift */,
+				157BB91E2D525EDA002CAD7B /* TappedCellModifier.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -7389,6 +7394,7 @@
 				08DB5E742BC6C32400C29663 /* BakerMetadataPresenter.swift in Sources */,
 				08C1681C2BB7396200E61326 /* RecoveryPhraseOnboardingViewModel.swift in Sources */,
 				08C1681D2BB7396200E61326 /* MockedData.swift in Sources */,
+				157BB9202D525EDA002CAD7B /* TappedCellModifier.swift in Sources */,
 				08C1681E2BB7396200E61326 /* TransferTokenRouter.swift in Sources */,
 				08C1681F2BB7396200E61326 /* KeyboardDismissableBaseViewController.swift in Sources */,
 				08DB5E402BC6C2DF00C29663 /* DelegationPoolSelectionViewController.swift in Sources */,
@@ -8095,6 +8101,7 @@
 				08DB5E722BC6C32400C29663 /* BakerMetadataPresenter.swift in Sources */,
 				088FF1112A0284D100042957 /* RecoveryPhraseOnboardingViewModel.swift in Sources */,
 				D589F1D52794B5ED003F2FBB /* MockedData.swift in Sources */,
+				157BB9212D525EDA002CAD7B /* TappedCellModifier.swift in Sources */,
 				08BC95212A3719EE0058F1B9 /* TransferTokenRouter.swift in Sources */,
 				D5F3BC6E278E5DAB008DC894 /* KeyboardDismissableBaseViewController.swift in Sources */,
 				08DB5E3F2BC6C2DF00C29663 /* DelegationPoolSelectionViewController.swift in Sources */,
@@ -8801,6 +8808,7 @@
 				D589F1D32794B5ED003F2FBB /* MockedData.swift in Sources */,
 				08A0456A29FA99D100DACE1F /* AccountEncryptedAmount.swift in Sources */,
 				08BC951F2A3719EE0058F1B9 /* TransferTokenRouter.swift in Sources */,
+				157BB91F2D525EDA002CAD7B /* TappedCellModifier.swift in Sources */,
 				088FEF552A0270AF00042957 /* CreateAccountButtonWidgetPresenter.swift in Sources */,
 				08DB5E3E2BC6C2DF00C29663 /* DelegationPoolSelectionViewController.swift in Sources */,
 				088FF10B2A0284D000042957 /* RecoveryPhraseOnboardingViewModel.swift in Sources */,

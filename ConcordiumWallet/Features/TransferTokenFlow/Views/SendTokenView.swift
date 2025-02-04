@@ -64,14 +64,14 @@ struct SendTokenView: View {
                     switch viewModel.tokenTransferModel.tokenType {
                     case .ccd:
                         SendTokenCell(tokenType: .ccd(displayAmount: viewModel.atDisposalCCDDisplayAmount))
-                            .onTapGesture {
+                            .modifier(TappedCellEffect(onTap: {
                                 path.append(.chooseTokenToSend(transferTokenVM: viewModel, AccountDetailViewModel(account: viewModel.account)))
-                            }
+                            }))
                     case .cis2(let token):
                         SendTokenCell(tokenType: .cis2(token: token, availableAmount: viewModel.availableDisplayAmount))
-                            .onTapGesture {
+                            .modifier(TappedCellEffect(onTap: {
                                 path.append(.chooseTokenToSend(transferTokenVM: viewModel, AccountDetailViewModel(account: viewModel.account)))
-                            }
+                            }))
                     }
                     
                     selectRecipient()
@@ -93,18 +93,19 @@ struct SendTokenView: View {
                 Text("errorAlert.continueButton".localized)
                     .font(Font.satoshi(size: 15, weight: .medium))
                     .foregroundColor(isContinueDisabled ? .grey4 : .blackMain)
-                    .padding(.horizontal, 24)
                     .frame(maxWidth: .infinity)
-                    .frame(height: 56)
-                    .background(isContinueDisabled ? .clear : .white)
-                    .cornerRadius(48)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 48)
-                            .inset(by: 0.5)
-                            .stroke(isContinueDisabled ? .grey4 : .clear)
-                    )
+                    .padding(.vertical, isContinueDisabled ? 18.5 : 0)
+                    .background(.clear)
             })
+            .if(!isContinueDisabled) { button in
+                button.buttonStyle(PressedButtonStyle())
+            }
             .disabled(isContinueDisabled)
+            .overlay(
+                RoundedRectangle(cornerRadius: 48)
+                    .inset(by: 0.5)
+                    .stroke(isContinueDisabled ? .grey4 : .clear)
+            )
             .padding(.bottom, 20)
         }
         .alert(isPresented: $showConfirmationAlertForMemo) {
@@ -145,13 +146,11 @@ struct SendTokenView: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 11)
-        .background(Color(red: 0.09, green: 0.1, blue: 0.1))
-        .cornerRadius(12)
-        .onTapGesture {
+        .modifier(TappedCellEffect(onTap: {
             if let account = viewModel.account as? AccountEntity {
                 path.append(.selectRecipient(account, mode: .selectRecipientFromPublic))
             }
-        }
+        }))
     }
     
     private func setupBinding() {

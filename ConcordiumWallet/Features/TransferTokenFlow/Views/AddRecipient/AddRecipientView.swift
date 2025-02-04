@@ -14,7 +14,9 @@ struct AddRecipientView: View {
     @State var error: GeneralAppError?
     var onBackTapped: () -> Void
     @State var showErrorAlert: Bool = false
-    
+    @FocusState private var isNameFieldFocused: Bool
+    @FocusState private var isAddressFieldFocused: Bool
+
     var body: some View {
         VStack(spacing: 15) {
             
@@ -27,6 +29,8 @@ struct AddRecipientView: View {
                 TextField("", text: $viewModel.name)
                     .foregroundColor(.white)
                     .font(.system(size: 16))
+                    .focused($isNameFieldFocused)
+                    .tint(.white)
                     .onChange(of: viewModel.name) { _ in
                         viewModel.calculateSaveButtonState()
                     }
@@ -36,7 +40,7 @@ struct AddRecipientView: View {
             .padding(.bottom, 12)
             .background(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.grey3, lineWidth: 1)
+                    .stroke(isNameFieldFocused ? Color.MineralBlue.blueish3 : Color.grey3, lineWidth: 1)
                     .background(.clear)
                     .cornerRadius(12)
             )
@@ -53,6 +57,7 @@ struct AddRecipientView: View {
                         .font(.system(size: 16)).background(.clear)
                         .scrollContentBackground(.hidden)
                         .tint(.white)
+                        .focused($isAddressFieldFocused)
                         .frame(minHeight: 50, maxHeight: 120)
                         .fixedSize(horizontal: false, vertical: true)
                         .onChange(of: viewModel.address) { _ in
@@ -95,7 +100,7 @@ struct AddRecipientView: View {
             .padding(.bottom, 12)
             .background(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.grey3, lineWidth: 1)
+                    .stroke(isAddressFieldFocused ? Color.MineralBlue.blueish3 : Color.grey3, lineWidth: 1)
                     .background(.clear)
                     .cornerRadius(12)
             )
@@ -124,7 +129,8 @@ struct AddRecipientView: View {
             .disabled(!viewModel.enableSave)
         }
         .padding(.horizontal, 18)
-        .padding(.vertical, 40)
+        .padding(.top, 40)
+        .padding(.bottom, 20)
         .errorAlert(error: $error, action: { error in
             guard let error = error else { return }
             switch error {

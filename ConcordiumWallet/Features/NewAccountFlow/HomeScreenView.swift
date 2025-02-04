@@ -110,7 +110,6 @@ struct HomeScreenView: View {
                 .refreshable { Task { await viewModel.reload() } }
                 .onAppear {
                     updateTimer.start()
-                    notifyTabBarHidden(false)
                     returnToHome()
                     Task {
                         isLoading = true
@@ -510,10 +509,6 @@ extension HomeScreenView {
                 }
             }
         }
-    }
-    
-    private func notifyTabBarHidden(_ isHidden: Bool) {
-        NotificationCenter.default.post(name: .hideTabBar, object: nil, userInfo: ["isHidden": isHidden])
     }
     
     private func returnToHome() {
