@@ -24,7 +24,9 @@ struct AddTokenView: View {
     @State private var showingTokenIdView = false
     @State private var showTokenDetailView = false
     @State private var isEnteredNumbers: Bool = false
-    
+    @FocusState private var isContractIdTextFieldFocused: Bool
+    @FocusState private var isTokenIdTextFieldFocused: Bool
+
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             Text("Enter a contract index to add tokens.")
@@ -43,6 +45,9 @@ struct AddTokenView: View {
                     TextField("", text: $contractIndex)
                         .foregroundColor(.white)
                         .font(.system(size: 16))
+                        .tint(.white)
+                        .focused($isContractIdTextFieldFocused)
+                        .keyboardType(.numberPad)
                         .onChange(of: contractIndex) { value in
                             handleContractIndexSearch(value)
                         }
@@ -69,7 +74,7 @@ struct AddTokenView: View {
             .padding(.bottom, 12)
             .background(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.grey3, lineWidth: 1)
+                    .stroke(isContractIdTextFieldFocused ? Color.MineralBlue.blueish3 : Color.grey3, lineWidth: 1)
                     .background(.clear)
                     .cornerRadius(12)
             )
@@ -85,6 +90,8 @@ struct AddTokenView: View {
                                 .multilineTextAlignment(.leading)
                             TextField("", text: $tokenId)
                                 .foregroundColor(.white)
+                                .tint(.white)
+                                .focused($isTokenIdTextFieldFocused)
                                 .font(.system(size: 16))
                                 .onChange(of: tokenId) { value in
                                     if value.isEmpty {
@@ -106,7 +113,7 @@ struct AddTokenView: View {
                     .padding(.bottom, 12)
                     .background(
                         RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.grey3, lineWidth: 1)
+                            .stroke(isTokenIdTextFieldFocused ? Color.MineralBlue.blueish3 : Color.grey3, lineWidth: 1)
                             .background(.clear)
                             .cornerRadius(12)
                     )
@@ -132,13 +139,9 @@ struct AddTokenView: View {
                 } label: {
                     Text("Continue")
                         .font(.satoshi(size: 15, weight: .medium))
-                        .foregroundStyle(.black)
-                        .padding(.vertical, 16)
                         .frame(maxWidth: .infinity)
                 }
-                .background(.white)
-                .cornerRadius(48)
-                
+                .buttonStyle(PressedButtonStyle())
             }
         }
         .padding(.top, 20)

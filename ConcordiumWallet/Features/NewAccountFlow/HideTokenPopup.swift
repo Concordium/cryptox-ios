@@ -13,6 +13,7 @@ struct HideTokenPopup: View {
     var tokenName: String
     @Binding var isPresentingAlert: Bool
     var onHideToken: () -> Void
+    @State private var goBackTapped: Bool = false
     
     var body: some View {
         VStack(alignment: .center, spacing: 30) {
@@ -40,10 +41,14 @@ struct HideTokenPopup: View {
                 .cornerRadius(21)
                 Text("Go back")
                     .font(.satoshi(size: 14, weight: .medium))
-                    .foregroundStyle(.blackMain)
+                    .foregroundStyle(goBackTapped ? .grey4 : .blackMain)
                     .onTapGesture {
-                        withAnimation {
-                            isPresentingAlert = false
+                        goBackTapped = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            goBackTapped = false
+                            withAnimation {
+                                isPresentingAlert = false
+                            }
                         }
                     }
             }

@@ -18,7 +18,7 @@ class MainTabBarController: BaseTabBarController {
     let accountsCoordinator: AccountsCoordinator
     let moreCoordinator: MoreCoordinator
     let accountsMainRouter: AccountsMainRouter
-    
+
     private var cancellables: [AnyCancellable] = []
     let defaultProvider = ServicesProvider.defaultProvider()
     @State private var isAlertVisible: Bool = true
@@ -42,6 +42,7 @@ class MainTabBarController: BaseTabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBar.backgroundColor = .blackMain
+        self.delegate = self
         accountsMainRouter.configureAccountAlertDelegate = self
         moreCoordinator.configureAccountAlertDelegate = self
         moreCoordinator.start()
@@ -56,6 +57,11 @@ class MainTabBarController: BaseTabBarController {
         viewControllers = [accountsMainRouter.rootScene(), newsFeedController, moreCoordinator.navigationController]
         hideKeyboardWhenTappedAround()
         transactionNotificationService.delegate = self
+        NotificationCenter.default.addObserver(forName: .hideTabBar, object: nil, queue: .main) { notification in
+            if let isHidden = notification.userInfo?["isHidden"] as? Bool {
+                self.tabBar.isHidden = isHidden
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -163,6 +169,16 @@ extension MainTabBarController: NotificationNavigationDelegate, TransactionNotif
         alertViewController.view.backgroundColor = .clear
         DispatchQueue.main.async {
             self.present(alertViewController, animated: false, completion: nil)
+        }
+    }
+}
+
+extension MainTabBarController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if let selectedIndex = tabBarController.viewControllers?.firstIndex(of: viewController),
+           let item = tabBar.items?[selectedIndex],
+           item.tag == 0 {
+            NotificationCenter.default.post(name: .returnToHomeTabBar, object: nil, userInfo: ["returnToHomeTabBar": true])
         }
     }
 }

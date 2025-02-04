@@ -200,7 +200,8 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
                                                     accountsMainRouter: .init(dependencyProvider: defaultProvider, walletConnectService: walletConnectService)
                                 )
         self.navigationController.setNavigationBarHidden(true, animated: false)
-        self.navigationController.pushViewController(tabBarController, animated: true)
+        self.navigationController.view.setFadeAnimation()
+        self.navigationController.pushViewController(tabBarController, animated: false)
         
         self.notificationNavigationDelegate = tabBarController
         self.isMainFlowActive = true

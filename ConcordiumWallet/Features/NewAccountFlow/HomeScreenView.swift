@@ -31,7 +31,8 @@ enum AccountNavigationPaths: Hashable {
 }
 
 struct HomeScreenView: View {
-    @StateObject var viewModel: AccountsMainViewModel
+    @ObservedObject var viewModel: AccountsMainViewModel
+    @State private var activeAccountViewModel: AccountDetailViewModel?
     @EnvironmentObject var navigationManager: NavigationManager
     @State var showTooltip: Bool = false
     @State var accountQr: AccountEntity?
@@ -46,6 +47,7 @@ struct HomeScreenView: View {
     @State private var geometrySize: CGSize?
     @State var isShowPasscodeViewShown = false
     @State var phrase: [String]?
+    @State var isLoading = false
     
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
@@ -63,7 +65,7 @@ struct HomeScreenView: View {
         NavigationStack(path: $navigationManager.path) {
             GeometryReader { geometry in
                 VStack {
-                    if viewModel.isLoading {
+                    if isLoading {
                         ScrollView {
                             HomeScreenViewSkeleton()
                         }
@@ -119,14 +121,24 @@ struct HomeScreenView: View {
                     }
                 })
                 .onChange(of: geometry.size) { _ in
-                    geometrySize = geometry.size
+                        geometrySize = geometry.size
+                }
+                .onChange(of: viewModel.selectedAccount?.address) { _ in
+                    changeAccountDetailViewModel()
                 }
                 .refreshable { Task { await viewModel.reload() } }
-                .onAppear { Task { await viewModel.reload() } }
-                .onAppear { updateTimer.start() }
-                .onDisappear { updateTimer.stop() }
-                .onAppear { Tracker.track(view: ["Home screen"]) }
-            }
+                .onAppear {
+                    updateTimer.start()
+                    notifyTabBarHidden(false)
+                    returnToHome()
+                    Task {
+                        isLoading = true
+                        await viewModel.reload()
+                        isLoading = false
+                    }
+                    Tracker.track(view: ["Home screen"])
+                }
+                .onDisappear { updateTimer.stop() }            }
             .modifier(AppBackgroundModifier())
         }
     }
@@ -161,6 +173,7 @@ struct HomeScreenView: View {
             }
             .padding(.horizontal, 18)
             accountActionButtonsSection()
+                .padding(.horizontal, 5)
                 .padding(.top, 40)
             
             if viewModel.isBackupAlertShown {
@@ -185,6 +198,7 @@ struct HomeScreenView: View {
             
             accountStatesView
                 .padding(.horizontal, viewModel.state != .accounts ? 18 : 0)
+                .padding(.top, isShouldShowOnrampMessage ? 0 : 40)
         }
     }
     
@@ -195,7 +209,9 @@ struct HomeScreenView: View {
                     Image("dot\(getDotImageIndex())")
                     Text("\(viewModel.selectedAccount?.displayName ?? "")")
                         .font(.satoshi(size: 15, weight: .medium))
-                    Image(systemName: "chevron.up.chevron.down")
+                    Image("CaretUpDown")
+                        .resizable()
+                        .frame(width: 16, height: 16)
                         .tint(.greyAdditional)
                 }
                 .onTapGesture {
@@ -204,9 +220,6 @@ struct HomeScreenView: View {
             }
             Spacer()
             Image("ico_scan")
-                .resizable()
-                .frame(width: 32, height: 32)
-                .tint(.MineralBlue.blueish3)
                 .onTapGesture {
                     if SettingsHelper.isIdentityConfigured() {
                         self.router?.showScanQRFlow()
@@ -384,6 +397,14 @@ struct HomeScreenView: View {
         let gtuValue = GTU(intValue: balance)
         return gtuValue?.displayValueWithTwoNumbersAfterDecimalPoint() ?? "0.00"
     }
+    
+    func changeAccountDetailViewModel() {
+        if let selectedAccount = viewModel.selectedAccount {
+            if activeAccountViewModel?.account?.address != selectedAccount.address {
+                activeAccountViewModel = AccountDetailViewModel(account: selectedAccount)
+            }
+        }
+    }
 }
 
 extension HomeScreenView {
@@ -399,11 +420,15 @@ extension HomeScreenView {
             }
             
         case .accounts:
-            if let vm = viewModel.accountDetailViewModel {
-                AccountTokenListView(viewModel: vm, showManageTokenList: $showManageTokenList, path: $navigationManager.path, mode: .normal)
-                    .frame(maxWidth: .infinity)
-                    .transition(.opacity)
-                    .padding(.top, isShouldShowOnrampMessage ? 0 : 40)
+            if let vm = activeAccountViewModel {
+                AccountTokenListView(
+                    viewModel: vm,
+                    showManageTokenList: $showManageTokenList,
+                    path: $navigationManager.path,
+                    mode: .normal
+                )
+                .frame(maxWidth: .infinity)
+                .transition(.opacity)
             }
             
         case .createAccount:
@@ -441,7 +466,6 @@ extension HomeScreenView {
                         .background(.white)
                         .cornerRadius(28)
                 })
-                .padding(.bottom, 23)
             }
             .transition(.opacity)
             
@@ -479,7 +503,6 @@ extension HomeScreenView {
                         .background(.white)
                         .cornerRadius(28)
                 }
-                .padding(.bottom, 23)
             }
             .transition(.opacity)
         }
@@ -509,6 +532,9 @@ extension HomeScreenView {
             switch destination {
             case .accountsOverview:
                 AccountsOverviewView(path: $navigationManager.path, viewModel: viewModel, router: router)
+                    .onAppear {
+                        notifyTabBarHidden(true)
+                    }
             case .buy:
                 CCDOnrampView(dependencyProvider: viewModel.dependencyProvider)
                     .modifier(NavigationViewModifier(title: "Buy CCD") {
@@ -517,6 +543,9 @@ extension HomeScreenView {
             case .manageTokens:
                 if let vm = viewModel.accountDetailViewModel {
                     ManageTokensView(viewModel: vm, path: $navigationManager.path, isNewTokenAdded: $isNewTokenAdded)
+                        .onAppear {
+                            notifyTabBarHidden(true)
+                        }
                 } else {
                     EmptyView()
                 }
@@ -543,6 +572,9 @@ extension HomeScreenView {
                         ),
                         onTokenAdded: { isNewTokenAdded = true }
                     )
+                    .onAppear {
+                        notifyTabBarHidden(true)
+                    }
                 } else {
                     EmptyView()
                 }
@@ -569,6 +601,18 @@ extension HomeScreenView {
             }
         }
     }
+    
+    private func notifyTabBarHidden(_ isHidden: Bool) {
+        NotificationCenter.default.post(name: .hideTabBar, object: nil, userInfo: ["isHidden": isHidden])
+    }
+    
+    private func returnToHome() {
+        NotificationCenter.default.addObserver(forName: .returnToHomeTabBar, object: nil, queue: .main) { notification in
+            if let needToReturn = notification.userInfo?["returnToHomeTabBar"] as? Bool, needToReturn {
+                self.navigationManager.reset()
+            }
+        }
+    }
 }
 
 class NavigationManager: ObservableObject {
@@ -590,6 +634,8 @@ class NavigationManager: ObservableObject {
 }
 
 struct HomeScreenViewSkeleton: View {
+    @State private var isAnimating = false
+    
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
@@ -650,5 +696,10 @@ struct HomeScreenViewSkeleton: View {
             .padding(.bottom, 20)
         }
         .modifier(AppBackgroundModifier())
+        .onAppear {
+            withAnimation(Animation.linear(duration: 0.3).repeatForever(autoreverses: false)) {
+                isAnimating = true
+            }
+        }
     }
 }

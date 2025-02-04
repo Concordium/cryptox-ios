@@ -99,7 +99,7 @@ struct RadialGradientForegroundStyleModifier: ViewModifier {
             )
             .saturation(2)
             .onAppear {
-                withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
+                withAnimation(.easeInOut(duration: 4).repeatForever(autoreverses: true)) {
                     animated.toggle()
                 }
             }
@@ -130,7 +130,7 @@ struct FloatingGradientBGStyleModifier: ViewModifier {
                         )
                     )
                     .onAppear {
-                        withAnimation(.easeInOut(duration: 3).repeatForever(autoreverses: true)) {
+                        withAnimation(.easeInOut(duration: 5).repeatForever(autoreverses: true)) {
                             animated.toggle()
                         }
                     }

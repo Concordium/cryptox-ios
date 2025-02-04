@@ -21,11 +21,13 @@ struct TokenBalanceView: View {
     weak var router: AccountsMainViewDelegate?
     @State private var isPresentingAlert = false
     @State private var showRawMdPopup = false
-
+    @State private var hideTokenPressed: Bool = false
     var actionItems: [ActionItem]  {
         return accountActionItems()
     }
-    
+    var hideTokenButtonColor: Color {
+        hideTokenPressed ? .selectedRed : .attentionRed
+    }
     var body: some View {
         ZStack {
             ScrollView {
@@ -37,12 +39,18 @@ struct TokenBalanceView: View {
                     if token.name != "ccd" {
                         HStack(spacing: 8) {
                             Image("eyeSlash")
+                                .renderingMode(.template)
+                                .foregroundStyle(hideTokenButtonColor)
                             Text("Hide token from account")
                                 .font(.satoshi(size: 15, weight: .medium))
-                                .foregroundStyle(.attentionRed)
+                                .foregroundStyle(hideTokenButtonColor)
                         }
                         .onTapGesture {
-                            isPresentingAlert = true
+                            hideTokenPressed = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                hideTokenPressed = false
+                                isPresentingAlert = true
+                            }
                         }
                         .padding(.horizontal, 18)
                     }
@@ -201,7 +209,7 @@ struct TokenBalanceView: View {
                 .foregroundStyle(.grey1)
         }
         .padding(.horizontal, 60)
-        .padding(.top, 60)
+        .padding(.top, 20)
         .padding(.bottom, 30)
         .frame(width: 327, alignment: .top)
         .modifier(FloatingGradientBGStyleModifier())
