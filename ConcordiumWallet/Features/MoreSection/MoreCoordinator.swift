@@ -26,7 +26,6 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
     private var sanityChecker: SanityChecker
     private var accountsCoordinator: AccountsCoordinator?
     private let mobileWallet: MobileWalletProtocol
-    
     weak var delegate: MoreCoordinatorDelegate?
     weak var parentCoordinator: MoreCoordinatorDelegate?
     weak var configureAccountAlertDelegate: ConfigureAccountAlertDelegate?
@@ -80,32 +79,15 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
     
     // MARK: Address Book
     func showAddressBook() {
-        let vc = SelectRecipientFactory.create(with: SelectRecipientPresenter(delegate: self,
-                                                                              storageManager: dependencyProvider.storageManager(),
-                                                                              mode: .addressBook))
+        let view = SelectRecipientView(viewModel: RecipientListViewModel(storageManager: dependencyProvider.storageManager(), mode: .addressBook), onRecipientSelected: {_ in }, onBackTapped: {
+            self.navigationController.popViewController(animated: false)
+        })
+            .environmentObject(NavigationManager())
+        let vc = SceneViewController(content: view)
+        navigationController.navigationBar.isHidden = true
         navigationController.pushViewController(vc, animated: true)
     }
-    
-    func showAddRecipient() {
-        let vc = AddRecipientFactory.create(with: AddRecipientPresenter(delegate: self, dependencyProvider: dependencyProvider, mode: .add))
-        vc.hidesBottomBarWhenPushed = true
-        navigationController.pushViewController(vc, animated: true)
-    }
-    
-    func showScanAddressQR() {
-        let vc = ScanAddressQRFactory.create(with: ScanAddressQRPresenter(wallet: dependencyProvider.mobileWallet(), delegate: self))
-        vc.hidesBottomBarWhenPushed = true
-        navigationController.pushViewController(vc, animated: true)
-    }
-    
-    func showEditRecipient(_ recipient: RecipientDataType) {
-        let vc = AddRecipientFactory.create(with: AddRecipientPresenter(delegate: self,
-                                                                        dependencyProvider: dependencyProvider,
-                                                                        mode: .edit(recipient: recipient)))
-        vc.hidesBottomBarWhenPushed = true
-        navigationController.pushViewController(vc, animated: true)
-    }
-    
+
     //    // MARK: Import
     func showImport() {
         let initialAccountPresenter = InitialAccountInfoPresenter(delegate: self, type: .importAccount)
@@ -252,53 +234,12 @@ extension MoreCoordinator: MoreMenuPresenterDelegate {
     }
 }
 
-extension MoreCoordinator: SelectRecipientPresenterDelegate {
-    func didSelect(recipient: RecipientDataType) {
-        showEditRecipient(recipient)
-    }
-    
-    func createRecipient() {
-        showAddRecipient()
-    }
-    
-    func selectRecipientDidSelectQR() {
-        DispatchQueue.main.async {
-            self.showScanAddressQR()
-        }
-    }
-    
+extension MoreCoordinator {
     func userSelectedNft() {
         let collectionsCoordinator = CollectionsCoordinator(navigationController: navigationController,
                                                             dependencyProvider: dependencyProvider)
         collectionsCoordinator.configureAccountAlertDelegate = configureAccountAlertDelegate
         collectionsCoordinator.start()
-    }
-}
-
-extension MoreCoordinator: AddRecipientPresenterDelegate {
-    
-    func addRecipientDidSelectSave(recipient: RecipientDataType) {
-        navigationController.popViewController(animated: true)
-    }
-    
-    func addRecipientDidSelectQR() {
-        showScanAddressQR()
-    }
-}
-
-extension MoreCoordinator: ScanAddressQRPresenterDelegate, AddRecipientCoordinatorHelper {
-    func scanAddressQr(didScan output: QRScannerOutput) {
-        switch output {
-            case .address(let string):
-                scanAddressQr(didScanAddress: string)
-            case .airdrop, .connectURL, .walletConnectV2: break
-        }
-    }
-    
-    func scanAddressQr(didScanAddress address: String) {
-        let addRecipientViewController = getAddRecipientViewController(dependencyProvider: dependencyProvider)
-        self.navigationController.popToViewController(addRecipientViewController, animated: true)
-        addRecipientViewController.presenter.setAccountAddress(address)
     }
 }
 

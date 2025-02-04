@@ -294,7 +294,7 @@ process on-chain.";
 "accountDetails.generalbalance" = "Balance";
 "accountDetails.generalshieldedbalance" = "Shielded Balance";
 
-"accountDetails.title" = "Transaction Details";
+"accountDetails.title" = "Transaction details";
 "accountDetails.origin" = "Origin";
 "accountDetails.fromAddress" = "From Address: ";
 "accountDetails.transactionHash" = "Transaction Hash";
@@ -1298,3 +1298,7 @@ Remember to restart your node with the validator keys.";
 
 "backup.recommendation.message" = "We recommend that you migrate to a seed phrase wallet in order to make use of the full range of CryptoX features.";
 "ccd.description" = "CCD is the native token of the Concordium blockchain. Its main use cases are the payment of transaction fees, the payment for the execution of smart contracts, payments between users, payments for commercial transactions, staking, and the rewards offered to node operators.";
+
+"transaction.in.progress.status" = "Transaction in progress";
+"transaction.status.success" = "You've sent";
+"transaction.status.failed" = "Transaction failed to send";

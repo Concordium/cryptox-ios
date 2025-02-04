@@ -50,6 +50,7 @@ struct CCDOnrampView: View {
                                             openURL(url)
                                         }
                                     }
+                                    .listRowSeparator(.hidden)
                             }
                         } header: {
                             Text(section.title)
@@ -61,14 +62,16 @@ struct CCDOnrampView: View {
                     ListFooter()
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
-                        .padding(.top, 64)
+                        .padding(.top, 40)
                         .padding(.bottom, 32)
-                        .padding(.horizontal, 54)
+                        .padding(.horizontal, 32)
                         .id("footer")
                 }
-                .modifier(AppBackgroundModifier())
                 .listSectionSeparator(.hidden)
-                .listStyle(.plain)
+                .listStyle(.grouped)
+                .scrollContentBackground(.hidden)
+                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                .modifier(AppBackgroundModifier())
             })
         }
         .sheet(item: $isAccountsPickerShown, content: { provider in
@@ -83,9 +86,6 @@ struct CCDOnrampView: View {
     
     private func ListHeader() -> some View {
         VStack(spacing: 8) {
-            Text("ccd_onramp_list_header_title".localized)
-                .font(.satoshi(size: 24, weight: .medium))
-                .foregroundColor(Color(red: 0.92, green: 0.94, blue: 0.94))
             VStack(spacing: 2) {
                 Text("ccd_onramp_list_header_subtitle".localized)
                     .multilineTextAlignment(.center)
@@ -93,10 +93,10 @@ struct CCDOnrampView: View {
                     .underline()
             }
             .font(.satoshi(size: 14, weight: .regular))
-            .foregroundColor(Color(red: 0.8, green: 0.84, blue: 0.84))
+            .foregroundColor(Color.MineralBlue.blueish3)
         }
-        .padding(.top, 32)
-        .padding(.horizontal, 48)
+        .padding(.top, 20)
+        .padding(.horizontal, 30)
     }
     
     private func ListFooter() -> some View {

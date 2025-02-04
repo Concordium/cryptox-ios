@@ -30,7 +30,6 @@ protocol AccountDetailsPresenterDelegate: ShowShieldedDelegate {
                                       balanceType: AccountBalanceTypeEnum,
                                       showsDecrypt: Bool)
 
-    func accountDetailsPresenterSend(_ accountDetailsPresenter: AccountDetailsPresenter, balanceType: AccountBalanceTypeEnum)
     func accountDetailsPresenterAddress(_ accountDetailsPresenter: AccountDetailsPresenter)
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, retryFailedAccount: AccountDataType)
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, removeFailedAccount: AccountDataType)
@@ -50,7 +49,6 @@ protocol AccountDetailsPresenterProtocol: AnyObject {
     func viewWillDisappear()
     
     func getTitle() -> String
-    func userTappedSend()
     func userTappedAddress()
     func userTappedRetryAccountCreation()
     func userTappedRemoveFailedAccount()
@@ -177,19 +175,6 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     func viewWillDisappear() {
         delegate?.accountDetailsClosed()
         transactionsPresenter?.viewUnload()
-    }
-    
-    func userTappedSend() {
-        guard let delegate = delegate else { return }
-        accountsService.recalculateAccountBalance(account: account, balanceType: balanceType)
-            .mapError(ErrorMapper.toViewError)
-            .sink(receiveError: { [weak self] error in
-                self?.view?.showErrorAlert(error)
-                }, receiveValue: { [weak self] _ in
-                    guard let self = self else { return }
-                    delegate.accountDetailsPresenterSend(self, balanceType: self.balanceType)
-                    self.shouldRefresh = true
-            }).store(in: &cancellables)
     }
     
     func showEarn() {

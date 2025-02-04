@@ -167,11 +167,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         let areActionsEnabled = viewModel.accountState == .finalized && !viewModel.isReadOnly
         
         let buttonSlider = ButtonSlider(
-            actionSend: {
-                if self.sendEnabled {
-                    self.presenter.userTappedSend()
-                }
-            },
             actionReceive: {
                 if self.receiveEnabled {
                     self.presenter.userTappedAddress()

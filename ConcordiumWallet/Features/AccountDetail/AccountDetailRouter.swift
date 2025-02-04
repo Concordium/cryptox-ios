@@ -11,14 +11,12 @@ import Combine
 
 protocol AccountDetailRoutable: AnyObject {
     func showAccountDetailFlow(for account: AccountDataType)
-    func showCIS2TokenDetailsFlow(_ token: CIS2Token, account: AccountDataType)
     func showTx(_ tx: TransactionViewModel)
     func showEarnFlow(_ account: AccountDataType)
 }
 
 protocol CIS2TokenDetailRoutable: AnyObject {
     func showAccountAddressQR(_ account: AccountDataType)
-    func showSendTokenFlow(tokenType: CXTokenType)
 }
 
 final class AccountDetailRouter: ObservableObject {
@@ -75,21 +73,7 @@ extension AccountDetailRouter: AccountDetailRoutable {
         accountDetailCoordinator.accountsMainViewDelegate = accountMainViewDelegate
         accountDetailCoordinator.start(entryPoint: .settings)
     }
-    
-    func showCIS2TokenDetailsFlow(_ token: CIS2Token, account: AccountDataType) {
-        let viewModel = CIS2TokenDetailViewModel(
-            token,
-            account: account,
-            storageManager: dependencyProvider.storageManager(),
-            networkManager: dependencyProvider.networkManager(),
-            onDismiss: { [weak navigationController] in
-                navigationController?.popViewController(animated: true)
-            })
-        let view = CIS2TokenDetailView(viewModel: viewModel).environmentObject(self)
-        let viewController = SceneViewController(content: view)
-        viewController.hidesBottomBarWhenPushed = true
-        navigationController.pushViewController(viewController, animated: true)
-    }
+
     func showTx(_ tx: TransactionViewModel) {
 //        let vc = TransactionDetailFactory.create(with: TransactionDetailPresenter(delegate: self, viewModel: tx))
 //        navigationController.pushViewController(vc, animated: true)
@@ -110,11 +94,6 @@ extension AccountDetailRouter :CIS2TokenDetailRoutable {
                                                                       account: account)
         accountAddressQRCoordinator.start()
         navigationController.present(accountAddressQRCoordinator.navigationController, animated: true)
-    }
-    
-    func showSendTokenFlow(tokenType: CXTokenType) {
-        let router = TransferTokenRouter(root: navigationController, account: account, dependencyProvider: dependencyProvider)
-        router.showSendTokenFlow(tokenType: tokenType)
     }
 }
 

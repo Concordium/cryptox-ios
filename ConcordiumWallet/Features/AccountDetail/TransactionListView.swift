@@ -113,7 +113,7 @@ struct TransactionListView: View {
                     .foregroundStyle(.white.opacity(0.1))
                 
                 HStack(spacing: 6) {
-                    Image("note")
+                    Image("Note")
                     
                     Text(memo.displayValue)
                         .font(.satoshi(size: 12, weight: .medium))

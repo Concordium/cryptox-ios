@@ -12,7 +12,6 @@ import SwiftUI
 import ReownWalletKit
 
 protocol AccountsMainViewDelegate: AnyObject {
-    func showSendFundsFlow(_ account: AccountDataType)
     func showCreateIdentityFlow()
     func showSaveSeedPhraseFlow(pwHash: String, identitiesService: SeedIdentitiesService, completion: @escaping ([String]) -> Void)
     func showCreateAccountFlow()
@@ -65,14 +64,14 @@ final class AccountsMainRouter: ObservableObject {
     }
     
     func showTransactionDetailFromNotifications(for account: AccountDataType, tx: TransactionDetailViewModel) {
-        accountsViewModel.selectedAccount = account
+        accountsViewModel.selectedAccount = AccountPreviewViewModel(account: account, tokens: dependencyProvider.storageManager().getAccountSavedCIS2Tokens(account.address))
         navigationManager.navigate(to: .transactionDetails(transaction: tx))
     }
     
     @MainActor
     func showCIS2TokenDetailsFromNotification(for account: AccountDataType, token: AccountDetailAccount) {
-        accountsViewModel.selectedAccount = account
-        navigationManager.navigate(to: .tokenDetails(token: token))
+        accountsViewModel.selectedAccount = AccountPreviewViewModel(account: account, tokens: dependencyProvider.storageManager().getAccountSavedCIS2Tokens(account.address))
+        navigationManager.navigate(to: .tokenDetails(token: token, AccountDetailViewModel(account: account)))
     }
     
     @MainActor func showUnshieldAssetsFlow() {
@@ -96,14 +95,6 @@ final class AccountsMainRouter: ObservableObject {
         let router = AccountDetailRouter(account: account, navigationController: navigationController, dependencyProvider: dependencyProvider)
         router.accountMainViewDelegate = self
         router.showAccountSettings(account)
-    }
-    
-    func showSendFundsFlow(_ account: AccountDataType) {
-        //TODO: - add tip here why this (`SendToken`) button isnt tappable
-        guard account.isReadOnly == false else { return }
-        guard account.forecastAtDisposalBalance > 0 else { return }
-        let router = TransferTokenRouter(root: navigationController, account: account, dependencyProvider: dependencyProvider)
-        router.showSendTokenFlow(tokenType: .ccd)
     }
     
     func showExportFlow() {

@@ -15,7 +15,8 @@ struct TransactionViewModel {
     var date: Date
     var memo: Memo?
     var details: TransactionDetailsViewModel
-    
+    var submissionId: String?
+
     let source: TransactionType
     var isLast = false
     // To uniquely identity the view model in the table view

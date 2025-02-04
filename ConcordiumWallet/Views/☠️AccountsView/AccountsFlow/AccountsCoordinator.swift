@@ -172,8 +172,6 @@ extension AccountsCoordinator: AccountsPresenterDelegate {
         switch action {
         case .tap, .more:
             entryPoint = .settings
-        case .send:
-            entryPoint = .send
         case .earn:
             entryPoint = .earn
         case .receive:

@@ -17,25 +17,11 @@ struct ActionItem: Identifiable {
     let action: () -> Void
 }
 
-enum AccountNavigationPaths: Hashable {
-    case accountsOverview
-    case manageTokens
-    case tokenDetails(token: AccountDetailAccount)
-    case buy
-    case send
-    case earn
-    case activity
-    case addToken
-    case addTokenDetails(token: AccountDetailAccount)
-    case transactionDetails(transaction: TransactionDetailViewModel)
-}
-
 struct HomeScreenView: View {
     @ObservedObject var viewModel: AccountsMainViewModel
     @State private var activeAccountViewModel: AccountDetailViewModel?
     @EnvironmentObject var navigationManager: NavigationManager
     @State var showTooltip: Bool = false
-    @State var accountQr: AccountEntity?
     @State private var showManageTokenList: Bool = false
     @EnvironmentObject var updateTimer: UpdateTimer
     @State private var isNewTokenAdded: Bool = false
@@ -56,6 +42,7 @@ struct HomeScreenView: View {
     let keychain: KeychainWrapperProtocol
     let identitiesService: SeedIdentitiesService
     weak var router: AccountsMainViewDelegate?
+    var onAddressPicked = PassthroughSubject<String, Never>()
     var actionItems: [ActionItem]  {
         return accountActionItems()
     }
@@ -88,18 +75,12 @@ struct HomeScreenView: View {
                 .onTapGesture {
                     showTooltip = false
                 }
-                .navigationDestination(for: AccountNavigationPaths.self, destination: { destination in
-                    navigateTo(destination)
-                })
-                .sheet(item: $accountQr) { account in
-                    AccountQRView(account: account)
-                }
                 .fullScreenCover(isPresented: $isShowPasscodeViewShown, content: {
                     passcodeView
                 })
                 .onChange(of: showManageTokenList) { newValue in
                     if showManageTokenList {
-                        navigationManager.navigate(to: .manageTokens)
+                        navigationManager.navigate(to: .manageTokens(viewModel))
                     }
                 }
                 .onChange(of: viewModel.state) { newState in
@@ -123,13 +104,12 @@ struct HomeScreenView: View {
                 .onChange(of: geometry.size) { _ in
                         geometrySize = geometry.size
                 }
-                .onChange(of: viewModel.selectedAccount?.address) { _ in
+                .onChange(of: viewModel.selectedAccount) { _ in
                     changeAccountDetailViewModel()
                 }
                 .refreshable { Task { await viewModel.reload() } }
                 .onAppear {
                     updateTimer.start()
-                    notifyTabBarHidden(false)
                     returnToHome()
                     Task {
                         isLoading = true
@@ -140,6 +120,7 @@ struct HomeScreenView: View {
                 }
                 .onDisappear { updateTimer.stop() }            }
             .modifier(AppBackgroundModifier())
+            .modifier(NavigationDestinationBuilder(router: router, onAddressPicked: onAddressPicked))
         }
     }
     
@@ -207,7 +188,7 @@ struct HomeScreenView: View {
             if !viewModel.accounts.isEmpty {
                 HStack(spacing: 5) {
                     Image("dot\(getDotImageIndex())")
-                    Text("\(viewModel.selectedAccount?.displayName ?? "")")
+                    Text("\(viewModel.selectedAccount?.account.displayName ?? "")")
                         .font(.satoshi(size: 15, weight: .medium))
                     Image("CaretUpDown")
                         .resizable()
@@ -215,7 +196,7 @@ struct HomeScreenView: View {
                         .tint(.greyAdditional)
                 }
                 .onTapGesture {
-                    navigationManager.navigate(to: .accountsOverview)
+                    navigationManager.navigate(to: .accountsOverview(viewModel))
                 }
             }
             Spacer()
@@ -234,7 +215,7 @@ struct HomeScreenView: View {
     func balanceSection() -> some View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topTrailing) {
-                Text("\(balanceDisplayValue(viewModel.selectedAccount?.forecastBalance)) CCD")
+                Text("\(balanceDisplayValue(viewModel.selectedAccount?.account.forecastBalance)) CCD")
                     .font(.plexSans(size: 55, weight: .bold))
                     .dynamicTypeSize(.xSmall ... .xxLarge)
                     .minimumScaleFactor(0.5)
@@ -260,8 +241,8 @@ struct HomeScreenView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
-            if let account = viewModel.selectedAccount, account.isStaking {
-                Text("\(balanceDisplayValue(viewModel.selectedAccount?.forecastAtDisposalBalance)) CCD " + "accounts.atdisposal".localized)
+            if let account = viewModel.selectedAccount?.account, account.isStaking {
+                Text("\(balanceDisplayValue(account.forecastAtDisposalBalance)) CCD " + "accounts.atdisposal".localized)
                     .font(.satoshi(size: 15, weight: .medium))
                     .modifier(RadialGradientForegroundStyleModifier())
             }
@@ -366,22 +347,27 @@ struct HomeScreenView: View {
                 Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Buy")
             }),
             ActionItem(iconName: "send", label: "Send", action: {
-                guard let selectedAccount = viewModel.selectedAccount else { return }
-                router?.showSendFundsFlow(selectedAccount)
-                Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Send funds")
+                if let account = viewModel.selectedAccount?.account as? AccountEntity {
+                    navigationManager.navigate(to: .send(account))
+                    Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Send funds")
+                }
             }),
             ActionItem(iconName: "receive", label: "Receive", action: {
-                accountQr = (viewModel.selectedAccount as? AccountEntity)
-                Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Account QR")
+                if let account = viewModel.selectedAccount?.account as? AccountEntity {
+                    navigationManager.navigate(to: .receive(account))
+                    Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Account QR")
+                }
             }),
             ActionItem(iconName: "Percent", label: "Earn", action: {
-                guard let selectedAccount = viewModel.selectedAccount else { return }
+                guard let selectedAccount = viewModel.selectedAccount?.account else { return }
                 router?.showEarnFlow(selectedAccount)
                 Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Earn")
             }),
             ActionItem(iconName: "activity", label: "Activity", action: {
-                navigationManager.navigate(to: .activity)
-                Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Activity")
+                if let account = viewModel.selectedAccount?.account as? AccountEntity {
+                    navigationManager.navigate(to: .activity(account))
+                    Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Activity")
+                }
             })
         ]
         return actionItems
@@ -399,7 +385,7 @@ struct HomeScreenView: View {
     }
     
     func changeAccountDetailViewModel() {
-        if let selectedAccount = viewModel.selectedAccount {
+        if let selectedAccount = viewModel.selectedAccount?.account {
             if activeAccountViewModel?.account?.address != selectedAccount.address {
                 activeAccountViewModel = AccountDetailViewModel(account: selectedAccount)
             }
@@ -525,111 +511,12 @@ extension HomeScreenView {
         }
     }
     
-    // MARK: - Navigation
-    
-    private func navigateTo(_ destination: AccountNavigationPaths) -> some View {
-        Group {
-            switch destination {
-            case .accountsOverview:
-                AccountsOverviewView(path: $navigationManager.path, viewModel: viewModel, router: router)
-                    .onAppear {
-                        notifyTabBarHidden(true)
-                    }
-            case .buy:
-                CCDOnrampView(dependencyProvider: viewModel.dependencyProvider)
-                    .modifier(NavigationViewModifier(title: "Buy CCD") {
-                        navigationManager.pop()
-                    })
-            case .manageTokens:
-                if let vm = viewModel.accountDetailViewModel {
-                    ManageTokensView(viewModel: vm, path: $navigationManager.path, isNewTokenAdded: $isNewTokenAdded)
-                        .onAppear {
-                            notifyTabBarHidden(true)
-                        }
-                } else {
-                    EmptyView()
-                }
-            case .tokenDetails(let token):
-                if let vm = viewModel.accountDetailViewModel, let selectedAccount = viewModel.selectedAccount {
-                    TokenBalanceView(token: token, path: $navigationManager.path, selectedAccount: selectedAccount, viewModel: vm, router: self.router)
-                } else {
-                    EmptyView()
-                }
-            case .send, .earn:
-                EmptyView()
-            case .addToken:
-                if let selectedAccount = viewModel.selectedAccount {
-                    AddTokenView(
-                        path: $navigationManager.path,
-                        viewModel: .init(storageManager: dependencyProvider.storageManager(),
-                                         networkManager: dependencyProvider.networkManager(),
-                                         account: selectedAccount),
-                        searchTokenViewModel: SearchTokenViewModel(
-                            cis2Service: CIS2Service(
-                                networkManager: dependencyProvider.networkManager(),
-                                storageManager: dependencyProvider.storageManager()
-                            )
-                        ),
-                        onTokenAdded: { isNewTokenAdded = true }
-                    )
-                    .onAppear {
-                        notifyTabBarHidden(true)
-                    }
-                } else {
-                    EmptyView()
-                }
-            case .addTokenDetails(let token):
-                TokenDetailsView(token: token, isAddTokenDetails: true, showRawMd: .constant(false))
-                    .modifier(NavigationViewModifier(title: "Add token", backAction: {
-                        navigationManager.pop()
-                    }))
-            case .activity:
-                if let selectedAccount = viewModel.selectedAccount {
-                    TransactionsView(viewModel: TransactionsViewModel(account: selectedAccount, dependencyProvider: ServicesProvider.defaultProvider())) { vm in
-                        navigationManager.navigate(to: .transactionDetails(transaction: vm))
-                    }
-                    .modifier(AppBackgroundModifier())
-                    .modifier(NavigationViewModifier(title: "Activity") {
-                        navigationManager.pop()
-                    })
-                }
-            case .transactionDetails(let transaction):
-                TransactionDetailView(viewModel: transaction)
-                    .modifier(NavigationViewModifier(title: "Transaction Details", backAction: {
-                        navigationManager.pop()
-                    }))
-            }
-        }
-    }
-    
-    private func notifyTabBarHidden(_ isHidden: Bool) {
-        NotificationCenter.default.post(name: .hideTabBar, object: nil, userInfo: ["isHidden": isHidden])
-    }
-    
     private func returnToHome() {
         NotificationCenter.default.addObserver(forName: .returnToHomeTabBar, object: nil, queue: .main) { notification in
             if let needToReturn = notification.userInfo?["returnToHomeTabBar"] as? Bool, needToReturn {
                 self.navigationManager.reset()
             }
         }
-    }
-}
-
-class NavigationManager: ObservableObject {
-    @Published var path: [AccountNavigationPaths] = []
-    
-    func navigate(to destination: AccountNavigationPaths) {
-        path.append(destination)
-    }
-    
-    func pop() {
-        if !path.isEmpty {
-            path.removeLast()
-        }
-    }
-    
-    func reset() {
-        path.removeAll()
     }
 }
 

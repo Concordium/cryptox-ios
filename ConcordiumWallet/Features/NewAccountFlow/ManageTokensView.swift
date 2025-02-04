@@ -16,7 +16,7 @@ struct ManageTokensView: View {
     @State private var selectedToken: CIS2Token?
     @State var showRemovedTokenTip: Bool = false
     @State var showTokenListUpdated: Bool = false
-    @Binding var path: [AccountNavigationPaths]
+    @Binding var path: [NavigationPaths]
     @Binding var isNewTokenAdded: Bool
 
     var body: some View {
@@ -102,7 +102,9 @@ struct ManageTokensView: View {
         .modifier(NavigationViewModifier(title: "Manage token list", backAction: {
             dismiss()
         }, trailingAction: {
-            path.append(.addToken)
+            if let account = viewModel.account as? AccountEntity {
+                path.append(.addToken(account))
+            }
         }, trailingIcon: Image("ico_add")))
         .modifier(AppBackgroundModifier())
     }

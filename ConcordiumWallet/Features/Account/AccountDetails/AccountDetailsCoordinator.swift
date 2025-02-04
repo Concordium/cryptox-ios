@@ -16,7 +16,6 @@ protocol AccountDetailsDelegate: AnyObject {
 }
 
 enum AccountDetailsFlowEntryPoint {
-    case send
     case receive
     case earn
     case settings
@@ -58,8 +57,6 @@ class AccountDetailsCoordinator: Coordinator,
     
     func start(entryPoint: AccountDetailsFlowEntryPoint) {
         switch entryPoint {
-        case .send:
-            showSendFund()
         case .receive:
                 showAccountAddressQR(account)
         case .earn:
@@ -154,10 +151,6 @@ class AccountDetailsCoordinator: Coordinator,
 
     func closed() {
         self.navigationController.popViewController(animated: true)
-    }
-    
-    func showSendFund(balanceType: AccountBalanceTypeEnum = .balance) {
-        self.accountsMainViewDelegate?.showSendFundsFlow(account)
     }
     
     func showAccountAddressQR(_ account: AccountDataType) {
@@ -257,10 +250,7 @@ class AccountDetailsCoordinator: Coordinator,
 }
 
 extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
-    func accountDetailsPresenterSend(_ accountDetailsPresenter: AccountDetailsPresenter, balanceType: AccountBalanceTypeEnum) {
-        showSendFund(balanceType: balanceType)
-    }
-    
+
     func accountDetailsPresenterAddress(_ accountDetailsPresenter: AccountDetailsPresenter) {
         showAccountAddressQR(account)
     }

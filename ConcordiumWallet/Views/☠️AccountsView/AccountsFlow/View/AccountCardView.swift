@@ -14,7 +14,6 @@ protocol AccountCardViewDelegate: AnyObject {
 
 enum AccountCardAction {
     case tap
-    case send
     case receive
     case earn
     case more
@@ -175,7 +174,7 @@ class AccountCardView: UIView, NibLoadable {
     
     // MARK: Private
     @IBAction private func pressedSend(sender: Any) {
-        delegate?.perform(action: .send)
+//        delegate?.perform(action: .send)
     }
     
     @IBAction private func pressedReceive(sender: Any) {
