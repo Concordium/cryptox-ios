@@ -45,7 +45,7 @@ struct AccountsOverviewView: View {
         .modifier(NavigationViewModifier(title: "Your accounts", backAction: {
             dismiss()
         }, trailingAction: {
-            if let selectedAccount = viewModel.selectedAccount {
+            if let selectedAccount = viewModel.selectedAccount?.account {
                 router?.showSettings(selectedAccount)
             }
         }, trailingIcon: Image("settingsGear"), iconSize: CGSize(width: 20, height: 20)))
@@ -105,7 +105,7 @@ struct AccountsOverviewView: View {
                 .opacity(account.account.address == viewModel.selectedAccount?.address ? 1 : 0)
         )
         .onTapGesture {
-            viewModel.changeCurrentAccount(account.account)
+            viewModel.changeCurrentAccount(account)
             dismiss()
         }
     }

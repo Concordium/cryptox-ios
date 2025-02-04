@@ -104,7 +104,7 @@ struct HomeScreenView: View {
                 .onChange(of: geometry.size) { _ in
                         geometrySize = geometry.size
                 }
-                .onChange(of: viewModel.selectedAccount?.address) { _ in
+                .onChange(of: viewModel.selectedAccount) { _ in
                     changeAccountDetailViewModel()
                 }
                 .refreshable { Task { await viewModel.reload() } }
@@ -188,7 +188,7 @@ struct HomeScreenView: View {
             if !viewModel.accounts.isEmpty {
                 HStack(spacing: 5) {
                     Image("dot\(getDotImageIndex())")
-                    Text("\(viewModel.selectedAccount?.displayName ?? "")")
+                    Text("\(viewModel.selectedAccount?.account.displayName ?? "")")
                         .font(.satoshi(size: 15, weight: .medium))
                     Image("CaretUpDown")
                         .resizable()
@@ -215,7 +215,7 @@ struct HomeScreenView: View {
     func balanceSection() -> some View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topTrailing) {
-                Text("\(balanceDisplayValue(viewModel.selectedAccount?.forecastBalance)) CCD")
+                Text("\(balanceDisplayValue(viewModel.selectedAccount?.account.forecastBalance)) CCD")
                     .font(.plexSans(size: 55, weight: .bold))
                     .dynamicTypeSize(.xSmall ... .xxLarge)
                     .minimumScaleFactor(0.5)
@@ -241,8 +241,8 @@ struct HomeScreenView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
-            if let account = viewModel.selectedAccount, account.isStaking {
-                Text("\(balanceDisplayValue(viewModel.selectedAccount?.forecastAtDisposalBalance)) CCD " + "accounts.atdisposal".localized)
+            if let account = viewModel.selectedAccount?.account, account.isStaking {
+                Text("\(balanceDisplayValue(account.forecastAtDisposalBalance)) CCD " + "accounts.atdisposal".localized)
                     .font(.satoshi(size: 15, weight: .medium))
                     .modifier(RadialGradientForegroundStyleModifier())
             }
@@ -347,24 +347,24 @@ struct HomeScreenView: View {
                 Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Buy")
             }),
             ActionItem(iconName: "send", label: "Send", action: {
-                if let account = viewModel.selectedAccount as? AccountEntity {
+                if let account = viewModel.selectedAccount?.account as? AccountEntity {
                     navigationManager.navigate(to: .send(account))
                     Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Send funds")
                 }
             }),
             ActionItem(iconName: "receive", label: "Receive", action: {
-                if let account = viewModel.selectedAccount as? AccountEntity {
+                if let account = viewModel.selectedAccount?.account as? AccountEntity {
                     navigationManager.navigate(to: .receive(account))
                     Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Account QR")
                 }
             }),
             ActionItem(iconName: "Percent", label: "Earn", action: {
-                guard let selectedAccount = viewModel.selectedAccount else { return }
+                guard let selectedAccount = viewModel.selectedAccount?.account else { return }
                 router?.showEarnFlow(selectedAccount)
                 Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Earn")
             }),
             ActionItem(iconName: "activity", label: "Activity", action: {
-                if let account = viewModel.selectedAccount as? AccountEntity {
+                if let account = viewModel.selectedAccount?.account as? AccountEntity {
                     navigationManager.navigate(to: .activity(account))
                     Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Activity")
                 }
@@ -385,7 +385,7 @@ struct HomeScreenView: View {
     }
     
     func changeAccountDetailViewModel() {
-        if let selectedAccount = viewModel.selectedAccount {
+        if let selectedAccount = viewModel.selectedAccount?.account {
             if activeAccountViewModel?.account?.address != selectedAccount.address {
                 activeAccountViewModel = AccountDetailViewModel(account: selectedAccount)
             }

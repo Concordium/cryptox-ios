@@ -32,7 +32,8 @@ struct NavigationDestinationBuilder: ViewModifier {
                                 navigationManager.pop()
                             })
                     case .manageTokens(let viewModel):
-                        if let vm = viewModel.accountDetailViewModel {
+                        if let account = viewModel.selectedAccount?.account {
+                            let vm = AccountDetailViewModel(account: account)
                             ManageTokensView(viewModel: vm, path: $navigationManager.path, isNewTokenAdded: $isNewTokenAdded)
                                 .onAppear {
                                     notifyTabBarHidden(true)

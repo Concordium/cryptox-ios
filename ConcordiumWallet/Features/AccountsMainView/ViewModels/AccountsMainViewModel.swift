@@ -20,12 +20,7 @@ final class AccountsMainViewModel: ObservableObject, Hashable, Equatable {
     @Published var atDisposal = GTU(intValue: 0)
     @Published var staked = GTU(intValue: 0)
     @Published var isBackupAlertShown = false
-    @Published var selectedAccount: AccountDataType?
-    
-    var accountDetailViewModel: AccountDetailViewModel? {
-        guard let selectedAccount = selectedAccount else { return nil }
-        return AccountDetailViewModel(account: selectedAccount)
-    }
+    @Published var selectedAccount: AccountPreviewViewModel?
     
     let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     let defaultProvider = ServicesProvider.defaultProvider()
@@ -64,7 +59,8 @@ final class AccountsMainViewModel: ObservableObject, Hashable, Equatable {
         }
         updateData()
         if selectedAccount == nil {
-            selectedAccount = accounts.first
+            let firstAccount = accounts.first
+            selectedAccount = accountViewModels.first(where: {$0.address == firstAccount?.address})
         }
     }
     
@@ -116,7 +112,7 @@ final class AccountsMainViewModel: ObservableObject, Hashable, Equatable {
         try await dependencyProvider.accountsService().updateAccountsBalances(accounts: accounts).async()
     }
     
-    func changeCurrentAccount(_ account: AccountDataType) {
+    func changeCurrentAccount(_ account: AccountPreviewViewModel) {
         selectedAccount = account
     }
 }
@@ -245,6 +241,6 @@ extension AccountsMainViewModel {
         hasher.combine(staked)
         hasher.combine(isBackupAlertShown)
         hasher.combine(selectedAccount?.address)
-        hasher.combine(selectedAccount?.name)
+        hasher.combine(selectedAccount?.account.name)
     }
 }

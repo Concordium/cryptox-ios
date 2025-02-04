@@ -64,13 +64,13 @@ final class AccountsMainRouter: ObservableObject {
     }
     
     func showTransactionDetailFromNotifications(for account: AccountDataType, tx: TransactionDetailViewModel) {
-        accountsViewModel.selectedAccount = account
+        accountsViewModel.selectedAccount = AccountPreviewViewModel(account: account, tokens: dependencyProvider.storageManager().getAccountSavedCIS2Tokens(account.address))
         navigationManager.navigate(to: .transactionDetails(transaction: tx))
     }
     
     @MainActor
     func showCIS2TokenDetailsFromNotification(for account: AccountDataType, token: AccountDetailAccount) {
-        accountsViewModel.selectedAccount = account
+        accountsViewModel.selectedAccount = AccountPreviewViewModel(account: account, tokens: dependencyProvider.storageManager().getAccountSavedCIS2Tokens(account.address))
         navigationManager.navigate(to: .tokenDetails(token: token, AccountDetailViewModel(account: account)))
     }
     
