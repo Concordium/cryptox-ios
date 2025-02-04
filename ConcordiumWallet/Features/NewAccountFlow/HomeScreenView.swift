@@ -206,7 +206,7 @@ struct HomeScreenView: View {
         HStack() {
             if !viewModel.accounts.isEmpty {
                 HStack(spacing: 5) {
-                    Image(getDotImageIndex() == 1 ? "Dot\(getDotImageIndex())" : "dot\(getDotImageIndex())")
+                    Image("dot\(getDotImageIndex())")
                     Text("\(viewModel.selectedAccount?.displayName ?? "")")
                         .font(.satoshi(size: 15, weight: .medium))
                     Image("CaretUpDown")
