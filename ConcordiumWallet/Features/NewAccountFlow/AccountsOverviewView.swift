@@ -32,12 +32,10 @@ struct AccountsOverviewView: View {
             Button {
                 router?.showCreateAccountFlow()
             } label: {
-                HStack {
-                    Spacer()
-                    Text("Create new account")
-                        .font(.satoshi(size: 14, weight: .medium))
-                    Spacer()
-                }
+                Text("Create new account")
+                    .font(.satoshi(size: 14, weight: .medium))
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .multilineTextAlignment(.center)
             }
             .buttonStyle(PressedButtonStyle())
         }

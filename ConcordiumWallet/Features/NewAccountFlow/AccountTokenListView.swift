@@ -23,6 +23,9 @@ struct AccountTokenListView: View {
     @State private var managePressed: Bool = false
     @State private var hideTokenID: Int?
     
+    var pressedButtonColor: Color {
+        managePressed ? Color.buttonPressed : .greyAdditional
+    }
     var mode: TokenListMode
     var onHideToken: ((CIS2Token) -> Void)?
     var euroAmount: String?
@@ -39,10 +42,10 @@ struct AccountTokenListView: View {
                 HStack(spacing: 8) {
                     Image("settingsGear")
                         .renderingMode(.template)
-                        .foregroundStyle(managePressed ? Color.buttonPressed : .greyAdditional)
+                        .foregroundStyle(pressedButtonColor)
                     Text("Manage token list")
                         .font(.satoshi(size: 15, weight: .medium))
-                        .foregroundStyle(managePressed ? Color.buttonPressed : .greyAdditional)
+                        .foregroundStyle(pressedButtonColor)
                     
                 }
                 .padding(.leading, 24)
@@ -242,7 +245,7 @@ final class AccountDetailViewModel: ObservableObject {
                 let microGTUPerEuro = chainParameters.microGTUPerEuro
                 let euroEquivalent = Double(ccd.intValue) * (Double(microGTUPerEuro.denominator) / Double(microGTUPerEuro.numerator))
                 let rounded = (euroEquivalent * 100).rounded() / 100
-                self?.ccdEuroEquivalent = "\(rounded.string) CCD"
+                self?.ccdEuroEquivalent = GTU(displayValue: rounded.string).displayValueWithCCDStroke()
             })
             .store(in: &cancellables)
     }

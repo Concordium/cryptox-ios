@@ -25,7 +25,9 @@ struct TokenBalanceView: View {
     var actionItems: [ActionItem]  {
         return accountActionItems()
     }
-    
+    var hideTokenButtonColor: Color {
+        hideTokenPressed ? .selectedRed : .attentionRed
+    }
     var body: some View {
         ZStack {
             ScrollView {
@@ -38,10 +40,10 @@ struct TokenBalanceView: View {
                         HStack(spacing: 8) {
                             Image("eyeSlash")
                                 .renderingMode(.template)
-                                .foregroundStyle(hideTokenPressed ? .selectedRed : .attentionRed)
+                                .foregroundStyle(hideTokenButtonColor)
                             Text("Hide token from account")
                                 .font(.satoshi(size: 15, weight: .medium))
-                                .foregroundStyle(hideTokenPressed ? .selectedRed : .attentionRed)
+                                .foregroundStyle(hideTokenButtonColor)
                         }
                         .onTapGesture {
                             hideTokenPressed = true
