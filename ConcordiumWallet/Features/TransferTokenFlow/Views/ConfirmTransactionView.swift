@@ -74,7 +74,7 @@ struct ConfirmTransactionView: View {
                 )
                 
                 Spacer()
-                SliderButton(text: "Submit delegation") {
+                SliderButton(text: "Submit transaction") {
                     path.append(.transferSendingStatus(TransferTokenConfirmViewModel(tokenTransferModel: viewModel.tokenTransferModel, transactionsService: ServicesProvider.defaultProvider().transactionsService(), storageManager: ServicesProvider.defaultProvider().storageManager())))
                 }
             }

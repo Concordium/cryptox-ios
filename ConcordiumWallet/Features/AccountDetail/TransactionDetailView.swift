@@ -82,7 +82,7 @@ struct TransactionDetailView: View {
                     .font(.satoshi(size: 15, weight: .medium))
                     .foregroundStyle(.white)
                 Spacer()
-                Text("\(tx.total) CCD")
+                Text("\(tx.amount) CCD")
                     .font(.satoshi(size: 15, weight: .medium))
                     .foregroundStyle(tx.totalColor)
             }
