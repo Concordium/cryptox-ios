@@ -26,6 +26,7 @@ struct AddTokenView: View {
     @State private var isEnteredNumbers: Bool = false
     @FocusState private var isContractIdTextFieldFocused: Bool
     @FocusState private var isTokenIdTextFieldFocused: Bool
+    @State private var selectedTokenId: String?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
@@ -257,8 +258,14 @@ struct AddTokenView: View {
                 }
             }
         }
+                  .background(selectedTokenId == token.tokenId ? .selectedCell : .grey3.opacity(0.3))
+                  .cornerRadius(12)
                   .onTapGesture {
-                      path.append(.addTokenDetails(token: AccountDetailAccount.token(token: token, amount: "")))
+                      selectedTokenId = token.tokenId
+                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                          selectedTokenId = nil
+                          path.append(.addTokenDetails(token: AccountDetailAccount.token(token: token, amount: "")))
+                      }
                   }
                   .onAppear {
                       if token == viewModel.tokens.last && tokenId.isEmpty {

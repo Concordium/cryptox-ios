@@ -34,6 +34,7 @@ struct HomeScreenView: View {
     @State var isShowPasscodeViewShown = false
     @State var phrase: [String]?
     @State var isLoading = false
+    @State private var selectedActionId: Int?
     
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
@@ -216,7 +217,7 @@ struct HomeScreenView: View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topTrailing) {
                 Text("\(balanceDisplayValue(viewModel.selectedAccount?.account.forecastBalance)) CCD")
-                    .font(.plexSans(size: 55, weight: .bold))
+                    .font(.plexSans(size: 55, weight: .semibold))
                     .dynamicTypeSize(.xSmall ... .xxLarge)
                     .minimumScaleFactor(0.5)
                     .lineLimit(1)
@@ -258,12 +259,12 @@ struct HomeScreenView: View {
     
     func accountActionButtonsSection() -> some View {
         HStack {
-            ForEach(actionItems) { item in
+            ForEach(Array(actionItems.enumerated()), id: \.offset) { (index, item) in
                 VStack {
                     Image(item.iconName)
                         .frame(width: 24, height: 24)
                         .padding(11)
-                        .background(.grey3)
+                        .background(selectedActionId == index ? .grey4 : .grey3)
                         .foregroundColor(.MineralBlue.blueish3)
                         .cornerRadius(50)
                     Text(item.label)
@@ -273,11 +274,15 @@ struct HomeScreenView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .onTapGesture {
-                    if SettingsHelper.isIdentityConfigured() {
-                        item.action()
-                    }
-                    else {
-                        self.router?.showNotConfiguredAccountPopup()
+                    selectedActionId = index
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        selectedActionId = nil
+                        if SettingsHelper.isIdentityConfigured() {
+                            item.action()
+                        }
+                        else {
+                            self.router?.showNotConfiguredAccountPopup()
+                        }
                     }
                 }
             }
@@ -584,7 +589,7 @@ struct HomeScreenViewSkeleton: View {
         }
         .modifier(AppBackgroundModifier())
         .onAppear {
-            withAnimation(Animation.linear(duration: 0.3).repeatForever(autoreverses: false)) {
+            withAnimation(Animation.linear(duration: 0.5).repeatForever(autoreverses: false)) {
                 isAnimating = true
             }
         }

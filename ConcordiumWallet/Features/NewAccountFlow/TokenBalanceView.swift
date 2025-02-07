@@ -27,6 +27,9 @@ struct TokenBalanceView: View {
     var hideTokenButtonColor: Color {
         hideTokenPressed ? .selectedRed : .attentionRed
     }
+    
+   @State private var selectedActionIndex: Int?
+    
     var body: some View {
         ZStack {
             ScrollView {
@@ -168,7 +171,7 @@ struct TokenBalanceView: View {
                         Image(actionItems[index].iconName)
                             .frame(width: 24, height: 24)
                             .padding(11)
-                            .background(Color.grey3)
+                            .background(selectedActionIndex == index ? .grey4 : Color.grey3)
                             .foregroundColor(Color.MineralBlue.blueish3)
                             .cornerRadius(50)
                         Text(actionItems[index].label)
@@ -178,7 +181,11 @@ struct TokenBalanceView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .onTapGesture {
-                        actionItems[index].action()
+                        selectedActionIndex = index
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            actionItems[index].action()
+                            selectedActionIndex = nil
+                        }
                     }
                 } else {
                     Spacer()
@@ -214,9 +221,6 @@ struct TokenBalanceView: View {
     
     private func accountActionItems() -> [ActionItem] {
         var actionItems = [
-            ActionItem(iconName: "buy", label: "Buy", action: {
-                path.append(.buy)
-            }),
             ActionItem(iconName: "send", label: "Send", action: {
                 guard let account = viewModel.account as? AccountEntity else { return }
                 path.append(.send(account))
@@ -224,18 +228,23 @@ struct TokenBalanceView: View {
             ActionItem(iconName: "receive", label: "Receive", action: {
                 guard let account = viewModel.account as? AccountEntity else { return }
                 path.append(.receive(account))
-            }),
-            ActionItem(iconName: "activity", label: "Activity", action: {
-                if let account = selectedAccount as? AccountEntity {
-                    path.append(.activity(account))
-                }
             })
         ]
         if token.name == "ccd" {
+            let buyAction = ActionItem(iconName: "buy", label: "Buy", action: {
+                path.append(.buy)
+            })
+            actionItems.insert(buyAction, at: 0)
             let earnAction = ActionItem(iconName: "Percent", label: "Earn", action: {
                 router?.showEarnFlow(selectedAccount)
             })
             actionItems.insert(earnAction, at: 3)
+            let activityAction = ActionItem(iconName: "activity", label: "Activity", action: {
+                if let account = selectedAccount as? AccountEntity {
+                    path.append(.activity(account))
+                }
+            })
+            actionItems.append(activityAction)
         }
         return actionItems
     }
