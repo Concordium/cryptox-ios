@@ -1813,6 +1813,9 @@
 		1510F2BE2D4B87D7008E04D0 /* AddRecipientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1510F2BD2D4B87D7008E04D0 /* AddRecipientViewModel.swift */; };
 		1510F2BF2D4B87D7008E04D0 /* AddRecipientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1510F2BD2D4B87D7008E04D0 /* AddRecipientViewModel.swift */; };
 		1510F2C02D4B87D7008E04D0 /* AddRecipientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1510F2BD2D4B87D7008E04D0 /* AddRecipientViewModel.swift */; };
+		1517A0F32D5A0E2B0089619F /* ToastGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1517A0F22D5A0E2B0089619F /* ToastGradientView.swift */; };
+		1517A0F42D5A0E2B0089619F /* ToastGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1517A0F22D5A0E2B0089619F /* ToastGradientView.swift */; };
+		1517A0F52D5A0E2B0089619F /* ToastGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1517A0F22D5A0E2B0089619F /* ToastGradientView.swift */; };
 		15184CED2CB0056C00DAE03A /* CooldownCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15184CEC2CB0056C00DAE03A /* CooldownCardView.swift */; };
 		15184CEE2CB0056C00DAE03A /* CooldownCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15184CEC2CB0056C00DAE03A /* CooldownCardView.swift */; };
 		15184CEF2CB0056C00DAE03A /* CooldownCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15184CEC2CB0056C00DAE03A /* CooldownCardView.swift */; };
@@ -3183,6 +3186,7 @@
 		1505693C2CCF84C9005B81ED /* IdentityProviderListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityProviderListView.swift; sourceTree = "<group>"; };
 		15069A1D2C89A1C000697017 /* ProdTestNet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProdTestNet.entitlements; sourceTree = "<group>"; };
 		1510F2BD2D4B87D7008E04D0 /* AddRecipientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipientViewModel.swift; sourceTree = "<group>"; };
+		1517A0F22D5A0E2B0089619F /* ToastGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastGradientView.swift; sourceTree = "<group>"; };
 		15184CEC2CB0056C00DAE03A /* CooldownCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CooldownCardView.swift; sourceTree = "<group>"; };
 		151A53982C5CF03800EFE20C /* PopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
 		151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
@@ -3714,6 +3718,7 @@
 				C939821C240F8D7000C72FE2 /* RoundedCornerView.swift */,
 				D5D52C6826DE45530072D20E /* RoundedCurrencyView.swift */,
 				D5AF003227A041E100F0C56E /* RoundedBackUpView.swift */,
+				1517A0F22D5A0E2B0089619F /* ToastGradientView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -7184,6 +7189,7 @@
 				08C167562BB7396200E61326 /* AccountReleaseSchedule.swift in Sources */,
 				08C167572BB7396200E61326 /* IdentitiesCoordinator.swift in Sources */,
 				08C167582BB7396200E61326 /* OnboardingCarouselWebContentViewController.swift in Sources */,
+				1517A0F32D5A0E2B0089619F /* ToastGradientView.swift in Sources */,
 				08C167592BB7396200E61326 /* IdentityProviderWebViewPresenter.swift in Sources */,
 				15ABCCD52CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */,
 				08C1675A2BB7396200E61326 /* GeneratedBakerKeys.swift in Sources */,
@@ -7891,6 +7897,7 @@
 				08A045F029FA99D200DACE1F /* AccountReleaseSchedule.swift in Sources */,
 				088FEF142A026F0100042957 /* IdentitiesCoordinator.swift in Sources */,
 				088FECE82A01622000042957 /* OnboardingCarouselWebContentViewController.swift in Sources */,
+				1517A0F42D5A0E2B0089619F /* ToastGradientView.swift in Sources */,
 				088FEEDB2A026EAB00042957 /* IdentityProviderWebViewPresenter.swift in Sources */,
 				15ABCCD32CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */,
 				08A0461D29FA99D300DACE1F /* GeneratedBakerKeys.swift in Sources */,
@@ -8598,6 +8605,7 @@
 				088FEF062A026F0000042957 /* IdentitiesCoordinator.swift in Sources */,
 				D589F4182794BC12003F2FBB /* ServicesProvider+prod.swift in Sources */,
 				088FEED72A026EAA00042957 /* IdentityProviderWebViewPresenter.swift in Sources */,
+				1517A0F52D5A0E2B0089619F /* ToastGradientView.swift in Sources */,
 				C94ED724246301740071A4FB /* TransactionDetailErrorCellView.swift in Sources */,
 				15ABCCD42CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */,
 				088FEFDD2A0271BF00042957 /* CreateSeedIdentityView.swift in Sources */,
