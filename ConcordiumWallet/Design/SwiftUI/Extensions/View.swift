@@ -68,3 +68,20 @@ extension View {
         }
     }
 }
+
+extension View {
+    func toast<Content: View>(
+        isPresented: Binding<Bool>,
+        duration: TimeInterval = 2.0,
+        position: Alignment = .top,
+        @ViewBuilder content: @escaping () -> Content
+    ) -> some View {
+        self.modifier(
+            Toast(
+                isPresented: isPresented,
+                duration: duration,
+                toastContent: { AnyView(content()) }, position: position
+            )
+        )
+    }
+}

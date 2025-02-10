@@ -12,7 +12,8 @@ import JDStatusBarNotification
 struct TransactionDetailView: View {
     
     @StateObject var viewModel: TransactionDetailViewModel
-    
+    @State private var showToast = false
+
     var body: some View {
         VStack(spacing: 16) {
             HStack(spacing: 2) {
@@ -22,7 +23,9 @@ struct TransactionDetailView: View {
                 }
                 .onTapGesture {
                     CopyPasterHelper.copy(string: viewModel.transaction.details.transactionHash ?? "")
-                    NotificationPresenter.shared.present("general.copied".localized, includedStyle: .success, duration: 5)
+                    withAnimation {
+                        showToast = true
+                    }
                 }
                 .padding(8)
                 .background(.white.opacity(0.07))
@@ -69,6 +72,9 @@ struct TransactionDetailView: View {
             
             Spacer()
         }
+        .toast(isPresented: $showToast, position: .bottom) {
+            ToastGradientView(title: "Transaction hash copied", imageName: "ico_successfully")
+        }
         .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .modifier(AppBackgroundModifier())
@@ -82,7 +88,7 @@ struct TransactionDetailView: View {
                     .font(.satoshi(size: 15, weight: .medium))
                     .foregroundStyle(.white)
                 Spacer()
-                Text("\(tx.total) CCD")
+                Text("\(tx.amount) CCD")
                     .font(.satoshi(size: 15, weight: .medium))
                     .foregroundStyle(tx.totalColor)
             }

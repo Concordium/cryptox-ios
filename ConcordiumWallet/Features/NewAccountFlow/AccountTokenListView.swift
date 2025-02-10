@@ -49,7 +49,7 @@ struct AccountTokenListView: View {
                     
                 }
                 .padding(.leading, 24)
-                .padding(.top, 8)
+                .padding(.vertical, 8)
                 .onTapGesture {
                     managePressed = true
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
@@ -169,7 +169,7 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
     @Published var isReadOnly = false
     @Published var hasStaked = false
     @Published var stakedValue: GTU?
-    @Published var ccdEuroEquivalent: String = "0.00 CCD"
+    @Published var ccdEuroEquivalent: String = "0.00 EUR"
     
     let account: AccountDataType?
     let storageManager: StorageManagerProtocol
@@ -245,7 +245,7 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
                 let microGTUPerEuro = chainParameters.microGTUPerEuro
                 let euroEquivalent = Double(ccd.intValue) * (Double(microGTUPerEuro.denominator) / Double(microGTUPerEuro.numerator))
                 let rounded = (euroEquivalent * 100).rounded() / 100
-                self?.ccdEuroEquivalent = GTU(displayValue: rounded.string).displayValueWithCCDStroke()
+                self?.ccdEuroEquivalent = "\(rounded.string) EUR"
             })
             .store(in: &cancellables)
     }

@@ -17,6 +17,7 @@ struct AccountsOverviewView: View {
     weak var router: AccountsMainViewDelegate?
     private let dotImages = ["dot1", "dot2", "dot3", "dot4", "dot5", "dot6", "dot7", "dot8", "dot9"]
     @State private var createAccountPressed: Bool = false
+    @State private var selectedAccountAddress: String?
     
     var body: some View {
         VStack {
@@ -96,7 +97,7 @@ struct AccountsOverviewView: View {
         }
         .padding(18)
         .frame(maxWidth: .infinity)
-        .background(.grey3.opacity(0.3))
+        .background(selectedAccountAddress == account.address ? .selectedCell : .grey3.opacity(0.3))
         .cornerRadius(12)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
@@ -105,8 +106,12 @@ struct AccountsOverviewView: View {
                 .opacity(account.account.address == viewModel.selectedAccount?.address ? 1 : 0)
         )
         .onTapGesture {
-            viewModel.changeCurrentAccount(account)
-            dismiss()
+            selectedAccountAddress = account.address
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                selectedAccountAddress = nil
+                viewModel.changeCurrentAccount(account)
+                dismiss()
+            }
         }
     }
 }
