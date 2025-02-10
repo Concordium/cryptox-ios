@@ -20,95 +20,102 @@ struct NavigationViewModifier: ViewModifier {
     let navigationTitle: String
     let leadingAction: (() -> Void)?
     let trailingAction: (() -> Void)?
-    let tralingIcon: Image?
+    let trailingIcon: Image?
     let iconSize: CGSize?
-    
+
+    @State private var showBackButton = false
+    @State private var isBackButtonTapped = false
+
     init(title: String, backAction: (() -> Void)? = nil, trailingAction: (() -> Void)? = nil, trailingIcon: Image? = nil, iconSize: CGSize? = nil) {
         self.navigationTitle = title
         self.leadingAction = backAction
         self.trailingAction = trailingAction
-        self.tralingIcon = trailingIcon
+        self.trailingIcon = trailingIcon
         self.iconSize = iconSize
     }
     
     func body(content: Content) -> some View {
-        content
-            .navigationBarBackButtonHidden(true)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                if leadingAction != nil {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button {
-                            leadingAction?()
-                        } label: {
-                            Image("ico_back")
-                                .resizable()
-                                .foregroundColor(.greySecondary)
-                                .frame(width: 32, height: 32)
-                                .contentShape(.circle)
-                        }
-                    }
-                }
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Text(navigationTitle)
-                            .font(.satoshi(size: 17, weight: .medium))
-                            .foregroundStyle(Color.white)
-                    }
-                }
-                
-                if trailingAction != nil {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            trailingAction?()
-                        } label: {
-                            if let tralingIcon {
-                                tralingIcon
+        VStack(spacing: 0) {
+            VStack {
+                ZStack {
+                    Text(navigationTitle)
+                        .font(.satoshi(size: 17, weight: .medium))
+                        .foregroundColor(.white)
+
+                    HStack {
+                        if let leadingAction = leadingAction {
+                            Button(action: {
+                                withAnimation(.easeOut(duration: 0.3)) {
+                                    isBackButtonTapped = true
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                    leadingAction()
+                                }
+                            }) {
+                                Image("ico_back")
                                     .resizable()
-                                    .foregroundColor(.greySecondary)
+                                    .frame(width: 32, height: 32)
+                                    .foregroundColor(.gray)
+                                    .opacity(isBackButtonTapped ? 0 : (showBackButton ? 1 : 0))
+                                    .animation(.easeOut(duration: 0.3), value: isBackButtonTapped)
+                            }
+                        }
+                        Spacer()
+
+                        if let trailingAction = trailingAction, let trailingIcon = trailingIcon {
+                            Button(action: trailingAction) {
+                                trailingIcon
+                                    .resizable()
                                     .frame(width: iconSize?.width ?? 32, height: iconSize?.height ?? 32)
-                                    .contentShape(.circle)
+                                    .foregroundColor(.gray)
                             }
                         }
                     }
                 }
+                .padding(.horizontal)
+                .modifier(AppBackgroundModifier())
             }
+            content
+                .navigationBarBackButtonHidden()
+                .gesture(
+                    DragGesture()
+                        .onEnded { value in
+                            if value.translation.width > 100 {
+                                leadingAction?()
+                            }
+                        }
+                )
+                .onAppear {
+                    withAnimation(.easeIn(duration: 0.3)) {
+                        showBackButton = true
+                    }
+                }
+        }
     }
 }
 
 struct RadialGradientForegroundStyleModifier: ViewModifier {
-    @State private var animated = false
     
     func body(content: Content) -> some View {
         content
             .foregroundStyle(
                 RadialGradient(
-                    colors: animated ? [
-                        Color(red: 0.93, green: 0.85, blue: 0.75),
+                    colors:
+                        [Color(red: 0.93, green: 0.85, blue: 0.75),
                         Color(red: 0.64, green: 0.6, blue: 0.89),
-                        Color(red: 0.62, green: 0.95, blue: 0.92)
-                    ] : [
-                        Color(red: 0.62, green: 0.95, blue: 0.92),
-                        Color(red: 0.93, green: 0.85, blue: 0.75),
-                        Color(red: 0.64, green: 0.6, blue: 0.89)
-                    ],
-                    center: animated ? .bottomTrailing : .topLeading,
-                    startRadius: animated ? 100 : 50,
-                    endRadius: animated ? 400 : 300
+                        Color(red: 0.62, green: 0.95, blue: 0.92)]
+                    ,
+                    center: .topLeading,
+                    startRadius: 50,
+                    endRadius: 300
                 )
             )
             .saturation(2)
-            .onAppear {
-                withAnimation(.easeInOut(duration: 4).repeatForever(autoreverses: true)) {
-                    animated.toggle()
-                }
-            }
     }
 }
 
 
 struct FloatingGradientBGStyleModifier: ViewModifier {
-    @State private var animated = false
     
     func body(content: Content) -> some View {
         content
@@ -116,24 +123,15 @@ struct FloatingGradientBGStyleModifier: ViewModifier {
                 RoundedRectangle(cornerRadius: 40)
                     .fill(
                         RadialGradient(
-                            gradient: Gradient(colors: animated ?
-                                               [Color(red: 0.93, green: 0.85, blue: 0.75),
-                                                Color(red: 0.64, green: 0.6, blue: 0.89),
-                                                Color(red: 0.62, green: 0.95, blue: 0.92)]
-                                               :
+                            gradient: Gradient(colors:
                                                 [Color(red: 0.62, green: 0.95, blue: 0.92),
                                                  Color(red: 0.93, green: 0.85, blue: 0.75),
                                                  Color(red: 0.64, green: 0.6, blue: 0.89)]),
-                            center: animated ? .topTrailing : .center,
-                            startRadius: animated ? 50 : 0,
-                            endRadius: animated ? 500 : 400
+                            center: .center,
+                            startRadius: 0,
+                            endRadius: 400
                         )
                     )
-                    .onAppear {
-                        withAnimation(.easeInOut(duration: 5).repeatForever(autoreverses: true)) {
-                            animated.toggle()
-                        }
-                    }
             )
     }
 }

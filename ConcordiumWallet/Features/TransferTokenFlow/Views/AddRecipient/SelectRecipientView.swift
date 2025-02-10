@@ -121,9 +121,9 @@ struct SelectRecipientView: View {
             default: break
             }
         })
-        .modifier(NavigationViewModifier(title: viewModel.mode == .addressBook ? "sendFund.addressBook".localized : "Choose recipient", backAction: viewModel.mode == .addressBook ? {
+        .modifier(NavigationViewModifier(title: viewModel.mode == .addressBook ? "sendFund.addressBook".localized : "Choose recipient", backAction: {
             onBackTapped()
-        } : nil, trailingAction: {
+        }, trailingAction: {
             navigationManager.navigate(to: .addRecipient(mode: .add))
         }, trailingIcon: Image("ico_add")))
         .modifier(AppBackgroundModifier())

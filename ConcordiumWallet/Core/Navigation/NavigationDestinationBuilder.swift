@@ -119,9 +119,6 @@ struct NavigationDestinationBuilder: ViewModifier {
                             navigationManager.pop()
                         })
                             .environmentObject(navigationManager)
-                            .modifier(NavigationViewModifier(title: "Choose recipient", backAction: {
-                                navigationManager.pop()
-                            }))
                     case .confirmTransaction(let vm):
                         ConfirmTransactionView(viewModel: vm, path: $navigationManager.path)
                             .modifier(NavigationViewModifier(title: "Confirmation", backAction: {

@@ -73,7 +73,7 @@ struct AccountQRView: View {
                 }
             }
             .padding(60)
-            .modifier(FloatingGradientBGStyleModifier())
+            .background(.grey1)
             .cornerRadius(16)
             Spacer()
         }

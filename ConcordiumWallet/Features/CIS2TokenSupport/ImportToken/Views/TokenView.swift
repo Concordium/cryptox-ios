@@ -38,8 +38,6 @@ struct TokenView: View {
         .padding()
         .frame(maxWidth: .infinity)
         .frame(height: 60)
-        .background(.grey3.opacity(0.3))
-        .cornerRadius(12)
         .onChange(of: isSelected) { _ in
             onCheckMarkTapGesture()
         }

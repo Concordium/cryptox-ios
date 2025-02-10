@@ -37,7 +37,7 @@ struct DecimalNumberTextField: View {
     }
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .leading) {
             if textFieldText.isEmpty {
                 HStack {
                     Text("0.00")
@@ -57,7 +57,30 @@ struct DecimalNumberTextField: View {
                 .minimumScaleFactor(0.5)
                 .lineLimit(1)
                 .opacity(1)
-                .modifier(RadialGradientForegroundStyleModifier())
+                .foregroundColor(.clear)
+                .overlay(
+                    RadialGradient(
+                        colors:
+                            [Color(red: 0.93, green: 0.85, blue: 0.75),
+                             Color(red: 0.64, green: 0.6, blue: 0.89),
+                             Color(red: 0.62, green: 0.95, blue: 0.92)]
+                        ,
+                        center: .topLeading,
+                        startRadius: 50,
+                        endRadius: 300
+                    )
+                    .allowsHitTesting(false)
+                    .saturation(2)
+                    .mask(alignment: .leading, {
+                        Text(textFieldText.isEmpty ? " " : textFieldText)
+                            .font(.plexSans(size: 55, weight: .medium))
+                            .dynamicTypeSize(.xSmall ... .xxLarge)
+                            .minimumScaleFactor(0.5)
+                            .lineLimit(1)
+                            .multilineTextAlignment(.leading)
+                            .allowsHitTesting(false)
+                    })
+                )
                 .onChange(of: decimalValue) { newDecimalValue in
                     if !(newDecimalValue.value == 0) {
                         self.textFieldText = TokenFormatter().plainString(from: newDecimalValue, decimalSeparator: ".")

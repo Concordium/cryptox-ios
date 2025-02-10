@@ -20,7 +20,7 @@ protocol StakeStatusViewProtocol: Loadable, ShowAlert {
 
 class EarnPresenter: SwiftUIPresenter<EarnViewModel> {
     private let account: AccountDataType
-    private weak var delegate: EarnPresenterDelegate?
+    private var delegate: EarnPresenterDelegate?
     weak var view: StakeStatusViewProtocol?
     
     init(
@@ -43,5 +43,9 @@ class EarnPresenter: SwiftUIPresenter<EarnViewModel> {
                     delegate?.delegation()
             }
         }
+    }
+    
+    deinit {
+        self.delegate = nil
     }
 }

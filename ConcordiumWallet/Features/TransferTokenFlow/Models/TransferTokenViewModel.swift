@@ -189,6 +189,7 @@ final class TransferTokenViewModel: ObservableObject, Hashable, Equatable {
             await tokenTransferModel.updateMaxAmount()
             DispatchQueue.main.async {
                 self.amountTokenSend = self.tokenTransferModel.maxAmountTokenSend
+                self.getEuroValueForCCD()
             }
         }
     }

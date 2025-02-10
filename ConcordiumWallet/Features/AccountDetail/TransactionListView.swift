@@ -92,7 +92,7 @@ struct TransactionListView: View {
                 Spacer()
                 
                 VStack(alignment: .trailing, spacing: 4) {
-                    Text(viewModel.total)
+                    Text(viewModel.amount)
                         .foregroundStyle(viewModel.totalColor)
                         .font(.satoshi(size: 15, weight: .medium))
                     if !viewModel.cost.isEmpty {
