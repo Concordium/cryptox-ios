@@ -10,6 +10,7 @@ import Foundation
 import Combine
 import BigInt
 import UIKit
+import Concordium
 
 enum TokenTransferNotifyDestination {
     case none
@@ -40,6 +41,13 @@ final class CIS2TokenTransferModel {
     private var onTxReject: () -> Void
     
     let cis2Service: CIS2Service
+    
+    private lazy var concordiumClient: ConcordiumClient = {
+        try! ConcordiumClient(
+            networkManager: dependencyProvider.networkManager(),
+            storageManager: dependencyProvider.storageManager()
+        )
+    }()
     
     ///
     /// `notifyDestination` - describes whch service you need to send ``
@@ -157,6 +165,26 @@ final class CIS2TokenTransferModel {
             return entity
         }.eraseToAnyPublisher()
     }
+    
+    @MainActor
+    func executeTransferCCD() async throws {
+        guard let recipient = self.recipient else { throw WalletError.invalidInput }
+        let pwHash = try await self.passwordDelegate.requestUserPassword(keychain: dependencyProvider.keychainWrapper())
+        guard
+            let encryptedAccountDataKey = account.encryptedAccountData,
+            let accountKeys = try? dependencyProvider.storageManager().getPrivateAccountKeys(key: encryptedAccountDataKey, pwHash: pwHash).get()
+        else { throw WalletError.invalidInput }
+            
+        let submittedTransaction = try await concordiumClient.transferCCD(
+            sender: AccountAddress(base58Check: self.account.address),
+            amount: CCD.init(microCCD: MicroCCDAmount(Double(self.amountTokenSend.value))),
+            receiver: AccountAddress(base58Check: recipient),
+            keys: accountKeys,
+            memo: nil)
+        let transactionStatus = try await concordiumClient.getTransactionStatus(submittedTransaction.hash)
+        print(submittedTransaction)
+        print(transactionStatus)
+    }
 }
 
 extension CIS2TokenTransferModel {
@@ -205,29 +233,29 @@ extension CIS2TokenTransferModel {
                 else { return .fail(TransferTokenError.insuficientData) }
                 return try await transferCis2Token(cIS2Token, amount: self.amountTokenSend, to: recipient, txCost: transaferCost)
             case .ccd:
-                return try await simpleTransferCCDToken()
+            fatalError()//return  try await simpleTransferCCDToken()
         }
     }
     
-    @MainActor
-    private func simpleTransferCCDToken() async throws -> AnyPublisher<TransferEntity, Error> {
-        var transfer = TransferDataTypeFactory.create()
-        transfer.transferType = .simpleTransfer
-        transfer.amount = String(self.amountTokenSend.value)
-        transfer.fromAddress = self.account.address
-        transfer.toAddress = self.recipient ?? ""
-        transfer.cost = self.transaferCost?.cost ?? "100000"
-        transfer.energy = self.transaferCost?.energy ?? 0
-        transfer.memo = self.memo?.data.hexDescription
-
-        return dependencyProvider.transactionsService()
-            .performTransfer(transfer, from: self.account, requestPasswordDelegate: self.passwordDelegate)
-            .tryMap { transferDataType -> TransferEntity in
-                _ = try self.dependencyProvider.storageManager().storeTransfer(transferDataType)
-                return transferDataType as! TransferEntity
-            }
-            .eraseToAnyPublisher()
-    }
+//    @MainActor
+//    private func simpleTransferCCDToken() async throws -> AnyPublisher<TransferEntity, Error> {
+//        var transfer = TransferDataTypeFactory.create()
+//        transfer.transferType = .simpleTransfer
+//        transfer.amount = String(self.amountTokenSend.value)
+//        transfer.fromAddress = self.account.address
+//        transfer.toAddress = self.recipient ?? ""
+//        transfer.cost = self.transaferCost?.cost ?? "100000"
+//        transfer.energy = self.transaferCost?.energy ?? 0
+//        transfer.memo = self.memo?.data.hexDescription
+//
+//        return dependencyProvider.transactionsService()
+//            .performTransfer(transfer, from: self.account, requestPasswordDelegate: self.passwordDelegate)
+//            .tryMap { transferDataType -> TransferEntity in
+//                _ = try self.dependencyProvider.storageManager().storeTransfer(transferDataType)
+//                return transferDataType as! TransferEntity
+//            }
+//            .eraseToAnyPublisher()
+//    }
     
     @MainActor
     private func transferCis2Token(_ token: CIS2Token, amount: BigDecimal, to: String, txCost: TransferCost) async throws -> AnyPublisher<TransferEntity, Error> {

@@ -4,6 +4,7 @@
 //   let makeCreateTransferRequest = try MakeCreateTransferRequest(json)
 
 import Foundation
+import Concordium
 
 // MARK: - MakeCreateTransferRequest
 struct MakeCreateTransferRequest: Codable {

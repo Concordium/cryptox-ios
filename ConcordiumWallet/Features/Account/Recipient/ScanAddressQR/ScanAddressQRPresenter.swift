@@ -69,27 +69,31 @@ class ScanAddressQRPresenter: ScanAddressQRPresenterProtocol {
     func viewDidLoad() {}
     
     func scannedQrCode(_ address: String) {
-        let qrValid = wallet.check(accountAddress: address)
-        if qrValid {
-            view?.showQrValid()
-            self.delegate?.scanAddressQr(didScan: .address(address))
-            self.closure?(.address(address))
-        } else if let url = URL(string: address), let scheme = url.scheme, scheme == "airdrop" {
-            view?.showQrValid()
-            self.delegate?.scanAddressQr(didScan: .airdrop(address))
-            self.closure?(.airdrop(address))
-        } else if address.hasPrefix("wc:") {
-            view?.showQrValid()
-            self.delegate?.scanAddressQr(didScan: .walletConnectV2(address))
-            self.closure?(.walletConnectV2(address))
-        } else if URL(string: address) != nil {
-            view?.showQrValid()
-            self.delegate?.scanAddressQr(didScan: .connectURL(address))
-            self.closure?(.connectURL(address))
-        } else {
-            if lastSaveErrorDisplayedString != address {
-                self.lastSaveErrorDisplayedString = address
-                view?.showQrInvalid()
+        Task {
+            let qrValid = await wallet.check(accountAddress: address)
+            await MainActor.run {
+                if qrValid {
+                    view?.showQrValid()
+                    self.delegate?.scanAddressQr(didScan: .address(address))
+                    self.closure?(.address(address))
+                } else if let url = URL(string: address), let scheme = url.scheme, scheme == "airdrop" {
+                    view?.showQrValid()
+                    self.delegate?.scanAddressQr(didScan: .airdrop(address))
+                    self.closure?(.airdrop(address))
+                } else if address.hasPrefix("wc:") {
+                    view?.showQrValid()
+                    self.delegate?.scanAddressQr(didScan: .walletConnectV2(address))
+                    self.closure?(.walletConnectV2(address))
+                } else if URL(string: address) != nil {
+                    view?.showQrValid()
+                    self.delegate?.scanAddressQr(didScan: .connectURL(address))
+                    self.closure?(.connectURL(address))
+                } else {
+                    if lastSaveErrorDisplayedString != address {
+                        self.lastSaveErrorDisplayedString = address
+                        view?.showQrInvalid()
+                    }
+                }
             }
         }
     }

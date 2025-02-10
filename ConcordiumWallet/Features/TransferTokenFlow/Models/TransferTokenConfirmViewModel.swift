@@ -66,13 +66,14 @@ final class TransferTokenConfirmViewModel: ObservableObject, Equatable, Hashable
         self.error = nil
         
         do {
-            try await tokenTransferModel.executeTransaction()
-                .sink(receiveError: { error in
-                    self.error = error
-                }, receiveValue: { transferDataType in
-                    self.transferDataType = transferDataType
-                    self.isLoading = false
-                }).store(in: &cancellables)
+            try await tokenTransferModel.executeTransferCCD()
+//            try await tokenTransferModel.executeTransaction()
+//                .sink(receiveError: { error in
+//                    self.error = error
+//                }, receiveValue: { transferDataType in
+//                    self.transferDataType = transferDataType
+//                    self.isLoading = false
+//                }).store(in: &cancellables)
         } catch {
             self.error = error
             self.isLoading = false

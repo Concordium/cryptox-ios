@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import DotLottie
+//import DotLottie
 import Combine
 
 enum LoadingAnimationState: String {
@@ -18,23 +18,23 @@ enum LoadingAnimationState: String {
 
 struct TransferSendingStatusView: View {
     @State private var animationState: LoadingAnimationState = .loader
-    @State private var animationConfig = AnimationConfig(autoplay: true, loop: true, segments: (0, 120))
+//    @State private var animationConfig = AnimationConfig(autoplay: true, loop: true, segments: (0, 120))
     @ObservedObject var viewModel: TransferTokenConfirmViewModel
     @EnvironmentObject var navigationManager: NavigationManager
     @State private var hasStartedTransaction = false
     @State private var isTransactionDetailsVisible: Bool = true
     @State private var cancellables = Set<AnyCancellable>()
     
-    var animation: DotLottieAnimation {
-        DotLottieAnimation(fileName: "loadingAnimation", config: animationConfig)
-    }
+//    var animation: DotLottieAnimation {
+//        DotLottieAnimation(fileName: "loadingAnimation", config: animationConfig)
+//    }
     
     var body: some View {
         VStack {
             VStack(alignment: .center, spacing: 30) {
-                animationView()
-                    .id(animationState)
-                    .fixedSize()
+//                animationView()
+//                    .id(animationState)
+//                    .fixedSize()
                 
                 Divider()
                     .background(.white.opacity(0.1))
@@ -134,25 +134,25 @@ struct TransferSendingStatusView: View {
         }
     }
     
-    @ViewBuilder
-    private func animationView() -> some View {
-        animation.view()
-            .frame(width: 60, height: 60)
-    }
-    
+//    @ViewBuilder
+//    private func animationView() -> some View {
+//        animation.view()
+//            .frame(width: 60, height: 60)
+//    }
+//    
     private func playAnimationBasedOnState() {
         if viewModel.isLoading {
             animationState = .loader
-            animationConfig = AnimationConfig(autoplay: true, loop: true, segments: (0, 120))
-            _ = animation.play()
+//            animationConfig = AnimationConfig(autoplay: true, loop: true, segments: (0, 120))
+//            _ = animation.play()
         } else if viewModel.error != nil {
             animationState = .failure
-            animationConfig = AnimationConfig(autoplay: true, loop: false, segments: (300, 360))
-            _ = animation.play()
+//            animationConfig = AnimationConfig(autoplay: true, loop: false, segments: (300, 360))
+//            _ = animation.play()
         } else {
             animationState = .success
-            animationConfig = AnimationConfig(autoplay: true, loop: false, segments: (121, 239))
-            _ = animation.play()
+//            animationConfig = AnimationConfig(autoplay: true, loop: false, segments: (121, 239))
+//            _ = animation.play()
         }
     }
     

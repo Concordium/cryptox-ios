@@ -63,23 +63,23 @@ class DelegationReceiptConfirmationPresenter: StakeReceiptPresenterProtocol {
         guard let delegate = delegate else {
             return
         }
-
-        let transfer = dataHandler.getTransferObject(cost: cost, energy: energy)
-        
-        self.transactionsService.performTransfer(transfer, from: account, requestPasswordDelegate: delegate)
-            .showLoadingIndicator(in: view)
-            .tryMap(self.storeManager.storeTransfer)
-            .sink(receiveError: { error in
-                if case GeneralError.userCancelled = error { return }
-                self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
-            }, receiveValue: { [weak self] transfer in
-                if let self = self {
-                    self.delegate?.confirmedTransaction(
-                        dataHandler: self.dataHandler,
-                        transfer: transfer
-                    )
-                }
-            }).store(in: &cancellables)
+        fatalError("Max addd here SDK")
+//        let transfer = dataHandler.getTransferObject(cost: cost, energy: energy)
+//        
+//        self.transactionsService.performTransfer(transfer, from: account, requestPasswordDelegate: delegate)
+//            .showLoadingIndicator(in: view)
+//            .tryMap(self.storeManager.storeTransfer)
+//            .sink(receiveError: { error in
+//                if case GeneralError.userCancelled = error { return }
+//                self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+//            }, receiveValue: { [weak self] transfer in
+//                if let self = self {
+//                    self.delegate?.confirmedTransaction(
+//                        dataHandler: self.dataHandler,
+//                        transfer: transfer
+//                    )
+//                }
+//            }).store(in: &cancellables)
     }
     func closeButtonTapped() {
         self.delegate?.pressedClose()

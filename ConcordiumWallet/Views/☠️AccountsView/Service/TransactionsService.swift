@@ -5,12 +5,13 @@
 
 import Foundation
 import Combine
+import Concordium
 
 protocol TransactionsServiceProtocol {
-    func performTransfer(_ pTransfer: TransferDataType,
-                         from account: AccountDataType,
-                         bakerKeys: GeneratedBakerKeys?,
-                         requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error>
+//    func performTransfer(_ pTransfer: TransferDataType,
+//                         from account: AccountDataType,
+//                         bakerKeys: GeneratedBakerKeys?,
+//                         requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error>
     func getTransactions(for account: AccountDataType, startingFrom: Transaction?) -> AnyPublisher<RemoteTransactions, Error>
     func decryptEncryptedTransferAmounts(transactions: [Transaction],
                                          from account: AccountDataType,
@@ -25,13 +26,13 @@ protocol TransactionsServiceProtocol {
     func getInputEncryptedAmount(for account: AccountDataType) -> InputEncryptedAmount
 }
 
-extension TransactionsServiceProtocol {
-    func performTransfer(_ pTransfer: TransferDataType,
-                         from account: AccountDataType,
-                         requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
-        return performTransfer(pTransfer, from: account, bakerKeys: nil, requestPasswordDelegate: requestPasswordDelegate)
-    }
-}
+//extension TransactionsServiceProtocol {
+//    func performTransfer(_ pTransfer: TransferDataType,
+//                         from account: AccountDataType,
+//                         requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
+//        return performTransfer(pTransfer, from: account, bakerKeys: nil, requestPasswordDelegate: requestPasswordDelegate)
+//    }
+//}
 
 class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService {
     var networkManager: NetworkManagerProtocol
@@ -55,23 +56,24 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
         return networkManager.load(request)
     }
     
-    func performTransfer(_ pTransfer: TransferDataType,
-                         from account: AccountDataType,
-                         bakerKeys: GeneratedBakerKeys? = nil,
-                         requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
-        switch pTransfer.transferType {
-        case .simpleTransfer:
-            return performPublicTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
-        case .transferToPublic:
-            return performUnshielding(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
-        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
-            return performBakerTransfer(pTransfer, from: account, bakerKeys: bakerKeys, requestPasswordDelegate: requestPasswordDelegate)
-        case .registerDelegation, .removeDelegation, .updateDelegation:
-            return performDelegationTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
-        case .transferUpdate:
-            return performPublicTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
-        }
-    }
+//    @available(*, deprecated, message: "Use SDK logic instead")
+//    func performTransfer(_ pTransfer: TransferDataType,
+//                         from account: AccountDataType,
+//                         bakerKeys: GeneratedBakerKeys? = nil,
+//                         requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
+//        switch pTransfer.transferType {
+//        case .simpleTransfer: fatalError()
+////            return performPublicTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
+//        case .transferToPublic: fatalError()
+////            return performUnshielding(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
+//        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
+//            return performBakerTransfer(pTransfer, from: account, bakerKeys: bakerKeys, requestPasswordDelegate: requestPasswordDelegate)
+//        case .registerDelegation, .removeDelegation, .updateDelegation:
+//            return performDelegationTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
+//        case .transferUpdate:
+//            return performPublicTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
+//        }
+//    }
    
     func getTransactions(for account: AccountDataType, startingFrom: Transaction? = nil) -> AnyPublisher<RemoteTransactions, Error> {
         var params = ["order": "descending"]
@@ -167,205 +169,205 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
 
 extension TransactionsService {
     // MARK: Create transfer helpers
-    private func performPublicTransfer(_ pTransfer: TransferDataType,
-                                       from account: AccountDataType,
-                                       requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
-        var transfer = updateLocalTransferWithExpiration(pTransfer)
-        return getAccountNonce(for: transfer.fromAddress)
-            .flatMap { [weak self] (nonce: AccNonce) -> AnyPublisher<CreateTransferRequest, Error> in
-                transfer.nonce = nonce.nonce
-                guard let self = self else { return .fail(GeneralError.unexpectedNullValue) }
-                return self.createTransfer(transfer,
-                                    from: account,
-                                    requestPasswordDelegate: requestPasswordDelegate,
-                                    bakerKeys: nil,
-                                    global: nil,
-                                    inputEncryptedAmount: nil,
-                                    receiverPublicKey: nil)
-            }
-            .flatMap(submitTransfer)
-            .flatMap { (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
-                transfer.submissionId = submissionResponse.submissionID
-                return self.submissionStatus(submissionId: submissionResponse.submissionID)
-            }.map { [weak self] in
-                self?.updateLocalTransfer(transfer, withSubmissionStatus: $0) ?? transfer
-            }
-            .eraseToAnyPublisher()
-    }
+//    private func performPublicTransfer(_ pTransfer: TransferDataType,
+//                                       from account: AccountDataType,
+//                                       requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
+//        var transfer = updateLocalTransferWithExpiration(pTransfer)
+//        return getAccountNonce(for: transfer.fromAddress)
+//            .flatMap { [weak self] (nonce: AccNonce) -> AnyPublisher<CreateTransferRequest, Error> in
+//                transfer.nonce = nonce.nonce
+//                guard let self = self else { return .fail(GeneralError.unexpectedNullValue) }
+//                return self.createTransfer(transfer,
+//                                    from: account,
+//                                    requestPasswordDelegate: requestPasswordDelegate,
+//                                    bakerKeys: nil,
+//                                    global: nil,
+//                                    inputEncryptedAmount: nil,
+//                                    receiverPublicKey: nil)
+//            }
+//            .flatMap(submitTransfer)
+//            .flatMap { (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
+//                transfer.submissionId = submissionResponse.submissionID
+//                return self.submissionStatus(submissionId: submissionResponse.submissionID)
+//            }.map { [weak self] in
+//                self?.updateLocalTransfer(transfer, withSubmissionStatus: $0) ?? transfer
+//            }
+//            .eraseToAnyPublisher()
+//    }
     
-    private func performUnshielding(_ pTransfer: TransferDataType,
-                                    from account: AccountDataType,
-                                    requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
-        var transfer = updateLocalTransferWithExpiration(pTransfer)
-        let inputEncryptedAmount = self.getInputEncryptedAmount(for: account)
-        return getAccountNonce(for: transfer.fromAddress).zip(getGlobal())
-            .flatMap { (nonce, global)  -> AnyPublisher<CreateTransferRequest, Error> in
-                transfer.nonce = nonce.nonce
-                return self.createTransfer(transfer,
-                                           from: account,
-                                           requestPasswordDelegate: requestPasswordDelegate,
-                                           bakerKeys: nil,
-                                           global: global,
-                                           inputEncryptedAmount: inputEncryptedAmount,
-                                           receiverPublicKey: nil)
-            }.map { [weak self] (transferRequest) -> CreateTransferRequest in
-                transfer = self?.updateLocalTransfer(transfer,
-                                                     withUnshieldingRequest: transferRequest,
-                                                     andInputEncryptedAmount: inputEncryptedAmount,
-                                                     forAccount: account) ?? transfer
-                return transferRequest
-            }
-            .flatMap(submitTransfer)
-            .flatMap { [weak self] (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
-                guard let self = self else { return .fail(GeneralError.unexpectedNullValue) }
-                transfer.submissionId = submissionResponse.submissionID
-                return self.submissionStatus(submissionId: submissionResponse.submissionID)
-            }.map { [weak self] in
-                self?.updateLocalTransfer(transfer, withSubmissionStatus: $0) ?? transfer
-            }
-            .eraseToAnyPublisher()
-    }
+//    private func performUnshielding(_ pTransfer: TransferDataType,
+//                                    from account: AccountDataType,
+//                                    requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
+//        var transfer = updateLocalTransferWithExpiration(pTransfer)
+//        let inputEncryptedAmount = self.getInputEncryptedAmount(for: account)
+//        return getAccountNonce(for: transfer.fromAddress).zip(getGlobal())
+//            .flatMap { (nonce, global)  -> AnyPublisher<CreateTransferRequest, Error> in
+//                transfer.nonce = nonce.nonce
+//                return self.createTransfer(transfer,
+//                                           from: account,
+//                                           requestPasswordDelegate: requestPasswordDelegate,
+//                                           bakerKeys: nil,
+//                                           global: global,
+//                                           inputEncryptedAmount: inputEncryptedAmount,
+//                                           receiverPublicKey: nil)
+//            }.map { [weak self] (transferRequest) -> CreateTransferRequest in
+//                transfer = self?.updateLocalTransfer(transfer,
+//                                                     withUnshieldingRequest: transferRequest,
+//                                                     andInputEncryptedAmount: inputEncryptedAmount,
+//                                                     forAccount: account) ?? transfer
+//                return transferRequest
+//            }
+//            .flatMap(submitTransfer)
+//            .flatMap { [weak self] (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
+//                guard let self = self else { return .fail(GeneralError.unexpectedNullValue) }
+//                transfer.submissionId = submissionResponse.submissionID
+//                return self.submissionStatus(submissionId: submissionResponse.submissionID)
+//            }.map { [weak self] in
+//                self?.updateLocalTransfer(transfer, withSubmissionStatus: $0) ?? transfer
+//            }
+//            .eraseToAnyPublisher()
+//    }
     
-    private func performEncryptedTransfer(_ pTransfer: TransferDataType,
-                                          from account: AccountDataType,
-                                          requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
-        
-        var transfer = updateLocalTransferWithExpiration(pTransfer)
-        let inputEncryptedAmount = self.getInputEncryptedAmount(for: account)
-        return getAccountNonce(for: transfer.fromAddress).zip(getGlobal(), getPublicAccountKey(for: transfer.toAddress))
-            .flatMap { [weak self](nonce, global, receiverPublicKey)  -> AnyPublisher<CreateTransferRequest, Error>  in
-                guard let self = self else { return .fail(GeneralError.unexpectedNullValue) }
-                transfer.nonce = nonce.nonce
-                return self.createTransfer(transfer,
-                                           from: account,
-                                           requestPasswordDelegate:
-                                            requestPasswordDelegate,
-                                           bakerKeys: nil,
-                                           global: global,
-                                           inputEncryptedAmount: inputEncryptedAmount,
-                                           receiverPublicKey: receiverPublicKey.accountEncryptionKey)
-            }.map({ [weak self] (transferRequest) -> CreateTransferRequest in
-                transfer = self?.updateLocalTransfer(transfer,
-                                                     withEncryptedTransferRequest: transferRequest,
-                                                     andInputEncryptedAmount: inputEncryptedAmount,
-                                                     forAccount: account) ?? transfer
-                return transferRequest
-            })
-            .flatMap(submitTransfer)
-            .flatMap { [weak self] (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
-                guard let self = self else { return .fail(GeneralError.unexpectedNullValue) }
-                transfer.submissionId = submissionResponse.submissionID
-                return self.submissionStatus(submissionId: submissionResponse.submissionID)
-            }.map { [weak self] in
-                self?.updateLocalTransfer(transfer, withSubmissionStatus: $0) ?? transfer
-            }
-            .eraseToAnyPublisher()
-    }
-    
-    private func performDelegationTransfer(_ pTransfer: TransferDataType,
-                                           from account: AccountDataType,
-                                           requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
-        
-        var transfer = updateLocalTransferWithExpiration(pTransfer)
-        return getAccountNonce(for: transfer.fromAddress)
-            .flatMap { (nonce: AccNonce) -> AnyPublisher<CreateTransferRequest, Error> in
-                transfer.nonce = nonce.nonce
-                return self.createTransfer(transfer,
-                                           from: account,
-                                           requestPasswordDelegate:
-                                            requestPasswordDelegate,
-                                           bakerKeys: nil,
-                                           global: nil,
-                                           inputEncryptedAmount: nil,
-                                           receiverPublicKey: nil)
-            }
-            .flatMap(submitTransfer)
-            .flatMap { (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
-                transfer.submissionId = submissionResponse.submissionID
-                return self.submissionStatus(submissionId: submissionResponse.submissionID)
-            }.map { [weak self] in
-                self?.updateLocalTransfer(transfer, withSubmissionStatus: $0) ?? transfer
-            }
-            .eraseToAnyPublisher()
-        
-    }
-    
-    private func performBakerTransfer(_ pTransfer: TransferDataType,
-                                      from account: AccountDataType,
-                                      bakerKeys: GeneratedBakerKeys?,
-                                      requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
-        var transfer = updateLocalTransferWithExpiration(pTransfer)
-        return getAccountNonce(for: transfer.fromAddress)
-            .flatMap { (nonce: AccNonce) -> AnyPublisher<CreateTransferRequest, Error> in
-                transfer.nonce = nonce.nonce
-                return self.createTransfer(transfer,
-                                           from: account,
-                                           requestPasswordDelegate:
-                                            requestPasswordDelegate,
-                                           bakerKeys: bakerKeys,
-                                           global: nil,
-                                           inputEncryptedAmount: nil,
-                                           receiverPublicKey: nil)
-            }
-            .flatMap(submitTransfer)
-            .flatMap { (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
-                transfer.submissionId = submissionResponse.submissionID
-                return self.submissionStatus(submissionId: submissionResponse.submissionID)
-            }.map { [weak self] in
-                self?.updateLocalTransfer(transfer, withSubmissionStatus: $0) ?? transfer
-            }
-            .eraseToAnyPublisher()
-    }
-    
-    private func createTransfer(_ transfer: TransferDataType,
-                                from account: AccountDataType,
-                                requestPasswordDelegate: RequestPasswordDelegate,
-                                bakerKeys: GeneratedBakerKeys? = nil,
-                                global: GlobalWrapper? = nil,
-                                inputEncryptedAmount: InputEncryptedAmount? = nil,
-                                receiverPublicKey: String? = nil) -> AnyPublisher<CreateTransferRequest, Error> {
-        let transactionFeeCommission = (transfer.transactionFeeCommission == -1) ? nil : transfer.transactionFeeCommission
-        let bakingRewardCommission = (transfer.bakingRewardCommission == -1) ? nil : transfer.bakingRewardCommission
-        let finalizationRewardCommission = (transfer.finalizationRewardCommission == -1) ? nil : transfer.finalizationRewardCommission
-        let delegationTarget: DelegationTarget?
-        if let delegationType = transfer.delegationType {
-            delegationTarget = DelegationTarget(
-                delegateType: delegationType,
-                bakerID: transfer.delegationTargetBaker)
-        } else {
-            delegationTarget = nil
-        }
-        
-        return self.mobileWallet.createTransfer(from: account,
-                                                to: transfer.toAddress == "" ? nil : transfer.toAddress,
-                                                amount: transfer.amount == "" ? nil : transfer.amount,
-                                                nonce: transfer.nonce,
-                                                memo: transfer.memo,
-                                                capital: transfer.capital == "" ? nil : transfer.capital,
-                                                restakeEarnings: transfer.restakeEarnings,
-                                                delegationTarget: delegationTarget,
-                                                openStatus: transfer.openStatus,
-                                                metadataURL: transfer.metadataURL,
-                                                transactionFeeCommission: transactionFeeCommission,
-                                                bakingRewardCommission: bakingRewardCommission,
-                                                finalizationRewardCommission: finalizationRewardCommission,
-                                                bakerKeys: bakerKeys,
-                                                expiry: transfer.expiry,
-                                                energy: transfer.energy,
-                                                transferType: transfer.transferType,
-                                                requestPasswordDelegate: requestPasswordDelegate,
-                                                global: global,
-                                                inputEncryptedAmount: inputEncryptedAmount,
-                                                receiverPublicKey: receiverPublicKey
-        )
-    }
+//    private func performEncryptedTransfer(_ pTransfer: TransferDataType,
+//                                          from account: AccountDataType,
+//                                          requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
+//        
+//        var transfer = updateLocalTransferWithExpiration(pTransfer)
+//        let inputEncryptedAmount = self.getInputEncryptedAmount(for: account)
+//        return getAccountNonce(for: transfer.fromAddress).zip(getGlobal(), getPublicAccountKey(for: transfer.toAddress))
+//            .flatMap { [weak self](nonce, global, receiverPublicKey)  -> AnyPublisher<CreateTransferRequest, Error>  in
+//                guard let self = self else { return .fail(GeneralError.unexpectedNullValue) }
+//                transfer.nonce = nonce.nonce
+//                return self.createTransfer(transfer,
+//                                           from: account,
+//                                           requestPasswordDelegate:
+//                                            requestPasswordDelegate,
+//                                           bakerKeys: nil,
+//                                           global: global,
+//                                           inputEncryptedAmount: inputEncryptedAmount,
+//                                           receiverPublicKey: receiverPublicKey.accountEncryptionKey)
+//            }.map({ [weak self] (transferRequest) -> CreateTransferRequest in
+//                transfer = self?.updateLocalTransfer(transfer,
+//                                                     withEncryptedTransferRequest: transferRequest,
+//                                                     andInputEncryptedAmount: inputEncryptedAmount,
+//                                                     forAccount: account) ?? transfer
+//                return transferRequest
+//            })
+//            .flatMap(submitTransfer)
+//            .flatMap { [weak self] (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
+//                guard let self = self else { return .fail(GeneralError.unexpectedNullValue) }
+//                transfer.submissionId = submissionResponse.submissionID
+//                return self.submissionStatus(submissionId: submissionResponse.submissionID)
+//            }.map { [weak self] in
+//                self?.updateLocalTransfer(transfer, withSubmissionStatus: $0) ?? transfer
+//            }
+//            .eraseToAnyPublisher()
+//    }
+//    
+//    private func performDelegationTransfer(_ pTransfer: TransferDataType,
+//                                           from account: AccountDataType,
+//                                           requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
+//        
+//        var transfer = updateLocalTransferWithExpiration(pTransfer)
+//        return getAccountNonce(for: transfer.fromAddress)
+//            .flatMap { (nonce: AccNonce) -> AnyPublisher<CreateTransferRequest, Error> in
+//                transfer.nonce = nonce.nonce
+//                return self.createTransfer(transfer,
+//                                           from: account,
+//                                           requestPasswordDelegate:
+//                                            requestPasswordDelegate,
+//                                           bakerKeys: nil,
+//                                           global: nil,
+//                                           inputEncryptedAmount: nil,
+//                                           receiverPublicKey: nil)
+//            }
+//            .flatMap(submitTransfer)
+//            .flatMap { (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
+//                transfer.submissionId = submissionResponse.submissionID
+//                return self.submissionStatus(submissionId: submissionResponse.submissionID)
+//            }.map { [weak self] in
+//                self?.updateLocalTransfer(transfer, withSubmissionStatus: $0) ?? transfer
+//            }
+//            .eraseToAnyPublisher()
+//        
+//    }
+//    
+//    private func performBakerTransfer(_ pTransfer: TransferDataType,
+//                                      from account: AccountDataType,
+//                                      bakerKeys: GeneratedBakerKeys?,
+//                                      requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
+//        var transfer = updateLocalTransferWithExpiration(pTransfer)
+//        return getAccountNonce(for: transfer.fromAddress)
+//            .flatMap { (nonce: AccNonce) -> AnyPublisher<CreateTransferRequest, Error> in
+//                transfer.nonce = nonce.nonce
+//                return self.createTransfer(transfer,
+//                                           from: account,
+//                                           requestPasswordDelegate:
+//                                            requestPasswordDelegate,
+//                                           bakerKeys: bakerKeys,
+//                                           global: nil,
+//                                           inputEncryptedAmount: nil,
+//                                           receiverPublicKey: nil)
+//            }
+//            .flatMap(submitTransfer)
+//            .flatMap { (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
+//                transfer.submissionId = submissionResponse.submissionID
+//                return self.submissionStatus(submissionId: submissionResponse.submissionID)
+//            }.map { [weak self] in
+//                self?.updateLocalTransfer(transfer, withSubmissionStatus: $0) ?? transfer
+//            }
+//            .eraseToAnyPublisher()
+//    }
+//    
+//    private func createTransfer(_ transfer: TransferDataType,
+//                                from account: AccountDataType,
+//                                requestPasswordDelegate: RequestPasswordDelegate,
+//                                bakerKeys: GeneratedBakerKeys? = nil,
+//                                global: GlobalWrapper? = nil,
+//                                inputEncryptedAmount: InputEncryptedAmount? = nil,
+//                                receiverPublicKey: String? = nil) -> AnyPublisher<CreateTransferRequest, Error> {
+//        let transactionFeeCommission = (transfer.transactionFeeCommission == -1) ? nil : transfer.transactionFeeCommission
+//        let bakingRewardCommission = (transfer.bakingRewardCommission == -1) ? nil : transfer.bakingRewardCommission
+//        let finalizationRewardCommission = (transfer.finalizationRewardCommission == -1) ? nil : transfer.finalizationRewardCommission
+//        let delegationTarget: DelegationTarget?
+//        if let delegationType = transfer.delegationType {
+//            delegationTarget = DelegationTarget(
+//                delegateType: delegationType,
+//                bakerID: transfer.delegationTargetBaker)
+//        } else {
+//            delegationTarget = nil
+//        }
+//        
+//        return self.mobileWallet.createTransfer(from: account,
+//                                                to: transfer.toAddress == "" ? nil : transfer.toAddress,
+//                                                amount: transfer.amount == "" ? nil : transfer.amount,
+//                                                nonce: transfer.nonce,
+//                                                memo: transfer.memo,
+//                                                capital: transfer.capital == "" ? nil : transfer.capital,
+//                                                restakeEarnings: transfer.restakeEarnings,
+//                                                delegationTarget: delegationTarget,
+//                                                openStatus: transfer.openStatus,
+//                                                metadataURL: transfer.metadataURL,
+//                                                transactionFeeCommission: transactionFeeCommission,
+//                                                bakingRewardCommission: bakingRewardCommission,
+//                                                finalizationRewardCommission: finalizationRewardCommission,
+//                                                bakerKeys: bakerKeys,
+//                                                expiry: transfer.expiry,
+//                                                energy: transfer.energy,
+//                                                transferType: transfer.transferType,
+//                                                requestPasswordDelegate: requestPasswordDelegate,
+//                                                global: global,
+//                                                inputEncryptedAmount: inputEncryptedAmount,
+//                                                receiverPublicKey: receiverPublicKey
+//        )
+//    }
     
     // MARK: Network helpers
-    private func getAccountNonce(for address: String) -> AnyPublisher<AccNonce, Error> {
+    func getAccountNonce(for address: String) -> AnyPublisher<AccNonce, Error> {
         networkManager.load(ResourceRequest(url: ApiConstants.accNonce.appendingPathComponent(address)))
     }
     
-    private func getGlobal() -> AnyPublisher<GlobalWrapper, Error> {
+    func getGlobal() -> AnyPublisher<GlobalWrapper, Error> {
         networkManager.load(ResourceRequest(url: ApiConstants.global))
     }
     
@@ -438,7 +440,7 @@ extension TransactionsService {
                 if result == "" {
                     return amount
                 } else {
-                    return try mobileWallet.combineEncryptedAmount(result, amount).get()
+                    return try String(data: Concordium.combineEncryptedAmounts(left: Data(result.utf8), right: Data(amount.utf8)), encoding: .utf8) ?? ""
                 }
             }
         } catch {
@@ -446,118 +448,118 @@ extension TransactionsService {
         }
     }
     
-    // MARK: Update local transfer helpers
-    private func updateLocalTransfer (_ ptransfer: TransferDataType,
-                                      withShieldingRequest transferRequest: CreateTransferRequest,
-                                      forAccount account: AccountDataType) -> TransferDataType {
-        var transfer = ptransfer
-        if let transaction = storageManager.getLastEncryptedBalanceTransfer(for: account.address),
-           let encryptedDetails = transaction.encryptedDetails,
-           let selfAmount = encryptedDetails.updatedNewSelfEncryptedAmount,
-           let decryptedSelfAmount = storageManager.getShieldedAmount(encryptedValue: selfAmount, account: account)?.decryptedValue,
-           let transferAmount = Int(transfer.amount),
-           let decryptedSelfAmountInt = Int(decryptedSelfAmount),
-           let addedSelfEncryptedAmount = transferRequest.addedSelfEncryptedAmount,
-           let newSelfAmount = try? self.mobileWallet.combineEncryptedAmount(addedSelfEncryptedAmount, selfAmount).get() {
-            let newDecryptedSelfAmount = decryptedSelfAmountInt + transferAmount
-
-            let shieldedAmount = ShieldedAmountTypeFactory.create().with(account: account,
-                                                                         encryptedValue: newSelfAmount,
-                                                                         decryptedValue: String(newDecryptedSelfAmount),
-                                                                         incomingAmountIndex: -1)
-            _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)
-
-            let encryptedDetails = EncryptedDetailsEntity(newSelfEncryptedAmount: newSelfAmount,
-                                                          newStartIndex: encryptedDetails.updatedNewStartIndex)
-            transfer.encryptedDetails = encryptedDetails
-
-        } else if let selfAmount = account.encryptedBalance?.selfAmount,
-                  let startIndex = account.encryptedBalance?.startIndex,
-                  let addedSelfEncryptedAmount = transferRequest.addedSelfEncryptedAmount,
-                  let decryptedSelfAmount = storageManager.getShieldedAmount(encryptedValue: selfAmount,
-                                                                                  account: account)?.decryptedValue,
-                  let transferAmount = Int(transfer.amount),
-                  let decryptedSelfAmountInt = Int(decryptedSelfAmount),
-                  let newSelfAmount = try? self.mobileWallet.combineEncryptedAmount(addedSelfEncryptedAmount, selfAmount).get() {
-
-            let newDecryptedSelfAmount = decryptedSelfAmountInt + transferAmount
-
-            let shieldedAmount = ShieldedAmountTypeFactory.create().with(account: account,
-                                                                         encryptedValue: newSelfAmount,
-                                                                         decryptedValue: String(newDecryptedSelfAmount),
-                                                                         incomingAmountIndex: -1)
-            _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)
-
-            let encryptedDetails = EncryptedDetailsEntity(newSelfEncryptedAmount: newSelfAmount, newStartIndex: startIndex)
-            transfer.encryptedDetails = encryptedDetails
-        }
-        return transfer
-    }
+//    // MARK: Update local transfer helpers
+//    private func updateLocalTransfer (_ ptransfer: TransferDataType,
+//                                      withShieldingRequest transferRequest: CreateTransferRequest,
+//                                      forAccount account: AccountDataType) -> TransferDataType {
+//        var transfer = ptransfer
+//        if let transaction = storageManager.getLastEncryptedBalanceTransfer(for: account.address),
+//           let encryptedDetails = transaction.encryptedDetails,
+//           let selfAmount = encryptedDetails.updatedNewSelfEncryptedAmount,
+//           let decryptedSelfAmount = storageManager.getShieldedAmount(encryptedValue: selfAmount, account: account)?.decryptedValue,
+//           let transferAmount = Int(transfer.amount),
+//           let decryptedSelfAmountInt = Int(decryptedSelfAmount),
+//           let addedSelfEncryptedAmount = transferRequest.addedSelfEncryptedAmount,
+//           let newSelfAmount = try? self.mobileWallet.combineEncryptedAmount(addedSelfEncryptedAmount, selfAmount).get() {
+//            let newDecryptedSelfAmount = decryptedSelfAmountInt + transferAmount
+//
+//            let shieldedAmount = ShieldedAmountTypeFactory.create().with(account: account,
+//                                                                         encryptedValue: newSelfAmount,
+//                                                                         decryptedValue: String(newDecryptedSelfAmount),
+//                                                                         incomingAmountIndex: -1)
+//            _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)
+//
+//            let encryptedDetails = EncryptedDetailsEntity(newSelfEncryptedAmount: newSelfAmount,
+//                                                          newStartIndex: encryptedDetails.updatedNewStartIndex)
+//            transfer.encryptedDetails = encryptedDetails
+//
+//        } else if let selfAmount = account.encryptedBalance?.selfAmount,
+//                  let startIndex = account.encryptedBalance?.startIndex,
+//                  let addedSelfEncryptedAmount = transferRequest.addedSelfEncryptedAmount,
+//                  let decryptedSelfAmount = storageManager.getShieldedAmount(encryptedValue: selfAmount,
+//                                                                                  account: account)?.decryptedValue,
+//                  let transferAmount = Int(transfer.amount),
+//                  let decryptedSelfAmountInt = Int(decryptedSelfAmount),
+//                  let newSelfAmount = try? self.mobileWallet.combineEncryptedAmount(addedSelfEncryptedAmount, selfAmount).get() {
+//
+//            let newDecryptedSelfAmount = decryptedSelfAmountInt + transferAmount
+//
+//            let shieldedAmount = ShieldedAmountTypeFactory.create().with(account: account,
+//                                                                         encryptedValue: newSelfAmount,
+//                                                                         decryptedValue: String(newDecryptedSelfAmount),
+//                                                                         incomingAmountIndex: -1)
+//            _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)
+//
+//            let encryptedDetails = EncryptedDetailsEntity(newSelfEncryptedAmount: newSelfAmount, newStartIndex: startIndex)
+//            transfer.encryptedDetails = encryptedDetails
+//        }
+//        return transfer
+//    }
     
-    private func updateLocalTransfer (_ ptransfer: TransferDataType,
-                                      withUnshieldingRequest transferRequest: CreateTransferRequest,
-                                      andInputEncryptedAmount inputEncryptedAmount: InputEncryptedAmount,
-                                      forAccount account: AccountDataType) -> TransferDataType {
-        var transfer = ptransfer
-        if let aggAmount = inputEncryptedAmount.aggAmount,
-           let remainingSelfAmount = transferRequest.remaining,
-           let aggAmountInt = Int(aggAmount),
-           let transferedAmount = Int(transfer.amount) {
-            let remainingAmount = aggAmountInt - transferedAmount
-
-            let shieldedAmount = ShieldedAmountTypeFactory.create().with(account: account,
-                                                                         encryptedValue: remainingSelfAmount,
-                                                                         decryptedValue: String(remainingAmount),
-                                                                         incomingAmountIndex: -1)
-            _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)
-
-            // store encrypted details
-            let encryptedDetails = EncryptedDetailsEntity(newSelfEncryptedAmount: remainingSelfAmount,
-                                                          newStartIndex: inputEncryptedAmount.aggIndex)
-            transfer.encryptedDetails = encryptedDetails
-        }
-        return transfer
-    }
-    
-    private func updateLocalTransfer (_ ptransfer: TransferDataType,
-                                      withEncryptedTransferRequest transferRequest: CreateTransferRequest,
-                                      andInputEncryptedAmount inputEncryptedAmount: InputEncryptedAmount,
-                                      forAccount account: AccountDataType) -> TransferDataType {
-        var transfer = ptransfer
-        if let aggAmount = inputEncryptedAmount.aggAmount,
-           let remainingSelfAmount = transferRequest.remaining,
-           let aggAmountInt = Int(aggAmount),
-           let transferedAmount = Int(transfer.amount) {
-            let remainingAmount = aggAmountInt - transferedAmount
-
-            let shieldedAmount = ShieldedAmountTypeFactory.create().with(account: account,
-                                                                         encryptedValue: remainingSelfAmount,
-                                                                         decryptedValue: String(remainingAmount),
-                                                                         incomingAmountIndex: -1)
-            _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)
-
-            let encryptedDetails = EncryptedDetailsEntity(newSelfEncryptedAmount: remainingSelfAmount,
-                                                          newStartIndex: inputEncryptedAmount.aggIndex)
-            transfer.encryptedDetails = encryptedDetails
-        }
-        return transfer
-    }
-    
-    private func updateLocalTransfer(_ pTransfer: TransferDataType, withSubmissionStatus submissionStatus: SubmissionStatus) -> TransferDataType {
-        var transfer = pTransfer
-        transfer.transactionStatus = submissionStatus.status
-        transfer.outcome = submissionStatus.outcome
-        return transfer
-    }
-    
-    private func updateLocalTransferWithExpiration(_ pTransfer: TransferDataType) -> TransferDataType {
-        var transfer = pTransfer
-        let tenMinutes: TimeInterval = 60 * 10
-        let expiry = Date(timeIntervalSinceNow: tenMinutes)
-        transfer.expiry = expiry
-        transfer.createdAt = Date()
-        return transfer
-    }
+//    private func updateLocalTransfer (_ ptransfer: TransferDataType,
+//                                      withUnshieldingRequest transferRequest: CreateTransferRequest,
+//                                      andInputEncryptedAmount inputEncryptedAmount: InputEncryptedAmount,
+//                                      forAccount account: AccountDataType) -> TransferDataType {
+//        var transfer = ptransfer
+//        if let aggAmount = inputEncryptedAmount.aggAmount,
+//           let remainingSelfAmount = transferRequest.remaining,
+//           let aggAmountInt = Int(aggAmount),
+//           let transferedAmount = Int(transfer.amount) {
+//            let remainingAmount = aggAmountInt - transferedAmount
+//
+//            let shieldedAmount = ShieldedAmountTypeFactory.create().with(account: account,
+//                                                                         encryptedValue: remainingSelfAmount,
+//                                                                         decryptedValue: String(remainingAmount),
+//                                                                         incomingAmountIndex: -1)
+//            _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)
+//
+//            // store encrypted details
+//            let encryptedDetails = EncryptedDetailsEntity(newSelfEncryptedAmount: remainingSelfAmount,
+//                                                          newStartIndex: inputEncryptedAmount.aggIndex)
+//            transfer.encryptedDetails = encryptedDetails
+//        }
+//        return transfer
+//    }
+//    
+//    private func updateLocalTransfer (_ ptransfer: TransferDataType,
+//                                      withEncryptedTransferRequest transferRequest: CreateTransferRequest,
+//                                      andInputEncryptedAmount inputEncryptedAmount: InputEncryptedAmount,
+//                                      forAccount account: AccountDataType) -> TransferDataType {
+//        var transfer = ptransfer
+//        if let aggAmount = inputEncryptedAmount.aggAmount,
+//           let remainingSelfAmount = transferRequest.remaining,
+//           let aggAmountInt = Int(aggAmount),
+//           let transferedAmount = Int(transfer.amount) {
+//            let remainingAmount = aggAmountInt - transferedAmount
+//
+//            let shieldedAmount = ShieldedAmountTypeFactory.create().with(account: account,
+//                                                                         encryptedValue: remainingSelfAmount,
+//                                                                         decryptedValue: String(remainingAmount),
+//                                                                         incomingAmountIndex: -1)
+//            _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)
+//
+//            let encryptedDetails = EncryptedDetailsEntity(newSelfEncryptedAmount: remainingSelfAmount,
+//                                                          newStartIndex: inputEncryptedAmount.aggIndex)
+//            transfer.encryptedDetails = encryptedDetails
+//        }
+//        return transfer
+//    }
+//    
+//    private func updateLocalTransfer(_ pTransfer: TransferDataType, withSubmissionStatus submissionStatus: SubmissionStatus) -> TransferDataType {
+//        var transfer = pTransfer
+//        transfer.transactionStatus = submissionStatus.status
+//        transfer.outcome = submissionStatus.outcome
+//        return transfer
+//    }
+//    
+//    private func updateLocalTransferWithExpiration(_ pTransfer: TransferDataType) -> TransferDataType {
+//        var transfer = pTransfer
+//        let tenMinutes: TimeInterval = 60 * 10
+//        let expiry = Date(timeIntervalSinceNow: tenMinutes)
+//        transfer.expiry = expiry
+//        transfer.createdAt = Date()
+//        return transfer
+//    }
 }
 
 extension TransactionsServiceProtocol {

@@ -62,8 +62,10 @@ class RecipientListViewModel: ObservableObject {
                 viewModel.address.lowercased().contains(searchText.lowercased())
             }
             if filteredRecipientsViewModels.isEmpty && !searchText.isEmpty {
-                if dependencyProvider.mobileWallet().check(accountAddress: searchText) {
-                    self.filteredRecipientsViewModels.append(RecipientViewModel(name: searchText, address: searchText))
+                Task {
+                    if await dependencyProvider.mobileWallet().check(accountAddress: searchText) {
+                        self.filteredRecipientsViewModels.append(RecipientViewModel(name: searchText, address: searchText))
+                    }
                 }
             }
         }

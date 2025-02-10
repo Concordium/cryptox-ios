@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import Concordium
 
 // MARK: Delegate
 protocol BakerPoolReceiptConfirmationPresenterDelegate: AnyObject {
@@ -77,24 +78,25 @@ class BakerPoolReceiptConfirmationPresenter: StakeReceiptPresenterProtocol {
         guard let delegate = delegate, let cost = cost, let energy = energy else {
             return
         }
-        
-        let transfer = dataHandler.getTransferObject(cost: cost, energy: energy)
-        
-        self.transactionService.performTransfer(
-            transfer,
-            from: account,
-            bakerKeys: dataHandler.getNewEntry(BakerKeyData.self)?.keys,
-            requestPasswordDelegate: delegate
-        )
-            .showLoadingIndicator(in: view)
-            .tryMap(self.storageManager.storeTransfer(_:))
-            .sink(receiveError: { error in
-                if !GeneralError.isGeneralError(.userCancelled, error: error) {
-                    self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
-                }
-            }, receiveValue: { transfer in
-                self.delegate?.confirmedTransaction(transfer: transfer, dataHandler: self.dataHandler)
-            }).store(in: &cancellables)
+        fatalError("Max addd here SDK")
+
+//        let transfer = dataHandler.getTransferObject(cost: cost, energy: energy)
+//        
+//        self.transactionService.performTransfer(
+//            transfer,
+//            from: account,
+//            bakerKeys: dataHandler.getNewEntry(BakerKeyData.self)?.keys,
+//            requestPasswordDelegate: delegate
+//        )
+//            .showLoadingIndicator(in: view)
+//            .tryMap(self.storageManager.storeTransfer(_:))
+//            .sink(receiveError: { error in
+//                if !GeneralError.isGeneralError(.userCancelled, error: error) {
+//                    self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+//                }
+//            }, receiveValue: { transfer in
+//                self.delegate?.confirmedTransaction(transfer: transfer, dataHandler: self.dataHandler)
+//            }).store(in: &cancellables)
     }
     
     func closeButtonTapped() {

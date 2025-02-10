@@ -144,7 +144,7 @@ final class TransferTokenViewModel: ObservableObject, Hashable, Equatable {
             .map { (s, a, txCost, recepient) -> Bool in
                 guard let txCost = txCost else { return false }
                 guard recepient != account.address else  { return false }
-                guard !recepient.isEmpty && self.dependencyProvider.mobileWallet().check(accountAddress: recepient) else  { return false }
+                guard !recepient.isEmpty else  { return false }
 
                 if BigInt(stringLiteral: txCost.cost) >= BigInt(account.forecastBalance) { return false }
                 return s.value <= a.value && s.value > .zero
@@ -173,11 +173,11 @@ final class TransferTokenViewModel: ObservableObject, Hashable, Equatable {
             self.getEuroValueForCCD()
         }.store(in: &cancellables)
         
-        $recepientAddress.sink { address in
-            if self.dependencyProvider.mobileWallet().check(accountAddress: address) == false {
-                
-            }
-        }.store(in: &cancellables)
+//        $recepientAddress.sink { address in
+//            if self.dependencyProvider.mobileWallet().check(accountAddress: address) == false {
+//                
+//            }
+//        }.store(in: &cancellables)
     }
     
     public func sendAll() {

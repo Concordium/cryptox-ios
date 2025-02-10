@@ -4,6 +4,7 @@
 //   let details = try Details(json)
 
 import Foundation
+import Concordium
 
 // MARK: - Details
 struct Details: Codable {

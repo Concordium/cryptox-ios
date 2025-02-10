@@ -9,6 +9,7 @@
 import Foundation
 import BigInt
 import Combine
+import Concordium
 
 final class UnshieldAssetsViewModel: ObservableObject {
     @Published var account: AccountEntity?
@@ -28,9 +29,16 @@ final class UnshieldAssetsViewModel: ObservableObject {
     private let passwordDelegate: RequestPasswordDelegate
     private var cancellables = [AnyCancellable]()
     private var onSuccess: (AccountEntity) -> Void
+    
+    private let concordiumClient: ConcordiumClient
 
-
-    init(account: AccountEntity?, dependencyProvider: AccountsFlowCoordinatorDependencyProvider, onSuccess: @escaping (AccountEntity) -> Void, passwordDelegate: RequestPasswordDelegate = DummyRequestPasswordDelegate()) {
+    init(
+        account: AccountEntity?,
+        dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
+        onSuccess: @escaping (AccountEntity) -> Void,
+        passwordDelegate: RequestPasswordDelegate = DummyRequestPasswordDelegate()
+    ) {
+        self.concordiumClient = try! ConcordiumClient(networkManager: dependencyProvider.networkManager(), storageManager: dependencyProvider.storageManager())
         self.onSuccess = onSuccess
         self.dependencyProvider = dependencyProvider
         self.passwordDelegate = passwordDelegate
@@ -61,30 +69,61 @@ final class UnshieldAssetsViewModel: ObservableObject {
     @MainActor
     func unshieldAssets(dismiss: @escaping () -> Void) {
         guard let account = account else { return }
+        
+        
         isUnshielding = true
         error = nil
-        
-        var transfer = TransferDataTypeFactory.create()
-        transfer.transferType = .transferToPublic
-        transfer.amount = String(unshieldAmount.value)
-        transfer.fromAddress = account.address
-        transfer.toAddress = account.address
-        transfer.cost = transaferCost.cost
-        transfer.energy = transaferCost.energy
-        
-        dependencyProvider.transactionsService().performTransfer(transfer, from: account, requestPasswordDelegate: passwordDelegate)
-            .tryMap(dependencyProvider.storageManager().storeTransfer)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveError: { [weak self] error in
-                guard let self = self else { return }
+        Task {
+            do {
+                
+                let pwHash = try await self.passwordDelegate.requestUserPassword(keychain: dependencyProvider.keychainWrapper())
+                guard
+                    let encryptedAccountDataKey = account.encryptedAccountData,
+                    let accountKeys = try? dependencyProvider.storageManager().getPrivateAccountKeys(key: encryptedAccountDataKey, pwHash: pwHash).get()
+                else { throw WalletError.invalidInput }
+
+                let transferToPublic = try await concordiumClient.transferToPublic(
+                    account: account,
+                    amount: CCD.init(microCCD: MicroCCDAmount(Double(unshieldAmount.value))),
+                    receiver: try AccountAddress.init(base58Check: account.address),
+                    keys: accountKeys,
+                    pwHash: pwHash
+                )
+                
+                print(transferToPublic)
+                let txStatus = try await concordiumClient.getTransactionStatus(transferToPublic.hash)
+                print(txStatus)
+                await MainActor.run {
+                    LegacyLogger.debug(self)
+                    self.isUnshielding = false
+                    self.onSuccess(account)
+                    dismiss()
+                }
+            } catch {
                 self.isUnshielding = false
-            }, receiveValue: { [weak self] in
-                guard let self = self else { return }
-                LegacyLogger.debug($0)
-                self.isUnshielding = false
-                self.onSuccess(account)
-                dismiss()
-            })
-            .store(in: &cancellables)
+            }
+        }
+//        var transfer = TransferDataTypeFactory.create()
+//        transfer.transferType = .transferToPublic
+//        transfer.amount = String(unshieldAmount.value)
+//        transfer.fromAddress = account.address
+//        transfer.toAddress = account.address
+//        transfer.cost = transaferCost.cost
+//        transfer.energy = transaferCost.energy
+//        
+//        dependencyProvider.transactionsService().performTransfer(transfer, from: account, requestPasswordDelegate: passwordDelegate)
+//            .tryMap(dependencyProvider.storageManager().storeTransfer)
+//            .receive(on: DispatchQueue.main)
+//            .sink(receiveError: { [weak self] error in
+//                guard let self = self else { return }
+//                self.isUnshielding = false
+//            }, receiveValue: { [weak self] in
+//                guard let self = self else { return }
+//                LegacyLogger.debug($0)
+//                self.isUnshielding = false
+//                self.onSuccess(account)
+//                dismiss()
+//            })
+//            .store(in: &cancellables)
     }
 }

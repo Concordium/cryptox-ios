@@ -78,42 +78,44 @@ class AddRecipientViewModel: ObservableObject {
         }
     }
     
-    func saveTapped(){
-        let qrValid = wallet.check(accountAddress: address)
-        if !qrValid {
-            error = .addressNotValid
-            return
-        }
-
-        var newRecipient = RecipientDataTypeFactory.create()
-        newRecipient.name = name
-        newRecipient.address = address
-        
-        switch mode {
-        case .add:
-            if let existingRecipient = storageManager.getRecipient(withAddress: address) {
-                error = .addressAlreadyExists(existingRecipient.name)
-                self.name = ""
-                self.address = ""
+    func saveTapped() async {
+        let qrValid = await wallet.check(accountAddress: address)
+        await MainActor.run {
+            if !qrValid {
+                error = .addressNotValid
                 return
             }
-        default: break
-        }
 
-        switch mode {
+            var newRecipient = RecipientDataTypeFactory.create()
+            newRecipient.name = name
+            newRecipient.address = address
+            
+            switch mode {
             case .add:
-                do {
-                    try storageManager.storeRecipient(newRecipient)
-                } catch let error {
-                    self.error = .somethingWentWrong(error.localizedDescription)
+                if let existingRecipient = storageManager.getRecipient(withAddress: address) {
+                    error = .addressAlreadyExists(existingRecipient.name)
+                    self.name = ""
+                    self.address = ""
+                    return
+                }
+            default: break
             }
-            case .edit(let address):
-                do {
-                    if let recipient = storageManager.getRecipient(withAddress: address) {
-                        try storageManager.editRecipient(oldRecipient: recipient, newRecipient: newRecipient)
-                    }
-                } catch let error {
-                    self.error = .somethingWentWrong(error.localizedDescription)
+
+            switch mode {
+                case .add:
+                    do {
+                        try storageManager.storeRecipient(newRecipient)
+                    } catch let error {
+                        self.error = .somethingWentWrong(error.localizedDescription)
+                }
+                case .edit(let address):
+                    do {
+                        if let recipient = storageManager.getRecipient(withAddress: address) {
+                            try storageManager.editRecipient(oldRecipient: recipient, newRecipient: newRecipient)
+                        }
+                    } catch let error {
+                        self.error = .somethingWentWrong(error.localizedDescription)
+                }
             }
         }
     }

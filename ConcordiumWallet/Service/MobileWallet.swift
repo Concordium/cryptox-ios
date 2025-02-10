@@ -1,16 +1,17 @@
 import Foundation
 import Combine
+import Concordium
 
 protocol MobileWalletProtocol {
-    func check(accountAddress: String) -> Bool
+    func check(accountAddress: String) async -> Bool
     func createIdRequestAndPrivateData(initialAccountName: String,
                                        identityName: String,
                                        identityProvider: IdentityProviderDataType,
                                        global: GlobalWrapper,
                                        requestPasswordDelegate: RequestPasswordDelegate)
-                    -> AnyPublisher<(IDObjectRequestWrapper, IdentityCreation), Error>
+    -> AnyPublisher<(IDObjectRequestWrapper, IdentityCreation), Error>
     func createCredential(global: GlobalWrapper, account: AccountDataType, pwHash: String, expiry: Date)
-                    -> AnyPublisher<CreateCredentialRequest, Error>
+    -> AnyPublisher<CreateCredentialRequest, Error>
     func createTransfer(from fromAccount: AccountDataType,
                         to toAccount: String?,
                         amount: String?,
@@ -36,12 +37,12 @@ protocol MobileWalletProtocol {
                               amount: Int, nonce: AccNonce, memo: String?, expiry: Date, energy: Int, transferType: TransferType,
                               requestPasswordDelegate: RequestPasswordDelegate, global: GlobalWrapper?, inputEncryptedAmount: InputEncryptedAmount?, receiverPublicKey: String?)
     -> AnyPublisher<CreateTransferRequest, Error>
-
+    
     func decryptEncryptedAmounts(from fromAccount: AccountDataType,
                                  _ encryptedAmounts: [String],
                                  requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<[(String, Int)], Error>
     
-    func combineEncryptedAmount(_ encryptedAmount1: String, _ encryptedAmount2: String) -> Result<String, Error>
+//    func combineEncryptedAmount(_ encryptedAmount1: String, _ encryptedAmount2: String) -> Result<String, Error>
     
     func getAccountAddressesForIdentity(global: GlobalWrapper,
                                         identityObject: IdentityObject,
@@ -59,6 +60,8 @@ protocol MobileWalletProtocol {
     func signMessage(for account: AccountDataType, message: String, requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<StringMessageSignatures, Error>
     
     func decryptEncryptedAmounts(from fromAccount: AccountDataType, _ encryptedAmounts: [String], pwHash: String) async throws-> [(String, Int)]
+    
+//    func check(accountAddress: String) async -> Bool
 }
 
 enum MobileWalletError: Error {
@@ -69,15 +72,17 @@ enum MobileWalletError: Error {
 class MobileWallet: MobileWalletProtocol {
     
     private let walletFacade = MobileWalletFacade()
-
+    
     private let storageManager: StorageManagerProtocol
     private let keychain: KeychainWrapperProtocol
-
-    init(storageManager: StorageManagerProtocol, keychain: KeychainWrapperProtocol) {
+    private let concordiumClient: ConcordiumClient
+    
+    init(storageManager: StorageManagerProtocol, keychain: KeychainWrapperProtocol, concordiumClient: ConcordiumClient) {
         self.storageManager = storageManager
         self.keychain = keychain
+        self.concordiumClient = concordiumClient
     }
-
+    
     func getAccountAddressesForIdentity(global: GlobalWrapper,
                                         identityObject: IdentityObject,
                                         privateIDObjectData: PrivateIDObjectData,
@@ -87,19 +92,28 @@ class MobileWallet: MobileWalletProtocol {
                                                                    privateIDObjectData: privateIDObjectData,
                                                                    global: global.value)
         guard let input = try generateAccountsRequest.jsonString(),
-            let responseData = try walletFacade.generateAccounts(input: input).data(using: .utf8)
-            else {
+              let responseData = try walletFacade.generateAccounts(input: input).data(using: .utf8)
+        else {
             return .failure(GeneralError.unexpectedNullValue)
         }
-
+        
         let response = try JSONDecoder().decode([MakeGenerateAccountsResponseElement].self, from: responseData)
         return .success(response)
     }
     
-    func check(accountAddress: String) -> Bool {
-        walletFacade.checkAccountAddress(input: accountAddress)
+    @MainActor
+    func check(accountAddress: String) async -> Bool {
+        //        walletFacade.checkAccountAddress(input: accountAddress)
+//        Task {
+            do {
+                let _ = try await concordiumClient.getAccountInfo(address: accountAddress)
+                return true
+            } catch {
+                return false
+            }
+//        }
     }
-
+    
     /// Creates an identity request and the associated private data.
     /// The private data is stored securely.
     func createIdRequestAndPrivateData(initialAccountName: String,
@@ -107,13 +121,13 @@ class MobileWallet: MobileWalletProtocol {
                                        identityProvider: IdentityProviderDataType,
                                        global: GlobalWrapper,
                                        requestPasswordDelegate: RequestPasswordDelegate)
-                    -> AnyPublisher<(IDObjectRequestWrapper, IdentityCreation), Error> {
+    -> AnyPublisher<(IDObjectRequestWrapper, IdentityCreation), Error> {
         do {
             guard let ipInfo = identityProvider.ipInfo, let arsInfo = identityProvider.arsInfos,
-                let input = try CreateIDRequest(ipInfo: ipInfo, arsInfos: arsInfo, global: global.value).jsonString() else {
+                  let input = try CreateIDRequest(ipInfo: ipInfo, arsInfos: arsInfo, global: global.value).jsonString() else {
                 return .fail(MobileWalletError.invalidArgument)
             }
-
+            
             let idRequestString = try walletFacade.createIdRequestAndPrivateData(input: input)
             
             LegacyLogger.debug(idRequestString)
@@ -122,39 +136,39 @@ class MobileWallet: MobileWalletProtocol {
             return requestPasswordDelegate.requestUserPassword(keychain: keychain)
                 .tryMap { [unowned self] (pwHash) in
                     let identityCreation = try IdentityCreation(initialAccountName: initialAccountName,
-                                                            identityName: identityName,
-                                                            identityProvider: identityProvider,
-                                                            data: data,
-                                                            pwHash: pwHash,
-                                                            storageManager: self.storageManager)
+                                                                identityName: identityName,
+                                                                identityProvider: identityProvider,
+                                                                data: data,
+                                                                pwHash: pwHash,
+                                                                storageManager: self.storageManager)
                     return (data.idObjectRequest, identityCreation)
                 }.eraseToAnyPublisher()
         } catch {
             return .fail(error)
         }
     }
-
+    
     func createCredential(global: GlobalWrapper, account: AccountDataType, pwHash: String, expiry: Date)
-        -> AnyPublisher<CreateCredentialRequest, Error> {
-            let revealedAttributes = account.revealedAttributes.map({
-                $0.key
-            })
-            return self.createCredential(global: global,
-                                          account: account,
-                                          revealedAttributes: revealedAttributes,
-                                          pwHash: pwHash,
-                                          expiry: expiry).publisher.eraseToAnyPublisher()
-           
+    -> AnyPublisher<CreateCredentialRequest, Error> {
+        let revealedAttributes = account.revealedAttributes.map({
+            $0.key
+        })
+        return self.createCredential(global: global,
+                                     account: account,
+                                     revealedAttributes: revealedAttributes,
+                                     pwHash: pwHash,
+                                     expiry: expiry).publisher.eraseToAnyPublisher()
+        
     }
-
+    
     private func createCredential(global: GlobalWrapper, account: AccountDataType, revealedAttributes: [String], pwHash: String, expiry: Date)
-                    -> Result<CreateCredentialRequest, Error> {
+    -> Result<CreateCredentialRequest, Error> {
         guard let identityData = account.identity,
               let privateIdObjectDataKey = identityData.encryptedPrivateIdObjectData,
               let identityObject = identityData.identityObject,
               let ipInfo = identityData.identityProvider?.ipInfo,
               let arsInfo = identityData.identityProvider?.arsInfos
-                else {
+        else {
             return .failure(GeneralError.unexpectedNullValue)
         }
         do {
@@ -175,7 +189,7 @@ class MobileWallet: MobileWalletProtocol {
             return .failure(error)
         }
     }
-
+    
     func createTransfer(from fromAccount: AccountDataType,
                         to toAccount: String?,
                         amount: String?,
@@ -197,7 +211,7 @@ class MobileWallet: MobileWalletProtocol {
                         global: GlobalWrapper?,
                         inputEncryptedAmount: InputEncryptedAmount? = nil,
                         receiverPublicKey: String? = nil)
-                    -> AnyPublisher<CreateTransferRequest, Error> {
+    -> AnyPublisher<CreateTransferRequest, Error> {
         requestPasswordDelegate.requestUserPassword(keychain: keychain).tryMap { (pwHash: String) in
             try self.createTransfer(fromAccount: fromAccount,
                                     toAccount: toAccount,
@@ -222,7 +236,7 @@ class MobileWallet: MobileWalletProtocol {
                                     receiverPublicKey: receiverPublicKey)
         }.eraseToAnyPublisher()
     }
-
+    
     private func createTransfer(fromAccount: AccountDataType,
                                 toAccount: String?,
                                 expiry: Date,
@@ -281,9 +295,11 @@ class MobileWallet: MobileWalletProtocol {
         
         switch transferType {
         case .simpleTransfer:
-            return try CreateTransferRequest(walletFacade.createTransfer(input: input))
+            fatalError("simpleTransfer should be implemented via sdk")
+//            return try CreateTransferRequest(walletFacade.createTransfer(input: input))
         case .transferToPublic:
-             return try CreateTransferRequest(walletFacade.createUnshielding(input: input))
+            fatalError("transferToPublic(unshielding) should be implemented via sdk")
+//            return try CreateTransferRequest(walletFacade.createUnshielding(input: input))
         case .registerDelegation, .removeDelegation, .updateDelegation:
             return try CreateTransferRequest(walletFacade.createConfigureDelegation(input: input))
         case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
@@ -292,15 +308,15 @@ class MobileWallet: MobileWalletProtocol {
             return try CreateTransferRequest(walletFacade.createUpdateTransfer(input: input))
         }
     }
-
+    
     private func createCredential(for pAccount: AccountDataType, input: MakeCreateCredentialRequest, pwHash: String)
-                    -> Result<CreateCredentialRequest, Error> {
+    -> Result<CreateCredentialRequest, Error> {
         var account = pAccount
         do {
             guard let input = try input.jsonString() else {
                 fatalError("Cannot create json string from model")
             }
-
+            
             let credentialResponse = try walletFacade.createCredential(input: input)
             let data = try CreateCredentialRequest(credentialResponse)
             
@@ -324,13 +340,13 @@ class MobileWallet: MobileWalletProtocol {
         return storageManager.getCommitmentsRandomness(key: key, pwHash: pwHash)
             .mapError { $0 as Error }
     }
-
+    
     private func getPrivateAccountKeys(for account: AccountDataType, pwHash: String) -> Result<AccountKeys, Error> {
         guard let key = account.encryptedAccountData else { return .failure(MobileWalletError.invalidArgument) }
         return storageManager.getPrivateAccountKeys(key: key, pwHash: pwHash)
-                .mapError { $0 as Error }
+            .mapError { $0 as Error }
     }
-
+    
     private func getSecretEncryptionKey(for account: AccountDataType, pwHash: String) -> Result<String, Error> {
         guard let key = account.encryptedPrivateKey else { return .failure(MobileWalletError.invalidArgument) }
         return storageManager.getPrivateEncryptionKey(key: key, pwHash: pwHash)
@@ -339,7 +355,7 @@ class MobileWallet: MobileWalletProtocol {
     
     private func getPrivateIdObjectData(privateIdObjectDataKey: String, pwHash: String) -> Result<PrivateIDObjectData, Error> {
         storageManager.getPrivateIdObjectData(key: privateIdObjectDataKey, pwHash: pwHash)
-                .mapError { $0 as Error }
+            .mapError { $0 as Error }
     }
     
     func decryptEncryptedAmounts(from fromAccount: AccountDataType, _ encryptedAmounts: [String],
@@ -347,7 +363,7 @@ class MobileWallet: MobileWalletProtocol {
         requestPasswordDelegate.requestUserPassword(keychain: keychain)
             .flatMap { (pwHash) -> AnyPublisher<[(String, Int)], Error> in
                 self.performDecryption(from: fromAccount, encryptedAmounts, pwHash: pwHash)
-        }.eraseToAnyPublisher()
+            }.eraseToAnyPublisher()
     }
     
     private func performDecryption(from fromAccount: AccountDataType, _ encryptedAmounts: [String],
@@ -369,21 +385,22 @@ class MobileWallet: MobileWalletProtocol {
         }
         
     }
-
-    func combineEncryptedAmount(_ encryptedAmount1: String, _ encryptedAmount2: String) -> Result<String, Error> {
-        do {
-            let encodedEncryptedAmount1 = "\"\(encryptedAmount1)\""
-            let encodedEncryptedAmount2 = "\"\(encryptedAmount2)\""
-            let sumEncrypted = try self.walletFacade.combineEncryptedAmounts(input1: encodedEncryptedAmount1, input2: encodedEncryptedAmount2)
-            
-            let startIndex = sumEncrypted.index(sumEncrypted.startIndex, offsetBy: 1)
-            let endIndex = sumEncrypted.index(sumEncrypted.startIndex, offsetBy: sumEncrypted.count - 1)
-            let decodedSumEncrypted = String(sumEncrypted[startIndex..<endIndex])
-            return Result.success(decodedSumEncrypted)
-        } catch {
-            return Result.failure(error)
-        }
-    }
+    
+//    func combineEncryptedAmount(_ encryptedAmount1: String, _ encryptedAmount2: String) -> Result<String, Error> {
+//        do {
+//            let encodedEncryptedAmount1 = "\"\(encryptedAmount1)\""
+//            let encodedEncryptedAmount2 = "\"\(encryptedAmount2)\""
+//            let sumEncrypted = String(data: ConcordiumClient.combineEncryptedAmounts(left: Data(encodedEncryptedAmount1.utf8), right: Data(encodedEncryptedAmount2.utf8)), encoding: .utf8)
+////            let sumEncrypted = try self.walletFacade.combineEncryptedAmounts(input1: encodedEncryptedAmount1, input2: encodedEncryptedAmount2)
+//            
+//            let startIndex = sumEncrypted.index(sumEncrypted.startIndex, offsetBy: 1)
+//            let endIndex = sumEncrypted.index(sumEncrypted.startIndex, offsetBy: sumEncrypted.count - 1)
+//            let decodedSumEncrypted = String(sumEncrypted[startIndex..<endIndex])
+//            return Result.success(decodedSumEncrypted)
+//        } catch {
+//            return Result.failure(error)
+//        }
+//    }
     
     func updatePasscode(for account: AccountDataType, oldPwHash: String, newPwHash: String) -> Result<Void, Error> {
         do {
@@ -396,7 +413,7 @@ class MobileWallet: MobileWalletProtocol {
             if let commitmentsRandomness = try? getCommitmentsRandomness(for: account, pwHash: oldPwHash).get() {
                 try? storageManager.updateCommitmentsRandomnessPasscode(for: account, commitmentsRandomness: commitmentsRandomness, pwHash: oldPwHash).get()
             }
-
+            
             if let privateIdKey = account.identity?.encryptedPrivateIdObjectData {
                 self.getPrivateIdObjectData(privateIdObjectDataKey: privateIdKey, pwHash: oldPwHash)
                     .onSuccess({ (privateIDObjectData) in
@@ -456,16 +473,16 @@ class MobileWallet: MobileWalletProtocol {
         for account in invalidAccounts where account.identity == nil {
             report.append((nil, [account]))
         }
-
+        
         return report
     }
-
+    
     private func isInvalidIdentity(_ identity: IdentityDataType, pwHash: String) -> Bool {
         if identity.seedIdentityObject != nil {
             return false
         } else {
             if let key = identity.encryptedPrivateIdObjectData,
-                (try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get()) != nil {
+               (try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get()) != nil {
                 return false // it is not invalid because we have privateIdObjectData
             }
             return true // invalid becaut privateIdObjectData could not be retrieved
@@ -544,10 +561,10 @@ extension MobileWallet {
         }
         
         switch transferType {
-            case .transferUpdate:
-                return try CreateTransferRequest(walletFacade.createUpdateTransfer(input: input))
-            default:
-                return try CreateTransferRequest(walletFacade.createEncrypted(input: input))
+        case .transferUpdate:
+            return try CreateTransferRequest(walletFacade.createUpdateTransfer(input: input))
+        default:
+            return try CreateTransferRequest(walletFacade.createEncrypted(input: input))
         }
     }
 }

@@ -22,6 +22,7 @@ protocol AccountsFlowCoordinatorDependencyProvider: WalletAndStorageDependencyPr
     func accountsService() -> AccountsServiceProtocol
     func identitiesService() -> IdentitiesService
     func networkManager() -> NetworkManagerProtocol
+    func keychainWrapper() -> KeychainWrapperProtocol
 }
 
 protocol IdentitiesFlowCoordinatorDependencyProvider: WalletAndStorageDependencyProvider {

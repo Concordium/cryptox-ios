@@ -8,6 +8,7 @@
 
 import Foundation
 import BigInt
+import Concordium
 
 struct AccountViewData: Identifiable {
     enum Balance: Equatable {

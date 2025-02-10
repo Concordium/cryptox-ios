@@ -8,7 +8,7 @@
 
 import SwiftUI
 import Combine
-import DotLottie
+//import DotLottie
 
 struct ActionItem: Identifiable {
     let id = UUID()
@@ -91,16 +91,16 @@ struct HomeScreenView: View {
                         isCreatingAccount = false
                     }
                 }
-                .overlay(content: {
-                    if viewModel.state == .accounts && !UserDefaults.standard.bool(forKey: hasShownAnimationKey) {
-                        DotLottieAnimation(fileName: "confettiAnimation", config: AnimationConfig(autoplay: true, loop: false)).view()
-                            .onAppear {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.3) {
-                                    UserDefaults.standard.set(true, forKey: hasShownAnimationKey)
-                                }
-                            }
-                    }
-                })
+//                .overlay(content: {
+//                    if viewModel.state == .accounts && !UserDefaults.standard.bool(forKey: hasShownAnimationKey) {
+//                        DotLottieAnimation(fileName: "confettiAnimation", config: AnimationConfig(autoplay: true, loop: false)).view()
+//                            .onAppear {
+//                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.3) {
+//                                    UserDefaults.standard.set(true, forKey: hasShownAnimationKey)
+//                                }
+//                            }
+//                    }
+//                })
                 .onChange(of: geometry.size) { _ in
                         geometrySize = geometry.size
                 }

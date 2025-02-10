@@ -106,7 +106,9 @@ struct AddRecipientView: View {
             )
             Spacer()
             Button(action: {
-                viewModel.saveTapped()
+                Task {
+                    await viewModel.saveTapped()
+                }
                 if viewModel.error == nil {
                     onBackTapped()
                 }
