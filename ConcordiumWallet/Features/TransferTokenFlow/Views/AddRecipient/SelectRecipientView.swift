@@ -87,13 +87,28 @@ struct SelectRecipientView: View {
                     .background(.clear)
                     .cornerRadius(12)
             )
-            
-            Text("Recents")
-                .font(.satoshi(size: 15, weight: .medium))
-                .foregroundColor(.white)
-                .multilineTextAlignment(.leading)
-                .padding(.top, 20)
-            addressesList()
+            Spacer()
+                .opacity(viewModel.filteredRecipientsViewModels.isEmpty ? 1 : 0)
+            if !viewModel.filteredRecipientsViewModels.isEmpty {
+                Text("Recents")
+                    .font(.satoshi(size: 15, weight: .medium))
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.leading)
+                addressesList()
+            }
+            if viewModel.isNewValidAddress {
+                Spacer()
+                Button(action: {
+                    viewModel.addRecipient(name: accountAddressText.prefix(4) + "..." + accountAddressText.suffix(4), address: accountAddressText)
+                    recipientSelected(accountAddressText)
+                }, label: {
+                    Text("errorAlert.continueButton".localized)
+                        .font(Font.satoshi(size: 15, weight: .medium))
+                        .frame(maxWidth: .infinity)
+                        .background(.clear)
+                })
+                .buttonStyle(PressedButtonStyle())
+            }
         }
         .onAppear {
             viewModel.refreshData()
@@ -103,6 +118,7 @@ struct SelectRecipientView: View {
         }
         .padding(.horizontal, 18)
         .padding(.vertical, 40)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .sheet(isPresented: $isPresentingScanner) {
             ScanAddressQRView(onPicked: { address in
                 onRecipientSelected(address)

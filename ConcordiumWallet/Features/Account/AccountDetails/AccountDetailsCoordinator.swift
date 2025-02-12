@@ -234,6 +234,7 @@ class AccountDetailsCoordinator: Coordinator,
                         try self.dependencyProvider.storageManager().editRecipient(oldRecipient: recipient, newRecipient: newRecipient)
                     }
                     self.navigationController.viewControllers.last(where: { $0 is AccountDetailsViewController })?.title = newName
+                    self.navigationController.viewControllers.last?.showToast(title: "Name changed", imageName: "ico_successfully")
                 } catch {
                     print("\(error.localizedDescription)")
                 }

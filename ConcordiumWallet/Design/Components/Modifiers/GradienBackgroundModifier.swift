@@ -36,7 +36,6 @@ struct NavigationViewModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         VStack(spacing: 0) {
-            VStack {
                 ZStack {
                     Text(navigationTitle)
                         .font(.satoshi(size: 17, weight: .medium))
@@ -74,7 +73,6 @@ struct NavigationViewModifier: ViewModifier {
                 }
                 .padding(.horizontal)
                 .modifier(AppBackgroundModifier())
-            }
             content
                 .navigationBarBackButtonHidden()
                 .gesture(

@@ -12,4 +12,5 @@ extension Notification.Name {
     static let didReceiveIdentityData = Notification.Name("didReceiveIdentityData")
     static let hideTabBar = Notification.Name("hideTabBar")
     static let returnToHomeTabBar = Notification.Name("returnToHomeTabBar")
+    static let showNavBar = Notification.Name("showNavBar")
 }

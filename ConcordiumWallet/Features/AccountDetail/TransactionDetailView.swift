@@ -88,9 +88,15 @@ struct TransactionDetailView: View {
                     .font(.satoshi(size: 15, weight: .medium))
                     .foregroundStyle(.white)
                 Spacer()
-                Text("\(tx.amount) CCD")
-                    .font(.satoshi(size: 15, weight: .medium))
-                    .foregroundStyle(tx.totalColor)
+                if tx.amount.isEmpty {
+                    Text("\(tx.total ) CCD")
+                        .font(.satoshi(size: 15, weight: .medium))
+                        .foregroundStyle(tx.totalColor)
+                } else {
+                    Text("\(tx.amount) CCD")
+                        .font(.satoshi(size: 15, weight: .medium))
+                        .foregroundStyle(tx.amountColor)
+                }
             }
             
             HStack {

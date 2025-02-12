@@ -23,7 +23,6 @@ enum MenuCell: Hashable {
     case deleteAccount(title: String)
     
     case revealSeedPhrase(title: String)
-    case unshieldAssets(title: String)
     case notifications(title: String)
     case exportWalletPrivateKey(title: String)
     case nft(title: String)
@@ -39,7 +38,6 @@ enum MenuCell: Hashable {
                     .import(let title),
                     .export(let title),
                     .deleteAccount(let title),
-                    .unshieldAssets(let title),
                     .notifications(let title),
                     .revealSeedPhrase(let title),
                     .exportWalletPrivateKey(let title),
@@ -70,8 +68,6 @@ enum MenuCell: Hashable {
                 return UIImage(systemName: "rectangle.portrait.and.arrow.right")
             case .revealSeedPhrase:
                 return UIImage(systemName: "eye")
-            case .unshieldAssets:
-                return UIImage(systemName: "shield.slash")
             case .notifications:
                 return UIImage(named: "more_bell")
             case .exportWalletPrivateKey:
@@ -159,8 +155,6 @@ extension MoreMenuViewController: UITableViewDelegate {
                 presenter.logout()
             case .revealSeedPhrase:
                 presenter.showRevealSeedPrase()
-            case .unshieldAssets:
-                presenter.showUnshieldAssetsFlow()
             case .notifications:
                 presenter.userSelectedNotifications()
             case .exportWalletPrivateKey:
@@ -175,7 +169,6 @@ extension MoreMenuViewController {
     private func setupUI() {
         var snapshot = NSDiffableDataSourceSnapshot<SingleSection, MenuCell>()
         snapshot.appendSections([.main])
-        snapshot.appendItems([.unshieldAssets(title: "more.funds.to.unshield".localized)])
         snapshot.appendItems([.identities(title: "more.identities".localized)])
         snapshot.appendItems([.update(title: "more.update".localized)])
         if presenter.isLegacyAccount() {

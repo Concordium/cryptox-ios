@@ -77,7 +77,7 @@ class EnterPasswordViewController: BaseViewController, Storyboarded {
                 descriptiveText: "selectPassword.passcode.descriptiveText".localized,
                 showPasswordButton: true,
                 showContinueButton: false,
-                showCloseButton: false),
+                showCloseButton: true),
         .reenterPasscode: PasswordSelectionStateContent(title: "selectPassword.passcode2.title".localized,
                 descriptiveText: "selectPassword.passcode2.descriptiveText".localized,
                 showPasswordButton: true,
