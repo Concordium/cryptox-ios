@@ -22,7 +22,7 @@ class DelegationOnboardingCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     private var mode: DelegationOnboardingMode
-    weak var delegate: DelegationOnboardingCoordinatorDelegate?
+    var delegate: DelegationOnboardingCoordinatorDelegate?
     
     init(navigationController: UINavigationController,
          parentCoordinator: DelegationOnboardingCoordinatorDelegate,
@@ -31,6 +31,12 @@ class DelegationOnboardingCoordinator: Coordinator {
         self.delegate = parentCoordinator
         self.mode = mode
     }
+    
+    deinit {
+        delegate = nil
+        childCoordinators.removeAll()
+    }
+    
     func start() {
         switch mode {
         case .register:

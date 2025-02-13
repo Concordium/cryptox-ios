@@ -50,7 +50,9 @@ class AccountDetailsCoordinator: Coordinator,
         self.navigationController.modalPresentationStyle = .fullScreen
         
     }
-    
+    deinit {
+        childCoordinators.removeAll()
+    }
     func start() {
         start(entryPoint: .settings)
     }
@@ -151,6 +153,7 @@ class AccountDetailsCoordinator: Coordinator,
 
     func closed() {
         self.navigationController.popViewController(animated: true)
+        childCoordinators.removeAll { $0 is DelegationOnboardingCoordinator }
     }
     
     func showAccountAddressQR(_ account: AccountDataType) {
@@ -357,16 +360,18 @@ extension AccountDetailsCoordinator: AccountSettingsPresenterDelegate {
 extension AccountDetailsCoordinator: DelegationCoordinatorDelegate {
     func finished() {
         navigationController.dismiss(animated: true)
-        self.childCoordinators.removeAll {$0 is DelegationCoordinator }
+        childCoordinators.removeAll()
         refreshTransactionList()
+        parentCoordinator?.accountDetailsClosed()
     }
 }
 
 extension AccountDetailsCoordinator: BakingCoordinatorDelegate {
     func finishedBakingCoordinator() {
         navigationController.dismiss(animated: true)
-        self.childCoordinators.removeAll { $0 is BakingCoordinator }
+        childCoordinators.removeAll()
         refreshTransactionList()
+        parentCoordinator?.accountDetailsClosed()
     }
 }
 
