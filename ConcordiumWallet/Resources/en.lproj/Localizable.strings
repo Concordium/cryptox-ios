@@ -1189,6 +1189,7 @@ Remember to restart your node with the validator keys.";
 "new_onb_terms" = "Terms and Conditions";
 "and" = "and";
 "new_onb_privacy" = "Privacy policy";
+"legal.info" = "Legal information";
 "get_started_btn_title" = "Get started";
 "activate_account_btn_title" = "Activate account";
 "ask_ai_title" = "Ask our AI assistant anything";

@@ -71,7 +71,7 @@ struct GTU: Codable {
         
         // Unicode for "Latin Capital Letter G with Stroke" = U+01E4
         if intValue < 0 {
-            str = "-\(str) CCD"
+            str = "- \(str) CCD"
         } else {
             str = "\(str) CCD"
         }
@@ -111,7 +111,7 @@ struct GTU: Codable {
                                                           minimumFractionDigits: minimumFractionDigits,
                                                           maxFractionDigits: GTU.maximumFractionDigits)
         if intValue < 0 {
-            stringValue = "-\(stringValue)"
+            stringValue = "- \(stringValue)"
         }
         
         // Split the input into the whole part and fractional part

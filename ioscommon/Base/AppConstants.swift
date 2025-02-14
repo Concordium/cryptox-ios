@@ -14,6 +14,12 @@ struct AppConstants {
         static let ai = URL(string: "https://www.concordium.com/contact")!
     }
     
+    struct SocialMedia {
+        static let tg = URL(string: "https://t.me/concordium_official")!
+        static let x_twitter = URL(string: "https://x.com/ConcordiumNet")!
+        static let discord = URL(string: "https://discord.com/invite/GpKGE2hCFx")!
+    }
+    
     struct Email {
         static let contact = "contact@concordium.software"
         static let support = "support@concordium.software"

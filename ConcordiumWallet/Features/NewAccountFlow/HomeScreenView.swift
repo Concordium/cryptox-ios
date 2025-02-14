@@ -35,9 +35,9 @@ struct HomeScreenView: View {
     @State var phrase: [String]?
     @State var isLoading = false
     @State private var selectedActionId: Int?
+    @State private var hasAppearedForTheFirstTime: Bool = false
     
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
-    @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
     @AppStorage("isShouldShowOnrampMessage") private var isShouldShowOnrampMessage = true
     
     let keychain: KeychainWrapperProtocol
@@ -110,16 +110,48 @@ struct HomeScreenView: View {
                 }
                 .refreshable { Task { await viewModel.reload() } }
                 .onAppear {
-                    updateTimer.start()
-                    returnToHome()
-                    Task {
-                        isLoading = true
-                        await viewModel.reload()
-                        isLoading = false
+                    if !hasAppearedForTheFirstTime {
+                        hasAppearedForTheFirstTime = true
+                        returnToHome()
+                        Task {
+                            isLoading = true
+                            await viewModel.reload()
+                            isLoading = false
+                        }
+                        Tracker.track(view: ["Home screen"])
                     }
-                    Tracker.track(view: ["Home screen"])
+                    updateTimer.start()
                 }
-                .onDisappear { updateTimer.stop() }            }
+                .onDisappear { updateTimer.stop() }}
+            .toolbar(content: {
+                ToolbarItem(placement: .topBarLeading) {
+                    if !viewModel.accounts.isEmpty {
+                        HStack(spacing: 5) {
+                            Image(getDotImageIndex() == 1 ? "Dot1" : "dot\(getDotImageIndex())")
+                            Text("\(viewModel.selectedAccount?.account.displayName ?? "")")
+                                .font(.satoshi(size: 15, weight: .medium))
+                            Image("CaretUpDown")
+                                .resizable()
+                                .frame(width: 16, height: 16)
+                                .tint(.greyAdditional)
+                        }
+                        .onTapGesture {
+                            navigationManager.navigate(to: .accountsOverview(viewModel))
+                        }
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Image("ico_scan")
+                        .onTapGesture {
+                            if SettingsHelper.isIdentityConfigured() {
+                                self.router?.showScanQRFlow()
+                                Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Scan QR")
+                            } else {
+                                self.router?.showNotConfiguredAccountPopup()
+                            }
+                        }
+                }
+            })
             .modifier(AppBackgroundModifier())
             .modifier(NavigationDestinationBuilder(router: router, onAddressPicked: onAddressPicked))
         }
@@ -150,7 +182,7 @@ struct HomeScreenView: View {
                         self.router?.showExportFlow()
                     }
                 }
-                topBarControls()
+//                topBarControls()
                 balanceSection()
             }
             .padding(.horizontal, 18)
@@ -188,7 +220,7 @@ struct HomeScreenView: View {
         HStack() {
             if !viewModel.accounts.isEmpty {
                 HStack(spacing: 5) {
-                    Image("dot\(getDotImageIndex())")
+                    Image(getDotImageIndex() == 1 ? "Dot1" : "dot\(getDotImageIndex())")
                     Text("\(viewModel.selectedAccount?.account.displayName ?? "")")
                         .font(.satoshi(size: 15, weight: .medium))
                     Image("CaretUpDown")
@@ -391,9 +423,7 @@ struct HomeScreenView: View {
     
     func changeAccountDetailViewModel() {
         if let selectedAccount = viewModel.selectedAccount?.account {
-            if activeAccountViewModel?.account?.address != selectedAccount.address {
-                activeAccountViewModel = AccountDetailViewModel(account: selectedAccount)
-            }
+            activeAccountViewModel = AccountDetailViewModel(account: selectedAccount)
         }
     }
 }

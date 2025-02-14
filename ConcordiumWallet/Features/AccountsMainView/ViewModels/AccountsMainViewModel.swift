@@ -62,6 +62,14 @@ final class AccountsMainViewModel: ObservableObject, Hashable, Equatable {
             let firstAccount = accounts.first
             selectedAccount = accountViewModels.first(where: {$0.address == firstAccount?.address})
         }
+        checkChangesInSelectedAccount()
+    }
+    
+    func checkChangesInSelectedAccount() {
+        let updatedAccountData = accountViewModels.first(where: {$0.address == selectedAccount?.address})
+        if updatedAccountData != selectedAccount {
+            selectedAccount = updatedAccountData
+        }
     }
     
     @MainActor
@@ -207,7 +215,7 @@ extension AccountsMainViewModel {
     }
     
     func updateDotImageNames() {
-        let dotImages = ["dot1", "dot2", "dot3", "dot4", "dot5", "dot6", "dot7", "dot8", "dot9"]
+        let dotImages = ["Dot1", "dot2", "dot3", "dot4", "dot5", "dot6", "dot7", "dot8", "dot9"]
         accountViewModels.enumerated().forEach { index, account in
             account.dotImageIndex = index % dotImages.count + 1
         }

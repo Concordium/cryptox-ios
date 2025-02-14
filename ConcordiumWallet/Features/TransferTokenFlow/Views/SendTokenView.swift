@@ -75,8 +75,10 @@ struct SendTokenView: View {
                     }
                     
                     selectRecipient()
-                    AddMemoView(viewModel: addMemoViewModel) { memo in
-                        viewModel.setMemo(memo: memo)
+                    if !viewModel.tokenTransferModel.tokenType.isCIS2Token {
+                        AddMemoView(viewModel: addMemoViewModel) { memo in
+                            viewModel.setMemo(memo: memo)
+                        }
                     }
                 }
                 .padding(.vertical, 40)
@@ -106,7 +108,6 @@ struct SendTokenView: View {
                     .inset(by: 0.5)
                     .stroke(isContinueDisabled ? .grey4 : .clear)
             )
-            .padding(.bottom, 20)
         }
         .alert(isPresented: $showConfirmationAlertForMemo) {
             Alert(
