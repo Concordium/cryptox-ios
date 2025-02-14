@@ -104,7 +104,7 @@ struct TokenBalanceView: View {
             switch token {
             case .ccd(let amount):
                 Text("\(amount.displayValue()) CCD")
-                    .font(.plexSans(size: 55, weight: .bold))
+                    .font(.plexSans(size: 55, weight: .medium))
                     .dynamicTypeSize(.xSmall ... .xxLarge)
                     .minimumScaleFactor(0.3)
                     .lineLimit(1)
