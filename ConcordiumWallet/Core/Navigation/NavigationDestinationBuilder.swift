@@ -15,7 +15,7 @@ struct NavigationDestinationBuilder: ViewModifier {
     weak var router: AccountsMainViewDelegate?
     @State var isNewTokenAdded: Bool = false
     var onAddressPicked = PassthroughSubject<String, Never>()
-
+    
     func body(content: Content) -> some View {
         content
             .navigationDestination(for: NavigationPaths.self) { destination in
@@ -77,8 +77,6 @@ struct NavigationDestinationBuilder: ViewModifier {
                         .modifier(NavigationViewModifier(title: "Choose token", backAction: {
                             navigationManager.pop()
                         }))
-                    case .earn:
-                        EmptyView()
                     case .addToken(let account):
                             AddTokenView(
                                 path: $navigationManager.path,
@@ -142,6 +140,46 @@ struct NavigationDestinationBuilder: ViewModifier {
                             .onAppear {
                                 notifyTabBarHidden(true)
                             }
+                       
+                    case .earnMain(let account):
+                        EarnMainView(account: account)
+                            .environmentObject(navigationManager)
+                            .modifier(NavigationViewModifier(title: "Earn") {
+                                navigationManager.pop()
+                            })
+                            .onAppear {
+                                notifyTabBarHidden(true)
+                            }
+                    case .earn(let account):
+                        showEarn(account: account)
+                    case .earnReadMode(let mode, let account):
+                        EarnReadMoreView(mode: mode, account: account)
+                            .environmentObject(navigationManager)
+                            .modifier(NavigationViewModifier(title: mode == .validator ? "learn.about.validation".localized : "learn.about.earning".localized) {
+                                navigationManager.pop()
+                            })
+                            .onAppear {
+                                notifyTabBarHidden(true)
+                            }
+                        // MARK: - Validator
+                    case .earnAmountInputView(let vm):
+                        EarnAmountInputView(viewModel: vm)
+                            .environmentObject(navigationManager)
+                            .modifier(NavigationViewModifier(title: "Input Amount") {
+                                navigationManager.pop()
+                            })
+                            .onAppear {
+                                notifyTabBarHidden(true)
+                            }
+                    case .validator(let path, let account):
+                        EmptyView()
+                            .environmentObject(navigationManager)
+                            .modifier(NavigationViewModifier(title: "Validator", backAction: {
+                                navigationManager.pop()
+                            }))
+                            .onAppear {
+                                notifyTabBarHidden(true)
+                            }
                     }
                 }
             }
@@ -151,6 +189,45 @@ struct NavigationDestinationBuilder: ViewModifier {
     }
     
     func notifyTabBarHidden(_ isHidden: Bool) {
-        NotificationCenter.default.post(name: .hideTabBar, object: nil, userInfo: ["isHidden": isHidden])
+        let currentState = UserDefaults.standard.bool(forKey: "isTabBarHidden")
+        if currentState != isHidden {
+            UserDefaults.standard.setValue(isHidden, forKey: "isTabBarHidden")
+            NotificationCenter.default.post(name: .hideTabBar, object: nil, userInfo: ["isHidden": isHidden])
+        }
+    }
+    
+    func showEarn(account: AccountDataType) -> some View {
+        guard let accountEntity = account as? AccountEntity else { return AnyView(EmptyView()) }
+
+        // Check if the account has a baker or delegation
+        if account.baker == nil && account.delegation == nil {
+            // If no baker or delegation, show the main earn view
+            return AnyView(
+                EarnMainView(account: accountEntity)
+                    .environmentObject(navigationManager)
+                    .modifier(NavigationViewModifier(title: "Earn") {
+                        navigationManager.pop()
+                    })
+                    .onAppear {
+                        notifyTabBarHidden(true)
+                    }
+            )
+        } else if account.baker != nil {
+            // If the account has a baker, show the validator flow
+
+            return AnyView(
+                EmptyView()
+                    .environmentObject(navigationManager)
+                    .modifier(NavigationViewModifier(title: "Validator", backAction: {
+                        navigationManager.pop()
+                    }))
+                    .onAppear {
+                        notifyTabBarHidden(true)
+                    }
+            )
+        } else {
+            // Otherwise, just show an empty view (or a different case if needed)
+            return AnyView(EmptyView())
+        }
     }
 }

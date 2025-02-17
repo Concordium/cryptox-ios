@@ -713,3 +713,13 @@ class StakeDataHandler {
         return transfer
     }
 }
+
+extension StakeDataHandler: Equatable, Hashable {
+    static func == (lhs: StakeDataHandler, rhs: StakeDataHandler) -> Bool {
+        lhs.transferType == rhs.transferType
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self)
+    }
+}

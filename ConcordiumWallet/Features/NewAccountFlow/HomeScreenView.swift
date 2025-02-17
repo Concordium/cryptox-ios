@@ -182,7 +182,6 @@ struct HomeScreenView: View {
                         self.router?.showExportFlow()
                     }
                 }
-//                topBarControls()
                 balanceSection()
             }
             .padding(.horizontal, 18)
@@ -249,7 +248,7 @@ struct HomeScreenView: View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topTrailing) {
                 Text("\(balanceDisplayValue(viewModel.selectedAccount?.account.forecastBalance)) CCD")
-                    .font(.plexSans(size: 55, weight: .semibold))
+                    .font(.plexSans(size: 55, weight: .medium))
                     .dynamicTypeSize(.xSmall ... .xxLarge)
                     .minimumScaleFactor(0.5)
                     .lineLimit(1)
@@ -396,8 +395,8 @@ struct HomeScreenView: View {
                 }
             }),
             ActionItem(iconName: "Percent", label: "Earn", action: {
-                guard let selectedAccount = viewModel.selectedAccount?.account else { return }
-                router?.showEarnFlow(selectedAccount)
+                guard let selectedAccount = viewModel.selectedAccount?.account as? AccountEntity else { return }
+                navigationManager.navigate(to: .earn(selectedAccount))
                 Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Earn")
             }),
             ActionItem(iconName: "activity", label: "Activity", action: {
