@@ -153,22 +153,34 @@ final class CIS2TokenTransferModel {
         }
     }
     
-    func executeTransaction() async throws -> AnyPublisher<TransferEntity, Error> {
-        return try await callTransaction().tryMap { [weak self] entity in
-            guard let self = self else { return entity }
-            switch self.notifyDestination {
-                case .legacyQrConnect:
-//                    self.legacyQRConnectService?.sendPaymentMessage(hash: entity.submissionId ?? "")
-                    self.onTxSuccess(entity.submissionId ?? "")
-                case .none: break
-            }
-            return entity
-        }.eraseToAnyPublisher()
+//    func executeTransaction() async throws -> AnyPublisher<TransferEntity, Error> {
+//        return try await callTransaction().tryMap { [weak self] entity in
+//            guard let self = self else { return entity }
+//            switch self.notifyDestination {
+//                case .legacyQrConnect:
+////                    self.legacyQRConnectService?.sendPaymentMessage(hash: entity.submissionId ?? "")
+//                    self.onTxSuccess(entity.submissionId ?? "")
+//                case .none: break
+//            }
+//            return entity
+//        }.eraseToAnyPublisher()
+//    }
+    
+    func executeTransfer() async throws {
+        guard let recipient = self.recipient,
+              let transaferCost = self.transaferCost
+        else { throw TransferTokenError.insuficientData }
+        
+        switch self.tokenType {
+        case .cis2(let cIS2Token):
+            try await ececuteTransferCIS2(token: cIS2Token, recipient: recipient)
+        case .ccd:
+            try await executeTransferCCD(recipient: recipient)
+        }
     }
     
     @MainActor
-    func executeTransferCCD() async throws {
-        guard let recipient = self.recipient else { throw WalletError.invalidInput }
+    func executeTransferCCD(recipient: String) async throws {
         let pwHash = try await self.passwordDelegate.requestUserPassword(keychain: dependencyProvider.keychainWrapper())
         guard
             let encryptedAccountDataKey = account.encryptedAccountData,
@@ -180,7 +192,29 @@ final class CIS2TokenTransferModel {
             amount: CCD.init(microCCD: MicroCCDAmount(Double(self.amountTokenSend.value))),
             receiver: AccountAddress(base58Check: recipient),
             keys: accountKeys,
-            memo: nil)
+            memo: Concordium.Memo(memo?.data ?? Data()))
+        // TODO: - should handle tx status
+        let transactionStatus = try await concordiumClient.getTransactionStatus(submittedTransaction.hash)
+        print(submittedTransaction)
+        print(transactionStatus)
+    }
+    
+    @MainActor
+    func ececuteTransferCIS2(token: CIS2Token, recipient: String) async throws {
+        let pwHash = try await self.passwordDelegate.requestUserPassword(keychain: dependencyProvider.keychainWrapper())
+        guard
+            let encryptedAccountDataKey = account.encryptedAccountData,
+            let accountKeys = try? dependencyProvider.storageManager().getPrivateAccountKeys(key: encryptedAccountDataKey, pwHash: pwHash).get()
+        else { throw WalletError.invalidInput }
+        
+        let submittedTransaction = try await concordiumClient.transferCIS2(
+            sender: AccountAddress(base58Check: self.account.address),
+            receiver: AccountAddress(base58Check: recipient),
+            keys: accountKeys,
+            contractAddress: Concordium.ContractAddress(index: UInt64(token.contractAddress.index), subindex: UInt64(token.contractAddress.subindex)),
+            tokenId: token.tokenId,
+            amount: self.amountTokenSend.value
+        )
         let transactionStatus = try await concordiumClient.getTransactionStatus(submittedTransaction.hash)
         print(submittedTransaction)
         print(transactionStatus)
@@ -225,17 +259,17 @@ extension CIS2TokenTransferModel {
 }
 
 extension CIS2TokenTransferModel {
-    private func callTransaction() async throws -> AnyPublisher<TransferEntity, Error> {
-        switch self.tokenType {
-            case .cis2(let cIS2Token):
-                guard let recipient = self.recipient,
-                      let transaferCost = self.transaferCost
-                else { return .fail(TransferTokenError.insuficientData) }
-                return try await transferCis2Token(cIS2Token, amount: self.amountTokenSend, to: recipient, txCost: transaferCost)
-            case .ccd:
-            fatalError()//return  try await simpleTransferCCDToken()
-        }
-    }
+//    private func callTransaction() async throws -> AnyPublisher<TransferEntity, Error> {
+//        switch self.tokenType {
+//            case .cis2(let cIS2Token):
+//                guard let recipient = self.recipient,
+//                      let transaferCost = self.transaferCost
+//                else { return .fail(TransferTokenError.insuficientData) }
+//                return try await transferCis2Token(cIS2Token, amount: self.amountTokenSend, to: recipient, txCost: transaferCost)
+//            case .ccd:
+//            fatalError()//return  try await simpleTransferCCDToken()
+//        }
+//    }
     
 //    @MainActor
 //    private func simpleTransferCCDToken() async throws -> AnyPublisher<TransferEntity, Error> {
@@ -257,27 +291,27 @@ extension CIS2TokenTransferModel {
 //            .eraseToAnyPublisher()
 //    }
     
-    @MainActor
-    private func transferCis2Token(_ token: CIS2Token, amount: BigDecimal, to: String, txCost: TransferCost) async throws -> AnyPublisher<TransferEntity, Error> {
-        let serializedTransferParams = try MobileWalletFacade().serializeTokenTransferParameters(input: TokenTransferParameters(tokenId: token.tokenId, amount: String(self.amountTokenSend.value), from: self.account.address, to: to))
-        
-        var transfer = TransferDataTypeFactory.create()
-        transfer.transferType = .transferUpdate
-        transfer.from = self.account.address
-        transfer.toAddress = to
-        transfer.expiry = Date().addingTimeInterval(10 * 60)
-        transfer.energy = txCost.energy
-        transfer.memo = self.memo?.data.hexDescription
-        
-        transfer.receiveName = token.contractName + ".transfer"
-        transfer.params = serializedTransferParams
-
-        return dependencyProvider.transactionsService()
-            .performTransferUpdate(transfer, from: self.account, contractAddress: .init(index: token.contractAddress.index, subindex: token.contractAddress.subindex), requestPasswordDelegate: self.passwordDelegate)
-            .tryMap { transferDataType -> TransferEntity in
-                _ = try self.dependencyProvider.storageManager().storeTransfer(transferDataType)
-                return transferDataType as! TransferEntity
-            }
-            .eraseToAnyPublisher()
-    }
+//    @MainActor
+//    private func transferCis2Token(_ token: CIS2Token, amount: BigDecimal, to: String, txCost: TransferCost) async throws -> AnyPublisher<TransferEntity, Error> {
+//        let serializedTransferParams = try MobileWalletFacade().serializeTokenTransferParameters(input: TokenTransferParameters(tokenId: token.tokenId, amount: String(self.amountTokenSend.value), from: self.account.address, to: to))
+//        
+//        var transfer = TransferDataTypeFactory.create()
+//        transfer.transferType = .transferUpdate
+//        transfer.from = self.account.address
+//        transfer.toAddress = to
+//        transfer.expiry = Date().addingTimeInterval(10 * 60)
+//        transfer.energy = txCost.energy
+//        transfer.memo = self.memo?.data.hexDescription
+//        
+//        transfer.receiveName = token.contractName + ".transfer"
+//        transfer.params = serializedTransferParams
+//
+//        return dependencyProvider.transactionsService()
+//            .performTransferUpdate(transfer, from: self.account, contractAddress: .init(index: token.contractAddress.index, subindex: token.contractAddress.subindex), requestPasswordDelegate: self.passwordDelegate)
+//            .tryMap { transferDataType -> TransferEntity in
+//                _ = try self.dependencyProvider.storageManager().storeTransfer(transferDataType)
+//                return transferDataType as! TransferEntity
+//            }
+//            .eraseToAnyPublisher()
+//    }
 }

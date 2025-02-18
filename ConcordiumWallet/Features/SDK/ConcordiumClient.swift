@@ -8,6 +8,7 @@
 
 import Foundation
 import Concordium
+import BigInt
 
 final class ConcordiumClient: ObservableObject {
     private let nodeClient: GRPCNodeClient
@@ -37,6 +38,74 @@ final class ConcordiumClient: ObservableObject {
     }
 }
 
+///
+/// Account logic
+///
+extension ConcordiumClient {
+    func createAccount(seedHex: String) throws {
+//        let createIDRequest: CreateIDRequest = CreateIDRequest(
+//            ipInfo: <#T##IPInfo#>,
+//            arsInfos: <#T##[String : ArsInfo]#>,
+//            global: <#T##Global#>
+//        )
+//        
+//        
+//        let seed: WalletSeed = try WalletSeed(seedHex: seedHex, network: .testnet)
+//        let cryptoParams: CryptographicParameters = CryptographicParameters(onChainCommitmentKey: <#T##Bytes#>, bulletproofGenerators: <#T##Bytes#>, genesisString: <#T##String#>)
+//        let seedBasedAccountDerivation = SeedBasedAccountDerivation(seed: seed, cryptoParams: cryptoParams)
+//        
+//        let createCredentialRequest: CreateCredentialRequest = CreateCredentialRequest(
+//            accountAddress: <#T##String#>,
+//            accountKeys: <#T##AccountKeys#>,
+//            credential: <#T##Credential#>,
+//            commitmentsRandomness: <#T##CommitmentsRandomness#>,
+//            encryptionPublicKey: <#T##String#>,
+//            encryptionSecretKey: <#T##String#>
+//        )
+//        
+//        
+//        let credDeploiyement = AccountCredential(arData: <#T##[UInt32 : ChainArData]#>, credId: <#T##Bytes#>, credentialPublicKeys: <#T##CredentialPublicKeys#>, ipIdentity: <#T##UInt32#>, policy: <#T##Policy#>, proofs: <#T##Proofs#>, revocationThreshold: <#T##UInt8#>)
+//        
+//        SignedAccountCredentialDeployment(
+//            deployment: credDeploiyement.prepareDeployment(expiry: Self.calculateTransactionExpiry(from: UInt64(Date().timeIntervalSince1970))),
+//            signatures: CredentialSignatures
+//        )
+//        let serializedSignedAccountCredentialDeployment: SerializedSignedAccountCredentialDeployment = SerializedSignedAccountCredentialDeployment
+//        
+//        Task {
+//            try await nodeClient.send(deployment: serializedSignedAccountCredentialDeployment)
+//        }
+    }
+}
+
+///
+/// CIS-2 Token
+///
+extension ConcordiumClient {
+    func transferCIS2(
+        sender: AccountAddress,
+        receiver: AccountAddress,
+        keys: AccountKeys,
+        contractAddress: Concordium.ContractAddress,
+        tokenId: String,
+        amount: BigInt
+    ) async throws -> SubmittedTransaction {
+        let cis2Client: CIS2.Contract = try await CIS2.Contract(client: nodeClient, address: contractAddress)
+        let payload: CIS2.TransferPayload = CIS2.TransferPayload.init(
+            tokenId: try CIS2.TokenID(hex: tokenId) ?? .init(),
+            amount: CIS2.TokenAmount(BigUInt(amount)) ?? .init(.zero)!,
+            sender: Address.account(sender),
+            receiver: CIS2.Receiver.account(receiver),
+            data: nil
+        )
+        let proposal = try await cis2Client.transfer(payload, sender: sender)
+        let signer: any Signer = AccountKeysCurve25519.init(try keys.toAccountKeysJSON().toSDKType().keys)
+        
+        return try await proposal.send(signer: signer)
+    }
+}
+
+/// CCD Transfer Logic
 extension ConcordiumClient {
     func transferCCD(sender: AccountAddress, amount: CCD, receiver: AccountAddress, keys: AccountKeys, memo: Concordium.Memo?) async throws -> SubmittedTransaction {
         let accountInfo = try await nodeClient.info(account: AccountIdentifier.address(sender))
@@ -51,13 +120,9 @@ extension ConcordiumClient {
     
     func transferToPublic(account: AccountDataType, amount: CCD, receiver: AccountAddress, keys: AccountKeys, pwHash: String) async throws -> SubmittedTransaction {
         let accountInfo = try await nodeClient.info(account: AccountIdentifier.address(.init(base58Check: account.address)))
-
         let inputEncryptedAmount: InputEncryptedAmount = self.getInputEncryptedAmount(for: account)
-        
         let global: GlobalWrapper = try await networkManager.load(ResourceRequest(url: ApiConstants.global))
-                
         let senderSecretKey = try getSecretEncryptionKey(for: account, pwHash: pwHash).get()
-        
         let transaction: AccountTransaction = AccountTransaction.transferToPublic(
             sender: try .init(base58Check: account.address),
             global: .init(
@@ -75,12 +140,20 @@ extension ConcordiumClient {
         )!
         let expiry: TransactionTime = Self.calculateTransactionExpiry(from: UInt64(Date().timeIntervalSince1970))
         let sequenceNumber: SequenceNumber = accountInfo.sequenceNumber
-        
         let preparedAccountTransaction: PreparedAccountTransaction = transaction.prepare(sequenceNumber: sequenceNumber, expiry: expiry, signatureCount: Int(accountInfo.threshold))
     
         return try await send(preparedAccountTransaction, keys: keys)
     }
-    
+}
+
+
+extension ConcordiumClient {
+    func getTransactionStatus(_ transaction: TransactionHash) async throws -> TransactionStatus {
+        try await nodeClient.status(transaction: transaction)
+    }
+}
+
+extension ConcordiumClient {
     private func getSecretEncryptionKey(for account: AccountDataType, pwHash: String) -> Result<String, Error> {
         guard let key = account.encryptedPrivateKey else { return .failure(MobileWalletError.invalidArgument) }
         return storageManager.getPrivateEncryptionKey(key: key, pwHash: pwHash)
@@ -91,22 +164,12 @@ extension ConcordiumClient {
     /// Internal
     func send(sender: AccountAddress, amount: CCD, receiver: AccountAddress, keys: AccountKeys, memo: Concordium.Memo?) async throws -> SubmittedTransaction {
         let accountInfo = try await nodeClient.info(account: AccountIdentifier.address(sender))
-        
-//        let energy: Energy = TransactionCost.TRANSFER
-//        let payload: AccountTransactionPayload = AccountTransactionPayload.transfer(amount: amount, receiver: receiver, memo: memo)
-//        let transaction: AccountTransaction = AccountTransaction(sender: sender, payload: payload, energy: energy)
-        
         let transaction: AccountTransaction = AccountTransaction.transfer(sender: sender, receiver: receiver, amount: amount, memo: memo)
         let expiry: TransactionTime = Self.calculateTransactionExpiry(from: UInt64(Date().timeIntervalSince1970))
         let sequenceNumber: SequenceNumber = accountInfo.sequenceNumber
-        
         let preparedAccountTransaction: PreparedAccountTransaction = transaction.prepare(sequenceNumber: sequenceNumber, expiry: expiry, signatureCount: Int(accountInfo.threshold))
     
         return try await send(preparedAccountTransaction, keys: keys)
-    }
-    
-    func getTransactionStatus(_ transaction: TransactionHash) async throws -> TransactionStatus {
-        try await nodeClient.status(transaction: transaction)
     }
     
     private func send(_ preparedAccountTransaction: PreparedAccountTransaction, keys: AccountKeys) async throws -> SubmittedTransaction {
@@ -116,11 +179,7 @@ extension ConcordiumClient {
     }
     
     // MARK: Encrypted Amount calculation helpers
-    func getInputEncryptedAmount(for account: AccountDataType) -> InputEncryptedAmount {
-        // if existing pending transactions,
-        // aggEncryptedAmount = last self amount from transaction + any incoming amounts that were NOT used in that transaction
-        // else aggEncryptedAmount = selfAmount + incoming Amounts
-        
+    private func getInputEncryptedAmount(for account: AccountDataType) -> InputEncryptedAmount {
         var index: Int
         let aggEncryptedAmount: String?
         
@@ -171,27 +230,11 @@ extension ConcordiumClient {
                 if result == "" {
                     return amount
                 } else {
-                    return try self.combineEncryptedAmount(result, amount).get()
+                    return try String(data: Concordium.combineEncryptedAmounts(left: Data(result.utf8), right: Data(amount.utf8)), encoding: .utf8) ?? ""
                 }
             }
         } catch {
             return ""
-        }
-    }
-    
-    func combineEncryptedAmount(_ encryptedAmount1: String, _ encryptedAmount2: String) -> Result<String, Error> {
-        do {
-            let encodedEncryptedAmount1 = "\"\(encryptedAmount1)\""
-            let encodedEncryptedAmount2 = "\"\(encryptedAmount2)\""
-            let combined = try combineEncryptedAmounts(left: Data(encodedEncryptedAmount1.utf8), right: Data(encodedEncryptedAmount2.utf8))
-            let sumEncrypted = String(data: combined, encoding: .utf8) ?? ""
-            
-            let startIndex = sumEncrypted.index(sumEncrypted.startIndex, offsetBy: 1)
-            let endIndex = sumEncrypted.index(sumEncrypted.startIndex, offsetBy: sumEncrypted.count - 1)
-            let decodedSumEncrypted = String(sumEncrypted[startIndex..<endIndex])
-            return Result.success(decodedSumEncrypted)
-        } catch {
-            return Result.failure(error)
         }
     }
 }

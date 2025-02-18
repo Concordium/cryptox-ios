@@ -45,7 +45,7 @@ final class SimpleTrasferRequestModel: SessionRequestDataProvidable {
     
     @MainActor
     func approveRequest() async throws {
-        
+        fatalError("Max, add SDK here")
 //        let txCost = try await transactionsService
 //            .getTransferCost(transferType: .simpleTransfer, costParameters: params.costParameters())
 //            .async()

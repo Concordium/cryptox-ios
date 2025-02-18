@@ -2005,6 +2005,27 @@
 		507629662BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
 		507629672BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
 		507629682BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
+		5090D15C2D5A32DE00B56367 /* AccountsOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090D1542D5A32DE00B56367 /* AccountsOverviewView.swift */; };
+		5090D15D2D5A32DE00B56367 /* AccountTokenListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090D1552D5A32DE00B56367 /* AccountTokenListView.swift */; };
+		5090D15E2D5A32DE00B56367 /* HideTokenPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090D1562D5A32DE00B56367 /* HideTokenPopup.swift */; };
+		5090D15F2D5A32DE00B56367 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090D1572D5A32DE00B56367 /* HomeScreenView.swift */; };
+		5090D1602D5A32DE00B56367 /* ManageTokensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090D1582D5A32DE00B56367 /* ManageTokensView.swift */; };
+		5090D1612D5A32DE00B56367 /* TokenBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090D1592D5A32DE00B56367 /* TokenBalanceView.swift */; };
+		5090D1622D5A32DE00B56367 /* TokenDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090D15A2D5A32DE00B56367 /* TokenDetailsView.swift */; };
+		5090D1632D5A32DE00B56367 /* AccountsOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090D1542D5A32DE00B56367 /* AccountsOverviewView.swift */; };
+		5090D1642D5A32DE00B56367 /* AccountTokenListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090D1552D5A32DE00B56367 /* AccountTokenListView.swift */; };
+		5090D1652D5A32DE00B56367 /* HideTokenPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090D1562D5A32DE00B56367 /* HideTokenPopup.swift */; };
+		5090D1662D5A32DE00B56367 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090D1572D5A32DE00B56367 /* HomeScreenView.swift */; };
+		5090D1672D5A32DE00B56367 /* ManageTokensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090D1582D5A32DE00B56367 /* ManageTokensView.swift */; };
+		5090D1682D5A32DE00B56367 /* TokenBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090D1592D5A32DE00B56367 /* TokenBalanceView.swift */; };
+		5090D1692D5A32DE00B56367 /* TokenDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090D15A2D5A32DE00B56367 /* TokenDetailsView.swift */; };
+		5090D16A2D5A32DE00B56367 /* AccountsOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090D1542D5A32DE00B56367 /* AccountsOverviewView.swift */; };
+		5090D16B2D5A32DE00B56367 /* AccountTokenListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090D1552D5A32DE00B56367 /* AccountTokenListView.swift */; };
+		5090D16C2D5A32DE00B56367 /* HideTokenPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090D1562D5A32DE00B56367 /* HideTokenPopup.swift */; };
+		5090D16D2D5A32DE00B56367 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090D1572D5A32DE00B56367 /* HomeScreenView.swift */; };
+		5090D16E2D5A32DE00B56367 /* ManageTokensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090D1582D5A32DE00B56367 /* ManageTokensView.swift */; };
+		5090D16F2D5A32DE00B56367 /* TokenBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090D1592D5A32DE00B56367 /* TokenBalanceView.swift */; };
+		5090D1702D5A32DE00B56367 /* TokenDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090D15A2D5A32DE00B56367 /* TokenDetailsView.swift */; };
 		509749D02C3C0D4E00D28D6B /* CCDOnrampView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749CF2C3C0D4E00D28D6B /* CCDOnrampView.swift */; };
 		509749D12C3C0D4E00D28D6B /* CCDOnrampView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749CF2C3C0D4E00D28D6B /* CCDOnrampView.swift */; };
 		509749D22C3C0D4E00D28D6B /* CCDOnrampView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749CF2C3C0D4E00D28D6B /* CCDOnrampView.swift */; };
@@ -3274,6 +3295,13 @@
 		19C2EE201F8E02CE561DA70D /* GTU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GTU.swift; sourceTree = "<group>"; };
 		19C2EEBD44B62F16333900D2 /* GeneralError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralError.swift; sourceTree = "<group>"; };
 		507629652BF2040B00B4D390 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		5090D1542D5A32DE00B56367 /* AccountsOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsOverviewView.swift; sourceTree = "<group>"; };
+		5090D1552D5A32DE00B56367 /* AccountTokenListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTokenListView.swift; sourceTree = "<group>"; };
+		5090D1562D5A32DE00B56367 /* HideTokenPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideTokenPopup.swift; sourceTree = "<group>"; };
+		5090D1572D5A32DE00B56367 /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
+		5090D1582D5A32DE00B56367 /* ManageTokensView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTokensView.swift; sourceTree = "<group>"; };
+		5090D1592D5A32DE00B56367 /* TokenBalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBalanceView.swift; sourceTree = "<group>"; };
+		5090D15A2D5A32DE00B56367 /* TokenDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailsView.swift; sourceTree = "<group>"; };
 		509749CF2C3C0D4E00D28D6B /* CCDOnrampView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCDOnrampView.swift; sourceTree = "<group>"; };
 		509749D32C3C241B00D28D6B /* ProviderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderView.swift; sourceTree = "<group>"; };
 		509749D72C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCDOnrampViewDataProvider.swift; sourceTree = "<group>"; };
@@ -3564,7 +3592,6 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		156878E52CD24F4E0080B2F3 /* ViewModels */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ViewModels; sourceTree = "<group>"; };
 		156878E62CD24F6F0080B2F3 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
-		15C202012D300251005CBBD8 /* NewAccountFlow */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = NewAccountFlow; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3874,7 +3901,7 @@
 			isa = PBXGroup;
 			children = (
 				50F3BC362D53A6B500839F7F /* SDK */,
-				15C202012D300251005CBBD8 /* NewAccountFlow */,
+				5090D15B2D5A32DE00B56367 /* NewAccountFlow */,
 				509749DF2C3E862500D28D6B /* NewsFeed */,
 				509749CE2C3C0D2B00D28D6B /* OnrampFlow */,
 				50EB30FD2BFBA113002B2558 /* UnshieldAssetsFlow */,
@@ -5433,6 +5460,29 @@
 			path = LegacyWalletConnect;
 			sourceTree = "<group>";
 		};
+		5090D15B2D5A32DE00B56367 /* NewAccountFlow */ = {
+			isa = PBXGroup;
+			children = (
+				5090D1542D5A32DE00B56367 /* AccountsOverviewView.swift */,
+				5090D1552D5A32DE00B56367 /* AccountTokenListView.swift */,
+				5090D1562D5A32DE00B56367 /* HideTokenPopup.swift */,
+				5090D1572D5A32DE00B56367 /* HomeScreenView.swift */,
+				5090D1582D5A32DE00B56367 /* ManageTokensView.swift */,
+				5090D1592D5A32DE00B56367 /* TokenBalanceView.swift */,
+				5090D15A2D5A32DE00B56367 /* TokenDetailsView.swift */,
+			);
+			path = NewAccountFlow;
+			sourceTree = "<group>";
+		};
+		5090D1712D5A32F200B56367 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				50F3BC3B2D53A6CB00839F7F /* ConcordiumClient-Helpers.swift */,
+				50F3BC3F2D53A71200839F7F /* AccountKeys+Concordium.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		509749CE2C3C0D2B00D28D6B /* OnrampFlow */ = {
 			isa = PBXGroup;
 			children = (
@@ -5513,8 +5563,7 @@
 			isa = PBXGroup;
 			children = (
 				50F3BC372D53A6C100839F7F /* ConcordiumClient.swift */,
-				50F3BC3B2D53A6CB00839F7F /* ConcordiumClient-Helpers.swift */,
-				50F3BC3F2D53A71200839F7F /* AccountKeys+Concordium.swift */,
+				5090D1712D5A32F200B56367 /* Helpers */,
 				50F3BC432D562AC900839F7F /* SDK.md */,
 			);
 			path = SDK;
@@ -6322,7 +6371,6 @@
 			fileSystemSynchronizedGroups = (
 				156878E52CD24F4E0080B2F3 /* ViewModels */,
 				156878E62CD24F6F0080B2F3 /* Views */,
-				15C202012D300251005CBBD8 /* NewAccountFlow */,
 			);
 			name = ProdTestNet;
 			packageProductDependencies = (
@@ -6361,7 +6409,6 @@
 			fileSystemSynchronizedGroups = (
 				156878E52CD24F4E0080B2F3 /* ViewModels */,
 				156878E62CD24F6F0080B2F3 /* Views */,
-				15C202012D300251005CBBD8 /* NewAccountFlow */,
 			);
 			name = ProdMainNet;
 			packageProductDependencies = (
@@ -6398,7 +6445,6 @@
 			fileSystemSynchronizedGroups = (
 				156878E52CD24F4E0080B2F3 /* ViewModels */,
 				156878E62CD24F6F0080B2F3 /* Views */,
-				15C202012D300251005CBBD8 /* NewAccountFlow */,
 			);
 			name = StagingNet;
 			packageProductDependencies = (
@@ -7560,6 +7606,13 @@
 				08C168A12BB7396200E61326 /* URLSession+Data.swift in Sources */,
 				50D389252C107C7500B3675A /* CustomSVGDecoder.swift in Sources */,
 				08C168A22BB7396200E61326 /* Array+Ext.swift in Sources */,
+				5090D1632D5A32DE00B56367 /* AccountsOverviewView.swift in Sources */,
+				5090D1642D5A32DE00B56367 /* AccountTokenListView.swift in Sources */,
+				5090D1652D5A32DE00B56367 /* HideTokenPopup.swift in Sources */,
+				5090D1662D5A32DE00B56367 /* HomeScreenView.swift in Sources */,
+				5090D1672D5A32DE00B56367 /* ManageTokensView.swift in Sources */,
+				5090D1682D5A32DE00B56367 /* TokenBalanceView.swift in Sources */,
+				5090D1692D5A32DE00B56367 /* TokenDetailsView.swift in Sources */,
 				08C168A32BB7396200E61326 /* DataStoreProtocol.swift in Sources */,
 				08C168A42BB7396200E61326 /* ChangePasswordPresenter.swift in Sources */,
 				08C168A52BB7396200E61326 /* ExportPrivateKeyView.swift in Sources */,
@@ -8271,6 +8324,13 @@
 				D5FB7EC6290B433F00B7DB0C /* URLSession+Data.swift in Sources */,
 				50D389242C107C7500B3675A /* CustomSVGDecoder.swift in Sources */,
 				08520A532B45B5C7008DC851 /* Array+Ext.swift in Sources */,
+				5090D16A2D5A32DE00B56367 /* AccountsOverviewView.swift in Sources */,
+				5090D16B2D5A32DE00B56367 /* AccountTokenListView.swift in Sources */,
+				5090D16C2D5A32DE00B56367 /* HideTokenPopup.swift in Sources */,
+				5090D16D2D5A32DE00B56367 /* HomeScreenView.swift in Sources */,
+				5090D16E2D5A32DE00B56367 /* ManageTokensView.swift in Sources */,
+				5090D16F2D5A32DE00B56367 /* TokenBalanceView.swift in Sources */,
+				5090D1702D5A32DE00B56367 /* TokenDetailsView.swift in Sources */,
 				D589F1B52794B5ED003F2FBB /* DataStoreProtocol.swift in Sources */,
 				088FF1EB2A02A73D00042957 /* ChangePasswordPresenter.swift in Sources */,
 				088FED9D2A01674100042957 /* ExportPrivateKeyView.swift in Sources */,
@@ -8982,6 +9042,13 @@
 				08520A522B45B5C7008DC851 /* Array+Ext.swift in Sources */,
 				50D389232C107C7500B3675A /* CustomSVGDecoder.swift in Sources */,
 				088FEF4C2A0270AF00042957 /* IdentityDataWidgetViewController.swift in Sources */,
+				5090D15C2D5A32DE00B56367 /* AccountsOverviewView.swift in Sources */,
+				5090D15D2D5A32DE00B56367 /* AccountTokenListView.swift in Sources */,
+				5090D15E2D5A32DE00B56367 /* HideTokenPopup.swift in Sources */,
+				5090D15F2D5A32DE00B56367 /* HomeScreenView.swift in Sources */,
+				5090D1602D5A32DE00B56367 /* ManageTokensView.swift in Sources */,
+				5090D1612D5A32DE00B56367 /* TokenBalanceView.swift in Sources */,
+				5090D1622D5A32DE00B56367 /* TokenDetailsView.swift in Sources */,
 				D5FB7EC4290B433F00B7DB0C /* URLSession+Data.swift in Sources */,
 				088FF1E72A02A73C00042957 /* ChangePasswordPresenter.swift in Sources */,
 				088FED972A01674000042957 /* ExportPrivateKeyView.swift in Sources */,

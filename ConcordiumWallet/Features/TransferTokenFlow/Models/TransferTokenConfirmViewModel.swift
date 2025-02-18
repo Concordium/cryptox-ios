@@ -66,7 +66,8 @@ final class TransferTokenConfirmViewModel: ObservableObject, Equatable, Hashable
         self.error = nil
         
         do {
-            try await tokenTransferModel.executeTransferCCD()
+            try await tokenTransferModel.executeTransfer()
+//            try await tokenTransferModel.executeTransferCCD()
 //            try await tokenTransferModel.executeTransaction()
 //                .sink(receiveError: { error in
 //                    self.error = error
