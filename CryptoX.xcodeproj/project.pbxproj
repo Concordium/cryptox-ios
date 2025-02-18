@@ -1955,6 +1955,15 @@
 		15E1BC692C6B58C000543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
 		15E1BC6A2C6B58C000543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
 		15E1BC6B2C6B58C100543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
+		15ED6C702D63807A00B1BB44 /* ValidatorMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED6C6F2D63807A00B1BB44 /* ValidatorMainView.swift */; };
+		15ED6C712D63807A00B1BB44 /* ValidatorMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED6C6F2D63807A00B1BB44 /* ValidatorMainView.swift */; };
+		15ED6C722D63807A00B1BB44 /* ValidatorMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED6C6F2D63807A00B1BB44 /* ValidatorMainView.swift */; };
+		15ED6C752D63960600B1BB44 /* ValidatorAmountInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED6C742D63960600B1BB44 /* ValidatorAmountInputViewModel.swift */; };
+		15ED6C762D63960600B1BB44 /* ValidatorAmountInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED6C742D63960600B1BB44 /* ValidatorAmountInputViewModel.swift */; };
+		15ED6C772D63960600B1BB44 /* ValidatorAmountInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED6C742D63960600B1BB44 /* ValidatorAmountInputViewModel.swift */; };
+		15ED6C792D639E2600B1BB44 /* CustomToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED6C782D639E2600B1BB44 /* CustomToggle.swift */; };
+		15ED6C7A2D639E2600B1BB44 /* CustomToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED6C782D639E2600B1BB44 /* CustomToggle.swift */; };
+		15ED6C7B2D639E2600B1BB44 /* CustomToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED6C782D639E2600B1BB44 /* CustomToggle.swift */; };
 		15EFE9F52C739D7B00B7145C /* ImportTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */; };
 		15EFE9F62C739D7B00B7145C /* ImportTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */; };
 		15EFE9F72C739D7B00B7145C /* ImportTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */; };
@@ -3246,6 +3255,9 @@
 		15B527502D36666E005FA701 /* AddTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTokenView.swift; sourceTree = "<group>"; };
 		15B80E932D3A67DC00C5650C /* TransactionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailView.swift; sourceTree = "<group>"; };
 		15E1BC682C6B588900543242 /* Gate_io.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gate_io.png; sourceTree = "<group>"; };
+		15ED6C6F2D63807A00B1BB44 /* ValidatorMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorMainView.swift; sourceTree = "<group>"; };
+		15ED6C742D63960600B1BB44 /* ValidatorAmountInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorAmountInputViewModel.swift; sourceTree = "<group>"; };
+		15ED6C782D639E2600B1BB44 /* CustomToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToggle.swift; sourceTree = "<group>"; };
 		15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTokenViewModel.swift; sourceTree = "<group>"; };
 		15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		15F3F0A32C8B032200EF8975 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
@@ -4107,6 +4119,7 @@
 				15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */,
 				1580EBD82D4919C30051C55D /* SliderButton.swift */,
 				152AE63B2D50E17700B0B073 /* PrsssedButtonStyle.swift */,
+				15ED6C782D639E2600B1BB44 /* CustomToggle.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -5387,8 +5400,18 @@
 		15EAAC632D6335670046A677 /* Validator */ = {
 			isa = PBXGroup;
 			children = (
+				15ED6C732D6395F500B1BB44 /* ViewModels */,
+				15ED6C6F2D63807A00B1BB44 /* ValidatorMainView.swift */,
 			);
 			path = Validator;
+			sourceTree = "<group>";
+		};
+		15ED6C732D6395F500B1BB44 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				15ED6C742D63960600B1BB44 /* ValidatorAmountInputViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		15F2A3462CAD6AEA00E77DD5 /* Stagenet */ = {
@@ -7434,6 +7457,7 @@
 				08C168192BB7396200E61326 /* AccountAddressQRPresenter.swift in Sources */,
 				08C1681A2BB7396200E61326 /* CreateAccountButtonWidgetPresenter.swift in Sources */,
 				08C1681B2BB7396200E61326 /* ReusableViewExtensions.swift in Sources */,
+				15ED6C772D63960600B1BB44 /* ValidatorAmountInputViewModel.swift in Sources */,
 				1580EE652D4A7DF80051C55D /* AddRecipientView.swift in Sources */,
 				08DB5E732BC6C32400C29663 /* BakerMetadataViewController.swift in Sources */,
 				08DB5E742BC6C32400C29663 /* BakerMetadataPresenter.swift in Sources */,
@@ -7539,6 +7563,7 @@
 				1575863C2CA55E3700205A6E /* StakeStatusView.swift in Sources */,
 				08C168772BB7396200E61326 /* PreIdentityObject.swift in Sources */,
 				08C1687A2BB7396200E61326 /* GTUTextFieldDelegate.swift in Sources */,
+				15ED6C722D63807A00B1BB44 /* ValidatorMainView.swift in Sources */,
 				08C1687B2BB7396200E61326 /* Locate+Additionals.swift in Sources */,
 				08C1687C2BB7396200E61326 /* FilledButton.swift in Sources */,
 				08C1687D2BB7396200E61326 /* CreateAccountCoordinator.swift in Sources */,
@@ -7684,6 +7709,7 @@
 				08C169002BB7396200E61326 /* BackupAlertController.swift in Sources */,
 				08C169012BB7396200E61326 /* EuroPerEnergy.swift in Sources */,
 				08C169022BB7396200E61326 /* JSONObject.swift in Sources */,
+				15ED6C7B2D639E2600B1BB44 /* CustomToggle.swift in Sources */,
 				50D389112C05D66C00B3675A /* ConfirmAccountCreateViewController.swift in Sources */,
 				50D389122C05D66C00B3675A /* ConfirmAccountCreatePresenter.swift in Sources */,
 				08C169042BB7396200E61326 /* PermissionHelper.swift in Sources */,
@@ -8146,6 +8172,7 @@
 				088FEDAD2A01675600042957 /* AccountAddressQRPresenter.swift in Sources */,
 				088FEF7D2A0270B000042957 /* CreateAccountButtonWidgetPresenter.swift in Sources */,
 				D5C9F1202905DBFC003C8D17 /* ReusableViewExtensions.swift in Sources */,
+				15ED6C752D63960600B1BB44 /* ValidatorAmountInputViewModel.swift in Sources */,
 				1580EE662D4A7DF80051C55D /* AddRecipientView.swift in Sources */,
 				08DB5E712BC6C32400C29663 /* BakerMetadataViewController.swift in Sources */,
 				08DB5E722BC6C32400C29663 /* BakerMetadataPresenter.swift in Sources */,
@@ -8251,6 +8278,7 @@
 				1575863B2CA55E3700205A6E /* StakeStatusView.swift in Sources */,
 				08A045FF29FA99D200DACE1F /* PreIdentityObject.swift in Sources */,
 				088FEE812A025AE300042957 /* GTUTextFieldDelegate.swift in Sources */,
+				15ED6C702D63807A00B1BB44 /* ValidatorMainView.swift in Sources */,
 				D521B3782757B3300020CF16 /* Locate+Additionals.swift in Sources */,
 				D5F7A25026D7FFC30061E646 /* FilledButton.swift in Sources */,
 				088FEEAF2A026B7300042957 /* CreateAccountCoordinator.swift in Sources */,
@@ -8396,6 +8424,7 @@
 				D578396927A08B1200FFD123 /* BackupAlertController.swift in Sources */,
 				08A0461029FA99D200DACE1F /* EuroPerEnergy.swift in Sources */,
 				D589F2192794B5ED003F2FBB /* JSONObject.swift in Sources */,
+				15ED6C792D639E2600B1BB44 /* CustomToggle.swift in Sources */,
 				50D3890F2C05D66B00B3675A /* ConfirmAccountCreateViewController.swift in Sources */,
 				50D389102C05D66B00B3675A /* ConfirmAccountCreatePresenter.swift in Sources */,
 				D589F41E2794C3DB003F2FBB /* PermissionHelper.swift in Sources */,
@@ -8858,6 +8887,7 @@
 				088FEDA72A01675500042957 /* AccountAddressQRPresenter.swift in Sources */,
 				D5C9F11E2905DBFC003C8D17 /* ReusableViewExtensions.swift in Sources */,
 				08DB5E6F2BC6C32300C29663 /* BakerMetadataViewController.swift in Sources */,
+				15ED6C762D63960600B1BB44 /* ValidatorAmountInputViewModel.swift in Sources */,
 				1580EE672D4A7DF80051C55D /* AddRecipientView.swift in Sources */,
 				08DB5E702BC6C32300C29663 /* BakerMetadataPresenter.swift in Sources */,
 				D589F1D32794B5ED003F2FBB /* MockedData.swift in Sources */,
@@ -8963,6 +8993,7 @@
 				1575863A2CA55E3700205A6E /* StakeStatusView.swift in Sources */,
 				08A0456729FA99D100DACE1F /* PreIdentityObject.swift in Sources */,
 				088FEE162A0167FA00042957 /* ButtonSlider.swift in Sources */,
+				15ED6C712D63807A00B1BB44 /* ValidatorMainView.swift in Sources */,
 				088FF04D2A02781B00042957 /* PasscodeFieldViewController.swift in Sources */,
 				19C2E32CFA409D5BA9A50A60 /* ToastLabel.swift in Sources */,
 				19C2EA06B4E5D36103E1E8A5 /* LegacyLogger.swift in Sources */,
@@ -9108,6 +9139,7 @@
 				088FEDF42A0167D100042957 /* TransferFiltersViewController.swift in Sources */,
 				08A0457829FA99D100DACE1F /* EuroPerEnergy.swift in Sources */,
 				D589F2172794B5ED003F2FBB /* JSONObject.swift in Sources */,
+				15ED6C7A2D639E2600B1BB44 /* CustomToggle.swift in Sources */,
 				50D3890D2C05D66A00B3675A /* ConfirmAccountCreateViewController.swift in Sources */,
 				50D3890E2C05D66A00B3675A /* ConfirmAccountCreatePresenter.swift in Sources */,
 				D589F41C2794C3DB003F2FBB /* PermissionHelper.swift in Sources */,

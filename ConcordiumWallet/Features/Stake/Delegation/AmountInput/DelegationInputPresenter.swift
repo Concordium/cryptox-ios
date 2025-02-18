@@ -23,7 +23,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
     weak var delegate: DelegationAmountInputPresenterDelegate?
     
     var account: AccountDataType
-    var viewModel = StakeAmountInputViewModel()
+    var viewModel:  StakeAmountInputViewModel
     
     @Published private var bakerPoolResponse: BakerPoolResponse?
     @Published private var cost: GTU?
@@ -52,7 +52,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
         self.stakeService = dependencyProvider.stakeService()
         self.transactionService = dependencyProvider.transactionsService()
         self.storageManager = dependencyProvider.storageManager()
-    
+        self.viewModel = StakeAmountInputViewModel(account: account)
         isInCooldown = self.account.delegation?.isInCooldown ?? false
         let newPool: PoolDelegationData? = dataHandler.getNewEntry()
         let existingPool: PoolDelegationData? = dataHandler.getCurrentEntry()
@@ -340,7 +340,7 @@ fileprivate extension StakeAmountInputViewModel {
         if let currentAmount = currentAmount {
             if !isInCooldown {
                 // we don't set the value if it is in cooldown
-                self.amount = currentAmount.displayValue()
+                self.amountString = currentAmount.displayValue()
                 self.amountMessage = "delegation.inputamount.optionalamount".localized
                 self.isContinueEnabled = true
             } else {

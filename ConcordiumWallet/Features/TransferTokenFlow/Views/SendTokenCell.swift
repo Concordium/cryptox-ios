@@ -15,7 +15,13 @@ struct SendTokenCell: View {
     }
 
     let tokenType: TokenType
+    let hideCaretRight: Bool
 
+    init(tokenType: TokenType, hideCaretRight: Bool = false) {
+        self.tokenType = tokenType
+        self.hideCaretRight = hideCaretRight
+    }
+    
     var body: some View {
         HStack(alignment: .center, spacing: 17) {
             switch tokenType {
@@ -54,6 +60,7 @@ struct SendTokenCell: View {
                 .renderingMode(.template)
                 .foregroundStyle(.grey4)
                 .frame(width: 30, height: 40)
+                .opacity(hideCaretRight ? 0 : 1)
         }
         .listRowInsets(EdgeInsets())
         .listRowSeparator(.hidden)

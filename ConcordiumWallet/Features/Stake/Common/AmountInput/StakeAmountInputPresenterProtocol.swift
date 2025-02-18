@@ -51,10 +51,11 @@ class StakeAmountInputViewModel: ObservableObject, Equatable, Hashable {
     @Published var fraction: Int = 6
     @Published var firstBalance: BalanceViewModel = BalanceViewModel(label: "", value: "", highlighted: false)
     @Published var secondBalance: BalanceViewModel = BalanceViewModel(label: "", value: "", highlighted: false)
-    @Published var transferCost: TransferCost = .zero
+    @Published var transferCost: ValidatorTransferCostOption = .cost(.zero)
 
     @Published var amountMessage: String = ""
-    @Published var amount: String = ""
+    @Published var amount: Decimal = .zero
+    @Published var amountString: String = ""
     @Published var amountDecimal: BigDecimal = .zero
     @Published var hasStartedInput: Bool = false
     @Published var isAmountLocked: Bool = false
@@ -71,40 +72,53 @@ class StakeAmountInputViewModel: ObservableObject, Equatable, Hashable {
     @Published var isContinueEnabled: Bool = false
     @Published var euroEquivalentForCCD: String = ""
 
-    var account: AccountDataType?
+    var account: AccountDataType
     private var cancellables = [AnyCancellable]()
 
+    init(account: AccountDataType) {
+        self.account = account
+        self.$amount.map {
+            TokenFormatter().number(from: $0.toString(), precision: self.fraction) ?? .zero
+        }
+        .assign(to: \.amountDecimal, on: self)
+        .store(in: &cancellables)
+        $amountDecimal
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.getEuroValueForCCD()
+            }
+            .store(in: &cancellables)
+    }
+    
     func gtuAmount(currentAmount: GTU?, isOnCooldown: Bool) -> Publishers.Map<Published<BigDecimal>.Publisher, GTU> {
         return $amountDecimal.map { amountString in
             if let currentAmount = currentAmount, isOnCooldown {
                 return currentAmount
             } else {
-                let formattedValue = TokenFormatter().displayStringWithTwoValuesAfterComma(from: self.amountDecimal)
-                return GTU(displayValue: formattedValue)
+                return GTU(intValue: Int(self.amountDecimal.value.description) ?? 0)
             }
         }
     }
     
     func sendAll() {
-        guard let account else { return }
-        self.amountDecimal = .init(BigInt(account.forecastAtDisposalBalance) - BigInt(stringLiteral: transferCost.cost), 6)
+        self.amountDecimal = .init(BigInt(account.forecastAtDisposalBalance) - BigInt(transferCost.maxCost.intValue), 6)
     }
     
     private func getEuroValueForCCD() {
         let value = Decimal(string: amountDecimal.value.description) ?? 0
         ServicesProvider.defaultProvider().stakeService().getChainParameters()
-            .sink(receiveCompletion: { completionResult in
-                switch completionResult {
-                default:
-                    break
-                }
-            }, receiveValue: { chainParameters in
+            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] chainParameters in
+                guard let self = self else { return }
                 let microGTUPerEuro = chainParameters.microGTUPerEuro
                 var euroEquivalent = value * (Decimal(microGTUPerEuro.denominator) / Decimal(microGTUPerEuro.numerator))
+                
                 // Round the value to 2 decimal places.
                 var roundedValue = Decimal()
                 NSDecimalRound(&roundedValue, &euroEquivalent, 2, .plain)
-                self.euroEquivalentForCCD = NSDecimalNumber(decimal: roundedValue).stringValue
+                
+                DispatchQueue.main.async {
+                    self.euroEquivalentForCCD = NSDecimalNumber(decimal: roundedValue).stringValue
+                }
             })
             .store(in: &cancellables)
     }
@@ -117,7 +131,7 @@ extension StakeAmountInputViewModel {
         lhs.fraction == rhs.fraction &&
         lhs.firstBalance.value == rhs.firstBalance.value &&
         lhs.secondBalance.value == rhs.secondBalance.value &&
-        lhs.transferCost.cost == rhs.transferCost.cost &&
+        lhs.transferCost.formattedTransactionFee == rhs.transferCost.formattedTransactionFee &&
         lhs.amountMessage == rhs.amountMessage &&
         lhs.amount == rhs.amount &&
         lhs.amountDecimal == rhs.amountDecimal &&
@@ -140,7 +154,7 @@ extension StakeAmountInputViewModel {
             hasher.combine(fraction)
             hasher.combine(firstBalance.value)
             hasher.combine(secondBalance.value)
-            hasher.combine(transferCost.cost)
+            hasher.combine(transferCost.formattedTransactionFee)
             hasher.combine(amountMessage)
             hasher.combine(amount)
             hasher.combine(amountDecimal)

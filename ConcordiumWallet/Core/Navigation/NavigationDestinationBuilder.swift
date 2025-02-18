@@ -20,6 +20,7 @@ struct NavigationDestinationBuilder: ViewModifier {
         content
             .navigationDestination(for: NavigationPaths.self) { destination in
                 Group {
+                    // General navigation flow
                     switch destination {
                     case .accountsOverview(let viewModel):
                         AccountsOverviewView(path: $navigationManager.path, viewModel: viewModel, router: router)
@@ -47,7 +48,7 @@ struct NavigationDestinationBuilder: ViewModifier {
                         } else {
                             EmptyView()
                         }
-
+                        
                     case .send(let account):
                         SendTokenView(path: $navigationManager.path,
                                       viewModel: .init(
@@ -78,19 +79,19 @@ struct NavigationDestinationBuilder: ViewModifier {
                             navigationManager.pop()
                         }))
                     case .addToken(let account):
-                            AddTokenView(
-                                path: $navigationManager.path,
-                                viewModel: .init(storageManager: dependencyProvider.storageManager(),
-                                                 networkManager: dependencyProvider.networkManager(),
-                                                 account: account),
-                                searchTokenViewModel: SearchTokenViewModel(
-                                    cis2Service: CIS2Service(
-                                        networkManager: dependencyProvider.networkManager(),
-                                        storageManager: dependencyProvider.storageManager()
-                                    )
-                                ),
-                                onTokenAdded: { isNewTokenAdded = true }
-                            )
+                        AddTokenView(
+                            path: $navigationManager.path,
+                            viewModel: .init(storageManager: dependencyProvider.storageManager(),
+                                             networkManager: dependencyProvider.networkManager(),
+                                             account: account),
+                            searchTokenViewModel: SearchTokenViewModel(
+                                cis2Service: CIS2Service(
+                                    networkManager: dependencyProvider.networkManager(),
+                                    storageManager: dependencyProvider.storageManager()
+                                )
+                            ),
+                            onTokenAdded: { isNewTokenAdded = true }
+                        )
                     case .addTokenDetails(let token):
                         TokenDetailsView(token: token, isAddTokenDetails: true, showRawMd: .constant(false))
                             .modifier(NavigationViewModifier(title: "Add token", backAction: {
@@ -116,7 +117,7 @@ struct NavigationDestinationBuilder: ViewModifier {
                         }, onBackTapped: {
                             navigationManager.pop()
                         })
-                            .environmentObject(navigationManager)
+                        .environmentObject(navigationManager)
                     case .confirmTransaction(let vm):
                         ConfirmTransactionView(viewModel: vm, path: $navigationManager.path)
                             .modifier(NavigationViewModifier(title: "Confirmation", backAction: {
@@ -140,7 +141,7 @@ struct NavigationDestinationBuilder: ViewModifier {
                             .onAppear {
                                 notifyTabBarHidden(true)
                             }
-                       
+                        
                     case .earnMain(let account):
                         EarnMainView(account: account)
                             .environmentObject(navigationManager)
@@ -161,31 +162,35 @@ struct NavigationDestinationBuilder: ViewModifier {
                             .onAppear {
                                 notifyTabBarHidden(true)
                             }
-                        // MARK: - Validator
-                    case .earnAmountInputView(let vm):
-                        EarnAmountInputView(viewModel: vm)
-                            .environmentObject(navigationManager)
-                            .modifier(NavigationViewModifier(title: "Input Amount") {
-                                navigationManager.pop()
-                            })
-                            .onAppear {
-                                notifyTabBarHidden(true)
-                            }
+                        
+                        // MARK: - Validator Flow
                     case .validator(let path, let account):
-                        EmptyView()
-                            .environmentObject(navigationManager)
-                            .modifier(NavigationViewModifier(title: "Validator", backAction: {
-                                navigationManager.pop()
-                            }))
-                            .onAppear {
-                                notifyTabBarHidden(true)
-                            }
+                        validatorFlowSwitch(path, account: account)
                     }
                 }
+                .onAppear {
+                    notifyTabBarHidden(false)
+                }
             }
-            .onAppear {
-                notifyTabBarHidden(false)
-            }
+    }
+    
+    func validatorFlowSwitch(_ path: ValidatorNavigationPaths, account: AccountEntity) -> some View {
+        switch path {
+        case .amountInput(let handler):
+            AnyView(EarnValidatorAmountInputView(viewModel:
+                                            ValidatorAmountInputViewModel(account: account,
+                                                                          dependencyProvider: dependencyProvider,
+                                                                          dataHandler: handler))
+                .environmentObject(navigationManager)
+                .modifier(NavigationViewModifier(title: "baking.inputamount.title.create".localized) {
+                    navigationManager.pop()
+                })
+                    .onAppear {
+                        notifyTabBarHidden(true)
+                    })
+        default:
+            AnyView(EmptyView())
+        }
     }
     
     func notifyTabBarHidden(_ isHidden: Bool) {
@@ -198,7 +203,7 @@ struct NavigationDestinationBuilder: ViewModifier {
     
     func showEarn(account: AccountDataType) -> some View {
         guard let accountEntity = account as? AccountEntity else { return AnyView(EmptyView()) }
-
+        
         // Check if the account has a baker or delegation
         if account.baker == nil && account.delegation == nil {
             // If no baker or delegation, show the main earn view
@@ -214,10 +219,8 @@ struct NavigationDestinationBuilder: ViewModifier {
             )
         } else if account.baker != nil {
             // If the account has a baker, show the validator flow
-
             return AnyView(
-                EmptyView()
-                    .environmentObject(navigationManager)
+                ValidatorMainView(viewModel: ValidatorViewModel(account: accountEntity, dependencyProvider: dependencyProvider, navigationManager: navigationManager))
                     .modifier(NavigationViewModifier(title: "Validator", backAction: {
                         navigationManager.pop()
                     }))

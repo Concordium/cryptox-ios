@@ -1,22 +1,15 @@
 //
-//  BakerAmountInputPresenter.swift
-//  ConcordiumWallet
+//  ValidatorAmountInputViewModel.swift
+//  CryptoX
 //
-//  Created by Niels Christian Friis Jakobsen on 19/04/2022.
-//  Copyright © 2022 concordium. All rights reserved.
+//  Created by Zhanna Komar on 17.02.2025.
+//  Copyright © 2025 pioneeringtechventures. All rights reserved.
 //
 
-import Foundation
 import Combine
-import BigInt
+import Foundation
 
-protocol BakerAmountInputPresenterDelegate: AnyObject {
-    func finishedAmountInput(dataHandler: StakeDataHandler)
-    func switchToRemoveBaker()
-    func pressedClose()
-}
-
-private enum TransferCostOption {
+enum ValidatorTransferCostOption {
     case cost(TransferCost)
     case range(TransferCostRange)
     
@@ -24,7 +17,7 @@ private enum TransferCostOption {
         switch self {
             case .cost(let transferCost):
                 let gtuCost = GTU(intValue: Int(transferCost.cost) ?? 0)
-                return String(format: "stake.inputamount.transactionfee".localized, gtuCost.displayValueWithGStroke())
+            return "≈ " + gtuCost.displayValueWithTwoNumbersAfterDecimalPoint()
             case .range(let transferCostRange):
                 return transferCostRange.formattedTransactionFee
         }
@@ -49,34 +42,24 @@ private enum TransferCostOption {
     }
 }
 
-class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
-    weak var view: StakeAmountInputViewProtocol?
-    weak var delegate: BakerAmountInputPresenterDelegate?
+final class ValidatorAmountInputViewModel: StakeAmountInputViewModel {
     
-    private let account: AccountDataType
-    private let viewModel: StakeAmountInputViewModel
-    
-    private let dataHandler: StakeDataHandler
+    var dataHandler: StakeDataHandler
     private var validator: StakeAmountInputValidator
-    
-    private let transactionService: TransactionsServiceProtocol
-    private let stakeService: StakeServiceProtocol
-    
+    private var transactionService: TransactionsServiceProtocol
+    private var stakeService: StakeServiceProtocol
     private var cancellables = Set<AnyCancellable>()
     
     init(
         account: AccountDataType,
-        delegate: BakerAmountInputPresenterDelegate? = nil,
         dependencyProvider: StakeCoordinatorDependencyProvider,
         dataHandler: StakeDataHandler
     ) {
-        self.account = account
-        self.delegate = delegate
         self.dataHandler = dataHandler
         self.transactionService = dependencyProvider.transactionsService()
         self.stakeService = dependencyProvider.stakeService()
-        self.viewModel = StakeAmountInputViewModel(account: account)
-        let previouslyStakedInPool = GTU(intValue: self.account.baker?.stakedAmount ?? 0)
+        
+        let previouslyStakedInPool = GTU(intValue: account.baker?.stakedAmount ?? 0)
         
         validator = StakeAmountInputValidator(
             minimumValue: GTU(intValue: 0),
@@ -86,22 +69,29 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
             previouslyStakedInPool: previouslyStakedInPool,
             isInCooldown: account.baker?.isInCooldown ?? false
         )
-        
-        viewModel.setup(
+        super.init(account: account)
+        setup(
             account: account,
             currentAmount: dataHandler.getCurrentEntry(BakerAmountData.self)?.amount,
             currentRestakeValue: dataHandler.getCurrentEntry(RestakeBakerData.self)?.restake,
             isInCooldown: account.baker?.isInCooldown ?? false
         )
+        loadData()
+        
+        costRangeResult
+            .onlySuccess()
+            .map { $0.formattedTransactionFee }
+            .assignNoRetain(to: \.transactionFee, on: self)
+            .store(in: &cancellables)
     }
     
-    private lazy var costRangeResult: AnyPublisher<Result<TransferCostOption, Error>, Never> = {
+    private lazy var costRangeResult: AnyPublisher<Result<ValidatorTransferCostOption, Error>, Never> = {
         let currentAmount = dataHandler.getCurrentEntry(BakerAmountData.self)?.amount
         let isOnCooldown = account.baker?.isInCooldown ?? false
         let fetchRange = dataHandler.transferType == .registerBaker
         
-        return viewModel.$isRestakeSelected
-            .combineLatest(viewModel.gtuAmount(currentAmount: currentAmount, isOnCooldown: isOnCooldown))
+        return $isRestakeSelected
+            .combineLatest(gtuAmount(currentAmount: currentAmount, isOnCooldown: isOnCooldown))
             .compactMap { [weak self] (restake, amount) -> [TransferCostParameter]? in
                 guard let self = self else {
                     return nil
@@ -113,25 +103,22 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
                 return self.dataHandler.getCostParameters()
             }
             .removeDuplicates()
-            .flatMap { [weak self] (costParameters) -> AnyPublisher<Result<TransferCostOption, Error>, Never> in
+            .flatMap { [weak self] (costParameters) -> AnyPublisher<Result<ValidatorTransferCostOption, Error>, Never> in
                 guard let self = self else {
                     return .just(.failure(StakeError.internalError))
                 }
                 
-                self.viewModel.isContinueEnabled = false
-                
+                self.isContinueEnabled = false
                 if fetchRange {
                     return self.transactionService
                         .getBakingTransferCostRange(parameters: costParameters)
-                        .map { TransferCostOption.range($0) }
-                        .showLoadingIndicator(in: self.view)
+                        .map { ValidatorTransferCostOption.range($0) }
                         .asResult()
                         .eraseToAnyPublisher()
                 } else {
                     return self.transactionService
                         .getTransferCost(transferType: self.dataHandler.transferType.toWalletProxyTransferType(), costParameters: costParameters)
-                        .map { TransferCostOption.cost($0) }
-                        .showLoadingIndicator(in: self.view)
+                        .map { ValidatorTransferCostOption.cost($0) }
                         .asResult()
                         .eraseToAnyPublisher()
                 }
@@ -139,18 +126,22 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
             .eraseToAnyPublisher()
     }()
     
-    func viewDidLoad() {
-        self.view?.bind(viewModel: viewModel)
-        
+    func loadData() {
         loadPoolParameters()
         
         costRangeResult
             .onlySuccess()
             .map { $0.formattedTransactionFee }
-            .assignNoRetain(to: \.transactionFee, on: viewModel)
+            .assignNoRetain(to: \.transactionFee, on: self)
             .store(in: &cancellables)
         
-        viewModel.gtuAmount(
+        costRangeResult
+            .onlySuccess()
+            .map { $0 }
+            .assignNoRetain(to: \.transferCost, on: self)
+            .store(in: &cancellables)
+        
+        gtuAmount(
             currentAmount: dataHandler.getCurrentEntry(BakerAmountData.self)?.amount,
             isOnCooldown: account.baker?.isInCooldown ?? false
         )
@@ -175,11 +166,11 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
         .sink { [weak self] result in
             switch result {
                 case let .failure(error):
-                    self?.viewModel.isContinueEnabled = false
-                    self?.viewModel.amountErrorMessage = error.localizedDescription
-                case .success:
-                    self?.viewModel.isContinueEnabled = true
-                    self?.viewModel.amountErrorMessage = nil
+                    self?.isContinueEnabled = false
+                    self?.amountErrorMessage = error.localizedDescription
+                case .success(let amount):
+                    self?.isContinueEnabled = true
+                    self?.amountErrorMessage = nil
             }
         }
         .store(in: &cancellables)
@@ -218,7 +209,6 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
         passiveDelegationRequest
             .zip(chainParametersRequest, validatorData)
             .asResult()
-            .showLoadingIndicator(in: self.view)
             .sink { [weak self] (result) in
                 self?.handleParametersResult(result.map { (passiveDelegation, chainParameters, validatorData) in
                     let (commissionRates, delegatedCapital) = validatorData
@@ -245,7 +235,8 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
     private func handleParametersResult(_ result: Result<RemoteParameters, Error>) {
         switch result {
             case let .failure(error):
-                self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+            isContinueEnabled = false
+//                self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
             case let .success(parameters):
                 self.validator.minimumValue = parameters.minimumValue
                 self.validator.maximumValue = parameters.maximumValue
@@ -258,9 +249,9 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
             guard let self = self else { return }
             
             if self.dataHandler.isNewAmountZero() {
-                self.delegate?.switchToRemoveBaker()
+//                self.delegate?.switchToRemoveBaker()
             } else {
-                self.delegate?.finishedAmountInput(dataHandler: self.dataHandler)
+//                self.delegate?.finishedAmountInput(dataHandler: self.dataHandler)
             }
         }
     }
@@ -269,55 +260,11 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
         if let alert = dataHandler.getCurrentWarning(
             atDisposal: account.forecastAtDisposalBalance + (account.releaseSchedule?.total ?? 0)
         )?.asAlert(completion: completion) {
-            self.view?.showAlert(with: alert)
+            isContinueEnabled = false
+//            self.view?.showAlert(with: alert)
         } else {
             completion()
         }
-    }
-    
-    func closeButtonTapped() {
-        self.delegate?.pressedClose()
-    }
-}
-
-private extension BakerDataType {
-    var isInCooldown: Bool {
-        if let pendingChange = pendingChange, pendingChange.change != .NoChange {
-            return true
-        } else {
-            return false
-        }
-    }
-}
-
-private extension StakeWarning {
-    func asAlert(completion: @escaping () -> Void) -> AlertOptions? {
-        switch self {
-            case .noChanges:
-                return BakingAlerts.noChanges
-            case .loweringStake:
-                return nil
-            case .moreThan95:
-                let continueAction = AlertAction(name: "baking.morethan95.continue".localized, completion: completion, style: .default)
-                let newStakeAction = AlertAction(name: "baking.morethan95.newstake".localized,
-                                                 completion: nil,
-                                                 style: .default)
-                return AlertOptions(title: "baking.morethan95.title".localized,
-                                    message: "baking.morethan95.message".localized,
-                                    actions: [continueAction, newStakeAction])
-            case .amountZero:
-                return nil
-        }
-    }
-}
-
-private extension TransferCostRange {
-    var formattedTransactionFee: String {
-        String(
-            format: "baking.inputamount.transactionfee".localized,
-            minCost.displayValueWithTwoNumbersAfterDecimalPoint(),
-            maxCost.displayValueWithTwoNumbersAfterDecimalPoint()
-        )
     }
 }
 
@@ -358,5 +305,46 @@ private extension StakeAmountInputViewModel {
             self.title = "baking.inputamount.title.create".localized
             self.amountMessage = "baking.inputamount.createamount".localized
         }
+    }
+}
+
+private extension StakeWarning {
+    func asAlert(completion: @escaping () -> Void) -> AlertOptions? {
+        switch self {
+            case .noChanges:
+                return BakingAlerts.noChanges
+            case .loweringStake:
+                return nil
+            case .moreThan95:
+                let continueAction = AlertAction(name: "baking.morethan95.continue".localized, completion: completion, style: .default)
+                let newStakeAction = AlertAction(name: "baking.morethan95.newstake".localized,
+                                                 completion: nil,
+                                                 style: .default)
+                return AlertOptions(title: "baking.morethan95.title".localized,
+                                    message: "baking.morethan95.message".localized,
+                                    actions: [continueAction, newStakeAction])
+            case .amountZero:
+                return nil
+        }
+    }
+}
+
+private extension BakerDataType {
+   var isInCooldown: Bool {
+       if let pendingChange = pendingChange, pendingChange.change != .NoChange {
+           return true
+       } else {
+           return false
+       }
+   }
+}
+
+private extension TransferCostRange {
+    var formattedTransactionFee: String {
+        String(
+            format: "baking.inputamount.transactionfee".localized,
+            minCost.displayValueWithTwoNumbersAfterDecimalPoint(),
+            maxCost.displayValueWithTwoNumbersAfterDecimalPoint()
+        )
     }
 }

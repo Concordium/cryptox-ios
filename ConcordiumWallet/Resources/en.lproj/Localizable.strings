@@ -826,7 +826,7 @@ If you choose to not restake your rewards, the amounts will be at disposal on yo
 "baking.inputamount.newamount" = "Enter your new total validator stake";
 "baking.inputamount.title.create" = "Register validator";
 "baking.inputamount.title.update" = "Update validator stake";
-"baking.inputamount.transactionfee" = "Estimated transaction fee:\n%@ - %@";
+"baking.inputamount.transactionfee" = "≈ %@ - %@";
 "baking.inputamount.lockedamountmessage" = "The validator stake cannot be changed when it already has pending changes.";
 
 "baking.nochanges.title" = "Notice";

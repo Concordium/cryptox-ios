@@ -27,21 +27,20 @@ enum NavigationPaths: Hashable {
     case earn(_ account: AccountEntity)
     case earnMain(_ account: AccountEntity)
     case earnReadMode(mode: EarnMode, account: AccountEntity)
-    case earnAmountInputView(_ vm: StakeAmountInputViewModel)
     // MARK: - Validator Flow
     case validator(ValidatorNavigationPaths, account: AccountEntity)
 }
 
 enum ValidatorNavigationPaths: Equatable, Hashable {
-    case validatorFlow(_ account: AccountEntity)
     case status(BakerPoolStatus)
 //    case menu(currentSettings: BakerEntity, poolInfo: PoolInfo)
-    case learnAbout(BakerDataHandler)
+//    case learnAbout(BakerDataHandler)
 //    case poolSettings(BakerDataHandler)
 //    case generateKey(BakerDataHandler)
 //    case metadataUrl(BakerDataHandler)
 //    case commissionSettings(BakerDataHandler)
-//    case amountInput(BakerDataHandler)
+    case amountInput(BakerDataHandler)
+    case openningPool(BakerDataHandler)
 //    case requestConfirmation(BakerDataHandler)
 //    case submissionReceipt(TransferEntity, StakeDataHandler)
 }

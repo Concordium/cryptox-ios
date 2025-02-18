@@ -152,7 +152,7 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
         
         amountTextField
             .textPublisher
-            .assignNoRetain(to: \.amount, on: viewModel)
+            .assignNoRetain(to: \.amountString, on: viewModel)
             .store(in: &cancellables)
         
         viewModel.$transactionFee
@@ -175,7 +175,7 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
         }.store(in: &cancellables)
         
         amountTextField.textPublisher
-            .assignNoRetain(to: \.amount, on: viewModel)
+            .assignNoRetain(to: \.amountString, on: viewModel)
             .store(in: &cancellables)
         
         amountTextField.textPublisher
@@ -183,7 +183,7 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
             .sink { _ in viewModel.hasStartedInput = true }
             .store(in: &cancellables)
         
-        viewModel.$amount
+        viewModel.$amountString
             .compactMap { $0 }
             .assign(to: \.text, on: amountTextField)
             .store(in: &cancellables)
