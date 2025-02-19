@@ -48,8 +48,10 @@ extension TransactionViewModel {
          balanceType: AccountBalanceTypeEnum,
          encryptedAmountLookup: (String?) -> Int?,
          recipientListLookup: (String?) -> String?) {
-        let title: String
-        if let destination = transaction.details.transferDestination,
+        var title: String = ""
+        if let description = transaction.details.detailsDescription {
+            title = description
+        } else if let destination = transaction.details.transferDestination,
            transaction.details.transferSource != nil,
            OriginTypeEnum.typeSelf == transaction.origin?.type {
             title = recipientListLookup(destination) ?? AddressDisplay.string(from: destination)
@@ -57,8 +59,6 @@ extension TransactionViewModel {
                   let source = transaction.details.transferSource,
                   OriginTypeEnum.account == transaction.origin?.type {
             title = recipientListLookup(source) ?? AddressDisplay.string(from: source)
-        } else {
-            title = transaction.details.detailsDescription ?? ""
         }
         
         let isEncryptedAmountTransfer = transaction.details.type == "encryptedAmountTransfer"

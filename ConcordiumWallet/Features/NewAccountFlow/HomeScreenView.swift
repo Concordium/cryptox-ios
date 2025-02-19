@@ -182,7 +182,6 @@ struct HomeScreenView: View {
                         self.router?.showExportFlow()
                     }
                 }
-//                topBarControls()
                 balanceSection()
             }
             .padding(.horizontal, 18)
@@ -215,36 +214,7 @@ struct HomeScreenView: View {
                 .padding(.top, isShouldShowOnrampMessage ? 0 : 40)
         }
     }
-    
-    func topBarControls() -> some View {
-        HStack() {
-            if !viewModel.accounts.isEmpty {
-                HStack(spacing: 5) {
-                    Image(getDotImageIndex() == 1 ? "Dot1" : "dot\(getDotImageIndex())")
-                    Text("\(viewModel.selectedAccount?.account.displayName ?? "")")
-                        .font(.satoshi(size: 15, weight: .medium))
-                    Image("CaretUpDown")
-                        .resizable()
-                        .frame(width: 16, height: 16)
-                        .tint(.greyAdditional)
-                }
-                .onTapGesture {
-                    navigationManager.navigate(to: .accountsOverview(viewModel))
-                }
-            }
-            Spacer()
-            Image("ico_scan")
-                .onTapGesture {
-                    if SettingsHelper.isIdentityConfigured() {
-                        self.router?.showScanQRFlow()
-                        Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Scan QR")
-                    } else {
-                        self.router?.showNotConfiguredAccountPopup()
-                    }
-                }
-        }
-    }
-    
+
     func balanceSection() -> some View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topTrailing) {
@@ -278,13 +248,6 @@ struct HomeScreenView: View {
                 Text("\(balanceDisplayValue(account.forecastAtDisposalBalance)) CCD " + "accounts.atdisposal".localized)
                     .font(.satoshi(size: 15, weight: .medium))
                     .modifier(RadialGradientForegroundStyleModifier())
-            }
-            if let stakedAmount = viewModel.selectedAccount?.stakedAmount, stakedAmount != .zero {
-                Text("\(stakedAmount.displayValueWithTwoNumbersAfterDecimalPoint()) CCD \("accounts.overview.staked".localized)")
-                    .foregroundColor(Color.Neutral.tint1)
-                    .font(.satoshi(size: 15, weight: .medium))
-                    .padding(.top, 5)
-                
             }
         }
     }
