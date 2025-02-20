@@ -14,6 +14,7 @@ struct AccountBaker: Codable {
     let bakerElectionVerifyKey: String
     let bakerSignatureVerifyKey: String
     let pendingChange: PendingChange?
+    let isSuspended: Bool
 
     enum CodingKeys: String, CodingKey {
         case bakerID = "bakerId"
@@ -23,6 +24,7 @@ struct AccountBaker: Codable {
         case bakerElectionVerifyKey = "bakerElectionVerifyKey"
         case bakerSignatureVerifyKey = "bakerSignatureVerifyKey"
         case pendingChange = "pendingChange"
+        case isSuspended = "isSuspended"
     }
 }
 
@@ -51,7 +53,8 @@ extension AccountBaker {
         bakerAggregationVerifyKey: String? = nil,
         bakerElectionVerifyKey: String? = nil,
         bakerSignatureVerifyKey: String? = nil,
-        pendingChange: PendingChange?? = nil
+        pendingChange: PendingChange?? = nil,
+        isSuspended: Bool? = nil
     ) -> AccountBaker {
         return AccountBaker(
             bakerID: bakerID ?? self.bakerID,
@@ -60,7 +63,8 @@ extension AccountBaker {
             bakerAggregationVerifyKey: bakerAggregationVerifyKey ?? self.bakerAggregationVerifyKey,
             bakerElectionVerifyKey: bakerElectionVerifyKey ?? self.bakerElectionVerifyKey,
             bakerSignatureVerifyKey: bakerSignatureVerifyKey ?? self.bakerSignatureVerifyKey,
-            pendingChange: pendingChange ?? self.pendingChange
+            pendingChange: pendingChange ?? self.pendingChange,
+            isSuspended: isSuspended ?? self.isSuspended
         )
     }
 
