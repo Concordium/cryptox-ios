@@ -1,5 +1,20 @@
 # Changelog
 
+## [Unreleased 3.1.0]
+
+### Changed
+- Home screen design
+- Account Selector design
+- Token detail screen design
+- Token management flow design
+- Account settings update design
+- Send flow design
+- Receive flow design
+- Onramp flow design
+- Transaction history and activity screen design
+- Improved onboarding flow
+- UI transitions and animations
+
 ## [Released 3.0.0] 2024-19-12
 
 ### Added
