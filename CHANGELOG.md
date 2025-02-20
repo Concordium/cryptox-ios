@@ -8,6 +8,9 @@
 - Token detail screen design
 - Token management flow design
 - Account settings update design
+- Send flow design
+- Receive flow design
+- Onramp flow design
 - Transaction history and activity screen design
 - Improved onboarding flow
 - UI transitions and animations
