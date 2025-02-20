@@ -171,7 +171,11 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
     @Published var stakedValue: GTU?
     @Published var ccdEuroEquivalent: String = "0.00 EUR"
     
-    let account: AccountDataType?
+    var account: AccountDataType? {
+        didSet {
+            Task { await reload() }
+        }
+    }
     let storageManager: StorageManagerProtocol
     let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     
@@ -202,7 +206,9 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
         self.isReadOnly = account.isReadOnly
         
         storageManager.subscribeCIS2TokensUpdate(account.address).sink { [weak self] val in
-            await self?.reload()
+            Task { @MainActor in
+                await self?.reload()
+            }
         }.store(in: &cancellables)
     }
     
@@ -215,8 +221,7 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
             var tmpAccounts: [AccountDetailAccount] = [.ccd(amount: GTU(intValue: account.forecastBalance))]
             do {
                 let balances = try await Self.loadCIS2TokenBalances(tokens, address: account.address, cis2Service: cis2Service)
-                var tmpTokens: [AccountDetailAccount] = []
-                tmpTokens = tokens.compactMap { token -> AccountDetailAccount? in
+                let tmpTokens: [AccountDetailAccount] = tokens.compactMap { token -> AccountDetailAccount? in
                     let contractTokenBalances = balances.filter { $1 == token.contractAddress.index }.map(\.0).flatMap { $0 }
                     guard let tokenBalance = contractTokenBalances.first(where: { $0.tokenId == token.tokenId }) else { return nil }
                     return AccountDetailAccount.token(token: token, amount: tokenBalance.balance)

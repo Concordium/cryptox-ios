@@ -95,8 +95,10 @@ struct HomeScreenView: View {
                 .overlay(content: {
                     if viewModel.state == .accounts && !UserDefaults.standard.bool(forKey: hasShownAnimationKey) {
                         DotLottieAnimation(fileName: "confettiAnimation", config: AnimationConfig(autoplay: true, loop: false)).view()
+                            .allowsHitTesting(false)
+                            .opacity(!UserDefaults.standard.bool(forKey: hasShownAnimationKey) ? 1 : 0)
                             .onAppear {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.3) {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.9) {
                                     UserDefaults.standard.set(true, forKey: hasShownAnimationKey)
                                 }
                             }
@@ -237,7 +239,7 @@ struct HomeScreenView: View {
                 .popover(isPresented: $showTooltip, attachmentAnchor: .rect(.bounds), arrowEdge: .trailing, content: {
                     infoTooltip
                         .frame(width: 200)
-                        .presentationBackground(.white)
+                        .presentationBackground(Color(red: 0.97, green: 0.96, blue: 0.96))
                         .presentationCompactAdaptation(.popover)
                 })
                 .offset(x: -5, y: 10)
@@ -328,6 +330,7 @@ struct HomeScreenView: View {
                 .font(.satoshi(size: 12, weight: .regular))
                 .foregroundColor(.black)
                 .lineLimit(nil)
+                .fixedSize(horizontal: false, vertical: true)
         }
         .padding(.horizontal, 12)
         .padding(.top, 8)
