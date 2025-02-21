@@ -58,7 +58,9 @@ final class AccountsMainViewModel: ObservableObject, Hashable, Equatable {
             checkPendingAccountsStatusesIfNeeded()
         }
         updateData()
-        if selectedAccount == nil {
+        if let lastSelectedAccountAddress = AppSettings.lastSelectedAccountAddress {
+            selectedAccount = accountViewModels.first(where: {$0.address == lastSelectedAccountAddress})
+        } else if selectedAccount == nil {
             let firstAccount = accounts.first
             selectedAccount = accountViewModels.first(where: {$0.address == firstAccount?.address})
         }

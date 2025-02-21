@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Combine
+import BigInt
 
 struct DecimalNumberTextField: View {
     @Binding private var decimalValue: BigDecimal
@@ -105,7 +106,8 @@ struct DecimalNumberTextField: View {
                 
                 if formattedValue.isEmpty {
                     value.wrappedValue = BigDecimal.zero(value.wrappedValue.precision)
-                } else if let token = TokenFormatter().number(from: formattedValue, precision: value.wrappedValue.precision, decimalSeparators: ".") {
+                }
+                else if let token = TokenFormatter().number(from: formattedValue, precision: fraction, decimalSeparators: ".") {
                     value.wrappedValue = token
                     print(TokenFormatter().string(from: token))
                 }

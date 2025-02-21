@@ -131,7 +131,7 @@ final class CIS2TokenTransferModel {
             case .ccd:
                 await updateCCDTransferCost()
                 self.maxAmountTokenSend = .init(BigInt(account.forecastAtDisposalBalance) - BigInt(stringLiteral: transaferCost?.cost ?? "0"), 6)
-                self.tokenGeneralBalance = .init(BigInt(account.forecastBalance), 6)
+                self.tokenGeneralBalance = .init(BigInt(account.forecastAtDisposalBalance), 6)
                 self.ccdTokenDisposalBalance = .init(BigInt(account.forecastAtDisposalBalance), 6)
             case .cis2(let token):
                 guard let balance = try? await cis2Service.fetchTokensBalance(contractIndex: String(token.contractAddress.index), accountAddress: self.account.address, tokenId: token.tokenId).first else {
