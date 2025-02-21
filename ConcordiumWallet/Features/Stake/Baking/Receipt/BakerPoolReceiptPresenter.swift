@@ -102,6 +102,12 @@ class BakerPoolReceiptPresenter: StakeReceiptPresenterProtocol {
                 message: "baking.receiptregister.message".localized,
                 actions: [finishAction("baking.receiptregister.ok".localized)]
             )
+        case .suspend:
+            return AlertOptions(
+                title: "baking.receiptregister.title".localized,
+                message: "baking.receiptregister.message".localized,
+                actions: [finishAction("baking.receiptregister.ok".localized)]
+            )
         }
     }
     
@@ -143,6 +149,9 @@ private extension StakeReceiptViewModel {
             title = "baking.receiptconfirmation.title.remove".localized
             receiptHeaderText = "baking.receiptconfirmation.stopbaking".localized
         case .register:
+            title = "baking.receiptconfirmation.title.register".localized
+            receiptHeaderText = "baking.receiptconfirmation.registerbaker".localized
+        case .suspend:
             title = "baking.receiptconfirmation.title.register".localized
             receiptHeaderText = "baking.receiptconfirmation.registerbaker".localized
         }

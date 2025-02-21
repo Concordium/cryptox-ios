@@ -152,6 +152,10 @@ private extension StakeReceiptViewModel {
             title = "baking.receiptconfirmation.title.register".localized
             text = "baking.receiptconfirmation.registertext".localized
             receiptHeaderText = "baking.receiptconfirmation.registerbaker".localized
+        case .suspend:
+            title = "baking.receiptconfirmation.title.register".localized
+            text = "baking.receiptconfirmation.registertext".localized
+            receiptHeaderText = "baking.receiptconfirmation.registerbaker".localized
         }
     }
 }

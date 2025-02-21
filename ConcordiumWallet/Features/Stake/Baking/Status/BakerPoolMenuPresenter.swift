@@ -13,6 +13,7 @@ enum BakerPoolMenuAction: BurgerMenuAction {
     case updateBakerStake
     case updatePoolSettings
     case updateBakerKeys
+    case suspend
     case stopBaking(isOnCooldown: Bool)
     
     var destructive: Bool {
@@ -39,6 +40,8 @@ enum BakerPoolMenuAction: BurgerMenuAction {
             return "baking.menu.updatepoolsettings".localized
         case .updateBakerKeys:
             return "baking.menu.updatebakerkeys".localized
+        case .suspend:
+            return "baking.menu.suspend".localized
         case .stopBaking:
             return "baking.menu.stopbaking".localized
         }
@@ -73,6 +76,7 @@ class BakerPoolMenuPresenter: BurgerMenuPresenterProtocol {
             .updateBakerStake,
             .updatePoolSettings,
             .updateBakerKeys,
+            .suspend,
             .stopBaking(
                 isOnCooldown: currentSettings.pendingChange?.change != .NoChange
             )

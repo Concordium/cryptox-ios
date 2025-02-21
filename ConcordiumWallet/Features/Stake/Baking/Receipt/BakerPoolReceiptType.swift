@@ -12,6 +12,7 @@ enum BakerPoolReceiptType {
     case updateStake(isLoweringStake: Bool)
     case updatePool
     case updateKeys
+    case suspend
     case remove
     case register
     
@@ -25,6 +26,8 @@ enum BakerPoolReceiptType {
             self = .updatePool
         case .updateBakerKeys:
             self = .updateKeys
+        case .configureBaker:
+            self = .suspend
         default:
             self = .remove
         }

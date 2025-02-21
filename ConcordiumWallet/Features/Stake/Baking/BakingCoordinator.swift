@@ -213,6 +213,13 @@ extension BakingCoordinator: BakerPoolMenuPresenterDelegate {
                     action: .stopBaking
                 )
             )
+        case .suspend:
+            showCarousel(
+                dataHandler: BakerDataHandler(
+                    account: account,
+                    action: .suspend(currentSettings, poolInfo)
+                )
+            )
         }
         navigationController.dismiss(animated: false)
     }
@@ -235,6 +242,8 @@ extension BakingCoordinator: BakingOnboardingCoordinatorDelegate {
         case .updateBakerKeys:
             showGenerateKey(dataHandler: dataHandler)
         case .removeBaker:
+            showRequestConfirmation(dataHandler: dataHandler)
+        case .configureBaker:
             showRequestConfirmation(dataHandler: dataHandler)
         default:
             self.delegate?.finishedBakingCoordinator()

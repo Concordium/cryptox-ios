@@ -15,6 +15,7 @@ class BakerDataHandler: StakeDataHandler {
         case updatePoolSettings(BakerDataType, PoolInfo)
         case updateBakerKeys(BakerDataType, PoolInfo)
         case stopBaking
+        case suspend(BakerDataType, PoolInfo)
     }
     
     init(account: AccountDataType, action: Action) {
@@ -55,6 +56,16 @@ class BakerDataHandler: StakeDataHandler {
         case .stopBaking:
             super.init(transferType: .removeBaker)
             self.add(entry: DelegationStopAccountData(accountName: account.name, accountAddress: account.address))
+        case let .suspend(currentSettings, poolInfo):
+            super.init(
+                transferType: .configureBaker,
+                currentData: BakerDataHandler.buildCurrentData(
+                    fromAccount: account,
+                    currentSettings: currentSettings,
+                    poolInfo: poolInfo
+                )
+            )
+            self.add(entry: BakerUpdateAccountData(accountName: account.name, accountAddress: account.address))
         }
     }
     

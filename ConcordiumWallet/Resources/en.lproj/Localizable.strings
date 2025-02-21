@@ -815,6 +815,7 @@ Affected delegator accounts:\n%@";
 "baking.menu.updatebakerstake" = "Update validator stake";
 "baking.menu.updatepoolsettings" = "Update pool settings";
 "baking.menu.updatebakerkeys" = "Update validator keys";
+"baking.menu.suspend" = "Suspend";
 "baking.menu.stopbaking" = "Stop validation";
 
 "baking.inputamount.balance" = "Balance:";
@@ -911,6 +912,10 @@ The validator cannot be removed and the stake cannot be changed until the cool-d
 "baking.receiptconfirmation.registerbaker" = "Transaction: Register validator";
 "baking.receiptconfirmation.submit" = "Submit validator transaction";
 
+"baking.receiptconfirmation.title.suspend" = "Suspend validation";
+"baking.receiptconfirmation.suspendText" = "Are you sure you want to make the following transaction to suspend validation?";
+"baking.receiptconfirmation.suspendbaking" = "Transaction: Suspend validation";
+
 "baking.receiptconfirmation.feewarning.title" = "Warning";
 "baking.receiptconfirmation.feewarning.message" = "You don’t have any funds on your balance to pay for the fee.";
 "baking.receiptconfirmation.feewarning.ok" = "Okay";
@@ -975,6 +980,8 @@ Remember to restart your node with the validator keys.";
 "onboardingcarousel.removebaker.title" = "Validation";
 "onboardingcarousel.removebaker.page1.title" = "Stop validation";
 
+"onboardingcarousel.bakersuspension.title" = "Validation";
+"onboardingcarousel.bakersuspension.page1.title" = "Suspend validation";
 
 "onboardingcarousel.registerbaker.title" = "Become a validator";
 "onboardingcarousel.registerbaker.page1.title" = "Become a validator";

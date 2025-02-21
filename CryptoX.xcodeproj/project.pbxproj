@@ -1831,6 +1831,12 @@
 		152AE63C2D50E17700B0B073 /* PrsssedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152AE63B2D50E17700B0B073 /* PrsssedButtonStyle.swift */; };
 		152AE63D2D50E17700B0B073 /* PrsssedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152AE63B2D50E17700B0B073 /* PrsssedButtonStyle.swift */; };
 		152AE63E2D50E17700B0B073 /* PrsssedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152AE63B2D50E17700B0B073 /* PrsssedButtonStyle.swift */; };
+		152D8E452D67763600B2C589 /* bakersuspension_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 152D8E442D67763600B2C589 /* bakersuspension_flow_style.css */; };
+		152D8E462D67763600B2C589 /* baker_suspension_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 152D8E432D67763600B2C589 /* baker_suspension_flow_en_1.html */; };
+		152D8E472D67763600B2C589 /* bakersuspension_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 152D8E442D67763600B2C589 /* bakersuspension_flow_style.css */; };
+		152D8E482D67763600B2C589 /* baker_suspension_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 152D8E432D67763600B2C589 /* baker_suspension_flow_en_1.html */; };
+		152D8E492D67763600B2C589 /* bakersuspension_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 152D8E442D67763600B2C589 /* bakersuspension_flow_style.css */; };
+		152D8E4A2D67763600B2C589 /* baker_suspension_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 152D8E432D67763600B2C589 /* baker_suspension_flow_en_1.html */; };
 		153F2F4B2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */; };
 		153F2F4C2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */; };
 		153F2F4D2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */; };
@@ -3192,6 +3198,8 @@
 		151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		152AE6372D50D68B00B0B073 /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		152AE63B2D50E17700B0B073 /* PrsssedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrsssedButtonStyle.swift; sourceTree = "<group>"; };
+		152D8E432D67763600B2C589 /* baker_suspension_flow_en_1.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = baker_suspension_flow_en_1.html; sourceTree = "<group>"; };
+		152D8E442D67763600B2C589 /* bakersuspension_flow_style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = bakersuspension_flow_style.css; sourceTree = "<group>"; };
 		153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTokenNotificationPopup.swift; sourceTree = "<group>"; };
 		153F2F4E2CC2D100009C8347 /* NotificationTokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTokenService.swift; sourceTree = "<group>"; };
 		1557CC932C89B799008ABF67 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -4746,6 +4754,7 @@
 		088FF30F2A02C9FD00042957 /* SeedIdentityOnboarding */ = {
 			isa = PBXGroup;
 			children = (
+				152D8E422D67761600B2C589 /* BakerSuspensionOnboarding */,
 				088FF3152A02CA1100042957 /* seed_identity_style.css */,
 				088FF3132A02CA0600042957 /* seed_identity_onboarding_en_1.html */,
 				088FF3102A02CA0500042957 /* seed_identity_onboarding_en_2.html */,
@@ -5278,6 +5287,15 @@
 				151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */,
 			);
 			path = Analytics;
+			sourceTree = "<group>";
+		};
+		152D8E422D67761600B2C589 /* BakerSuspensionOnboarding */ = {
+			isa = PBXGroup;
+			children = (
+				152D8E432D67763600B2C589 /* baker_suspension_flow_en_1.html */,
+				152D8E442D67763600B2C589 /* bakersuspension_flow_style.css */,
+			);
+			path = BakerSuspensionOnboarding;
 			sourceTree = "<group>";
 		};
 		1557CC992C89BC43008ABF67 /* Firebase */ = {
@@ -6488,6 +6506,8 @@
 			files = (
 				08C169212BB7396200E61326 /* intro_flow_onboarding_en_2.html in Resources */,
 				08C169222BB7396200E61326 /* LaunchScreen.storyboard in Resources */,
+				152D8E472D67763600B2C589 /* bakersuspension_flow_style.css in Resources */,
+				152D8E482D67763600B2C589 /* baker_suspension_flow_en_1.html in Resources */,
 				08C169232BB7396200E61326 /* baker_update_flow_en_4.html in Resources */,
 				08C169242BB7396200E61326 /* NFTEmptyStatusView.xib in Resources */,
 				08C169252BB7396200E61326 /* delegation_intro_flow_en_1.html in Resources */,
@@ -6641,6 +6661,8 @@
 			files = (
 				088FF2F32A02C98F00042957 /* intro_flow_onboarding_en_2.html in Resources */,
 				7F85B8BD246A9AB600ED09B8 /* LaunchScreen.storyboard in Resources */,
+				152D8E452D67763600B2C589 /* bakersuspension_flow_style.css in Resources */,
+				152D8E462D67763600B2C589 /* baker_suspension_flow_en_1.html in Resources */,
 				088FF3562A02CA2700042957 /* baker_update_flow_en_4.html in Resources */,
 				D5087B6328EE4C4A0082A05F /* NFTEmptyStatusView.xib in Resources */,
 				088FF2D72A02C98800042957 /* delegation_intro_flow_en_1.html in Resources */,
@@ -6794,6 +6816,8 @@
 			files = (
 				088FF2E72A02C98E00042957 /* intro_flow_onboarding_en_2.html in Resources */,
 				7FF07A7923EADB1400F1FC04 /* LaunchScreen.storyboard in Resources */,
+				152D8E492D67763600B2C589 /* bakersuspension_flow_style.css in Resources */,
+				152D8E4A2D67763600B2C589 /* baker_suspension_flow_en_1.html in Resources */,
 				088FF34A2A02CA2700042957 /* baker_update_flow_en_4.html in Resources */,
 				D5087B6128EE4C4A0082A05F /* NFTEmptyStatusView.xib in Resources */,
 				088FF2C72A02C98700042957 /* delegation_intro_flow_en_1.html in Resources */,
