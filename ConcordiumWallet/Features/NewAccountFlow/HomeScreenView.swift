@@ -390,6 +390,7 @@ struct HomeScreenView: View {
     func changeAccountDetailViewModel() {
         if let selectedAccount = viewModel.selectedAccount?.account {
             activeAccountViewModel = AccountDetailViewModel(account: selectedAccount)
+            AppSettings.lastSelectedAccountAddress = selectedAccount.address
         }
     }
 }
