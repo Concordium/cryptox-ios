@@ -70,9 +70,11 @@ class SeedMobileWallet: SeedMobileWalletProtocol {
     var isMnemonicPhraseSaved: Bool {
         keychain.hasValue(key: recoveryPhraseKey)
     }
-    
-    init(keychain: KeychainWrapperProtocol) {
+    private let concordiumClient: ConcordiumClient
+
+    init(keychain: KeychainWrapperProtocol, networkManager: NetworkManagerProtocol, storageManager: StorageManagerProtocol) {
         self.keychain = keychain
+        self.concordiumClient = try! ConcordiumClient(networkManager: networkManager, storageManager: storageManager)
     }
     
     func getSeed(with pwHash: String) -> Seed? {
@@ -166,6 +168,12 @@ class SeedMobileWallet: SeedMobileWalletProtocol {
         }
         
         return Result {
+//            concordiumClient.createAccount(
+//                ipInfo: identitiyProvider.ipInfo!,
+//                arsInfos: identitiyProvider.arsInfos!,
+//                globalWrapper: globalValues,
+//                seedHex: seed
+//            )
             try walletFacade.createIdRequestAndPrivateData(input: createRequset)
         }
     }

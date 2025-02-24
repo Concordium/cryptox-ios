@@ -19,7 +19,8 @@ class RecipientListViewModel: ObservableObject {
     @Published var mode: SelectRecipientMode = .selectRecipientFromPublic
     @Published var originalRecipientsViewModels = [RecipientViewModel]() // Full list of recipients
     @Published var filteredRecipientsViewModels = [RecipientViewModel]() // Filtered list displayed in the UI
-
+    @Published var isNewValidAddress: Bool = false
+    
     private var storageManager: StorageManagerProtocol
     private var ownAccount: AccountDataType?
     private var cancellables: [AnyCancellable] = []
@@ -57,6 +58,7 @@ class RecipientListViewModel: ObservableObject {
     func filterRecipients(searchText: String) {
         if searchText.isEmpty {
             self.filteredRecipientsViewModels = self.originalRecipientsViewModels
+            isNewValidAddress = false
         } else {
             self.filteredRecipientsViewModels = originalRecipientsViewModels.filter { viewModel in
                 viewModel.address.lowercased().contains(searchText.lowercased())
@@ -64,7 +66,7 @@ class RecipientListViewModel: ObservableObject {
             if filteredRecipientsViewModels.isEmpty && !searchText.isEmpty {
                 Task {
                     if await dependencyProvider.mobileWallet().check(accountAddress: searchText) {
-                        self.filteredRecipientsViewModels.append(RecipientViewModel(name: searchText, address: searchText))
+                        self.isNewValidAddress = true
                     }
                 }
             }

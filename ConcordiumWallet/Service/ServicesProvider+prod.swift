@@ -20,7 +20,7 @@ extension ServicesProvider {
                 )
             ),
             networkManager: NetworkManager(),
-            seedMobileWallet: SeedMobileWallet(keychain: keychain),
+            seedMobileWallet: SeedMobileWallet(keychain: keychain, networkManager: NetworkManager(), storageManager: storageManager),
             storageManager: storageManager,
             keychainWrapper: keychain)
     }

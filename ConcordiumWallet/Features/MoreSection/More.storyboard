@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -404,25 +404,82 @@ concordium.com</string>
                                                 <color key="textColor" name="fadedText"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Legal information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wIp-v6-Knz" userLabel="SupportTitle">
+                                                <rect key="frame" x="25" y="428" width="151.33333333333334" height="24"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                                <color key="textColor" name="secondary"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="legal.info"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Terms and Conditions" translatesAutoresizingMaskIntoConstraints="NO" id="3C4-Np-Pu4" userLabel="SupportText">
+                                                <rect key="frame" x="25" y="460" width="364" height="38"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="textColor" name="fadedText"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Privacy policy" translatesAutoresizingMaskIntoConstraints="NO" id="v3j-gJ-bXs" userLabel="SupportText">
+                                                <rect key="frame" x="25" y="506" width="364" height="38"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="textColor" name="fadedText"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="x" translatesAutoresizingMaskIntoConstraints="NO" id="LYw-Ov-6Qu">
+                                                <rect key="frame" x="85" y="564" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="LYw-Ov-6Qu" secondAttribute="height" multiplier="1:1" id="7fL-UR-Dx8"/>
+                                                    <constraint firstAttribute="height" constant="40" id="CuM-gM-MoQ"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="telegram" translatesAutoresizingMaskIntoConstraints="NO" id="Bnc-VI-yXl">
+                                                <rect key="frame" x="25" y="564" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="6Pk-xg-X9h"/>
+                                                    <constraint firstAttribute="width" secondItem="Bnc-VI-yXl" secondAttribute="height" multiplier="1:1" id="Pzi-l9-eJg"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="discord" translatesAutoresizingMaskIntoConstraints="NO" id="6Gu-SN-iSq">
+                                                <rect key="frame" x="145" y="564" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="6Gu-SN-iSq" secondAttribute="height" multiplier="1:1" id="Fty-zR-8Gm"/>
+                                                    <constraint firstAttribute="height" constant="40" id="KCL-Cx-KyB"/>
+                                                </constraints>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="aEu-nm-C2l" secondAttribute="trailing" constant="25" id="0oe-Cn-Rzh"/>
                                             <constraint firstItem="uSE-qQ-4qg" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="2D6-UJ-Vh8"/>
+                                            <constraint firstItem="3C4-Np-Pu4" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="2q6-a1-oXw"/>
+                                            <constraint firstItem="wIp-v6-Knz" firstAttribute="top" secondItem="fef-Ow-gPa" secondAttribute="bottom" constant="40" id="41h-b1-g06"/>
                                             <constraint firstItem="JIn-MP-E05" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="5g5-VF-Rol"/>
+                                            <constraint firstItem="6Gu-SN-iSq" firstAttribute="top" secondItem="v3j-gJ-bXs" secondAttribute="bottom" constant="20" id="6Xd-BE-EjF"/>
+                                            <constraint firstItem="v3j-gJ-bXs" firstAttribute="top" secondItem="3C4-Np-Pu4" secondAttribute="bottom" constant="8" symbolic="YES" id="829-Rb-THb"/>
                                             <constraint firstItem="BFs-Jn-SR8" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="9u6-ly-si8"/>
                                             <constraint firstItem="uSE-qQ-4qg" firstAttribute="top" secondItem="aEu-nm-C2l" secondAttribute="bottom" constant="40" id="9uS-R7-pmw"/>
                                             <constraint firstAttribute="trailing" secondItem="KTP-hx-eoh" secondAttribute="trailing" constant="25" id="9xX-2u-y76"/>
                                             <constraint firstItem="JIn-MP-E05" firstAttribute="top" secondItem="oox-cD-iZb" secondAttribute="top" constant="30" id="B7q-hL-Vkw"/>
                                             <constraint firstItem="aEu-nm-C2l" firstAttribute="top" secondItem="JIn-MP-E05" secondAttribute="bottom" constant="8" symbolic="YES" id="Bbk-Z0-Kov"/>
+                                            <constraint firstItem="6Gu-SN-iSq" firstAttribute="leading" secondItem="LYw-Ov-6Qu" secondAttribute="trailing" constant="20" id="Gzc-Ov-2lJ"/>
                                             <constraint firstItem="fef-Ow-gPa" firstAttribute="top" secondItem="BFs-Jn-SR8" secondAttribute="bottom" constant="8" symbolic="YES" id="N6s-gH-Ym3"/>
+                                            <constraint firstItem="Bnc-VI-yXl" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="PwY-h1-FNJ"/>
+                                            <constraint firstItem="3C4-Np-Pu4" firstAttribute="top" secondItem="wIp-v6-Knz" secondAttribute="bottom" constant="8" symbolic="YES" id="Qsl-qv-249"/>
                                             <constraint firstItem="fef-Ow-gPa" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="Tve-Rj-DpB"/>
-                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fef-Ow-gPa" secondAttribute="bottom" constant="25" id="bux-G9-qcT"/>
+                                            <constraint firstItem="v3j-gJ-bXs" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="W0b-3a-whW"/>
+                                            <constraint firstAttribute="trailing" secondItem="v3j-gJ-bXs" secondAttribute="trailing" constant="25" id="dN8-IX-dBX"/>
                                             <constraint firstAttribute="trailing" secondItem="fef-Ow-gPa" secondAttribute="trailing" constant="25" id="eUQ-z8-r7e"/>
                                             <constraint firstItem="aEu-nm-C2l" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="efJ-D5-Bx7"/>
                                             <constraint firstItem="BFs-Jn-SR8" firstAttribute="top" secondItem="KTP-hx-eoh" secondAttribute="bottom" constant="40" id="fec-d7-ozT"/>
                                             <constraint firstItem="KTP-hx-eoh" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="g33-rV-aTE"/>
+                                            <constraint firstItem="LYw-Ov-6Qu" firstAttribute="top" secondItem="v3j-gJ-bXs" secondAttribute="bottom" constant="20" id="gfR-H9-627"/>
+                                            <constraint firstAttribute="trailing" secondItem="3C4-Np-Pu4" secondAttribute="trailing" constant="25" id="l5k-ea-EPX"/>
+                                            <constraint firstItem="LYw-Ov-6Qu" firstAttribute="leading" secondItem="Bnc-VI-yXl" secondAttribute="trailing" constant="20" id="nED-H3-dYb"/>
                                             <constraint firstItem="KTP-hx-eoh" firstAttribute="top" secondItem="uSE-qQ-4qg" secondAttribute="bottom" constant="8" symbolic="YES" id="qK4-Wf-YIB"/>
+                                            <constraint firstItem="wIp-v6-Knz" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="wMd-Rx-Gc3"/>
+                                            <constraint firstItem="Bnc-VI-yXl" firstAttribute="top" secondItem="v3j-gJ-bXs" secondAttribute="bottom" constant="20" id="ym1-Sj-0tb"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -447,10 +504,15 @@ concordium.com</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="discord_image" destination="6Gu-SN-iSq" id="cd9-rF-gJx"/>
+                        <outlet property="legalInfoTextView" destination="3C4-Np-Pu4" id="F0C-hP-30a"/>
+                        <outlet property="privacyPolicyTextField" destination="v3j-gJ-bXs" id="eOC-FJ-ijR"/>
                         <outlet property="scrollView" destination="5kp-Yv-8b7" id="beW-gG-tJ6"/>
                         <outlet property="supportTextView" destination="aEu-nm-C2l" id="9p9-AB-0oS"/>
+                        <outlet property="tg_image" destination="Bnc-VI-yXl" id="c5h-7r-zSU"/>
                         <outlet property="versionLabel" destination="fef-Ow-gPa" id="bZh-Vf-hRC"/>
                         <outlet property="websiteTextView" destination="KTP-hx-eoh" id="LSi-Ep-vxq"/>
+                        <outlet property="x_image" destination="LYw-Ov-6Qu" id="44K-06-vn4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FdC-fy-XvP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -458,17 +520,12 @@ concordium.com</string>
             <point key="canvasLocation" x="2676.811594202899" y="39.945652173913047"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="0zv-VA-uW2">
-            <size key="intrinsicContentSize" width="69" height="30"/>
-        </designable>
-        <designable name="krx-rP-ALL">
-            <size key="intrinsicContentSize" width="157" height="30"/>
-        </designable>
-    </designables>
     <resources>
         <image name="confirm" width="195" height="195"/>
+        <image name="discord" width="2500" height="1828"/>
         <image name="import_pending" width="110" height="110"/>
+        <image name="telegram" width="2500" height="2500"/>
+        <image name="x" width="2500" height="2500"/>
         <namedColor name="barButton">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

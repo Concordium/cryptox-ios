@@ -17,7 +17,8 @@ struct AccountQRView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
     @State private var image: UIImage?
     @State private var showShareSheet = false
-    
+    @State private var showToast = false
+
     var body: some View {
         VStack(spacing: 14) {
             Text("to \(account.displayName)")
@@ -42,7 +43,9 @@ struct AccountQRView: View {
                     
                     Button {
                         CopyPasterHelper.copy(string: account.address)
-                        NotificationPresenter.shared.present("general.copied".localized, includedStyle: .success, duration: 5)
+                        withAnimation {
+                            showToast = true
+                        }
                     } label: {
                         HStack(spacing: 8) {
                             Image("Copy")
@@ -76,6 +79,9 @@ struct AccountQRView: View {
             .background(.grey1)
             .cornerRadius(16)
             Spacer()
+        }
+        .toast(isPresented: $showToast, position: .bottom) {
+            ToastGradientView(title: "general.copied".localized, imageName: "ico_successfully")
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.top, 20)

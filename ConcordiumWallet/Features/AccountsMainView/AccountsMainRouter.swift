@@ -50,6 +50,7 @@ final class AccountsMainRouter: ObservableObject {
         self.dependencyProvider = dependencyProvider
         self.walletConnectService = walletConnectService
         self.walletConnectService.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNavBarVisibility(_:)), name: .showNavBar, object: nil)
     }
     
     func rootScene() -> UINavigationController {
@@ -57,10 +58,20 @@ final class AccountsMainRouter: ObservableObject {
             .environmentObject(updateTimer)
             .environmentObject(navigationManager)
         let viewController = SceneViewController(content: view)
+        viewController.onAppear = {
+            NotificationCenter.default.post(name: .showNavBar, object: nil, userInfo: ["isHidden": true])
+        }
+        navigationController.setNavigationBarHidden(true, animated: false)
         viewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "tab_item_home"), tag: 0)
         viewController.tabBarItem.selectedImage = UIImage(named: "tab_item_home_selected")?.withRenderingMode(.alwaysOriginal)
         navigationController.setViewControllers([viewController], animated: false)
         return navigationController
+    }
+    
+    @objc private func handleNavBarVisibility(_ notification: Notification) {
+        if let isHidden = notification.userInfo?["isHidden"] as? Bool {
+            navigationController.setNavigationBarHidden(isHidden, animated: false)
+        }
     }
     
     func showTransactionDetailFromNotifications(for account: AccountDataType, tx: TransactionDetailViewModel) {
@@ -112,7 +123,7 @@ extension AccountsMainRouter {
     func showScanQRFlow() {
         let vc = ScanAddressQRFactory.create(with: ScanAddressQRPresenter(wallet: dependencyProvider.mobileWallet(), delegate: self))
         vc.hidesBottomBarWhenPushed = true
-        navigationController.pushViewController(vc, animated: true)
+        navigationController.present(vc, animated: true)
     }
     
     @MainActor

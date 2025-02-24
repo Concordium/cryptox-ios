@@ -92,3 +92,17 @@ extension UIViewController {
     }
 }
 
+extension UIViewController {
+    func showToast(title: String, imageName: String) {
+        let toastView = ToastGradientUIView(title: title, imageName: imageName)
+        toastView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(toastView)
+        
+        NSLayoutConstraint.activate([
+            toastView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            toastView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20), // Positioned above the bottom
+            toastView.heightAnchor.constraint(equalToConstant: 60),
+            toastView.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor, multiplier: 0.9)
+        ])
+    }
+}

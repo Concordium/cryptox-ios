@@ -13,6 +13,7 @@ struct SeedIdentitiesService {
     
     private let networkManager: NetworkManagerProtocol
     private let storageManager: StorageManagerProtocol
+    let concordiumClient: ConcordiumClient
     
     init(
         networkManager: NetworkManagerProtocol,
@@ -22,6 +23,7 @@ struct SeedIdentitiesService {
         self.networkManager = networkManager
         self.storageManager = storageManager
         self.mobileWallet = mobileWallet
+        self.concordiumClient = try! ConcordiumClient(networkManager: networkManager, storageManager: storageManager)
     }
     
     func createPendingIdentity(

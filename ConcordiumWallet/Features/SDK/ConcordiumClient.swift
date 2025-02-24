@@ -42,41 +42,198 @@ final class ConcordiumClient: ObservableObject {
 /// Account logic
 ///
 extension ConcordiumClient {
-    func createAccount(seedHex: String) throws {
-//        let createIDRequest: CreateIDRequest = CreateIDRequest(
-//            ipInfo: <#T##IPInfo#>,
-//            arsInfos: <#T##[String : ArsInfo]#>,
-//            global: <#T##Global#>
-//        )
-//        
-//        
-//        let seed: WalletSeed = try WalletSeed(seedHex: seedHex, network: .testnet)
-//        let cryptoParams: CryptographicParameters = CryptographicParameters(onChainCommitmentKey: <#T##Bytes#>, bulletproofGenerators: <#T##Bytes#>, genesisString: <#T##String#>)
-//        let seedBasedAccountDerivation = SeedBasedAccountDerivation(seed: seed, cryptoParams: cryptoParams)
-//        
-//        let createCredentialRequest: CreateCredentialRequest = CreateCredentialRequest(
-//            accountAddress: <#T##String#>,
-//            accountKeys: <#T##AccountKeys#>,
-//            credential: <#T##Credential#>,
-//            commitmentsRandomness: <#T##CommitmentsRandomness#>,
-//            encryptionPublicKey: <#T##String#>,
-//            encryptionSecretKey: <#T##String#>
-//        )
-//        
-//        
-//        let credDeploiyement = AccountCredential(arData: <#T##[UInt32 : ChainArData]#>, credId: <#T##Bytes#>, credentialPublicKeys: <#T##CredentialPublicKeys#>, ipIdentity: <#T##UInt32#>, policy: <#T##Policy#>, proofs: <#T##Proofs#>, revocationThreshold: <#T##UInt8#>)
-//        
-//        SignedAccountCredentialDeployment(
-//            deployment: credDeploiyement.prepareDeployment(expiry: Self.calculateTransactionExpiry(from: UInt64(Date().timeIntervalSince1970))),
-//            signatures: CredentialSignatures
-//        )
-//        let serializedSignedAccountCredentialDeployment: SerializedSignedAccountCredentialDeployment = SerializedSignedAccountCredentialDeployment
-//        
-//        Task {
-//            try await nodeClient.send(deployment: serializedSignedAccountCredentialDeployment)
-//        }
+    func createAccount(keys: AccountKeys) async throws {
+        let signer: any Signer = AccountKeysCurve25519(try keys.toAccountKeysJSON().toSDKType().keys)
     }
+//    func createAccount(keys: AccountKeys) async throws {
+//        // Step 1: Fetch identity providers
+//        let identityProviders = try await nodeClient.identityProviders()
+//        guard let firstIdentityProvider = identityProviders.first else {
+//            throw NSError(domain: "No identity providers found", code: -1, userInfo: nil)
+//        }
+//
+//        // Step 2: Initialize the signer
+//        let signer: any Signer = AccountKeysCurve25519(try keys.toAccountKeysJSON().toSDKType().keys)
+//
+//        // Step 3: Prepare the account credential
+//        let accountCredential = try prepareAccountCredential(identityProvider: firstIdentityProvider)
+//
+//        // Step 4: Prepare the credential deployment
+//        let preparedAccountCredentialDeployment = try accountCredential.prepareDeployment(
+//            expiry: calculateTransactionExpiry(from: UInt64(Date().timeIntervalSince1970))
+//        )
+//
+//        // Step 5: Sign the credential deployment
+//        let signatures = try signCredentialDeployment(preparedAccountCredentialDeployment, signer: signer)
+//
+//        // Step 6: Create the signed credential deployment
+//        let signedAccountCredentialDeployment = SignedAccountCredentialDeployment(
+//            deployment: preparedAccountCredentialDeployment,
+//            signatures: signatures
+//        )
+//
+//        // Step 7: Serialize the signed credential deployment
+//        let serializedSignedAccountCredentialDeployment = try signedAccountCredentialDeployment.serialize()
+//
+//        // Step 8: Send the deployment to the Concordium node
+//        try await nodeClient.send(deployment: serializedSignedAccountCredentialDeployment)
+//    }
+//
+//    // Helper function to prepare the account credential
+//    private func prepareAccountCredential(identityProvider: IdentityProvider) throws -> AccountCredential {
+//        // Replace placeholders with actual values
+//        let arData: [UInt32: ChainArData] = [:] // Add actual AR data
+//        let credId: Bytes = [] // Add actual credential ID
+//        let credentialPublicKeys: CredentialPublicKeys = CredentialPublicKeys(keys: [:]) // Add actual public keys
+//        let ipIdentity: UInt32 = identityProvider.ipIdentity // Use the identity provider's ID
+//        let policy: Policy = .init(createdAt: Date(), validTo: Date()) // Replace with actual policy
+//        let proofs: Proofs = [] // Add actual proofs
+//        let revocationThreshold: UInt8 = 1 // Replace with actual revocation threshold
+//
+//        return AccountCredential(
+//            arData: arData,
+//            credId: credId,
+//            credentialPublicKeys: credentialPublicKeys,
+//            ipIdentity: ipIdentity,
+//            policy: policy,
+//            proofs: proofs,
+//            revocationThreshold: revocationThreshold
+//        )
+//    }
+//
+//    // Helper function to sign the credential deployment
+//    private func signCredentialDeployment(
+//        _ deployment: PreparedAccountCredentialDeployment,
+//        signer: any Signer
+//    ) throws -> CredentialSignatures {
+//        // Replace placeholders with actual signatures
+//        let signatures: [KeyIndex: Data] = [:] // Add actual signatures
+//        return CredentialSignatures(dictionaryLiteral: signatures)
+//    }
+//
+//    // Helper function to calculate the transaction expiry
+//    private func calculateTransactionExpiry(from timestamp: UInt64) -> UInt64 {
+//        // Set expiry to 1 hour from now
+//        return timestamp + 3600
+//    }
 }
+///
+//extension ConcordiumClient {
+//    func text(seedHex: String, ipIdentity: Concordium.IdentityProvider) throws {
+//        let hdWallet = try Concordium.WalletSeed(seedHex: seedHex, network: .testnet)
+// 
+//        Concordium.accountcre
+//    }
+//    
+//    
+//    /**
+//     * Creates the serialized input for requesting an identity recovery.
+//     * @param wallet the wallet for the seed phrase that the identity should be created with
+//     * @param provider the chosen identity provider
+//     * @param global the global cryptographic parameters of the current chain
+//     * @return returns the recovery request as a JSON string
+//     */
+////    func createRecoveryRequest(
+////        wallet: ConcordiumHdWallet,
+////        provider: IdentityProvider,
+////        global: CryptographicParameters
+////    ) -> String {
+////        val providerIndex = provider.ipInfo.ipIdentity
+////        val idCredSec = wallet.getIdCredSec(providerIndex.value, Constants.IDENTITY_INDEX)
+////
+////        val input = IdentityRecoveryRequestInput.builder()
+////            .globalContext(global)
+////            .ipInfo(provider.ipInfo)
+////            .idCredSec(idCredSec)
+////            .timestamp(java.time.Instant.now().epochSecond)
+////            .build()
+////
+////        return createIdentityRecoveryRequest(input)
+////    }
+//    
+//    
+//        /*    func createIDRequest(
+//         for identitiyProvider: IdentityProviderDataType,
+//         index: Int,
+//         globalValues: GlobalWrapper,
+//         seed: Seed
+//     ) -> Result<IDRequestV1, Error> {
+//         guard let createRequset = CreateIDRequestV1(
+//             identityProvider: identitiyProvider,
+//             global: globalValues,
+//             seed: seed,
+//             net: .current,
+//             identityIndex: index
+//         ) else {
+//             return .failure(MobileWalletError.invalidArgument)
+//         }
+//         
+//         return Result {
+//             try walletFacade.createIdRequestAndPrivateData(input: createRequset)
+//         }
+//     }*/
+//    
+//    func createAccount(
+////        ipInfo: IPInfo,
+////        arsInfos: [String : ArsInfo],
+////        globalWrapper: GlobalWrapper,
+////        seed: Seed,
+//        keys: AccountKeys
+//    ) async throws {
+////        let globalWrapper: Global = try await networkManager.load(ResourceRequest(url: ApiConstants.global))
+////        let global: Global = Global(
+////            generator: globalWrapper.generator,
+////            onChainCommitmentKey: globalWrapper.genesisString,
+////            bulletproofGenerators: globalWrapper.bulletproofGenerators,
+////            genesisString: globalWrapper.genesisString
+////        )
+////        let createIDRequest: CreateIDRequest = CreateIDRequest(
+////            ipInfo: ipInfo,
+////            arsInfos: arsInfos,
+////            global: global
+////        )
+//////
+//////        
+////        let seed: WalletSeed = try WalletSeed(seedHex: seed.value, network: .testnet)
+////        let cryptoParams: CryptographicParameters = CryptographicParameters(onChainCommitmentKey: <#T##Bytes#>, bulletproofGenerators: <#T##Bytes#>, genesisString: <#T##String#>)
+////        let seedBasedAccountDerivation = SeedBasedAccountDerivation(seed: seed, cryptoParams: cryptoParams)
+////        
+////        let createCredentialRequest: CreateCredentialRequest = CreateCredentialRequest(
+////            accountAddress: <#T##String#>,
+////            accountKeys: <#T##AccountKeys#>,
+////            credential: <#T##Credential#>,
+////            commitmentsRandomness: <#T##CommitmentsRandomness#>,
+////            encryptionPublicKey: <#T##String#>,
+////            encryptionSecretKey: <#T##String#>
+////        )
+////        
+////        
+////        let credDeploiyement = AccountCredential(arData: <#T##[UInt32 : ChainArData]#>, credId: <#T##Bytes#>, credentialPublicKeys: <#T##CredentialPublicKeys#>, ipIdentity: <#T##UInt32#>, policy: <#T##Policy#>, proofs: <#T##Proofs#>, revocationThreshold: <#T##UInt8#>)
+//        
+//        
+//        
+//        
+//        
+//
+//        let signer: any Signer = AccountKeysCurve25519.init(try keys.toAccountKeysJSON().toSDKType().keys)
+//
+////        PreIdentityObject - MAYBE SOME HERE
+//        let accountCredential: AccountCredential = AccountCredential(
+//            arData: <#T##[UInt32 : ChainArData]#>,
+//            credId: <#T##Bytes#>,
+//            credentialPublicKeys: <#T##CredentialPublicKeys#>,
+//            ipIdentity: <#T##UInt32#>,
+//            policy: <#T##Policy#>,
+//            proofs: <#T##Proofs#>,
+//            revocationThreshold: <#T##UInt8#>
+//        )
+//        let signatures: CredentialSignatures = CredentialSignatures.init(dictionaryLiteral: <#T##(KeyIndex, Data)...##(KeyIndex, Data)#>)
+//        let preparedAccountCredentialDeployment: PreparedAccountCredentialDeployment  = accountCredential.prepareDeployment(expiry: Self.calculateTransactionExpiry(from: UInt64(Date().timeIntervalSince1970)))
+//        let signedAccountCredentialDeployment: SignedAccountCredentialDeployment = SignedAccountCredentialDeployment(deployment: preparedAccountCredentialDeployment, signatures: signatures)
+//        let serializedSignedAccountCredentialDeployment: SerializedSignedAccountCredentialDeployment = try signedAccountCredentialDeployment.serialize()
+//        try await nodeClient.send(deployment: serializedSignedAccountCredentialDeployment)
+//    }
+//}
 
 ///
 /// CIS-2 Token

@@ -37,7 +37,13 @@ class AboutViewController: BaseViewController, AboutViewProtocol, Storyboarded, 
         }
     }
     
+    @IBOutlet weak var legalInfoTextView: UITextView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var privacyPolicyTextField: UITextView!
+    
+    @IBOutlet weak var tg_image: UIImageView!
+    @IBOutlet weak var discord_image: UIImageView!
+    @IBOutlet weak var x_image: UIImageView!
     
     init?(coder: NSCoder, presenter: AboutPresenterProtocol) {
         self.presenter = presenter
@@ -55,12 +61,14 @@ class AboutViewController: BaseViewController, AboutViewProtocol, Storyboarded, 
         presenter.view = self
         presenter.viewDidLoad()
         
-        view.backgroundColor = .clear
+        view.backgroundColor = .blackMain
         scrollView.backgroundColor = .clear
         
         // Note the spaces since we only want to insert links at the exact match in the orginal text.
         let links = ["support@concordium.software": "mailto:support@concordium.software",
-                     "concordium.com": "https://concordium.com"]
+                     "concordium.com": "https://concordium.com",
+                     "Privacy policy": "https://www.concordium.com/privacy-policy",
+                     "Terms and Conditions": "https://developer.concordium.software/en/mainnet/net/resources/terms-and-conditions-cryptox.html"]
 
         let supportText = "more.about.support.text".localized
         supportTextView.addHyperLinksToText(originalText: supportText, hyperLinks: links)
@@ -73,6 +81,23 @@ class AboutViewController: BaseViewController, AboutViewProtocol, Storyboarded, 
         websiteTextView.textContainerInset = UIEdgeInsets.zero
         websiteTextView.textContainer.lineFragmentPadding = 0
         websiteTextView.delegate = self
+        
+        legalInfoTextView.addHyperLinksToText(originalText: "new_onb_terms".localized, hyperLinks: links)
+        legalInfoTextView.textContainerInset = UIEdgeInsets.zero
+        legalInfoTextView.textContainer.lineFragmentPadding = 0
+        legalInfoTextView.delegate = self
+        
+        privacyPolicyTextField.addHyperLinksToText(originalText: "new_onb_privacy".localized, hyperLinks: links)
+        privacyPolicyTextField.textContainerInset = UIEdgeInsets.zero
+        privacyPolicyTextField.textContainer.lineFragmentPadding = 0
+        privacyPolicyTextField.delegate = self
+        
+        tg_image.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(socialMediaTapped(_:))))
+        x_image.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(socialMediaTapped(_:))))
+        discord_image.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(socialMediaTapped(_:))))
+        tg_image.isUserInteractionEnabled = true
+        x_image.isUserInteractionEnabled = true
+        discord_image.isUserInteractionEnabled = true
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -83,12 +108,27 @@ class AboutViewController: BaseViewController, AboutViewProtocol, Storyboarded, 
         UIApplication.shared.open(link)
         return false
     }
+    
+    @objc func socialMediaTapped(_ sender: UITapGestureRecognizer) {
+        guard let tag = sender.view?.tag else { return }
+        switch tag {
+        case 1:
+            UIApplication.shared.open(AppConstants.SocialMedia.tg)
+        case 2:
+            UIApplication.shared.open(AppConstants.SocialMedia.x_twitter)
+        case 3:
+            UIApplication.shared.open(AppConstants.SocialMedia.discord)
+        default:
+            break
+        }
+    }
 }
 
 extension UITextView {
     func addHyperLinksToText(originalText: String, hyperLinks: [String: String]) {
         let font = Fonts.body
         let color = UIColor.primary
+        let underline = NSUnderlineStyle.single
         
         let style = NSMutableParagraphStyle()
         style.alignment = .left
@@ -99,7 +139,8 @@ extension UITextView {
         attributedOriginalText.addAttribute(.foregroundColor, value: UIColor.fadedText, range: fullRange)
         
         self.linkTextAttributes = [
-            NSAttributedString.Key.foregroundColor: color
+            NSAttributedString.Key.foregroundColor: color,
+            NSAttributedString.Key.underlineStyle: underline.rawValue
         ]
         self.attributedText = attributedOriginalText
     }

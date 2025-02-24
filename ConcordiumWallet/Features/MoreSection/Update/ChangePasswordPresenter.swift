@@ -52,6 +52,10 @@ class ChangePasswordPresenter: EnterPasswordPresenterProtocol {
         changeViewState(.selectPassword)
     }
 
+    func closePasswordViewTapped() {
+        delegate?.passwordChangeFailed()
+    }
+    
     @objc func backTapped() {
         if viewState == .reenterPassword {
             changeViewState(.selectPassword, reverse: true)
@@ -138,7 +142,7 @@ class ChangePasswordPresenter: EnterPasswordPresenterProtocol {
                             AppSettings.passwordChangeInProgress = true
                             try self.updatePasscode(for: accounts, fromPwHash: oldPwHash, toPwHash: newPwHash)
                             let keychain: KeychainWrapper = KeychainWrapper()
-                            let seedMobileWallet = SeedMobileWallet(keychain: keychain)
+                            let seedMobileWallet = SeedMobileWallet(keychain: keychain, networkManager: NetworkManager(), storageManager: StorageManager(keychain: keychain))
                             _ = try seedMobileWallet.updateSeed(oldPwHash: oldPwHash, newPwHash: newPwHash)
                             self.delegate?.passwordSelectionDone(pwHash: newPwHash)
                         }

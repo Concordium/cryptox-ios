@@ -30,8 +30,6 @@ final class AccountDetailRouter: ObservableObject {
         self.dependencyProvider = dependencyProvider
         self.account = account
     }
-    
-    
 }
 
 
@@ -52,6 +50,7 @@ extension AccountDetailRouter: AccountDetailRoutable {
     
     @MainActor
     func showEarnFlow(_ account: AccountDataType) {
+        notifyShowNavBar(false)
         let accountDetailCoordinator = AccountDetailsCoordinator.init(
             navigationController: navigationController,
             dependencyProvider: dependencyProvider,
@@ -64,6 +63,7 @@ extension AccountDetailRouter: AccountDetailRoutable {
     
     @MainActor
     func showAccountSettings(_ account: AccountDataType) {
+        notifyShowNavBar(false)
         let accountDetailCoordinator = AccountDetailsCoordinator.init(
             navigationController: navigationController,
             dependencyProvider: dependencyProvider,
@@ -77,6 +77,10 @@ extension AccountDetailRouter: AccountDetailRoutable {
     func showTx(_ tx: TransactionViewModel) {
 //        let vc = TransactionDetailFactory.create(with: TransactionDetailPresenter(delegate: self, viewModel: tx))
 //        navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func notifyShowNavBar(_ isHidden: Bool) {
+        NotificationCenter.default.post(name: .showNavBar, object: nil, userInfo: ["isHidden": isHidden])
     }
 }
 
