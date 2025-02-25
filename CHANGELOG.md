@@ -1,6 +1,13 @@
 # Changelog
 
-## [Unreleased 3.1.0]
+## [Released 3.1.1] Feb 25, 2025
+
+### Fixed
+- Fix send token insufficient funds validation
+- Add saving state of the last selected account
+- Removed redundant Bitfinex onramp option
+
+## [Released 3.1.0] Feb 20, 2025
 
 ### Changed
 - Home screen design
