@@ -16,6 +16,7 @@ class BakerDataHandler: StakeDataHandler {
         case updateBakerKeys(BakerDataType, PoolInfo)
         case stopBaking
         case suspend(BakerDataType, PoolInfo)
+        case resume(BakerDataType, PoolInfo)
     }
     
     init(account: AccountDataType, action: Action) {
@@ -66,7 +67,23 @@ class BakerDataHandler: StakeDataHandler {
                 )
             )
             self.add(entry: BakerUpdateAccountData(accountName: account.name, accountAddress: account.address))
+        case let .resume(currentSettings, poolInfo):
+            super.init(transferType: .resumeValidator)
+            self.add(entry: BakerUpdateSuspend(isSuspended: false))
+
+//            self.add(entry: Self.buildValidatorResumeData(isSuspended: false))
+            
+//            super.init(
+//                transferType: .resumeValidator,
+//                currentData: Self.buildValidatorResumeData(isSuspended: false)
+//            )
+            self.add(entry: BakerUpdateAccountData(accountName: account.name, accountAddress: account.address))
         }
+    }
+    
+    private static func buildValidatorResumeData(isSuspended: Bool) -> [FieldValue] {
+//        var currentData = [FieldValue]()
+        return [BakerUpdateSuspend(isSuspended: isSuspended)]
     }
     
     private static func buildCurrentData(
@@ -86,6 +103,7 @@ private extension BakerDataType {
     func addStakeData(to set: inout [FieldValue]) {
         set.append(BakerAmountData(amount: GTU(intValue: stakedAmount)))
         set.append(RestakeBakerData(restake: restakeEarnings))
+//        set.append(BakerUpdateSuspend(isSuspended: isSuspended))
     }
 }
 

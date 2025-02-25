@@ -46,6 +46,8 @@ class BakingOnboardingCoordinator: Coordinator {
             showRemoveCarousel()
         case .configureBaker:
             showSuspendCarousel()
+        case .resumeValidator:
+            showSuspendCarousel()
         default:
             self.delegate?.closed()
         }

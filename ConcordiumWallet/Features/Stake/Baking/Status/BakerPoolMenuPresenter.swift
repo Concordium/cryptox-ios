@@ -13,7 +13,7 @@ enum BakerPoolMenuAction: BurgerMenuAction {
     case updateBakerStake
     case updatePoolSettings
     case updateBakerKeys
-    case suspend
+    case suspend, resume
     case stopBaking(isOnCooldown: Bool)
     
     var destructive: Bool {
@@ -44,6 +44,8 @@ enum BakerPoolMenuAction: BurgerMenuAction {
             return "baking.menu.suspend".localized
         case .stopBaking:
             return "baking.menu.stopbaking".localized
+        case .resume:
+            return "Resume validation"
         }
     }
 }
@@ -71,17 +73,7 @@ class BakerPoolMenuPresenter: BurgerMenuPresenterProtocol {
     
     private var cancellables = Set<AnyCancellable>()
     
-    private lazy var actions: [BakerPoolMenuAction] = {
-        [
-            .updateBakerStake,
-            .updatePoolSettings,
-            .updateBakerKeys,
-            .suspend,
-            .stopBaking(
-                isOnCooldown: currentSettings.pendingChange?.change != .NoChange
-            )
-        ]
-    }()
+    private var actions: [BakerPoolMenuAction]
     
     init(
         currentSettings: BakerDataType,
@@ -95,6 +87,19 @@ class BakerPoolMenuPresenter: BurgerMenuPresenterProtocol {
         self.poolInfo = poolInfo
         self.stakeService = dependencyProvider.stakeService()
         self.storageManager = dependencyProvider.storageManager()
+        
+        
+        self.actions =
+            [
+                .updateBakerStake,
+                .updatePoolSettings,
+                .updateBakerKeys,
+                currentSettings.isSuspended ? .resume: .suspend,
+                .stopBaking(
+                    isOnCooldown: currentSettings.pendingChange?.change != .NoChange
+                )
+            ]
+        
         self.viewModel.setup(actions: actions)
     }
     
