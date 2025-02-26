@@ -45,6 +45,10 @@ class AboutViewController: BaseViewController, AboutViewProtocol, Storyboarded, 
     @IBOutlet weak var discord_image: UIImageView!
     @IBOutlet weak var x_image: UIImageView!
     
+    @IBOutlet weak var tg_view: UIView!
+    @IBOutlet weak var x_view: UIView!
+    @IBOutlet weak var discord_view: UIView!
+    
     init?(coder: NSCoder, presenter: AboutPresenterProtocol) {
         self.presenter = presenter
         super.init(coder: coder)
@@ -98,6 +102,7 @@ class AboutViewController: BaseViewController, AboutViewProtocol, Storyboarded, 
         tg_image.isUserInteractionEnabled = true
         x_image.isUserInteractionEnabled = true
         discord_image.isUserInteractionEnabled = true
+        setupSocialMediaButtons()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -121,6 +126,20 @@ class AboutViewController: BaseViewController, AboutViewProtocol, Storyboarded, 
         default:
             break
         }
+    }
+    
+    private func setupSocialMediaButtons() {
+        tg_view.layer.cornerRadius = 12
+        tg_view.layer.borderWidth = 1
+        tg_view.layer.borderColor = UIColor.white.cgColor
+        
+        x_view.layer.cornerRadius = 12
+        x_view.layer.borderWidth = 1
+        x_view.layer.borderColor = UIColor.white.cgColor
+        
+        discord_view.layer.cornerRadius = 12
+        discord_view.layer.borderWidth = 1
+        discord_view.layer.borderColor = UIColor.white.cgColor
     }
 }
 
