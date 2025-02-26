@@ -1,11 +1,15 @@
 # Changelog
 
-## [Released 3.1.1] Feb 25, 2025
+## [Released 3.1.1] Feb 27, 2025
 
 ### Fixed
 - Fix send token insufficient funds validation
 - Add saving state of the last selected account
 - Removed redundant Bitfinex onramp option
+- Telegram link in the Social section
+
+### Changed
+- UI of the Social section on About screen
 
 ## [Released 3.1.0] Feb 20, 2025
 
