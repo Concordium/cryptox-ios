@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -549,18 +548,18 @@ concordium.com</string>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="discord_image" destination="RRZ-2I-mZC" id="jfr-nd-iKs"/>
-                        <outlet property="discord_view" destination="2ag-EI-Rxx" id="NEM-M3-HBR"/>
+                        <outlet property="discordImage" destination="RRZ-2I-mZC" id="jfr-nd-iKs"/>
+                        <outlet property="discordView" destination="2ag-EI-Rxx" id="NEM-M3-HBR"/>
                         <outlet property="legalInfoTextView" destination="3C4-Np-Pu4" id="F0C-hP-30a"/>
                         <outlet property="privacyPolicyTextField" destination="v3j-gJ-bXs" id="eOC-FJ-ijR"/>
                         <outlet property="scrollView" destination="5kp-Yv-8b7" id="beW-gG-tJ6"/>
                         <outlet property="supportTextView" destination="aEu-nm-C2l" id="9p9-AB-0oS"/>
-                        <outlet property="tg_image" destination="Bnc-VI-yXl" id="c5h-7r-zSU"/>
-                        <outlet property="tg_view" destination="Rjd-Dt-Dgg" id="viS-u9-emT"/>
+                        <outlet property="tgImage" destination="Bnc-VI-yXl" id="c5h-7r-zSU"/>
+                        <outlet property="tgView" destination="Rjd-Dt-Dgg" id="viS-u9-emT"/>
                         <outlet property="versionLabel" destination="fef-Ow-gPa" id="bZh-Vf-hRC"/>
                         <outlet property="websiteTextView" destination="KTP-hx-eoh" id="LSi-Ep-vxq"/>
-                        <outlet property="x_image" destination="2XZ-kp-hYC" id="eAp-Cq-otu"/>
-                        <outlet property="x_view" destination="OFa-Eh-JuQ" id="pT9-8l-rRt"/>
+                        <outlet property="xImage" destination="2XZ-kp-hYC" id="eAp-Cq-otu"/>
+                        <outlet property="xView" destination="OFa-Eh-JuQ" id="pT9-8l-rRt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FdC-fy-XvP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
