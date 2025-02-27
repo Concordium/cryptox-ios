@@ -87,11 +87,6 @@ final class CCDOnrampViewDataProvider {
                 icon: URL(string: "https://assets-global.website-files.com/64f060f3fc95f9d2081781db/64fed810c7dd2cfc068c17cf_1680692222678%20(1).jpg")!
             ),
             DataProvider(
-                title: "Bitfinex",
-                url: URL(string: "https://trading.bitfinex.com/t/CCD:USD?type=exchange")!,
-                icon: URL(string: "https://assets-global.website-files.com/64f060f3fc95f9d2081781db/64f0d15bd065ec0e03a32ac5_bitfinex.png")!
-            ),
-            DataProvider(
                 title: "AscendEX (BitMax)",
                 url: URL(string: "https://ascendex.com/en/cashtrade-spottrading/usdt/ccd")!,
                 icon: URL(string: "https://assets-global.website-files.com/64f060f3fc95f9d2081781db/64f0d273cc264cf97db45e72_logo-favicon-ascendex.png")!

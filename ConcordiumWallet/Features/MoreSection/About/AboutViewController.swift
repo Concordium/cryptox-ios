@@ -41,9 +41,13 @@ class AboutViewController: BaseViewController, AboutViewProtocol, Storyboarded, 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var privacyPolicyTextField: UITextView!
     
-    @IBOutlet weak var tg_image: UIImageView!
-    @IBOutlet weak var discord_image: UIImageView!
-    @IBOutlet weak var x_image: UIImageView!
+    @IBOutlet weak var tgImage: UIImageView!
+    @IBOutlet weak var discordImage: UIImageView!
+    @IBOutlet weak var xImage: UIImageView!
+    
+    @IBOutlet weak var tgView: UIView!
+    @IBOutlet weak var xView: UIView!
+    @IBOutlet weak var discordView: UIView!
     
     init?(coder: NSCoder, presenter: AboutPresenterProtocol) {
         self.presenter = presenter
@@ -92,12 +96,13 @@ class AboutViewController: BaseViewController, AboutViewProtocol, Storyboarded, 
         privacyPolicyTextField.textContainer.lineFragmentPadding = 0
         privacyPolicyTextField.delegate = self
         
-        tg_image.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(socialMediaTapped(_:))))
-        x_image.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(socialMediaTapped(_:))))
-        discord_image.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(socialMediaTapped(_:))))
-        tg_image.isUserInteractionEnabled = true
-        x_image.isUserInteractionEnabled = true
-        discord_image.isUserInteractionEnabled = true
+        tgImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(socialMediaTapped(_:))))
+        xImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(socialMediaTapped(_:))))
+        discordImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(socialMediaTapped(_:))))
+        tgImage.isUserInteractionEnabled = true
+        xImage.isUserInteractionEnabled = true
+        discordImage.isUserInteractionEnabled = true
+        setupSocialMediaButtons()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -121,6 +126,20 @@ class AboutViewController: BaseViewController, AboutViewProtocol, Storyboarded, 
         default:
             break
         }
+    }
+    
+    private func setupSocialMediaButtons() {
+        tgView.layer.cornerRadius = 12
+        tgView.layer.borderWidth = 1
+        tgView.layer.borderColor = UIColor.white.cgColor
+        
+        xView.layer.cornerRadius = 12
+        xView.layer.borderWidth = 1
+        xView.layer.borderColor = UIColor.white.cgColor
+        
+        discordView.layer.cornerRadius = 12
+        discordView.layer.borderWidth = 1
+        discordView.layer.borderColor = UIColor.white.cgColor
     }
 }
 

@@ -611,8 +611,6 @@
 		089B34452A17D69400F3CD90 /* SessionRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089B34412A17D69400F3CD90 /* SessionRequestView.swift */; };
 		089E327C2A0BA042002AE530 /* MobileWalletFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EB878FC7456177133AEA /* MobileWalletFacade.swift */; };
 		089E327E2A0BA043002AE530 /* MobileWalletFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EB878FC7456177133AEA /* MobileWalletFacade.swift */; };
-		089E32812A0BA0CE002AE530 /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = 089E32802A0BA0CE002AE530 /* ConcordiumWalletCrypto */; };
-		089E32852A0BA0DE002AE530 /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = 089E32842A0BA0DE002AE530 /* ConcordiumWalletCrypto */; };
 		089E32892A0CF2BE002AE530 /* MakeUpdateTransferRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089E32872A0CF2BB002AE530 /* MakeUpdateTransferRequest.swift */; };
 		089E328B2A0CF2BF002AE530 /* MakeUpdateTransferRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089E32872A0CF2BB002AE530 /* MakeUpdateTransferRequest.swift */; };
 		089FF0DF2A4C456A007AB1CF /* AccountsMainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089FF0DE2A4C456A007AB1CF /* AccountsMainRouter.swift */; };
@@ -1931,6 +1929,8 @@
 		1599807C2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
 		1599807D2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
 		1599807E2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
+		15A31C232D6F637D0009D04B /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = 15A31C222D6F637D0009D04B /* ConcordiumWalletCrypto */; };
+		15A31C252D6F64E30009D04B /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = 15A31C242D6F64E30009D04B /* ConcordiumWalletCrypto */; };
 		15ABCCD32CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */; };
 		15ABCCD42CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */; };
 		15ABCCD52CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */; };
@@ -3617,10 +3617,10 @@
 				08A0441329FA885300DACE1F /* SwiftCBOR in Frameworks */,
 				089FF0EC2A4F4D01007AB1CF /* JDStatusBarNotification in Frameworks */,
 				083505072A9F4F14000D5175 /* SDWebImageSVGCoder in Frameworks */,
-				089E32852A0BA0DE002AE530 /* ConcordiumWalletCrypto in Frameworks */,
 				50E0D1692D35466100853594 /* Starscream in Frameworks */,
 				509A56392CB43540005EA908 /* RealmSwift in Frameworks */,
 				1558E89B2CFA2BBF00004E71 /* DotLottie in Frameworks */,
+				15A31C252D6F64E30009D04B /* ConcordiumWalletCrypto in Frameworks */,
 				08A0444729FA906200DACE1F /* Kingfisher in Frameworks */,
 				08A0441C29FA888600DACE1F /* MnemonicSwift in Frameworks */,
 				08A0442529FA893700DACE1F /* Base58Swift in Frameworks */,
@@ -3639,10 +3639,10 @@
 				08A0442129FA892F00DACE1F /* Base58Swift in Frameworks */,
 				083505002A9E3DFA000D5175 /* SDWebImageSVGCoder in Frameworks */,
 				089FF0EA2A4F4CF0007AB1CF /* JDStatusBarNotification in Frameworks */,
-				089E32812A0BA0CE002AE530 /* ConcordiumWalletCrypto in Frameworks */,
 				08A0444329FA905700DACE1F /* Kingfisher in Frameworks */,
 				50E0D16D2D35466E00853594 /* Starscream in Frameworks */,
 				509A563C2CB43549005EA908 /* RealmSwift in Frameworks */,
+				15A31C232D6F637D0009D04B /* ConcordiumWalletCrypto in Frameworks */,
 				50E0D16F2D35467500853594 /* ReownWalletKit in Frameworks */,
 				1558E8992CFA2BB500004E71 /* DotLottie in Frameworks */,
 				08A0440B29FA884100DACE1F /* SwiftCBOR in Frameworks */,
@@ -6410,7 +6410,6 @@
 				08A0441B29FA888600DACE1F /* MnemonicSwift */,
 				08A0442429FA893700DACE1F /* Base58Swift */,
 				08A0444629FA906200DACE1F /* Kingfisher */,
-				089E32842A0BA0DE002AE530 /* ConcordiumWalletCrypto */,
 				089FF0EB2A4F4D01007AB1CF /* JDStatusBarNotification */,
 				083505062A9F4F14000D5175 /* SDWebImageSVGCoder */,
 				5059C9B42C00CF1200E40307 /* SDWebImageSwiftUI */,
@@ -6420,6 +6419,7 @@
 				1558E89A2CFA2BBF00004E71 /* DotLottie */,
 				50E0D1682D35466100853594 /* Starscream */,
 				50E0D16A2D35466600853594 /* ReownWalletKit */,
+				15A31C242D6F64E30009D04B /* ConcordiumWalletCrypto */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
@@ -6449,7 +6449,6 @@
 				08A0441729FA887700DACE1F /* MnemonicSwift */,
 				08A0442029FA892F00DACE1F /* Base58Swift */,
 				08A0444229FA905700DACE1F /* Kingfisher */,
-				089E32802A0BA0CE002AE530 /* ConcordiumWalletCrypto */,
 				089FF0E92A4F4CF0007AB1CF /* JDStatusBarNotification */,
 				083504FF2A9E3DFA000D5175 /* SDWebImageSVGCoder */,
 				5059C9B62C00CF1700E40307 /* SDWebImageSwiftUI */,
@@ -6459,6 +6458,7 @@
 				1558E8982CFA2BB500004E71 /* DotLottie */,
 				50E0D16C2D35466E00853594 /* Starscream */,
 				50E0D16E2D35467500853594 /* ReownWalletKit */,
+				15A31C222D6F637D0009D04B /* ConcordiumWalletCrypto */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
@@ -6518,7 +6518,6 @@
 				08A0441429FA887000DACE1F /* XCRemoteSwiftPackageReference "MnemonicSwift" */,
 				08A0441D29FA892800DACE1F /* XCRemoteSwiftPackageReference "Base58Swift" */,
 				08A0443F29FA904B00DACE1F /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				089E32782A0B9F27002AE530 /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */,
 				089FF0E82A4F4CF0007AB1CF /* XCRemoteSwiftPackageReference "JDStatusBarNotification" */,
 				083504FE2A9E3DF9000D5175 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 				5076296A2BF2573D00B4D390 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
@@ -6527,6 +6526,7 @@
 				1558E8972CFA2BA700004E71 /* XCRemoteSwiftPackageReference "dotlottie-ios" */,
 				501F5AE02D2ECA1F00C55008 /* XCRemoteSwiftPackageReference "reown-swift" */,
 				50E0D1632D2ECDDD00853594 /* XCRemoteSwiftPackageReference "Starscream" */,
+				15A31C212D6F637D0009D04B /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */,
 			);
 			productRefGroup = 7FF07A6A23EADB1200F1FC04 /* Products */;
 			projectDirPath = "";
@@ -9240,7 +9240,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.1.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9273,7 +9273,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.1.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9306,7 +9306,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.1.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pioneeringtechventures.cryptox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9338,7 +9338,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.1.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pioneeringtechventures.cryptox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9493,7 +9493,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.1.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.stagenet;
@@ -9528,7 +9528,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.1.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.stagenet;
@@ -9643,14 +9643,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.0;
-			};
-		};
-		089E32782A0B9F27002AE530 /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Concordium/concordium-wallet-crypto-swift";
-			requirement = {
-				kind = exactVersion;
-				version = "0.24.0-0";
 			};
 		};
 		089FF0E82A4F4CF0007AB1CF /* XCRemoteSwiftPackageReference "JDStatusBarNotification" */ = {
@@ -9773,6 +9765,14 @@
 				kind = branch;
 			};
 		};
+		15A31C212D6F637D0009D04B /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Concordium/concordium-wallet-crypto-swift.git";
+			requirement = {
+				kind = revision;
+				revision = b6373dbb71e8f4926b896c03606a5f0c64841c75;
+			};
+		};
 		501F5AE02D2ECA1F00C55008 /* XCRemoteSwiftPackageReference "reown-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/reown-com/reown-swift";
@@ -9817,16 +9817,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 083504FE2A9E3DF9000D5175 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
 			productName = SDWebImageSVGCoder;
-		};
-		089E32802A0BA0CE002AE530 /* ConcordiumWalletCrypto */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 089E32782A0B9F27002AE530 /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */;
-			productName = ConcordiumWalletCrypto;
-		};
-		089E32842A0BA0DE002AE530 /* ConcordiumWalletCrypto */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 089E32782A0B9F27002AE530 /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */;
-			productName = ConcordiumWalletCrypto;
 		};
 		089FF0E92A4F4CF0007AB1CF /* JDStatusBarNotification */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -9932,6 +9922,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1558E8972CFA2BA700004E71 /* XCRemoteSwiftPackageReference "dotlottie-ios" */;
 			productName = DotLottie;
+		};
+		15A31C222D6F637D0009D04B /* ConcordiumWalletCrypto */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 15A31C212D6F637D0009D04B /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */;
+			productName = ConcordiumWalletCrypto;
+		};
+		15A31C242D6F64E30009D04B /* ConcordiumWalletCrypto */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 15A31C212D6F637D0009D04B /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */;
+			productName = ConcordiumWalletCrypto;
 		};
 		5059C9B42C00CF1200E40307 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;

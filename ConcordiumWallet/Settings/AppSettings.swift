@@ -34,6 +34,8 @@ enum UserDefaultKeys: String {
     
     case hasRunBefore
     case isImportedFromFile
+    
+    case lastSelectedAccountAddress
 }
 
 struct AppSettings {
@@ -176,5 +178,15 @@ extension AppSettings {
     
     static func removeImportedWalletSetings() {
         UserDefaults.removeObject(forKey: UserDefaultKeys.isImportedFromFile.rawValue)
+        UserDefaults.removeObject(forKey: UserDefaultKeys.lastSelectedAccountAddress.rawValue)
+    }
+    
+    static var lastSelectedAccountAddress: String? {
+        get {
+            UserDefaults.standard.string(forKey: UserDefaultKeys.lastSelectedAccountAddress.rawValue)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.lastSelectedAccountAddress.rawValue)
+        }
     }
 }

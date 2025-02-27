@@ -15,7 +15,7 @@ struct AppConstants {
     }
     
     struct SocialMedia {
-        static let tg = URL(string: "https://t.me/concordium_official")!
+        static let tg = URL(string: "https://t.me/ConcordiumNews")!
         static let x_twitter = URL(string: "https://x.com/ConcordiumNet")!
         static let discord = URL(string: "https://discord.com/invite/GpKGE2hCFx")!
     }
