@@ -1,5 +1,31 @@
 # Changelog
 
+## [Released 3.1.1] Feb 27, 2025
+
+### Fixed
+- Fix send token insufficient funds validation
+- Add saving state of the last selected account
+- Removed redundant Bitfinex onramp option
+- Telegram link in the Social section
+
+### Changed
+- UI of the Social section on About screen
+
+## [Released 3.1.0] Feb 20, 2025
+
+### Changed
+- Home screen design
+- Account Selector design
+- Token detail screen design
+- Token management flow design
+- Account settings update design
+- Send flow design
+- Receive flow design
+- Onramp flow design
+- Transaction history and activity screen design
+- Improved onboarding flow
+- UI transitions and animations
+
 ## [Released 3.0.0] 2024-19-12
 
 ### Added

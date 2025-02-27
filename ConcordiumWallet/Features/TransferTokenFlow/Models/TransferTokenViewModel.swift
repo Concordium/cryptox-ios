@@ -132,10 +132,15 @@ final class TransferTokenViewModel: ObservableObject, Hashable, Equatable {
             self.amountTokenSend = .zero
         }.store(in: &cancellables)
         
-        Publishers.CombineLatest3($amountTokenSend, tokenTransferModel.$tokenGeneralBalance, $transaferCost)
-            .map { (amount, maxAmount, cost) -> Bool in
+        Publishers.CombineLatest4($amountTokenSend, tokenTransferModel.$tokenGeneralBalance, $transaferCost, tokenTransferModel.$tokenType)
+            .map { (amount, maxAmount, cost, tokenType) -> Bool in
                 guard let cost = cost else { return true }
-                return amount.value <= maxAmount.value && BigInt(stringLiteral: cost.cost) <= BigInt(account.forecastBalance)
+                var maxAmountWithCommission: BigDecimal = maxAmount
+                if tokenType == .ccd {
+                    let amountWithCommission = maxAmount.value - BigDecimal(BigInt(stringLiteral: cost.cost), 6).value
+                    maxAmountWithCommission = BigDecimal(amountWithCommission, 6)
+                }
+                return amount.value <= maxAmountWithCommission.value && BigInt(stringLiteral: cost.cost) <= BigInt(account.forecastBalance)
             }
             .assign(to: \.isInsuficientFundsErrorHidden, on: self)
             .store(in: &cancellables)

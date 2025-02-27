@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "originHash" : "0a7d737c4361686c28e4189443a7445571678d81940b877b68ca2c993a6bce7e",
+=======
+  "originHash" : "b6fd0220d207830c8aac081439d82b97db2687409ddad56f09c318220457ae84",
+>>>>>>> main
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -60,8 +64,21 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Concordium/concordium-wallet-crypto-swift.git",
       "state" : {
+<<<<<<< HEAD
         "revision" : "067a0288c7ed225ed47216c016ded0e1b43c8147",
         "version" : "5.0.0"
+=======
+        "revision" : "b6373dbb71e8f4926b896c03606a5f0c64841c75"
+      }
+    },
+    {
+      "identity" : "dotlottie-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/LottieFiles/dotlottie-ios",
+      "state" : {
+        "branch" : "main",
+        "revision" : "e8778332d5fc95fb7144acc97e75e349f19519c4"
+>>>>>>> main
       }
     },
     {

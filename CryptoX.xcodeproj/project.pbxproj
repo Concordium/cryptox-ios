@@ -1926,6 +1926,8 @@
 		1599807C2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
 		1599807D2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
 		1599807E2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
+		15A31C232D6F637D0009D04B /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = 15A31C222D6F637D0009D04B /* ConcordiumWalletCrypto */; };
+		15A31C252D6F64E30009D04B /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = 15A31C242D6F64E30009D04B /* ConcordiumWalletCrypto */; };
 		15ABCCD32CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */; };
 		15ABCCD42CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */; };
 		15ABCCD52CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */; };
@@ -3629,6 +3631,7 @@
 				083505072A9F4F14000D5175 /* SDWebImageSVGCoder in Frameworks */,
 				50E0D1692D35466100853594 /* Starscream in Frameworks */,
 				509A56392CB43540005EA908 /* RealmSwift in Frameworks */,
+
 				08A0444729FA906200DACE1F /* Kingfisher in Frameworks */,
 				08A0441C29FA888600DACE1F /* MnemonicSwift in Frameworks */,
 				08A0442529FA893700DACE1F /* Base58Swift in Frameworks */,
@@ -3650,6 +3653,7 @@
 				08A0444329FA905700DACE1F /* Kingfisher in Frameworks */,
 				50E0D16D2D35466E00853594 /* Starscream in Frameworks */,
 				509A563C2CB43549005EA908 /* RealmSwift in Frameworks */,
+				15A31C232D6F637D0009D04B /* ConcordiumWalletCrypto in Frameworks */,
 				50E0D16F2D35467500853594 /* ReownWalletKit in Frameworks */,
 				08A0440B29FA884100DACE1F /* SwiftCBOR in Frameworks */,
 				08A0441829FA887700DACE1F /* MnemonicSwift in Frameworks */,
@@ -6424,6 +6428,7 @@
 				509A563E2CB43561005EA908 /* FirebaseMessaging */,
 				50E0D1682D35466100853594 /* Starscream */,
 				50E0D16A2D35466600853594 /* ReownWalletKit */,
+				15A31C242D6F64E30009D04B /* ConcordiumWalletCrypto */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
@@ -6460,6 +6465,7 @@
 				509A56402CB43568005EA908 /* FirebaseMessaging */,
 				50E0D16C2D35466E00853594 /* Starscream */,
 				50E0D16E2D35467500853594 /* ReownWalletKit */,
+				15A31C222D6F637D0009D04B /* ConcordiumWalletCrypto */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
@@ -6526,6 +6532,7 @@
 				1557CC962C89B8DE008ABF67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				501F5AE02D2ECA1F00C55008 /* XCRemoteSwiftPackageReference "reown-swift" */,
 				50E0D1632D2ECDDD00853594 /* XCRemoteSwiftPackageReference "Starscream" */,
+
 				50F8E3002D53898E009D8D39 /* XCLocalSwiftPackageReference "../../concordium/concordium-swift-sdk" */,
 			);
 			productRefGroup = 7FF07A6A23EADB1200F1FC04 /* Products */;
@@ -9252,7 +9259,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.1.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9284,7 +9291,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.1.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9316,7 +9323,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.1.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pioneeringtechventures.cryptox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9348,7 +9355,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.1.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pioneeringtechventures.cryptox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9503,7 +9510,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.1.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.stagenet;
@@ -9538,7 +9545,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.1.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.stagenet;
@@ -9909,6 +9916,7 @@
 			package = 1557CC962C89B8DE008ABF67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
 		};
+
 		5059C9B42C00CF1200E40307 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5076296A2BF2573D00B4D390 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;

@@ -1,17 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "Concordium-Logo-White 1.png",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "Concordium-Logo-White 1.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

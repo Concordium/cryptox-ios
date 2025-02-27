@@ -92,6 +92,7 @@ struct HomeScreenView: View {
                         isCreatingAccount = false
                     }
                 }
+<<<<<<< HEAD
 //                .overlay(content: {
 //                    if viewModel.state == .accounts && !UserDefaults.standard.bool(forKey: hasShownAnimationKey) {
 //                        DotLottieAnimation(fileName: "confettiAnimation", config: AnimationConfig(autoplay: true, loop: false)).view()
@@ -102,6 +103,20 @@ struct HomeScreenView: View {
 //                            }
 //                    }
 //                })
+=======
+                .overlay(content: {
+                    if viewModel.state == .accounts && !UserDefaults.standard.bool(forKey: hasShownAnimationKey) {
+                        DotLottieAnimation(fileName: "confettiAnimation", config: AnimationConfig(autoplay: true, loop: false)).view()
+                            .allowsHitTesting(false)
+                            .opacity(!UserDefaults.standard.bool(forKey: hasShownAnimationKey) ? 1 : 0)
+                            .onAppear {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.9) {
+                                    UserDefaults.standard.set(true, forKey: hasShownAnimationKey)
+                                }
+                            }
+                    }
+                })
+>>>>>>> main
                 .onChange(of: geometry.size) { _ in
                         geometrySize = geometry.size
                 }
@@ -182,7 +197,6 @@ struct HomeScreenView: View {
                         self.router?.showExportFlow()
                     }
                 }
-//                topBarControls()
                 balanceSection()
             }
             .padding(.horizontal, 18)
@@ -215,36 +229,7 @@ struct HomeScreenView: View {
                 .padding(.top, isShouldShowOnrampMessage ? 0 : 40)
         }
     }
-    
-    func topBarControls() -> some View {
-        HStack() {
-            if !viewModel.accounts.isEmpty {
-                HStack(spacing: 5) {
-                    Image(getDotImageIndex() == 1 ? "Dot1" : "dot\(getDotImageIndex())")
-                    Text("\(viewModel.selectedAccount?.account.displayName ?? "")")
-                        .font(.satoshi(size: 15, weight: .medium))
-                    Image("CaretUpDown")
-                        .resizable()
-                        .frame(width: 16, height: 16)
-                        .tint(.greyAdditional)
-                }
-                .onTapGesture {
-                    navigationManager.navigate(to: .accountsOverview(viewModel))
-                }
-            }
-            Spacer()
-            Image("ico_scan")
-                .onTapGesture {
-                    if SettingsHelper.isIdentityConfigured() {
-                        self.router?.showScanQRFlow()
-                        Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Scan QR")
-                    } else {
-                        self.router?.showNotConfiguredAccountPopup()
-                    }
-                }
-        }
-    }
-    
+
     func balanceSection() -> some View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topTrailing) {
@@ -267,7 +252,7 @@ struct HomeScreenView: View {
                 .popover(isPresented: $showTooltip, attachmentAnchor: .rect(.bounds), arrowEdge: .trailing, content: {
                     infoTooltip
                         .frame(width: 200)
-                        .presentationBackground(.white)
+                        .presentationBackground(Color(red: 0.97, green: 0.96, blue: 0.96))
                         .presentationCompactAdaptation(.popover)
                 })
                 .offset(x: -5, y: 10)
@@ -278,13 +263,6 @@ struct HomeScreenView: View {
                 Text("\(balanceDisplayValue(account.forecastAtDisposalBalance)) CCD " + "accounts.atdisposal".localized)
                     .font(.satoshi(size: 15, weight: .medium))
                     .modifier(RadialGradientForegroundStyleModifier())
-            }
-            if let stakedAmount = viewModel.selectedAccount?.stakedAmount, stakedAmount != .zero {
-                Text("\(stakedAmount.displayValueWithTwoNumbersAfterDecimalPoint()) CCD \("accounts.overview.staked".localized)")
-                    .foregroundColor(Color.Neutral.tint1)
-                    .font(.satoshi(size: 15, weight: .medium))
-                    .padding(.top, 5)
-                
             }
         }
     }
@@ -365,6 +343,7 @@ struct HomeScreenView: View {
                 .font(.satoshi(size: 12, weight: .regular))
                 .foregroundColor(.black)
                 .lineLimit(nil)
+                .fixedSize(horizontal: false, vertical: true)
         }
         .padding(.horizontal, 12)
         .padding(.top, 8)
@@ -424,6 +403,7 @@ struct HomeScreenView: View {
     func changeAccountDetailViewModel() {
         if let selectedAccount = viewModel.selectedAccount?.account {
             activeAccountViewModel = AccountDetailViewModel(account: selectedAccount)
+            AppSettings.lastSelectedAccountAddress = selectedAccount.address
         }
     }
 }

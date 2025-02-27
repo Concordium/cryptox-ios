@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -427,59 +426,104 @@ concordium.com</string>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="x" translatesAutoresizingMaskIntoConstraints="NO" id="LYw-Ov-6Qu">
-                                                <rect key="frame" x="85" y="564" width="40" height="40"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Social" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQM-od-GOb" userLabel="SupportTitle">
+                                                <rect key="frame" x="25" y="584" width="364" height="24"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                                <color key="textColor" name="secondary"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rjd-Dt-Dgg">
+                                                <rect key="frame" x="25" y="628" width="40" height="40"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="telegram" translatesAutoresizingMaskIntoConstraints="NO" id="Bnc-VI-yXl">
+                                                        <rect key="frame" x="5" y="5" width="30" height="30"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" secondItem="LYw-Ov-6Qu" secondAttribute="height" multiplier="1:1" id="7fL-UR-Dx8"/>
-                                                    <constraint firstAttribute="height" constant="40" id="CuM-gM-MoQ"/>
+                                                    <constraint firstAttribute="width" secondItem="Rjd-Dt-Dgg" secondAttribute="height" multiplier="1:1" id="4EY-ix-wjZ"/>
+                                                    <constraint firstAttribute="width" constant="40" id="Ie9-NZ-D1Z"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Bnc-VI-yXl" secondAttribute="bottom" constant="5" id="Qb2-XE-dCn"/>
+                                                    <constraint firstItem="Bnc-VI-yXl" firstAttribute="leading" secondItem="Rjd-Dt-Dgg" secondAttribute="leading" constant="5" id="Rgj-qo-ID4"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Bnc-VI-yXl" secondAttribute="trailing" constant="5" id="Yh5-Jh-s9Y"/>
+                                                    <constraint firstItem="Bnc-VI-yXl" firstAttribute="top" secondItem="Rjd-Dt-Dgg" secondAttribute="top" constant="5" id="xR1-2z-ifB"/>
                                                 </constraints>
-                                            </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="telegram" translatesAutoresizingMaskIntoConstraints="NO" id="Bnc-VI-yXl">
-                                                <rect key="frame" x="25" y="564" width="40" height="40"/>
+                                            </view>
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OFa-Eh-JuQ">
+                                                <rect key="frame" x="80" y="628" width="40" height="40"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="x" translatesAutoresizingMaskIntoConstraints="NO" id="2XZ-kp-hYC">
+                                                        <rect key="frame" x="5" y="5" width="30" height="30"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="6Pk-xg-X9h"/>
-                                                    <constraint firstAttribute="width" secondItem="Bnc-VI-yXl" secondAttribute="height" multiplier="1:1" id="Pzi-l9-eJg"/>
+                                                    <constraint firstAttribute="width" constant="40" id="0eC-W2-H2S"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="918-Yp-wME"/>
+                                                    <constraint firstItem="2XZ-kp-hYC" firstAttribute="top" secondItem="OFa-Eh-JuQ" secondAttribute="top" constant="5" id="TBp-3y-5Gt"/>
+                                                    <constraint firstItem="2XZ-kp-hYC" firstAttribute="leading" secondItem="OFa-Eh-JuQ" secondAttribute="leading" constant="5" id="cLN-07-6oW"/>
+                                                    <constraint firstAttribute="width" secondItem="OFa-Eh-JuQ" secondAttribute="height" multiplier="1:1" id="gle-ZE-Il1"/>
+                                                    <constraint firstAttribute="bottom" secondItem="2XZ-kp-hYC" secondAttribute="bottom" constant="5" id="myZ-2U-mT0"/>
+                                                    <constraint firstAttribute="trailing" secondItem="2XZ-kp-hYC" secondAttribute="trailing" constant="5" id="qjg-7S-Tb4"/>
                                                 </constraints>
-                                            </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="discord" translatesAutoresizingMaskIntoConstraints="NO" id="6Gu-SN-iSq">
-                                                <rect key="frame" x="145" y="564" width="40" height="40"/>
+                                            </view>
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ag-EI-Rxx">
+                                                <rect key="frame" x="135" y="628" width="40" height="40"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="discord" translatesAutoresizingMaskIntoConstraints="NO" id="RRZ-2I-mZC">
+                                                        <rect key="frame" x="5" y="5" width="30" height="30"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" secondItem="6Gu-SN-iSq" secondAttribute="height" multiplier="1:1" id="Fty-zR-8Gm"/>
-                                                    <constraint firstAttribute="height" constant="40" id="KCL-Cx-KyB"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="1hP-kR-3Zd"/>
+                                                    <constraint firstAttribute="trailing" secondItem="RRZ-2I-mZC" secondAttribute="trailing" constant="5" id="5e9-8i-sCE"/>
+                                                    <constraint firstAttribute="width" constant="40" id="By5-xb-nK4"/>
+                                                    <constraint firstAttribute="bottom" secondItem="RRZ-2I-mZC" secondAttribute="bottom" constant="5" id="Ogo-Z2-cLI"/>
+                                                    <constraint firstItem="RRZ-2I-mZC" firstAttribute="leading" secondItem="2ag-EI-Rxx" secondAttribute="leading" constant="5" id="aZB-Eu-qHa"/>
+                                                    <constraint firstItem="RRZ-2I-mZC" firstAttribute="top" secondItem="2ag-EI-Rxx" secondAttribute="top" constant="5" id="lPX-EE-36u"/>
+                                                    <constraint firstAttribute="width" secondItem="2ag-EI-Rxx" secondAttribute="height" multiplier="1:1" id="pVp-nH-Yvb"/>
                                                 </constraints>
-                                            </imageView>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="aEu-nm-C2l" secondAttribute="trailing" constant="25" id="0oe-Cn-Rzh"/>
+                                            <constraint firstAttribute="trailing" secondItem="nQM-od-GOb" secondAttribute="trailing" constant="25" id="1PL-G6-48V"/>
                                             <constraint firstItem="uSE-qQ-4qg" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="2D6-UJ-Vh8"/>
                                             <constraint firstItem="3C4-Np-Pu4" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="2q6-a1-oXw"/>
                                             <constraint firstItem="wIp-v6-Knz" firstAttribute="top" secondItem="fef-Ow-gPa" secondAttribute="bottom" constant="40" id="41h-b1-g06"/>
                                             <constraint firstItem="JIn-MP-E05" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="5g5-VF-Rol"/>
-                                            <constraint firstItem="6Gu-SN-iSq" firstAttribute="top" secondItem="v3j-gJ-bXs" secondAttribute="bottom" constant="20" id="6Xd-BE-EjF"/>
                                             <constraint firstItem="v3j-gJ-bXs" firstAttribute="top" secondItem="3C4-Np-Pu4" secondAttribute="bottom" constant="8" symbolic="YES" id="829-Rb-THb"/>
                                             <constraint firstItem="BFs-Jn-SR8" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="9u6-ly-si8"/>
                                             <constraint firstItem="uSE-qQ-4qg" firstAttribute="top" secondItem="aEu-nm-C2l" secondAttribute="bottom" constant="40" id="9uS-R7-pmw"/>
                                             <constraint firstAttribute="trailing" secondItem="KTP-hx-eoh" secondAttribute="trailing" constant="25" id="9xX-2u-y76"/>
                                             <constraint firstItem="JIn-MP-E05" firstAttribute="top" secondItem="oox-cD-iZb" secondAttribute="top" constant="30" id="B7q-hL-Vkw"/>
                                             <constraint firstItem="aEu-nm-C2l" firstAttribute="top" secondItem="JIn-MP-E05" secondAttribute="bottom" constant="8" symbolic="YES" id="Bbk-Z0-Kov"/>
-                                            <constraint firstItem="6Gu-SN-iSq" firstAttribute="leading" secondItem="LYw-Ov-6Qu" secondAttribute="trailing" constant="20" id="Gzc-Ov-2lJ"/>
+                                            <constraint firstItem="nQM-od-GOb" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="Bt1-jw-Aq2"/>
+                                            <constraint firstItem="2ag-EI-Rxx" firstAttribute="top" secondItem="nQM-od-GOb" secondAttribute="bottom" constant="20" id="Hmj-Fr-luX"/>
                                             <constraint firstItem="fef-Ow-gPa" firstAttribute="top" secondItem="BFs-Jn-SR8" secondAttribute="bottom" constant="8" symbolic="YES" id="N6s-gH-Ym3"/>
-                                            <constraint firstItem="Bnc-VI-yXl" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="PwY-h1-FNJ"/>
                                             <constraint firstItem="3C4-Np-Pu4" firstAttribute="top" secondItem="wIp-v6-Knz" secondAttribute="bottom" constant="8" symbolic="YES" id="Qsl-qv-249"/>
                                             <constraint firstItem="fef-Ow-gPa" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="Tve-Rj-DpB"/>
+                                            <constraint firstItem="OFa-Eh-JuQ" firstAttribute="top" secondItem="nQM-od-GOb" secondAttribute="bottom" constant="20" id="US3-cn-gts"/>
                                             <constraint firstItem="v3j-gJ-bXs" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="W0b-3a-whW"/>
+                                            <constraint firstItem="2ag-EI-Rxx" firstAttribute="leading" secondItem="OFa-Eh-JuQ" secondAttribute="trailing" constant="15" id="XR2-VO-yj0"/>
                                             <constraint firstAttribute="trailing" secondItem="v3j-gJ-bXs" secondAttribute="trailing" constant="25" id="dN8-IX-dBX"/>
                                             <constraint firstAttribute="trailing" secondItem="fef-Ow-gPa" secondAttribute="trailing" constant="25" id="eUQ-z8-r7e"/>
                                             <constraint firstItem="aEu-nm-C2l" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="efJ-D5-Bx7"/>
                                             <constraint firstItem="BFs-Jn-SR8" firstAttribute="top" secondItem="KTP-hx-eoh" secondAttribute="bottom" constant="40" id="fec-d7-ozT"/>
                                             <constraint firstItem="KTP-hx-eoh" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="g33-rV-aTE"/>
-                                            <constraint firstItem="LYw-Ov-6Qu" firstAttribute="top" secondItem="v3j-gJ-bXs" secondAttribute="bottom" constant="20" id="gfR-H9-627"/>
+                                            <constraint firstItem="nQM-od-GOb" firstAttribute="top" secondItem="v3j-gJ-bXs" secondAttribute="bottom" constant="40" id="iFS-e6-rkl"/>
                                             <constraint firstAttribute="trailing" secondItem="3C4-Np-Pu4" secondAttribute="trailing" constant="25" id="l5k-ea-EPX"/>
-                                            <constraint firstItem="LYw-Ov-6Qu" firstAttribute="leading" secondItem="Bnc-VI-yXl" secondAttribute="trailing" constant="20" id="nED-H3-dYb"/>
+                                            <constraint firstItem="nQM-od-GOb" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="lxD-q9-nUh"/>
                                             <constraint firstItem="KTP-hx-eoh" firstAttribute="top" secondItem="uSE-qQ-4qg" secondAttribute="bottom" constant="8" symbolic="YES" id="qK4-Wf-YIB"/>
+                                            <constraint firstItem="Rjd-Dt-Dgg" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="smi-LI-aqL"/>
+                                            <constraint firstItem="OFa-Eh-JuQ" firstAttribute="leading" secondItem="Rjd-Dt-Dgg" secondAttribute="trailing" constant="15" id="srC-ZO-tEL"/>
+                                            <constraint firstItem="Rjd-Dt-Dgg" firstAttribute="top" secondItem="nQM-od-GOb" secondAttribute="bottom" constant="20" id="tY4-LI-521"/>
                                             <constraint firstItem="wIp-v6-Knz" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="wMd-Rx-Gc3"/>
-                                            <constraint firstItem="Bnc-VI-yXl" firstAttribute="top" secondItem="v3j-gJ-bXs" secondAttribute="bottom" constant="20" id="ym1-Sj-0tb"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -504,15 +548,18 @@ concordium.com</string>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="discord_image" destination="6Gu-SN-iSq" id="cd9-rF-gJx"/>
+                        <outlet property="discordImage" destination="RRZ-2I-mZC" id="jfr-nd-iKs"/>
+                        <outlet property="discordView" destination="2ag-EI-Rxx" id="NEM-M3-HBR"/>
                         <outlet property="legalInfoTextView" destination="3C4-Np-Pu4" id="F0C-hP-30a"/>
                         <outlet property="privacyPolicyTextField" destination="v3j-gJ-bXs" id="eOC-FJ-ijR"/>
                         <outlet property="scrollView" destination="5kp-Yv-8b7" id="beW-gG-tJ6"/>
                         <outlet property="supportTextView" destination="aEu-nm-C2l" id="9p9-AB-0oS"/>
-                        <outlet property="tg_image" destination="Bnc-VI-yXl" id="c5h-7r-zSU"/>
+                        <outlet property="tgImage" destination="Bnc-VI-yXl" id="c5h-7r-zSU"/>
+                        <outlet property="tgView" destination="Rjd-Dt-Dgg" id="viS-u9-emT"/>
                         <outlet property="versionLabel" destination="fef-Ow-gPa" id="bZh-Vf-hRC"/>
                         <outlet property="websiteTextView" destination="KTP-hx-eoh" id="LSi-Ep-vxq"/>
-                        <outlet property="x_image" destination="LYw-Ov-6Qu" id="44K-06-vn4"/>
+                        <outlet property="xImage" destination="2XZ-kp-hYC" id="eAp-Cq-otu"/>
+                        <outlet property="xView" destination="OFa-Eh-JuQ" id="pT9-8l-rRt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FdC-fy-XvP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -522,10 +569,10 @@ concordium.com</string>
     </scenes>
     <resources>
         <image name="confirm" width="195" height="195"/>
-        <image name="discord" width="2500" height="1828"/>
+        <image name="discord" width="50" height="50"/>
         <image name="import_pending" width="110" height="110"/>
-        <image name="telegram" width="2500" height="2500"/>
-        <image name="x" width="2500" height="2500"/>
+        <image name="telegram" width="50" height="50"/>
+        <image name="x" width="50" height="50"/>
         <namedColor name="barButton">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
