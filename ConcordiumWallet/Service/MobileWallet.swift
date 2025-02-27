@@ -292,7 +292,7 @@ class MobileWallet: MobileWalletProtocol {
              return try CreateTransferRequest(walletFacade.createUnshielding(input: input))
         case .registerDelegation, .removeDelegation, .updateDelegation:
             return try CreateTransferRequest(walletFacade.createConfigureDelegation(input: input))
-        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker, .resumeValidator:
+        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker, .updateValidatorSuspendState:
             return try CreateTransferRequest(walletFacade.createConfigureBaker(input: input))
         case .transferUpdate:
             return try CreateTransferRequest(walletFacade.createUpdateTransfer(input: input))

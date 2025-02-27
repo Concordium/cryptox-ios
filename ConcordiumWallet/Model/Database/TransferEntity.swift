@@ -88,7 +88,7 @@ extension TransferDataType {
                 balanceChange = -amountAsInt() + (Int(cost) ?? 0)
             case .registerDelegation, .removeDelegation, .updateDelegation:
                 balanceChange = (Int(cost) ?? 0)
-            case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker, .resumeValidator:
+            case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker, .updateValidatorSuspendState:
                 balanceChange = (Int(cost) ?? 0)
             case .transferUpdate:
                 balanceChange = (Int(cost) ?? 0)
@@ -115,7 +115,7 @@ extension TransferDataType {
                 balanceChange = amountAsInt() + 0 // the cost is taken from the public balance
             case .registerDelegation, .removeDelegation, .updateDelegation:
                 balanceChange = 0
-            case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker, .resumeValidator:
+            case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker, .updateValidatorSuspendState:
                 balanceChange = 0
             case .transferUpdate:
                 balanceChange = 0

@@ -64,12 +64,8 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
             return performPublicTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         case .transferToPublic:
             return performUnshielding(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
-        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker, .resumeValidator:
-            var tmp = pTransfer
-//            if tmp.transferType == .resumeValidator {
-//                tmp.transferType = .updateBakerKeys
-//            }
-            return performBakerTransfer(tmp, from: account, bakerKeys: bakerKeys, requestPasswordDelegate: requestPasswordDelegate)
+        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker, .updateValidatorSuspendState:
+            return performBakerTransfer(pTransfer, from: account, bakerKeys: bakerKeys, requestPasswordDelegate: requestPasswordDelegate)
         case .registerDelegation, .removeDelegation, .updateDelegation:
             return performDelegationTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         case .transferUpdate:

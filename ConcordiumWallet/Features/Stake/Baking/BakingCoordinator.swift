@@ -254,8 +254,7 @@ extension BakingCoordinator: BakingOnboardingCoordinatorDelegate {
             showRequestConfirmation(dataHandler: dataHandler)
         case .simpleTransfer, .transferToPublic, .transferUpdate, .registerDelegation, .updateDelegation, .removeDelegation:
             self.delegate?.finishedBakingCoordinator()
-        case .resumeValidator:
-#warning("Max, fix me pls")
+        case .updateValidatorSuspendState:
             showRequestConfirmation(dataHandler: dataHandler)
         }
     }

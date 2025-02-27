@@ -57,33 +57,15 @@ class BakerDataHandler: StakeDataHandler {
         case .stopBaking:
             super.init(transferType: .removeBaker)
             self.add(entry: DelegationStopAccountData(accountName: account.name, accountAddress: account.address))
-        case let .suspend(currentSettings, poolInfo):
-            super.init(
-                transferType: .configureBaker,
-                currentData: BakerDataHandler.buildCurrentData(
-                    fromAccount: account,
-                    currentSettings: currentSettings,
-                    poolInfo: poolInfo
-                )
-            )
+        case let .suspend(_, _):
+            super.init(transferType: .updateValidatorSuspendState)
+            self.add(entry: BakerUpdateSuspend(isSuspended: true))
             self.add(entry: BakerUpdateAccountData(accountName: account.name, accountAddress: account.address))
-        case let .resume(currentSettings, poolInfo):
-            super.init(transferType: .resumeValidator)
+        case let .resume(_, _):
+            super.init(transferType: .updateValidatorSuspendState)
             self.add(entry: BakerUpdateSuspend(isSuspended: false))
-
-//            self.add(entry: Self.buildValidatorResumeData(isSuspended: false))
-            
-//            super.init(
-//                transferType: .resumeValidator,
-//                currentData: Self.buildValidatorResumeData(isSuspended: false)
-//            )
             self.add(entry: BakerUpdateAccountData(accountName: account.name, accountAddress: account.address))
         }
-    }
-    
-    private static func buildValidatorResumeData(isSuspended: Bool) -> [FieldValue] {
-//        var currentData = [FieldValue]()
-        return [BakerUpdateSuspend(isSuspended: isSuspended)]
     }
     
     private static func buildCurrentData(
@@ -103,7 +85,6 @@ private extension BakerDataType {
     func addStakeData(to set: inout [FieldValue]) {
         set.append(BakerAmountData(amount: GTU(intValue: stakedAmount)))
         set.append(RestakeBakerData(restake: restakeEarnings))
-//        set.append(BakerUpdateSuspend(isSuspended: isSuspended))
     }
 }
 
