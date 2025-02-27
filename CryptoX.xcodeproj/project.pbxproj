@@ -9593,8 +9593,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Concordium/concordium-wallet-crypto-swift";
 			requirement = {
-				kind = exactVersion;
-				version = "0.24.0-0";
+				branch = 0.25.0;
+				kind = branch;
 			};
 		};
 		089FF0E82A4F4CF0007AB1CF /* XCRemoteSwiftPackageReference "JDStatusBarNotification" */ = {
