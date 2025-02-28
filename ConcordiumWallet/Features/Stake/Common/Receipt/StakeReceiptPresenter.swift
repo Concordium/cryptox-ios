@@ -20,7 +20,10 @@ class StakeReceiptViewModel {
     @Published var buttonLabel: String = ""
     @Published var rows: [StakeRowViewModel]
 
+    let dataHandler: StakeDataHandler
+    
     init(dataHandler: StakeDataHandler) {
+        self.dataHandler = dataHandler
         rows = dataHandler.getAllOrdered().map { StakeRowViewModel(displayValue: $0) }
     }
 }

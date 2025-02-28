@@ -1,8 +1,8 @@
 //
-//  TransferSendingStatusView.swift
+//  ValidatorTransactionStatusView.swift
 //  CryptoX
 //
-//  Created by Zhanna Komar on 28.01.2025.
+//  Created by Zhanna Komar on 28.02.2025.
 //  Copyright © 2025 pioneeringtechventures. All rights reserved.
 //
 
@@ -10,21 +10,15 @@ import SwiftUI
 import DotLottie
 import Combine
 
-enum LoadingAnimationState: String {
-    case loader = "loader"
-    case success = "success"
-    case failure = "failure"
-}
-
-struct TransferSendingStatusView: View {
+struct ValidatorTransactionStatusView: View {
     @State private var animationState: LoadingAnimationState = .loader
     @State private var animationConfig = AnimationConfig(autoplay: true, loop: true, segments: (0, 120))
-    @ObservedObject var viewModel: TransferTokenConfirmViewModel
-    @EnvironmentObject var navigationManager: NavigationManager
     @State private var hasStartedTransaction = false
     @State private var isTransactionDetailsVisible: Bool = true
     @State private var cancellables = Set<AnyCancellable>()
-    
+    @EnvironmentObject var navigationManager: NavigationManager
+    @ObservedObject var viewModel: ValidatorSubmissionViewModel
+
     var animation: DotLottieAnimation {
         DotLottieAnimation(fileName: "loadingAnimation", config: animationConfig)
     }
@@ -57,7 +51,6 @@ struct TransferSendingStatusView: View {
                         .font(.satoshi(size: 12, weight: .medium))
                         .foregroundStyle(.white)
                 }
-                transactionDetailsSection()
             }
             .padding(.vertical, 30)
             .padding(.horizontal, 14)
@@ -73,57 +66,25 @@ struct TransferSendingStatusView: View {
             Spacer()
             
             RoundedButton(action: {
-                if viewModel.isLoading {
-                    viewModel.dismiss()
-                }
                 navigationManager.reset()
             }, title: "close".localized)
             .padding(.bottom, 20)
             .padding(.horizontal, 18)
+            .opacity(viewModel.isTransactionExecuting ? 0 : 1)
         }
         .modifier(AppBackgroundModifier())
         .onAppear {
             playAnimationBasedOnState()
             if !hasStartedTransaction {
                 hasStartedTransaction = true
-                Task {
-                    await viewModel.callTransaction()
-                }
+                viewModel.pressedButton()
             }
         }
-        .onChange(of: viewModel.isLoading) { _ in
+        .onChange(of: viewModel.isTransactionExecuting) { _ in
             playAnimationBasedOnState()
         }
     }
-    
-    private func transactionDetailsSection() -> some View {
-        Group {
-            VStack(spacing: 30) {
-                Divider()
-                    .background(.white.opacity(0.1))
-                    .transition(.opacity)
-                
-                Button {
-                    if let transaction = viewModel.getTransactionViewModel() {
-                        navigationManager.navigate(to: .transactionDetails(transaction: TransactionDetailViewModel(transaction: transaction)))
-                    }
-                } label: {
-                    HStack(spacing: 8) {
-                        Text("accountDetails.title".localized)
-                            .font(.satoshi(size: 12, weight: .medium))
-                            .foregroundStyle(.white)
-                        Image("ico_back")
-                            .rotationEffect(.degrees(180))
-                    }
-                }
-                .transition(.opacity)
-            }
-            .opacity(!viewModel.isLoading ? 1 : 0)
-            .transition(.opacity)
-            .animation(.easeInOut(duration: 1), value: !viewModel.isLoading)
-        }
-    }
-    
+
     @ViewBuilder
     private func animationView() -> some View {
         animation.view()
@@ -131,7 +92,7 @@ struct TransferSendingStatusView: View {
     }
     
     private func playAnimationBasedOnState() {
-        if viewModel.isLoading {
+        if viewModel.isTransactionExecuting {
             animationState = .loader
             animationConfig = AnimationConfig(autoplay: true, loop: true, segments: (0, 120))
             _ = animation.play()

@@ -18,6 +18,9 @@ struct NavigationDestinationBuilder: ViewModifier {
     
     func body(content: Content) -> some View {
         content
+            .onAppear {
+                notifyTabBarHidden(false)
+            }
             .navigationDestination(for: NavigationPaths.self) { destination in
                 Group {
                     // General navigation flow
@@ -164,35 +167,66 @@ struct NavigationDestinationBuilder: ViewModifier {
                             }
                         
                         // MARK: - Validator Flow
-                    case .validator(let path, let account):
-                        validatorFlowSwitch(path, account: account)
+                    case .amountInput(let viewModel):
+                        EarnValidatorAmountInputView(viewModel: viewModel)
+                            .modifier(NavigationViewModifier(title: "baking.inputamount.title.create".localized) {
+                                navigationManager.pop()
+                            })
+                            .onAppear { notifyTabBarHidden(true) }
+                        
+                    case .openningPool(let viewModel):
+                        OpenPoolView(viewModel: viewModel)
+                            .environmentObject(navigationManager)
+                            .modifier(NavigationViewModifier(title: "validator.opening.pool.title".localized) {
+                                navigationManager.pop()
+                            })
+                            .onAppear { notifyTabBarHidden(true) }
+                        
+                    case .commissionSettings(let viewModel):
+                        ComissionSettingsView(viewModel: viewModel)
+                            .environmentObject(navigationManager)
+                            .modifier(NavigationViewModifier(title: "validator.commission.title".localized) {
+                                navigationManager.pop()
+                            })
+                            .onAppear { notifyTabBarHidden(true) }
+                        
+                    case .metadataUrl(let viewModel):
+                        ValidatorMetadataView(viewModel: viewModel)
+                            .environmentObject(navigationManager)
+                            .modifier(NavigationViewModifier(title: "validator.metadata.title".localized) {
+                                navigationManager.pop()
+                            })
+                            .onAppear { notifyTabBarHidden(true) }
+                        
+                    case .generateKey(let viewModel):
+                        ValidatorGenerateKeysView(viewModel: viewModel)
+                            .environmentObject(navigationManager)
+                            .modifier(NavigationViewModifier(title: "validator.validator.keys.title".localized) {
+                                navigationManager.pop()
+                            })
+                            .onAppear { notifyTabBarHidden(true) }
+                        
+                    case .requestConfirmation(let viewModel):
+                        ValidatorSubmissionView(viewModel: viewModel)
+                            .environmentObject(navigationManager)
+                            .modifier(NavigationViewModifier(title: "baking.receiptconfirmation.submit".localized) {
+                                navigationManager.pop()
+                            })
+                            .onAppear { notifyTabBarHidden(true) }
+                    case .validatorTransactionStatus(let viewModel):
+                        ValidatorTransactionStatusView(viewModel: viewModel)
+                            .environmentObject(navigationManager)
+                            .modifier(NavigationViewModifier(title: "Confirmation") {
+                                navigationManager.pop()
+                            })
+
+                    default:
+                        EmptyView()
                     }
-                }
-                .onAppear {
-                    notifyTabBarHidden(false)
                 }
             }
     }
-    
-    func validatorFlowSwitch(_ path: ValidatorNavigationPaths, account: AccountEntity) -> some View {
-        switch path {
-        case .amountInput(let handler):
-            AnyView(EarnValidatorAmountInputView(viewModel:
-                                            ValidatorAmountInputViewModel(account: account,
-                                                                          dependencyProvider: dependencyProvider,
-                                                                          dataHandler: handler))
-                .environmentObject(navigationManager)
-                .modifier(NavigationViewModifier(title: "baking.inputamount.title.create".localized) {
-                    navigationManager.pop()
-                })
-                    .onAppear {
-                        notifyTabBarHidden(true)
-                    })
-        default:
-            AnyView(EmptyView())
-        }
-    }
-    
+
     func notifyTabBarHidden(_ isHidden: Bool) {
         let currentState = UserDefaults.standard.bool(forKey: "isTabBarHidden")
         if currentState != isHidden {

@@ -48,7 +48,13 @@ struct EarnReadMoreView: View {
             }
             Button {
                 guard let account = account as? AccountEntity else { return }
-                navigationManager.navigate(to: .validator(.amountInput(BakerDataHandler(account: account, action: .register)), account: account))
+                let handler = BakerDataHandler(account: account, action: .register)
+                let viewModel = ValidatorAmountInputViewModel(
+                        account: handler.account,
+                        dependencyProvider: ServicesProvider.defaultProvider(),
+                        dataHandler: handler
+                    )
+                navigationManager.navigate(to: .amountInput(viewModel))
             } label: {
                 Text("earn.start".localized)
                     .font(Font.satoshi(size: 15, weight: .medium))

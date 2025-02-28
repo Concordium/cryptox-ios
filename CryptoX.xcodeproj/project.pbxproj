@@ -1700,12 +1700,12 @@
 		08DB5E5E2BC6C30D00C29663 /* BakerAmountInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5E442BC6C2FC00C29663 /* BakerAmountInputPresenter.swift */; };
 		08DB5E5F2BC6C30E00C29663 /* BakerAmountInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5E442BC6C2FC00C29663 /* BakerAmountInputPresenter.swift */; };
 		08DB5E602BC6C30E00C29663 /* BakerAmountInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5E442BC6C2FC00C29663 /* BakerAmountInputPresenter.swift */; };
-		08DB5E612BC6C31300C29663 /* BakerCommissionSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5E472BC6C2FC00C29663 /* BakerCommissionSettingsViewModel.swift */; };
-		08DB5E622BC6C31300C29663 /* BakerCommissionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5E462BC6C2FC00C29663 /* BakerCommissionSettingsView.swift */; };
-		08DB5E632BC6C31400C29663 /* BakerCommissionSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5E472BC6C2FC00C29663 /* BakerCommissionSettingsViewModel.swift */; };
-		08DB5E642BC6C31400C29663 /* BakerCommissionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5E462BC6C2FC00C29663 /* BakerCommissionSettingsView.swift */; };
-		08DB5E672BC6C31500C29663 /* BakerCommissionSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5E472BC6C2FC00C29663 /* BakerCommissionSettingsViewModel.swift */; };
-		08DB5E682BC6C31500C29663 /* BakerCommissionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5E462BC6C2FC00C29663 /* BakerCommissionSettingsView.swift */; };
+		08DB5E612BC6C31300C29663 /* ValidatorCommissionSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5E472BC6C2FC00C29663 /* ValidatorCommissionSettingsViewModel.swift */; };
+		08DB5E622BC6C31300C29663 /* ValidatorCommissionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5E462BC6C2FC00C29663 /* ValidatorCommissionSettingsView.swift */; };
+		08DB5E632BC6C31400C29663 /* ValidatorCommissionSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5E472BC6C2FC00C29663 /* ValidatorCommissionSettingsViewModel.swift */; };
+		08DB5E642BC6C31400C29663 /* ValidatorCommissionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5E462BC6C2FC00C29663 /* ValidatorCommissionSettingsView.swift */; };
+		08DB5E672BC6C31500C29663 /* ValidatorCommissionSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5E472BC6C2FC00C29663 /* ValidatorCommissionSettingsViewModel.swift */; };
+		08DB5E682BC6C31500C29663 /* ValidatorCommissionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5E462BC6C2FC00C29663 /* ValidatorCommissionSettingsView.swift */; };
 		08DB5E692BC6C31C00C29663 /* BakerPoolGenerateKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5E4A2BC6C2FC00C29663 /* BakerPoolGenerateKeyViewController.swift */; };
 		08DB5E6A2BC6C31C00C29663 /* BakerPoolGenerateKeyPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5E492BC6C2FC00C29663 /* BakerPoolGenerateKeyPresenter.swift */; };
 		08DB5E6B2BC6C31E00C29663 /* BakerPoolGenerateKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB5E4A2BC6C2FC00C29663 /* BakerPoolGenerateKeyViewController.swift */; };
@@ -1823,6 +1823,24 @@
 		151A53A32C5D1A5500EFE20C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */; };
 		151A53A42C5D1A5500EFE20C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */; };
 		151A53A52C5D1A5500EFE20C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */; };
+		152206182D707BAD006B88D0 /* ValidatorGenerateKeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152206172D707BAD006B88D0 /* ValidatorGenerateKeysView.swift */; };
+		152206192D707BAD006B88D0 /* ValidatorGenerateKeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152206172D707BAD006B88D0 /* ValidatorGenerateKeysView.swift */; };
+		1522061A2D707BAD006B88D0 /* ValidatorGenerateKeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152206172D707BAD006B88D0 /* ValidatorGenerateKeysView.swift */; };
+		1522061C2D7083A8006B88D0 /* ValidatorGenerateKeysViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1522061B2D7083A8006B88D0 /* ValidatorGenerateKeysViewModel.swift */; };
+		1522061D2D7083A8006B88D0 /* ValidatorGenerateKeysViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1522061B2D7083A8006B88D0 /* ValidatorGenerateKeysViewModel.swift */; };
+		1522061E2D7083A8006B88D0 /* ValidatorGenerateKeysViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1522061B2D7083A8006B88D0 /* ValidatorGenerateKeysViewModel.swift */; };
+		152206202D70850F006B88D0 /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1522061F2D70850F006B88D0 /* ShareSheetView.swift */; };
+		152206212D70850F006B88D0 /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1522061F2D70850F006B88D0 /* ShareSheetView.swift */; };
+		152206222D70850F006B88D0 /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1522061F2D70850F006B88D0 /* ShareSheetView.swift */; };
+		152206242D70A620006B88D0 /* ValidatorSubmissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152206232D70A620006B88D0 /* ValidatorSubmissionView.swift */; };
+		152206252D70A620006B88D0 /* ValidatorSubmissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152206232D70A620006B88D0 /* ValidatorSubmissionView.swift */; };
+		152206262D70A620006B88D0 /* ValidatorSubmissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152206232D70A620006B88D0 /* ValidatorSubmissionView.swift */; };
+		152206282D70A65E006B88D0 /* ValidatorSubmissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152206272D70A65E006B88D0 /* ValidatorSubmissionViewModel.swift */; };
+		152206292D70A65E006B88D0 /* ValidatorSubmissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152206272D70A65E006B88D0 /* ValidatorSubmissionViewModel.swift */; };
+		1522062A2D70A65E006B88D0 /* ValidatorSubmissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152206272D70A65E006B88D0 /* ValidatorSubmissionViewModel.swift */; };
+		1522062C2D71EC35006B88D0 /* ValidatorTransactionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1522062B2D71EC35006B88D0 /* ValidatorTransactionStatusView.swift */; };
+		1522062D2D71EC35006B88D0 /* ValidatorTransactionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1522062B2D71EC35006B88D0 /* ValidatorTransactionStatusView.swift */; };
+		1522062E2D71EC35006B88D0 /* ValidatorTransactionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1522062B2D71EC35006B88D0 /* ValidatorTransactionStatusView.swift */; };
 		152AE6382D50D68B00B0B073 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152AE6372D50D68B00B0B073 /* NotificationNames.swift */; };
 		152AE6392D50D68B00B0B073 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152AE6372D50D68B00B0B073 /* NotificationNames.swift */; };
 		152AE63A2D50D68B00B0B073 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152AE6372D50D68B00B0B073 /* NotificationNames.swift */; };
@@ -1931,6 +1949,15 @@
 		1599807E2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
 		15A31C232D6F637D0009D04B /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = 15A31C222D6F637D0009D04B /* ConcordiumWalletCrypto */; };
 		15A31C252D6F64E30009D04B /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = 15A31C242D6F64E30009D04B /* ConcordiumWalletCrypto */; };
+		15A760942D65D32C00A48204 /* ComissionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A760932D65D32C00A48204 /* ComissionSettingsView.swift */; };
+		15A760952D65D32C00A48204 /* ComissionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A760932D65D32C00A48204 /* ComissionSettingsView.swift */; };
+		15A760962D65D32C00A48204 /* ComissionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A760932D65D32C00A48204 /* ComissionSettingsView.swift */; };
+		15A760982D66474200A48204 /* ValidatorMetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A760972D66474200A48204 /* ValidatorMetadataView.swift */; };
+		15A760992D66474200A48204 /* ValidatorMetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A760972D66474200A48204 /* ValidatorMetadataView.swift */; };
+		15A7609A2D66474200A48204 /* ValidatorMetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A760972D66474200A48204 /* ValidatorMetadataView.swift */; };
+		15A761382D6727D200A48204 /* ValidatorMetadataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A761372D6727D200A48204 /* ValidatorMetadataViewModel.swift */; };
+		15A761392D6727D200A48204 /* ValidatorMetadataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A761372D6727D200A48204 /* ValidatorMetadataViewModel.swift */; };
+		15A7613A2D6727D200A48204 /* ValidatorMetadataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A761372D6727D200A48204 /* ValidatorMetadataViewModel.swift */; };
 		15ABCCD32CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */; };
 		15ABCCD42CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */; };
 		15ABCCD52CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */; };
@@ -1964,6 +1991,15 @@
 		15ED6C792D639E2600B1BB44 /* CustomToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED6C782D639E2600B1BB44 /* CustomToggle.swift */; };
 		15ED6C7A2D639E2600B1BB44 /* CustomToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED6C782D639E2600B1BB44 /* CustomToggle.swift */; };
 		15ED6C7B2D639E2600B1BB44 /* CustomToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED6C782D639E2600B1BB44 /* CustomToggle.swift */; };
+		15ED6D4D2D64F3CE00B1BB44 /* OpenPoolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED6D4C2D64F3CE00B1BB44 /* OpenPoolView.swift */; };
+		15ED6D4E2D64F3CE00B1BB44 /* OpenPoolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED6D4C2D64F3CE00B1BB44 /* OpenPoolView.swift */; };
+		15ED6D4F2D64F3CE00B1BB44 /* OpenPoolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED6D4C2D64F3CE00B1BB44 /* OpenPoolView.swift */; };
+		15ED6DED2D64F60500B1BB44 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED6DEC2D64F60500B1BB44 /* RoundedButton.swift */; };
+		15ED6DEE2D64F60500B1BB44 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED6DEC2D64F60500B1BB44 /* RoundedButton.swift */; };
+		15ED6DEF2D64F60500B1BB44 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED6DEC2D64F60500B1BB44 /* RoundedButton.swift */; };
+		15ED6DF12D64F8D300B1BB44 /* ValidatorPoolSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED6DF02D64F8D300B1BB44 /* ValidatorPoolSettingsViewModel.swift */; };
+		15ED6DF22D64F8D300B1BB44 /* ValidatorPoolSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED6DF02D64F8D300B1BB44 /* ValidatorPoolSettingsViewModel.swift */; };
+		15ED6DF32D64F8D300B1BB44 /* ValidatorPoolSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED6DF02D64F8D300B1BB44 /* ValidatorPoolSettingsViewModel.swift */; };
 		15EFE9F52C739D7B00B7145C /* ImportTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */; };
 		15EFE9F62C739D7B00B7145C /* ImportTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */; };
 		15EFE9F72C739D7B00B7145C /* ImportTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */; };
@@ -3165,8 +3201,8 @@
 		08DB5E2E2BC6C2DE00C29663 /* DelegationPoolSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegationPoolSelectionViewController.swift; sourceTree = "<group>"; };
 		08DB5E302BC6C2DF00C29663 /* DelegationStatusPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegationStatusPresenter.swift; sourceTree = "<group>"; };
 		08DB5E442BC6C2FC00C29663 /* BakerAmountInputPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerAmountInputPresenter.swift; sourceTree = "<group>"; };
-		08DB5E462BC6C2FC00C29663 /* BakerCommissionSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerCommissionSettingsView.swift; sourceTree = "<group>"; };
-		08DB5E472BC6C2FC00C29663 /* BakerCommissionSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerCommissionSettingsViewModel.swift; sourceTree = "<group>"; };
+		08DB5E462BC6C2FC00C29663 /* ValidatorCommissionSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorCommissionSettingsView.swift; sourceTree = "<group>"; };
+		08DB5E472BC6C2FC00C29663 /* ValidatorCommissionSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorCommissionSettingsViewModel.swift; sourceTree = "<group>"; };
 		08DB5E492BC6C2FC00C29663 /* BakerPoolGenerateKeyPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerPoolGenerateKeyPresenter.swift; sourceTree = "<group>"; };
 		08DB5E4A2BC6C2FC00C29663 /* BakerPoolGenerateKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerPoolGenerateKeyViewController.swift; sourceTree = "<group>"; };
 		08DB5E4C2BC6C2FC00C29663 /* BakerMetadataPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerMetadataPresenter.swift; sourceTree = "<group>"; };
@@ -3211,6 +3247,12 @@
 		15184CEC2CB0056C00DAE03A /* CooldownCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CooldownCardView.swift; sourceTree = "<group>"; };
 		151A53982C5CF03800EFE20C /* PopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
 		151A53A22C5D1A5500EFE20C /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
+		152206172D707BAD006B88D0 /* ValidatorGenerateKeysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorGenerateKeysView.swift; sourceTree = "<group>"; };
+		1522061B2D7083A8006B88D0 /* ValidatorGenerateKeysViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorGenerateKeysViewModel.swift; sourceTree = "<group>"; };
+		1522061F2D70850F006B88D0 /* ShareSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetView.swift; sourceTree = "<group>"; };
+		152206232D70A620006B88D0 /* ValidatorSubmissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorSubmissionView.swift; sourceTree = "<group>"; };
+		152206272D70A65E006B88D0 /* ValidatorSubmissionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorSubmissionViewModel.swift; sourceTree = "<group>"; };
+		1522062B2D71EC35006B88D0 /* ValidatorTransactionStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorTransactionStatusView.swift; sourceTree = "<group>"; };
 		152AE6372D50D68B00B0B073 /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		152AE63B2D50E17700B0B073 /* PrsssedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrsssedButtonStyle.swift; sourceTree = "<group>"; };
 		153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTokenNotificationPopup.swift; sourceTree = "<group>"; };
@@ -3247,6 +3289,9 @@
 		1580EE6C2D4A8CA60051C55D /* RecipientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipientViewModel.swift; sourceTree = "<group>"; };
 		15844E592C87445B005A3BF1 /* TransferTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferTokenViewModel.swift; sourceTree = "<group>"; };
 		1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTokenViewModel.swift; sourceTree = "<group>"; };
+		15A760932D65D32C00A48204 /* ComissionSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComissionSettingsView.swift; sourceTree = "<group>"; };
+		15A760972D66474200A48204 /* ValidatorMetadataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorMetadataView.swift; sourceTree = "<group>"; };
+		15A761372D6727D200A48204 /* ValidatorMetadataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorMetadataViewModel.swift; sourceTree = "<group>"; };
 		15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedIdentitiesStatusService.swift; sourceTree = "<group>"; };
 		15B498D72D5E30F9001B4F65 /* EarnMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarnMainView.swift; sourceTree = "<group>"; };
 		15B498DB2D5E3156001B4F65 /* EarnReadMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarnReadMoreView.swift; sourceTree = "<group>"; };
@@ -3258,6 +3303,9 @@
 		15ED6C6F2D63807A00B1BB44 /* ValidatorMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorMainView.swift; sourceTree = "<group>"; };
 		15ED6C742D63960600B1BB44 /* ValidatorAmountInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorAmountInputViewModel.swift; sourceTree = "<group>"; };
 		15ED6C782D639E2600B1BB44 /* CustomToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToggle.swift; sourceTree = "<group>"; };
+		15ED6D4C2D64F3CE00B1BB44 /* OpenPoolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenPoolView.swift; sourceTree = "<group>"; };
+		15ED6DEC2D64F60500B1BB44 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		15ED6DF02D64F8D300B1BB44 /* ValidatorPoolSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorPoolSettingsViewModel.swift; sourceTree = "<group>"; };
 		15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTokenViewModel.swift; sourceTree = "<group>"; };
 		15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		15F3F0A32C8B032200EF8975 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
@@ -3699,6 +3747,7 @@
 				D5F7A24C26D7FFC30061E646 /* FilledButton.swift */,
 				D5D52C5D26DBF6FC0072D20E /* BorderedButton.swift */,
 				C9D342B624581CD9007ED45E /* WidgetButton.swift */,
+				15ED6DEC2D64F60500B1BB44 /* RoundedButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -3747,6 +3796,7 @@
 				D5D52C6826DE45530072D20E /* RoundedCurrencyView.swift */,
 				D5AF003227A041E100F0C56E /* RoundedBackUpView.swift */,
 				1517A0F22D5A0E2B0089619F /* ToastGradientView.swift */,
+				1522061F2D70850F006B88D0 /* ShareSheetView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -5163,8 +5213,7 @@
 		08DB5E482BC6C2FC00C29663 /* ComissionSettings */ = {
 			isa = PBXGroup;
 			children = (
-				08DB5E462BC6C2FC00C29663 /* BakerCommissionSettingsView.swift */,
-				08DB5E472BC6C2FC00C29663 /* BakerCommissionSettingsViewModel.swift */,
+				08DB5E462BC6C2FC00C29663 /* ValidatorCommissionSettingsView.swift */,
 			);
 			path = ComissionSettings;
 			sourceTree = "<group>";
@@ -5402,6 +5451,12 @@
 			children = (
 				15ED6C732D6395F500B1BB44 /* ViewModels */,
 				15ED6C6F2D63807A00B1BB44 /* ValidatorMainView.swift */,
+				15ED6D4C2D64F3CE00B1BB44 /* OpenPoolView.swift */,
+				15A760932D65D32C00A48204 /* ComissionSettingsView.swift */,
+				15A760972D66474200A48204 /* ValidatorMetadataView.swift */,
+				152206172D707BAD006B88D0 /* ValidatorGenerateKeysView.swift */,
+				152206232D70A620006B88D0 /* ValidatorSubmissionView.swift */,
+				1522062B2D71EC35006B88D0 /* ValidatorTransactionStatusView.swift */,
 			);
 			path = Validator;
 			sourceTree = "<group>";
@@ -5410,6 +5465,11 @@
 			isa = PBXGroup;
 			children = (
 				15ED6C742D63960600B1BB44 /* ValidatorAmountInputViewModel.swift */,
+				15ED6DF02D64F8D300B1BB44 /* ValidatorPoolSettingsViewModel.swift */,
+				15A761372D6727D200A48204 /* ValidatorMetadataViewModel.swift */,
+				08DB5E472BC6C2FC00C29663 /* ValidatorCommissionSettingsViewModel.swift */,
+				1522061B2D7083A8006B88D0 /* ValidatorGenerateKeysViewModel.swift */,
+				152206272D70A65E006B88D0 /* ValidatorSubmissionViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -7196,6 +7256,7 @@
 				08C167202BB7396200E61326 /* AttributesFormatter.swift in Sources */,
 				08C167212BB7396200E61326 /* UITapGestureRecognizer.swift in Sources */,
 				08C167222BB7396200E61326 /* UIViewController+Additions.swift in Sources */,
+				152206212D70850F006B88D0 /* ShareSheetView.swift in Sources */,
 				509749F72C49207400D28D6B /* UserDefaultsQueue.swift in Sources */,
 				08C167242BB7396200E61326 /* CredentialHolderInformation.swift in Sources */,
 				08C167252BB7396200E61326 /* XButton.swift in Sources */,
@@ -7351,6 +7412,7 @@
 				151A539B2C5CF03800EFE20C /* PopupContainer.swift in Sources */,
 				08C167B32BB7396200E61326 /* String+Extensions.swift in Sources */,
 				08C167B52BB7396200E61326 /* SeedIDRequest.swift in Sources */,
+				15A761382D6727D200A48204 /* ValidatorMetadataViewModel.swift in Sources */,
 				08DB5E182BC6C29A00C29663 /* StakeAmountInputPresenterProtocol.swift in Sources */,
 				08DB5E192BC6C29A00C29663 /* StakeAmountInputValidator.swift in Sources */,
 				08DB5E1A2BC6C29A00C29663 /* StakeAmountInputViewController.swift in Sources */,
@@ -7369,6 +7431,7 @@
 				08C167C02BB7396200E61326 /* RequestPasswordDelegate.swift in Sources */,
 				08C167C12BB7396200E61326 /* Storyboarded.swift in Sources */,
 				08C167C22BB7396200E61326 /* UITableView+scroll.swift in Sources */,
+				1522061D2D7083A8006B88D0 /* ValidatorGenerateKeysViewModel.swift in Sources */,
 				08C167C32BB7396200E61326 /* Metadata.swift in Sources */,
 				08C167C42BB7396200E61326 /* UITextField+Extensions.swift in Sources */,
 				08C167C52BB7396200E61326 /* GettingStartedPresenter.swift in Sources */,
@@ -7405,6 +7468,7 @@
 				08C167DE2BB7396200E61326 /* AccountDelegation.swift in Sources */,
 				08C167DF2BB7396200E61326 /* ExportValues.swift in Sources */,
 				08C167E02BB7396200E61326 /* RoundedCurrencyView.swift in Sources */,
+				152206192D707BAD006B88D0 /* ValidatorGenerateKeysView.swift in Sources */,
 				08C167E12BB7396200E61326 /* Data+Hex.swift in Sources */,
 				50EB310D2BFFF515002B2558 /* UnshieldAssetsViewModel.swift in Sources */,
 				08C167E22BB7396200E61326 /* MakeGenerateAccountsResponseElement.swift in Sources */,
@@ -7429,6 +7493,7 @@
 				08C167F82BB7396200E61326 /* IdentityWrapperShell.swift in Sources */,
 				08C167F92BB7396200E61326 /* AppSettingsResponse.swift in Sources */,
 				509A56352CB42EFF005EA908 /* AppSettings.swift in Sources */,
+				15A7609A2D66474200A48204 /* ValidatorMetadataView.swift in Sources */,
 				08C167FC2BB7396200E61326 /* Reusable.swift in Sources */,
 				08C167FD2BB7396200E61326 /* SeedAccountsService.swift in Sources */,
 				08C167FE2BB7396200E61326 /* AppSettingsService.swift in Sources */,
@@ -7452,6 +7517,7 @@
 				08C168142BB7396200E61326 /* BurgerMenuOptionCell.swift in Sources */,
 				08C168152BB7396200E61326 /* MobileWallet.swift in Sources */,
 				08C168162BB7396200E61326 /* BurgerMenuPresenter.swift in Sources */,
+				15ED6D4F2D64F3CE00B1BB44 /* OpenPoolView.swift in Sources */,
 				08C168172BB7396200E61326 /* Policy.swift in Sources */,
 				08C168182BB7396200E61326 /* TextEditView.swift in Sources */,
 				08C168192BB7396200E61326 /* AccountAddressQRPresenter.swift in Sources */,
@@ -7502,6 +7568,7 @@
 				08C168402BB7396200E61326 /* WelcomeView.swift in Sources */,
 				08C168412BB7396200E61326 /* BiometricsEnablingViewController.swift in Sources */,
 				08C168422BB7396200E61326 /* Result+Additions.swift in Sources */,
+				15ED6DF12D64F8D300B1BB44 /* ValidatorPoolSettingsViewModel.swift in Sources */,
 				08C168432BB7396200E61326 /* EnterPasswordViewController.swift in Sources */,
 				08DB5E792BC6C32A00C29663 /* BakerPoolSettingsViewController.swift in Sources */,
 				08DB5E7A2BC6C32A00C29663 /* BakerPoolSettingsPresenter.swift in Sources */,
@@ -7562,6 +7629,7 @@
 				08C168762BB7396200E61326 /* PasscodeFieldViewController.swift in Sources */,
 				1575863C2CA55E3700205A6E /* StakeStatusView.swift in Sources */,
 				08C168772BB7396200E61326 /* PreIdentityObject.swift in Sources */,
+				1522062D2D71EC35006B88D0 /* ValidatorTransactionStatusView.swift in Sources */,
 				08C1687A2BB7396200E61326 /* GTUTextFieldDelegate.swift in Sources */,
 				15ED6C722D63807A00B1BB44 /* ValidatorMainView.swift in Sources */,
 				08C1687B2BB7396200E61326 /* Locate+Additionals.swift in Sources */,
@@ -7577,6 +7645,7 @@
 				08C168842BB7396200E61326 /* CircleView.swift in Sources */,
 				08C168862BB7396200E61326 /* ExportedAccountPrivateKeys.swift in Sources */,
 				08C168872BB7396200E61326 /* MoreCoordinator.swift in Sources */,
+				152206282D70A65E006B88D0 /* ValidatorSubmissionViewModel.swift in Sources */,
 				08C168882BB7396200E61326 /* Collections+Extensions.swift in Sources */,
 				08C168892BB7396200E61326 /* Details.swift in Sources */,
 				08C1688A2BB7396200E61326 /* AccountsPresenter.swift in Sources */,
@@ -7616,6 +7685,7 @@
 				08C168AD2BB7396200E61326 /* IdentityObjectWrapper.swift in Sources */,
 				08C168AE2BB7396200E61326 /* CredentialValue.swift in Sources */,
 				15F3F0AA2C8B1CFF00EF8975 /* TransactionNotificationService.swift in Sources */,
+				15A760962D65D32C00A48204 /* ComissionSettingsView.swift in Sources */,
 				08C168AF2BB7396200E61326 /* PoolInfo.swift in Sources */,
 				08C168B02BB7396200E61326 /* AccountsService.swift in Sources */,
 				08C168B22BB7396200E61326 /* TransactionsService.swift in Sources */,
@@ -7629,6 +7699,7 @@
 				08DB5E222BC6C2BA00C29663 /* DelegationDataHandler.swift in Sources */,
 				08DB5E232BC6C2BA00C29663 /* DelegationCoordinator.swift in Sources */,
 				08DB5E242BC6C2BA00C29663 /* DelegationOnboardingCoordinator.swift in Sources */,
+				152206242D70A620006B88D0 /* ValidatorSubmissionView.swift in Sources */,
 				08C168BB2BB7396200E61326 /* UpdatePasswordPresenter.swift in Sources */,
 				08C168BC2BB7396200E61326 /* PageViewModel.swift in Sources */,
 				08C168BD2BB7396200E61326 /* UIView+Shake.swift in Sources */,
@@ -7660,8 +7731,8 @@
 				08C168D82BB7396200E61326 /* AES256Encryption.swift in Sources */,
 				08C168D92BB7396200E61326 /* NFTProvidersView.swift in Sources */,
 				08C168DA2BB7396200E61326 /* MakeUpdateTransferRequest.swift in Sources */,
-				08DB5E672BC6C31500C29663 /* BakerCommissionSettingsViewModel.swift in Sources */,
-				08DB5E682BC6C31500C29663 /* BakerCommissionSettingsView.swift in Sources */,
+				08DB5E672BC6C31500C29663 /* ValidatorCommissionSettingsViewModel.swift in Sources */,
+				08DB5E682BC6C31500C29663 /* ValidatorCommissionSettingsView.swift in Sources */,
 				08C168DB2BB7396200E61326 /* ReleaseScheduleViewController.swift in Sources */,
 				1580EC042D4A41240051C55D /* AddMemoView.swift in Sources */,
 				08C168DC2BB7396200E61326 /* SeedIdentityCreationStatus.swift in Sources */,
@@ -7703,6 +7774,7 @@
 				08C168FA2BB7396200E61326 /* NFTProvidersPresenter.swift in Sources */,
 				08C168FB2BB7396200E61326 /* QRDataResponse.swift in Sources */,
 				08C168FD2BB7396200E61326 /* SubmitSeedAccountView.swift in Sources */,
+				15ED6DEE2D64F60500B1BB44 /* RoundedButton.swift in Sources */,
 				08C168FE2BB7396200E61326 /* CopyReferenceInfoWidgetPresenter.swift in Sources */,
 				08DB5E372BC6C2DF00C29663 /* DelegationReceiptPresenter.swift in Sources */,
 				08C168FF2BB7396200E61326 /* TransferFiltersViewController.swift in Sources */,
@@ -7911,6 +7983,7 @@
 				7F85B811246A9AB600ED09B8 /* AttributesFormatter.swift in Sources */,
 				088FF08A2A027AE400042957 /* UITapGestureRecognizer.swift in Sources */,
 				7F85B813246A9AB600ED09B8 /* UIViewController+Additions.swift in Sources */,
+				152206222D70850F006B88D0 /* ShareSheetView.swift in Sources */,
 				509749F62C49207400D28D6B /* UserDefaultsQueue.swift in Sources */,
 				08A045E129FA99D200DACE1F /* CredentialHolderInformation.swift in Sources */,
 				088FF28F2A02C8C200042957 /* XButton.swift in Sources */,
@@ -8066,6 +8139,7 @@
 				151A539A2C5CF03800EFE20C /* PopupContainer.swift in Sources */,
 				08A0463B29FAA62B00DACE1F /* String+Extensions.swift in Sources */,
 				08A0449829FA987800DACE1F /* SeedIDRequest.swift in Sources */,
+				15A761392D6727D200A48204 /* ValidatorMetadataViewModel.swift in Sources */,
 				08DB5E152BC6C29900C29663 /* StakeAmountInputPresenterProtocol.swift in Sources */,
 				08DB5E162BC6C29900C29663 /* StakeAmountInputValidator.swift in Sources */,
 				08DB5E172BC6C29900C29663 /* StakeAmountInputViewController.swift in Sources */,
@@ -8084,6 +8158,7 @@
 				088FF0732A02783700042957 /* RequestPasswordDelegate.swift in Sources */,
 				7F85B849246A9AB600ED09B8 /* Storyboarded.swift in Sources */,
 				7F85B84A246A9AB600ED09B8 /* UITableView+scroll.swift in Sources */,
+				1522061E2D7083A8006B88D0 /* ValidatorGenerateKeysViewModel.swift in Sources */,
 				08A045F329FA99D200DACE1F /* Metadata.swift in Sources */,
 				7F85B84D246A9AB600ED09B8 /* UITextField+Extensions.swift in Sources */,
 				088FF1912A02947B00042957 /* GettingStartedPresenter.swift in Sources */,
@@ -8120,6 +8195,7 @@
 				08A045EB29FA99D200DACE1F /* AccountDelegation.swift in Sources */,
 				D589F2092794B5ED003F2FBB /* ExportValues.swift in Sources */,
 				D5D52C6C26DE45530072D20E /* RoundedCurrencyView.swift in Sources */,
+				152206182D707BAD006B88D0 /* ValidatorGenerateKeysView.swift in Sources */,
 				D5BA806B2731AFA800DCE1CD /* Data+Hex.swift in Sources */,
 				50EB310C2BFFF515002B2558 /* UnshieldAssetsViewModel.swift in Sources */,
 				08A0460029FA99D200DACE1F /* MakeGenerateAccountsResponseElement.swift in Sources */,
@@ -8144,6 +8220,7 @@
 				D589F1E92794B5ED003F2FBB /* IdentityWrapperShell.swift in Sources */,
 				088FF14B2A0286A200042957 /* AppSettingsResponse.swift in Sources */,
 				509A56362CB42EFF005EA908 /* AppSettings.swift in Sources */,
+				15A760982D66474200A48204 /* ValidatorMetadataView.swift in Sources */,
 				D5C9F11B2905DAE3003C8D17 /* Reusable.swift in Sources */,
 				088FF0142A02726000042957 /* SeedAccountsService.swift in Sources */,
 				088FF1462A02867B00042957 /* AppSettingsService.swift in Sources */,
@@ -8167,6 +8244,7 @@
 				088FEDDD2A01679500042957 /* BurgerMenuOptionCell.swift in Sources */,
 				D589F3312794B678003F2FBB /* MobileWallet.swift in Sources */,
 				088FEDDB2A01679500042957 /* BurgerMenuPresenter.swift in Sources */,
+				15ED6D4D2D64F3CE00B1BB44 /* OpenPoolView.swift in Sources */,
 				08A0461129FA99D300DACE1F /* Policy.swift in Sources */,
 				D54ABC1E26E1032500F4E773 /* TextEditView.swift in Sources */,
 				088FEDAD2A01675600042957 /* AccountAddressQRPresenter.swift in Sources */,
@@ -8217,6 +8295,7 @@
 				08A6BD952B30893200869317 /* WelcomeView.swift in Sources */,
 				088FF06D2A02783000042957 /* BiometricsEnablingViewController.swift in Sources */,
 				7F85B891246A9AB600ED09B8 /* Result+Additions.swift in Sources */,
+				15ED6DF22D64F8D300B1BB44 /* ValidatorPoolSettingsViewModel.swift in Sources */,
 				088FF0612A02781C00042957 /* EnterPasswordViewController.swift in Sources */,
 				08DB5E772BC6C32900C29663 /* BakerPoolSettingsViewController.swift in Sources */,
 				08DB5E782BC6C32900C29663 /* BakerPoolSettingsPresenter.swift in Sources */,
@@ -8277,6 +8356,7 @@
 				088FF05D2A02781C00042957 /* PasscodeFieldViewController.swift in Sources */,
 				1575863B2CA55E3700205A6E /* StakeStatusView.swift in Sources */,
 				08A045FF29FA99D200DACE1F /* PreIdentityObject.swift in Sources */,
+				1522062C2D71EC35006B88D0 /* ValidatorTransactionStatusView.swift in Sources */,
 				088FEE812A025AE300042957 /* GTUTextFieldDelegate.swift in Sources */,
 				15ED6C702D63807A00B1BB44 /* ValidatorMainView.swift in Sources */,
 				D521B3782757B3300020CF16 /* Locate+Additionals.swift in Sources */,
@@ -8292,6 +8372,7 @@
 				D5B39404271990D60094A9F5 /* CircleView.swift in Sources */,
 				08A0463029FAA4E800DACE1F /* ExportedAccountPrivateKeys.swift in Sources */,
 				088FF1B62A02A70300042957 /* MoreCoordinator.swift in Sources */,
+				1522062A2D70A65E006B88D0 /* ValidatorSubmissionViewModel.swift in Sources */,
 				088FF27C2A02B0A400042957 /* Collections+Extensions.swift in Sources */,
 				08A045DE29FA99D200DACE1F /* Details.swift in Sources */,
 				08B16F002A01185E002E6B33 /* AccountsPresenter.swift in Sources */,
@@ -8331,6 +8412,7 @@
 				08A045DF29FA99D200DACE1F /* IdentityObjectWrapper.swift in Sources */,
 				08A045FD29FA99D200DACE1F /* CredentialValue.swift in Sources */,
 				15F3F0A92C8B1CFF00EF8975 /* TransactionNotificationService.swift in Sources */,
+				15A760942D65D32C00A48204 /* ComissionSettingsView.swift in Sources */,
 				08A0460729FA99D200DACE1F /* PoolInfo.swift in Sources */,
 				7F85B8B2246A9AB600ED09B8 /* AccountsService.swift in Sources */,
 				7F85B8B3246A9AB600ED09B8 /* TransactionsService.swift in Sources */,
@@ -8344,6 +8426,7 @@
 				08DB5E252BC6C2BB00C29663 /* DelegationDataHandler.swift in Sources */,
 				08DB5E262BC6C2BB00C29663 /* DelegationCoordinator.swift in Sources */,
 				08DB5E272BC6C2BB00C29663 /* DelegationOnboardingCoordinator.swift in Sources */,
+				152206252D70A620006B88D0 /* ValidatorSubmissionView.swift in Sources */,
 				088FF1EA2A02A73D00042957 /* UpdatePasswordPresenter.swift in Sources */,
 				088FEE702A025A5300042957 /* PageViewModel.swift in Sources */,
 				D5CACC5026ED48DB00D3C3CF /* UIView+Shake.swift in Sources */,
@@ -8375,8 +8458,8 @@
 				19C2E8235F5A65E28FB153B6 /* AES256Encryption.swift in Sources */,
 				D5E6CBCD290F4078009856B7 /* NFTProvidersView.swift in Sources */,
 				089E328B2A0CF2BF002AE530 /* MakeUpdateTransferRequest.swift in Sources */,
-				08DB5E632BC6C31400C29663 /* BakerCommissionSettingsViewModel.swift in Sources */,
-				08DB5E642BC6C31400C29663 /* BakerCommissionSettingsView.swift in Sources */,
+				08DB5E632BC6C31400C29663 /* ValidatorCommissionSettingsViewModel.swift in Sources */,
+				08DB5E642BC6C31400C29663 /* ValidatorCommissionSettingsView.swift in Sources */,
 				088FEDEE2A0167BD00042957 /* ReleaseScheduleViewController.swift in Sources */,
 				1580EBFC2D4A41240051C55D /* AddMemoView.swift in Sources */,
 				08A0449229FA987800DACE1F /* SeedIdentityCreationStatus.swift in Sources */,
@@ -8418,6 +8501,7 @@
 				D5612B8728EA558300582AD4 /* NFTProvidersPresenter.swift in Sources */,
 				088FEC672A01459100042957 /* QRDataResponse.swift in Sources */,
 				088FEFBE2A02717E00042957 /* SubmitSeedAccountView.swift in Sources */,
+				15ED6DEF2D64F60500B1BB44 /* RoundedButton.swift in Sources */,
 				088FEF762A0270B000042957 /* CopyReferenceInfoWidgetPresenter.swift in Sources */,
 				08DB5E362BC6C2DF00C29663 /* DelegationReceiptPresenter.swift in Sources */,
 				088FEDF82A0167D200042957 /* TransferFiltersViewController.swift in Sources */,
@@ -8626,6 +8710,7 @@
 				088FF08B2A027AE400042957 /* UITapGestureRecognizer.swift in Sources */,
 				088FF28D2A02C8C200042957 /* XButton.swift in Sources */,
 				509749F52C49207400D28D6B /* UserDefaultsQueue.swift in Sources */,
+				152206202D70850F006B88D0 /* ShareSheetView.swift in Sources */,
 				D5BA052829148BFB00AC780A /* Model+Airdrop.swift in Sources */,
 				088FF0BB2A02846000042957 /* RecoveryPhraseInputView.swift in Sources */,
 				15FC76692C9ADB5000AC357B /* ImportWalletInfoView.swift in Sources */,
@@ -8781,6 +8866,7 @@
 				151A53992C5CF03800EFE20C /* PopupContainer.swift in Sources */,
 				08A0463929FAA62B00DACE1F /* String+Extensions.swift in Sources */,
 				08DB5E122BC6C29900C29663 /* StakeAmountInputPresenterProtocol.swift in Sources */,
+				15A7613A2D6727D200A48204 /* ValidatorMetadataViewModel.swift in Sources */,
 				08DB5E132BC6C29900C29663 /* StakeAmountInputValidator.swift in Sources */,
 				08DB5E142BC6C29900C29663 /* StakeAmountInputViewController.swift in Sources */,
 				08E69C992A1FCAA5001CCA96 /* AccountTokensView.swift in Sources */,
@@ -8799,6 +8885,7 @@
 				088FF0722A02783700042957 /* RequestPasswordDelegate.swift in Sources */,
 				D54ABC2626E14BA900F4E773 /* NoDataView.swift in Sources */,
 				08A0455B29FA99D100DACE1F /* Metadata.swift in Sources */,
+				1522061C2D7083A8006B88D0 /* ValidatorGenerateKeysViewModel.swift in Sources */,
 				D5612B7B28EA207100582AD4 /* NFTFeedPresenter.swift in Sources */,
 				088FF1832A02947A00042957 /* GettingStartedPresenter.swift in Sources */,
 				088CA9D72B3590BD00898C85 /* PasscodeView.swift in Sources */,
@@ -8835,6 +8922,7 @@
 				088FF1532A02885600042957 /* Collections+Indexed.swift in Sources */,
 				08A0455329FA99D100DACE1F /* AccountDelegation.swift in Sources */,
 				D5CACC5D26ED5B1400D3C3CF /* VersionView.swift in Sources */,
+				1522061A2D707BAD006B88D0 /* ValidatorGenerateKeysView.swift in Sources */,
 				08A0456829FA99D100DACE1F /* MakeGenerateAccountsResponseElement.swift in Sources */,
 				50EB310B2BFFF515002B2558 /* UnshieldAssetsViewModel.swift in Sources */,
 				D5F7A23726D7A1DB0061E646 /* OperationRoundedView.swift in Sources */,
@@ -8859,6 +8947,7 @@
 				088FF1492A0286A200042957 /* AppSettingsResponse.swift in Sources */,
 				D5C9F1192905DAE3003C8D17 /* Reusable.swift in Sources */,
 				509A56372CB42EFF005EA908 /* AppSettings.swift in Sources */,
+				15A760992D66474200A48204 /* ValidatorMetadataView.swift in Sources */,
 				08BC951A2A3717210058F1B9 /* TransferTokenConfirmViewModel.swift in Sources */,
 				08FD0B822A7D31D9003774A6 /* GradienBackgroundModifier.swift in Sources */,
 				088FF1442A02867B00042957 /* AppSettingsService.swift in Sources */,
@@ -8882,6 +8971,7 @@
 				08A0457929FA99D100DACE1F /* Policy.swift in Sources */,
 				088FEDD52A01679400042957 /* BurgerMenuPresenter.swift in Sources */,
 				D5CFCF2C273922D800888E1B /* QRTransactionDataViewController.swift in Sources */,
+				15ED6D4E2D64F3CE00B1BB44 /* OpenPoolView.swift in Sources */,
 				08FD0B802A7D271B003774A6 /* GrayRoundedBackgroundModifier.swift in Sources */,
 				D5D52C5F26DBF6FC0072D20E /* BorderedButton.swift in Sources */,
 				088FEDA72A01675500042957 /* AccountAddressQRPresenter.swift in Sources */,
@@ -8932,6 +9022,7 @@
 				088FF1D82A02A72600042957 /* SanityChecker.swift in Sources */,
 				08A0457A29FA99D100DACE1F /* Description.swift in Sources */,
 				D589F1932794B5ED003F2FBB /* IdentityProviderEntity.swift in Sources */,
+				15ED6DF32D64F8D300B1BB44 /* ValidatorPoolSettingsViewModel.swift in Sources */,
 				08DB5E752BC6C32900C29663 /* BakerPoolSettingsViewController.swift in Sources */,
 				08DB5E762BC6C32900C29663 /* BakerPoolSettingsPresenter.swift in Sources */,
 				088FF0692A02782F00042957 /* BiometricsEnablingViewController.swift in Sources */,
@@ -8992,6 +9083,7 @@
 				088FF1842A02947A00042957 /* InitialAccountInfoViewController.swift in Sources */,
 				1575863A2CA55E3700205A6E /* StakeStatusView.swift in Sources */,
 				08A0456729FA99D100DACE1F /* PreIdentityObject.swift in Sources */,
+				1522062E2D71EC35006B88D0 /* ValidatorTransactionStatusView.swift in Sources */,
 				088FEE162A0167FA00042957 /* ButtonSlider.swift in Sources */,
 				15ED6C712D63807A00B1BB44 /* ValidatorMainView.swift in Sources */,
 				088FF04D2A02781B00042957 /* PasscodeFieldViewController.swift in Sources */,
@@ -9007,6 +9099,7 @@
 				D5CCCB4228EE42BD00350D83 /* NFTLoadingStatusView.swift in Sources */,
 				D589F2132794B5ED003F2FBB /* ShieldedAccountEncryptionStatus.swift in Sources */,
 				088FF00A2A0271F600042957 /* SeedIdentitiesService.swift in Sources */,
+				152206292D70A65E006B88D0 /* ValidatorSubmissionViewModel.swift in Sources */,
 				088FF27A2A02B0A400042957 /* Collections+Extensions.swift in Sources */,
 				08A0462E29FAA4E800DACE1F /* ExportedAccountPrivateKeys.swift in Sources */,
 				08A0454629FA99D100DACE1F /* Details.swift in Sources */,
@@ -9046,6 +9139,7 @@
 				19C2EDF1839B4F4F8FE11A76 /* GTU.swift in Sources */,
 				08A0454729FA99D100DACE1F /* IdentityObjectWrapper.swift in Sources */,
 				15F3F0A82C8B1CFF00EF8975 /* TransactionNotificationService.swift in Sources */,
+				15A760952D65D32C00A48204 /* ComissionSettingsView.swift in Sources */,
 				08A0456529FA99D100DACE1F /* CredentialValue.swift in Sources */,
 				19C2E17E671E62F0C6925443 /* AccountTransactionsLoadingCellView.swift in Sources */,
 				08A0456F29FA99D100DACE1F /* PoolInfo.swift in Sources */,
@@ -9059,6 +9153,7 @@
 				08DB5E202BC6C2B900C29663 /* DelegationCoordinator.swift in Sources */,
 				08DB5E212BC6C2B900C29663 /* DelegationOnboardingCoordinator.swift in Sources */,
 				088FF1E62A02A73C00042957 /* UpdatePasswordPresenter.swift in Sources */,
+				152206262D70A620006B88D0 /* ValidatorSubmissionView.swift in Sources */,
 				088FEE6E2A025A5300042957 /* PageViewModel.swift in Sources */,
 				19C2E2BCDEA276F9C368C149 /* TransactionsService.swift in Sources */,
 				D5612B7128EA1A8300582AD4 /* CollectionsCoordinator.swift in Sources */,
@@ -9090,8 +9185,8 @@
 				D5E6CBCB290F4078009856B7 /* NFTProvidersView.swift in Sources */,
 				FA07319226CD249F00CEE8F0 /* ExternalPaymentVC.swift in Sources */,
 				089E32892A0CF2BE002AE530 /* MakeUpdateTransferRequest.swift in Sources */,
-				08DB5E612BC6C31300C29663 /* BakerCommissionSettingsViewModel.swift in Sources */,
-				08DB5E622BC6C31300C29663 /* BakerCommissionSettingsView.swift in Sources */,
+				08DB5E612BC6C31300C29663 /* ValidatorCommissionSettingsViewModel.swift in Sources */,
+				08DB5E622BC6C31300C29663 /* ValidatorCommissionSettingsView.swift in Sources */,
 				08A0447629FA987700DACE1F /* SeedIdentityCreationStatus.swift in Sources */,
 				1580EBF42D4A41240051C55D /* AddMemoView.swift in Sources */,
 				088FEDEA2A0167BC00042957 /* ReleaseScheduleViewController.swift in Sources */,
@@ -9133,6 +9228,7 @@
 				D5B393E427197A750094A9F5 /* SpecificViewForController.swift in Sources */,
 				D578396727A08B1200FFD123 /* BackupAlertController.swift in Sources */,
 				088FEC652A01459100042957 /* QRDataResponse.swift in Sources */,
+				15ED6DED2D64F60500B1BB44 /* RoundedButton.swift in Sources */,
 				088FEFB82A02717D00042957 /* SubmitSeedAccountView.swift in Sources */,
 				08DB5E352BC6C2DF00C29663 /* DelegationReceiptPresenter.swift in Sources */,
 				088FEF4E2A0270AF00042957 /* CopyReferenceInfoWidgetPresenter.swift in Sources */,

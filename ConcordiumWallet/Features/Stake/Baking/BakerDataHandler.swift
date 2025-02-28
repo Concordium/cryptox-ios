@@ -17,7 +17,11 @@ class BakerDataHandler: StakeDataHandler {
         case stopBaking
     }
     
+    let account: AccountDataType
+    let id = UUID()
+    
     init(account: AccountDataType, action: Action) {
+        self.account = account
         switch action {
         case .register:
             super.init(transferType: .registerBaker)
@@ -68,6 +72,10 @@ class BakerDataHandler: StakeDataHandler {
         currentSettings.addStakeData(to: &currentData)
         poolInfo.addStakeData(to: &currentData)
         return currentData
+    }
+    
+    func getCurrentAmount() -> GTU? {
+        return getNewEntry(BakerAmountData.self)?.amount
     }
 }
 

@@ -11,7 +11,7 @@ import SwiftUI
 
 struct BakerCommissionSettingsView: View {
     static var sliderStep = 1e-3
-    @StateObject var viewModel: BakerCommissionSettingsViewModel
+    @StateObject var viewModel: ValidatorCommissionSettingsViewModel
 
     var body: some View {
         VStack {
@@ -31,14 +31,6 @@ struct BakerCommissionSettingsView: View {
                     commission: $viewModel.bakingRewardCommission
                 )
                 Spacer()
-                Button(action: viewModel.continueButtonTapped) {
-                    Text("Continue")
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .foregroundColor(Color.black)
-                        .background(Pallette.primary)
-                }
-
                 .background(Pallette.primary)
                 .cornerRadius(10)
             } else {
@@ -56,7 +48,8 @@ struct BakerCommissionSettingsView: View {
                 Button {
                     switch error {
                     case .networkError:
-                        viewModel.dismissView()
+                        break
+//                        viewModel.dismissView()
                     default: break
                     }
                     viewModel.error = nil

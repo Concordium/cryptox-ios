@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum NavigationPaths: Hashable {
     case accountsOverview(_ viewModel: AccountsMainViewModel)
@@ -28,19 +29,12 @@ enum NavigationPaths: Hashable {
     case earnMain(_ account: AccountEntity)
     case earnReadMode(mode: EarnMode, account: AccountEntity)
     // MARK: - Validator Flow
-    case validator(ValidatorNavigationPaths, account: AccountEntity)
-}
-
-enum ValidatorNavigationPaths: Equatable, Hashable {
     case status(BakerPoolStatus)
-//    case menu(currentSettings: BakerEntity, poolInfo: PoolInfo)
-//    case learnAbout(BakerDataHandler)
-//    case poolSettings(BakerDataHandler)
-//    case generateKey(BakerDataHandler)
-//    case metadataUrl(BakerDataHandler)
-//    case commissionSettings(BakerDataHandler)
-    case amountInput(BakerDataHandler)
-    case openningPool(BakerDataHandler)
-//    case requestConfirmation(BakerDataHandler)
-//    case submissionReceipt(TransferEntity, StakeDataHandler)
+    case generateKey(ValidatorGenerateKeysViewModel)
+    case metadataUrl(ValidatorMetadataViewModel)
+    case commissionSettings(ValidatorCommissionSettingsViewModel)
+    case amountInput(ValidatorAmountInputViewModel)
+    case openningPool(ValidatorPoolSettingsViewModel)
+    case requestConfirmation(ValidatorSubmissionViewModel)
+    case validatorTransactionStatus(ValidatorSubmissionViewModel)
 }

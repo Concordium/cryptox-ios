@@ -44,16 +44,16 @@ enum ValidatorTransferCostOption {
 
 final class ValidatorAmountInputViewModel: StakeAmountInputViewModel {
     
-    var dataHandler: StakeDataHandler
+    var dataHandler: BakerDataHandler
     private var validator: StakeAmountInputValidator
     private var transactionService: TransactionsServiceProtocol
     private var stakeService: StakeServiceProtocol
     private var cancellables = Set<AnyCancellable>()
-    
+    @Published var error: Error?
     init(
         account: AccountDataType,
         dependencyProvider: StakeCoordinatorDependencyProvider,
-        dataHandler: StakeDataHandler
+        dataHandler: BakerDataHandler
     ) {
         self.dataHandler = dataHandler
         self.transactionService = dependencyProvider.transactionsService()
@@ -168,7 +168,7 @@ final class ValidatorAmountInputViewModel: StakeAmountInputViewModel {
                 case let .failure(error):
                     self?.isContinueEnabled = false
                     self?.amountErrorMessage = error.localizedDescription
-                case .success(let amount):
+                case .success(_):
                     self?.isContinueEnabled = true
                     self?.amountErrorMessage = nil
             }
@@ -236,8 +236,8 @@ final class ValidatorAmountInputViewModel: StakeAmountInputViewModel {
         switch result {
             case let .failure(error):
             isContinueEnabled = false
-//                self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
-            case let .success(parameters):
+            self.error = error
+        case let .success(parameters):
                 self.validator.minimumValue = parameters.minimumValue
                 self.validator.maximumValue = parameters.maximumValue
                 self.dataHandler.add(entry: parameters.comissionData)

@@ -158,16 +158,7 @@ protocol AccountValue: FieldValue {
 
 extension AccountValue {
     func getDisplayValues(type: TransferType) -> [DisplayValue] {
-        if let accountName = self.accountName {
-            return [
-                DisplayValue(
-                    key: field.getLabelText(),
-                    value: String(format: "stake.receipt.formattedaccount".localized, accountName, accountAddress)
-                )
-            ]
-        } else {
             return [DisplayValue(key: field.getLabelText(), value: accountAddress)]
-        }
     }
     
     func getCostParameters(type: TransferType) -> [TransferCostParameter] {
@@ -311,15 +302,15 @@ struct BakerKeyData: FieldValue {
         [
             DisplayValue(
                 key: "baking.receipt.electionverifykey".localized,
-                value: keys.electionVerifyKey.splitInto(lines: 2)
+                value: keys.electionVerifyKey
             ),
             DisplayValue(
                 key: "baking.receipt.signatureverifykey".localized,
-                value: keys.signatureVerifyKey.splitInto(lines: 2)
+                value: keys.signatureVerifyKey
             ),
             DisplayValue(
                 key: "baking.receipt.aggregationverifykey".localized,
-                value: keys.aggregationVerifyKey.splitInto(lines: 6)
+                value: keys.aggregationVerifyKey
             )
         ]
     }
@@ -542,7 +533,7 @@ enum CurrentDataBuilder {
     }
 }
 
-class StakeDataHandler {
+class StakeDataHandler: ObservableObject {
     let transferType: TransferType
     
     // this is the data that is currently on the chain

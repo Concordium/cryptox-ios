@@ -441,19 +441,10 @@ extension HomeScreenView {
                 
                 Spacer()
                 
-                Button(action: {
+                RoundedButton(action: {
                     self.router?.showCreateIdentityFlow()
                     Tracker.trackContentInteraction(name: "Onboarding", interaction: .clicked, piece: "Create Identity")
-                }, label: {
-                    Text("create_wallet_step_3_title".localized)
-                        .font(Font.satoshi(size: 15, weight: .medium))
-                        .foregroundColor(.blackMain)
-                        .padding(.horizontal, 24)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 56)
-                        .background(.white)
-                        .cornerRadius(28)
-                })
+                }, title: "create_wallet_step_3_title".localized)
             }
             .transition(.opacity)
             
@@ -478,19 +469,10 @@ extension HomeScreenView {
                 AccountPreviewCardView(isCreatingAccount: $isCreatingAccount, state: .saveSeedPhrase)
                     .fixedSize(horizontal: false, vertical: true)
                 Spacer()
-                Button {
+                RoundedButton(action: {
                     isShowPasscodeViewShown = true
                     Tracker.trackContentInteraction(name: "Onboarding", interaction: .clicked, piece: "Save Seed Phrase")
-                } label: {
-                    Text("create_wallet_step_2_title".localized)
-                        .font(Font.satoshi(size: 15, weight: .medium))
-                        .foregroundColor(.blackMain)
-                        .padding(.horizontal, 24)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 56)
-                        .background(.white)
-                        .cornerRadius(28)
-                }
+                }, title: "create_wallet_step_2_title".localized)
             }
             .transition(.opacity)
         }

@@ -33,9 +33,9 @@ final class ValidatorViewModel: ObservableObject {
     
     func checkStatus() {
         if dependencyProvider.storageManager().hasPendingBakerRegistration(for: account.address) {
-            navigationManager.navigate(to: .validator(.status(.pendingTransfer), account: account))
+            navigationManager.navigate(to: .status(.pendingTransfer))
         } else if let currentSettings = account.baker {
-            navigationManager.navigate(to: .validator(.status(.registered(currentSettings: currentSettings)), account: account))
+            navigationManager.navigate(to: .status(.registered(currentSettings: currentSettings)))
         }
     }
 }

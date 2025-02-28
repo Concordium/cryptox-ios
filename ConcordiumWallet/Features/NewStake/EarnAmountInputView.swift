@@ -75,20 +75,16 @@ struct EarnValidatorAmountInputView: View {
             .cornerRadius(12)
             
             Spacer()
-            Button(action: {
-                guard let account = viewModel.account as? AccountEntity, let handler = viewModel.dataHandler as? BakerDataHandler else { return }
-                navigationManager.navigate(to: .validator(.openningPool(handler), account: account))
-            }, label: {
-                Text("continue_btn_title".localized)
-                    .font(Font.satoshi(size: 15, weight: .medium))
-                    .foregroundColor(.blackMain)
-                    .padding(.horizontal, 24)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 56)
-                    .background(.white)
-                    .cornerRadius(28)
-            })
-            .disabled(!viewModel.isContinueEnabled)
+            
+            RoundedButton(action: {
+                viewModel.pressedContinue()
+                navigationManager.navigate(to: .openningPool(ValidatorPoolSettingsViewModel(
+                    dataHandler: viewModel.dataHandler,
+                    navigationManager: navigationManager
+                )))
+            },
+                          title: "continue_btn_title".localized)
+//            .disabled(!viewModel.isContinueEnabled)
         }
         .padding(.horizontal, 18)
         .padding(.top, 40)
