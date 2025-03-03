@@ -11,12 +11,16 @@ struct AccountDelegation: Codable {
     let restakeEarnings: Bool
     let delegationTarget: DelegationTarget
     let pendingChange: PendingChange?
+    let isSuspended: Bool
+    let isPrimedForSuspension: Bool?
 
     enum CodingKeys: String, CodingKey {
         case stakedAmount = "stakedAmount"
         case restakeEarnings = "restakeEarnings"
         case delegationTarget = "delegationTarget"
         case pendingChange = "pendingChange"
+        case isSuspended = "isSuspended"
+        case isPrimedForSuspension = "isPrimedForSuspension"
     }
 }
 
@@ -36,20 +40,6 @@ extension AccountDelegation {
 
     init(fromURL url: URL) throws {
         try self.init(data: try Data(contentsOf: url))
-    }
-
-    func with(
-        stakedAmount: String? = nil,
-        restakeEarnings: Bool? = nil,
-        delegationTarget: DelegationTarget? = nil,
-        pendingChange: PendingChange?? = nil
-    ) -> AccountDelegation {
-        return AccountDelegation(
-            stakedAmount: stakedAmount ?? self.stakedAmount,
-            restakeEarnings: restakeEarnings ?? self.restakeEarnings,
-            delegationTarget: delegationTarget ?? self.delegationTarget,
-            pendingChange: pendingChange ?? self.pendingChange
-        )
     }
 
     func jsonData() throws -> Data {

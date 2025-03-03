@@ -18,6 +18,7 @@ protocol BakerDataType: DataStoreProtocol {
     var bakerSignatureVerifyKey: String { get set }
     var pendingChange: PendingChangeDataType? { get set }
     var isSuspended: Bool { get set }
+    var isPrimedForSuspension: Bool { get set }
 }
 
 final class BakerEntity: Object {
@@ -29,6 +30,7 @@ final class BakerEntity: Object {
     @objc dynamic var bakerSignatureVerifyKey: String = ""
     @objc dynamic var pendingChangeEntity: PendingChangeEntity?
     @objc dynamic var isSuspended: Bool = false
+    @objc dynamic var isPrimedForSuspension: Bool = false
         
     convenience init(accountBakerModel: AccountBaker) {
         self.init()
@@ -40,6 +42,7 @@ final class BakerEntity: Object {
         self.bakerSignatureVerifyKey = accountBakerModel.bakerSignatureVerifyKey
         self.pendingChangeEntity = PendingChangeEntity(pendingChange: accountBakerModel.pendingChange)
         self.isSuspended = accountBakerModel.isSuspended
+        self.isPrimedForSuspension = accountBakerModel.isPrimedForSuspension ?? false
     }
 }
 

@@ -2005,6 +2005,27 @@
 		19C2EFF1CEC944A7FCBC63C5 /* SingleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2ED4F802767556C4ABBE9 /* SingleSection.swift */; };
 		5044206B2D706BDE00AF1CF9 /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = 5044206A2D706BDE00AF1CF9 /* ConcordiumWalletCrypto */; };
 		5044206D2D706BE400AF1CF9 /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = 5044206C2D706BE400AF1CF9 /* ConcordiumWalletCrypto */; };
+		504420762D70BEB600AF1CF9 /* AccountsOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5044206E2D70BEB600AF1CF9 /* AccountsOverviewView.swift */; };
+		504420772D70BEB600AF1CF9 /* AccountTokenListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5044206F2D70BEB600AF1CF9 /* AccountTokenListView.swift */; };
+		504420782D70BEB600AF1CF9 /* HideTokenPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420702D70BEB600AF1CF9 /* HideTokenPopup.swift */; };
+		504420792D70BEB600AF1CF9 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420712D70BEB600AF1CF9 /* HomeScreenView.swift */; };
+		5044207A2D70BEB600AF1CF9 /* ManageTokensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420722D70BEB600AF1CF9 /* ManageTokensView.swift */; };
+		5044207B2D70BEB600AF1CF9 /* TokenBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420732D70BEB600AF1CF9 /* TokenBalanceView.swift */; };
+		5044207C2D70BEB600AF1CF9 /* TokenDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420742D70BEB600AF1CF9 /* TokenDetailsView.swift */; };
+		5044207D2D70BEB600AF1CF9 /* AccountsOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5044206E2D70BEB600AF1CF9 /* AccountsOverviewView.swift */; };
+		5044207E2D70BEB600AF1CF9 /* AccountTokenListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5044206F2D70BEB600AF1CF9 /* AccountTokenListView.swift */; };
+		5044207F2D70BEB600AF1CF9 /* HideTokenPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420702D70BEB600AF1CF9 /* HideTokenPopup.swift */; };
+		504420802D70BEB600AF1CF9 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420712D70BEB600AF1CF9 /* HomeScreenView.swift */; };
+		504420812D70BEB600AF1CF9 /* ManageTokensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420722D70BEB600AF1CF9 /* ManageTokensView.swift */; };
+		504420822D70BEB600AF1CF9 /* TokenBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420732D70BEB600AF1CF9 /* TokenBalanceView.swift */; };
+		504420832D70BEB600AF1CF9 /* TokenDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420742D70BEB600AF1CF9 /* TokenDetailsView.swift */; };
+		504420842D70BEB600AF1CF9 /* AccountsOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5044206E2D70BEB600AF1CF9 /* AccountsOverviewView.swift */; };
+		504420852D70BEB600AF1CF9 /* AccountTokenListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5044206F2D70BEB600AF1CF9 /* AccountTokenListView.swift */; };
+		504420862D70BEB600AF1CF9 /* HideTokenPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420702D70BEB600AF1CF9 /* HideTokenPopup.swift */; };
+		504420872D70BEB600AF1CF9 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420712D70BEB600AF1CF9 /* HomeScreenView.swift */; };
+		504420882D70BEB600AF1CF9 /* ManageTokensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420722D70BEB600AF1CF9 /* ManageTokensView.swift */; };
+		504420892D70BEB600AF1CF9 /* TokenBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420732D70BEB600AF1CF9 /* TokenBalanceView.swift */; };
+		5044208A2D70BEB600AF1CF9 /* TokenDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420742D70BEB600AF1CF9 /* TokenDetailsView.swift */; };
 		5059C9B52C00CF1200E40307 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5059C9B42C00CF1200E40307 /* SDWebImageSwiftUI */; };
 		5059C9B72C00CF1700E40307 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5059C9B62C00CF1700E40307 /* SDWebImageSwiftUI */; };
 		505E11F12CC2994A0003F6DC /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F779124891F220016F8D1 /* AppIcon.xcassets */; };
@@ -3274,6 +3295,13 @@
 		19C2ED4F802767556C4ABBE9 /* SingleSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleSection.swift; sourceTree = "<group>"; };
 		19C2EE201F8E02CE561DA70D /* GTU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GTU.swift; sourceTree = "<group>"; };
 		19C2EEBD44B62F16333900D2 /* GeneralError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralError.swift; sourceTree = "<group>"; };
+		5044206E2D70BEB600AF1CF9 /* AccountsOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsOverviewView.swift; sourceTree = "<group>"; };
+		5044206F2D70BEB600AF1CF9 /* AccountTokenListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTokenListView.swift; sourceTree = "<group>"; };
+		504420702D70BEB600AF1CF9 /* HideTokenPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideTokenPopup.swift; sourceTree = "<group>"; };
+		504420712D70BEB600AF1CF9 /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
+		504420722D70BEB600AF1CF9 /* ManageTokensView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTokensView.swift; sourceTree = "<group>"; };
+		504420732D70BEB600AF1CF9 /* TokenBalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBalanceView.swift; sourceTree = "<group>"; };
+		504420742D70BEB600AF1CF9 /* TokenDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailsView.swift; sourceTree = "<group>"; };
 		507629652BF2040B00B4D390 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		509749CF2C3C0D4E00D28D6B /* CCDOnrampView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCDOnrampView.swift; sourceTree = "<group>"; };
 		509749D32C3C241B00D28D6B /* ProviderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderView.swift; sourceTree = "<group>"; };
@@ -3561,7 +3589,6 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		156878E52CD24F4E0080B2F3 /* ViewModels */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ViewModels; sourceTree = "<group>"; };
 		156878E62CD24F6F0080B2F3 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
-		15C202012D300251005CBBD8 /* NewAccountFlow */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = NewAccountFlow; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3874,7 +3901,7 @@
 		088FEC682A01483D00042957 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				15C202012D300251005CBBD8 /* NewAccountFlow */,
+				504420752D70BEB600AF1CF9 /* NewAccountFlow */,
 				509749DF2C3E862500D28D6B /* NewsFeed */,
 				509749CE2C3C0D2B00D28D6B /* OnrampFlow */,
 				50EB30FD2BFBA113002B2558 /* UnshieldAssetsFlow */,
@@ -5431,6 +5458,28 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		504420752D70BEB600AF1CF9 /* NewAccountFlow */ = {
+			isa = PBXGroup;
+			children = (
+				5044208B2D71FE0D00AF1CF9 /* HomeScreen */,
+				5044206E2D70BEB600AF1CF9 /* AccountsOverviewView.swift */,
+				5044206F2D70BEB600AF1CF9 /* AccountTokenListView.swift */,
+				504420702D70BEB600AF1CF9 /* HideTokenPopup.swift */,
+				504420722D70BEB600AF1CF9 /* ManageTokensView.swift */,
+				504420732D70BEB600AF1CF9 /* TokenBalanceView.swift */,
+				504420742D70BEB600AF1CF9 /* TokenDetailsView.swift */,
+			);
+			path = NewAccountFlow;
+			sourceTree = "<group>";
+		};
+		5044208B2D71FE0D00AF1CF9 /* HomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				504420712D70BEB600AF1CF9 /* HomeScreenView.swift */,
+			);
+			path = HomeScreen;
+			sourceTree = "<group>";
+		};
 		507629692BF2293400B4D390 /* LegacyWalletConnect */ = {
 			isa = PBXGroup;
 			children = (
@@ -6322,7 +6371,6 @@
 			fileSystemSynchronizedGroups = (
 				156878E52CD24F4E0080B2F3 /* ViewModels */,
 				156878E62CD24F6F0080B2F3 /* Views */,
-				15C202012D300251005CBBD8 /* NewAccountFlow */,
 			);
 			name = ProdTestNet;
 			packageProductDependencies = (
@@ -6361,7 +6409,6 @@
 			fileSystemSynchronizedGroups = (
 				156878E52CD24F4E0080B2F3 /* ViewModels */,
 				156878E62CD24F6F0080B2F3 /* Views */,
-				15C202012D300251005CBBD8 /* NewAccountFlow */,
 			);
 			name = ProdMainNet;
 			packageProductDependencies = (
@@ -6400,7 +6447,6 @@
 			fileSystemSynchronizedGroups = (
 				156878E52CD24F4E0080B2F3 /* ViewModels */,
 				156878E62CD24F6F0080B2F3 /* Views */,
-				15C202012D300251005CBBD8 /* NewAccountFlow */,
 			);
 			name = StagingNet;
 			packageProductDependencies = (
@@ -7208,6 +7254,13 @@
 				08C167512BB7396200E61326 /* NetworkSessionMock.swift in Sources */,
 				08C167522BB7396200E61326 /* IdentityRevokersWidgetPresenter.swift in Sources */,
 				08C167532BB7396200E61326 /* NFTDataReusableView.swift in Sources */,
+				504420842D70BEB600AF1CF9 /* AccountsOverviewView.swift in Sources */,
+				504420852D70BEB600AF1CF9 /* AccountTokenListView.swift in Sources */,
+				504420862D70BEB600AF1CF9 /* HideTokenPopup.swift in Sources */,
+				504420872D70BEB600AF1CF9 /* HomeScreenView.swift in Sources */,
+				504420882D70BEB600AF1CF9 /* ManageTokensView.swift in Sources */,
+				504420892D70BEB600AF1CF9 /* TokenBalanceView.swift in Sources */,
+				5044208A2D70BEB600AF1CF9 /* TokenDetailsView.swift in Sources */,
 				08C167542BB7396200E61326 /* MakeCreateTransferRequest.swift in Sources */,
 				08C167552BB7396200E61326 /* StyledLabel.swift in Sources */,
 				08C167562BB7396200E61326 /* AccountReleaseSchedule.swift in Sources */,
@@ -7916,6 +7969,13 @@
 				D589F3C32794B96C003F2FBB /* NetworkSessionMock.swift in Sources */,
 				088FEF7A2A0270B000042957 /* IdentityRevokersWidgetPresenter.swift in Sources */,
 				D5E6CBDE290F4771009856B7 /* NFTDataReusableView.swift in Sources */,
+				5044207D2D70BEB600AF1CF9 /* AccountsOverviewView.swift in Sources */,
+				5044207E2D70BEB600AF1CF9 /* AccountTokenListView.swift in Sources */,
+				5044207F2D70BEB600AF1CF9 /* HideTokenPopup.swift in Sources */,
+				504420802D70BEB600AF1CF9 /* HomeScreenView.swift in Sources */,
+				504420812D70BEB600AF1CF9 /* ManageTokensView.swift in Sources */,
+				504420822D70BEB600AF1CF9 /* TokenBalanceView.swift in Sources */,
+				504420832D70BEB600AF1CF9 /* TokenDetailsView.swift in Sources */,
 				08A045FE29FA99D200DACE1F /* MakeCreateTransferRequest.swift in Sources */,
 				088FEC902A01606100042957 /* StyledLabel.swift in Sources */,
 				08A045F029FA99D200DACE1F /* AccountReleaseSchedule.swift in Sources */,
@@ -8624,6 +8684,13 @@
 				088FF14E2A02883C00042957 /* UITableView+Extensions.swift in Sources */,
 				088FEF992A02715100042957 /* SelectIdentityViewModel.swift in Sources */,
 				08A0458529FA99D100DACE1F /* GeneratedBakerKeys.swift in Sources */,
+				504420762D70BEB600AF1CF9 /* AccountsOverviewView.swift in Sources */,
+				504420772D70BEB600AF1CF9 /* AccountTokenListView.swift in Sources */,
+				504420782D70BEB600AF1CF9 /* HideTokenPopup.swift in Sources */,
+				504420792D70BEB600AF1CF9 /* HomeScreenView.swift in Sources */,
+				5044207A2D70BEB600AF1CF9 /* ManageTokensView.swift in Sources */,
+				5044207B2D70BEB600AF1CF9 /* TokenBalanceView.swift in Sources */,
+				5044207C2D70BEB600AF1CF9 /* TokenDetailsView.swift in Sources */,
 				088FEF522A0270AF00042957 /* IdentityRevokersWidgetPresenter.swift in Sources */,
 				088FECDE2A01621F00042957 /* OnboardingCarouselWebContentViewController.swift in Sources */,
 				088FEF062A026F0000042957 /* IdentitiesCoordinator.swift in Sources */,
@@ -9437,12 +9504,17 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
+				LOCALIZED_STRING_SWIFTUI_SUPPORT = YES;
 				MARKETING_VERSION = 3.1.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.stagenet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_GTU_DROP";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -9472,12 +9544,17 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
+				LOCALIZED_STRING_SWIFTUI_SUPPORT = YES;
 				MARKETING_VERSION = 3.1.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.stagenet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
