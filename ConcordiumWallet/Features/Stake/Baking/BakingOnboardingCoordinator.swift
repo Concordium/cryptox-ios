@@ -45,8 +45,6 @@ class BakingOnboardingCoordinator: Coordinator {
         case .removeBaker:
             showRemoveCarousel()
         case .updateValidatorSuspendState:
-            // TODO: - Need to check  is need to show carousel here
-//            showSuspendCarousel()
             self.delegate?.finished(dataHandler: self.dataHandler)
         default:
             self.delegate?.closed()

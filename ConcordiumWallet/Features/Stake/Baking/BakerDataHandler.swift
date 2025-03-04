@@ -57,11 +57,11 @@ class BakerDataHandler: StakeDataHandler {
         case .stopBaking:
             super.init(transferType: .removeBaker)
             self.add(entry: DelegationStopAccountData(accountName: account.name, accountAddress: account.address))
-        case let .suspend(_, _):
+        case .suspend(_, _):
             super.init(transferType: .updateValidatorSuspendState)
             self.add(entry: BakerUpdateSuspend(isSuspended: true))
             self.add(entry: BakerUpdateAccountData(accountName: account.name, accountAddress: account.address))
-        case let .resume(_, _):
+        case .resume(_, _):
             super.init(transferType: .updateValidatorSuspendState)
             self.add(entry: BakerUpdateSuspend(isSuspended: false))
             self.add(entry: BakerUpdateAccountData(accountName: account.name, accountAddress: account.address))
