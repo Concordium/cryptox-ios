@@ -2026,6 +2026,9 @@
 		504420882D70BEB600AF1CF9 /* ManageTokensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420722D70BEB600AF1CF9 /* ManageTokensView.swift */; };
 		504420892D70BEB600AF1CF9 /* TokenBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420732D70BEB600AF1CF9 /* TokenBalanceView.swift */; };
 		5044208A2D70BEB600AF1CF9 /* TokenDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420742D70BEB600AF1CF9 /* TokenDetailsView.swift */; };
+		5049349B2D77072B00EA4757 /* HomeScreenViewSkeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5049349A2D77072B00EA4757 /* HomeScreenViewSkeleton.swift */; };
+		5049349C2D77072B00EA4757 /* HomeScreenViewSkeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5049349A2D77072B00EA4757 /* HomeScreenViewSkeleton.swift */; };
+		5049349D2D77072B00EA4757 /* HomeScreenViewSkeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5049349A2D77072B00EA4757 /* HomeScreenViewSkeleton.swift */; };
 		5059C9B52C00CF1200E40307 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5059C9B42C00CF1200E40307 /* SDWebImageSwiftUI */; };
 		5059C9B72C00CF1700E40307 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5059C9B62C00CF1700E40307 /* SDWebImageSwiftUI */; };
 		505E11F12CC2994A0003F6DC /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F779124891F220016F8D1 /* AppIcon.xcassets */; };
@@ -3302,6 +3305,7 @@
 		504420722D70BEB600AF1CF9 /* ManageTokensView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTokensView.swift; sourceTree = "<group>"; };
 		504420732D70BEB600AF1CF9 /* TokenBalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBalanceView.swift; sourceTree = "<group>"; };
 		504420742D70BEB600AF1CF9 /* TokenDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailsView.swift; sourceTree = "<group>"; };
+		5049349A2D77072B00EA4757 /* HomeScreenViewSkeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewSkeleton.swift; sourceTree = "<group>"; };
 		507629652BF2040B00B4D390 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		509749CF2C3C0D4E00D28D6B /* CCDOnrampView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCDOnrampView.swift; sourceTree = "<group>"; };
 		509749D32C3C241B00D28D6B /* ProviderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderView.swift; sourceTree = "<group>"; };
@@ -5476,6 +5480,7 @@
 			isa = PBXGroup;
 			children = (
 				504420712D70BEB600AF1CF9 /* HomeScreenView.swift */,
+				5049349A2D77072B00EA4757 /* HomeScreenViewSkeleton.swift */,
 			);
 			path = HomeScreen;
 			sourceTree = "<group>";
@@ -7038,6 +7043,7 @@
 				08C1667D2BB7396200E61326 /* NetworkManagerProtocol.swift in Sources */,
 				08C1667E2BB7396200E61326 /* BaseTabBar.swift in Sources */,
 				08C1667F2BB7396200E61326 /* InitialAccountInfoPresenter.swift in Sources */,
+				5049349D2D77072B00EA4757 /* HomeScreenViewSkeleton.swift in Sources */,
 				08C166802BB7396200E61326 /* TransferType.swift in Sources */,
 				08C166822BB7396200E61326 /* Int+Data.swift in Sources */,
 				08C166832BB7396200E61326 /* SpecificViewForController.swift in Sources */,
@@ -7753,6 +7759,7 @@
 				D589F3292794B678003F2FBB /* NetworkManagerProtocol.swift in Sources */,
 				7F85B7D7246A9AB600ED09B8 /* BaseTabBar.swift in Sources */,
 				088FF18F2A02947B00042957 /* InitialAccountInfoPresenter.swift in Sources */,
+				5049349B2D77072B00EA4757 /* HomeScreenViewSkeleton.swift in Sources */,
 				D589F1D92794B5ED003F2FBB /* TransferType.swift in Sources */,
 				D5BA80702731AFE700DCE1CD /* Int+Data.swift in Sources */,
 				D5B393E627197A750094A9F5 /* SpecificViewForController.swift in Sources */,
@@ -8468,6 +8475,7 @@
 				D594F7C72718BE68008F532E /* QRTransactionViewController.swift in Sources */,
 				D589F3272794B678003F2FBB /* NetworkManagerProtocol.swift in Sources */,
 				06D178A123F6D54900ABC904 /* BaseTabBar.swift in Sources */,
+				5049349C2D77072B00EA4757 /* HomeScreenViewSkeleton.swift in Sources */,
 				D5F3BC67278E5D3C008DC894 /* ShowAlertProtocol.swift in Sources */,
 				088FF1812A02947A00042957 /* InitialAccountInfoPresenter.swift in Sources */,
 				D589F1D72794B5ED003F2FBB /* TransferType.swift in Sources */,

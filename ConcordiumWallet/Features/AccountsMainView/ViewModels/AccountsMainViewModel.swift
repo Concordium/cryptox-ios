@@ -22,6 +22,8 @@ final class AccountsMainViewModel: ObservableObject, Hashable, Equatable {
     @Published var isBackupAlertShown = false
     @Published var selectedAccount: AccountPreviewViewModel?
     
+    @Published var isLoadedAccounts: Bool = false
+    
     let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     let defaultProvider = ServicesProvider.defaultProvider()
     private var cancellables = [AnyCancellable]()
@@ -64,6 +66,7 @@ final class AccountsMainViewModel: ObservableObject, Hashable, Equatable {
             selectedAccount = accountViewModels.first(where: {$0.address == firstAccount?.address})
         }
         checkChangesInSelectedAccount()
+        isLoadedAccounts = true
     }
     
     func checkChangesInSelectedAccount() {

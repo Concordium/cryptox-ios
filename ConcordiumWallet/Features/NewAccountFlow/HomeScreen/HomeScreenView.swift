@@ -21,7 +21,7 @@ struct HomeScreenView: View {
     @EnvironmentObject var navigationManager: NavigationManager
     @EnvironmentObject var updateTimer: UpdateTimer
     
-    @ObservedObject var viewModel: AccountsMainViewModel
+    @StateObject var viewModel: AccountsMainViewModel
     
     @State private var activeAccountViewModel: AccountDetailViewModel?
     @State var showTooltip: Bool = false
@@ -51,11 +51,13 @@ struct HomeScreenView: View {
     
     var body: some View {
         NavigationStack(path: $navigationManager.path) {
-            ScrollView {
-                HomeViewContent
+            Group {
+                if viewModel.isLoadedAccounts {
+                    HomeViewContent
+                } else {
+                    HomeScreenViewSkeleton()
+                }
             }
-            .refreshable { Task { await viewModel.reload() } }
-            .padding(.bottom, 20)
             .onReceive(updateTimer.tick) { _ in
                 Task {
                     await self.viewModel.reload()
@@ -143,68 +145,72 @@ struct HomeScreenView: View {
     // MARK: - Views
     
     private var HomeViewContent: some View {
-        VStack(spacing: 40) {
-            if viewModel.isBackupAlertShown {
-                HStack {
-                    Text("File wallet is selected")
-                        .font(.satoshi(size: 14, weight: .medium))
-                        .foregroundStyle(.white)
-                        .padding(.leading, 16)
-                    Spacer()
-                    Image("arrowsClockwise")
-                        .resizable()
-                        .frame(width: 24, height: 24)
-                        .padding(.trailing, 8)
-                }
-                .padding(.vertical, 8)
-                .background(Color(red: 0, green: 0.3, blue: 0.37))
-                .cornerRadius(18)
-                .onTapGesture {
-                    self.router?.showExportFlow()
-                }
-            }
-            
-            if viewModel.selectedAccount?.account.baker?.isSuspended == true || viewModel.selectedAccount?.account.delegation?.isSuspended == true {
-                Button {
-                    if let selectedAccount = viewModel.selectedAccount?.account {
-                        router?.showEarnFlow(selectedAccount)
+        ScrollView {
+            VStack(spacing: 40) {
+                if viewModel.isBackupAlertShown {
+                    HStack {
+                        Text("File wallet is selected")
+                            .font(.satoshi(size: 14, weight: .medium))
+                            .foregroundStyle(.white)
+                            .padding(.leading, 16)
+                        Spacer()
+                        Image("arrowsClockwise")
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                            .padding(.trailing, 8)
                     }
-                } label: {
-                    StakerSuspensionStateView(type: .suspended)
-                }
-            } else if viewModel.selectedAccount?.account.baker?.isPrimedForSuspension == true || viewModel.selectedAccount?.account.delegation?.isPrimedForSuspension == true {
-                Button {
-                    if let selectedAccount = viewModel.selectedAccount?.account {
-                        router?.showEarnFlow(selectedAccount)
+                    .padding(.vertical, 8)
+                    .background(Color(red: 0, green: 0.3, blue: 0.37))
+                    .cornerRadius(18)
+                    .onTapGesture {
+                        self.router?.showExportFlow()
                     }
-                } label: {
-                    StakerSuspensionStateView(type: .primedForSuspension)
                 }
-            }
                 
-            balanceSection()
-            
-            accountActionButtonsSection()
-            
-            if viewModel.isBackupAlertShown {
-                HStack(alignment: .top, spacing: 6) {
-                    Image(systemName: "exclamationmark.circle")
-                        .resizable()
-                        .frame(width: 16, height: 16)
-                    Text("backup.recommendation.message".localized)
-                        .font(.satoshi(size: 14, weight: .medium))
-                        .foregroundStyle(.white)
+                if viewModel.selectedAccount?.account.baker?.isSuspended == true || viewModel.selectedAccount?.account.delegation?.isSuspended == true {
+                    Button {
+                        if let selectedAccount = viewModel.selectedAccount?.account {
+                            router?.showEarnFlow(selectedAccount)
+                        }
+                    } label: {
+                        StakerSuspensionStateView(type: .suspended)
+                    }
+                } else if viewModel.selectedAccount?.account.baker?.isPrimedForSuspension == true || viewModel.selectedAccount?.account.delegation?.isPrimedForSuspension == true {
+                    Button {
+                        if let selectedAccount = viewModel.selectedAccount?.account {
+                            router?.showEarnFlow(selectedAccount)
+                        }
+                    } label: {
+                        StakerSuspensionStateView(type: .primedForSuspension)
+                    }
                 }
+                    
+                balanceSection()
+                
+                accountActionButtonsSection()
+                
+                if viewModel.isBackupAlertShown {
+                    HStack(alignment: .top, spacing: 6) {
+                        Image(systemName: "exclamationmark.circle")
+                            .resizable()
+                            .frame(width: 16, height: 16)
+                        Text("backup.recommendation.message".localized)
+                            .font(.satoshi(size: 14, weight: .medium))
+                            .foregroundStyle(.white)
+                    }
+                }
+                if isShouldShowOnrampMessage {
+                    OnrampView
+    //                NewsPageView(selectedTab: $selectedPage, views: { [OnrampView] })
+                }
+                
+                AccountStatesView
             }
-            if isShouldShowOnrampMessage {
-                OnrampView
-//                NewsPageView(selectedTab: $selectedPage, views: { [OnrampView] })
-            }
-            
-            AccountStatesView
+            .padding(.horizontal, 16)
+            .padding(.top, 20)
         }
-        .padding(.horizontal, 16)
-        .padding(.top, 20)
+        .refreshable { Task { await viewModel.reload() } }
+        .padding(.bottom, 20)
     }
     
     func balanceSection() -> some View {
