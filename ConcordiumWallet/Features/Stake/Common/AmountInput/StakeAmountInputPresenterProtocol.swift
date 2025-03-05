@@ -49,8 +49,6 @@ struct BalanceViewModel {
 class StakeAmountInputViewModel: ObservableObject, Equatable, Hashable {
     @Published var title: String = ""
     @Published var fraction: Int = 6
-    @Published var firstBalance: BalanceViewModel = BalanceViewModel(label: "", value: "", highlighted: false)
-    @Published var secondBalance: BalanceViewModel = BalanceViewModel(label: "", value: "", highlighted: false)
     @Published var transferCost: ValidatorTransferCostOption = .cost(.zero)
 
     @Published var amountMessage: String = ""
@@ -129,8 +127,6 @@ extension StakeAmountInputViewModel {
     static func == (lhs: StakeAmountInputViewModel, rhs: StakeAmountInputViewModel) -> Bool {
         return lhs.title == rhs.title &&
         lhs.fraction == rhs.fraction &&
-        lhs.firstBalance.value == rhs.firstBalance.value &&
-        lhs.secondBalance.value == rhs.secondBalance.value &&
         lhs.transferCost.formattedTransactionFee == rhs.transferCost.formattedTransactionFee &&
         lhs.amountMessage == rhs.amountMessage &&
         lhs.amount == rhs.amount &&
@@ -152,8 +148,6 @@ extension StakeAmountInputViewModel {
         func hash(into hasher: inout Hasher) {
             hasher.combine(title)
             hasher.combine(fraction)
-            hasher.combine(firstBalance.value)
-            hasher.combine(secondBalance.value)
             hasher.combine(transferCost.formattedTransactionFee)
             hasher.combine(amountMessage)
             hasher.combine(amount)

@@ -52,7 +52,8 @@ struct EarnReadMoreView: View {
                 let viewModel = ValidatorAmountInputViewModel(
                         account: handler.account,
                         dependencyProvider: ServicesProvider.defaultProvider(),
-                        dataHandler: handler
+                        dataHandler: handler,
+                        navigationManager: navigationManager
                     )
                 navigationManager.navigate(to: .amountInput(viewModel))
             } label: {

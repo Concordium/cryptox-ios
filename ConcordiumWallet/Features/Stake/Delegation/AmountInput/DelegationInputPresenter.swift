@@ -315,10 +315,6 @@ fileprivate extension StakeAmountInputViewModel {
     ) {
         let balance = GTU(intValue: account.forecastBalance)
         let staked = GTU(intValue: account.delegation?.stakedAmount ?? 0)
-        self.firstBalance = BalanceViewModel(label: "delegation.inputamount.balance" .localized,
-                                             value: balance.displayValueWithGStroke(), highlighted: false)
-        self.secondBalance = BalanceViewModel(label: "delegation.inputamount.delegationstake".localized,
-                                              value: staked.displayValueWithGStroke(), highlighted: false)
         self.currentPoolLimit = BalanceViewModel(
             label: "delegation.inputamount.currentpool".localized,
             value: validator.currentPool?.displayValueWithGStroke() ?? GTU(intValue: 0).displayValueWithGStroke(),
@@ -348,7 +344,6 @@ fileprivate extension StakeAmountInputViewModel {
                 
                 if let poolLimit = validator.poolLimit, let currentPool = validator.currentPool,
                    currentAmount.intValue + currentPool.intValue > poolLimit.intValue {
-                    self.secondBalance.highlighted = true
                     self.poolLimit?.highlighted = true
                     self.amountErrorMessage = "stake.inputAmount.error.amountTooLarge".localized
                     self.isContinueEnabled = false

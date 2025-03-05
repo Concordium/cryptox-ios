@@ -29,7 +29,7 @@ class DelegationStatusPresenter: StakeStatusPresenterProtocol {
     var delegate: DelegationStatusPresenterDelegate?
     
     private var account: AccountDataType
-    let viewModel: StakeStatusViewModel
+    let viewModel: LegacyStakeStatusViewModel
     private var transactionService: TransactionsServiceProtocol
     private var stakeService: StakeServiceProtocol
     private var accountsService: AccountsServiceProtocol
@@ -47,7 +47,7 @@ class DelegationStatusPresenter: StakeStatusPresenterProtocol {
         self.storageManager = dependencyProvider.storageManager()
         self.accountsService = dependencyProvider.accountsService()
         self.delegate = delegate
-        self.viewModel = StakeStatusViewModel(dependencyProvider: dependencyProvider)
+        self.viewModel = LegacyStakeStatusViewModel(dependencyProvider: dependencyProvider)
         self.viewModel.setPresenter(self)
     }
     
@@ -181,7 +181,7 @@ extension StorageManagerProtocol {
     }
 }
 
-private extension StakeStatusViewModel {
+private extension LegacyStakeStatusViewModel {
     // swiftlint:disable function_body_length
     func setup(
         account: AccountDataType,

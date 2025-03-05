@@ -11,6 +11,7 @@ import SwiftUI
 struct RoundedButton: View {
     let action: () -> Void
     let title: String
+    var foregroundColor: Color = .blackMain
     
     var body: some View {
         Button(action: {
@@ -18,7 +19,7 @@ struct RoundedButton: View {
         }, label: {
             Text(title)
                 .font(Font.satoshi(size: 15, weight: .medium))
-                .foregroundColor(.blackMain)
+                .foregroundColor(foregroundColor)
                 .padding(.horizontal, 24)
                 .frame(maxWidth: .infinity)
                 .cornerRadius(28)

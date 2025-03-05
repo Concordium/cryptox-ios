@@ -28,7 +28,7 @@ struct StakeStatusViewModelError: Identifiable {
     }
 }
 
-class StakeStatusViewModel: ObservableObject {
+class LegacyStakeStatusViewModel: ObservableObject {
     @Published var title: String = ""
     @Published var topText: String = ""
     @Published var topImageName: String = ""

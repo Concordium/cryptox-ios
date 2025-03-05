@@ -294,7 +294,7 @@ private extension StakeWarning {
     func asAlert(completion: @escaping () -> Void) -> AlertOptions? {
         switch self {
             case .noChanges:
-                return BakingAlerts.noChanges
+                return LegacyBakingAlerts.noChanges
             case .loweringStake:
                 return nil
             case .moreThan95:
@@ -330,16 +330,6 @@ private extension StakeAmountInputViewModel {
     ) {
         let balance = GTU(intValue: account.forecastBalance)
         let staked = GTU(intValue: account.baker?.stakedAmount ?? 0)
-        self.firstBalance = BalanceViewModel(
-            label: "baking.inputamount.balance".localized,
-            value: balance.displayValueWithGStroke(),
-            highlighted: false
-        )
-        self.secondBalance = BalanceViewModel(
-            label: "baking.inputamount.bakerstake".localized,
-            value: staked.displayValueWithGStroke(),
-            highlighted: false
-        )
         self.showsPoolLimits = false
         self.isAmountLocked = isInCooldown
         self.bottomMessage = "baking.inputamount.bottommessage".localized

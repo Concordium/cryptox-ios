@@ -8,6 +8,7 @@
 
 import Combine
 import Foundation
+import BigInt
 
 enum ValidatorTransferCostOption {
     case cost(TransferCost)
@@ -49,15 +50,21 @@ final class ValidatorAmountInputViewModel: StakeAmountInputViewModel {
     private var transactionService: TransactionsServiceProtocol
     private var stakeService: StakeServiceProtocol
     private var cancellables = Set<AnyCancellable>()
+    private var navigationManager: NavigationManager
     @Published var error: Error?
+    @Published var alertOptions: SwiftUIAlertOptions?
+    @Published var showAlert: Bool = false
+    
     init(
         account: AccountDataType,
         dependencyProvider: StakeCoordinatorDependencyProvider,
-        dataHandler: BakerDataHandler
+        dataHandler: BakerDataHandler,
+        navigationManager: NavigationManager
     ) {
         self.dataHandler = dataHandler
         self.transactionService = dependencyProvider.transactionsService()
         self.stakeService = dependencyProvider.stakeService()
+        self.navigationManager = navigationManager
         
         let previouslyStakedInPool = GTU(intValue: account.baker?.stakedAmount ?? 0)
         
@@ -247,12 +254,24 @@ final class ValidatorAmountInputViewModel: StakeAmountInputViewModel {
     func pressedContinue() {
         checkForWarnings { [weak self] in
             guard let self = self else { return }
-            
             if self.dataHandler.isNewAmountZero() {
-//                self.delegate?.switchToRemoveBaker()
+                //                self.delegate?.switchToRemoveBaker()
             } else {
-//                self.delegate?.finishedAmountInput(dataHandler: self.dataHandler)
+                finishedEnteringAmount()
             }
+        }
+    }
+    
+    private func finishedEnteringAmount() {
+        if case .updateBakerStake = dataHandler.transferType {
+            let viewModel = ValidatorSubmissionViewModel(dataHandler: dataHandler,
+                                                         dependencyProvider: ServicesProvider.defaultProvider())
+            navigationManager.navigate(to: .validatorRequestConfirmation(viewModel))
+        } else {
+            navigationManager.navigate(to: .openningPool(ValidatorPoolSettingsViewModel(
+                dataHandler: dataHandler,
+                navigationManager: navigationManager
+            )))
         }
     }
     
@@ -261,7 +280,8 @@ final class ValidatorAmountInputViewModel: StakeAmountInputViewModel {
             atDisposal: account.forecastAtDisposalBalance + (account.releaseSchedule?.total ?? 0)
         )?.asAlert(completion: completion) {
             isContinueEnabled = false
-//            self.view?.showAlert(with: alert)
+            alertOptions = alert
+            showAlert = true
         } else {
             completion()
         }
@@ -275,18 +295,9 @@ private extension StakeAmountInputViewModel {
         currentRestakeValue: Bool?,
         isInCooldown: Bool
     ) {
-        let balance = GTU(intValue: account.forecastBalance)
         let staked = GTU(intValue: account.baker?.stakedAmount ?? 0)
-        self.firstBalance = BalanceViewModel(
-            label: "baking.inputamount.balance".localized,
-            value: balance.displayValueWithGStroke(),
-            highlighted: false
-        )
-        self.secondBalance = BalanceViewModel(
-            label: "baking.inputamount.bakerstake".localized,
-            value: staked.displayValueWithGStroke(),
-            highlighted: false
-        )
+        amount = Decimal(string: staked.displayValue()) ?? 0
+        amountDecimal = BigDecimal(BigInt(account.baker?.stakedAmount ?? 0), 6)
         self.showsPoolLimits = false
         self.isAmountLocked = isInCooldown
         self.bottomMessage = "baking.inputamount.bottommessage".localized
@@ -309,18 +320,27 @@ private extension StakeAmountInputViewModel {
 }
 
 private extension StakeWarning {
-    func asAlert(completion: @escaping () -> Void) -> AlertOptions? {
+    func asAlert(completion: @escaping () -> Void) -> SwiftUIAlertOptions? {
         switch self {
             case .noChanges:
-                return BakingAlerts.noChanges
+            let okAction = SwiftUIAlertAction(
+                name: "baking.nochanges.ok".localized,
+                completion: nil,
+                style: .styled
+            )
+            return SwiftUIAlertOptions(
+                title: "baking.nochanges.title".localized,
+                message: "baking.nochanges.message".localized,
+                actions: [okAction]
+            )
             case .loweringStake:
                 return nil
             case .moreThan95:
-                let continueAction = AlertAction(name: "baking.morethan95.continue".localized, completion: completion, style: .default)
-                let newStakeAction = AlertAction(name: "baking.morethan95.newstake".localized,
+            let continueAction = SwiftUIAlertAction(name: "baking.morethan95.continue".localized, completion: completion, style: .styled)
+                let newStakeAction = SwiftUIAlertAction(name: "baking.morethan95.newstake".localized,
                                                  completion: nil,
-                                                 style: .default)
-                return AlertOptions(title: "baking.morethan95.title".localized,
+                                                        style: .plain)
+                return SwiftUIAlertOptions(title: "baking.morethan95.title".localized,
                                     message: "baking.morethan95.message".localized,
                                     actions: [continueAction, newStakeAction])
             case .amountZero:

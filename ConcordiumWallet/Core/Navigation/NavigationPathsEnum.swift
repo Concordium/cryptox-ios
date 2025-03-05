@@ -29,12 +29,13 @@ enum NavigationPaths: Hashable {
     case earnMain(_ account: AccountEntity)
     case earnReadMode(mode: EarnMode, account: AccountEntity)
     // MARK: - Validator Flow
-    case status(BakerPoolStatus)
     case generateKey(ValidatorGenerateKeysViewModel)
     case metadataUrl(ValidatorMetadataViewModel)
     case commissionSettings(ValidatorCommissionSettingsViewModel)
     case amountInput(ValidatorAmountInputViewModel)
     case openningPool(ValidatorPoolSettingsViewModel)
-    case requestConfirmation(ValidatorSubmissionViewModel)
+    case validatorRequestConfirmation(ValidatorSubmissionViewModel)
     case validatorTransactionStatus(ValidatorSubmissionViewModel)
+    case validatorStatus(ValidatorStakeStatusViewModel)
+    case updateValidatorMenu(ValidatorUpdateMenuViewModel)
 }

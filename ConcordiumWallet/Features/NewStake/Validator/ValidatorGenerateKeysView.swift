@@ -67,7 +67,7 @@ struct ValidatorGenerateKeysView: View {
             if let fileToShare = viewModel.fileToShare {
                 ShareSheetView(fileURL: fileToShare) { completed in
                     viewModel.handleExportEnded(completed: completed) {
-                        navigationManager.navigate(to: .requestConfirmation(ValidatorSubmissionViewModel(dataHandler: viewModel.dataHandler, dependencyProvider: ServicesProvider.defaultProvider())))
+                        navigationManager.navigate(to: .validatorRequestConfirmation(ValidatorSubmissionViewModel(dataHandler: viewModel.dataHandler, dependencyProvider: ServicesProvider.defaultProvider())))
                     }
                 }
             }

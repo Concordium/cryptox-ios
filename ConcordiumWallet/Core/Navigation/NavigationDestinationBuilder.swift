@@ -168,7 +168,7 @@ struct NavigationDestinationBuilder: ViewModifier {
                         
                         // MARK: - Validator Flow
                     case .amountInput(let viewModel):
-                        EarnValidatorAmountInputView(viewModel: viewModel)
+                        ValidatorAmountInputView(viewModel: viewModel)
                             .modifier(NavigationViewModifier(title: "baking.inputamount.title.create".localized) {
                                 navigationManager.pop()
                             })
@@ -206,7 +206,7 @@ struct NavigationDestinationBuilder: ViewModifier {
                             })
                             .onAppear { notifyTabBarHidden(true) }
                         
-                    case .requestConfirmation(let viewModel):
+                    case .validatorRequestConfirmation(let viewModel):
                         ValidatorSubmissionView(viewModel: viewModel)
                             .environmentObject(navigationManager)
                             .modifier(NavigationViewModifier(title: "baking.receiptconfirmation.submit".localized) {
@@ -219,14 +219,18 @@ struct NavigationDestinationBuilder: ViewModifier {
                             .modifier(NavigationViewModifier(title: "Confirmation") {
                                 navigationManager.pop()
                             })
-
+                    case .updateValidatorMenu(let viewModel):
+                        ValidatorUpdateMenu(viewModel: viewModel)
+                            .modifier(NavigationViewModifier(title: "earn.desc.baking.header".localized) {
+                                navigationManager.pop()
+                            })
                     default:
                         EmptyView()
                     }
                 }
             }
     }
-
+    
     func notifyTabBarHidden(_ isHidden: Bool) {
         let currentState = UserDefaults.standard.bool(forKey: "isTabBarHidden")
         if currentState != isHidden {
@@ -235,36 +239,34 @@ struct NavigationDestinationBuilder: ViewModifier {
         }
     }
     
-    func showEarn(account: AccountDataType) -> some View {
-        guard let accountEntity = account as? AccountEntity else { return AnyView(EmptyView()) }
+    @ViewBuilder
+    func showEarn(account: AccountEntity) -> some View {
         
         // Check if the account has a baker or delegation
         if account.baker == nil && account.delegation == nil {
             // If no baker or delegation, show the main earn view
-            return AnyView(
-                EarnMainView(account: accountEntity)
-                    .environmentObject(navigationManager)
-                    .modifier(NavigationViewModifier(title: "Earn") {
-                        navigationManager.pop()
-                    })
-                    .onAppear {
-                        notifyTabBarHidden(true)
-                    }
-            )
+            
+            EarnMainView(account: account)
+                .environmentObject(navigationManager)
+                .modifier(NavigationViewModifier(title: "Earn") {
+                    navigationManager.pop()
+                })
+                .onAppear {
+                    notifyTabBarHidden(true)
+                }
         } else if account.baker != nil {
+            let statusViewModel = ValidatorStakeStatusViewModel(account: account,
+                                                                dependencyProvider: dependencyProvider,
+                                                                navigationManager: navigationManager)
             // If the account has a baker, show the validator flow
-            return AnyView(
-                ValidatorMainView(viewModel: ValidatorViewModel(account: accountEntity, dependencyProvider: dependencyProvider, navigationManager: navigationManager))
-                    .modifier(NavigationViewModifier(title: "Validator", backAction: {
-                        navigationManager.pop()
-                    }))
-                    .onAppear {
-                        notifyTabBarHidden(true)
-                    }
-            )
-        } else {
-            // Otherwise, just show an empty view (or a different case if needed)
-            return AnyView(EmptyView())
+            ValidatorStatusView(viewModel: statusViewModel)
+                .environmentObject(navigationManager)
+                .modifier(NavigationViewModifier(title: "earn.desc.baking.header".localized) {
+                    navigationManager.pop()
+                })
+                .onAppear {
+                    notifyTabBarHidden(true)
+                }
         }
     }
 }

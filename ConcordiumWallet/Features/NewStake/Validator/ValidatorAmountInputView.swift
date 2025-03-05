@@ -1,5 +1,5 @@
 //
-//  EarnAmountInputView.swift
+//  ValidatorAmountInputView.swift
 //  CryptoX
 //
 //  Created by Zhanna Komar on 13.02.2025.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct EarnValidatorAmountInputView: View {
+struct ValidatorAmountInputView: View {
     
     @ObservedObject var viewModel: ValidatorAmountInputViewModel
     @FocusState var isFocused: Bool
@@ -53,7 +53,7 @@ struct EarnValidatorAmountInputView: View {
                     .font(.satoshi(size: 15, weight: .medium))
             }
             
-            SendTokenCell(tokenType: .ccd(displayAmount: GTU(intValue: viewModel.account.forecastAtDisposalBalance).displayValueWithTwoNumbersAfterDecimalPoint()),
+            SendTokenCell(tokenType: .ccd(displayAmount: GTU(intValue: viewModel.account.forecastBalance).displayValueWithTwoNumbersAfterDecimalPoint()),
                           hideCaretRight: true)
             .frame(maxWidth: .infinity, alignment: .center)
 
@@ -78,17 +78,14 @@ struct EarnValidatorAmountInputView: View {
             
             RoundedButton(action: {
                 viewModel.pressedContinue()
-                navigationManager.navigate(to: .openningPool(ValidatorPoolSettingsViewModel(
-                    dataHandler: viewModel.dataHandler,
-                    navigationManager: navigationManager
-                )))
             },
                           title: "continue_btn_title".localized)
-//            .disabled(!viewModel.isContinueEnabled)
+            .disabled(!viewModel.isContinueEnabled)
         }
         .padding(.horizontal, 18)
         .padding(.top, 40)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .modifier(AppBackgroundModifier())
+        .modifier(AlertModifier(alertOptions: viewModel.alertOptions ?? SwiftUIAlertOptions(title: nil, message: nil, actions: []), isPresenting: $viewModel.showAlert))
     }
 }
