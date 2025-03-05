@@ -281,6 +281,15 @@ struct HomeScreenView: View {
                     .contentShape(.rect)
                 })
                 .buttonStyle(.plain)
+                .overlay(alignment: .topTrailing) {
+                    if item.label == "Earn" {
+                        if (viewModel.selectedAccount?.account.baker?.isSuspended == true || viewModel.selectedAccount?.account.delegation?.isSuspended == true) || (viewModel.selectedAccount?.account.baker?.isPrimedForSuspension == true || viewModel.selectedAccount?.account.delegation?.isPrimedForSuspension == true) {
+                            Circle().fill(.attentionRed)
+                                .frame(width: 8, height: 8)
+                                .offset(x: 0, y: 4)
+                        }
+                    }
+                }
                 
                 if index < actionItems.endIndex-1 {
                     Spacer(minLength: 0)
@@ -345,7 +354,7 @@ struct HomeScreenView: View {
     }
     
     // MARK: - Helpers
-    
+
     private func accountActionItems() -> [ActionItem] {
         let actionItems = [
             ActionItem(iconName: "buy", label: "Buy", action: {
