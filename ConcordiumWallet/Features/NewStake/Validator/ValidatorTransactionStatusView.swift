@@ -39,18 +39,21 @@ struct ValidatorTransactionStatusView: View {
                         .foregroundStyle(.white)
                         .transition(.scale)
                         .animation(.easeInOut(duration: 1), value: viewModel.transactionStatusLabel)
-                    Text(viewModel.amountDisplay)
-                        .font(.plexSans(size: 40, weight: .medium))
-                        .dynamicTypeSize(.small ... .xxLarge)
-                        .minimumScaleFactor(0.3)
-                        .lineLimit(1)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .modifier(RadialGradientForegroundStyleModifier())
-                    
-                    Text(viewModel.ticker)
-                        .font(.satoshi(size: 12, weight: .medium))
-                        .foregroundStyle(.white)
+                    if viewModel.shouldDisplayAmount {
+                        Text(viewModel.amountDisplay)
+                            .font(.plexSans(size: 40, weight: .medium))
+                            .dynamicTypeSize(.small ... .xxLarge)
+                            .minimumScaleFactor(0.3)
+                            .lineLimit(1)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .modifier(RadialGradientForegroundStyleModifier())
+                        
+                        Text(viewModel.ticker)
+                            .font(.satoshi(size: 12, weight: .medium))
+                            .foregroundStyle(.white)
+                    }
                 }
+                transactionDetailsSection()
             }
             .padding(.vertical, 30)
             .padding(.horizontal, 14)
@@ -84,6 +87,34 @@ struct ValidatorTransactionStatusView: View {
             playAnimationBasedOnState()
         }
     }
+    
+    private func transactionDetailsSection() -> some View {
+        Group {
+            VStack(spacing: 30) {
+                Divider()
+                    .background(.white.opacity(0.1))
+                    .transition(.opacity)
+                
+                Button {
+                    if let transaction = viewModel.getTransactionViewModel() {
+                        navigationManager.navigate(to: .transactionDetails(transaction: TransactionDetailViewModel(transaction: transaction)))
+                    }
+                } label: {
+                    HStack(spacing: 8) {
+                        Text("accountDetails.title".localized)
+                            .font(.satoshi(size: 12, weight: .medium))
+                            .foregroundStyle(.white)
+                        Image("ico_back")
+                            .rotationEffect(.degrees(180))
+                    }
+                }
+                .transition(.opacity)
+            }
+            .opacity(!viewModel.isTransactionExecuting ? 1 : 0)
+            .transition(.opacity)
+            .animation(.easeInOut(duration: 1), value: !viewModel.isTransactionExecuting)
+        }
+    }
 
     @ViewBuilder
     private func animationView() -> some View {
@@ -112,8 +143,7 @@ struct ValidatorTransactionStatusView: View {
             viewModel.$transferDataType,
             viewModel.$error
         )
-        .map { [weak viewModel] transferDataType, error in
-            guard let viewModel = viewModel else { return true }
+        .map { transferDataType, error in
             return transferDataType != nil && error == nil
         }
         .receive(on: RunLoop.main)

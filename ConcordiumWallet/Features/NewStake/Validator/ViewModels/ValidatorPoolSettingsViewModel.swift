@@ -12,8 +12,8 @@ import SwiftUICore
 
 final class ValidatorPoolSettingsViewModel: ObservableObject {
     @Published var showsCloseForNew: Bool = false
-    @Published var currentSettings: BakerPoolSetting
-    @Published var isOpened: Bool = false
+    @Published var currentSettings: BakerPoolSetting?
+    @Published var selectedPoolSettingIndex: Int = 0
     @Published var dataHandler: BakerDataHandler
     private var cancellables = Set<AnyCancellable>()
     private let navigationManager: NavigationManager
@@ -22,42 +22,46 @@ final class ValidatorPoolSettingsViewModel: ObservableObject {
         self.dataHandler = dataHandler
         self.navigationManager = navigationManager
         let poolSettingsData: BakerPoolSettingsData? = dataHandler.getCurrentEntry()
-        self.currentSettings = poolSettingsData?.poolSettings ?? .open
+        self.currentSettings = poolSettingsData?.poolSettings
         setupSettings()
         
-        self.$isOpened.sink(receiveCompletion: { _ in
+        self.$selectedPoolSettingIndex.sink(receiveCompletion: { _ in
         }, receiveValue: { [weak self] selectedOption in
             guard let self = self else { return }
             switch selectedOption {
-            case true:
+            case 0:
                 self.currentSettings = .open
-//            case 1:
-//                if self.viewModel.showsCloseForNew {
-//                    self.poolSettings = .closedForNew
-//                } else {
-//                    self.poolSettings = .closed
-//                }
-            case false:
+            case 1:
+                if self.showsCloseForNew {
+                    self.currentSettings = .closedForNew
+                } else {
+                    self.currentSettings = .closed
+                }
+            case 2:
                 self.currentSettings = .closed
+            default:
+                break
             }
             
         }).store(in: &cancellables)
     }
     
     private func setupSettings() {
+        guard let currentSettings else { return }
         switch currentSettings {
         case .open:
             showsCloseForNew = true
-            isOpened = true
+            selectedPoolSettingIndex = 0
         case .closedForNew:
             showsCloseForNew = true
-            isOpened = false
+            selectedPoolSettingIndex = 1
         case .closed:
-            isOpened = false
+            selectedPoolSettingIndex = 1 // if the current state of the pool is closed, we don't show closed for new so the index is 1
         }
     }
     
     func pressedContinue() {
+        guard let currentSettings else { return }
         self.dataHandler.add(entry: BakerPoolSettingsData(poolSettings: currentSettings))
         switch dataHandler.transferType {
         case .registerBaker:
@@ -73,7 +77,11 @@ final class ValidatorPoolSettingsViewModel: ObservableObject {
                                                                                            dependencyProvider: ServicesProvider.defaultProvider())))
             }
         case .updateBakerPool:
-            break
+            navigationManager.navigate(to: .commissionSettings(
+                ValidatorCommissionSettingsViewModel(
+                    service: ServicesProvider.defaultProvider().stakeService(),
+                    handler: dataHandler
+                    )))
         default:
             break // Should never happen
         }
@@ -82,14 +90,14 @@ final class ValidatorPoolSettingsViewModel: ObservableObject {
 
 extension ValidatorPoolSettingsViewModel: Equatable, Hashable {
     static func == (lhs: ValidatorPoolSettingsViewModel, rhs: ValidatorPoolSettingsViewModel) -> Bool {
-        lhs.isOpened == rhs.isOpened &&
+        lhs.selectedPoolSettingIndex == rhs.selectedPoolSettingIndex &&
         lhs.showsCloseForNew == rhs.showsCloseForNew &&
         lhs.currentSettings == rhs.currentSettings &&
         lhs.dataHandler == rhs.dataHandler
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(isOpened)
+        hasher.combine(selectedPoolSettingIndex)
         hasher.combine(showsCloseForNew)
         hasher.combine(currentSettings)
         hasher.combine(dataHandler)

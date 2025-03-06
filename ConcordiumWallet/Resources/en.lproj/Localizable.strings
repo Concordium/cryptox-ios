@@ -873,9 +873,9 @@ If your pool is already open, you can also close it for new delegators, or you c
 "baking.generatekeys.notice.message" = "This is your only chance to export and save the keys.\n\nThey cannot be recreated, so you will have to generate new keys and register them with a transaction, if you lose these.";
 "baking.updatekeys.title" = "Update validator keys";
 
-"baking.open" = "Open for delegation";
-"baking.closed" = "Closed for delegation";
-"baking.closedfornew" = "Closed for new delegation";
+"baking.open" = "Open";
+"baking.closed" = "Closed";
+"baking.closedfornew" = "Closed for new";
 "baking.metadata.current" = "Current URL: \n %@";
 "baking.metadata.placeholder" = "Paste your metadata URL here";
 
@@ -1366,3 +1366,19 @@ Remember to restart your node with the validator keys.";
 "validator.registered.success" = "Your validation is registered";
 "validator.registered.failed" = "Failed to register validation";
 "validator.registered.in.progress" = "Your validation is in progress";
+
+"validator.update.pool.success" = "Your pool settings were updated successfully";
+"validator.update.pool.failed" = "Failed to update pool settings";
+"validator.update.pool.in.progress" = "Updating pool settings is in progress";
+
+"validator.update.stake.success" = "Your stake was updated successfully";
+"validator.update.stake.failed" = "Failed to update stake";
+"validator.update.stake.in.progress" = "Updating stake is in progress";
+
+"validator.update.keys.success" = "Your keys were successfully updated";
+"validator.update.keys.failed" = "Failed to update keys";
+"validator.update.keys.in.progress" = "Updating keys is in progress";
+
+"validator.stop.success" = "You submitted a transaction to stop your validator";
+"validator.stop.in.progress" = "Transaction to stop validation is being submitted";
+"validator.stop.failed" = "Failed to submit transaction to stop validation";

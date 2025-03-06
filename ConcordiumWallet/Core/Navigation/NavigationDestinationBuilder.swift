@@ -216,9 +216,7 @@ struct NavigationDestinationBuilder: ViewModifier {
                     case .validatorTransactionStatus(let viewModel):
                         ValidatorTransactionStatusView(viewModel: viewModel)
                             .environmentObject(navigationManager)
-                            .modifier(NavigationViewModifier(title: "Confirmation") {
-                                navigationManager.pop()
-                            })
+                            .modifier(NavigationViewModifier(title: "Confirmation"))
                     case .updateValidatorMenu(let viewModel):
                         ValidatorUpdateMenu(viewModel: viewModel)
                             .modifier(NavigationViewModifier(title: "earn.desc.baking.header".localized) {

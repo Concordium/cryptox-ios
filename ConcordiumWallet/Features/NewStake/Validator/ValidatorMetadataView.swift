@@ -57,18 +57,13 @@ struct ValidatorMetadataView: View {
             Spacer()
             
             RoundedButton(action: {
-                viewModel.pressedContinue {
-                    self.navigationManager.navigate(to: .generateKey(
-                        ValidatorGenerateKeysViewModel(dataHandler: viewModel.dataHandler,
-                                                                       account: viewModel.dataHandler.account,
-                                                       dependencyProvider: ServicesProvider.defaultProvider())))
-
-                }
+                viewModel.pressedContinue()
             }, title: "continue_btn_title".localized)
         }
         .padding(.horizontal, 18)
         .padding(.top, 40)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .modifier(AppBackgroundModifier())
+        .modifier(AlertModifier(alertOptions: viewModel.noChangesAlertOptions(), isPresenting: $viewModel.isNoChanges))
     }
 }

@@ -28,7 +28,8 @@ struct ComissionSettingsView: View {
                     Spacer()
                     RoundedButton(action: {
                         viewModel.continueButtonTapped {
-                            navigationManager.navigate(to: .metadataUrl(ValidatorMetadataViewModel(dataHandler: viewModel.handler)))
+                            navigationManager.navigate(to: .metadataUrl(ValidatorMetadataViewModel(dataHandler: viewModel.handler,
+                                                                                                   navigationManager: navigationManager)))
                         }
                     }, title: "continue_btn_title".localized)
                 }

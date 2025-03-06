@@ -35,22 +35,6 @@ struct ValidatorGenerateKeysView: View {
             .padding(.bottom, 18)
             .background(.grey3.opacity(0.3))
             .cornerRadius(12)
-            
-            HStack(spacing: 8) {
-                Image("SignOut")
-                    .renderingMode(.template)
-                    .foregroundStyle(pressedButtonColor)
-                Text("validator.validator.export.keys".localized)
-                    .font(.satoshi(size: 15, weight: .medium))
-                    .foregroundStyle(pressedButtonColor)
-            }
-            .onTapGesture {
-                exportPressed = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    exportPressed = false
-                    viewModel.handleExport()
-                }
-            }
 
             Spacer()
             

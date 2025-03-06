@@ -14,8 +14,11 @@ final class ValidatorSubmissionViewModel: StakeReceiptViewModel, ObservableObjec
     @Published var error: Error?
     @Published var showFeeAlert: Bool = false
     @Published var isTransactionExecuting: Bool = true
-    @Published var transferDataType: TransferDataType?
     @Published var amountDisplay: String
+    @Published var successTransactionText = ""
+    @Published var failedTransactionText = ""
+    @Published var inProgressTransactionText = ""
+    @Published var shouldDisplayAmount: Bool = false
     
     let ticker: String = "CCD"
     private let transactionService: TransactionsServiceProtocol
@@ -23,18 +26,17 @@ final class ValidatorSubmissionViewModel: StakeReceiptViewModel, ObservableObjec
     private var cost: GTU?
     private var energy: Int?
     private var cancellables = Set<AnyCancellable>()
-    private let account: AccountDataType
     private let passwordDelegate: RequestPasswordDelegate
 
     var transactionStatusLabel: String {
         withAnimation(.easeInOut(duration: 1)) {
             if isTransactionExecuting {
-                return "validator.registered.in.progress".localized
+                return inProgressTransactionText
             } else if !isTransactionExecuting {
-                return "validator.registered.success".localized
+                return successTransactionText
             }
             if error != nil {
-                return "validator.registered.failed".localized
+                return failedTransactionText
             }
             return ""
         }
@@ -42,46 +44,42 @@ final class ValidatorSubmissionViewModel: StakeReceiptViewModel, ObservableObjec
     
     init(dataHandler: BakerDataHandler,
          dependencyProvider: ServicesProvider) {
-        self.account = dataHandler.account
         self.transactionService = dependencyProvider.transactionsService()
         self.storageManager = dependencyProvider.storageManager()
         self.passwordDelegate = DummyRequestPasswordDelegate()
         self.amountDisplay = dataHandler.getCurrentAmount()?.displayValueWithTwoNumbersAfterDecimalPoint() ?? "0.00"
-        super.init(dataHandler: dataHandler)
+        super.init(dataHandler: dataHandler, account: dataHandler.account)
         setup(with: .init(dataHandler: dataHandler))
         getTransactionCost()
     }
     
     func setup(with type: BakerPoolReceiptType) {
-        receiptFooterText = nil
-        showsSubmitted = false
-        buttonLabel = "baking.receiptconfirmation.submit".localized
-        
         switch type {
-        case let .updateStake(isLoweringStake):
-            title = "baking.receiptconfirmation.title.updatestake".localized
-            receiptHeaderText = "baking.receiptconfirmation.updatebakerstake".localized
-            if isLoweringStake {
-                text = "baking.receiptconfirmation.loweringstake".localized
-            } else {
-                text = nil
-            }
+        case let .updateStake(_):
+            successTransactionText = "validator.update.stake.success".localized
+            failedTransactionText = "validator.update.stake.failed".localized
+            inProgressTransactionText = "validator.update.stake.in.progress".localized
+            shouldDisplayAmount = true
         case .updatePool:
-            title = "baking.receiptconfirmation.title.updatepool".localized
-            receiptHeaderText = "baking.receiptconfirmation.updatebakerpool".localized
-            text = nil
+            successTransactionText = "validator.update.pool.success".localized
+            failedTransactionText = "validator.update.pool.failed".localized
+            inProgressTransactionText = "validator.update.pool.in.progress".localized
+            shouldDisplayAmount = false
         case .updateKeys:
-            title = "baking.receiptconfirmation.title.updatekeys".localized
-            receiptHeaderText = "baking.receiptconfirmation.updatebakerkeys".localized
-            text = nil
+            successTransactionText = "validator.update.keys.success".localized
+            failedTransactionText = "validator.update.keys.failed".localized
+            inProgressTransactionText = "validator.update.keys.in.progress".localized
+            shouldDisplayAmount = false
         case .remove:
-            title = "baking.receiptconfirmation.title.remove".localized
-            text = "baking.receiptconfirmation.removetext".localized
-            receiptHeaderText = "baking.receiptconfirmation.stopbaking".localized
+            successTransactionText = "validator.stop.success".localized
+            failedTransactionText = "validator.stop.failed".localized
+            inProgressTransactionText = "validator.stop.in.progress".localized
+            shouldDisplayAmount = false
         case .register:
-            title = "baking.receiptconfirmation.title.register".localized
-            text = "baking.receiptconfirmation.registertext".localized
-            receiptHeaderText = "baking.receiptconfirmation.registerbaker".localized
+            successTransactionText = "validator.registered.success".localized
+            failedTransactionText = "validator.registered.failed".localized
+            inProgressTransactionText = "validator.registered.in.progress".localized
+            shouldDisplayAmount = true
         }
     }
     
@@ -134,7 +132,6 @@ final class ValidatorSubmissionViewModel: StakeReceiptViewModel, ObservableObjec
             }, receiveValue: { transfer in
                 self.transferDataType = transfer
                 self.isTransactionExecuting = false
-//                self.delegate?.confirmedTransaction(transfer: transfer, dataHandler: self.dataHandler)
             }).store(in: &cancellables)
     }
 }
