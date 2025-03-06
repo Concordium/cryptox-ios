@@ -392,6 +392,11 @@ struct HomeScreenView: View {
             activeAccountViewModel = AccountDetailViewModel(account: selectedAccount)
             AppSettings.lastSelectedAccountAddress = selectedAccount.address
         }
+        Task {
+            isLoading = true
+            await viewModel.reload()
+            isLoading = false
+        }
     }
 }
 

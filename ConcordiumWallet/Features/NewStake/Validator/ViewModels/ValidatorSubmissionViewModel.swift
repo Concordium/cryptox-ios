@@ -12,13 +12,15 @@ import SwiftUI
 
 final class ValidatorSubmissionViewModel: StakeReceiptViewModel, ObservableObject {
     @Published var error: Error?
-    @Published var showFeeAlert: Bool = false
     @Published var isTransactionExecuting: Bool = true
     @Published var amountDisplay: String
     @Published var successTransactionText = ""
     @Published var failedTransactionText = ""
     @Published var inProgressTransactionText = ""
     @Published var shouldDisplayAmount: Bool = false
+    @Published var isStopValidation: Bool = false
+    @Published var showAlert: Bool = false
+    @Published var alertOptions: SwiftUIAlertOptions?
     
     let ticker: String = "CCD"
     private let transactionService: TransactionsServiceProtocol
@@ -55,7 +57,7 @@ final class ValidatorSubmissionViewModel: StakeReceiptViewModel, ObservableObjec
     
     func setup(with type: BakerPoolReceiptType) {
         switch type {
-        case let .updateStake(_):
+        case .updateStake(_):
             successTransactionText = "validator.update.stake.success".localized
             failedTransactionText = "validator.update.stake.failed".localized
             inProgressTransactionText = "validator.update.stake.in.progress".localized
@@ -75,6 +77,7 @@ final class ValidatorSubmissionViewModel: StakeReceiptViewModel, ObservableObjec
             failedTransactionText = "validator.stop.failed".localized
             inProgressTransactionText = "validator.stop.in.progress".localized
             shouldDisplayAmount = false
+            isStopValidation = true
         case .register:
             successTransactionText = "validator.registered.success".localized
             failedTransactionText = "validator.registered.failed".localized
@@ -105,7 +108,9 @@ final class ValidatorSubmissionViewModel: StakeReceiptViewModel, ObservableObjec
     private func displayFeeWarningIfNeeded() {
         let atDisposal = GTU(intValue: account.forecastAtDisposalBalance)
         if let cost = cost, cost > atDisposal {
-            showFeeAlert = true
+            withAnimation {
+                showAlert = true
+            }
         }
     }
     
@@ -134,11 +139,35 @@ final class ValidatorSubmissionViewModel: StakeReceiptViewModel, ObservableObjec
                 self.isTransactionExecuting = false
             }).store(in: &cancellables)
     }
+    
+    private func stopValidationAlertOptions(completion: @escaping () -> Void) -> SwiftUIAlertOptions {
+        let okAction = SwiftUIAlertAction(
+            name: "baking.nochanges.ok".localized,
+            completion: completion,
+            style: .styled
+        )
+        return SwiftUIAlertOptions(
+            title: "baking.nochanges.title".localized,
+            message: storageManager.getChainParams().formattedPoolOwnerCooldown,
+            actions: [okAction]
+        )
+    }
+    
+    func closeTapped(completion: @escaping () -> Void) {
+        if !isTransactionExecuting && error == nil && isStopValidation {
+            alertOptions = stopValidationAlertOptions(completion: completion)
+            withAnimation {
+                showAlert = true
+            }
+        } else {
+            completion()
+        }
+    }
 }
 
 extension ValidatorSubmissionViewModel: Equatable, Hashable {
     static func == (lhs: ValidatorSubmissionViewModel, rhs: ValidatorSubmissionViewModel) -> Bool {
-        lhs.showFeeAlert == rhs.showFeeAlert &&
+        lhs.showAlert == rhs.showAlert &&
         lhs.account.address == rhs.account.address &&
         lhs.cost == rhs.cost &&
         lhs.energy == rhs.energy &&
@@ -146,10 +175,17 @@ extension ValidatorSubmissionViewModel: Equatable, Hashable {
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(showFeeAlert)
+        hasher.combine(showAlert)
         hasher.combine(account.address)
         hasher.combine(cost)
         hasher.combine(energy)
         hasher.combine(rows)
+    }
+}
+
+private extension Optional where Wrapped == ChainParametersEntity {
+    var formattedPoolOwnerCooldown: String {
+        let cooldown = GeneralFormatter.secondsToDays(seconds: self?.poolOwnerCooldown ?? 0)
+        return String(format: "validation.stop.message".localized, cooldown)
     }
 }

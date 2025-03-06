@@ -1841,6 +1841,9 @@
 		1522062C2D71EC35006B88D0 /* ValidatorTransactionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1522062B2D71EC35006B88D0 /* ValidatorTransactionStatusView.swift */; };
 		1522062D2D71EC35006B88D0 /* ValidatorTransactionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1522062B2D71EC35006B88D0 /* ValidatorTransactionStatusView.swift */; };
 		1522062E2D71EC35006B88D0 /* ValidatorTransactionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1522062B2D71EC35006B88D0 /* ValidatorTransactionStatusView.swift */; };
+		1522AEBC2D79CCD70058EB8C /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1522AEBB2D79CCD70058EB8C /* AlertHelper.swift */; };
+		1522AEBD2D79CCD70058EB8C /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1522AEBB2D79CCD70058EB8C /* AlertHelper.swift */; };
+		1522AEBE2D79CCD70058EB8C /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1522AEBB2D79CCD70058EB8C /* AlertHelper.swift */; };
 		152AE6382D50D68B00B0B073 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152AE6372D50D68B00B0B073 /* NotificationNames.swift */; };
 		152AE6392D50D68B00B0B073 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152AE6372D50D68B00B0B073 /* NotificationNames.swift */; };
 		152AE63A2D50D68B00B0B073 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152AE6372D50D68B00B0B073 /* NotificationNames.swift */; };
@@ -3268,6 +3271,7 @@
 		152206232D70A620006B88D0 /* ValidatorSubmissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorSubmissionView.swift; sourceTree = "<group>"; };
 		152206272D70A65E006B88D0 /* ValidatorSubmissionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorSubmissionViewModel.swift; sourceTree = "<group>"; };
 		1522062B2D71EC35006B88D0 /* ValidatorTransactionStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorTransactionStatusView.swift; sourceTree = "<group>"; };
+		1522AEBB2D79CCD70058EB8C /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
 		152AE6372D50D68B00B0B073 /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		152AE63B2D50E17700B0B073 /* PrsssedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrsssedButtonStyle.swift; sourceTree = "<group>"; };
 		153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTokenNotificationPopup.swift; sourceTree = "<group>"; };
@@ -5850,6 +5854,7 @@
 				15F3F0AC2C90488300EF8975 /* UserDefaults+Extensions.swift */,
 				1575862D2CA2CA4D00205A6E /* IdentifiableString.swift */,
 				152AE6372D50D68B00B0B073 /* NotificationNames.swift */,
+				1522AEBB2D79CCD70058EB8C /* AlertHelper.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -7682,6 +7687,7 @@
 				08C1688D2BB7396200E61326 /* InitialAccountSummaryPresenter.swift in Sources */,
 				08C1688F2BB7396200E61326 /* ApiConstants.swift in Sources */,
 				08C168902BB7396200E61326 /* DefaultCIS2TokenManager.swift in Sources */,
+				1522AEBE2D79CCD70058EB8C /* AlertHelper.swift in Sources */,
 				08C168912BB7396200E61326 /* ValueCredential.swift in Sources */,
 				08C168922BB7396200E61326 /* RecoveryPhraseGettingStartedPresenter.swift in Sources */,
 				08C168932BB7396200E61326 /* GTU.swift in Sources */,
@@ -8414,6 +8420,7 @@
 				088FF18D2A02947B00042957 /* InitialAccountSummaryPresenter.swift in Sources */,
 				D589F3212794B678003F2FBB /* ApiConstants.swift in Sources */,
 				08AB08E42A696C1100C226F3 /* DefaultCIS2TokenManager.swift in Sources */,
+				1522AEBD2D79CCD70058EB8C /* AlertHelper.swift in Sources */,
 				08A045FB29FA99D200DACE1F /* ValueCredential.swift in Sources */,
 				088FF1272A0284F600042957 /* RecoveryPhraseGettingStartedPresenter.swift in Sources */,
 				7F85B8AA246A9AB600ED09B8 /* GTU.swift in Sources */,
@@ -9146,6 +9153,7 @@
 				08B16EFE2A01185E002E6B33 /* AccountsPresenter.swift in Sources */,
 				08A0457F29FA99D100DACE1F /* CommissionRange.swift in Sources */,
 				08AB08E32A696C1100C226F3 /* DefaultCIS2TokenManager.swift in Sources */,
+				1522AEBC2D79CCD70058EB8C /* AlertHelper.swift in Sources */,
 				D589F31F2794B678003F2FBB /* ApiConstants.swift in Sources */,
 				08A0456329FA99D100DACE1F /* ValueCredential.swift in Sources */,
 				088FF17F2A02947A00042957 /* InitialAccountSummaryPresenter.swift in Sources */,

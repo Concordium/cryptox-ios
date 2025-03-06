@@ -16,9 +16,18 @@ struct ValidatorStatusView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
-            ButtonsGroup(actionItems: viewModel.actionItems())
-            StakeDetailsView(rows: viewModel.rows)
-            cooldownsSectionView
+            if viewModel.isRegistered {
+                ButtonsGroup(actionItems: viewModel.actionItems())
+                StakeDetailsView(rows: viewModel.rows)
+                cooldownsSectionView
+            } else {
+                HStack(spacing: 8) {
+                    Text(viewModel.topText)
+                        .font(.satoshi(size: 15, weight: .medium))
+                        .foregroundStyle(.white)
+                    Image(viewModel.topImageName)
+                }
+            }
             Spacer()
         }
         .onAppear(perform: startUpdateTimer)
@@ -28,7 +37,7 @@ struct ValidatorStatusView: View {
         .padding(.top, 40)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .modifier(AppBackgroundModifier())
-    }
+        .modifier(AlertModifier(alertOptions: viewModel.alertOptions ?? SwiftUIAlertOptions(title: nil, message: nil, actions: []), isPresenting: $viewModel.showAlert))    }
     
     private var cooldownsSectionView: some View {
         Group {

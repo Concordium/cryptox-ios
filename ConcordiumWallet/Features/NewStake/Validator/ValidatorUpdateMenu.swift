@@ -25,20 +25,6 @@ struct ValidatorUpdateMenu: View {
                 viewModel.updateBakerKeys()
             }, title: "baking.menu.updatebakerkeys".localized)
             
-            Button(action: {
-                
-            }, label: {
-                Text("baking.menu.stopbaking".localized)
-                    .font(Font.satoshi(size: 15, weight: .bold))
-                    .foregroundColor(.attentionRed)
-                    .padding(.vertical, 18.5)
-                    .padding(.horizontal, 24)
-                    .frame(maxWidth: .infinity)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 28)
-                            .stroke(.white, lineWidth: 1)
-                    )
-            })
             Spacer()
         }
         .padding(.horizontal, 18)

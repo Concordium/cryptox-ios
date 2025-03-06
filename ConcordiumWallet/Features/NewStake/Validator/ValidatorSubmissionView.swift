@@ -15,27 +15,31 @@ struct ValidatorSubmissionView: View {
     var body: some View {
         VStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
-                    Text(viewModel.text ?? "")
-                        .font(.satoshi(size: 12, weight: .medium))
-                        .foregroundStyle(Color.MineralBlue.blueish2)
-                    
-                    VStack(alignment: .leading, spacing: 6) {
-                        ForEach(viewModel.rows, id: \.id) { row in
-                            keySection(title: row.headerLabel, key: row.valueLabel)
-                            if row.id != viewModel.rows.last?.id {
-                                Divider()
+                if viewModel.isStopValidation {
+                    stopValidationSection()
+                } else {
+                    VStack(alignment: .leading, spacing: 24) {
+                        Text(viewModel.text ?? "")
+                            .font(.satoshi(size: 12, weight: .medium))
+                            .foregroundStyle(Color.MineralBlue.blueish2)
+                        
+                        VStack(alignment: .leading, spacing: 6) {
+                            ForEach(viewModel.rows, id: \.id) { row in
+                                keySection(title: row.headerLabel, key: row.valueLabel)
+                                if row.id != viewModel.rows.last?.id {
+                                    Divider()
+                                }
                             }
                         }
+                        .padding([.leading, .top], 14)
+                        .padding(.trailing, 26)
+                        .padding(.bottom, 18)
+                        .background(.grey3.opacity(0.3))
+                        .cornerRadius(12)
+                        
+                        Spacer()
+                        
                     }
-                    .padding([.leading, .top], 14)
-                    .padding(.trailing, 26)
-                    .padding(.bottom, 18)
-                    .background(.grey3.opacity(0.3))
-                    .cornerRadius(12)
-                    
-                    Spacer()
-                    
                 }
             }
             SliderButton(text: "Submit") {
@@ -57,5 +61,22 @@ struct ValidatorSubmissionView: View {
                 .font(.satoshi(size: 12, weight: .medium))
                 .foregroundStyle(.white)
         }
+    }
+    
+    private func stopValidationSection() -> some View {
+        VStack(alignment: .center, spacing: 30) {
+            Text("validation.stop.title".localized)
+                .font(.satoshi(size: 15, weight: .medium))
+                .foregroundStyle(.white)
+            Text(String(format: "transaction.fee".localized, viewModel.transactionFeeText))
+                .font(.satoshi(size: 12, weight: .regular))
+                .foregroundStyle(.grey4)
+        }
+        .padding(.vertical, 30)
+        .frame(maxWidth: .infinity)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.grey4.opacity(0.3), lineWidth: 1)
+        )
     }
 }

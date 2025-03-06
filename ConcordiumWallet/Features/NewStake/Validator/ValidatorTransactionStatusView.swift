@@ -69,13 +69,16 @@ struct ValidatorTransactionStatusView: View {
             Spacer()
             
             RoundedButton(action: {
-                navigationManager.reset()
+                viewModel.closeTapped() {
+                    navigationManager.reset()
+                }
             }, title: "close".localized)
             .padding(.bottom, 20)
             .padding(.horizontal, 18)
             .opacity(viewModel.isTransactionExecuting ? 0 : 1)
         }
         .modifier(AppBackgroundModifier())
+        .modifier(AlertModifier(alertOptions: viewModel.alertOptions, isPresenting: $viewModel.showAlert))
         .onAppear {
             playAnimationBasedOnState()
             if !hasStartedTransaction {

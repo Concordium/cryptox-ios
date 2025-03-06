@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 final class ValidatorStakeStatusViewModel: ObservableObject {
     @Published var rows: [StakeRowViewModel] = []
@@ -19,7 +20,10 @@ final class ValidatorStakeStatusViewModel: ObservableObject {
     @Published var topText: String = ""
     @Published var topImageName: String = ""
     @Published var placeholderText: String?
-    
+    @Published var showAlert: Bool = false
+    @Published var alertOptions: SwiftUIAlertOptions?
+    @Published var isRegistered: Bool = false
+
     private var dataHandler: StakeDataHandler?
     private let account: AccountDataType
     private lazy var status: BakerPoolStatus = .pendingTransfer
@@ -46,8 +50,12 @@ final class ValidatorStakeStatusViewModel: ObservableObject {
     func actionItems() -> [ActionItem] {
         var actionItems = [ActionItem]()
         if stopButtonShown {
-            actionItems.append(ActionItem(iconName: "Stop", label: "Stop", action: {
-                // navigate to the stop flow
+            actionItems.append(ActionItem(iconName: "Stop", label: "Stop", action: { [weak self] in
+                guard let self else { return }
+                withAnimation {
+                    self.showAlert = true
+                }
+                self.alertOptions = AlertHelper.stopValidationAlertOptions(account: self.account, navigationManager: self.navigationManager)
             }))
         }
         actionItems.append(ActionItem(iconName: "ArrowsClockwise", label: "Update", action: { [weak self] in
@@ -81,8 +89,9 @@ extension ValidatorStakeStatusViewModel {
                     )
                 }
                 .store(in: &cancellables)
-
+            isRegistered = true
         } else {
+            isRegistered = false
             setupPending(withAccount: account)
         }
     }
@@ -108,13 +117,14 @@ extension ValidatorStakeStatusViewModel {
         }
 
         updateButtonEnabled = true
+        stopButtonShown = true
         accountCooldowns = account.cooldowns.map({AccountCooldown(timestamp: $0.timestamp, amount: $0.amount, status: $0.status.rawValue)})
         rows = updatedRows.flatMap { $0.getDisplayValues(type: .configureBaker).map { StakeRowViewModel(displayValue: $0) } }
     }
     
     func setupPending(withAccount account: AccountDataType) {
         title = "baking.status.title".localized
-        topImageName = "logo_rotating_arrows"
+        topImageName = "ArrowsClockwise"
         topText = "baking.status.waiting.header".localized
         placeholderText = "baking.status.waiting.placeholder".localized
         

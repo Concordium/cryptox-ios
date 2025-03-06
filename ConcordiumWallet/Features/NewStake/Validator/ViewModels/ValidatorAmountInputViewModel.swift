@@ -9,6 +9,7 @@
 import Combine
 import Foundation
 import BigInt
+import SwiftUI
 
 enum ValidatorTransferCostOption {
     case cost(TransferCost)
@@ -255,7 +256,10 @@ final class ValidatorAmountInputViewModel: StakeAmountInputViewModel {
         checkForWarnings { [weak self] in
             guard let self = self else { return }
             if self.dataHandler.isNewAmountZero() {
-                //                self.delegate?.switchToRemoveBaker()
+                withAnimation {
+                    self.showAlert = true
+                }
+                alertOptions = AlertHelper.stopValidationAlertOptions(account: account, navigationManager: navigationManager)
             } else {
                 finishedEnteringAmount()
             }
@@ -281,7 +285,9 @@ final class ValidatorAmountInputViewModel: StakeAmountInputViewModel {
         )?.asAlert(completion: completion) {
             isContinueEnabled = false
             alertOptions = alert
-            showAlert = true
+            withAnimation {
+                showAlert = true
+            }
         } else {
             completion()
         }

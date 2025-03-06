@@ -1382,3 +1382,8 @@ Remember to restart your node with the validator keys.";
 "validator.stop.success" = "You submitted a transaction to stop your validator";
 "validator.stop.in.progress" = "Transaction to stop validation is being submitted";
 "validator.stop.failed" = "Failed to submit transaction to stop validation";
+
+"validation.stop.title" = "Stop validation";
+"validation.stop.desc" = "If you stop validating there is a cooldown period, after which the full stake amount will be unlocked on your public balance.\n\nIf your pool has any delegators, they will be automatically moved to passive delegation.\n\nDeregistering the validator does not shut down your node. You must shut down the node in a separate action if you no longer wish to run a node on the Concordium blockchain.";
+"transaction.fee" = "Transaction fee ≈ %@ CCD";
+"validation.stop.message" = "Your validator will stop at the next pay day after a cooldown of %@ days.\n\nOnce the transaction has finalized, you can see the estimated time on the validator status screen.";
