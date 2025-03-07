@@ -1,5 +1,5 @@
 {
-  "originHash" : "b63f4317b03107684528a3184f969914ed0af40ff1ecdef821c19a09029cb0ca",
+  "originHash" : "05f661e531a56a4cdbf74750a3a68e54e7d7fcf7fe27ad444bba59662320f7ab",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -40,7 +40,7 @@
     {
       "identity" : "concordium-wallet-crypto-swift",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Concordium/concordium-wallet-crypto-swift",
+      "location" : "https://github.com/Concordium/concordium-wallet-crypto-swift.git",
       "state" : {
         "revision" : "b6373dbb71e8f4926b896c03606a5f0c64841c75",
         "version" : "0.25.1"
