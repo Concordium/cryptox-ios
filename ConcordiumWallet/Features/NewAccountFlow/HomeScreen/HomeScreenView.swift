@@ -51,12 +51,15 @@ struct HomeScreenView: View {
     
     var body: some View {
         NavigationStack(path: $navigationManager.path) {
-            Group {
-                if viewModel.isLoadedAccounts {
-                    HomeViewContent
-                } else {
-                    HomeScreenViewSkeleton()
+            GeometryReader { proxy in
+                Group {
+                    if viewModel.isLoadedAccounts {
+                        HomeViewContent
+                    } else {
+                        HomeScreenViewSkeleton()
+                    }
                 }
+                .frame(width: proxy.size.width)
             }
             .onReceive(updateTimer.tick) { _ in
                 Task {
@@ -186,6 +189,7 @@ struct HomeScreenView: View {
                 }
                     
                 balanceSection()
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
                 accountActionButtonsSection()
                 
@@ -201,7 +205,6 @@ struct HomeScreenView: View {
                 }
                 if isShouldShowOnrampMessage {
                     OnrampView
-    //                NewsPageView(selectedTab: $selectedPage, views: { [OnrampView] })
                 }
                 
                 AccountStatesView
@@ -216,6 +219,7 @@ struct HomeScreenView: View {
     func balanceSection() -> some View {
         VStack(alignment: .leading) {
             Text("\(balanceDisplayValue(viewModel.selectedAccount?.account.forecastBalance)) CCD")
+                .contentTransition(.numericText())
                 .frame(alignment: .leading)
                 .frame(maxWidth: .infinity)
                 .font(.plexSans(size: 55, weight: .semibold))
@@ -224,7 +228,6 @@ struct HomeScreenView: View {
                 .lineLimit(1)
                 .frame(alignment: .leading)
                 .modifier(RadialGradientForegroundStyleModifier())
-                .fixedSize()
                 .overlay(alignment: .topTrailing) {
                     Button {
                         showTooltip.toggle()
@@ -247,7 +250,6 @@ struct HomeScreenView: View {
                     .modifier(RadialGradientForegroundStyleModifier())
             }
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
     }
     
     func accountActionButtonsSection() -> some View {
