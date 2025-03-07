@@ -20,16 +20,27 @@ struct AccountsOverviewView: View {
     @State private var selectedAccountAddress: String?
     
     var body: some View {
-        VStack {
-            ScrollView {
-                LazyVStack(spacing: 4) {
-                    ForEach(viewModel.accountViewModels, id: \.id) { account in
+        ScrollView {
+            LazyVStack(spacing: 4) {
+                ForEach(viewModel.accountViewModels, id: \.id) { account in
+                    Button {
+                        selectedAccountAddress = account.address
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            selectedAccountAddress = nil
+                            viewModel.changeCurrentAccount(account)
+                            dismiss()
+                        }
+                    } label: {
                         accountsView(account)
+                            .contentShape(.rect)
                     }
+                    .buttonStyle(.plain)
                 }
             }
-            Spacer()
-            
+            .padding(.vertical, 20)
+            .padding(.horizontal, 18)
+        }
+        .safeAreaInset(edge: .bottom, content: {
             Button {
                 router?.showCreateAccountFlow()
             } label: {
@@ -39,10 +50,8 @@ struct AccountsOverviewView: View {
                     .multilineTextAlignment(.center)
             }
             .buttonStyle(PressedButtonStyle())
-        }
-        .padding(.vertical, 20)
-        .padding(.horizontal, 18)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding(.horizontal, 18)
+        })
         .modifier(NavigationViewModifier(title: "Your accounts", backAction: {
             dismiss()
         }, trailingAction: {
@@ -105,12 +114,11 @@ struct AccountsOverviewView: View {
                 .stroke(Color.MineralBlue.blueish3, lineWidth: 1)
                 .opacity(account.account.address == viewModel.selectedAccount?.address ? 1 : 0)
         )
-        .onTapGesture {
-            selectedAccountAddress = account.address
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                selectedAccountAddress = nil
-                viewModel.changeCurrentAccount(account)
-                dismiss()
+        .overlay(alignment: .topLeading) {
+            if (account.account.baker?.isSuspended == true || account.account.delegation?.isSuspended == true) || (account.account.baker?.isPrimedForSuspension == true || account.account.delegation?.isPrimedForSuspension == true) {
+                Circle().fill(.attentionRed)
+                    .frame(width: 8, height: 8)
+                    .offset(x: 8, y: 8)
             }
         }
     }

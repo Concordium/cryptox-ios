@@ -44,6 +44,8 @@ class BakingOnboardingCoordinator: Coordinator {
             showUpdateCarousel()
         case .removeBaker:
             showRemoveCarousel()
+        case .updateValidatorSuspendState:
+            self.delegate?.finished(dataHandler: self.dataHandler)
         default:
             self.delegate?.closed()
         }
@@ -121,6 +123,28 @@ class BakingOnboardingCoordinator: Coordinator {
                 OnboardingPage(
                     title: "onboardingcarousel.removebaker.page1.title".localized,
                     viewController: OnboardingCarouselWebContentViewController(htmlFilename: "baker_remove_flow_en_1")
+                )
+            ]
+        )
+        
+        let onboardingCarouselPresenter = OnboardingCarouselPresenter(
+            delegate: self,
+            viewModel: onboardingCarouselViewModel
+        )
+        
+        let onboardingCarouselViewController = OnboardingCarouselFactory.create(with: onboardingCarouselPresenter)
+        onboardingCarouselViewController.hidesBottomBarWhenPushed = true
+        
+        navigationController.pushViewController(onboardingCarouselViewController, animated: true)
+    }
+    
+    func showSuspendCarousel() {
+        let onboardingCarouselViewModel = OnboardingCarouselViewModel(
+            title: "onboardingcarousel.bakersuspension.title".localized,
+            pages: [
+                OnboardingPage(
+                    title: "onboardingcarousel.bakersuspension.page1.title".localized,
+                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "baker_suspension_flow_en_1")
                 )
             ]
         )

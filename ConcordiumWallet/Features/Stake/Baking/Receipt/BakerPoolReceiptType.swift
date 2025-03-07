@@ -12,6 +12,8 @@ enum BakerPoolReceiptType {
     case updateStake(isLoweringStake: Bool)
     case updatePool
     case updateKeys
+    case suspend
+    case resume
     case remove
     case register
     
@@ -25,7 +27,27 @@ enum BakerPoolReceiptType {
             self = .updatePool
         case .updateBakerKeys:
             self = .updateKeys
-        default:
+        case .updateValidatorSuspendState:
+            if let suspendEntry = dataHandler.getNewEntry(BakerUpdateSuspend.self) {
+                self =  suspendEntry.isSuspended ? .suspend : .resume
+            } else {
+                self = .remove
+            }
+        case .simpleTransfer:
+            self = .remove
+        case .transferToPublic:
+            self = .remove
+        case .transferUpdate:
+            self = .remove
+        case .registerDelegation:
+            self = .remove
+        case .updateDelegation:
+            self = .remove
+        case .removeDelegation:
+            self = .remove
+        case .removeBaker:
+            self = .remove
+        case .configureBaker:
             self = .remove
         }
     }

@@ -16,7 +16,7 @@ enum TokenListMode {
 }
 
 struct AccountTokenListView: View {
-    @ObservedObject var viewModel: AccountDetailViewModel
+    @StateObject var viewModel: AccountDetailViewModel
     @Binding var showManageTokenList: Bool
     @Binding var path: [NavigationPaths]
     @State private var selectedAccountID: Int?
@@ -61,7 +61,6 @@ struct AccountTokenListView: View {
             }
             .animation(.easeInOut, value: viewModel.accounts)
         }
-        .padding(.horizontal, 18)
         .refreshable {
             await viewModel.reload()
         }
@@ -191,11 +190,11 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
         }
         self.account = account
         sceneTitle = account.displayName
-
+        
+        //TODO: - use `account.isStaking` intead
         if let baker = account.baker, baker.bakerID != -1 {
             self.hasStaked = true
             self.stakedValue = GTU(intValue: baker.stakedAmount )
-            
         } else if let delegation = account.delegation {
             self.hasStaked = true
             self.stakedValue = GTU(intValue: Int(delegation.stakedAmount) )
