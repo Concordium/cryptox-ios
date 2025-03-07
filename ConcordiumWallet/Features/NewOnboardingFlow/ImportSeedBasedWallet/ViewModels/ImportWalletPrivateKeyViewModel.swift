@@ -37,9 +37,14 @@ final class ImportWalletPrivateKeyViewModel: ObservableObject {
             if validateWalletPrivateKey() {
                 walletPrivateKey = IdentifiableString(value: currentInput)
                 isValidPhrase = true
-                error = nil
+                withAnimation {
+                    error = nil
+                }
             } else {
-                error = "recoveryphrase.recover.input.validationerror".localized
+                withAnimation {
+                    isValidPhrase = false
+                    error = "recoveryphrase.recover.input.validationerror".localized
+                }
             }
         }
     }
@@ -71,18 +76,24 @@ final class ImportWalletPrivateKeyViewModel: ObservableObject {
 
     
     private func hexStringToByteArray(_ hex: String) throws -> [UInt8] {
+        guard hex.count % 2 == 0 else {
+            throw NSError(domain: "Invalid hex string: length must be even", code: 0, userInfo: nil)
+        }
+
         var bytes = [UInt8]()
         var index = hex.startIndex
         while index < hex.endIndex {
-            let byteString = String(hex[index..<hex.index(index, offsetBy: 2)])
+            let nextIndex = hex.index(index, offsetBy: 2)
+            let byteString = String(hex[index..<nextIndex])
+            
             if let byte = UInt8(byteString, radix: 16) {
                 bytes.append(byte)
             } else {
                 throw NSError(domain: "Invalid hex string", code: 0, userInfo: nil)
             }
-            index = hex.index(index, offsetBy: 2)
+            
+            index = nextIndex
         }
         return bytes
     }
-
 }
