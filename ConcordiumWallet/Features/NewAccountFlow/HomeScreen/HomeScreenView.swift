@@ -399,7 +399,7 @@ struct HomeScreenView: View {
             }),
             ActionItem(iconName: "send", label: "Send", action: {
                 if let account = viewModel.selectedAccount?.account as? AccountEntity {
-                    navigationManager.navigate(to: .send(account))
+                    navigationManager.navigate(to: .send(account, tokenType: .ccd))
                     Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Send funds")
                 }
             }),
