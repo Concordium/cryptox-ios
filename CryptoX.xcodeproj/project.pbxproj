@@ -1857,6 +1857,9 @@
 		155EE1F12D7B3BFC005EF86E /* AlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE1F02D7B3BFC005EF86E /* AlertModifier.swift */; };
 		155EE1F22D7B3BFC005EF86E /* AlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE1F02D7B3BFC005EF86E /* AlertModifier.swift */; };
 		155EE1F32D7B3BFC005EF86E /* AlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE1F02D7B3BFC005EF86E /* AlertModifier.swift */; };
+		155EE23D2D7B4955005EF86E /* KeyboardAvoidingPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE23C2D7B4955005EF86E /* KeyboardAvoidingPadding.swift */; };
+		155EE23E2D7B4955005EF86E /* KeyboardAvoidingPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE23C2D7B4955005EF86E /* KeyboardAvoidingPadding.swift */; };
+		155EE23F2D7B4955005EF86E /* KeyboardAvoidingPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE23C2D7B4955005EF86E /* KeyboardAvoidingPadding.swift */; };
 		156878D22CD0FC190080B2F3 /* confettiAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 156878D12CD0FC190080B2F3 /* confettiAnimation.json */; };
 		156878D32CD0FC190080B2F3 /* confettiAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 156878D12CD0FC190080B2F3 /* confettiAnimation.json */; };
 		156878D42CD0FC190080B2F3 /* confettiAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 156878D12CD0FC190080B2F3 /* confettiAnimation.json */; };
@@ -3238,6 +3241,7 @@
 		1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsPopup.swift; sourceTree = "<group>"; };
 		155EE1EC2D7B3BA6005EF86E /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		155EE1F02D7B3BFC005EF86E /* AlertModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModifier.swift; sourceTree = "<group>"; };
+		155EE23C2D7B4955005EF86E /* KeyboardAvoidingPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAvoidingPadding.swift; sourceTree = "<group>"; };
 		156878D12CD0FC190080B2F3 /* confettiAnimation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = confettiAnimation.json; sourceTree = "<group>"; };
 		1575862D2CA2CA4D00205A6E /* IdentifiableString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableString.swift; sourceTree = "<group>"; };
 		157586312CA43E5500205A6E /* CooldownEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CooldownEntity.swift; sourceTree = "<group>"; };
@@ -4139,6 +4143,7 @@
 				152AE63B2D50E17700B0B073 /* PrsssedButtonStyle.swift */,
 				155EE1EC2D7B3BA6005EF86E /* RoundedButton.swift */,
 				155EE1F02D7B3BFC005EF86E /* AlertModifier.swift */,
+				155EE23C2D7B4955005EF86E /* KeyboardAvoidingPadding.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -7451,6 +7456,7 @@
 				08C167EB2BB7396200E61326 /* Features.swift in Sources */,
 				08C167ED2BB7396200E61326 /* RecoveryPhraseRecoverCompleteViewModel.swift in Sources */,
 				08C167EF2BB7396200E61326 /* IdentityAttributeEntity.swift in Sources */,
+				155EE23D2D7B4955005EF86E /* KeyboardAvoidingPadding.swift in Sources */,
 				08C167F02BB7396200E61326 /* IdentityDataSelectionCell.swift in Sources */,
 				08C167F12BB7396200E61326 /* SessionProposalView.swift in Sources */,
 				08C167F22BB7396200E61326 /* IdentityCell.swift in Sources */,
@@ -8169,6 +8175,7 @@
 				088FF16F2A0292DB00042957 /* Features.swift in Sources */,
 				088FF0B52A02845C00042957 /* RecoveryPhraseRecoverCompleteViewModel.swift in Sources */,
 				D589F1A92794B5ED003F2FBB /* IdentityAttributeEntity.swift in Sources */,
+				155EE23F2D7B4955005EF86E /* KeyboardAvoidingPadding.swift in Sources */,
 				7F85B863246A9AB600ED09B8 /* IdentityDataSelectionCell.swift in Sources */,
 				089B34212A16845600F3CD90 /* SessionProposalView.swift in Sources */,
 				7F85B865246A9AB600ED09B8 /* IdentityCell.swift in Sources */,
@@ -8887,6 +8894,7 @@
 				088FF16D2A0292DB00042957 /* Features.swift in Sources */,
 				089B341F2A16845600F3CD90 /* SessionProposalView.swift in Sources */,
 				D589F1A72794B5ED003F2FBB /* IdentityAttributeEntity.swift in Sources */,
+				155EE23E2D7B4955005EF86E /* KeyboardAvoidingPadding.swift in Sources */,
 				088FF0B12A02845B00042957 /* RecoveryPhraseRecoverCompleteViewModel.swift in Sources */,
 				C9D342B9245884AA007ED45E /* ShowErrorProtocol.swift in Sources */,
 				C95CE0C02439EDC500B1A88D /* AccountDetailsIdentityDataCellView.swift in Sources */,
