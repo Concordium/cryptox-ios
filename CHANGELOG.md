@@ -7,6 +7,8 @@
 - Add saving state of the last selected account
 - Removed redundant Bitfinex onramp option
 - Telegram link in the Social section
+- Crash while switching/removing/importing accounts
+- Overall app & UI stability and improvements
 
 ### Changed
 - UI of the Social section on About screen
