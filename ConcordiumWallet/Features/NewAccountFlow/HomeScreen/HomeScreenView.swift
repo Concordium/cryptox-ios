@@ -187,7 +187,7 @@ struct HomeScreenView: View {
                         StakerSuspensionStateView(type: .primedForSuspension)
                     }
                 }
-                    
+                
                 balanceSection()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
@@ -214,6 +214,41 @@ struct HomeScreenView: View {
         }
         .refreshable { Task { await viewModel.reload() } }
         .padding(.bottom, 20)
+        .safeAreaInset(edge: .bottom) {
+            switch viewModel.state {
+            case .createIdentity:
+                Button(action: {
+                    self.router?.showCreateIdentityFlow()
+                    Tracker.trackContentInteraction(name: "Onboarding", interaction: .clicked, piece: "Create Identity")
+                }, label: {
+                    Text("create_wallet_step_3_title".localized)
+                        .font(Font.satoshi(size: 15, weight: .medium))
+                        .foregroundColor(.blackMain)
+                        .padding(.horizontal, 24)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 56)
+                        .background(.white)
+                        .cornerRadius(28)
+                })
+                .padding()
+            case .saveSeedPhrase:
+                Button {
+                    isShowPasscodeViewShown = true
+                    Tracker.trackContentInteraction(name: "Onboarding", interaction: .clicked, piece: "Save Seed Phrase")
+                } label: {
+                    Text("create_wallet_step_2_title".localized)
+                        .font(Font.satoshi(size: 15, weight: .medium))
+                        .foregroundColor(.blackMain)
+                        .padding(.horizontal, 24)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 56)
+                        .background(.white)
+                        .cornerRadius(28)
+                }
+                .padding()
+            default: EmptyView()
+            }
+        }
     }
     
     func balanceSection() -> some View {
@@ -221,7 +256,6 @@ struct HomeScreenView: View {
             Text("\(balanceDisplayValue(viewModel.selectedAccount?.account.forecastBalance)) CCD")
                 .contentTransition(.numericText())
                 .frame(alignment: .leading)
-                .frame(maxWidth: .infinity)
                 .font(.plexSans(size: 55, weight: .semibold))
                 .dynamicTypeSize(.xSmall ... .xxLarge)
                 .minimumScaleFactor(0.5)
@@ -243,7 +277,7 @@ struct HomeScreenView: View {
                     .offset(x: 20, y: 8)
                 }
                 .padding(.trailing, 20)
-
+            
             if let account = viewModel.selectedAccount?.account, account.isStaking {
                 Text("\(balanceDisplayValue(account.forecastAtDisposalBalance)) CCD " + "accounts.atdisposal".localized)
                     .font(.satoshi(size: 15, weight: .medium))
@@ -257,31 +291,31 @@ struct HomeScreenView: View {
             ForEach(Array(actionItems.enumerated()), id: \.offset) { (index, item) in
                 Button(
                     action: {
-                    selectedActionId = index
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                        selectedActionId = nil
-                        if SettingsHelper.isIdentityConfigured() {
-                            item.action()
+                        selectedActionId = index
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            selectedActionId = nil
+                            if SettingsHelper.isIdentityConfigured() {
+                                item.action()
+                            }
+                            else {
+                                self.router?.showNotConfiguredAccountPopup()
+                            }
                         }
-                        else {
-                            self.router?.showNotConfiguredAccountPopup()
+                    }, label: {
+                        VStack {
+                            Image(item.iconName)
+                                .frame(width: 24, height: 24)
+                                .padding(11)
+                                .background(selectedActionId == index ? .grey4 : .grey3)
+                                .foregroundColor(.MineralBlue.blueish3)
+                                .cornerRadius(50)
+                            Text(item.label)
+                                .font(.satoshi(size: 12, weight: .medium))
+                                .foregroundColor(.MineralBlue.blueish2)
+                                .padding(.top, 2)
                         }
-                    }
-                }, label: {
-                    VStack {
-                        Image(item.iconName)
-                            .frame(width: 24, height: 24)
-                            .padding(11)
-                            .background(selectedActionId == index ? .grey4 : .grey3)
-                            .foregroundColor(.MineralBlue.blueish3)
-                            .cornerRadius(50)
-                        Text(item.label)
-                            .font(.satoshi(size: 12, weight: .medium))
-                            .foregroundColor(.MineralBlue.blueish2)
-                            .padding(.top, 2)
-                    }
-                    .contentShape(.rect)
-                })
+                        .contentShape(.rect)
+                    })
                 .buttonStyle(.plain)
                 .overlay(alignment: .topTrailing) {
                     if item.label == "Earn" {
@@ -356,7 +390,7 @@ struct HomeScreenView: View {
     }
     
     // MARK: - Helpers
-
+    
     private func accountActionItems() -> [ActionItem] {
         let actionItems = [
             ActionItem(iconName: "buy", label: "Buy", action: {
@@ -432,70 +466,25 @@ extension HomeScreenView {
                     .frame(maxWidth: .infinity)
                 }
             case .createAccount:
-                VStack {
-                    AccountPreviewCardView(isCreatingAccount: $isCreatingAccount,
-                                           onCreateAccount: {
+                AccountPreviewCardView(
+                    isCreatingAccount: $isCreatingAccount,
+                    onCreateAccount: {
                         self.isCreatingAccount = true
                         self.router?.createAccountFromOnboarding(isCreatingAccount: $isCreatingAccount)
                         Task { await viewModel.reload() }
                     },
-                                           state: .createAccount)
-                    .fixedSize(horizontal: false, vertical: true)
-                    
-                    Spacer()
-                }
+                    state: .createAccount
+                )
             case .createIdentity:
-                VStack {
-                    AccountPreviewCardView(isCreatingAccount: $isCreatingAccount, state: .createIdentity)
-                        .fixedSize(horizontal: false, vertical: true)
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        self.router?.showCreateIdentityFlow()
-                        Tracker.trackContentInteraction(name: "Onboarding", interaction: .clicked, piece: "Create Identity")
-                    }, label: {
-                        Text("create_wallet_step_3_title".localized)
-                            .font(Font.satoshi(size: 15, weight: .medium))
-                            .foregroundColor(.blackMain)
-                            .padding(.horizontal, 24)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 56)
-                            .background(.white)
-                            .cornerRadius(28)
-                    })
-                }
+                AccountPreviewCardView(isCreatingAccount: $isCreatingAccount, state: .createIdentity)
+                
             case .identityVerification:
-                VStack {
-                    AccountPreviewCardView(isCreatingAccount: $isCreatingAccount, state: .identityVerification)
-                        .fixedSize(horizontal: false, vertical: true)
-                    Spacer()
-                }
+                AccountPreviewCardView(isCreatingAccount: $isCreatingAccount, state: .identityVerification)
+                
             case .verificationFailed:
-                VStack {
-                    AccountPreviewCardView(isCreatingAccount: $isCreatingAccount, onIdentityVerification: { self.router?.showCreateIdentityFlow() }, state: .verificationFailed)
-                        .fixedSize(horizontal: false, vertical: true)
-                    Spacer()
-                }
+                AccountPreviewCardView(isCreatingAccount: $isCreatingAccount, onIdentityVerification: { self.router?.showCreateIdentityFlow() }, state: .verificationFailed)
             case .saveSeedPhrase:
-                VStack {
-                    AccountPreviewCardView(isCreatingAccount: $isCreatingAccount, state: .saveSeedPhrase)
-                        .fixedSize(horizontal: false, vertical: true)
-                    Spacer()
-                    Button {
-                        isShowPasscodeViewShown = true
-                        Tracker.trackContentInteraction(name: "Onboarding", interaction: .clicked, piece: "Save Seed Phrase")
-                    } label: {
-                        Text("create_wallet_step_2_title".localized)
-                            .font(Font.satoshi(size: 15, weight: .medium))
-                            .foregroundColor(.blackMain)
-                            .padding(.horizontal, 24)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 56)
-                            .background(.white)
-                            .cornerRadius(28)
-                    }
-                }
+                AccountPreviewCardView(isCreatingAccount: $isCreatingAccount, state: .saveSeedPhrase)
             }
         }
         .transition(.opacity)

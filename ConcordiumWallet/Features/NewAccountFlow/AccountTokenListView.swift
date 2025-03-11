@@ -16,7 +16,7 @@ enum TokenListMode {
 }
 
 struct AccountTokenListView: View {
-    @StateObject var viewModel: AccountDetailViewModel
+    @ObservedObject var viewModel: AccountDetailViewModel
     @Binding var showManageTokenList: Bool
     @Binding var path: [NavigationPaths]
     @State private var selectedAccountID: Int?
