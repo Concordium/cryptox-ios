@@ -15,11 +15,17 @@ final class TransactionsViewModel: ObservableObject {
     
     @Published var hasMoreItems: Bool = true
     @Published var isLoading: Bool = false
+    @Published var shouldShowAlert: Bool = false
     
+    private var error: Error?
     private let transactionsLoadingHandler: TransactionsLoadingHandler
     private var cancellables = [AnyCancellable]()
+    private let accountsService: AccountsServiceProtocol
+    private let account: AccountDataType
     
     init(account: AccountDataType, dependencyProvider: AccountsFlowCoordinatorDependencyProvider) {
+        self.accountsService = ServicesProvider.defaultProvider().accountsService()
+        self.account = account
         transactionsLoadingHandler = TransactionsLoadingHandler(account: account, balanceType: .balance, dependencyProvider: dependencyProvider)
         
         $tmpTransactions.sink { models in
@@ -66,6 +72,38 @@ final class TransactionsViewModel: ObservableObject {
         }
         isLoading = false
     }
+    
+    func gtuDrop() {
+        accountsService.gtuDrop(for: account.address)
+                .mapError(ErrorMapper.toViewError)
+                .sink(receiveError: { [weak self] in
+                    self?.shouldShowAlert = true
+                    self?.error = $0
+                }, receiveValue: { [weak self] _ in
+                    self?.updateTransfers()
+                })
+                .store(in: &cancellables)
+        updateTransfers()
+    }
+    
+    fileprivate func updateTransfers() {
+        let delegate = DummyRequestPasswordDelegate()
+        accountsService.updateAccountBalancesAndDecryptIfNeeded(account: account, balanceType: .balance, requestPasswordDelegate: delegate)
+            .mapError(ErrorMapper.toViewError)
+            .sink(receiveError: { [weak self] error in
+                self?.shouldShowAlert = true
+                self?.error = error
+            }, receiveValue: { [weak self] account in
+                // We cannot get transactions from server before we have updated our
+                // local store of transactions in the updateAccountsBalances call
+                Task { await self?.reload() }
+            }).store(in: &cancellables)
+    }
+    
+    func alertOptions() -> SwiftUIAlertOptions {
+        let okAction = SwiftUIAlertAction(name: "errorAlert.okButton".localized, completion: nil, style: .styled)
+        return .init(title: "errorAlert.title".localized, message: error?.localizedDescription ?? "airdrop.error.message".localized, actions: [okAction])
+    }
 }
 
 struct TransactionsView: View {
@@ -88,6 +126,13 @@ struct TransactionsView: View {
                 }
                 .onAppear { Task { await viewModel.reload() } }
                 Spacer()
+#if ENABLE_GTU_DROP
+                if !viewModel.isLoading {
+                    RoundedButton(action: {
+                        viewModel.gtuDrop()
+                    }, title: "accountDetails.testnetGtuDropButtonTitle".localized)
+                }
+#endif
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else {
@@ -149,6 +194,7 @@ struct TransactionsView: View {
                     }
                 }
             }
+            .modifier(AlertModifier(alertOptions: viewModel.alertOptions(), isPresenting: $viewModel.shouldShowAlert))
             .padding(.horizontal, 18)
             .padding(.top, 20)
             .onAppear { Task { await viewModel.reload() } }
