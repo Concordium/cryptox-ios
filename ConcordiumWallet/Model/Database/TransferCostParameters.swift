@@ -27,6 +27,7 @@ enum TransferCostParameter: Equatable {
     case contractSubindex(Int)
     case receiveName(String)
     case parameter(String)
+    case suspended(Bool?)
     
     var name: String {
         switch self {
@@ -61,6 +62,8 @@ enum TransferCostParameter: Equatable {
             return "receiveName"
         case .parameter(_):
             return "parameter"
+        case .suspended(_):
+            return "suspended"
         }
     }
     
@@ -82,6 +85,9 @@ enum TransferCostParameter: Equatable {
             return parameter
         case .sender(let sender):
             return sender
+        case .suspended(let suspended):
+            guard let suspended = suspended else { return nil }
+            return suspended ? "true" : "false"
         default:
             return nil
         }

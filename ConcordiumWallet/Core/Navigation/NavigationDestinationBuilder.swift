@@ -51,15 +51,14 @@ struct NavigationDestinationBuilder: ViewModifier {
                         } else {
                             EmptyView()
                         }
-                        
-                    case .send(let account):
+                    case .send(let account, let tokenType):
                         SendTokenView(path: $navigationManager.path,
                                       viewModel: .init(
-                                        tokenType: .ccd,
+                                        tokenType: tokenType,
                                         account: account,
                                         dependencyProvider: dependencyProvider,
                                         tokenTransferModel: CIS2TokenTransferModel(
-                                            tokenType: .ccd,
+                                            tokenType: tokenType,
                                             account: account,
                                             dependencyProvider: dependencyProvider,
                                             notifyDestination: .none,

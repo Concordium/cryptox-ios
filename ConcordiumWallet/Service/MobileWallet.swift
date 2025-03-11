@@ -29,7 +29,7 @@ protocol MobileWalletProtocol {
                         transferType: TransferType,
                         requestPasswordDelegate: RequestPasswordDelegate,
                         global: GlobalWrapper?, inputEncryptedAmount: InputEncryptedAmount?,
-                        receiverPublicKey: String?) -> AnyPublisher<CreateTransferRequest, Error>
+                        receiverPublicKey: String?, isSuspended: Bool?) -> AnyPublisher<CreateTransferRequest, Error>
     
     func createTransferUpdate(from fromAccount: AccountDataType, to toAccount: String, contractAddress: ContractAddress1,
                               params: String, receiveName: String,
@@ -196,8 +196,9 @@ class MobileWallet: MobileWalletProtocol {
                         requestPasswordDelegate: RequestPasswordDelegate,
                         global: GlobalWrapper?,
                         inputEncryptedAmount: InputEncryptedAmount? = nil,
-                        receiverPublicKey: String? = nil)
-                    -> AnyPublisher<CreateTransferRequest, Error> {
+                        receiverPublicKey: String? = nil,
+                        isSuspended: Bool?
+    ) -> AnyPublisher<CreateTransferRequest, Error> {
         requestPasswordDelegate.requestUserPassword(keychain: keychain).tryMap { (pwHash: String) in
             try self.createTransfer(fromAccount: fromAccount,
                                     toAccount: toAccount,
@@ -219,7 +220,9 @@ class MobileWallet: MobileWalletProtocol {
                                     pwHash: pwHash,
                                     global: global,
                                     inputEncryptedAmount: inputEncryptedAmount,
-                                    receiverPublicKey: receiverPublicKey)
+                                    receiverPublicKey: receiverPublicKey,
+                                    isSuspended: isSuspended
+            )
         }.eraseToAnyPublisher()
     }
 
@@ -243,7 +246,8 @@ class MobileWallet: MobileWalletProtocol {
                                 pwHash: String,
                                 global: GlobalWrapper? = nil,
                                 inputEncryptedAmount: InputEncryptedAmount? = nil,
-                                receiverPublicKey: String? = nil
+                                receiverPublicKey: String? = nil,
+                                isSuspended: Bool?
                                 
     ) throws -> CreateTransferRequest {
         let privateAccountKeys = try getPrivateAccountKeys(for: fromAccount, pwHash: pwHash).get()
@@ -273,7 +277,9 @@ class MobileWallet: MobileWalletProtocol {
                                                                   global: global?.value,
                                                                   senderSecretKey: secretEncryptionKey,
                                                                   inputEncryptedAmount: inputEncryptedAmount,
-                                                                  receiverPublicKey: receiverPublicKey)
+                                                                  receiverPublicKey: receiverPublicKey,
+                                                                  isSuspended: isSuspended
+        )
         
         guard let input = try makeCreateTransferRequest.jsonString() else {
             throw MobileWalletError.invalidArgument
@@ -286,7 +292,7 @@ class MobileWallet: MobileWalletProtocol {
              return try CreateTransferRequest(walletFacade.createUnshielding(input: input))
         case .registerDelegation, .removeDelegation, .updateDelegation:
             return try CreateTransferRequest(walletFacade.createConfigureDelegation(input: input))
-        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
+        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker, .updateValidatorSuspendState:
             return try CreateTransferRequest(walletFacade.createConfigureBaker(input: input))
         case .transferUpdate:
             return try CreateTransferRequest(walletFacade.createUpdateTransfer(input: input))

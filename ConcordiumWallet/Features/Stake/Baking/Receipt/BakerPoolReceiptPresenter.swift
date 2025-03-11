@@ -102,6 +102,12 @@ class BakerPoolReceiptPresenter: StakeReceiptPresenterProtocol {
                 message: "baking.receiptregister.message".localized,
                 actions: [finishAction("baking.receiptregister.ok".localized)]
             )
+        case .suspend, .resume:
+            return AlertOptions(
+                title: "baking.receiptregister.title".localized,
+                message: "baking.receiptregister.message".localized,
+                actions: [finishAction("baking.receiptregister.ok".localized)]
+            )
         }
     }
     
@@ -145,6 +151,12 @@ private extension StakeReceiptViewModel {
         case .register:
             title = "baking.receiptconfirmation.title.register".localized
             receiptHeaderText = "baking.receiptconfirmation.registerbaker".localized
+        case .suspend:
+            title = "You suspended you validation"
+            receiptHeaderText = "Transaction: Suspended validator"
+        case .resume:
+            title = "You resumed you validation"
+            receiptHeaderText = "Transaction: Resume validator"
         }
     }
 }

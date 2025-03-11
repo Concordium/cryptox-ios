@@ -27,6 +27,8 @@ enum TransferType: String, Codable {
     case removeBaker
     case configureBaker
     
+    case updateValidatorSuspendState
+    
     var isDelegationTransfer: Bool {
         switch self {
         case .registerDelegation, .updateDelegation, .removeDelegation:
@@ -39,7 +41,7 @@ enum TransferType: String, Codable {
     var isBakingTransfer: Bool {
         switch self {
         case .registerBaker, .updateBakerStake, .updateBakerPool,
-                .updateBakerKeys, .removeBaker, .configureBaker:
+                .updateBakerKeys, .removeBaker, .configureBaker, .updateValidatorSuspendState:
             return true
         default:
             return false
@@ -68,7 +70,7 @@ enum TransferType: String, Codable {
             return .updateBakerKeys
         case .removeBaker:
             return .removeBaker
-        case .configureBaker:
+        case .configureBaker, .updateValidatorSuspendState:
             return .configureBaker
         case .transferUpdate:
             return .update

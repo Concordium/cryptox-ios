@@ -30,6 +30,7 @@ enum Field: Hashable {
     case bakerId
     case bakerAmount
     case bakerCommission
+    case suspend
  
     // swiftlint:disable cyclomatic_complexity
     func getLabelText() -> String {
@@ -71,6 +72,7 @@ enum Field: Hashable {
             return ""
         case .bakerCommission:
             return ""
+        case .suspend: return ""
         }
     }
 
@@ -80,6 +82,8 @@ enum Field: Hashable {
         // common
         case .restake:
             return 3
+            
+        case .suspend: return 0
             
         // delegation
         case .delegationAccount:
@@ -183,6 +187,22 @@ struct StakeData: Hashable {
     
     static func == (lhs: StakeData, rhs: StakeData) -> Bool {
         return lhs.field == rhs.field
+    }
+}
+
+struct BakerUpdateSuspend: SimpleFieldValue {    
+    let field = Field.suspend
+    let isSuspended: Bool
+    
+    var displayValue: String { "suspend" }
+    var costParameters: [TransferCostParameter] {[.suspended(isSuspended)] }
+    
+    func add(to transaction: inout TransferDataType) {
+        transaction.isSuspended = isSuspended
+    }
+    
+    func getCostParameters(type: TransferType) -> [TransferCostParameter] {
+        [.suspended(isSuspended)]
     }
 }
 

@@ -1850,6 +1850,12 @@
 		152AE63C2D50E17700B0B073 /* PrsssedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152AE63B2D50E17700B0B073 /* PrsssedButtonStyle.swift */; };
 		152AE63D2D50E17700B0B073 /* PrsssedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152AE63B2D50E17700B0B073 /* PrsssedButtonStyle.swift */; };
 		152AE63E2D50E17700B0B073 /* PrsssedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152AE63B2D50E17700B0B073 /* PrsssedButtonStyle.swift */; };
+		152D8E452D67763600B2C589 /* bakersuspension_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 152D8E442D67763600B2C589 /* bakersuspension_flow_style.css */; };
+		152D8E462D67763600B2C589 /* baker_suspension_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 152D8E432D67763600B2C589 /* baker_suspension_flow_en_1.html */; };
+		152D8E472D67763600B2C589 /* bakersuspension_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 152D8E442D67763600B2C589 /* bakersuspension_flow_style.css */; };
+		152D8E482D67763600B2C589 /* baker_suspension_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 152D8E432D67763600B2C589 /* baker_suspension_flow_en_1.html */; };
+		152D8E492D67763600B2C589 /* bakersuspension_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 152D8E442D67763600B2C589 /* bakersuspension_flow_style.css */; };
+		152D8E4A2D67763600B2C589 /* baker_suspension_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 152D8E432D67763600B2C589 /* baker_suspension_flow_en_1.html */; };
 		153F2F4B2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */; };
 		153F2F4C2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */; };
 		153F2F4D2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */; };
@@ -1866,6 +1872,9 @@
 		1558E8992CFA2BB500004E71 /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1558E8982CFA2BB500004E71 /* DotLottie */; };
 		1558E89B2CFA2BBF00004E71 /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1558E89A2CFA2BBF00004E71 /* DotLottie */; };
 		1558E89D2CFA2BC700004E71 /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1558E89C2CFA2BC700004E71 /* DotLottie */; };
+		155EE23D2D7B4955005EF86E /* KeyboardAvoidingPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE23C2D7B4955005EF86E /* KeyboardAvoidingPadding.swift */; };
+		155EE23E2D7B4955005EF86E /* KeyboardAvoidingPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE23C2D7B4955005EF86E /* KeyboardAvoidingPadding.swift */; };
+		155EE23F2D7B4955005EF86E /* KeyboardAvoidingPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE23C2D7B4955005EF86E /* KeyboardAvoidingPadding.swift */; };
 		156878D22CD0FC190080B2F3 /* confettiAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 156878D12CD0FC190080B2F3 /* confettiAnimation.json */; };
 		156878D32CD0FC190080B2F3 /* confettiAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 156878D12CD0FC190080B2F3 /* confettiAnimation.json */; };
 		156878D42CD0FC190080B2F3 /* confettiAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 156878D12CD0FC190080B2F3 /* confettiAnimation.json */; };
@@ -2074,6 +2083,32 @@
 		19C2EEC684BF75B9E3F9EADD /* Sizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E113307579CAF5005F21 /* Sizes.swift */; };
 		19C2EF490E9CA00157B61071 /* EncryptionServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E9AFA3608A553A130503 /* EncryptionServiceTest.swift */; };
 		19C2EFF1CEC944A7FCBC63C5 /* SingleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2ED4F802767556C4ABBE9 /* SingleSection.swift */; };
+		5044206B2D706BDE00AF1CF9 /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = 5044206A2D706BDE00AF1CF9 /* ConcordiumWalletCrypto */; };
+		5044206D2D706BE400AF1CF9 /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = 5044206C2D706BE400AF1CF9 /* ConcordiumWalletCrypto */; };
+		504420762D70BEB600AF1CF9 /* AccountsOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5044206E2D70BEB600AF1CF9 /* AccountsOverviewView.swift */; };
+		504420772D70BEB600AF1CF9 /* AccountTokenListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5044206F2D70BEB600AF1CF9 /* AccountTokenListView.swift */; };
+		504420782D70BEB600AF1CF9 /* HideTokenPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420702D70BEB600AF1CF9 /* HideTokenPopup.swift */; };
+		504420792D70BEB600AF1CF9 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420712D70BEB600AF1CF9 /* HomeScreenView.swift */; };
+		5044207A2D70BEB600AF1CF9 /* ManageTokensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420722D70BEB600AF1CF9 /* ManageTokensView.swift */; };
+		5044207B2D70BEB600AF1CF9 /* TokenBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420732D70BEB600AF1CF9 /* TokenBalanceView.swift */; };
+		5044207C2D70BEB600AF1CF9 /* TokenDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420742D70BEB600AF1CF9 /* TokenDetailsView.swift */; };
+		5044207D2D70BEB600AF1CF9 /* AccountsOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5044206E2D70BEB600AF1CF9 /* AccountsOverviewView.swift */; };
+		5044207E2D70BEB600AF1CF9 /* AccountTokenListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5044206F2D70BEB600AF1CF9 /* AccountTokenListView.swift */; };
+		5044207F2D70BEB600AF1CF9 /* HideTokenPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420702D70BEB600AF1CF9 /* HideTokenPopup.swift */; };
+		504420802D70BEB600AF1CF9 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420712D70BEB600AF1CF9 /* HomeScreenView.swift */; };
+		504420812D70BEB600AF1CF9 /* ManageTokensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420722D70BEB600AF1CF9 /* ManageTokensView.swift */; };
+		504420822D70BEB600AF1CF9 /* TokenBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420732D70BEB600AF1CF9 /* TokenBalanceView.swift */; };
+		504420832D70BEB600AF1CF9 /* TokenDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420742D70BEB600AF1CF9 /* TokenDetailsView.swift */; };
+		504420842D70BEB600AF1CF9 /* AccountsOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5044206E2D70BEB600AF1CF9 /* AccountsOverviewView.swift */; };
+		504420852D70BEB600AF1CF9 /* AccountTokenListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5044206F2D70BEB600AF1CF9 /* AccountTokenListView.swift */; };
+		504420862D70BEB600AF1CF9 /* HideTokenPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420702D70BEB600AF1CF9 /* HideTokenPopup.swift */; };
+		504420872D70BEB600AF1CF9 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420712D70BEB600AF1CF9 /* HomeScreenView.swift */; };
+		504420882D70BEB600AF1CF9 /* ManageTokensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420722D70BEB600AF1CF9 /* ManageTokensView.swift */; };
+		504420892D70BEB600AF1CF9 /* TokenBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420732D70BEB600AF1CF9 /* TokenBalanceView.swift */; };
+		5044208A2D70BEB600AF1CF9 /* TokenDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504420742D70BEB600AF1CF9 /* TokenDetailsView.swift */; };
+		5049349B2D77072B00EA4757 /* HomeScreenViewSkeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5049349A2D77072B00EA4757 /* HomeScreenViewSkeleton.swift */; };
+		5049349C2D77072B00EA4757 /* HomeScreenViewSkeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5049349A2D77072B00EA4757 /* HomeScreenViewSkeleton.swift */; };
+		5049349D2D77072B00EA4757 /* HomeScreenViewSkeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5049349A2D77072B00EA4757 /* HomeScreenViewSkeleton.swift */; };
 		5059C9B52C00CF1200E40307 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5059C9B42C00CF1200E40307 /* SDWebImageSwiftUI */; };
 		5059C9B72C00CF1700E40307 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5059C9B62C00CF1700E40307 /* SDWebImageSwiftUI */; };
 		505E11F12CC2994A0003F6DC /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F779124891F220016F8D1 /* AppIcon.xcassets */; };
@@ -3274,12 +3309,15 @@
 		1522AEBB2D79CCD70058EB8C /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
 		152AE6372D50D68B00B0B073 /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		152AE63B2D50E17700B0B073 /* PrsssedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrsssedButtonStyle.swift; sourceTree = "<group>"; };
+		152D8E432D67763600B2C589 /* baker_suspension_flow_en_1.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = baker_suspension_flow_en_1.html; sourceTree = "<group>"; };
+		152D8E442D67763600B2C589 /* bakersuspension_flow_style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = bakersuspension_flow_style.css; sourceTree = "<group>"; };
 		153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTokenNotificationPopup.swift; sourceTree = "<group>"; };
 		153F2F4E2CC2D100009C8347 /* NotificationTokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTokenService.swift; sourceTree = "<group>"; };
 		1557CC932C89B799008ABF67 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1557CC972C89BBD7008ABF67 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1557CC9A2C89BE26008ABF67 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsPopup.swift; sourceTree = "<group>"; };
+		155EE23C2D7B4955005EF86E /* KeyboardAvoidingPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAvoidingPadding.swift; sourceTree = "<group>"; };
 		156878D12CD0FC190080B2F3 /* confettiAnimation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = confettiAnimation.json; sourceTree = "<group>"; };
 		1575862D2CA2CA4D00205A6E /* IdentifiableString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableString.swift; sourceTree = "<group>"; };
 		157586312CA43E5500205A6E /* CooldownEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CooldownEntity.swift; sourceTree = "<group>"; };
@@ -3366,6 +3404,14 @@
 		19C2ED4F802767556C4ABBE9 /* SingleSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleSection.swift; sourceTree = "<group>"; };
 		19C2EE201F8E02CE561DA70D /* GTU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GTU.swift; sourceTree = "<group>"; };
 		19C2EEBD44B62F16333900D2 /* GeneralError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralError.swift; sourceTree = "<group>"; };
+		5044206E2D70BEB600AF1CF9 /* AccountsOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsOverviewView.swift; sourceTree = "<group>"; };
+		5044206F2D70BEB600AF1CF9 /* AccountTokenListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTokenListView.swift; sourceTree = "<group>"; };
+		504420702D70BEB600AF1CF9 /* HideTokenPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideTokenPopup.swift; sourceTree = "<group>"; };
+		504420712D70BEB600AF1CF9 /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
+		504420722D70BEB600AF1CF9 /* ManageTokensView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTokensView.swift; sourceTree = "<group>"; };
+		504420732D70BEB600AF1CF9 /* TokenBalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBalanceView.swift; sourceTree = "<group>"; };
+		504420742D70BEB600AF1CF9 /* TokenDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailsView.swift; sourceTree = "<group>"; };
+		5049349A2D77072B00EA4757 /* HomeScreenViewSkeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewSkeleton.swift; sourceTree = "<group>"; };
 		507629652BF2040B00B4D390 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		509749CF2C3C0D4E00D28D6B /* CCDOnrampView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCDOnrampView.swift; sourceTree = "<group>"; };
 		509749D32C3C241B00D28D6B /* ProviderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderView.swift; sourceTree = "<group>"; };
@@ -3653,7 +3699,6 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		156878E52CD24F4E0080B2F3 /* ViewModels */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ViewModels; sourceTree = "<group>"; };
 		156878E62CD24F6F0080B2F3 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
-		15C202012D300251005CBBD8 /* NewAccountFlow */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = NewAccountFlow; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3692,7 +3737,7 @@
 				50E0D1692D35466100853594 /* Starscream in Frameworks */,
 				509A56392CB43540005EA908 /* RealmSwift in Frameworks */,
 				1558E89B2CFA2BBF00004E71 /* DotLottie in Frameworks */,
-				15A31C252D6F64E30009D04B /* ConcordiumWalletCrypto in Frameworks */,
+				5044206D2D706BE400AF1CF9 /* ConcordiumWalletCrypto in Frameworks */,
 				08A0444729FA906200DACE1F /* Kingfisher in Frameworks */,
 				08A0441C29FA888600DACE1F /* MnemonicSwift in Frameworks */,
 				08A0442529FA893700DACE1F /* Base58Swift in Frameworks */,
@@ -3714,7 +3759,7 @@
 				08A0444329FA905700DACE1F /* Kingfisher in Frameworks */,
 				50E0D16D2D35466E00853594 /* Starscream in Frameworks */,
 				509A563C2CB43549005EA908 /* RealmSwift in Frameworks */,
-				15A31C232D6F637D0009D04B /* ConcordiumWalletCrypto in Frameworks */,
+				5044206B2D706BDE00AF1CF9 /* ConcordiumWalletCrypto in Frameworks */,
 				50E0D16F2D35467500853594 /* ReownWalletKit in Frameworks */,
 				1558E8992CFA2BB500004E71 /* DotLottie in Frameworks */,
 				08A0440B29FA884100DACE1F /* SwiftCBOR in Frameworks */,
@@ -4197,6 +4242,7 @@
 				152AE63B2D50E17700B0B073 /* PrsssedButtonStyle.swift */,
 				15ED6C782D639E2600B1BB44 /* CustomToggle.swift */,
 				1584D0972D787187001D9B3E /* AlertModifier.swift */,
+				155EE23C2D7B4955005EF86E /* KeyboardAvoidingPadding.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -4853,6 +4899,7 @@
 		088FF30F2A02C9FD00042957 /* SeedIdentityOnboarding */ = {
 			isa = PBXGroup;
 			children = (
+				152D8E422D67761600B2C589 /* BakerSuspensionOnboarding */,
 				088FF3152A02CA1100042957 /* seed_identity_style.css */,
 				088FF3132A02CA0600042957 /* seed_identity_onboarding_en_1.html */,
 				088FF3102A02CA0500042957 /* seed_identity_onboarding_en_2.html */,
@@ -5386,6 +5433,15 @@
 			path = Analytics;
 			sourceTree = "<group>";
 		};
+		152D8E422D67761600B2C589 /* BakerSuspensionOnboarding */ = {
+			isa = PBXGroup;
+			children = (
+				152D8E432D67763600B2C589 /* baker_suspension_flow_en_1.html */,
+				152D8E442D67763600B2C589 /* bakersuspension_flow_style.css */,
+			);
+			path = BakerSuspensionOnboarding;
+			sourceTree = "<group>";
+		};
 		1557CC992C89BC43008ABF67 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
@@ -5559,6 +5615,29 @@
 				19C2E9AFA3608A553A130503 /* EncryptionServiceTest.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		504420752D70BEB600AF1CF9 /* NewAccountFlow */ = {
+			isa = PBXGroup;
+			children = (
+				5044208B2D71FE0D00AF1CF9 /* HomeScreen */,
+				5044206E2D70BEB600AF1CF9 /* AccountsOverviewView.swift */,
+				5044206F2D70BEB600AF1CF9 /* AccountTokenListView.swift */,
+				504420702D70BEB600AF1CF9 /* HideTokenPopup.swift */,
+				504420722D70BEB600AF1CF9 /* ManageTokensView.swift */,
+				504420732D70BEB600AF1CF9 /* TokenBalanceView.swift */,
+				504420742D70BEB600AF1CF9 /* TokenDetailsView.swift */,
+			);
+			path = NewAccountFlow;
+			sourceTree = "<group>";
+		};
+		5044208B2D71FE0D00AF1CF9 /* HomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				504420712D70BEB600AF1CF9 /* HomeScreenView.swift */,
+				5049349A2D77072B00EA4757 /* HomeScreenViewSkeleton.swift */,
+			);
+			path = HomeScreen;
 			sourceTree = "<group>";
 		};
 		507629692BF2293400B4D390 /* LegacyWalletConnect */ = {
@@ -6453,7 +6532,6 @@
 			fileSystemSynchronizedGroups = (
 				156878E52CD24F4E0080B2F3 /* ViewModels */,
 				156878E62CD24F6F0080B2F3 /* Views */,
-				15C202012D300251005CBBD8 /* NewAccountFlow */,
 			);
 			name = ProdTestNet;
 			packageProductDependencies = (
@@ -6492,7 +6570,6 @@
 			fileSystemSynchronizedGroups = (
 				156878E52CD24F4E0080B2F3 /* ViewModels */,
 				156878E62CD24F6F0080B2F3 /* Views */,
-				15C202012D300251005CBBD8 /* NewAccountFlow */,
 			);
 			name = ProdMainNet;
 			packageProductDependencies = (
@@ -6509,7 +6586,7 @@
 				1558E89A2CFA2BBF00004E71 /* DotLottie */,
 				50E0D1682D35466100853594 /* Starscream */,
 				50E0D16A2D35466600853594 /* ReownWalletKit */,
-				15A31C242D6F64E30009D04B /* ConcordiumWalletCrypto */,
+				5044206C2D706BE400AF1CF9 /* ConcordiumWalletCrypto */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
@@ -6531,7 +6608,6 @@
 			fileSystemSynchronizedGroups = (
 				156878E52CD24F4E0080B2F3 /* ViewModels */,
 				156878E62CD24F6F0080B2F3 /* Views */,
-				15C202012D300251005CBBD8 /* NewAccountFlow */,
 			);
 			name = StagingNet;
 			packageProductDependencies = (
@@ -6548,7 +6624,7 @@
 				1558E8982CFA2BB500004E71 /* DotLottie */,
 				50E0D16C2D35466E00853594 /* Starscream */,
 				50E0D16E2D35467500853594 /* ReownWalletKit */,
-				15A31C222D6F637D0009D04B /* ConcordiumWalletCrypto */,
+				5044206A2D706BDE00AF1CF9 /* ConcordiumWalletCrypto */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
@@ -6616,7 +6692,7 @@
 				1558E8972CFA2BA700004E71 /* XCRemoteSwiftPackageReference "dotlottie-ios" */,
 				501F5AE02D2ECA1F00C55008 /* XCRemoteSwiftPackageReference "reown-swift" */,
 				50E0D1632D2ECDDD00853594 /* XCRemoteSwiftPackageReference "Starscream" */,
-				15A31C212D6F637D0009D04B /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */,
+				504420692D706BD300AF1CF9 /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */,
 			);
 			productRefGroup = 7FF07A6A23EADB1200F1FC04 /* Products */;
 			projectDirPath = "";
@@ -6637,6 +6713,8 @@
 			files = (
 				08C169212BB7396200E61326 /* intro_flow_onboarding_en_2.html in Resources */,
 				08C169222BB7396200E61326 /* LaunchScreen.storyboard in Resources */,
+				152D8E472D67763600B2C589 /* bakersuspension_flow_style.css in Resources */,
+				152D8E482D67763600B2C589 /* baker_suspension_flow_en_1.html in Resources */,
 				08C169232BB7396200E61326 /* baker_update_flow_en_4.html in Resources */,
 				08C169242BB7396200E61326 /* NFTEmptyStatusView.xib in Resources */,
 				08C169252BB7396200E61326 /* delegation_intro_flow_en_1.html in Resources */,
@@ -6790,6 +6868,8 @@
 			files = (
 				088FF2F32A02C98F00042957 /* intro_flow_onboarding_en_2.html in Resources */,
 				7F85B8BD246A9AB600ED09B8 /* LaunchScreen.storyboard in Resources */,
+				152D8E452D67763600B2C589 /* bakersuspension_flow_style.css in Resources */,
+				152D8E462D67763600B2C589 /* baker_suspension_flow_en_1.html in Resources */,
 				088FF3562A02CA2700042957 /* baker_update_flow_en_4.html in Resources */,
 				D5087B6328EE4C4A0082A05F /* NFTEmptyStatusView.xib in Resources */,
 				088FF2D72A02C98800042957 /* delegation_intro_flow_en_1.html in Resources */,
@@ -6943,6 +7023,8 @@
 			files = (
 				088FF2E72A02C98E00042957 /* intro_flow_onboarding_en_2.html in Resources */,
 				7FF07A7923EADB1400F1FC04 /* LaunchScreen.storyboard in Resources */,
+				152D8E492D67763600B2C589 /* bakersuspension_flow_style.css in Resources */,
+				152D8E4A2D67763600B2C589 /* baker_suspension_flow_en_1.html in Resources */,
 				088FF34A2A02CA2700042957 /* baker_update_flow_en_4.html in Resources */,
 				D5087B6128EE4C4A0082A05F /* NFTEmptyStatusView.xib in Resources */,
 				088FF2C72A02C98700042957 /* delegation_intro_flow_en_1.html in Resources */,
@@ -7117,6 +7199,7 @@
 				08C1667D2BB7396200E61326 /* NetworkManagerProtocol.swift in Sources */,
 				08C1667E2BB7396200E61326 /* BaseTabBar.swift in Sources */,
 				08C1667F2BB7396200E61326 /* InitialAccountInfoPresenter.swift in Sources */,
+				5049349D2D77072B00EA4757 /* HomeScreenViewSkeleton.swift in Sources */,
 				08C166802BB7396200E61326 /* TransferType.swift in Sources */,
 				08C166822BB7396200E61326 /* Int+Data.swift in Sources */,
 				08C166832BB7396200E61326 /* SpecificViewForController.swift in Sources */,
@@ -7337,6 +7420,13 @@
 				08C167512BB7396200E61326 /* NetworkSessionMock.swift in Sources */,
 				08C167522BB7396200E61326 /* IdentityRevokersWidgetPresenter.swift in Sources */,
 				08C167532BB7396200E61326 /* NFTDataReusableView.swift in Sources */,
+				504420842D70BEB600AF1CF9 /* AccountsOverviewView.swift in Sources */,
+				504420852D70BEB600AF1CF9 /* AccountTokenListView.swift in Sources */,
+				504420862D70BEB600AF1CF9 /* HideTokenPopup.swift in Sources */,
+				504420872D70BEB600AF1CF9 /* HomeScreenView.swift in Sources */,
+				504420882D70BEB600AF1CF9 /* ManageTokensView.swift in Sources */,
+				504420892D70BEB600AF1CF9 /* TokenBalanceView.swift in Sources */,
+				5044208A2D70BEB600AF1CF9 /* TokenDetailsView.swift in Sources */,
 				08C167542BB7396200E61326 /* MakeCreateTransferRequest.swift in Sources */,
 				08C167552BB7396200E61326 /* StyledLabel.swift in Sources */,
 				08C167562BB7396200E61326 /* AccountReleaseSchedule.swift in Sources */,
@@ -7514,6 +7604,7 @@
 				08C167EB2BB7396200E61326 /* Features.swift in Sources */,
 				08C167ED2BB7396200E61326 /* RecoveryPhraseRecoverCompleteViewModel.swift in Sources */,
 				08C167EF2BB7396200E61326 /* IdentityAttributeEntity.swift in Sources */,
+				155EE23D2D7B4955005EF86E /* KeyboardAvoidingPadding.swift in Sources */,
 				08C167F02BB7396200E61326 /* IdentityDataSelectionCell.swift in Sources */,
 				08C167F12BB7396200E61326 /* SessionProposalView.swift in Sources */,
 				08C167F22BB7396200E61326 /* IdentityCell.swift in Sources */,
@@ -7850,6 +7941,7 @@
 				D589F3292794B678003F2FBB /* NetworkManagerProtocol.swift in Sources */,
 				7F85B7D7246A9AB600ED09B8 /* BaseTabBar.swift in Sources */,
 				088FF18F2A02947B00042957 /* InitialAccountInfoPresenter.swift in Sources */,
+				5049349B2D77072B00EA4757 /* HomeScreenViewSkeleton.swift in Sources */,
 				D589F1D92794B5ED003F2FBB /* TransferType.swift in Sources */,
 				D5BA80702731AFE700DCE1CD /* Int+Data.swift in Sources */,
 				D5B393E627197A750094A9F5 /* SpecificViewForController.swift in Sources */,
@@ -8070,6 +8162,13 @@
 				D589F3C32794B96C003F2FBB /* NetworkSessionMock.swift in Sources */,
 				088FEF7A2A0270B000042957 /* IdentityRevokersWidgetPresenter.swift in Sources */,
 				D5E6CBDE290F4771009856B7 /* NFTDataReusableView.swift in Sources */,
+				5044207D2D70BEB600AF1CF9 /* AccountsOverviewView.swift in Sources */,
+				5044207E2D70BEB600AF1CF9 /* AccountTokenListView.swift in Sources */,
+				5044207F2D70BEB600AF1CF9 /* HideTokenPopup.swift in Sources */,
+				504420802D70BEB600AF1CF9 /* HomeScreenView.swift in Sources */,
+				504420812D70BEB600AF1CF9 /* ManageTokensView.swift in Sources */,
+				504420822D70BEB600AF1CF9 /* TokenBalanceView.swift in Sources */,
+				504420832D70BEB600AF1CF9 /* TokenDetailsView.swift in Sources */,
 				08A045FE29FA99D200DACE1F /* MakeCreateTransferRequest.swift in Sources */,
 				088FEC902A01606100042957 /* StyledLabel.swift in Sources */,
 				08A045F029FA99D200DACE1F /* AccountReleaseSchedule.swift in Sources */,
@@ -8247,6 +8346,7 @@
 				088FF16F2A0292DB00042957 /* Features.swift in Sources */,
 				088FF0B52A02845C00042957 /* RecoveryPhraseRecoverCompleteViewModel.swift in Sources */,
 				D589F1A92794B5ED003F2FBB /* IdentityAttributeEntity.swift in Sources */,
+				155EE23F2D7B4955005EF86E /* KeyboardAvoidingPadding.swift in Sources */,
 				7F85B863246A9AB600ED09B8 /* IdentityDataSelectionCell.swift in Sources */,
 				089B34212A16845600F3CD90 /* SessionProposalView.swift in Sources */,
 				7F85B865246A9AB600ED09B8 /* IdentityCell.swift in Sources */,
@@ -8583,6 +8683,7 @@
 				D594F7C72718BE68008F532E /* QRTransactionViewController.swift in Sources */,
 				D589F3272794B678003F2FBB /* NetworkManagerProtocol.swift in Sources */,
 				06D178A123F6D54900ABC904 /* BaseTabBar.swift in Sources */,
+				5049349C2D77072B00EA4757 /* HomeScreenViewSkeleton.swift in Sources */,
 				D5F3BC67278E5D3C008DC894 /* ShowAlertProtocol.swift in Sources */,
 				088FF1812A02947A00042957 /* InitialAccountInfoPresenter.swift in Sources */,
 				D589F1D72794B5ED003F2FBB /* TransferType.swift in Sources */,
@@ -8803,6 +8904,13 @@
 				088FF14E2A02883C00042957 /* UITableView+Extensions.swift in Sources */,
 				088FEF992A02715100042957 /* SelectIdentityViewModel.swift in Sources */,
 				08A0458529FA99D100DACE1F /* GeneratedBakerKeys.swift in Sources */,
+				504420762D70BEB600AF1CF9 /* AccountsOverviewView.swift in Sources */,
+				504420772D70BEB600AF1CF9 /* AccountTokenListView.swift in Sources */,
+				504420782D70BEB600AF1CF9 /* HideTokenPopup.swift in Sources */,
+				504420792D70BEB600AF1CF9 /* HomeScreenView.swift in Sources */,
+				5044207A2D70BEB600AF1CF9 /* ManageTokensView.swift in Sources */,
+				5044207B2D70BEB600AF1CF9 /* TokenBalanceView.swift in Sources */,
+				5044207C2D70BEB600AF1CF9 /* TokenDetailsView.swift in Sources */,
 				088FEF522A0270AF00042957 /* IdentityRevokersWidgetPresenter.swift in Sources */,
 				088FECDE2A01621F00042957 /* OnboardingCarouselWebContentViewController.swift in Sources */,
 				088FEF062A026F0000042957 /* IdentitiesCoordinator.swift in Sources */,
@@ -8980,6 +9088,7 @@
 				088FF16D2A0292DB00042957 /* Features.swift in Sources */,
 				089B341F2A16845600F3CD90 /* SessionProposalView.swift in Sources */,
 				D589F1A72794B5ED003F2FBB /* IdentityAttributeEntity.swift in Sources */,
+				155EE23E2D7B4955005EF86E /* KeyboardAvoidingPadding.swift in Sources */,
 				088FF0B12A02845B00042957 /* RecoveryPhraseRecoverCompleteViewModel.swift in Sources */,
 				C9D342B9245884AA007ED45E /* ShowErrorProtocol.swift in Sources */,
 				C95CE0C02439EDC500B1A88D /* AccountDetailsIdentityDataCellView.swift in Sources */,
@@ -9637,12 +9746,17 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
+				LOCALIZED_STRING_SWIFTUI_SUPPORT = YES;
 				MARKETING_VERSION = 3.1.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.stagenet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_GTU_DROP";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -9672,12 +9786,17 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
+				LOCALIZED_STRING_SWIFTUI_SUPPORT = YES;
 				MARKETING_VERSION = 3.1.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.stagenet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -9909,20 +10028,20 @@
 				kind = branch;
 			};
 		};
-		15A31C212D6F637D0009D04B /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Concordium/concordium-wallet-crypto-swift.git";
-			requirement = {
-				kind = revision;
-				revision = b6373dbb71e8f4926b896c03606a5f0c64841c75;
-			};
-		};
 		501F5AE02D2ECA1F00C55008 /* XCRemoteSwiftPackageReference "reown-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/reown-com/reown-swift";
 			requirement = {
 				kind = exactVersion;
 				version = 1.1.1;
+			};
+		};
+		504420692D706BD300AF1CF9 /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Concordium/concordium-wallet-crypto-swift";
+			requirement = {
+				kind = exactVersion;
+				version = 0.25.1;
 			};
 		};
 		5076296A2BF2573D00B4D390 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
@@ -10067,14 +10186,14 @@
 			package = 1558E8972CFA2BA700004E71 /* XCRemoteSwiftPackageReference "dotlottie-ios" */;
 			productName = DotLottie;
 		};
-		15A31C222D6F637D0009D04B /* ConcordiumWalletCrypto */ = {
+		5044206A2D706BDE00AF1CF9 /* ConcordiumWalletCrypto */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 15A31C212D6F637D0009D04B /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */;
+			package = 504420692D706BD300AF1CF9 /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */;
 			productName = ConcordiumWalletCrypto;
 		};
-		15A31C242D6F64E30009D04B /* ConcordiumWalletCrypto */ = {
+		5044206C2D706BE400AF1CF9 /* ConcordiumWalletCrypto */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 15A31C212D6F637D0009D04B /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */;
+			package = 504420692D706BD300AF1CF9 /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */;
 			productName = ConcordiumWalletCrypto;
 		};
 		5059C9B42C00CF1200E40307 /* SDWebImageSwiftUI */ = {

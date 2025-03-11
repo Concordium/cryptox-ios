@@ -64,7 +64,7 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
             return performPublicTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         case .transferToPublic:
             return performUnshielding(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
-        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
+        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker, .updateValidatorSuspendState:
             return performBakerTransfer(pTransfer, from: account, bakerKeys: bakerKeys, requestPasswordDelegate: requestPasswordDelegate)
         case .registerDelegation, .removeDelegation, .updateDelegation:
             return performDelegationTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
@@ -356,7 +356,8 @@ extension TransactionsService {
                                                 requestPasswordDelegate: requestPasswordDelegate,
                                                 global: global,
                                                 inputEncryptedAmount: inputEncryptedAmount,
-                                                receiverPublicKey: receiverPublicKey
+                                                receiverPublicKey: receiverPublicKey,
+                                                isSuspended: transfer.isSuspended
         )
     }
     
