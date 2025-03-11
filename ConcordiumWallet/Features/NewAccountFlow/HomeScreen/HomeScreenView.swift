@@ -21,7 +21,7 @@ struct HomeScreenView: View {
     @EnvironmentObject var navigationManager: NavigationManager
     @EnvironmentObject var updateTimer: UpdateTimer
     
-    @StateObject var viewModel: AccountsMainViewModel
+    @ObservedObject var viewModel: AccountsMainViewModel
     
     @State private var activeAccountViewModel: AccountDetailViewModel?
     @State var showTooltip: Bool = false
