@@ -83,6 +83,10 @@ final class ValidatorSubmissionViewModel: StakeReceiptViewModel, ObservableObjec
             failedTransactionText = "validator.registered.failed".localized
             inProgressTransactionText = "validator.registered.in.progress".localized
             shouldDisplayAmount = true
+        case .suspend:
+            break
+        case .resume:
+            break
         }
     }
     
