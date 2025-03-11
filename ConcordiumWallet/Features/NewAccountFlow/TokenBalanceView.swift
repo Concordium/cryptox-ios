@@ -223,7 +223,11 @@ struct TokenBalanceView: View {
         var actionItems = [
             ActionItem(iconName: "send", label: "Send", action: {
                 guard let account = viewModel.account as? AccountEntity else { return }
-                path.append(.send(account))
+                if token.name == "ccd" {
+                    path.append(.send(account, tokenType: .ccd))
+                } else if let token = token.cis2Token {
+                    path.append(.send(account, tokenType: .cis2(token)))
+                }
             }),
             ActionItem(iconName: "receive", label: "Receive", action: {
                 guard let account = viewModel.account as? AccountEntity else { return }
