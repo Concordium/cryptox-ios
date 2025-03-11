@@ -35,4 +35,28 @@ class AlertHelper {
             actions: [goBackAction, continueAction]
         )
     }
+    
+    static func suspendAlertOptions(dataHandler: BakerDataHandler, navigationManager: NavigationManager) -> SwiftUIAlertOptions {
+        let goBackAction = SwiftUIAlertAction(
+            name: "go.back".localized,
+            completion: nil,
+            style: .styled
+        )
+        
+        let continueAction = SwiftUIAlertAction(
+            name: "continue_btn_title".localized,
+            completion: { [weak navigationManager] in
+                guard let navigationManager else { return }
+                let viewModel = ValidatorSubmissionViewModel(dataHandler: dataHandler,
+                                                             dependencyProvider: ServicesProvider.defaultProvider())
+                navigationManager.navigate(to: .validatorRequestConfirmation(viewModel))
+            },
+            style: .plain)
+        
+        return SwiftUIAlertOptions(
+            title: "important".localized,
+            message: "validation.alert.suspend.desc".localized,
+            actions: [goBackAction, continueAction]
+        )
+    }
 }

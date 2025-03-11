@@ -1390,7 +1390,28 @@ Remember to restart your node with the validator keys.";
 "validator.stop.in.progress" = "Transaction to stop validation is being submitted";
 "validator.stop.failed" = "Failed to submit transaction to stop validation";
 
+"validator.suspend.success" = "You suspended your validation";
+"validator.suspend.failed" = "Failed to suspend validation";
+"validator.suspend.in.progress" = "Transaction to suspend your validation is being submitted";
+
+"validator.resume.success" = "You resumed your validation";
+"validator.resume.failed" = "Failed to resume validation";
+"validator.resume.in.progress" = "Transaction to resume your validation is being submitted";
+
 "validation.stop.title" = "Stop validation";
 "validation.stop.desc" = "If you stop validating there is a cooldown period, after which the full stake amount will be unlocked on your public balance.\n\nIf your pool has any delegators, they will be automatically moved to passive delegation.\n\nDeregistering the validator does not shut down your node. You must shut down the node in a separate action if you no longer wish to run a node on the Concordium blockchain.";
 "transaction.fee" = "Transaction fee ≈ %@ CCD";
 "validation.stop.message" = "Your validator will stop at the next pay day after a cooldown of %@ days.\n\nOnce the transaction has finalized, you can see the estimated time on the validator status screen.";
+
+"validation.resume" = "Resume";
+"validation.status.suspended.title" = "Your validation has been suspended";
+"validation.status.suspended.desc" = "Your node does not earn rewards at the moment.\n\nTo lift the suspension and earn rewards again ensure your node is up-to-date and click “Resume”.";
+"validation.status.primed.for.suspension.title" = "Your validation is primed for suspension";
+"validation.status.primed.for.suspension.desc" = "Your node was inactive for a number of hours. If it has been inactive for too long it will be suspended. Suspended nodes don’t earn rewards.\n\nTo prevent suspension ensure your node is up-to-date and active. Once your node is active you will no longer be primed for suspension.";
+
+"important" = "Important";
+"validation.alert.suspend.desc" = "You are about to self-suspend your validation. \n\nPlease be aware that:\n\n • Suspended nodes don’t earn rewards \n • Your delegators will stop earning rewards \n • Your delegators will be notified about the suspension";
+
+"effective.from" = "Effective from next payday";
+"resume.validation" = "Resume validation";
+"submit" = "Submit";

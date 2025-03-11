@@ -15,8 +15,8 @@ struct ValidatorSubmissionView: View {
     var body: some View {
         VStack {
             ScrollView {
-                if viewModel.isStopValidation {
-                    stopValidationSection()
+                if viewModel.isStopValidation || viewModel.isSuspendValidation || viewModel.isResumeValidation {
+                    specialStatesValidationSection()
                 } else {
                     VStack(alignment: .leading, spacing: 24) {
                         Text(viewModel.text ?? "")
@@ -42,7 +42,7 @@ struct ValidatorSubmissionView: View {
                     }
                 }
             }
-            SliderButton(text: "Submit") {
+            SliderButton(text: viewModel.sliderButtonText) {
                 navigationManager.navigate(to: .validatorTransactionStatus(viewModel))
             }
         }
@@ -63,14 +63,21 @@ struct ValidatorSubmissionView: View {
         }
     }
     
-    private func stopValidationSection() -> some View {
+    private func specialStatesValidationSection() -> some View {
         VStack(alignment: .center, spacing: 30) {
-            Text("validation.stop.title".localized)
+            Text(viewModel.submitTransactionDetailsSection.title)
                 .font(.satoshi(size: 15, weight: .medium))
                 .foregroundStyle(.white)
-            Text(String(format: "transaction.fee".localized, viewModel.transactionFeeText))
-                .font(.satoshi(size: 12, weight: .regular))
-                .foregroundStyle(.grey4)
+            VStack(spacing: 8) {
+                if let subtitle = viewModel.submitTransactionDetailsSection.subtitle {
+                    Text(subtitle)
+                        .font(.satoshi(size: 12, weight: .regular))
+                        .foregroundStyle(.white)
+                }
+                Text(String(format: "transaction.fee".localized, viewModel.transactionFeeText))
+                    .font(.satoshi(size: 12, weight: .regular))
+                    .foregroundStyle(.grey4)
+            }
         }
         .padding(.vertical, 30)
         .frame(maxWidth: .infinity)

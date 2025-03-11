@@ -19,8 +19,11 @@ final class ValidatorSubmissionViewModel: StakeReceiptViewModel, ObservableObjec
     @Published var inProgressTransactionText = ""
     @Published var shouldDisplayAmount: Bool = false
     @Published var isStopValidation: Bool = false
+    @Published var isResumeValidation: Bool = false
+    @Published var isSuspendValidation: Bool = false
     @Published var showAlert: Bool = false
     @Published var alertOptions: SwiftUIAlertOptions?
+    @Published var sliderButtonText: String = ""
     
     let ticker: String = "CCD"
     private let transactionService: TransactionsServiceProtocol
@@ -44,6 +47,17 @@ final class ValidatorSubmissionViewModel: StakeReceiptViewModel, ObservableObjec
         }
     }
     
+    var submitTransactionDetailsSection: (title: String, subtitle: String?) {
+        if isStopValidation {
+             return ("validation.stop.title".localized, nil)
+        } else if isResumeValidation {
+            return ("resume.validation".localized, "effective.from".localized)
+        } else if isSuspendValidation {
+            return ("baking.receiptconfirmation.title.suspend".localized, "effective.from".localized)
+        }
+        return ("", nil)
+    }
+    
     init(dataHandler: BakerDataHandler,
          dependencyProvider: ServicesProvider) {
         self.transactionService = dependencyProvider.transactionsService()
@@ -62,31 +76,41 @@ final class ValidatorSubmissionViewModel: StakeReceiptViewModel, ObservableObjec
             failedTransactionText = "validator.update.stake.failed".localized
             inProgressTransactionText = "validator.update.stake.in.progress".localized
             shouldDisplayAmount = true
+            sliderButtonText = "submit".localized
         case .updatePool:
             successTransactionText = "validator.update.pool.success".localized
             failedTransactionText = "validator.update.pool.failed".localized
             inProgressTransactionText = "validator.update.pool.in.progress".localized
-            shouldDisplayAmount = false
+            sliderButtonText = "submit".localized
         case .updateKeys:
             successTransactionText = "validator.update.keys.success".localized
             failedTransactionText = "validator.update.keys.failed".localized
             inProgressTransactionText = "validator.update.keys.in.progress".localized
-            shouldDisplayAmount = false
+            sliderButtonText = "submit".localized
         case .remove:
             successTransactionText = "validator.stop.success".localized
             failedTransactionText = "validator.stop.failed".localized
             inProgressTransactionText = "validator.stop.in.progress".localized
-            shouldDisplayAmount = false
             isStopValidation = true
+            sliderButtonText = "baking.menu.stopbaking".localized
         case .register:
             successTransactionText = "validator.registered.success".localized
             failedTransactionText = "validator.registered.failed".localized
             inProgressTransactionText = "validator.registered.in.progress".localized
             shouldDisplayAmount = true
+            sliderButtonText = "submit".localized
         case .suspend:
-            break
+            successTransactionText = "validator.suspend.success".localized
+            failedTransactionText = "validator.suspend.failed".localized
+            inProgressTransactionText = "validator.suspend.in.progress".localized
+            isSuspendValidation = true
+            sliderButtonText = "baking.receiptconfirmation.title.suspend".localized
         case .resume:
-            break
+            successTransactionText = "validator.resume.success".localized
+            failedTransactionText = "validator.resume.failed".localized
+            inProgressTransactionText = "validator.resume.in.progress".localized
+            isResumeValidation = true
+            sliderButtonText = "resume.validation".localized
         }
     }
     
@@ -102,7 +126,7 @@ final class ValidatorSubmissionViewModel: StakeReceiptViewModel, ObservableObjec
                 let cost = GTU(intValue: Int(transferCost.cost) ?? 0)
                 self?.cost = cost
                 self?.energy = transferCost.energy
-                self?.transactionFeeText = cost.displayValueWithCCDStroke()
+                self?.transactionFeeText = cost.displayValue()
                 self?.rows.append(StakeRowViewModel(displayValue: DisplayValue(key: "estimated.tx.fee".localized, value: self?.transactionFeeText ?? "")))
                 self?.displayFeeWarningIfNeeded()
             }

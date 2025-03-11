@@ -23,6 +23,8 @@ final class ValidatorStakeStatusViewModel: ObservableObject {
     @Published var showAlert: Bool = false
     @Published var alertOptions: SwiftUIAlertOptions?
     @Published var isRegistered: Bool = false
+    @Published var isSuspended: Bool = false
+    @Published var isPrimedForSuspension: Bool = false
 
     private var dataHandler: StakeDataHandler?
     private let account: AccountDataType
@@ -61,6 +63,21 @@ final class ValidatorStakeStatusViewModel: ObservableObject {
         actionItems.append(ActionItem(iconName: "ArrowsClockwise", label: "Update", action: { [weak self] in
             self?.updateTapped()
         }))
+        if !isSuspended, case let .registered(currentSettings) = status, let poolInfo {
+            actionItems.append(ActionItem(iconName: "Pause", label: "baking.menu.suspend".localized, action: { [weak self] in
+                guard let self else { return }
+                withAnimation {
+                    self.showAlert = true
+                }
+                self.alertOptions = AlertHelper.suspendAlertOptions(dataHandler: BakerDataHandler(account: account,
+                                                                                                  action: .suspend(currentSettings, poolInfo)),
+                                                                    navigationManager: self.navigationManager)
+            }))
+        } else {
+            actionItems.append(ActionItem(iconName: "Play", label: "validation.resume".localized, action: { [weak self] in
+                self?.resumeTapped()
+            }))
+        }
         return actionItems
     }
     
@@ -68,6 +85,14 @@ final class ValidatorStakeStatusViewModel: ObservableObject {
         if let poolInfo = poolInfo, case let .registered(currentSettings) = status, let account = account as? AccountEntity {
             navigationManager.navigate(to: .updateValidatorMenu(ValidatorUpdateMenuViewModel(poolInfo: poolInfo, baker: currentSettings, navigationManager: navigationManager, account: account)))
         }
+    }
+    
+    private func resumeTapped() {
+        guard case let .registered(currentSettings) = status, let poolInfo else { return }
+        let viewModel = ValidatorSubmissionViewModel(dataHandler: BakerDataHandler(account: account,
+                                                                                   action: .resume(currentSettings, poolInfo)),
+                                                     dependencyProvider: dependencyProvider)
+        navigationManager.navigate(to: .validatorRequestConfirmation(viewModel))
     }
 }
 
@@ -118,6 +143,8 @@ extension ValidatorStakeStatusViewModel {
 
         updateButtonEnabled = true
         stopButtonShown = true
+        isSuspended = currentSettings.isSuspended
+        isPrimedForSuspension = currentSettings.isPrimedForSuspension
         accountCooldowns = account.cooldowns.map({AccountCooldown(timestamp: $0.timestamp, amount: $0.amount, status: $0.status.rawValue)})
         rows = updatedRows.flatMap { $0.getDisplayValues(type: .configureBaker).map { StakeRowViewModel(displayValue: $0) } }
     }

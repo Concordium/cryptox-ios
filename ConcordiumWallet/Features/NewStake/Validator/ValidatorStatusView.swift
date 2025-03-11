@@ -17,6 +17,9 @@ struct ValidatorStatusView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             if viewModel.isRegistered {
+                if viewModel.isSuspended || viewModel.isPrimedForSuspension {
+                    suspendedStatusView()
+                }
                 ButtonsGroup(actionItems: viewModel.actionItems())
                 StakeDetailsView(rows: viewModel.rows)
                 cooldownsSectionView
@@ -68,5 +71,21 @@ extension ValidatorStatusView {
             message: Text(ErrorMapper.toViewError(error: error.error).localizedDescription),
             dismissButton: .default(Text("errorAlert.okButton".localized))
         )
+    }
+    
+    func suspendedStatusView() -> some View {
+        VStack(alignment: .leading, spacing: 7) {
+            Text(viewModel.isSuspended ? "validation.status.suspended.title".localized : "validation.status.primed.for.suspension.title".localized)
+                .font(.satoshi(size: 16, weight: .bold))
+                .foregroundStyle(.attentionRed)
+            Text(viewModel.isSuspended ? "validation.status.suspended.desc".localized : "validation.status.primed.for.suspension.desc")
+                .font(.satoshi(size: 12, weight: .regular))
+                .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
+        }
+        .padding([.leading, .top], 14)
+        .padding(.trailing, 26)
+        .padding(.bottom, 31)
+        .background(.grey3.opacity(0.3))
+        .cornerRadius(12)
     }
 }

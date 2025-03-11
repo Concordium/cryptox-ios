@@ -410,8 +410,9 @@ struct HomeScreenView: View {
                 }
             }),
             ActionItem(iconName: "Percent", label: "Earn", action: {
-                guard let selectedAccount = viewModel.selectedAccount?.account else { return }
-                router?.showEarnFlow(selectedAccount)
+                guard let selectedAccount = viewModel.selectedAccount?.account as? AccountEntity else { return }
+                navigationManager.navigate(to: .earn(selectedAccount))
+
                 Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Earn")
             }),
             ActionItem(iconName: "activity", label: "Activity", action: {

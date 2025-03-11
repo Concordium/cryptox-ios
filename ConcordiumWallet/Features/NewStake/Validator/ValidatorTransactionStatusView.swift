@@ -30,9 +30,6 @@ struct ValidatorTransactionStatusView: View {
                     .id(animationState)
                     .fixedSize()
                 
-                Divider()
-                    .background(.white.opacity(0.1))
-                
                 VStack(spacing: 8) {
                     Text(viewModel.transactionStatusLabel)
                         .font(.satoshi(size: 12, weight: .medium))
