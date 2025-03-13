@@ -38,4 +38,7 @@ enum NavigationPaths: Hashable {
     case validatorTransactionStatus(ValidatorSubmissionViewModel)
     case validatorStatus(ValidatorStakeStatusViewModel)
     case updateValidatorMenu(ValidatorUpdateMenuViewModel)
+    // MARK: - Delegation Flow
+    case delegationAmountInput(DelegationAmountInputViewModel)
+    case delegationStakingMode(DelegationStakingModeViewModel)
 }

@@ -12,22 +12,35 @@ struct RoundedButton: View {
     let action: () -> Void
     let title: String
     var foregroundColor: Color = .blackMain
-    
+    var isDisabled: Bool = false
+
     var body: some View {
         Button(action: {
             action()
         }, label: {
             Text(title)
                 .font(Font.satoshi(size: 15, weight: .medium))
-                .foregroundColor(foregroundColor)
+                .foregroundColor(isDisabled ? .grey4 : foregroundColor)
                 .padding(.horizontal, 24)
+                .padding(.vertical, isDisabled ? 18.5 : 0)
                 .frame(maxWidth: .infinity)
                 .cornerRadius(28)
         })
-        .buttonStyle(PressedButtonStyle())
+        .if(!isDisabled, transform: { view in
+            view.buttonStyle(PressedButtonStyle())
+
+        })
+        .if(isDisabled, transform: { view in
+            view.overlay(
+                RoundedRectangle(cornerRadius: 48)
+                    .inset(by: 0.5)
+                    .stroke(.grey4, lineWidth: 1)
+            )
+        })
+        .disabled(isDisabled)
     }
 }
 
 #Preview {
-    RoundedButton(action: {}, title: "Continue")
+    RoundedButton(action: {}, title: "Continue", isDisabled: false)
 }

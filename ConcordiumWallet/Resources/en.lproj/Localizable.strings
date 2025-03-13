@@ -1415,3 +1415,14 @@ Remember to restart your node with the validator keys.";
 "effective.from" = "Effective from next payday";
 "resume.validation" = "Resume validation";
 "submit" = "Submit";
+
+"delegation.staking.desc" = "You can delegate to an open pool of your choice, or you can stake using passive delegation.";
+"delegation.staking.mode.validator.pool.desc" = "If you don’t already know which validator pool you want to delegate an amount to, you can look for on ccdscan.io/staking";
+"delegation.staking.mode.passive" = "Passive delegation";
+"delegation.staking.mode.validator.pool" = "Validator pool";
+"delegation.staking.mode" = "Staking mode";
+"delegation.validator.pool.id" = "Enter validator pool ID";
+"available.for.staking" = "Available for staking";
+
+"delegation.stop.alert.title" = "Stop earning";
+"delegation.stop.alert.message" = "If you decide to stop your delegation, a cool-down period applies.\n\nAt the end of the cool-down period, the delegated amount is unlocked on your public balance, and the funds will be at disposal again.";

@@ -223,6 +223,18 @@ struct NavigationDestinationBuilder: ViewModifier {
                             .modifier(NavigationViewModifier(title: "earn.desc.baking.header".localized) {
                                 navigationManager.pop()
                             })
+                    case .delegationAmountInput(let viewModel):
+                        DelegationAmountInputView(viewModel: viewModel)
+                            .modifier(NavigationViewModifier(title: "earn.info.title.part1".localized) {
+                                navigationManager.pop()
+                            })
+                            .onAppear { notifyTabBarHidden(true) }
+                    case .delegationStakingMode(let viewModel):
+                        DelegationStakingModeView(viewModel: viewModel)
+                            .modifier(NavigationViewModifier(title: "earn.info.title.part1".localized) {
+                                navigationManager.pop()
+                            })
+                            .onAppear { notifyTabBarHidden(true) }
                     default:
                         EmptyView()
                     }

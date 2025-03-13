@@ -21,6 +21,17 @@ class StakeReceiptViewModel {
     @Published var buttonLabel: String = ""
     @Published var rows: [StakeRowViewModel]
 
+    @Published var error: Error?
+    @Published var isTransactionExecuting: Bool = true
+    @Published var amountDisplay: String = ""
+    @Published var successTransactionText = ""
+    @Published var failedTransactionText = ""
+    @Published var inProgressTransactionText = ""
+    @Published var shouldDisplayAmount: Bool = false
+    @Published var showAlert: Bool = false
+    @Published var alertOptions: SwiftUIAlertOptions?
+    @Published var sliderButtonText: String = ""
+    
     let dataHandler: StakeDataHandler
     let account: AccountDataType
 

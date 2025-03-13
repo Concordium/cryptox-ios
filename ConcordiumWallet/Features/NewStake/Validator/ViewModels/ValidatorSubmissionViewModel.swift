@@ -11,19 +11,9 @@ import Combine
 import SwiftUI
 
 final class ValidatorSubmissionViewModel: StakeReceiptViewModel, ObservableObject {
-    @Published var error: Error?
-    @Published var isTransactionExecuting: Bool = true
-    @Published var amountDisplay: String
-    @Published var successTransactionText = ""
-    @Published var failedTransactionText = ""
-    @Published var inProgressTransactionText = ""
-    @Published var shouldDisplayAmount: Bool = false
     @Published var isStopValidation: Bool = false
     @Published var isResumeValidation: Bool = false
     @Published var isSuspendValidation: Bool = false
-    @Published var showAlert: Bool = false
-    @Published var alertOptions: SwiftUIAlertOptions?
-    @Published var sliderButtonText: String = ""
     
     let ticker: String = "CCD"
     private let transactionService: TransactionsServiceProtocol
@@ -63,8 +53,8 @@ final class ValidatorSubmissionViewModel: StakeReceiptViewModel, ObservableObjec
         self.transactionService = dependencyProvider.transactionsService()
         self.storageManager = dependencyProvider.storageManager()
         self.passwordDelegate = DummyRequestPasswordDelegate()
-        self.amountDisplay = dataHandler.getCurrentAmount()?.displayValueWithTwoNumbersAfterDecimalPoint() ?? "0.00"
         super.init(dataHandler: dataHandler, account: dataHandler.account)
+        self.amountDisplay = dataHandler.getCurrentAmount()?.displayValueWithTwoNumbersAfterDecimalPoint() ?? "0.00"
         setup(with: .init(dataHandler: dataHandler))
         getTransactionCost()
     }

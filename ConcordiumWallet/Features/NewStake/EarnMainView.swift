@@ -12,6 +12,7 @@ struct EarnMainView: View {
     
     var account: AccountEntity
     @State private var validatorPressed: Bool = false
+    @State private var startPressed: Bool = false
     @EnvironmentObject var navigationManager: NavigationManager
 
     var body: some View {
@@ -39,7 +40,6 @@ struct EarnMainView: View {
                 .cornerRadius(12)
 
             Button {
-                // TODO: become a validator
                 validatorPressed = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     validatorPressed = false
@@ -63,7 +63,12 @@ struct EarnMainView: View {
             
             VStack(spacing: 8) {
                 Button {
-//                    navigationManager.navigate(to: .earnInputMode(StakeAmountInputViewModel2(account: account, dataHandler: StakeDataHandler(transferType: .registerDelegation), dependencyProvider: ServicesProvider.defaultProvider())))
+                    startPressed = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        navigationManager.navigate(to: .delegationAmountInput(DelegationAmountInputViewModel(account: account,
+                                                                                                             dataHandler: DelegationDataHandler(account: account, isRemoving: false), navigationManager: navigationManager)))
+                        validatorPressed = false
+                    }
                 } label: {
                     Text("earn.start".localized)
                         .font(Font.satoshi(size: 15, weight: .medium))
@@ -73,7 +78,6 @@ struct EarnMainView: View {
                 .buttonStyle(PressedButtonStyle())
 
                 Button {
-                    // TODO: Start
                     navigationManager.navigate(to: .earnReadMode(mode: .delegation, account: account))
                 } label: {
                     Text("read.more".localized)

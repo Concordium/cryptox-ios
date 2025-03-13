@@ -61,8 +61,8 @@ class StakeAmountInputViewModel: ObservableObject, Equatable, Hashable {
     @Published var transactionFee: String? = ""
     
     @Published var showsPoolLimits: Bool = false
-    @Published var currentPoolLimit: BalanceViewModel? = BalanceViewModel(label: "", value: "", highlighted: false)
-    @Published var poolLimit: BalanceViewModel? = BalanceViewModel(label: "", value: "", highlighted: false)
+    @Published var currentPoolLimit: BalanceViewModel?
+    @Published var poolLimit: BalanceViewModel?
     
     @Published var isRestakeSelected: Bool = true
     

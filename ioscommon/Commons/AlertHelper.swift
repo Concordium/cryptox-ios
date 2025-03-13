@@ -59,4 +59,17 @@ class AlertHelper {
             actions: [goBackAction, continueAction]
         )
     }
+    
+    static func genericErrorAlertOptions(message: String) -> SwiftUIAlertOptions {
+        return SwiftUIAlertOptions(
+            title: "errorAlert.title".localized,
+            message: message,
+            actions: [
+                SwiftUIAlertAction(
+                    name: "errorAlert.okButton".localized,
+                    completion: nil,
+                    style: .styled
+                )
+            ])
+    }
 }

@@ -16,10 +16,12 @@ struct SendTokenCell: View {
 
     let tokenType: TokenType
     let hideCaretRight: Bool
-
-    init(tokenType: TokenType, hideCaretRight: Bool = false) {
+    let text: String
+    
+    init(tokenType: TokenType, hideCaretRight: Bool = false, text: String = "accounts.atdisposal".localized) {
         self.tokenType = tokenType
         self.hideCaretRight = hideCaretRight
+        self.text = text
     }
     
     var body: some View {
@@ -38,7 +40,7 @@ struct SendTokenCell: View {
                     Text(displayAmount)
                         .font(.satoshi(size: 15, weight: .medium))
                         .tint(.white)
-                    Text("accounts.atdisposal".localized)
+                    Text(text)
                         .font(.satoshi(size: 12, weight: .medium))
                         .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
                 }
