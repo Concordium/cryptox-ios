@@ -11,7 +11,7 @@ import Combine
 
 enum DelegationStakingMode: String {
     case passive = "Passive delegation"
-    case validatorPool = "Validator pool"
+    case validatorPool = "Targeted delegation"
 }
 
 class DelegationStakingModeViewModel: ObservableObject {

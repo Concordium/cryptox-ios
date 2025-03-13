@@ -60,3 +60,51 @@ protocol StakeReceiptPresenterProtocol: AnyObject {
     func pressedButton()
     func closeButtonTapped()
 }
+
+extension StakeReceiptViewModel: Equatable, Hashable {
+    static func == (lhs: StakeReceiptViewModel, rhs: StakeReceiptViewModel) -> Bool {
+        return lhs.title == rhs.title &&
+        lhs.text == rhs.text &&
+        lhs.receiptHeaderText == rhs.receiptHeaderText &&
+        lhs.transactionFeeText == rhs.transactionFeeText &&
+        lhs.receiptFooterText == rhs.receiptFooterText &&
+        lhs.transferDataType?.params == rhs.transferDataType?.params &&
+        lhs.showsSubmitted == rhs.showsSubmitted &&
+        lhs.showsBackButton == rhs.showsBackButton &&
+        lhs.buttonLabel == rhs.buttonLabel &&
+        lhs.rows == rhs.rows &&
+        lhs.error?.localizedDescription == rhs.error?.localizedDescription &&
+        lhs.isTransactionExecuting == rhs.isTransactionExecuting &&
+        lhs.amountDisplay == rhs.amountDisplay &&
+        lhs.successTransactionText == rhs.successTransactionText &&
+        lhs.failedTransactionText == rhs.failedTransactionText &&
+        lhs.inProgressTransactionText == rhs.inProgressTransactionText &&
+        lhs.shouldDisplayAmount == rhs.shouldDisplayAmount &&
+        lhs.showAlert == rhs.showAlert &&
+        lhs.alertOptions?.message == rhs.alertOptions?.message &&
+        lhs.sliderButtonText == rhs.sliderButtonText
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(title)
+        hasher.combine(text)
+        hasher.combine(receiptHeaderText)
+        hasher.combine(transactionFeeText)
+        hasher.combine(receiptFooterText)
+        hasher.combine(transferDataType?.params)
+        hasher.combine(showsSubmitted)
+        hasher.combine(showsBackButton)
+        hasher.combine(buttonLabel)
+        hasher.combine(rows)
+        hasher.combine(error?.localizedDescription)
+        hasher.combine(isTransactionExecuting)
+        hasher.combine(amountDisplay)
+        hasher.combine(successTransactionText)
+        hasher.combine(failedTransactionText)
+        hasher.combine(inProgressTransactionText)
+        hasher.combine(shouldDisplayAmount)
+        hasher.combine(showAlert)
+        hasher.combine(alertOptions?.message)
+        hasher.combine(sliderButtonText)
+    }
+}

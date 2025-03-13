@@ -183,24 +183,6 @@ final class ValidatorSubmissionViewModel: StakeReceiptViewModel, ObservableObjec
     }
 }
 
-extension ValidatorSubmissionViewModel: Equatable, Hashable {
-    static func == (lhs: ValidatorSubmissionViewModel, rhs: ValidatorSubmissionViewModel) -> Bool {
-        lhs.showAlert == rhs.showAlert &&
-        lhs.account.address == rhs.account.address &&
-        lhs.cost == rhs.cost &&
-        lhs.energy == rhs.energy &&
-        lhs.rows == rhs.rows
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(showAlert)
-        hasher.combine(account.address)
-        hasher.combine(cost)
-        hasher.combine(energy)
-        hasher.combine(rows)
-    }
-}
-
 private extension Optional where Wrapped == ChainParametersEntity {
     var formattedPoolOwnerCooldown: String {
         let cooldown = GeneralFormatter.secondsToDays(seconds: self?.poolOwnerCooldown ?? 0)

@@ -235,6 +235,19 @@ struct NavigationDestinationBuilder: ViewModifier {
                                 navigationManager.pop()
                             })
                             .onAppear { notifyTabBarHidden(true) }
+                    case .delegationRequestConfirmation(let viewModel):
+                        DelegationSubmissionView(viewModel: viewModel)
+                            .environmentObject(navigationManager)
+                            .modifier(NavigationViewModifier(title: "earn.info.title.part1".localized) {
+                                navigationManager.pop()
+                            })
+                            .onAppear { notifyTabBarHidden(true) }
+                    case .delegationTransactionStatus(let viewModel):
+                        DelegationTransactionStatusView(viewModel: viewModel)
+                            .modifier(NavigationViewModifier(title: "earn.info.title.part1".localized) {
+                                navigationManager.pop()
+                            })
+                            .onAppear { notifyTabBarHidden(true) }
                     default:
                         EmptyView()
                     }
@@ -273,6 +286,18 @@ struct NavigationDestinationBuilder: ViewModifier {
             ValidatorStatusView(viewModel: statusViewModel)
                 .environmentObject(navigationManager)
                 .modifier(NavigationViewModifier(title: "earn.desc.baking.header".localized) {
+                    navigationManager.pop()
+                })
+                .onAppear {
+                    notifyTabBarHidden(true)
+                }
+        } else if account.delegation != nil {
+            let statusViewModel = DelegationStatusViewModel(account: account,
+                                                            dependencyProvider: dependencyProvider,
+                                                            navigationManager: navigationManager)
+            DelegationStatusView(viewModel: statusViewModel)
+                .environmentObject(navigationManager)
+                .modifier(NavigationViewModifier(title: "earn.info.title.part1".localized) {
                     navigationManager.pop()
                 })
                 .onAppear {

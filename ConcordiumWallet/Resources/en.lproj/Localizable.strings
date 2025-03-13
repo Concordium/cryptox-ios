@@ -1426,3 +1426,17 @@ Remember to restart your node with the validator keys.";
 
 "delegation.stop.alert.title" = "Stop earning";
 "delegation.stop.alert.message" = "If you decide to stop your delegation, a cool-down period applies.\n\nAt the end of the cool-down period, the delegated amount is unlocked on your public balance, and the funds will be at disposal again.";
+
+"delegation.registered.success" = "Your delegation is registered";
+"delegation.registered.failed" = "Failed to register delegation";
+"delegation.registered.in.progress" = "Your delegation is in progress";
+
+"delegation.update.success" = "Your delegation settings were updated successfully";
+"delegation.update.failed" = "Failed to update delegation settings";
+"delegation.update.in.progress" = "Updating delegation settings is in progress";
+
+"delegation.stop.success" = "You submitted a transaction to stop your delegation";
+"delegation.stop.in.progress" = "Transaction to stop delegation is being submitted";
+"delegation.stop.failed" = "Failed to submit transaction to stop delegation";
+
+"delegation.submit.delegation" = "Submit delegation";

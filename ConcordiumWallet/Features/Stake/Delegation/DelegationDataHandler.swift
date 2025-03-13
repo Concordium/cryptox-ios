@@ -34,4 +34,8 @@ class DelegationDataHandler: StakeDataHandler {
             self.add(entry: DelegationAccountData(accountName: account.name, accountAddress: account.address))
         }
     }
+    
+    func getCurrentAmount() -> GTU? {
+        return getNewEntry(DelegationAmountData.self)?.amount ?? getCurrentEntry(DelegationAmountData.self)?.amount
+    }
 }

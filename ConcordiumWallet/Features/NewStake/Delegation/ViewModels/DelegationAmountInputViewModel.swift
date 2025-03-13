@@ -90,6 +90,12 @@ final class DelegationAmountInputViewModel: StakeAmountInputViewModel {
             pool = newPool
         } else if let existingPool = existingPool?.pool {
             pool = existingPool
+            switch existingPool {
+            case .bakerPool(_):
+                stakingMode = .validatorPool
+            case .passive:
+                stakingMode = .passive
+            }
         } else {
             pool = .passive
         }
@@ -155,9 +161,7 @@ final class DelegationAmountInputViewModel: StakeAmountInputViewModel {
                 guard let self = self else {
                     return .just(.failure(StakeError.internalError))
                 }
-                
-//                self.isContinueEnabled = false
-                
+                                
                 return self.transactionService
                     .getTransferCost(
                         transferType: self.dataHandler.transferType.toWalletProxyTransferType(),
@@ -227,7 +231,6 @@ final class DelegationAmountInputViewModel: StakeAmountInputViewModel {
                 case .success:
                     self?.amountErrorMessage = nil
                     self?.poolLimit?.highlighted = false
-//                    self?.isContinueEnabled = true
                 case let .failure(error):
                     self?.handleTransferCostError(error)
                 }
@@ -271,7 +274,11 @@ final class DelegationAmountInputViewModel: StakeAmountInputViewModel {
                         //                        self?.delegate?.switchToRemoveDelegator(cost: cost, energy: energy)
                     }.store(in: &self.cancellables)
             } else {
-                //                self.delegate?.finishedAmountInput(dataHandler: self.dataHandler, cost: cost, energy: energy)
+                let viewModel = DelegationSubmissionViewModel(account: account,
+                                                              cost: cost,
+                                                              energy: energy,
+                                                              dataHandler: dataHandler)
+                self.navigationManager.navigate(to: .delegationRequestConfirmation(viewModel))
             }
             
         }
@@ -309,7 +316,7 @@ private extension StakeAmountInputViewModel {
     ) {
         let staked = GTU(intValue: account.delegation?.stakedAmount ?? 0)
         amount = Decimal(string: staked.displayValue()) ?? 0
-        amountDecimal = BigDecimal(BigInt(account.baker?.stakedAmount ?? 0), 6)
+        amountDecimal = BigDecimal(BigInt(account.delegation?.stakedAmount ?? 0), 6)
         self.currentPoolLimit = BalanceViewModel(
             label: "delegation.inputamount.currentpool".localized,
             value: validator.currentPool?.displayValue() ?? GTU(intValue: 0).displayValue(),

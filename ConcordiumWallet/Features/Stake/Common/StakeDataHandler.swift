@@ -497,7 +497,7 @@ struct DelegationAmountData: SimpleFieldValue {
     let amount: GTU
     
     var displayValue: String {
-        amount.displayValueWithGStroke()
+        amount.displayValueWithCCDStroke()
     }
     
     func getCostParameters(type: TransferType) -> [TransferCostParameter] {
@@ -518,7 +518,7 @@ struct BakerAmountData: SimpleFieldValue {
     let amount: GTU
     
     var displayValue: String {
-        amount.displayValueWithGStroke()
+        amount.displayValueWithCCDStroke()
     }
     var costParameters: [TransferCostParameter] { [.amount(nil)] }
     

@@ -11,7 +11,7 @@ struct AccountDelegation: Codable {
     let restakeEarnings: Bool
     let delegationTarget: DelegationTarget
     let pendingChange: PendingChange?
-    let isSuspended: Bool
+    let isSuspended: Bool?
     let isPrimedForSuspension: Bool?
 
     enum CodingKeys: String, CodingKey {

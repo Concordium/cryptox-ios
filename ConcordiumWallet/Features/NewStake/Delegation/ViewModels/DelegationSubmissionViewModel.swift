@@ -13,12 +13,12 @@ import SwiftUI
 final class DelegationSubmissionViewModel: StakeReceiptViewModel, ObservableObject {
     
     @Published var isStopDelegation: Bool = false
-    @Published var isResumeDelegation: Bool = false
-    @Published var isSuspendDelegation: Bool = false
-    
+    @Published var isUpdateDelegation: Bool = false
+    var stakingMode: DelegationStakingMode?
+    var restakeText: String = ""
     private var cost: GTU
     private var energy: Int
-    
+    let ticker: String = "CCD"
     private var transactionsService: TransactionsServiceProtocol
     private var stakeService: StakeServiceProtocol
     private var storeManager: StorageManagerProtocol
@@ -26,8 +26,28 @@ final class DelegationSubmissionViewModel: StakeReceiptViewModel, ObservableObje
     private let dependencyProvider = ServicesProvider.defaultProvider()
     private let passwordDelegate: RequestPasswordDelegate
 
+    var transactionStatusLabel: String {
+        withAnimation(.easeInOut(duration: 1)) {
+            if isTransactionExecuting {
+                return inProgressTransactionText
+            } else if !isTransactionExecuting {
+                return successTransactionText
+            }
+            if error != nil {
+                return failedTransactionText
+            }
+            return ""
+        }
+    }
+    
+    var submitTransactionDetailsSection: (title: String, subtitle: String?) {
+        if isStopDelegation {
+            return ("delegation.receiptconfirmation.title.remove".localized, nil)
+        }
+        return ("", "")
+    }
+    
     init(account: AccountDataType,
-         delegate: (DelegationReceiptConfirmationPresenterDelegate & RequestPasswordDelegate)?,
          cost: GTU,
          energy: Int,
          dataHandler: DelegationDataHandler) {
@@ -40,11 +60,13 @@ final class DelegationSubmissionViewModel: StakeReceiptViewModel, ObservableObje
         super.init(dataHandler: dataHandler, account: account)
         let isLoweringStake = dataHandler.isLoweringStake()
         let chainParams = self.storeManager.getChainParams()
-        setup(isUpdate: dataHandler.hasCurrentData(),
+        self.amountDisplay = dataHandler.getCurrentAmount()?.displayValueWithTwoNumbersAfterDecimalPoint() ?? "0.00"
+        setupVisibleFields()
+        setup(isUpdate: isUpdateDelegation,
                              isLoweringStake: isLoweringStake,
                              gracePeriod: chainParams?.delegatorCooldown ?? 0,
                              transferCost: cost,
-                             isRemoving: dataHandler.transferType == .removeDelegation)
+                             isRemoving: isStopDelegation)
     }
 
     func pressedButton() {
@@ -71,6 +93,21 @@ final class DelegationSubmissionViewModel: StakeReceiptViewModel, ObservableObje
             completion()
         }
     }
+    
+    private func setupVisibleFields() {
+        self.isUpdateDelegation = dataHandler.hasCurrentData()
+        self.isStopDelegation = dataHandler.transferType == .removeDelegation
+        let restakeData: RestakeDelegationData? = dataHandler.getNewEntry() ?? dataHandler.getCurrentEntry()
+        restakeText = restakeData?.displayValue ?? ""
+        let currentPoolData: PoolDelegationData? = dataHandler.getNewEntry() ?? dataHandler.getCurrentEntry()
+        if let pool = currentPoolData?.pool {
+            if case BakerTarget.passive = pool {
+                self.stakingMode = .passive
+            } else {
+                self.stakingMode = .validatorPool
+            }
+        }
+    }
 }
 
 fileprivate extension StakeReceiptViewModel {
@@ -78,7 +115,6 @@ fileprivate extension StakeReceiptViewModel {
         receiptFooterText = nil
         showsSubmitted = false
         let gracePeriod = String(format: "delegation.graceperiod.format".localized, GeneralFormatter.secondsToDays(seconds: gracePeriod))
-        
         buttonLabel = "delegation.receiptconfirmation.submit".localized
         if isUpdate {
             title = "delegation.receiptconfirmation.title.update".localized
@@ -88,16 +124,24 @@ fileprivate extension StakeReceiptViewModel {
                 text = "delegation.receiptconfirmation.updatetext".localized
             }
             receiptHeaderText = "delegation.receipt.updatedelegation".localized
+            sliderButtonText = "submit".localized
+            inProgressTransactionText = "delegation.update.in.progress".localized
+            failedTransactionText = "delegation.update.failed".localized
+            successTransactionText = "delegation.update.success".localized
         } else if isRemoving {
             title = "delegation.receiptconfirmation.title.remove".localized
-            text = "delegation.receipt.removedelegation".localized
-            receiptHeaderText = "delegation.receipt.removedelegationheader".localized
+            sliderButtonText = "submit".localized
+            inProgressTransactionText = "delegation.stop.in.progress".localized
+            failedTransactionText = "delegation.stop.failed".localized
+            successTransactionText = "delegation.stop.success".localized
         } else {
             title = "delegation.receiptconfirmation.title.create".localized
-            receiptHeaderText = "delegation.receipt.registerdelegation".localized
-            text = String(format: "delegation.receiptconfirmation.registertext".localized, gracePeriod)
+            sliderButtonText = "delegation.submit.delegation".localized
+            inProgressTransactionText = "delegation.registered.in.progress".localized
+            failedTransactionText = "delegation.registered.failed".localized
+            successTransactionText = "delegation.registered.success".localized
         }
-        transactionFeeText = String(format: "delegation.receiptconfirmation.transactionfee".localized, transferCost.displayValueWithGStroke())
+        transactionFeeText = transferCost.displayValue()
     }
 }
 

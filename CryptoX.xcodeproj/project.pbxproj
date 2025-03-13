@@ -2049,6 +2049,15 @@
 		15BBDA762D82F1E500B8A36C /* DelegationSubmissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBDA752D82F1E500B8A36C /* DelegationSubmissionViewModel.swift */; };
 		15BBDA772D82F1E500B8A36C /* DelegationSubmissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBDA752D82F1E500B8A36C /* DelegationSubmissionViewModel.swift */; };
 		15BBDA782D82F1E500B8A36C /* DelegationSubmissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBDA752D82F1E500B8A36C /* DelegationSubmissionViewModel.swift */; };
+		15BBDA7A2D83033400B8A36C /* DelegationStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBDA792D83033400B8A36C /* DelegationStatusView.swift */; };
+		15BBDA7B2D83033400B8A36C /* DelegationStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBDA792D83033400B8A36C /* DelegationStatusView.swift */; };
+		15BBDA7C2D83033400B8A36C /* DelegationStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBDA792D83033400B8A36C /* DelegationStatusView.swift */; };
+		15BBDA7E2D83034F00B8A36C /* DelegationStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBDA7D2D83034F00B8A36C /* DelegationStatusViewModel.swift */; };
+		15BBDA7F2D83034F00B8A36C /* DelegationStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBDA7D2D83034F00B8A36C /* DelegationStatusViewModel.swift */; };
+		15BBDA802D83034F00B8A36C /* DelegationStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBDA7D2D83034F00B8A36C /* DelegationStatusViewModel.swift */; };
+		15BBDA822D830E5600B8A36C /* DelegationTransactionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBDA812D830E5600B8A36C /* DelegationTransactionStatusView.swift */; };
+		15BBDA832D830E5600B8A36C /* DelegationTransactionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBDA812D830E5600B8A36C /* DelegationTransactionStatusView.swift */; };
+		15BBDA842D830E5600B8A36C /* DelegationTransactionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBDA812D830E5600B8A36C /* DelegationTransactionStatusView.swift */; };
 		15E1BC692C6B58C000543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
 		15E1BC6A2C6B58C000543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
 		15E1BC6B2C6B58C100543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
@@ -3392,6 +3401,9 @@
 		15BBDA6D2D807C5000B8A36C /* DelegationStakingModeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationStakingModeViewModel.swift; sourceTree = "<group>"; };
 		15BBDA712D82F1AF00B8A36C /* DelegationSubmissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationSubmissionView.swift; sourceTree = "<group>"; };
 		15BBDA752D82F1E500B8A36C /* DelegationSubmissionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationSubmissionViewModel.swift; sourceTree = "<group>"; };
+		15BBDA792D83033400B8A36C /* DelegationStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationStatusView.swift; sourceTree = "<group>"; };
+		15BBDA7D2D83034F00B8A36C /* DelegationStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationStatusViewModel.swift; sourceTree = "<group>"; };
+		15BBDA812D830E5600B8A36C /* DelegationTransactionStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationTransactionStatusView.swift; sourceTree = "<group>"; };
 		15E1BC682C6B588900543242 /* Gate_io.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gate_io.png; sourceTree = "<group>"; };
 		15ED6C742D63960600B1BB44 /* ValidatorAmountInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorAmountInputViewModel.swift; sourceTree = "<group>"; };
 		15ED6C782D639E2600B1BB44 /* CustomToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToggle.swift; sourceTree = "<group>"; };
@@ -5580,6 +5592,8 @@
 				15BBDA612D80771700B8A36C /* DelegationAmountInputView.swift */,
 				15BBDA692D807BB500B8A36C /* DelegationStakingModeView.swift */,
 				15BBDA712D82F1AF00B8A36C /* DelegationSubmissionView.swift */,
+				15BBDA792D83033400B8A36C /* DelegationStatusView.swift */,
+				15BBDA812D830E5600B8A36C /* DelegationTransactionStatusView.swift */,
 			);
 			path = Delegation;
 			sourceTree = "<group>";
@@ -5590,6 +5604,7 @@
 				15BBDA652D80776100B8A36C /* DelegationAmountInputViewModel.swift */,
 				15BBDA6D2D807C5000B8A36C /* DelegationStakingModeViewModel.swift */,
 				15BBDA752D82F1E500B8A36C /* DelegationSubmissionViewModel.swift */,
+				15BBDA7D2D83034F00B8A36C /* DelegationStatusViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -7246,6 +7261,7 @@
 				08C166802BB7396200E61326 /* TransferType.swift in Sources */,
 				08C166822BB7396200E61326 /* Int+Data.swift in Sources */,
 				1546CFDB2D8050B0007BE2EB /* TokenBalanceView.swift in Sources */,
+				15BBDA7A2D83033400B8A36C /* DelegationStatusView.swift in Sources */,
 				1546CFDC2D8050B0007BE2EB /* HideTokenPopup.swift in Sources */,
 				1546CFDD2D8050B0007BE2EB /* TokenDetailsView.swift in Sources */,
 				1546CFDE2D8050B0007BE2EB /* AccountTokenListView.swift in Sources */,
@@ -7310,6 +7326,7 @@
 				50EB31052BFCABAA002B2558 /* UnshieldAssetsView.swift in Sources */,
 				08C166B52BB7396200E61326 /* GradienBackgroundModifier.swift in Sources */,
 				08C166B62BB7396200E61326 /* NFTProvidersViewController.swift in Sources */,
+				15BBDA822D830E5600B8A36C /* DelegationTransactionStatusView.swift in Sources */,
 				08C166B72BB7396200E61326 /* LoginInfoLabel.swift in Sources */,
 				08C166B82BB7396200E61326 /* CopyReferenceWidgetPresenter.swift in Sources */,
 				08C166B92BB7396200E61326 /* NFTEmptySearchStatusView.swift in Sources */,
@@ -7634,6 +7651,7 @@
 				08C167DC2BB7396200E61326 /* Collections+Indexed.swift in Sources */,
 				08C167DD2BB7396200E61326 /* AccountTokensListPicker.swift in Sources */,
 				08C167DE2BB7396200E61326 /* AccountDelegation.swift in Sources */,
+				15BBDA802D83034F00B8A36C /* DelegationStatusViewModel.swift in Sources */,
 				08C167DF2BB7396200E61326 /* ExportValues.swift in Sources */,
 				08C167E02BB7396200E61326 /* RoundedCurrencyView.swift in Sources */,
 				152206192D707BAD006B88D0 /* ValidatorGenerateKeysView.swift in Sources */,
@@ -7994,6 +8012,7 @@
 				D589F1D92794B5ED003F2FBB /* TransferType.swift in Sources */,
 				D5BA80702731AFE700DCE1CD /* Int+Data.swift in Sources */,
 				1546CFEB2D8050B0007BE2EB /* TokenBalanceView.swift in Sources */,
+				15BBDA7C2D83033400B8A36C /* DelegationStatusView.swift in Sources */,
 				1546CFEC2D8050B0007BE2EB /* HideTokenPopup.swift in Sources */,
 				1546CFED2D8050B0007BE2EB /* TokenDetailsView.swift in Sources */,
 				1546CFEE2D8050B0007BE2EB /* AccountTokenListView.swift in Sources */,
@@ -8058,6 +8077,7 @@
 				50EB31042BFCABAA002B2558 /* UnshieldAssetsView.swift in Sources */,
 				08FD0B832A7D31D9003774A6 /* GradienBackgroundModifier.swift in Sources */,
 				D5612B8C28EA559D00582AD4 /* NFTProvidersViewController.swift in Sources */,
+				15BBDA842D830E5600B8A36C /* DelegationTransactionStatusView.swift in Sources */,
 				7F85B7E8246A9AB600ED09B8 /* LoginInfoLabel.swift in Sources */,
 				088FEF872A0270B000042957 /* CopyReferenceWidgetPresenter.swift in Sources */,
 				D5883FCC29040C230014F83C /* NFTEmptySearchStatusView.swift in Sources */,
@@ -8382,6 +8402,7 @@
 				088FF1552A02885600042957 /* Collections+Indexed.swift in Sources */,
 				08BFE22B2A3C863F007A7B1E /* AccountTokensListPicker.swift in Sources */,
 				08A045EB29FA99D200DACE1F /* AccountDelegation.swift in Sources */,
+				15BBDA7E2D83034F00B8A36C /* DelegationStatusViewModel.swift in Sources */,
 				D589F2092794B5ED003F2FBB /* ExportValues.swift in Sources */,
 				D5D52C6C26DE45530072D20E /* RoundedCurrencyView.swift in Sources */,
 				152206182D707BAD006B88D0 /* ValidatorGenerateKeysView.swift in Sources */,
@@ -8742,6 +8763,7 @@
 				D5F3BC67278E5D3C008DC894 /* ShowAlertProtocol.swift in Sources */,
 				088FF1812A02947A00042957 /* InitialAccountInfoPresenter.swift in Sources */,
 				1546CFE32D8050B0007BE2EB /* TokenBalanceView.swift in Sources */,
+				15BBDA7B2D83033400B8A36C /* DelegationStatusView.swift in Sources */,
 				1546CFE42D8050B0007BE2EB /* HideTokenPopup.swift in Sources */,
 				1546CFE52D8050B0007BE2EB /* TokenDetailsView.swift in Sources */,
 				1546CFE62D8050B0007BE2EB /* AccountTokenListView.swift in Sources */,
@@ -8806,6 +8828,7 @@
 				080F35272A09058E0070D4EE /* CXNavigationController.swift in Sources */,
 				50EB31032BFCABAA002B2558 /* UnshieldAssetsView.swift in Sources */,
 				088FF0002A0271F000042957 /* SeedIdentityOnboardingViewModel.swift in Sources */,
+				15BBDA832D830E5600B8A36C /* DelegationTransactionStatusView.swift in Sources */,
 				D54795A228ECECBF00575649 /* NFTImportView.swift in Sources */,
 				08A0458229FA99D100DACE1F /* ServerErrorMessage.swift in Sources */,
 				08A0456C29FA99D100DACE1F /* InitialAccountData.swift in Sources */,
@@ -9130,6 +9153,7 @@
 				D55532572910925100A69230 /* Model+Wallet.swift in Sources */,
 				088FEF012A026F0000042957 /* IdentitiesPresenterProtocol.swift in Sources */,
 				088FF1532A02885600042957 /* Collections+Indexed.swift in Sources */,
+				15BBDA7F2D83034F00B8A36C /* DelegationStatusViewModel.swift in Sources */,
 				08A0455329FA99D100DACE1F /* AccountDelegation.swift in Sources */,
 				D5CACC5D26ED5B1400D3C3CF /* VersionView.swift in Sources */,
 				1522061A2D707BAD006B88D0 /* ValidatorGenerateKeysView.swift in Sources */,

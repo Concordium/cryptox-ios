@@ -41,4 +41,6 @@ enum NavigationPaths: Hashable {
     // MARK: - Delegation Flow
     case delegationAmountInput(DelegationAmountInputViewModel)
     case delegationStakingMode(DelegationStakingModeViewModel)
+    case delegationRequestConfirmation(DelegationSubmissionViewModel)
+    case delegationTransactionStatus(DelegationSubmissionViewModel)
 }
