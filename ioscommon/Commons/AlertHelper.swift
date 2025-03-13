@@ -73,7 +73,7 @@ class AlertHelper {
             ])
     }
     
-    static func stopDelegationAlertOptions(account: AccountDataType, navigationManager: NavigationManager) -> SwiftUIAlertOptions {
+    static func stopDelegationAlertOptions(account: AccountDataType, cost: GTU, energy: Int, navigationManager: NavigationManager) -> SwiftUIAlertOptions {
         let goBackAction = SwiftUIAlertAction(
             name: "go.back".localized,
             completion: nil,
@@ -84,12 +84,12 @@ class AlertHelper {
             name: "continue_btn_title".localized,
             completion: { [weak navigationManager] in
                 guard let navigationManager else { return }
-                let viewModel = ValidatorSubmissionViewModel(dataHandler: BakerDataHandler(
-                    account: account,
-                    action: .stopBaking
-                ),
-                                                             dependencyProvider: ServicesProvider.defaultProvider())
-                navigationManager.navigate(to: .validatorRequestConfirmation(viewModel))
+                let viewModel = DelegationSubmissionViewModel(account: account,
+                                                              cost: cost,
+                                                              energy: energy,
+                                                              dataHandler: DelegationDataHandler(account: account,
+                                                                                                 isRemoving: true))
+                navigationManager.navigate(to: .delegationRequestConfirmation(viewModel))
             },
             style: .plain)
         

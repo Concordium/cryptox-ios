@@ -55,10 +55,15 @@ final class DelegationStatusViewModel: ObservableObject {
         if stopButtonShown {
             actionItems.append(ActionItem(iconName: "Stop", label: "Stop", action: { [weak self] in
                 guard let self else { return }
-                withAnimation {
-                    self.showAlert = true
+                stopTapped { cost, energy in
+                    withAnimation {
+                        self.showAlert = true
+                    }
+                    self.alertOptions = AlertHelper.stopDelegationAlertOptions(account: self.account,
+                                                                               cost: cost,
+                                                                               energy: energy,
+                                                                               navigationManager: self.navigationManager)
                 }
-                self.alertOptions = AlertHelper.stopDelegationAlertOptions(account: self.account, navigationManager: self.navigationManager)
             }))
         }
         actionItems.append(ActionItem(iconName: "ArrowsClockwise", label: "Update", action: { [weak self] in
@@ -87,6 +92,31 @@ final class DelegationStatusViewModel: ObservableObject {
                         self.showAlert = true
                     }
                     self.alertOptions = AlertHelper.genericErrorAlertOptions(message: StakeStatusViewModelError(error).error.localizedDescription)
+                }
+            }.store(in: &cancellables)
+    }
+    
+    private func stopTapped(completion: @escaping ((GTU, Int) -> Void)) {
+        let transactionService = dependencyProvider.transactionsService()
+        stakeService.getChainParameters()
+            .zip(transactionService.getTransferCost(transferType: .removeDelegation, costParameters: []))
+            .sink { [weak self] error in
+                withAnimation {
+                    self?.showAlert = true
+                }
+                self?.alertOptions = AlertHelper.genericErrorAlertOptions(message: StakeStatusViewModelError(error).error.localizedDescription)
+            } receiveValue: {[weak self] (chainParametersResponse, transferCost) in
+                let params = ChainParametersEntity(delegatorCooldown: chainParametersResponse.delegatorCooldown,
+                                                   poolOwnerCooldown: chainParametersResponse.poolOwnerCooldown)
+                do {
+                    _ = try self?.storageManager.updateChainParms(params)
+                    let cost = GTU(intValue: Int(transferCost.cost) ?? 0)
+                    completion(cost, transferCost.energy)
+                } catch let error {
+                    withAnimation {
+                        self?.showAlert = true
+                    }
+                    self?.alertOptions = AlertHelper.genericErrorAlertOptions(message: StakeStatusViewModelError(error).error.localizedDescription)
                 }
             }.store(in: &cancellables)
     }

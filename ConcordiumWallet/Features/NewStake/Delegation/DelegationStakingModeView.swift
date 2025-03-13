@@ -83,6 +83,7 @@ struct DelegationStakingModeView: View {
         .padding(.top, 40)
         .padding(.horizontal, 18)
         .modifier(AppBackgroundModifier())
+        .modifier(AlertModifier(alertOptions: viewModel.alertOptions, isPresenting: $viewModel.showAlert))
     }
     
     func stakingOption(title: String, isSelected: Binding<Bool>) -> some View {

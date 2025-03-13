@@ -13,6 +13,7 @@ import BigInt
 
 protocol DelegationPoolSelectionDelegate: AnyObject {
     func finishedPoolSelection(dataHandler: StakeDataHandler, bakerPoolResponse: BakerPoolResponse?)
+    func switchToRemoveDelegator(cost: GTU, energy: Int)
 }
 
 final class DelegationAmountInputViewModel: StakeAmountInputViewModel {
@@ -270,8 +271,17 @@ final class DelegationAmountInputViewModel: StakeAmountInputViewModel {
                             self?.showAlert = true
                         }
                     } receiveValue: {[weak self] transferCost in
+                        guard let self else { return }
                         let cost = GTU(intValue: Int(transferCost.cost) ?? 0)
-                        //                        self?.delegate?.switchToRemoveDelegator(cost: cost, energy: energy)
+                        removeDelegation { cost, energy in
+                            withAnimation {
+                                self.showAlert = true
+                            }
+                            self.alertOptions = AlertHelper.stopDelegationAlertOptions(account: self.account,
+                                                                                       cost: cost,
+                                                                                       energy: energy,
+                                                                                       navigationManager: self.navigationManager)
+                        }
                     }.store(in: &self.cancellables)
             } else {
                 let viewModel = DelegationSubmissionViewModel(account: account,
@@ -282,6 +292,30 @@ final class DelegationAmountInputViewModel: StakeAmountInputViewModel {
             }
             
         }
+    }
+    
+    private func removeDelegation(completion: @escaping ((GTU, Int) -> Void)) {
+        stakeService.getChainParameters()
+            .zip(transactionService.getTransferCost(transferType: .removeDelegation, costParameters: []))
+            .sink { [weak self] error in
+                withAnimation {
+                    self?.showAlert = true
+                }
+                self?.alertOptions = AlertHelper.genericErrorAlertOptions(message: StakeStatusViewModelError(error).error.localizedDescription)
+            } receiveValue: {[weak self] (chainParametersResponse, transferCost) in
+                let params = ChainParametersEntity(delegatorCooldown: chainParametersResponse.delegatorCooldown,
+                                                   poolOwnerCooldown: chainParametersResponse.poolOwnerCooldown)
+                do {
+                    _ = try self?.storageManager.updateChainParms(params)
+                    let cost = GTU(intValue: Int(transferCost.cost) ?? 0)
+                    completion(cost, transferCost.energy)
+                } catch let error {
+                    withAnimation {
+                        self?.showAlert = true
+                    }
+                    self?.alertOptions = AlertHelper.genericErrorAlertOptions(message: StakeStatusViewModelError(error).error.localizedDescription)
+                }
+            }.store(in: &cancellables)
     }
     
     func checkForWarnings(completion: @escaping () -> Void) {
@@ -416,6 +450,16 @@ private extension TransferCost {
 }
 
 extension DelegationAmountInputViewModel: DelegationPoolSelectionDelegate {
+    func switchToRemoveDelegator(cost: GTU, energy: Int) {
+        withAnimation {
+            self.showAlert = true
+        }
+        self.alertOptions = AlertHelper.stopDelegationAlertOptions(account: self.account,
+                                                                   cost: cost,
+                                                                   energy: energy,
+                                                                   navigationManager: self.navigationManager)
+    }
+    
     func finishedPoolSelection(dataHandler: StakeDataHandler, bakerPoolResponse: BakerPoolResponse?) {
         setupPoolLimits(with: bakerPoolResponse)
         stakingMode = stakingModeViewModel?.selectedPool

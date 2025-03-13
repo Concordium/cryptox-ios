@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 enum DelegationStakingMode: String {
     case passive = "Passive delegation"
@@ -22,7 +23,9 @@ class DelegationStakingModeViewModel: ObservableObject {
     @Published var bakerPoolResponse: BakerPoolResponse? = nil
     @Published private var validSelectedPool: BakerTarget? = .passive
     @Published var isContinueEnabled: Bool = false
-
+    @Published var alertOptions: SwiftUIAlertOptions?
+    @Published var showAlert: Bool = false
+    
     private var cancellables = Set<AnyCancellable>()
     private let stakeService: StakeServiceProtocol
     private let transactionService: TransactionsServiceProtocol
@@ -171,7 +174,10 @@ class DelegationStakingModeViewModel: ObservableObject {
                                 .setFailureType(to: Error.self))
                 .first()
                 .sink(receiveError: { error in
-//                    self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+                    self.alertOptions = AlertHelper.genericErrorAlertOptions(message: ErrorMapper.toViewError(error: error).errorDescription ?? error.localizedDescription)
+                    withAnimation {
+                        self.showAlert = true
+                    }
                 }, receiveValue: { bakerPoolResponse in
                     if self.shouldShowPoolSizeWarning(response: bakerPoolResponse) {
                         self.showPoolSizeWarning(response: bakerPoolResponse)
@@ -210,44 +216,50 @@ class DelegationStakingModeViewModel: ObservableObject {
     }
     
     private func showPoolSizeWarning(response: BakerPoolResponse) {
-        let lowerAmountAction = AlertAction(
+        let lowerAmountAction = SwiftUIAlertAction(
             name: "delegation.pool.sizewarning.loweramount".localized,
             completion: {
                 self.delegate?.finishedPoolSelection(
                     dataHandler: self.dataHandler,
                     bakerPoolResponse: response
                 )
-            }, style: .default
+            }, style: .plain
         )
-        let stopDelegationAction = AlertAction(
+        let stopDelegationAction = SwiftUIAlertAction(
             name: "delegation.pool.sizewarning.stopdelegation".localized,
             completion: {
                 self.transactionService
                     .getTransferCost(transferType: .removeDelegation, costParameters: [])
                     .sink { error in
-                        print(error.localizedDescription)
-//                        self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+                        self.alertOptions = AlertHelper.genericErrorAlertOptions(message: ErrorMapper.toViewError(error: error).errorDescription ?? error.localizedDescription)
+                        withAnimation {
+                            self.showAlert = true
+                        }
                     } receiveValue: { transferCost in
                         let cost = GTU(intValue: Int(transferCost.cost) ?? 0)
 //                        self.delegate?.switchToRemoveDelegator(cost: cost, energy: transferCost.energy)
                     }
                     .store(in: &self.cancellables)
 
-            }, style: .default
+            }, style: .plain
         )
-        let cancelAction = AlertAction(
+        let cancelAction = SwiftUIAlertAction(
             name: "delegation.pool.sizewarning.cancel".localized,
             completion: nil,
-            style: .default
+            style: .styled
         )
         
-        let alertOptions = AlertOptions(
+        let alertOptions = SwiftUIAlertOptions(
             title: "delegation.pool.sizewarning.title".localized,
             message: "delegation.pool.sizewarning.message".localized,
             actions: [lowerAmountAction, stopDelegationAction, cancelAction]
         )
         
-//        self.view?.showAlert(with: alertOptions)
+        self.alertOptions = alertOptions
+
+        withAnimation {
+            self.showAlert = true
+        }
     }
 }
 

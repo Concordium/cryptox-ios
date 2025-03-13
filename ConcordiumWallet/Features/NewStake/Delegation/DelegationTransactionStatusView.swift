@@ -66,9 +66,7 @@ struct DelegationTransactionStatusView: View {
             Spacer()
             
             RoundedButton(action: {
-                viewModel.closeTapped() {
-                    navigationManager.reset()
-                }
+                navigationManager.reset()
             }, title: "close".localized)
             .padding(.bottom, 20)
             .padding(.horizontal, 18)

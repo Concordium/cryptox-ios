@@ -83,17 +83,6 @@ final class DelegationSubmissionViewModel: StakeReceiptViewModel, ObservableObje
             }).store(in: &cancellables)
     }
     
-    func closeTapped(completion: @escaping () -> Void) {
-        if !isTransactionExecuting && error == nil && isStopDelegation {
-            alertOptions = stopDelegationAlertOptions(completion: completion)
-            withAnimation {
-                showAlert = true
-            }
-        } else {
-            completion()
-        }
-    }
-    
     private func setupVisibleFields() {
         self.isUpdateDelegation = dataHandler.hasCurrentData()
         self.isStopDelegation = dataHandler.transferType == .removeDelegation
