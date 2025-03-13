@@ -54,7 +54,8 @@ struct ValidatorAmountInputView: View {
             }
             
             SendTokenCell(tokenType: .ccd(displayAmount: GTU(intValue: viewModel.account.forecastBalance).displayValueWithTwoNumbersAfterDecimalPoint()),
-                          hideCaretRight: true)
+                          hideCaretRight: true,
+                          text: "available.for.staking".localized)
             .frame(maxWidth: .infinity, alignment: .center)
 
             VStack(alignment: .leading, spacing: 12) {
@@ -79,8 +80,8 @@ struct ValidatorAmountInputView: View {
             RoundedButton(action: {
                 viewModel.pressedContinue()
             },
-                          title: "continue_btn_title".localized)
-            .disabled(!viewModel.isContinueEnabled)
+                          title: "continue_btn_title".localized,
+                          isDisabled: !viewModel.isContinueEnabled)
         }
         .padding(.horizontal, 18)
         .padding(.top, 40)

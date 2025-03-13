@@ -99,7 +99,7 @@ class StakeAmountInputViewModel: ObservableObject, Equatable, Hashable {
     }
     
     func sendAll() {
-        self.amountDecimal = .init(BigInt(account.forecastAtDisposalBalance) - BigInt(transferCost.maxCost.intValue), 6)
+        self.amountDecimal = .init(BigInt(account.forecastBalance) - BigInt(transferCost.maxCost.intValue), 6)
     }
     
     private func getEuroValueForCCD() {
