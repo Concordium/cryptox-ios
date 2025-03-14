@@ -2072,6 +2072,9 @@
 		509749F52C49207400D28D6B /* UserDefaultsQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749F42C49207400D28D6B /* UserDefaultsQueue.swift */; };
 		509749F62C49207400D28D6B /* UserDefaultsQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749F42C49207400D28D6B /* UserDefaultsQueue.swift */; };
 		509749F72C49207400D28D6B /* UserDefaultsQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749F42C49207400D28D6B /* UserDefaultsQueue.swift */; };
+		509801202D8430ED00B85051 /* RecoverIdentity+ConcordiumClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5098011F2D8430ED00B85051 /* RecoverIdentity+ConcordiumClient.swift */; };
+		509801212D8430ED00B85051 /* RecoverIdentity+ConcordiumClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5098011F2D8430ED00B85051 /* RecoverIdentity+ConcordiumClient.swift */; };
+		509801222D8430ED00B85051 /* RecoverIdentity+ConcordiumClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5098011F2D8430ED00B85051 /* RecoverIdentity+ConcordiumClient.swift */; };
 		509A56292CB40A10005EA908 /* Base58Swift in Frameworks */ = {isa = PBXBuildFile; productRef = 509A56282CB40A10005EA908 /* Base58Swift */; };
 		509A56312CB40BF7005EA908 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 509A56302CB40BF7005EA908 /* RealmSwift */; };
 		509A56322CB40BF7005EA908 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 509A56302CB40BF7005EA908 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -3335,6 +3338,7 @@
 		509749E42C3E886C00D28D6B /* RSSFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeed.swift; sourceTree = "<group>"; };
 		509749F02C49203200D28D6B /* MatomoTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatomoTracker.swift; sourceTree = "<group>"; };
 		509749F42C49207400D28D6B /* UserDefaultsQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsQueue.swift; sourceTree = "<group>"; };
+		5098011F2D8430ED00B85051 /* RecoverIdentity+ConcordiumClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecoverIdentity+ConcordiumClient.swift"; sourceTree = "<group>"; };
 		509A56332CB42EFF005EA908 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		50D3891C2C107C1E00B3675A /* TokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenView.swift; sourceTree = "<group>"; };
 		50D389222C107C7500B3675A /* CustomSVGDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSVGDecoder.swift; sourceTree = "<group>"; };
@@ -5611,6 +5615,7 @@
 			isa = PBXGroup;
 			children = (
 				50F3BC372D53A6C100839F7F /* ConcordiumClient.swift */,
+				5098011F2D8430ED00B85051 /* RecoverIdentity+ConcordiumClient.swift */,
 				5090D1712D5A32F200B56367 /* Helpers */,
 				50F3BC432D562AC900839F7F /* SDK.md */,
 			);
@@ -7453,6 +7458,7 @@
 				50F3BC3A2D53A6C100839F7F /* ConcordiumClient.swift in Sources */,
 				08C167D12BB7396200E61326 /* LoginErrorLabel.swift in Sources */,
 				08C167D22BB7396200E61326 /* CreateIdentityCoordinator.swift in Sources */,
+				509801222D8430ED00B85051 /* RecoverIdentity+ConcordiumClient.swift in Sources */,
 				08DB5E922BC6C34300C29663 /* BakingAlerts.swift in Sources */,
 				08DB5E932BC6C34300C29663 /* BakingOnboardingCoordinator.swift in Sources */,
 				15FC767C2C9D699F00AC357B /* ExportWalletPrivateKeyView.swift in Sources */,
@@ -8175,6 +8181,7 @@
 				50F3BC382D53A6C100839F7F /* ConcordiumClient.swift in Sources */,
 				7F85B856246A9AB600ED09B8 /* LoginErrorLabel.swift in Sources */,
 				088FEEEF2A026EB600042957 /* CreateIdentityCoordinator.swift in Sources */,
+				509801212D8430ED00B85051 /* RecoverIdentity+ConcordiumClient.swift in Sources */,
 				08DB5E8E2BC6C34300C29663 /* BakingAlerts.swift in Sources */,
 				08DB5E8F2BC6C34300C29663 /* BakingOnboardingCoordinator.swift in Sources */,
 				15FC767B2C9D699F00AC357B /* ExportWalletPrivateKeyView.swift in Sources */,
@@ -8897,6 +8904,7 @@
 				50F3BC392D53A6C100839F7F /* ConcordiumClient.swift in Sources */,
 				08A0457229FA99D100DACE1F /* CommitmentsRandomness.swift in Sources */,
 				08DB5E8A2BC6C34200C29663 /* BakingAlerts.swift in Sources */,
+				509801202D8430ED00B85051 /* RecoverIdentity+ConcordiumClient.swift in Sources */,
 				08DB5E8B2BC6C34200C29663 /* BakingOnboardingCoordinator.swift in Sources */,
 				08DB5E8C2BC6C34200C29663 /* BakerDataHandler.swift in Sources */,
 				15FC767A2C9D699F00AC357B /* ExportWalletPrivateKeyView.swift in Sources */,
