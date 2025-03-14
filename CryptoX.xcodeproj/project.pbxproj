@@ -1896,6 +1896,12 @@
 		1558E8992CFA2BB500004E71 /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1558E8982CFA2BB500004E71 /* DotLottie */; };
 		1558E89B2CFA2BBF00004E71 /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1558E89A2CFA2BBF00004E71 /* DotLottie */; };
 		1558E89D2CFA2BC700004E71 /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1558E89C2CFA2BC700004E71 /* DotLottie */; };
+		155EE1ED2D7B3BA6005EF86E /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE1EC2D7B3BA6005EF86E /* RoundedButton.swift */; };
+		155EE1EE2D7B3BA6005EF86E /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE1EC2D7B3BA6005EF86E /* RoundedButton.swift */; };
+		155EE1EF2D7B3BA6005EF86E /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE1EC2D7B3BA6005EF86E /* RoundedButton.swift */; };
+		155EE1F12D7B3BFC005EF86E /* AlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE1F02D7B3BFC005EF86E /* AlertModifier.swift */; };
+		155EE1F22D7B3BFC005EF86E /* AlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE1F02D7B3BFC005EF86E /* AlertModifier.swift */; };
+		155EE1F32D7B3BFC005EF86E /* AlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE1F02D7B3BFC005EF86E /* AlertModifier.swift */; };
 		155EE23D2D7B4955005EF86E /* KeyboardAvoidingPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE23C2D7B4955005EF86E /* KeyboardAvoidingPadding.swift */; };
 		155EE23E2D7B4955005EF86E /* KeyboardAvoidingPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE23C2D7B4955005EF86E /* KeyboardAvoidingPadding.swift */; };
 		155EE23F2D7B4955005EF86E /* KeyboardAvoidingPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE23C2D7B4955005EF86E /* KeyboardAvoidingPadding.swift */; };
@@ -3350,6 +3356,8 @@
 		1557CC972C89BBD7008ABF67 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1557CC9A2C89BE26008ABF67 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsPopup.swift; sourceTree = "<group>"; };
+		155EE1EC2D7B3BA6005EF86E /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		155EE1F02D7B3BFC005EF86E /* AlertModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModifier.swift; sourceTree = "<group>"; };
 		155EE23C2D7B4955005EF86E /* KeyboardAvoidingPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAvoidingPadding.swift; sourceTree = "<group>"; };
 		156878D12CD0FC190080B2F3 /* confettiAnimation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = confettiAnimation.json; sourceTree = "<group>"; };
 		1575862D2CA2CA4D00205A6E /* IdentifiableString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableString.swift; sourceTree = "<group>"; };
@@ -4275,7 +4283,8 @@
 				1580EBD82D4919C30051C55D /* SliderButton.swift */,
 				152AE63B2D50E17700B0B073 /* PrsssedButtonStyle.swift */,
 				15ED6C782D639E2600B1BB44 /* CustomToggle.swift */,
-				1584D0972D787187001D9B3E /* AlertModifier.swift */,
+				155EE1EC2D7B3BA6005EF86E /* RoundedButton.swift */,
+				155EE1F02D7B3BFC005EF86E /* AlertModifier.swift */,
 				155EE23C2D7B4955005EF86E /* KeyboardAvoidingPadding.swift */,
 			);
 			path = SwiftUI;
@@ -7561,6 +7570,7 @@
 				08C1678F2BB7396200E61326 /* AccountConfirmedViewController.swift in Sources */,
 				1599807E2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */,
 				08C167902BB7396200E61326 /* AccountSettingsView.swift in Sources */,
+				155EE1EE2D7B3BA6005EF86E /* RoundedButton.swift in Sources */,
 				08C167912BB7396200E61326 /* CreateIDRequestV1.swift in Sources */,
 				08C167922BB7396200E61326 /* ExportIdentityData.swift in Sources */,
 				08C167942BB7396200E61326 /* ImportLegacyWalletInfo.swift in Sources */,
@@ -7965,6 +7975,7 @@
 				08C168F62BB7396200E61326 /* MakeGenerateAaccountsRequest.swift in Sources */,
 				08C168F72BB7396200E61326 /* OnboardingRootView.swift in Sources */,
 				08C168F82BB7396200E61326 /* IdentityProviderCell.swift in Sources */,
+				155EE1F12D7B3BFC005EF86E /* AlertModifier.swift in Sources */,
 				08C168F92BB7396200E61326 /* TagsView.swift in Sources */,
 				08C168FA2BB7396200E61326 /* NFTProvidersPresenter.swift in Sources */,
 				08C168FB2BB7396200E61326 /* QRDataResponse.swift in Sources */,
@@ -8312,6 +8323,7 @@
 				088FEEC42A026B9600042957 /* AccountConfirmedViewController.swift in Sources */,
 				1599807D2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */,
 				088FED7D2A01671900042957 /* AccountSettingsView.swift in Sources */,
+				155EE1EF2D7B3BA6005EF86E /* RoundedButton.swift in Sources */,
 				08A0448E29FA987800DACE1F /* CreateIDRequestV1.swift in Sources */,
 				D589F2012794B5ED003F2FBB /* ExportIdentityData.swift in Sources */,
 				0835F9AC2B5FCE4500D3716F /* ImportLegacyWalletInfo.swift in Sources */,
@@ -8716,6 +8728,7 @@
 				08A0462329FA99D300DACE1F /* MakeGenerateAaccountsRequest.swift in Sources */,
 				0832EB4B2B34BB6A00BD2ECD /* OnboardingRootView.swift in Sources */,
 				52055F8E2552C51F0071F7CA /* IdentityProviderCell.swift in Sources */,
+				155EE1F32D7B3BFC005EF86E /* AlertModifier.swift in Sources */,
 				089B342A2A16858D00F3CD90 /* TagsView.swift in Sources */,
 				D5612B8728EA558300582AD4 /* NFTProvidersPresenter.swift in Sources */,
 				088FEC672A01459100042957 /* QRDataResponse.swift in Sources */,
@@ -9063,6 +9076,7 @@
 				D589F1FF2794B5ED003F2FBB /* ExportIdentityData.swift in Sources */,
 				1599807C2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */,
 				068DC81423F2E6FC001B2975 /* TitleLabel.swift in Sources */,
+				155EE1ED2D7B3BA6005EF86E /* RoundedButton.swift in Sources */,
 				7FF07AEE23EB075D00F1FC04 /* Storyboarded.swift in Sources */,
 				0835F9AB2B5FCE4500D3716F /* ImportLegacyWalletInfo.swift in Sources */,
 				08A0455529FA99D100DACE1F /* IPArDatum.swift in Sources */,
@@ -9467,6 +9481,7 @@
 				D5F7A24126D7A94B0061E646 /* UIView+CornerRadius.swift in Sources */,
 				0832EB4A2B34BB6A00BD2ECD /* OnboardingRootView.swift in Sources */,
 				D5612B8528EA558300582AD4 /* NFTProvidersPresenter.swift in Sources */,
+				155EE1F22D7B3BFC005EF86E /* AlertModifier.swift in Sources */,
 				089B34282A16858D00F3CD90 /* TagsView.swift in Sources */,
 				D5B393E427197A750094A9F5 /* SpecificViewForController.swift in Sources */,
 				D578396727A08B1200FFD123 /* BackupAlertController.swift in Sources */,
@@ -9579,7 +9594,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.1.1;
+				MARKETING_VERSION = 3.2.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9612,7 +9627,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.1.1;
+				MARKETING_VERSION = 3.2.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9645,7 +9660,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.1.1;
+				MARKETING_VERSION = 3.2.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pioneeringtechventures.cryptox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9677,7 +9692,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.1.1;
+				MARKETING_VERSION = 3.2.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pioneeringtechventures.cryptox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9833,7 +9848,7 @@
 					"$(PROJECT_DIR)/Dependencies",
 				);
 				LOCALIZED_STRING_SWIFTUI_SUPPORT = YES;
-				MARKETING_VERSION = 3.1.1;
+				MARKETING_VERSION = 3.2.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.stagenet;
@@ -9873,7 +9888,7 @@
 					"$(PROJECT_DIR)/Dependencies",
 				);
 				LOCALIZED_STRING_SWIFTUI_SUPPORT = YES;
-				MARKETING_VERSION = 3.1.1;
+				MARKETING_VERSION = 3.2.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.stagenet;

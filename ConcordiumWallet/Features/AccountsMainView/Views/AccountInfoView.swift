@@ -25,7 +25,7 @@ struct AccountInfoView: View {
                         .foregroundColor(.blackAditional)
                         .font(.satoshi(size: 14, weight: .light))
                 }
-                switch viewModel.account.transactionStatus {
+                switch viewModel.account?.transactionStatus {
                 case .absent:
                     Image("problem_icon").resizable().frame(width: 16, height: 16)
                 case .received, .committed:

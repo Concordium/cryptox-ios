@@ -2,7 +2,7 @@
 //  AlertModifier.swift
 //  CryptoX
 //
-//  Created by Zhanna Komar on 05.03.2025.
+//  Created by Zhanna Komar on 07.03.2025.
 //  Copyright © 2025 pioneeringtechventures. All rights reserved.
 //
 

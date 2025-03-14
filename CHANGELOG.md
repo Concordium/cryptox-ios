@@ -1,5 +1,36 @@
 # Changelog
 
+## [Release 3.2.1] Mar 14, 2025
+
+### Fixed
+- Crash while switching/removing/importing accounts
+- Fetching of the account balances
+
+## [Release 3.2.0] Mar 11, 2025
+
+### Fixed
+- Fix Transfer screen amount validation
+- Crash while switching/removing/importing accounts
+- Overall app & UI stability and improvements
+
+### Changed
+- Support Protocol 8
+
+## [Released 3.1.0] Feb 20, 2025
+
+### Changed
+- Home screen design
+- Account Selector design
+- Token detail screen design
+- Token management flow design
+- Account settings update design
+- Send flow design
+- Receive flow design
+- Onramp flow design
+- Transaction history and activity screen design
+- Improved onboarding flow
+- UI transitions and animations
+
 ## [Released 3.1.1] Feb 27, 2025
 
 ### Fixed
@@ -7,6 +38,8 @@
 - Add saving state of the last selected account
 - Removed redundant Bitfinex onramp option
 - Telegram link in the Social section
+- Crash while switching/removing/importing accounts
+- Overall app & UI stability and improvements
 
 ### Changed
 - UI of the Social section on About screen
