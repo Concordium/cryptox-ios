@@ -86,7 +86,7 @@ enum StorageError: Error {
     case nullDataError
 }
 
-class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_body_length
+class StorageManager: StorageManagerProtocol {
     private var realm: Realm
     private var keychain: KeychainWrapperProtocol
 

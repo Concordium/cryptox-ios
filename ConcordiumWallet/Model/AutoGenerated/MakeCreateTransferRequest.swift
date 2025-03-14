@@ -29,6 +29,7 @@ struct MakeCreateTransferRequest: Codable {
     let senderSecretKey: String?
     let inputEncryptedAmount: InputEncryptedAmount?
     let receiverPublicKey: String?
+    let isSuspended: Bool?
 
     enum CodingKeys: String, CodingKey {
         case from = "from"
@@ -52,6 +53,7 @@ struct MakeCreateTransferRequest: Codable {
         case senderSecretKey = "senderSecretKey"
         case inputEncryptedAmount = "inputEncryptedAmount"
         case receiverPublicKey = "receiverPublicKey"
+        case isSuspended = "suspend"
     }
 }
 
@@ -94,7 +96,8 @@ extension MakeCreateTransferRequest {
         global: Global?? = nil,
         senderSecretKey: String?? = nil,
         inputEncryptedAmount: InputEncryptedAmount?? = nil,
-        receiverPublicKey: String?? = nil
+        receiverPublicKey: String?? = nil,
+        isSuspended: Bool
     ) -> MakeCreateTransferRequest {
         return MakeCreateTransferRequest(
             from: from ?? self.from,
@@ -117,7 +120,8 @@ extension MakeCreateTransferRequest {
             global: global ?? self.global,
             senderSecretKey: senderSecretKey ?? self.senderSecretKey,
             inputEncryptedAmount: inputEncryptedAmount ?? self.inputEncryptedAmount,
-            receiverPublicKey: receiverPublicKey ?? self.receiverPublicKey
+            receiverPublicKey: receiverPublicKey ?? self.receiverPublicKey,
+            isSuspended: isSuspended
         )
     }
 

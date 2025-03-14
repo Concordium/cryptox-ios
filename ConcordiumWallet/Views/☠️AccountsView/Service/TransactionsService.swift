@@ -56,6 +56,7 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
         return networkManager.load(request)
     }
     
+
 //    @available(*, deprecated, message: "Use SDK logic instead")
 //    func performTransfer(_ pTransfer: TransferDataType,
 //                         from account: AccountDataType,
@@ -74,6 +75,7 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
 //            return performPublicTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
 //        }
 //    }
+
    
     func getTransactions(for account: AccountDataType, startingFrom: Transaction? = nil) -> AnyPublisher<RemoteTransactions, Error> {
         var params = ["order": "descending"]
@@ -228,6 +230,7 @@ extension TransactionsService {
 //            .eraseToAnyPublisher()
 //    }
     
+
 //    private func performEncryptedTransfer(_ pTransfer: TransferDataType,
 //                                          from account: AccountDataType,
 //                                          requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {

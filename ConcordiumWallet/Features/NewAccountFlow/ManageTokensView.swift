@@ -18,24 +18,23 @@ struct ManageTokensView: View {
     @State var showTokenListUpdated: Bool = false
     @Binding var path: [NavigationPaths]
     @Binding var isNewTokenAdded: Bool
-
+    
     var body: some View {
         ZStack {
-            ScrollView {
-                AccountTokenListView(
-                    viewModel: viewModel,
-                    showManageTokenList: .constant(false),
-                    path: $path,
-                    mode: .manage,
-                    onHideToken: { token in
-                        withAnimation {
-                            isPresentingAlert = true
-                            selectedToken = token
-                        }
+            AccountTokenListView(
+                viewModel: viewModel,
+                showManageTokenList: .constant(false),
+                path: $path,
+                mode: .manage,
+                onHideToken: { token in
+                    withAnimation {
+                        isPresentingAlert = true
+                        selectedToken = token
                     }
-                )
-                .padding(.vertical, 20)
-            }
+                }
+            )
+            .padding(.horizontal, 16)
+            .padding(.top, 20)
             
             if isPresentingAlert {
                 Color.black.opacity(0.8)

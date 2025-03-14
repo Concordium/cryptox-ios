@@ -17,3 +17,34 @@ struct PressedButtonStyle: ButtonStyle {
             .cornerRadius(28)
     }
 }
+
+struct PressedPlainButtonStyle: ButtonStyle {
+    @State private var isPressed: Bool = false
+    var action: () -> Void
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundStyle(isPressed ? .buttonPressed : .white)
+            .onChange(of: configuration.isPressed) { pressed in
+                if pressed {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        if configuration.isPressed {
+                            action()
+                        }
+                    }
+                }
+            }
+    }
+}
+
+struct NoStyleButton: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+    }
+}
+
+extension Button {
+    func noStyle() -> some View {
+        self.buttonStyle(NoStyleButton())
+    }
+}

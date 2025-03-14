@@ -8,10 +8,10 @@
 
 import SwiftUI
 
-struct NewsPageView: View {
+struct NewsPageView<Content: View>: View {
     @Binding var selectedTab: Int
     let spacing: CGFloat = 8
-    let views: () -> [AnyView]
+    let views: () -> [Content]
     
     @State private var dragOffset: CGFloat = 0
     var viewCount: Int { views().count }
