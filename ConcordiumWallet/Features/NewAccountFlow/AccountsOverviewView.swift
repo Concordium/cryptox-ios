@@ -112,10 +112,10 @@ struct AccountsOverviewView: View {
             RoundedRectangle(cornerRadius: 12)
                 .inset(by: 0.5)
                 .stroke(Color.MineralBlue.blueish3, lineWidth: 1)
-                .opacity(account.account.address == viewModel.selectedAccount?.address ? 1 : 0)
+                .opacity(account.account?.address == viewModel.selectedAccount?.address ? 1 : 0)
         )
         .overlay(alignment: .topLeading) {
-            if (account.account.baker?.isSuspended == true || account.account.delegation?.isSuspended == true) || (account.account.baker?.isPrimedForSuspension == true || account.account.delegation?.isPrimedForSuspension == true) {
+            if (account.account?.baker?.isSuspended == true || account.account?.delegation?.isSuspended == true) || (account.account?.baker?.isPrimedForSuspension == true || account.account?.delegation?.isPrimedForSuspension == true) {
                 Circle().fill(.attentionRed)
                     .frame(width: 8, height: 8)
                     .offset(x: 8, y: 8)
