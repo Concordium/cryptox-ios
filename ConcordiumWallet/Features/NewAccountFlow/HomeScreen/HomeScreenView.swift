@@ -66,6 +66,11 @@ struct HomeScreenView: View {
                     await self.viewModel.reload()
                 }
             }
+            .refreshable {
+                Task {
+                    await self.viewModel.reload()
+                }
+            }
             .onTapGesture {
                 showTooltip = false
             }
@@ -115,7 +120,7 @@ struct HomeScreenView: View {
                     if !viewModel.accounts.isEmpty {
                         HStack(spacing: 5) {
                             Image(getDotImageIndex() == 1 ? "Dot1" : "dot\(getDotImageIndex())")
-                            Text("\(viewModel.selectedAccount?.account.displayName ?? "")")
+                            Text("\(viewModel.selectedAccount?.account?.displayName ?? "")")
                                 .font(.satoshi(size: 15, weight: .medium))
                             Image("CaretUpDown")
                                 .resizable()
@@ -170,7 +175,7 @@ struct HomeScreenView: View {
                     }
                 }
                 
-                if viewModel.selectedAccount?.account.baker?.isSuspended == true || viewModel.selectedAccount?.account.delegation?.isSuspended == true {
+                if viewModel.selectedAccount?.account?.baker?.isSuspended == true || viewModel.selectedAccount?.account?.delegation?.isSuspended == true {
                     Button {
                         if let selectedAccount = viewModel.selectedAccount?.account {
                             router?.showEarnFlow(selectedAccount)
@@ -178,7 +183,7 @@ struct HomeScreenView: View {
                     } label: {
                         StakerSuspensionStateView(type: .suspended)
                     }
-                } else if viewModel.selectedAccount?.account.baker?.isPrimedForSuspension == true || viewModel.selectedAccount?.account.delegation?.isPrimedForSuspension == true {
+                } else if viewModel.selectedAccount?.account?.baker?.isPrimedForSuspension == true || viewModel.selectedAccount?.account?.delegation?.isPrimedForSuspension == true {
                     Button {
                         if let selectedAccount = viewModel.selectedAccount?.account {
                             router?.showEarnFlow(selectedAccount)
@@ -253,7 +258,7 @@ struct HomeScreenView: View {
     
     func balanceSection() -> some View {
         VStack(alignment: .leading) {
-            Text("\(balanceDisplayValue(viewModel.selectedAccount?.account.forecastBalance)) CCD")
+            Text("\(balanceDisplayValue(viewModel.selectedAccount?.account?.forecastBalance)) CCD")
                 .contentTransition(.numericText())
                 .frame(alignment: .leading)
                 .font(.plexSans(size: 55, weight: .semibold))
@@ -319,7 +324,7 @@ struct HomeScreenView: View {
                 .buttonStyle(.plain)
                 .overlay(alignment: .topTrailing) {
                     if item.label == "Earn" {
-                        if (viewModel.selectedAccount?.account.baker?.isSuspended == true || viewModel.selectedAccount?.account.delegation?.isSuspended == true) || (viewModel.selectedAccount?.account.baker?.isPrimedForSuspension == true || viewModel.selectedAccount?.account.delegation?.isPrimedForSuspension == true) {
+                        if (viewModel.selectedAccount?.account?.baker?.isSuspended == true || viewModel.selectedAccount?.account?.delegation?.isSuspended == true) || (viewModel.selectedAccount?.account?.baker?.isPrimedForSuspension == true || viewModel.selectedAccount?.account?.delegation?.isPrimedForSuspension == true) {
                             Circle().fill(.attentionRed)
                                 .frame(width: 8, height: 8)
                                 .offset(x: 0, y: 4)
@@ -426,7 +431,7 @@ struct HomeScreenView: View {
     
     private func getDotImageIndex() -> Int {
         guard let selectedAccount = viewModel.selectedAccount else { return 1 }
-        let matchingAcc = viewModel.accountViewModels.first { $0.account.address == selectedAccount.address }
+        let matchingAcc = viewModel.accountViewModels.first { $0.account?.address == selectedAccount.address }
         return matchingAcc?.dotImageIndex ?? 1
     }
     

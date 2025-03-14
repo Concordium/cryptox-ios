@@ -176,6 +176,10 @@ private final class TestIdentity: IdentityDataType {
         .success(())
     }
     
+    func isObjectInvalidated() -> Bool {
+        return false
+    }
+    
     var id: String = UUID().uuidString
     var accountsCreated: Int = 1
     var nickname: String = "test"
@@ -324,5 +328,9 @@ private final class TestAccountDataType: AccountDataType {
     
     func write(code: (TestAccountDataType) -> Void) -> Result<Void, Error> {
         .success(())
+    }
+    
+    func isObjectInvalidated() -> Bool {
+        return false
     }
 }
