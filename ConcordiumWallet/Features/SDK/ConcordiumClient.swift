@@ -10,13 +10,51 @@ import Foundation
 import Concordium
 import BigInt
 
+
+protocol ConcordiumClientProtocol {
+    func transferCIS2(
+        sender: AccountAddress,
+        receiver: AccountAddress,
+        keys: AccountKeys,
+        contractAddress: Concordium.ContractAddress,
+        tokenId: String,
+        amount: BigInt
+    ) async throws -> SubmittedTransaction
+    
+    func transferCCD(
+        sender: AccountAddress,
+        amount: CCD,
+        receiver: AccountAddress,
+        keys: AccountKeys,
+        memo: Concordium.Memo?
+    ) async throws -> SubmittedTransaction
+    
+    func transferToPublic(
+        account: AccountDataType,
+        amount: CCD,
+        receiver: AccountAddress,
+        keys: AccountKeys,
+        pwHash: String
+    ) async throws -> SubmittedTransaction
+}
+
 final class ConcordiumClient: ObservableObject {
+    static var grpcURL: URL {
+#if TESTNET
+        URL(string: "https://grpc.testnet.concordium.com:20000")!
+#elseif MAINNET
+        URL(string: "https://grpc.testnet.concordium.com:20000")!
+#else // Staging
+        URL(string: "https://grpc.testnet.concordium.com:20000")!
+#endif
+    }
+    
     private let nodeClient: GRPCNodeClient
     var networkManager: NetworkManagerProtocol
     private let storageManager: StorageManagerProtocol
     
     init(networkManager: NetworkManagerProtocol, storageManager: StorageManagerProtocol) throws {
-        self.nodeClient = try GRPCNodeClient(url: URL(string: "https://grpc.testnet.concordium.com:20000")!)
+        self.nodeClient = try GRPCNodeClient(url: Self.grpcURL)
         self.networkManager = networkManager
         self.storageManager = storageManager
         Task {
@@ -27,10 +65,6 @@ final class ConcordiumClient: ObservableObject {
                 print("ska error -- \(error)")
             }
         }
-    }
-    
-    func fetchKeys() -> AccountKeys {
-        try! AccountKeys("")
     }
     
     func getAccountInfo(address: String) async throws -> AccountInfo {
@@ -235,10 +269,12 @@ extension ConcordiumClient {
 //    }
 //}
 
+
+
 ///
 /// CIS-2 Token
 ///
-extension ConcordiumClient {
+extension ConcordiumClient: ConcordiumClientProtocol {
     func transferCIS2(
         sender: AccountAddress,
         receiver: AccountAddress,
@@ -317,25 +353,13 @@ extension ConcordiumClient {
             .mapError { $0 as Error }
     }
     
-    
-    /// Internal
-    func send(sender: AccountAddress, amount: CCD, receiver: AccountAddress, keys: AccountKeys, memo: Concordium.Memo?) async throws -> SubmittedTransaction {
-        let accountInfo = try await nodeClient.info(account: AccountIdentifier.address(sender))
-        let transaction: AccountTransaction = AccountTransaction.transfer(sender: sender, receiver: receiver, amount: amount, memo: memo)
-        let expiry: TransactionTime = Self.calculateTransactionExpiry(from: UInt64(Date().timeIntervalSince1970))
-        let sequenceNumber: SequenceNumber = accountInfo.sequenceNumber
-        let preparedAccountTransaction: PreparedAccountTransaction = transaction.prepare(sequenceNumber: sequenceNumber, expiry: expiry, signatureCount: Int(accountInfo.threshold))
-    
-        return try await send(preparedAccountTransaction, keys: keys)
-    }
-    
     private func send(_ preparedAccountTransaction: PreparedAccountTransaction, keys: AccountKeys) async throws -> SubmittedTransaction {
         let signer: any Signer = AccountKeysCurve25519.init(try keys.toAccountKeysJSON().toSDKType().keys)
         let signedAccountTransaction: SignedAccountTransaction = try signer.sign(transaction: preparedAccountTransaction)
         return try await nodeClient.send(transaction: signedAccountTransaction)
     }
     
-    // MARK: Encrypted Amount calculation helpers
+    // MARK: - Encrypted Amount calculation helpers
     private func getInputEncryptedAmount(for account: AccountDataType) -> InputEncryptedAmount {
         var index: Int
         let aggEncryptedAmount: String?
