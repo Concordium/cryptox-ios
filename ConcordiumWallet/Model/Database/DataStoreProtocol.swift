@@ -8,6 +8,7 @@ import RealmSwift
 
 protocol DataStoreProtocol {
     func write(code: (Self) -> Void) -> Result<Void, Error>
+    func isObjectInvalidated() -> Bool
 }
 
 extension DataStoreProtocol where Self: Object {
@@ -21,5 +22,9 @@ extension DataStoreProtocol where Self: Object {
         } catch {
             return .failure(error)
         }
+    }
+    
+    func isObjectInvalidated() -> Bool {
+        return self.isInvalidated
     }
 }
