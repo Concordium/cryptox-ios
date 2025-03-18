@@ -12,7 +12,7 @@ import SwiftUI
 
 enum DelegationStakingMode: String {
     case passive = "Passive delegation"
-    case validatorPool = "Targeted delegation"
+    case validatorPool = "Validator pool"
 }
 
 class DelegationStakingModeViewModel: ObservableObject {
@@ -237,7 +237,7 @@ class DelegationStakingModeViewModel: ObservableObject {
                         }
                     } receiveValue: { transferCost in
                         let cost = GTU(intValue: Int(transferCost.cost) ?? 0)
-//                        self.delegate?.switchToRemoveDelegator(cost: cost, energy: transferCost.energy)
+                        self.delegate?.switchToRemoveDelegator(cost: cost, energy: transferCost.energy)
                     }
                     .store(in: &self.cancellables)
 

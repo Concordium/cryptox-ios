@@ -17,20 +17,21 @@ struct EarnMainView: View {
 
     var body: some View {
         VStack(alignment: .center, spacing: 40) {
+            VStack(alignment: .leading, spacing: 8) {
                 VStack(alignment: .leading, spacing: 17) {
                     HStack(spacing: 0) {
                         Text("earn.info.title.part1".localized + " ")
                             .font(.satoshi(size: 16, weight: .heavy))
                             .foregroundStyle(.white)
                         Text(
-                            String(format: "earn.info.title.part2".localized, "4-6%"))
+                            String(format: "earn.info.title.part2".localized, "5%"))
                         .font(.satoshi(size: 16, weight: .heavy))
                         .foregroundStyle(.success)
                         Text("earn.info.title.part3".localized)
                             .font(.satoshi(size: 16, weight: .heavy))
                             .foregroundStyle(.white)
                     }
-
+                    
                     descView()
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
@@ -38,7 +39,11 @@ struct EarnMainView: View {
                 .padding(.horizontal, 18)
                 .background(.grey2.opacity(0.3))
                 .cornerRadius(12)
-
+                
+                Text("apy.additional.info".localized)
+                    .font(.satoshi(size: 12, weight: .regular))
+                    .foregroundStyle(Color.MineralBlue.blueish2.opacity(0.6))
+            }
             Button {
                 validatorPressed = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {

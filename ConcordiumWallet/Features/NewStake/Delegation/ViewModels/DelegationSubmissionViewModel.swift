@@ -42,7 +42,7 @@ final class DelegationSubmissionViewModel: StakeReceiptViewModel, ObservableObje
     
     var submitTransactionDetailsSection: (title: String, subtitle: String?) {
         if isStopDelegation {
-            return ("delegation.receiptconfirmation.title.remove".localized, nil)
+            return ("stop.staking".localized, nil)
         }
         return ("", "")
     }
@@ -119,7 +119,7 @@ fileprivate extension StakeReceiptViewModel {
             successTransactionText = "delegation.update.success".localized
         } else if isRemoving {
             title = "delegation.receiptconfirmation.title.remove".localized
-            sliderButtonText = "submit".localized
+            sliderButtonText = "baking.menu.stopbaking".localized
             inProgressTransactionText = "delegation.stop.in.progress".localized
             failedTransactionText = "delegation.stop.failed".localized
             successTransactionText = "delegation.stop.success".localized

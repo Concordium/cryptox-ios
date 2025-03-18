@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct NewsPageView<Content: View>: View {
+struct CarouselPageView<Content: View>: View {
     @Binding var selectedTab: Int
     let spacing: CGFloat = 8
     let views: () -> [Content]

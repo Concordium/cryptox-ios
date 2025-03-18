@@ -70,9 +70,20 @@ struct DelegationStakingModeView: View {
                         .frame(alignment: .leading)
                 }
                 
-                Text("delegation.staking.mode.validator.pool.desc".localized)
-                    .font(.satoshi(size: 12, weight: .regular))
-                    .foregroundStyle(Color.MineralBlue.blueish2)
+                Group {
+                    Text("delegation.staking.mode.validator.pool.desc".localized)
+                        .font(.satoshi(size: 12, weight: .regular))
+                        .foregroundColor(Color.MineralBlue.blueish2)
+                    + Text("delegation.staking.mode.ccdScan".localized)
+                        .font(.satoshi(size: 12, weight: .regular))
+                        .foregroundColor(Color.MineralBlue.blueish2)
+                        .underline(color: Color.MineralBlue.blueish2)
+                }
+                .onTapGesture {
+                    if let url = URL(string: "https://ccdscan.io/staking") {
+                        UIApplication.shared.open(url)
+                    }
+                }
             }
             Spacer()
             RoundedButton(action: {

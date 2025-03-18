@@ -27,7 +27,7 @@ struct DelegationSubmissionView: View {
                             Image("ArrowRight")
                                 .rotationEffect(.degrees(90))
                             if let mode = viewModel.stakingMode {
-                                Text(mode.rawValue)
+                                Text(mode == .validatorPool ? "delegation.targeted.delegation" .localized : mode.rawValue)
                                     .font(.satoshi(size: 15, weight: .medium))
                                     .foregroundStyle(.white)
                             }

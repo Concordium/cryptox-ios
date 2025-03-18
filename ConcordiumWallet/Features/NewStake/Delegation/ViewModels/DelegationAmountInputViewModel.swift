@@ -451,6 +451,7 @@ private extension TransferCost {
 
 extension DelegationAmountInputViewModel: DelegationPoolSelectionDelegate {
     func switchToRemoveDelegator(cost: GTU, energy: Int) {
+        navigationManager.pop()
         withAnimation {
             self.showAlert = true
         }

@@ -37,6 +37,10 @@ struct TokenBalanceView: View {
                     balanceSection()
                         .padding(.horizontal, 18)
                     accountActionButtonsSection()
+                    if case .ccd = token, selectedAccount.delegation != nil {
+                        earnStatusView()
+                            .padding(.horizontal, 18)
+                    }
                     TokenDetailsView(token: token, showRawMd: $showRawMdPopup)
                     if token.name != "ccd" {
                         HStack(spacing: 8) {
@@ -251,5 +255,53 @@ struct TokenBalanceView: View {
             actionItems.append(activityAction)
         }
         return actionItems
+    }
+    
+    private func earnStatusView() -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 8) {
+                Image("Percent")
+                Text("earning".localized)
+                    .font(.satoshi(size: 16, weight: .bold))
+                    .foregroundStyle(.white)
+            }
+            HStack {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("staked.balance".localized)
+                        .font(.satoshi(size: 12, weight: .regular))
+                        .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
+                    Text(selectedAccount.stakedAmount.displayValueWithCCDStroke())
+                        .font(.satoshi(size: 12, weight: .medium))
+                        .foregroundStyle(.white)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("apy".localized)
+                        .font(.satoshi(size: 12, weight: .regular))
+                        .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
+                    Text("~4%")
+                        .font(.satoshi(size: 12, weight: .medium))
+                        .foregroundStyle(.greenMain)
+                }
+                .frame(maxWidth: .infinity)
+                if let data = selectedAccount.delegation?.delegationTargetType {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("mode".localized)
+                            .font(.satoshi(size: 12, weight: .regular))
+                            .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
+                        Text(data == "Baker" ? "validator.pool".localized : data)
+                            .font(.satoshi(size: 12, weight: .medium))
+                            .foregroundStyle(.white)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+        }
+        .padding(14)
+        .background(.grey3.opacity(0.3))
+        .cornerRadius(12)
+        .frame(maxWidth: .infinity)
     }
 }

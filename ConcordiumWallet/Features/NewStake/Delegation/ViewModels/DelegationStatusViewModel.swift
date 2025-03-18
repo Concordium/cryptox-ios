@@ -25,6 +25,7 @@ final class DelegationStatusViewModel: ObservableObject {
     @Published var isRegistered: Bool = false
     @Published var isSuspended: Bool = false
     @Published var isPrimedForSuspension: Bool = false
+    @Published var hasUnfinishedTransactions: Bool = false
 
     private var dataHandler: StakeDataHandler?
     private let account: AccountDataType
@@ -176,8 +177,11 @@ extension DelegationStatusViewModel {
         hasUnfinishedTransaction: Bool
     ) {
         setup(dataHandler: DelegationDataHandler(account: account, isRemoving: false))
+        isSuspended = account.delegation?.isSuspended ?? false
+        isPrimedForSuspension = account.delegation?.isPrimedForSuspension ?? false
         title = "delegation.status.title".localized
         topImageName = "confirm"
+        hasUnfinishedTransactions = hasUnfinishedTransaction
         if hasUnfinishedTransaction {
             topImageName = "logo_rotating_arrows"
             topText = "delegation.status.waiting.header".localized

@@ -1311,7 +1311,7 @@ Remember to restart your node with the validator keys.";
 "transaction.status.success" = "You've sent";
 "transaction.status.failed" = "Transaction failed to send";
 
-"earn.info.title.part1" = "Earn";
+"earn.info.title.part1" = "Earn up to";
 "earn.info.title.part2" = "%@ APY";
 "earn.info.title.part3" = " on your CCD";
 "earn.info.part1.title" = "Get rewarded for staking";
@@ -1417,7 +1417,8 @@ Remember to restart your node with the validator keys.";
 "submit" = "Submit";
 
 "delegation.staking.desc" = "You can delegate to an open pool of your choice, or you can stake using passive delegation.";
-"delegation.staking.mode.validator.pool.desc" = "If you don’t already know which validator pool you want to delegate an amount to, you can look for on ccdscan.io/staking";
+"delegation.staking.mode.validator.pool.desc" = "If you don’t already know which validator pool you want to delegate an amount to, you can look for on ";
+"delegation.staking.mode.ccdScan" = "ccdscan.io/staking";
 "delegation.staking.mode.passive" = "Passive delegation";
 "delegation.staking.mode.validator.pool" = "Validator pool";
 "delegation.staking.mode" = "Staking mode";
@@ -1435,8 +1436,18 @@ Remember to restart your node with the validator keys.";
 "delegation.update.failed" = "Failed to update delegation settings";
 "delegation.update.in.progress" = "Updating delegation settings is in progress";
 
-"delegation.stop.success" = "You submitted a transaction to stop your delegation";
-"delegation.stop.in.progress" = "Transaction to stop delegation is being submitted";
-"delegation.stop.failed" = "Failed to submit transaction to stop delegation";
+"delegation.stop.success" = "You submitted a transaction to stop your staking";
+"delegation.stop.in.progress" = "Transaction to stop staking is being submitted";
+"delegation.stop.failed" = "Failed to submit transaction to stop staking";
 
 "delegation.submit.delegation" = "Submit delegation";
+"delegation.suspended.title" = "Your validator has been suspended";
+"delegation.suspended.desc" = "Your delegation amount does not earn rewards until validation is resumed.";
+"delegation.targeted.delegation" = "Targeted delegation";
+"stop.staking" = "Stop staking";
+"earning" = "Earning";
+"staked.balance" = "Staked balance";
+"apy" = "APY";
+"mode" = "Mode";
+"staking.carousel.desc" = "Stake your CCD and earn rewards";
+"apy.additional.info" = "Estimated APY based on past results. Actual returns may vary.";

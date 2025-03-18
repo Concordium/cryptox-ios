@@ -46,23 +46,41 @@ struct EarnReadMoreView: View {
                     }
                 }
             }
-            Button {
-                guard let account = account as? AccountEntity else { return }
-                let handler = BakerDataHandler(account: account, action: .register)
-                let viewModel = ValidatorAmountInputViewModel(
-                        account: handler.account,
-                        dependencyProvider: ServicesProvider.defaultProvider(),
-                        dataHandler: handler,
-                        navigationManager: navigationManager
-                    )
-                navigationManager.navigate(to: .amountInput(viewModel))
-            } label: {
-                Text("earn.start".localized)
-                    .font(Font.satoshi(size: 15, weight: .medium))
-                    .padding(.horizontal, 24)
-                    .frame(maxWidth: .infinity)
+            switch mode {
+            case .validator:
+                Button {
+                    guard let account = account as? AccountEntity else { return }
+                    let handler = BakerDataHandler(account: account, action: .register)
+                    let viewModel = ValidatorAmountInputViewModel(
+                            account: handler.account,
+                            dependencyProvider: ServicesProvider.defaultProvider(),
+                            dataHandler: handler,
+                            navigationManager: navigationManager
+                        )
+                    navigationManager.navigate(to: .amountInput(viewModel))
+                } label: {
+                    Text("earn.start".localized)
+                        .font(Font.satoshi(size: 15, weight: .medium))
+                        .padding(.horizontal, 24)
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(PressedButtonStyle())
+            case .delegation:
+                Button {
+                    guard let account = account as? AccountEntity else { return }
+                    let handler = DelegationDataHandler(account: account, isRemoving: false)
+                    let viewModel = DelegationAmountInputViewModel(account: account,
+                                                                   dataHandler: handler,
+                                                                   navigationManager: navigationManager)
+                    navigationManager.navigate(to: .delegationAmountInput(viewModel))
+                } label: {
+                    Text("earn.start".localized)
+                        .font(Font.satoshi(size: 15, weight: .medium))
+                        .padding(.horizontal, 24)
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(PressedButtonStyle())
             }
-            .buttonStyle(PressedButtonStyle())
         }
         .padding(.horizontal, 18)
         .padding(.top, 20)
