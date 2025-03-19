@@ -22,6 +22,7 @@ struct ButtonsGroup: View {
             ForEach(Array(actionItems.enumerated()), id: \.offset) { (index, item) in
                 VStack {
                     Image(item.iconName)
+                        .renderingMode(.template)
                         .frame(width: 24, height: 24)
                         .padding(11)
                         .background(selectedActionId == index ? .grey4 : .grey3)

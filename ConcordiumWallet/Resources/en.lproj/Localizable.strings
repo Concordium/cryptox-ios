@@ -1451,3 +1451,4 @@ Remember to restart your node with the validator keys.";
 "mode" = "Mode";
 "staking.carousel.desc" = "Stake your CCD and earn rewards";
 "apy.additional.info" = "Estimated APY based on past results. Actual returns may vary.";
+"earn" = "Earn";

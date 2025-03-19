@@ -225,26 +225,26 @@ struct NavigationDestinationBuilder: ViewModifier {
                             })
                     case .delegationAmountInput(let viewModel):
                         DelegationAmountInputView(viewModel: viewModel)
-                            .modifier(NavigationViewModifier(title: "earn.info.title.part1".localized) {
+                            .modifier(NavigationViewModifier(title: "earn".localized) {
                                 navigationManager.pop()
                             })
                             .onAppear { notifyTabBarHidden(true) }
                     case .delegationStakingMode(let viewModel):
                         DelegationStakingModeView(viewModel: viewModel)
-                            .modifier(NavigationViewModifier(title: "earn.info.title.part1".localized) {
+                            .modifier(NavigationViewModifier(title: "earn".localized) {
                                 navigationManager.pop()
                             })
                             .onAppear { notifyTabBarHidden(true) }
                     case .delegationRequestConfirmation(let viewModel):
                         DelegationSubmissionView(viewModel: viewModel)
                             .environmentObject(navigationManager)
-                            .modifier(NavigationViewModifier(title: "earn.info.title.part1".localized) {
+                            .modifier(NavigationViewModifier(title: "earn".localized) {
                                 navigationManager.pop()
                             })
                             .onAppear { notifyTabBarHidden(true) }
                     case .delegationTransactionStatus(let viewModel):
                         DelegationTransactionStatusView(viewModel: viewModel)
-                            .modifier(NavigationViewModifier(title: "earn.info.title.part1".localized) {
+                            .modifier(NavigationViewModifier(title: "earn".localized) {
                                 navigationManager.pop()
                             })
                             .onAppear { notifyTabBarHidden(true) }
@@ -297,7 +297,7 @@ struct NavigationDestinationBuilder: ViewModifier {
                                                             navigationManager: navigationManager)
             DelegationStatusView(viewModel: statusViewModel)
                 .environmentObject(navigationManager)
-                .modifier(NavigationViewModifier(title: "earn.info.title.part1".localized) {
+                .modifier(NavigationViewModifier(title: "earn".localized) {
                     navigationManager.pop()
                 })
                 .onAppear {

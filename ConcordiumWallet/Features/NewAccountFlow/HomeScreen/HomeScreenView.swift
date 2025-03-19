@@ -208,11 +208,11 @@ struct HomeScreenView: View {
                             .foregroundStyle(.white)
                     }
                 }
-                if viewModel.selectedAccount?.account?.delegation != nil {
-                    if isShouldShowOnrampMessage {
+                if  viewModel.selectedAccount?.account?.forecastBalance == 0,
+                    viewModel.selectedAccount?.account?.delegation != nil,
+                    isShouldShowOnrampMessage {
                         OnrampView
-                    }
-                } else {
+                } else if viewModel.selectedAccount?.account?.delegation == nil {
                     EarnView
                 }
                 

@@ -244,7 +244,8 @@ struct TokenBalanceView: View {
             })
             actionItems.insert(buyAction, at: 0)
             let earnAction = ActionItem(iconName: "Percent", label: "Earn", action: {
-                router?.showEarnFlow(selectedAccount)
+                guard let account = viewModel.account as? AccountEntity else { return }
+                path.append(.earn(account))
             })
             actionItems.insert(earnAction, at: 3)
             let activityAction = ActionItem(iconName: "activity", label: "Activity", action: {
