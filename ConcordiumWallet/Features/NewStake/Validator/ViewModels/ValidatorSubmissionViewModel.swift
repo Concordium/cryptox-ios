@@ -22,6 +22,7 @@ final class ValidatorSubmissionViewModel: StakeReceiptViewModel, ObservableObjec
     private var energy: Int?
     private var cancellables = Set<AnyCancellable>()
     private let passwordDelegate: RequestPasswordDelegate
+    private var receiptType: BakerPoolReceiptType
 
     var transactionStatusLabel: String {
         withAnimation(.easeInOut(duration: 1)) {
@@ -53,9 +54,10 @@ final class ValidatorSubmissionViewModel: StakeReceiptViewModel, ObservableObjec
         self.transactionService = dependencyProvider.transactionsService()
         self.storageManager = dependencyProvider.storageManager()
         self.passwordDelegate = DummyRequestPasswordDelegate()
+        self.receiptType = .init(dataHandler: dataHandler)
         super.init(dataHandler: dataHandler, account: dataHandler.account)
         self.amountDisplay = dataHandler.getCurrentAmount()?.displayValueWithTwoNumbersAfterDecimalPoint() ?? "0.00"
-        setup(with: .init(dataHandler: dataHandler))
+        setup(with: receiptType)
         getTransactionCost()
     }
     
@@ -157,23 +159,63 @@ final class ValidatorSubmissionViewModel: StakeReceiptViewModel, ObservableObjec
                 self.isTransactionExecuting = false
             }).store(in: &cancellables)
     }
-    
-    private func stopValidationAlertOptions(completion: @escaping () -> Void) -> SwiftUIAlertOptions {
+
+    private func alertOptions(with receiptType: BakerPoolReceiptType, completion: @escaping () -> Void) -> SwiftUIAlertOptions {
         let okAction = SwiftUIAlertAction(
             name: "baking.nochanges.ok".localized,
             completion: completion,
             style: .styled
         )
-        return SwiftUIAlertOptions(
-            title: "baking.nochanges.title".localized,
-            message: storageManager.getChainParams().formattedPoolOwnerCooldown,
-            actions: [okAction]
-        )
+        
+        switch receiptType {
+        case .remove:
+            return SwiftUIAlertOptions(
+                title: "baking.nochanges.title".localized,
+                message: storageManager.getChainParams().formattedPoolOwnerCooldown,
+                actions: [okAction]
+            )
+            
+        case .register, .suspend, .resume:
+            return SwiftUIAlertOptions(
+                title: "baking.receiptregister.title".localized,
+                message: "baking.receiptregister.message".localized,
+                actions: [okAction]
+            )
+        case .updatePool:
+            return SwiftUIAlertOptions(
+                title: "baking.receiptupdatepool.title".localized,
+                message: "baking.receiptupdatepool.message".localized,
+                actions: [okAction]
+            )
+        case .updateKeys:
+            return SwiftUIAlertOptions(
+                title: "baking.receiptupdatekeys.title".localized,
+                message: "baking.receiptupdatekeys.message".localized,
+                actions: [okAction]
+            )
+        case .updateStake(let isLoweringStake):
+            if isLoweringStake {
+                return SwiftUIAlertOptions(
+                    title: "baking.receiptlowering.title".localized,
+                    message: String(
+                        format: "baking.receiptlowering.message".localized,
+                        storageManager.getChainParams().formattedPoolOwnerCooldown
+                    ),
+                    actions: [okAction]
+                )
+            } else {
+                return SwiftUIAlertOptions(
+                    title: "baking.receiptupdatestake.title".localized,
+                    message: "baking.receiptupdatestake.message".localized,
+                    actions: [okAction]
+                )
+            }
+        }
     }
     
     func closeTapped(completion: @escaping () -> Void) {
-        if !isTransactionExecuting && error == nil && isStopValidation {
-            alertOptions = stopValidationAlertOptions(completion: completion)
+        if !isTransactionExecuting && error == nil {
+            alertOptions = alertOptions(with: receiptType, completion: completion)
             withAnimation {
                 showAlert = true
             }
@@ -186,6 +228,6 @@ final class ValidatorSubmissionViewModel: StakeReceiptViewModel, ObservableObjec
 private extension Optional where Wrapped == ChainParametersEntity {
     var formattedPoolOwnerCooldown: String {
         let cooldown = GeneralFormatter.secondsToDays(seconds: self?.poolOwnerCooldown ?? 0)
-        return String(format: "validation.stop.message".localized, cooldown)
+        return String(format: "validation.stop.message".localized, cooldown.string)
     }
 }

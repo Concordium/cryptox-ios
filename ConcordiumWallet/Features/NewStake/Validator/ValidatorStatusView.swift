@@ -15,23 +15,25 @@ struct ValidatorStatusView: View {
     @SwiftUI.Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 14) {
-            if viewModel.isRegistered {
-                if viewModel.isSuspended || viewModel.isPrimedForSuspension {
-                    suspendedStatusView()
+        ScrollView {
+            VStack(alignment: .leading, spacing: 14) {
+                if viewModel.isRegistered {
+                    if viewModel.isSuspended || viewModel.isPrimedForSuspension {
+                        suspendedStatusView()
+                    }
+                    ButtonsGroup(actionItems: viewModel.actionItems())
+                    StakeDetailsView(rows: viewModel.rows)
+                    cooldownsSectionView
+                } else {
+                    HStack(spacing: 8) {
+                        Text(viewModel.topText)
+                            .font(.satoshi(size: 15, weight: .medium))
+                            .foregroundStyle(.white)
+                        Image(viewModel.topImageName)
+                    }
                 }
-                ButtonsGroup(actionItems: viewModel.actionItems())
-                StakeDetailsView(rows: viewModel.rows)
-                cooldownsSectionView
-            } else {
-                HStack(spacing: 8) {
-                    Text(viewModel.topText)
-                        .font(.satoshi(size: 15, weight: .medium))
-                        .foregroundStyle(.white)
-                    Image(viewModel.topImageName)
-                }
+                Spacer()
             }
-            Spacer()
         }
         .onAppear(perform: startUpdateTimer)
         .onDisappear(perform: stopUpdateTimer)

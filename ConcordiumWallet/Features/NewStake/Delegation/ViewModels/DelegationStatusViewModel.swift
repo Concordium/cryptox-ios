@@ -183,7 +183,7 @@ extension DelegationStatusViewModel {
         topImageName = "confirm"
         hasUnfinishedTransactions = hasUnfinishedTransaction
         if hasUnfinishedTransaction {
-            topImageName = "logo_rotating_arrows"
+            topImageName = "ArrowsClockwise"
             topText = "delegation.status.waiting.header".localized
             placeholderText = "delegation.status.waiting.placeholder".localized
             updateButtonEnabled = false

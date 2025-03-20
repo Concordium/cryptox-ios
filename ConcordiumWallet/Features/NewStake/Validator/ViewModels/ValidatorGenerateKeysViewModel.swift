@@ -20,13 +20,14 @@ class ValidatorGenerateKeysViewModel: ObservableObject {
     @Published private(set) var aggregationKeyContent: String
     @Published var fileToShare: URL?
     @Published var showShareSheet = false
-    
+    @Published var showAlert = false
     @Published var dataHandler: BakerDataHandler
     let keyResult: Result<GeneratedBakerKeys, Error>
     private let transactionService: TransactionsServiceProtocol
     private let stakeService: StakeServiceProtocol
     private let exportService: ExportService
     private let account: AccountDataType
+    let alertOptionsForKeys: SwiftUIAlertOptions
     
     init(dataHandler: BakerDataHandler,
          account: AccountDataType,
@@ -52,6 +53,9 @@ class ValidatorGenerateKeysViewModel: ObservableObject {
             signatureKeyContent = ""
             aggregationKeyContent = ""
         }
+        self.alertOptionsForKeys = SwiftUIAlertOptions(title: nil, message: "baking.generatekeys.notice.message".localized, actions: [
+            SwiftUIAlertAction(name: "continue_btn_title".localized, completion: nil, style: .styled)
+        ])
     }
     
     func handleExport() {

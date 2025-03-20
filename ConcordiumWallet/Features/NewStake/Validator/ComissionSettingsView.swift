@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ComissionSettingsView: View {
     @StateObject var viewModel: ValidatorCommissionSettingsViewModel
-    let sliderStep = 1e-3
+    let sliderStep = 1e-5
     let formatter: NumberFormatter = .commissionFormatter
     @EnvironmentObject private var navigationManager: NavigationManager
 

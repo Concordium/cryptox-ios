@@ -61,6 +61,7 @@ struct AlertView: View {
                     .font(.satoshi(size: 15, weight: .regular))
                     .multilineTextAlignment(.leading)
                     .foregroundStyle(.grey1)
+                    .frame(maxWidth: .infinity)
             }
             VStack(spacing: 16) {
                 if let actions = alertOptions?.actions {
@@ -103,7 +104,7 @@ struct AlertView: View {
                 }
             }
         }
-        .padding(.horizontal, 60)
+        .padding(.horizontal, 40)
         .padding(.top, 60)
         .padding(.bottom, 30)
         .frame(alignment: .top)

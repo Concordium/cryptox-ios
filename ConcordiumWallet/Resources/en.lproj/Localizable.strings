@@ -1410,7 +1410,7 @@ Remember to restart your node with the validator keys.";
 "validation.status.primed.for.suspension.desc" = "Your node was inactive for a number of hours. If it has been inactive for too long it will be suspended. Suspended nodes don’t earn rewards.\n\nTo prevent suspension ensure your node is up-to-date and active. Once your node is active you will no longer be primed for suspension.";
 
 "important" = "Important";
-"validation.alert.suspend.desc" = "You are about to self-suspend your validation. \n\nPlease be aware that:\n\n • Suspended nodes don’t earn rewards \n • Your delegators will stop earning rewards \n • Your delegators will be notified about the suspension";
+"validation.alert.suspend.desc" = "You are about to self-suspend your validation.\n\nPlease be aware that:\n\n\t • Suspended nodes don’t earn rewards \n\t • Your delegators will stop earning rewards \n\t • Your delegators will be notified about the suspension";
 
 "effective.from" = "Effective from next payday";
 "resume.validation" = "Resume validation";
@@ -1428,7 +1428,7 @@ Remember to restart your node with the validator keys.";
 "delegation.stop.alert.title" = "Stop earning";
 "delegation.stop.alert.message" = "If you decide to stop your delegation, a cool-down period applies.\n\nAt the end of the cool-down period, the delegated amount is unlocked on your public balance, and the funds will be at disposal again.";
 
-"delegation.registered.success" = "Your delegation is registered";
+"delegation.registered.success" = "You are delegating";
 "delegation.registered.failed" = "Failed to register delegation";
 "delegation.registered.in.progress" = "Your delegation is in progress";
 

@@ -266,8 +266,12 @@ struct NavigationDestinationBuilder: ViewModifier {
     @ViewBuilder
     func showEarn(account: AccountEntity) -> some View {
         
+        let transfers = self.dependencyProvider.storageManager().getTransfers(for: account.address).filter { transfer in
+            transfer.transferType.isDelegationTransfer
+        }
+        
         // Check if the account has a baker or delegation
-        if account.baker == nil && account.delegation == nil {
+        if account.baker == nil && account.delegation == nil && transfers.count == 0 {
             // If no baker or delegation, show the main earn view
             
             EarnMainView(account: account)
@@ -291,7 +295,7 @@ struct NavigationDestinationBuilder: ViewModifier {
                 .onAppear {
                     notifyTabBarHidden(true)
                 }
-        } else if account.delegation != nil {
+        } else if account.delegation != nil || transfers.count > 0 {
             let statusViewModel = DelegationStatusViewModel(account: account,
                                                             dependencyProvider: dependencyProvider,
                                                             navigationManager: navigationManager)

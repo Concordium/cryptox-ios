@@ -12,7 +12,6 @@ struct ValidatorGenerateKeysView: View {
     @State private var exportPressed: Bool = false
     @ObservedObject var viewModel: ValidatorGenerateKeysViewModel
     @EnvironmentObject private var navigationManager: NavigationManager
-
     var pressedButtonColor: Color {
         exportPressed ? Color.buttonPressed : .white
     }
@@ -56,10 +55,14 @@ struct ValidatorGenerateKeysView: View {
                 }
             }
         })
+        .onAppear {
+            viewModel.showAlert = true
+        }
         .padding(.horizontal, 18)
         .padding(.top, 40)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .modifier(AppBackgroundModifier())
+        .modifier(AlertModifier(alertOptions: viewModel.alertOptionsForKeys, isPresenting: $viewModel.showAlert))
     }
     
     private func keySection(title: String, key: String) -> some View {

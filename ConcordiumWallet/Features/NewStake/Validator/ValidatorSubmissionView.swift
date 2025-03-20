@@ -19,9 +19,11 @@ struct ValidatorSubmissionView: View {
                     specialStatesValidationSection()
                 } else {
                     VStack(alignment: .leading, spacing: 24) {
-                        Text(viewModel.text ?? "")
-                            .font(.satoshi(size: 12, weight: .medium))
-                            .foregroundStyle(Color.MineralBlue.blueish2)
+                        if let text = viewModel.text {
+                            Text(text)
+                                .font(.satoshi(size: 12, weight: .medium))
+                                .foregroundStyle(Color.MineralBlue.blueish2)
+                        }
                         
                         VStack(alignment: .leading, spacing: 6) {
                             ForEach(viewModel.rows, id: \.id) { row in

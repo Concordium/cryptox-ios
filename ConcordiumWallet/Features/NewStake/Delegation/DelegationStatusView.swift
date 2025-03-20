@@ -15,23 +15,25 @@ struct DelegationStatusView: View {
     @SwiftUI.Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 14) {
-            if viewModel.hasUnfinishedTransactions {
-                HStack(spacing: 8) {
-                    Text(viewModel.topText)
-                        .font(.satoshi(size: 15, weight: .medium))
-                        .foregroundStyle(.white)
-                    Image(viewModel.topImageName)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 14) {
+                if viewModel.hasUnfinishedTransactions {
+                    HStack(spacing: 8) {
+                        Text(viewModel.topText)
+                            .font(.satoshi(size: 15, weight: .medium))
+                            .foregroundStyle(.white)
+                        Image(viewModel.topImageName)
+                    }
+                } else {
+                    if viewModel.isSuspended || viewModel.isPrimedForSuspension {
+                        suspendedStatusView()
+                    }
+                    ButtonsGroup(actionItems: viewModel.actionItems())
+                    StakeDetailsView(rows: viewModel.rows)
+                    cooldownsSectionView
                 }
-            } else {
-                if viewModel.isSuspended || viewModel.isPrimedForSuspension {
-                    suspendedStatusView()
-                }
-                ButtonsGroup(actionItems: viewModel.actionItems())
-                StakeDetailsView(rows: viewModel.rows)
-                cooldownsSectionView
+                Spacer()
             }
-            Spacer()
         }
         .onAppear(perform: startUpdateTimer)
         .onDisappear(perform: stopUpdateTimer)

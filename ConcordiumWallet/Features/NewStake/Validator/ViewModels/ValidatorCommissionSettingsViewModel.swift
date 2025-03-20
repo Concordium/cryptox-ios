@@ -15,6 +15,7 @@ extension NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.multiplier = 100
+        formatter.minimumFractionDigits = 3
         formatter.maximumFractionDigits = 3
         return formatter
     }

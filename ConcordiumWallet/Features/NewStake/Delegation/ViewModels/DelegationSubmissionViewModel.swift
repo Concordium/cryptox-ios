@@ -97,6 +97,30 @@ final class DelegationSubmissionViewModel: StakeReceiptViewModel, ObservableObje
             }
         }
     }
+    
+    private func stopValidationAlertOptions(completion: @escaping () -> Void) -> SwiftUIAlertOptions {
+        let okAction = SwiftUIAlertAction(
+            name: "baking.nochanges.ok".localized,
+            completion: completion,
+            style: .styled
+        )
+        return SwiftUIAlertOptions(
+            title: "delegation.receiptremove.title".localized,
+            message: storeManager.getChainParams().formattedDelegatorCooldown,
+            actions: [okAction]
+        )
+    }
+    
+    func closeTapped(completion: @escaping () -> Void) {
+        if !isTransactionExecuting && error == nil && isStopDelegation {
+            alertOptions = stopValidationAlertOptions(completion: completion)
+            withAnimation {
+                showAlert = true
+            }
+        } else {
+            completion()
+        }
+    }
 }
 
 fileprivate extension StakeReceiptViewModel {
@@ -117,6 +141,7 @@ fileprivate extension StakeReceiptViewModel {
             inProgressTransactionText = "delegation.update.in.progress".localized
             failedTransactionText = "delegation.update.failed".localized
             successTransactionText = "delegation.update.success".localized
+            shouldDisplayAmount = true
         } else if isRemoving {
             title = "delegation.receiptconfirmation.title.remove".localized
             sliderButtonText = "baking.menu.stopbaking".localized
@@ -129,6 +154,7 @@ fileprivate extension StakeReceiptViewModel {
             inProgressTransactionText = "delegation.registered.in.progress".localized
             failedTransactionText = "delegation.registered.failed".localized
             successTransactionText = "delegation.registered.success".localized
+            shouldDisplayAmount = true
         }
         transactionFeeText = transferCost.displayValue()
     }
@@ -151,5 +177,20 @@ extension DelegationSubmissionViewModel {
             message: "delegation.stop.alert.message".localized,
             actions: [goBackAction, okAction]
         )
+    }
+//    
+//    private func alertOptions(completion: @escaping () -> Void) -> SwiftUIAlertOptions {
+//        
+//    }
+}
+
+private extension Optional where Wrapped == ChainParametersEntity {
+    var formattedDelegatorCooldown: String {
+        let delegatorCooldown = GeneralFormatter.secondsToDays(seconds: self?.delegatorCooldown ?? 0)
+        let gracePeriod = String(
+            format: "delegation.graceperiod.format".localized,
+            GeneralFormatter.secondsToDays(seconds: delegatorCooldown)
+        )
+        return String(format: "delegation.receiptremove.message".localized, gracePeriod)
     }
 }
