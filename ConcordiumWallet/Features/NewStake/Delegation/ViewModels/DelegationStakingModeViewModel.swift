@@ -91,9 +91,6 @@ class DelegationStakingModeViewModel: ObservableObject {
 
     func fetchBakerPool(bakerId: String) -> AnyPublisher<Result<Int, DelegationPoolBakerIdError>, Never> {
         self.validatorId = bakerId
-        if bakerId.isEmpty {
-            return .just(resetToCurrentBakerPool())
-        }
         
         guard let bakerIdInt = Int(bakerId) else {
             return .just(Result.failure(DelegationPoolBakerIdError.invalid))
@@ -123,7 +120,7 @@ class DelegationStakingModeViewModel: ObservableObject {
         }
         if case let BakerTarget.bakerPool(bakerId) = currentPoolData.pool {
             self.validSelectedPool = currentPoolData.pool
-            
+            validatorId = bakerId.string
             return .success(bakerId)
         } else {
             self.validatorId = ""

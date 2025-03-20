@@ -47,7 +47,7 @@ final class DelegationAmountInputViewModel: StakeAmountInputViewModel {
         self.navigationManager = navigationManager
         self.storageManager = dependencyProvider.storageManager()
         
-        let previouslyStakedInPool = GTU(intValue: account.baker?.stakedAmount ?? 0)
+        let previouslyStakedInPool = GTU(intValue: account.delegation?.stakedAmount ?? 0)
         
         validator = StakeAmountInputValidator(
             minimumValue: GTU(intValue: 0),
@@ -117,6 +117,7 @@ final class DelegationAmountInputViewModel: StakeAmountInputViewModel {
         } else {
             currentPool = nil
             poolLimit = nil
+            showsPoolLimits = false
         }
         
         let minValue: GTU
