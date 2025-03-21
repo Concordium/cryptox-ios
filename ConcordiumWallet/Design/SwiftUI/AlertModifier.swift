@@ -47,7 +47,7 @@ struct AlertModifier: ViewModifier {
 struct AlertView: View {
     var alertOptions: SwiftUIAlertOptions?
     @Binding var isPresenting: Bool
-    @State private var actionTapped: Bool = false
+    @State private var tappedActions: Set<String> = []
     
     var body: some View {
         VStack(alignment: .center, spacing: 30) {
@@ -61,6 +61,7 @@ struct AlertView: View {
                     .font(.satoshi(size: 15, weight: .regular))
                     .multilineTextAlignment(.leading)
                     .foregroundStyle(.grey1)
+                    .frame(maxWidth: .infinity)
             }
             VStack(spacing: 16) {
                 if let actions = alertOptions?.actions {
@@ -75,6 +76,9 @@ struct AlertView: View {
                                 Text(action.name)
                                     .font(.satoshi(size: 14, weight: .medium))
                                     .foregroundStyle(.white)
+                                    .multilineTextAlignment(.center)
+                                    .lineLimit(nil)
+                                    .fixedSize(horizontal: false, vertical: true)
                                     .padding(.horizontal, 20)
                                     .padding(.vertical, 12)
                             }
@@ -83,11 +87,14 @@ struct AlertView: View {
                         } else {
                             Text(action.name)
                                 .font(.satoshi(size: 14, weight: .medium))
-                                .foregroundStyle(actionTapped ? .grey4 : .blackMain)
+                                .foregroundStyle(tappedActions.contains(action.name) ? .grey4 : .blackMain)
+                                .multilineTextAlignment(.center)
+                                .lineLimit(nil)
+                                .fixedSize(horizontal: false, vertical: true)
                                 .onTapGesture {
-                                    actionTapped = true
+                                    tappedActions.insert(action.name)
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                        actionTapped = false
+                                        tappedActions.remove(action.name)
                                         isPresenting = false
                                         action.completion?()
                                     }
@@ -97,7 +104,7 @@ struct AlertView: View {
                 }
             }
         }
-        .padding(.horizontal, 60)
+        .padding(.horizontal, 40)
         .padding(.top, 60)
         .padding(.bottom, 30)
         .frame(alignment: .top)

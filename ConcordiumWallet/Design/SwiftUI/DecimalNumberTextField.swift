@@ -28,6 +28,7 @@ struct DecimalNumberTextField: View {
         _fraction = fraction
         _decimalValue = decimalValue
         self.decimalNumberFormatter = .init(maximumFractionDigits: fraction.wrappedValue)
+        self._textFieldText = decimalValue.wrappedValue.value == .zero ? State(initialValue: "") :  State(initialValue: TokenFormatter().plainString(from: decimalValue.wrappedValue, decimalSeparator: "."))
     }
     
     private var textFieldProxyBinding: Binding<String> {

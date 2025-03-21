@@ -127,7 +127,7 @@ struct FloatingGradientBGStyleModifier: ViewModifier {
                                                  Color(red: 0.64, green: 0.6, blue: 0.89)]),
                             center: .center,
                             startRadius: 0,
-                            endRadius: 400
+                            endRadius: 550
                         )
                     )
             )

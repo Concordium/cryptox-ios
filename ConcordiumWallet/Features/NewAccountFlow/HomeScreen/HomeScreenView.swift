@@ -177,19 +177,19 @@ struct HomeScreenView: View {
                 
                 if viewModel.selectedAccount?.account?.baker?.isSuspended == true || viewModel.selectedAccount?.account?.delegation?.isSuspended == true {
                     Button {
-                        if let selectedAccount = viewModel.selectedAccount?.account {
-                            router?.showEarnFlow(selectedAccount)
+                        if let selectedAccount = viewModel.selectedAccount?.account as? AccountEntity {
+                            navigationManager.navigate(to: .earn(selectedAccount))
                         }
                     } label: {
-                        StakerSuspensionStateView(type: .suspended)
+                        StakerSuspensionStateView(type: .suspended, stakeType: viewModel.selectedAccount?.account?.baker?.isSuspended == true ? .baker : .delegation)
                     }
                 } else if viewModel.selectedAccount?.account?.baker?.isPrimedForSuspension == true || viewModel.selectedAccount?.account?.delegation?.isPrimedForSuspension == true {
                     Button {
-                        if let selectedAccount = viewModel.selectedAccount?.account {
-                            router?.showEarnFlow(selectedAccount)
+                        if let selectedAccount = viewModel.selectedAccount?.account as? AccountEntity {
+                            navigationManager.navigate(to: .earn(selectedAccount))
                         }
                     } label: {
-                        StakerSuspensionStateView(type: .primedForSuspension)
+                        StakerSuspensionStateView(type: .primedForSuspension, stakeType: viewModel.selectedAccount?.account?.baker?.isPrimedForSuspension == true ? .baker : .delegation)
                     }
                 }
                 
@@ -208,8 +208,12 @@ struct HomeScreenView: View {
                             .foregroundStyle(.white)
                     }
                 }
-                if isShouldShowOnrampMessage {
-                    OnrampView
+                if  viewModel.selectedAccount?.account?.forecastBalance == 0,
+                    viewModel.selectedAccount?.account?.delegation != nil,
+                    isShouldShowOnrampMessage {
+                        OnrampView
+                } else if viewModel.selectedAccount?.account?.delegation == nil {
+                    EarnView
                 }
                 
                 AccountStatesView
@@ -372,6 +376,44 @@ struct HomeScreenView: View {
         .cornerRadius(12)
     }
     
+    private var EarnView: some View {
+        HStack(alignment: .center, spacing: 19) {
+            Image("Percent")
+                .resizable()
+                .renderingMode(.template)
+                .foregroundStyle(.greenMain)
+                .frame(width: 35, height: 35)
+            VStack(alignment: .leading, spacing: 2) {
+                Text("earn.info.title.part1".localized + " ")
+                    .font(.satoshi(size: 15, weight: .medium))
+                    .foregroundColor(.white) +
+                Text("5%")
+                    .font(.satoshi(size: 15, weight: .medium))
+                    .foregroundColor(.greenMain) +
+                Text(" " + "apy".localized)
+                    .font(.satoshi(size: 15, weight: .medium))
+                    .foregroundColor(.white)
+                
+                Text("staking.carousel.desc".localized)
+                    .font(.satoshi(size: 12, weight: .regular))
+                    .foregroundStyle(.white)
+            }
+            Spacer()
+        }
+        .onTapGesture {
+            if !SettingsHelper.isIdentityConfigured() {
+                self.router?.showNotConfiguredAccountPopup()
+            } else if let selectedAccount = viewModel.selectedAccount?.account as? AccountEntity {
+                navigationManager.navigate(to: .earn(selectedAccount))
+                Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Earn Banner")
+            }
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 16)
+        .background(Color(red: 0.09, green: 0.1, blue: 0.1))
+        .cornerRadius(12)
+        .frame(maxWidth: .infinity)
+    }
     
     private var InfoTooltipView: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -415,8 +457,9 @@ struct HomeScreenView: View {
                 }
             }),
             ActionItem(iconName: "Percent", label: "Earn", action: {
-                guard let selectedAccount = viewModel.selectedAccount?.account else { return }
-                router?.showEarnFlow(selectedAccount)
+                guard let selectedAccount = viewModel.selectedAccount?.account as? AccountEntity else { return }
+                navigationManager.navigate(to: .earn(selectedAccount))
+
                 Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Earn")
             }),
             ActionItem(iconName: "activity", label: "Activity", action: {
@@ -527,21 +570,32 @@ struct StakerSuspensionStateView: View {
     enum StakerSuspensionState {
         case suspended, primedForSuspension
         
-        var title: String {
-            switch self {
-            case .suspended:
+        
+        func title(for type: StakerType) -> String {
+            switch (self, type) {
+            case (.suspended, .baker):
                 return "Your validation has been suspended"
-            case .primedForSuspension:
+            case (.primedForSuspension, .baker):
                 return "Your validation is primed for suspension"
+            case (.suspended, .delegation):
+                return "Your validator has been suspended"
+            case (.primedForSuspension, .delegation):
+                return "Your validator is primed for suspension"
             }
         }
     }
     
+    enum StakerType {
+        case baker
+        case delegation
+    }
+    
     let type: StakerSuspensionState
+    let stakeType: StakerType
     var body: some View {
         HStack(spacing: 16) {
             Image("Pause")
-            Text(type.title)
+            Text(type.title(for: stakeType))
                 .font(.satoshi(size: 12, weight: .regular))
                 .foregroundStyle(Color.white)
             Spacer(minLength: 0)

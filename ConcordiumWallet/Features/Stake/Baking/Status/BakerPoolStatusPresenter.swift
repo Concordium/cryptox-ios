@@ -9,9 +9,23 @@
 import Foundation
 import Combine
 
-enum BakerPoolStatus {
+enum BakerPoolStatus: Equatable, Hashable {
     case pendingTransfer
     case registered(currentSettings: BakerDataType)
+    
+    static func == (lhs: BakerPoolStatus, rhs: BakerPoolStatus) -> Bool {
+        switch (lhs, rhs) {
+        case (.pendingTransfer, .pendingTransfer):
+            return true
+        case let (.registered(lhsSettings), .registered(rhsSettings)):
+            return lhsSettings.bakerID == rhsSettings.bakerID
+        default:
+            return false
+        }
+    }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self)
+    }
 }
 
 protocol BakerPoolStatusPresenterDelegate: AnyObject {
@@ -23,7 +37,7 @@ class BakerPoolStatusPresenter: StakeStatusPresenterProtocol {
     
     weak var delegate: BakerPoolStatusPresenterDelegate?
     
-    let viewModel: StakeStatusViewModel
+    let viewModel: LegacyStakeStatusViewModel
     private let account: AccountDataType
     private var status: BakerPoolStatus
     private var poolInfo: PoolInfo?
@@ -39,7 +53,7 @@ class BakerPoolStatusPresenter: StakeStatusPresenterProtocol {
         dependencyProvider: StakeCoordinatorDependencyProvider,
         delegate: BakerPoolStatusPresenterDelegate? = nil
     ) {
-        self.viewModel = StakeStatusViewModel(dependencyProvider: dependencyProvider)
+        self.viewModel = LegacyStakeStatusViewModel(dependencyProvider: dependencyProvider)
         self.delegate = delegate
         self.account = account
         self.status = status
@@ -123,7 +137,7 @@ class BakerPoolStatusPresenter: StakeStatusPresenterProtocol {
 
 }
 
-private extension StakeStatusViewModel {
+private extension LegacyStakeStatusViewModel {
     func setup(
         withAccount account: AccountDataType,
         currentSettings: BakerDataType,

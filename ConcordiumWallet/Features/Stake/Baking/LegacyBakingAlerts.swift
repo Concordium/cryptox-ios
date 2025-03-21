@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum BakingAlerts {
+enum LegacyBakingAlerts {
     static var noChanges: AlertOptions {
         let okAction = AlertAction(
             name: "baking.nochanges.ok".localized,
@@ -17,6 +17,22 @@ enum BakingAlerts {
         )
         
         return AlertOptions(
+            title: "baking.nochanges.title".localized,
+            message: "baking.nochanges.message".localized,
+            actions: [okAction]
+        )
+    }
+}
+
+enum BakingAlerts {
+    static var noChanges: SwiftUIAlertOptions {
+        let okAction = SwiftUIAlertAction(
+            name: "baking.nochanges.ok".localized,
+            completion: nil,
+            style: .plain
+        )
+        
+        return SwiftUIAlertOptions(
             title: "baking.nochanges.title".localized,
             message: "baking.nochanges.message".localized,
             actions: [okAction]

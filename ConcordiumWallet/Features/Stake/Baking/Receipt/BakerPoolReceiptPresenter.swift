@@ -34,7 +34,7 @@ class BakerPoolReceiptPresenter: StakeReceiptPresenterProtocol {
     ) {
         self.account = account
         self.delegate = delegate
-        self.viewModel = StakeReceiptViewModel(dataHandler: dataHandler)
+        self.viewModel = StakeReceiptViewModel(dataHandler: dataHandler, account: account)
         self.transfer = transfer
         self.receiptType = .init(dataHandler: dataHandler)
         self.storageManager = dependencyProvider.storageManager()

@@ -15,7 +15,15 @@ struct SendTokenCell: View {
     }
 
     let tokenType: TokenType
-
+    let hideCaretRight: Bool
+    let text: String
+    
+    init(tokenType: TokenType, hideCaretRight: Bool = false, text: String = "accounts.atdisposal".localized) {
+        self.tokenType = tokenType
+        self.hideCaretRight = hideCaretRight
+        self.text = text
+    }
+    
     var body: some View {
         HStack(alignment: .center, spacing: 17) {
             switch tokenType {
@@ -32,7 +40,7 @@ struct SendTokenCell: View {
                     Text(displayAmount)
                         .font(.satoshi(size: 15, weight: .medium))
                         .tint(.white)
-                    Text("accounts.atdisposal".localized)
+                    Text(text)
                         .font(.satoshi(size: 12, weight: .medium))
                         .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
                 }
@@ -54,6 +62,7 @@ struct SendTokenCell: View {
                 .renderingMode(.template)
                 .foregroundStyle(.grey4)
                 .frame(width: 30, height: 40)
+                .opacity(hideCaretRight ? 0 : 1)
         }
         .listRowInsets(EdgeInsets())
         .listRowSeparator(.hidden)

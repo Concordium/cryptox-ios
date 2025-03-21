@@ -17,38 +17,40 @@ struct CooldownCardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Inactive Stake")
-                .font(.satoshi(size: 14, weight: .medium))
+                .font(.satoshi(size: 12, weight: .regular))
                 .foregroundColor(.white)
             
             Text("You don’t receive rewards from this part of stake now, this amount will be at disposal after cooldown period.")
                 .font(.satoshi(size: 12, weight: .regular))
-                .foregroundColor(.gray)
+                .foregroundColor(Color.MineralBlue.blueish3.opacity(0.5))
                 .fixedSize(horizontal: false, vertical: true)
             
             HStack {
                 Text(GTU(intValue: Int(cooldown.amount))?.displayValue() ?? "")
-                    .font(.satoshi(size: 24, weight: .bold))
+                    .font(.satoshi(size: 22, weight: .regular))
                     .foregroundColor(.white)
                 Spacer()
             }
             
+            Divider()
+            
             HStack {
                 Text("Cooldown time:")
-                    .font(.satoshi(size: 14, weight: .medium))
-                    .foregroundColor(.gray)
+                    .font(.satoshi(size: 12, weight: .regular))
+                    .foregroundColor(Color.MineralBlue.blueish3.opacity(0.5))
                 Spacer()
                 Text("\(calculateCooldownTime(from: cooldown.timestamp))")
                     .foregroundColor(.white)
-                    .font(.satoshi(size: 14, weight: .bold))
+                    .font(.satoshi(size: 12, weight: .regular))
                 Text("days left")
-                    .font(.satoshi(size: 14, weight: .medium))
-                    .foregroundColor(.gray)
+                    .font(.satoshi(size: 12, weight: .regular))
+                    .foregroundColor(Color.MineralBlue.blueish3.opacity(0.5))
             }
         }
         .padding()
-        .background(Color(.blackSecondary))
-        .cornerRadius(16)
-        .padding(.top, 10) 
+        .background(.grey3.opacity(0.3))
+        .cornerRadius(12)
+        .padding(.top, 10)
     }
     
     func calculateCooldownTime(from timestamp: Int) -> Int {

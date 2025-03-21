@@ -12,7 +12,9 @@ class NavigationManager: ObservableObject {
     @Published var path: [NavigationPaths] = []
     
     func navigate(to destination: NavigationPaths) {
-        path.append(destination)
+        if !path.contains(destination) {
+            path.append(destination)
+        }
     }
     
     func pop() {

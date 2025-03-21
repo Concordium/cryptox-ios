@@ -105,22 +105,6 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
             self?.title = title
         }.store(in: &cancellables)
         
-        viewModel.$firstBalance.sink { [weak self] balanceVM in
-            guard let self = self else { return }
-            self.firstBalanceLabel.text = balanceVM.label
-            self.firstBalanceLabel.textColor = balanceVM.highlighted ? .errorText : .text
-            self.firstBalanceValue.text = balanceVM.value
-            self.firstBalanceValue.textColor = balanceVM.highlighted ? .errorText : .text
-        }.store(in: &cancellables)
-        
-        viewModel.$secondBalance.sink { [weak self] balanceVM in
-            guard let self = self else { return }
-            self.secondBalanceLabel.text = balanceVM.label
-            self.secondBalanceLabel.textColor = balanceVM.highlighted ? .errorText : .text
-            self.secondBalanceValue.text = balanceVM.value
-            self.secondBalanceValue.textColor = balanceVM.highlighted ? .errorText : .text
-        }.store(in: &cancellables)
-        
         viewModel.$showsPoolLimits
             .compactMap { !$0 }
             .assign(to: \.isHidden, on: optionalBalancesView)
@@ -152,7 +136,7 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
         
         amountTextField
             .textPublisher
-            .assignNoRetain(to: \.amount, on: viewModel)
+            .assignNoRetain(to: \.amountString, on: viewModel)
             .store(in: &cancellables)
         
         viewModel.$transactionFee
@@ -175,7 +159,7 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
         }.store(in: &cancellables)
         
         amountTextField.textPublisher
-            .assignNoRetain(to: \.amount, on: viewModel)
+            .assignNoRetain(to: \.amountString, on: viewModel)
             .store(in: &cancellables)
         
         amountTextField.textPublisher
@@ -183,7 +167,7 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
             .sink { _ in viewModel.hasStartedInput = true }
             .store(in: &cancellables)
         
-        viewModel.$amount
+        viewModel.$amountString
             .compactMap { $0 }
             .assign(to: \.text, on: amountTextField)
             .store(in: &cancellables)

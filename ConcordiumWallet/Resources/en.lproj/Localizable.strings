@@ -827,7 +827,7 @@ If you choose to not restake your rewards, the amounts will be at disposal on yo
 "baking.inputamount.newamount" = "Enter your new total validator stake";
 "baking.inputamount.title.create" = "Register validator";
 "baking.inputamount.title.update" = "Update validator stake";
-"baking.inputamount.transactionfee" = "Estimated transaction fee:\n%@ - %@";
+"baking.inputamount.transactionfee" = "≈ %@ - %@";
 "baking.inputamount.lockedamountmessage" = "The validator stake cannot be changed when it already has pending changes.";
 
 "baking.nochanges.title" = "Notice";
@@ -874,9 +874,9 @@ If your pool is already open, you can also close it for new delegators, or you c
 "baking.generatekeys.notice.message" = "This is your only chance to export and save the keys.\n\nThey cannot be recreated, so you will have to generate new keys and register them with a transaction, if you lose these.";
 "baking.updatekeys.title" = "Update validator keys";
 
-"baking.open" = "Open for delegation";
-"baking.closed" = "Closed for delegation";
-"baking.closedfornew" = "Closed for new delegation";
+"baking.open" = "Open";
+"baking.closed" = "Closed";
+"baking.closedfornew" = "Closed for new";
 "baking.metadata.current" = "Current URL: \n %@";
 "baking.metadata.placeholder" = "Paste your metadata URL here";
 
@@ -908,9 +908,9 @@ The validator cannot be removed and the stake cannot be changed until the cool-d
 "baking.receiptconfirmation.removetext" = "Are you sure you want to make the following transaction to stop validation?";
 "baking.receiptconfirmation.stopbaking" = "Transaction: Stop validation";
 "baking.receiptconfirmation.title.register" = "Register validator";
-"baking.receiptconfirmation.registertext" = "You are about to submit a register validator transaction that locks some of your funds in a stake. If you want to unlock the stake again, there will be a cool-down period.";
+"baking.receiptconfirmation.registertext" = "You are about to submit a register validator transaction that locks some of your funds in a stake. If you want to unlock the stake again, there will be a cool-down period of 21 days.";
 "baking.receiptconfirmation.registerbaker" = "Transaction: Register validator";
-"baking.receiptconfirmation.submit" = "Submit validator transaction";
+"baking.receiptconfirmation.submit" = "Submit";
 
 "baking.receiptconfirmation.title.suspend" = "Suspend validation";
 "baking.receiptconfirmation.suspendText" = "Are you sure you want to make the following transaction to suspend validation?";
@@ -1310,3 +1310,145 @@ Remember to restart your node with the validator keys.";
 "transaction.in.progress.status" = "Transaction in progress";
 "transaction.status.success" = "You've sent";
 "transaction.status.failed" = "Transaction failed to send";
+
+"earn.info.title.part1" = "Earn up to";
+"earn.info.title.part2" = "%@ APY";
+"earn.info.title.part3" = " on your CCD";
+"earn.info.part1.title" = "Get rewarded for staking";
+"earn.info.part1.desc" = "As a validator you participate in the network by producing blocks on the Concordium network.";
+"earn.info.part2.title" = "Multiple options to choose from";
+"earn.info.part2.desc" = "As a validator you participate in the network by producing blocks on the Concordium network.";
+"earn.info.part3.title" = "Update with ease";
+"earn.info.part3.desc" = "As a validator you participate in the network by producing blocks on the Concordium network.";
+"earn.become.validator" = "Or become a validator (advanced)";
+"earn.start" = "Start earning";
+"read.more" = "Read more";
+"learn.about.earning" = "Learn about earning";
+"learn.about.validation" = "Learn about validation";
+
+"delegation.desc" = "Delegation allows users on the Concordium blockchain to earn rewards without the need to become a validator or run a node.\n\nBy delegating some of your funds to a pool, you can earn rewards.\n\nOn the next few pages, we will go through the basics of delegation. If you want to learn more, you can visit our documentation website.";
+
+"staking.pools.desc" = "A staking pool is managed by an individual validator.\n\nRunning a pool allows a validator to attract more stake and thus increate chances of being selected to produce a block.\n\nValidators earn a commission from the delegators upon producing a block.\n\nDelegating to a staking pool is usually more profitable than passive delegation, but there is also a risk of losing out on rewards if the validator is not running properly. It is therefore a good idea to keep an eye on the validator's performance.\n\nYou can read more about how to investigate a validator's performance on our documentation website.";
+
+"passive.delegation.desc" = "For CCD holders who do not want to regularly check the performance of a chosen pool, but just want a stable way of earning rewards, passive delegation offers a low-risk, low-reward alternative.\n\nThis staking strategy is not associated with a specific validator, so there is no risk of poor validator health.\n\nThe trade off when choosing passive delegation is that the return on your stake will be less than what you may receive when delegating to a specific staking pool.";
+
+"pay.days.desc" = "Whether you choose an individual validation pool or passive delegation, rewards are paid out at what is called the pay day. Rewards are distributed to everyone in the pool proportional to their stake, and a commission is paid to the validator by all delegators.\n\nIf you make updates to your delegation at a later point, most of these will also take effect from the next pay day.\n\nTo read more about the pay day, you can visit our documentation website.";
+
+"lockins.cooldowns.desc" = "When you make a delegation to either type of pool, your delegation amount will be locked on your account.\n\nThis means that you cannot use the amount for anything while it is still locked in for delegation.\n\nIf you decrease your delegation amount or stop the delegation altogether, the amount will still be locked for a cool-down period.\n\nAs transactions cost a fee, it is important to take into consideration, that you will need some unlocked funds on your public balance to pay the fee for unlocking your delegation amount again.";
+
+"status.page.desc" = "After starting a delegation, you will be able to see its current status on the status screen.\n\nFrom there, you can also make updates to your delegation, or stop it again.";
+
+"status.page.title" = "The status page";
+"lockins.cooldowns.title" = "Lock-in and cool-downs";
+"pay.days.title" = "Pay days";
+"passive.delegation.title" = "Passive delegation";
+"staling.pools.title" = "Staking pools";
+"delegation.title" = "Delegation";
+"staking.mode" = "Staking mode";
+"restake.reward" = "Restake rewards";
+"restake.reward.desc" = "I want to automatically add my delegation rewards to my delegation amount.";
+"staking.mode.desc" = "You can delegate to an open pool of your choice, or you can stake using passive delegation.";
+"validation.pool.desc" = "If you don’t already know which validator pool you want to delegate an amount to, you can look for on ";
+"validator.pool" = "Validator pool";
+"eneter.validator.pool.id" = "Enter validator pool ID";
+
+"warning.earn.note" = "NOTE: A single account cannot both be a validator and delegator, but it is possible to stop one and change to the other.";
+"validator.start.title" = "Become a validator";
+"validator.start.desc" = "A validator is a node that participates in the network by producing new blocks that are added to the chain.\n\nEach validator has a set of cryptographic keys called validator keys that the node needs to produce blocks. You generate the validator keys when you add a validator account.\n\nOnce the validator node has been restarted with the validator keys, it will start validation two epochs after the transaction has been approved.";
+"validator.node.title" = "The node";
+"validator.node.desc" = "To become a validator you must run a node on the Concordium blockchain. Make sure that you have a setup where the node can operate around the clock.  You can run the node yourself or use a third-party provider. Make sure your account in the wallet has the required amount of CCD to become a validator.";
+"validator.opening.pool.title" = "Opening a pool";
+"validator.opening.pool.desc" = "You have the option when adding a validator to open a staking pool or not. A staking pool allows others who want to earn rewards to do so without the need to run a node or become a validator themselves.\n\nTo do this they delegate an amount to your staking pool which then increases your total stake and your chances of winning the lottery to bake a block. At each pay day the rewards will be distributed to you and your delegators.\n\nYou can also choose not to open a pool, in which case only your own stake applies toward the lottery. You can always open or close a pool later.";
+"validator.comissions.desc" = "When you open your validator as a pool, you earn commissions of stake delegated to your pool from other accounts:";
+"validator.transaction.commission" = "Transaction fee commission";
+"validator.reward.commission" = "Block reward commission";
+"validator.commission.title" = "Commissions";
+"validator.metadata.desc" = "You can choose to add a URL with metadata about your validator. Leave it blank if you don’t have any.";
+"validator.enter.md.url" = "Enter metadata URL";
+"validator.metadata.title" = "Metadata";
+"validator.validator.keys.desc" = "Your new validator keys have been generated, Before you can continue, you must have to be added to the validator node.";
+"validator.validator.keys.title" = "Validator keys";
+"validator.validator.export.keys" = "Export keys as .json";
+"estimated.tx.fee" = "Estimated transaction fee";
+"validator.registered.success" = "Your validation is registered";
+"validator.registered.failed" = "Failed to register validation";
+"validator.registered.in.progress" = "Your validation is in progress";
+
+"validator.update.pool.success" = "Your pool settings were updated successfully";
+"validator.update.pool.failed" = "Failed to update pool settings";
+"validator.update.pool.in.progress" = "Updating pool settings is in progress";
+
+"validator.update.stake.success" = "Your stake was updated successfully";
+"validator.update.stake.failed" = "Failed to update stake";
+"validator.update.stake.in.progress" = "Updating stake is in progress";
+
+"validator.update.keys.success" = "Your keys were successfully updated";
+"validator.update.keys.failed" = "Failed to update keys";
+"validator.update.keys.in.progress" = "Updating keys is in progress";
+
+"validator.stop.success" = "You submitted a transaction to stop your validator";
+"validator.stop.in.progress" = "Transaction to stop validation is being submitted";
+"validator.stop.failed" = "Failed to submit transaction to stop validation";
+
+"validator.suspend.success" = "You suspended your validation";
+"validator.suspend.failed" = "Failed to suspend validation";
+"validator.suspend.in.progress" = "Transaction to suspend your validation is being submitted";
+
+"validator.resume.success" = "You resumed your validation";
+"validator.resume.failed" = "Failed to resume validation";
+"validator.resume.in.progress" = "Transaction to resume your validation is being submitted";
+
+"validation.stop.title" = "Stop validation";
+"validation.stop.desc" = "If you stop validating there is a cooldown period, after which the full stake amount will be unlocked on your public balance.\n\nIf your pool has any delegators, they will be automatically moved to passive delegation.\n\nDeregistering the validator does not shut down your node. You must shut down the node in a separate action if you no longer wish to run a node on the Concordium blockchain.";
+"transaction.fee" = "Transaction fee ≈ %@ CCD";
+"validation.stop.message" = "Your validator will stop at the next pay day after a cooldown of %@ days.\n\nOnce the transaction has finalized, you can see the estimated time on the validator status screen.";
+
+"validation.resume" = "Resume";
+"validation.status.suspended.title" = "Your validation has been suspended";
+"validation.status.suspended.desc" = "Your node does not earn rewards at the moment.\n\nTo lift the suspension and earn rewards again ensure your node is up-to-date and click “Resume”.";
+"validation.status.primed.for.suspension.title" = "Your validation is primed for suspension";
+"validation.status.primed.for.suspension.desc" = "Your node was inactive for a number of hours. If it has been inactive for too long it will be suspended. Suspended nodes don’t earn rewards.\n\nTo prevent suspension ensure your node is up-to-date and active. Once your node is active you will no longer be primed for suspension.";
+
+"important" = "Important";
+"validation.alert.suspend.desc" = "You are about to self-suspend your validation.\n\nPlease be aware that:\n\n\t • Suspended nodes don’t earn rewards \n\t • Your delegators will stop earning rewards \n\t • Your delegators will be notified about the suspension";
+
+"effective.from" = "Effective from next payday";
+"resume.validation" = "Resume validation";
+"submit" = "Submit";
+
+"delegation.staking.desc" = "You can delegate to an open pool of your choice, or you can stake using passive delegation.";
+"delegation.staking.mode.validator.pool.desc" = "If you don’t already know which validator pool you want to delegate an amount to, you can look for on ";
+"delegation.staking.mode.ccdScan" = "ccdscan.io/staking";
+"delegation.staking.mode.passive" = "Passive delegation";
+"delegation.staking.mode.validator.pool" = "Validator pool";
+"delegation.staking.mode" = "Staking mode";
+"delegation.validator.pool.id" = "Enter validator pool ID";
+"available.for.staking" = "Available for staking";
+
+"delegation.stop.alert.title" = "Stop earning";
+"delegation.stop.alert.message" = "If you decide to stop your delegation, a cool-down period applies.\n\nAt the end of the cool-down period, the delegated amount is unlocked on your public balance, and the funds will be at disposal again.";
+
+"delegation.registered.success" = "You are delegating";
+"delegation.registered.failed" = "Failed to register delegation";
+"delegation.registered.in.progress" = "Your delegation is in progress";
+
+"delegation.update.success" = "Your delegation settings were updated successfully";
+"delegation.update.failed" = "Failed to update delegation settings";
+"delegation.update.in.progress" = "Updating delegation settings is in progress";
+
+"delegation.stop.success" = "You submitted a transaction to stop your staking";
+"delegation.stop.in.progress" = "Transaction to stop staking is being submitted";
+"delegation.stop.failed" = "Failed to submit transaction to stop staking";
+
+"delegation.submit.delegation" = "Submit delegation";
+"delegation.suspended.title" = "Your validator has been suspended";
+"delegation.suspended.desc" = "Your delegation amount does not earn rewards until validation is resumed.";
+"delegation.targeted.delegation" = "Targeted delegation";
+"stop.staking" = "Stop staking";
+"earning" = "Earning";
+"staked.balance" = "Staked balance";
+"apy" = "APY";
+"mode" = "Mode";
+"staking.carousel.desc" = "Stake your CCD and earn rewards";
+"apy.additional.info" = "Estimated APY based on past results. Actual returns may vary.";
+"earn" = "Earn";

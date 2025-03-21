@@ -276,7 +276,6 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
         guard let account else { return }
         do {
             try storageManager.removeCIS2Token(token: token, address: account.address)
-            //            self.onDismiss()
         } catch {
             logger.debugLog(error.localizedDescription)
         }
