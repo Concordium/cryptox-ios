@@ -103,6 +103,10 @@ struct ComissionSettingsView: View {
                             .tint(.success)
                             .offset(y: 13)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
+                            .onChange(of: commission.wrappedValue) { newValue in
+                                let roundedValue = (newValue * 100_000).rounded() / 100_000
+                                commission.wrappedValue = roundedValue
+                            }
 
                         // White circle that moves with the slider
                         Circle()

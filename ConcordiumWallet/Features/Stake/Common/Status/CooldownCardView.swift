@@ -54,9 +54,12 @@ struct CooldownCardView: View {
     }
     
     func calculateCooldownTime(from timestamp: Int) -> Int {
-        let millisecondsInADay: UInt64 = 1000 * 60 * 60 * 24
+        let millisecondsInADay: Int64 = 1000 * 60 * 60 * 24
         let endDate = Date(timeIntervalSince1970: TimeInterval(timestamp) / 1000.0)
-        let daysToEndCooldown = Int((endDate.millisecondsSince1970 - Date.now.millisecondsSince1970) / millisecondsInADay)
-        return daysToEndCooldown == 0 ? 1 : daysToEndCooldown
+
+        let differenceInMilliseconds = Int64(endDate.millisecondsSince1970) - Int64(Date.now.millisecondsSince1970)
+        let daysToEndCooldown = differenceInMilliseconds / millisecondsInADay
+
+        return max(1, Int(daysToEndCooldown))
     }
 }

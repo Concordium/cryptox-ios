@@ -58,11 +58,12 @@ struct SendTokenCell: View {
                     .font(.satoshi(size: 15, weight: .medium))
                     .tint(.white)
             }
-            Image("caretRight")
-                .renderingMode(.template)
-                .foregroundStyle(.grey4)
-                .frame(width: 30, height: 40)
-                .opacity(hideCaretRight ? 0 : 1)
+            if !hideCaretRight {
+                Image("caretRight")
+                    .renderingMode(.template)
+                    .foregroundStyle(.grey4)
+                    .frame(width: 30, height: 40)
+            }
         }
         .listRowInsets(EdgeInsets())
         .listRowSeparator(.hidden)

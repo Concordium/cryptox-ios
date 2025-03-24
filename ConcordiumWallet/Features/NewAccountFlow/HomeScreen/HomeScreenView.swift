@@ -39,7 +39,8 @@ struct HomeScreenView: View {
     
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowOnrampMessage") private var isShouldShowOnrampMessage = true
-    
+    @AppStorage("isShouldShowEarnBanner") private var isShouldShowEarnBanner = true
+
     let keychain: KeychainWrapperProtocol
     let identitiesService: SeedIdentitiesService
     weak var router: AccountsMainViewDelegate?
@@ -212,7 +213,7 @@ struct HomeScreenView: View {
                     viewModel.selectedAccount?.account?.delegation != nil,
                     isShouldShowOnrampMessage {
                         OnrampView
-                } else if viewModel.selectedAccount?.account?.delegation == nil {
+                } else if viewModel.selectedAccount?.account?.delegation == nil && isShouldShowEarnBanner {
                     EarnView
                 }
                 
@@ -387,18 +388,23 @@ struct HomeScreenView: View {
                 Text("earn.info.title.part1".localized + " ")
                     .font(.satoshi(size: 15, weight: .medium))
                     .foregroundColor(.white) +
-                Text("5%")
+                Text("6%")
                     .font(.satoshi(size: 15, weight: .medium))
-                    .foregroundColor(.greenMain) +
-                Text(" " + "apy".localized)
-                    .font(.satoshi(size: 15, weight: .medium))
-                    .foregroundColor(.white)
-                
+                    .foregroundColor(.greenMain)
                 Text("staking.carousel.desc".localized)
                     .font(.satoshi(size: 12, weight: .regular))
                     .foregroundStyle(.white)
             }
             Spacer()
+            Image(systemName: "xmark.circle")
+                .tint(.MineralBlue.blueish3)
+                .onTapGesture {
+                    withAnimation(.easeInOut) {
+                        isShouldShowEarnBanner = false
+                    }
+                }
+                .frame(alignment: .top)
+                .padding(.bottom, 15)
         }
         .onTapGesture {
             if !SettingsHelper.isIdentityConfigured() {
