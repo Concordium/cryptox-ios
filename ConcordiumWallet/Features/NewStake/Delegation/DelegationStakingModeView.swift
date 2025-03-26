@@ -19,13 +19,13 @@ struct DelegationStakingModeView: View {
                 .foregroundStyle(Color.MineralBlue.blueish2)
                 .padding(.horizontal, 15)
             VStack(spacing: 4) {
-                stakingOption(title: "delegation.staking.mode.passive".localized, isSelected: Binding(
+                stakingOption(title: "delegation.staking.mode.passive".localized, reward: "4", isSelected: Binding(
                     get: { viewModel.selectedPool == .passive },
                     set: { isSelected in
                         viewModel.selectedPool = isSelected ? .passive : .validatorPool
                     }
                 ))
-                stakingOption(title: "delegation.staking.mode.validator.pool".localized, isSelected: Binding(
+                stakingOption(title: "delegation.staking.mode.validator.pool".localized, reward: "5", isSelected: Binding(
                     get: { viewModel.selectedPool == .validatorPool },
                     set: { isSelected in
                         viewModel.selectedPool = isSelected ? .validatorPool : .passive
@@ -74,13 +74,13 @@ struct DelegationStakingModeView: View {
                     Text("delegation.staking.mode.validator.pool.desc".localized)
                         .font(.satoshi(size: 12, weight: .regular))
                         .foregroundColor(Color.MineralBlue.blueish2)
-                    + Text("delegation.staking.mode.ccdScan".localized)
+                    + Text(viewModel.getCCDScanLink())
                         .font(.satoshi(size: 12, weight: .regular))
                         .foregroundColor(Color.MineralBlue.blueish2)
                         .underline(color: Color.MineralBlue.blueish2)
                 }
                 .onTapGesture {
-                    if let url = URL(string: "https://ccdscan.io/staking") {
+                    if let url = URL(string: "https://\(viewModel.getCCDScanLink())") {
                         UIApplication.shared.open(url)
                     }
                 }
@@ -97,14 +97,22 @@ struct DelegationStakingModeView: View {
         .modifier(AlertModifier(alertOptions: viewModel.alertOptions, isPresenting: $viewModel.showAlert))
     }
     
-    func stakingOption(title: String, isSelected: Binding<Bool>) -> some View {
-        HStack {
+    func stakingOption(title: String, reward: String, isSelected: Binding<Bool>) -> some View {
+        HStack(spacing: 21) {
             Text(title)
                 .font(.satoshi(size: 15, weight: .medium))
                 .foregroundStyle(.white)
                 .padding(.vertical, 12)
                 .padding(.leading, 6)
             Spacer()
+            VStack(alignment: .trailing, spacing: 4) {
+                Text("projected.rewards".localized)
+                    .font(.satoshi(size: 12, weight: .regular))
+                    .foregroundStyle(Color.MineralBlue.blueish2)
+                Text("~ \(reward)%")
+                    .font(.satoshi(size: 12, weight: .regular))
+                    .foregroundStyle(.successGreen)
+            }
             RoundedSquareView(needToFill: isSelected)
                 .onTapGesture {
                     withAnimation {

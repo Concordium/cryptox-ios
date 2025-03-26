@@ -16,54 +16,55 @@ struct EarnMainView: View {
     @EnvironmentObject var navigationManager: NavigationManager
 
     var body: some View {
-        VStack(alignment: .center, spacing: 40) {
-            VStack(alignment: .leading, spacing: 8) {
-                VStack(alignment: .leading, spacing: 17) {
-                    HStack(spacing: 0) {
-                        Text("earn.info.title.part1".localized + " ")
-                            .font(.satoshi(size: 16, weight: .heavy))
-                            .foregroundStyle(.white)
-                        Text(
-                            String(format: "earn.info.title.part2".localized, "5%"))
-                        .font(.satoshi(size: 16, weight: .heavy))
-                        .foregroundStyle(.success)
-                        Text("earn.info.title.part3".localized)
-                            .font(.satoshi(size: 16, weight: .heavy))
-                            .foregroundStyle(.white)
+        VStack {
+            ScrollView {
+                VStack(alignment: .center, spacing: 24) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        VStack(alignment: .leading, spacing: 17) {
+                            HStack(spacing: 0) {
+                                Text("earn.info.title.part1".localized + " ")
+                                    .font(.satoshi(size: 24, weight: .bold))
+                                    .foregroundStyle(.white)
+                                Text(
+                                    String(format: "earn.info.title.part2".localized, "6%"))
+                                .font(.satoshi(size: 24, weight: .bold))
+                                .foregroundStyle(.success)
+                            }
+                            
+                            descView()
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.vertical, 20)
+                        .padding(.horizontal, 18)
+                        .background(.grey2.opacity(0.3))
+                        .cornerRadius(12)
+                        
+                        Text("apy.additional.info".localized)
+                            .font(.satoshi(size: 12, weight: .regular))
+                            .foregroundStyle(Color.MineralBlue.blueish2.opacity(0.6))
                     }
-                    
-                    descView()
+                    Button {
+                        validatorPressed = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            validatorPressed = false
+                            navigationManager.navigate(to: .earnReadMode(mode: .validator, account: account))
+                        }
+                    } label: {
+                        HStack(spacing: 8) {
+                            Text("earn.become.validator".localized)
+                                .font(.satoshi(size: 15, weight: .medium))
+                                .foregroundStyle(validatorPressed ? .buttonPressed : .white)
+                            Image("ArrowRight")
+                                .renderingMode(.template)
+                                .foregroundStyle(validatorPressed ? .buttonPressed : .white)
+                            Spacer()
+                        }
+                    }
+                    .noStyle()
+                    .frame(maxWidth: .infinity, alignment: .center)
                 }
-                .frame(maxWidth: .infinity, alignment: .center)
-                .padding(.vertical, 20)
-                .padding(.horizontal, 18)
-                .background(.grey2.opacity(0.3))
-                .cornerRadius(12)
-                
-                Text("apy.additional.info".localized)
-                    .font(.satoshi(size: 12, weight: .regular))
-                    .foregroundStyle(Color.MineralBlue.blueish2.opacity(0.6))
+                cooldownsSectionView
             }
-            Button {
-                validatorPressed = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    validatorPressed = false
-                    navigationManager.navigate(to: .earnReadMode(mode: .validator, account: account))
-                }
-            } label: {
-                HStack(spacing: 8) {
-                    Text("earn.become.validator".localized)
-                        .font(.satoshi(size: 15, weight: .medium))
-                        .foregroundStyle(validatorPressed ? .buttonPressed : .white)
-                    Image("ArrowRight")
-                        .renderingMode(.template)
-                        .foregroundStyle(validatorPressed ? .buttonPressed : .white)
-                    Spacer()
-                }
-            }
-            .noStyle()
-            .frame(maxWidth: .infinity, alignment: .center)
-            
             Spacer()
             
             VStack(spacing: 8) {
@@ -81,7 +82,7 @@ struct EarnMainView: View {
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(PressedButtonStyle())
-
+                
                 Button {
                     navigationManager.navigate(to: .earnReadMode(mode: .delegation, account: account))
                 } label: {
@@ -108,13 +109,29 @@ struct EarnMainView: View {
                     Image("icon_selection")
                 VStack(alignment: .leading, spacing: 8) {
                     Text("earn.info.part\(index).title".localized)
-                        .font(.satoshi(size: 16, weight: .heavy))
+                        .font(.satoshi(size: 16, weight: .bold))
                         .foregroundColor(.white)
                     Text("earn.info.part\(index).desc".localized)
-                        .font(.satoshi(size: 12, weight: .medium))
+                        .font(.satoshi(size: 12, weight: .regular))
                         .foregroundStyle(Color.MineralBlue.blueish2)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
         }
+    }
+    
+    private var cooldownsSectionView: some View {
+        Group {
+            if !accountCooldowns.isEmpty {
+                ForEach(accountCooldowns) { cooldown in
+                    CooldownCardView(cooldown: cooldown)
+                }
+            }
+        }
+    }
+    
+    private var accountCooldowns: [AccountCooldown] {
+        account.cooldowns.map({AccountCooldown(timestamp: $0.timestamp, amount: $0.amount, status: $0.status.rawValue)})
     }
 }

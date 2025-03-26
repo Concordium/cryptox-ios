@@ -231,7 +231,7 @@ struct NavigationDestinationBuilder: ViewModifier {
                             .onAppear { notifyTabBarHidden(true) }
                     case .delegationStakingMode(let viewModel):
                         DelegationStakingModeView(viewModel: viewModel)
-                            .modifier(NavigationViewModifier(title: "earn".localized) {
+                            .modifier(NavigationViewModifier(title: "staking.mode".localized) {
                                 navigationManager.pop()
                             })
                             .onAppear { notifyTabBarHidden(true) }
@@ -244,7 +244,7 @@ struct NavigationDestinationBuilder: ViewModifier {
                             .onAppear { notifyTabBarHidden(true) }
                     case .delegationTransactionStatus(let viewModel):
                         DelegationTransactionStatusView(viewModel: viewModel)
-                            .modifier(NavigationViewModifier(title: "earn".localized) {
+                            .modifier(NavigationViewModifier(title: "confirmation".localized) {
                                 navigationManager.pop()
                             })
                             .onAppear { notifyTabBarHidden(true) }

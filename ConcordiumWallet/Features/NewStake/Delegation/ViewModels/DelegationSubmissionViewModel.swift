@@ -144,7 +144,7 @@ fileprivate extension StakeReceiptViewModel {
             shouldDisplayAmount = true
         } else if isRemoving {
             title = "delegation.receiptconfirmation.title.remove".localized
-            sliderButtonText = "baking.menu.stopbaking".localized
+            sliderButtonText = "delegation.status.stopbutton".localized
             inProgressTransactionText = "delegation.stop.in.progress".localized
             failedTransactionText = "delegation.stop.failed".localized
             successTransactionText = "delegation.stop.success".localized
