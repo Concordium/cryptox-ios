@@ -772,9 +772,9 @@ Once the transaction has finalized, you can see the time of the release on the d
 "delegation.receiptnextpayday.ok" = "Okay";
 
 "delegation.receiptremove.title" = "Notice";
-"delegation.receiptremove.message" = "Your delegation will stop at the next pay day after a cool-down of %@.
+"delegation.receiptremove.message" = "Your stake will stop at the next pay day after a cool-down of %@ days.
 
-Once the transaction has finalized, you can see the estimated time on the delegation status screen.";
+Once the transaction has finalized, you can see the estimated time on the earn screen.";
 "delegation.receiptremove.ok" = "Okay";
 
 
@@ -1454,3 +1454,4 @@ Remember to restart your node with the validator keys.";
 "earn" = "Earn";
 "projected.rewards" = "Projected rewards";
 "confirmation" = "Confirmation";
+"staking.mode.nil" = "Staking mode must be confirmed";

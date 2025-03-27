@@ -14,7 +14,7 @@ struct DelegationAmountInputView: View {
     @FocusState var isFocused: Bool
     
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(alignment: .leading, spacing: 20) {
             HStack(alignment: .bottom) {
                 DecimalNumberTextField(decimalValue: $viewModel.amountDecimal, fraction: $viewModel.fraction)
                     .focused($isFocused)
@@ -46,29 +46,6 @@ struct DelegationAmountInputView: View {
                     .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
             }
             
-            if let poolLimit = viewModel.poolLimit, let currentPoolLimit = viewModel.currentPoolLimit, viewModel.showsPoolLimits {
-                HStack {
-                    Text(currentPoolLimit.label)
-                        .font(.satoshi(size: 12, weight: .medium))
-                        .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
-                    Spacer()
-                    Text(currentPoolLimit.value)
-                        .font(.satoshi(size: 12, weight: .medium))
-                        .multilineTextAlignment(.trailing)
-                        .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
-                }
-                HStack {
-                    Text(poolLimit.label)
-                        .font(.satoshi(size: 12, weight: .medium))
-                        .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
-                    Spacer()
-                    Text(poolLimit.value)
-                        .font(.satoshi(size: 12, weight: .medium))
-                        .multilineTextAlignment(.trailing)
-                        .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
-                }
-            }
-            
             if let error = viewModel.amountErrorMessage, viewModel.hasStartedInput || viewModel.isAmountLocked {
                 Text(error)
                     .foregroundColor(Color(hex: 0xFF163D))
@@ -80,6 +57,27 @@ struct DelegationAmountInputView: View {
                           hideCaretRight: true, text: "available.for.staking".localized)
             .frame(maxWidth: .infinity, alignment: .center)
 
+            if let poolLimit = viewModel.poolLimit, let currentPoolLimit = viewModel.currentPoolLimit, viewModel.showsPoolLimits {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(currentPoolLimit.label)
+                        .font(.satoshi(size: 15, weight: .medium))
+                        .foregroundStyle(.white)
+                    Text(currentPoolLimit.value)
+                        .font(.satoshi(size: 15, weight: .bold))
+                        .multilineTextAlignment(.leading)
+                        .foregroundStyle(.white)
+                }
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(poolLimit.label)
+                        .font(.satoshi(size: 15, weight: .medium))
+                        .foregroundStyle(.white)
+                    Text(poolLimit.value)
+                        .font(.satoshi(size: 15, weight: .bold))
+                        .multilineTextAlignment(.leading)
+                        .foregroundStyle(.white)
+                }
+            }
+            
             HStack {
                 Text(viewModel.stakingMode?.rawValue ?? "delegation.staking.mode".localized)
                     .font(.satoshi(size: 14, weight: .medium))
@@ -98,6 +96,15 @@ struct DelegationAmountInputView: View {
             .cornerRadius(12)
             .onTapGesture {
                 viewModel.stakingModeSelected()
+            }
+            
+            if viewModel.stakingMode == nil {
+                HStack(spacing: 8) {
+                    Image("ico_info")
+                    Text("staking.mode.nil".localized)
+                        .font(.satoshi(size: 14, weight: .medium))
+                        .foregroundStyle(Color.MineralBlue.blueish2)
+                }
             }
             
             VStack(alignment: .leading, spacing: 12) {

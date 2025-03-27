@@ -112,8 +112,8 @@ final class DelegationSubmissionViewModel: StakeReceiptViewModel, ObservableObje
     }
     
     func closeTapped(completion: @escaping () -> Void) {
-        if !isTransactionExecuting && error == nil && isStopDelegation {
-            alertOptions = stopValidationAlertOptions(completion: completion)
+        if !isTransactionExecuting && error == nil {
+            alertOptions = alertOptions(completion: completion)
             withAnimation {
                 showAlert = true
             }
@@ -161,27 +161,33 @@ fileprivate extension StakeReceiptViewModel {
 }
 
 extension DelegationSubmissionViewModel {
-    private func stopDelegationAlertOptions(completion: @escaping () -> Void) -> SwiftUIAlertOptions {
+    private func alertOptions(completion: @escaping () -> Void) -> SwiftUIAlertOptions {
         let okAction = SwiftUIAlertAction(
-            name: "errorAlert.continueButton".localized,
+            name: "baking.nochanges.ok".localized,
             completion: completion,
-            style: .plain
-        )
-        let goBackAction = SwiftUIAlertAction(
-            name: "go.back".localized,
-            completion: nil,
             style: .styled
         )
-        return SwiftUIAlertOptions(
-            title: "delegation.stop.alert.title".localized,
-            message: "delegation.stop.alert.message".localized,
-            actions: [goBackAction, okAction]
-        )
+        
+        if dataHandler.isLoweringStake() {
+            return SwiftUIAlertOptions(
+                title: "delegation.receiptlowering.title".localized,
+                message: "delegation.receiptlowering.message".localized,
+                actions: [okAction]
+            )
+        } else if dataHandler.transferType == .removeDelegation {
+            return SwiftUIAlertOptions(
+                title: "delegation.receiptremove.title".localized,
+                message: storeManager.getChainParams().formattedDelegatorCooldown,
+                actions: [okAction]
+            )
+        } else {
+            return SwiftUIAlertOptions(
+                title: "delegation.receiptnextpayday.title".localized,
+                message: "delegation.receiptnextpayday.message".localized,
+                actions: [okAction]
+            )
+        }
     }
-//    
-//    private func alertOptions(completion: @escaping () -> Void) -> SwiftUIAlertOptions {
-//        
-//    }
 }
 
 private extension Optional where Wrapped == ChainParametersEntity {
