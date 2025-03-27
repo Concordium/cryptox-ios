@@ -47,7 +47,7 @@ final class CCDOnrampViewDataProvider {
         [
             DataProvider(
                 title: "Swipelux",
-                url: URL(string: "https://track.swipelux.com?api-key=\(AppConstants.apiKey)")!,
+                url: URL(string: "https://track.swipelux.com")!,
                 icon: URL(string: "https://assets-global.website-files.com/64f060f3fc95f9d2081781db/65e825be9290e43f9d1bc29b_52c3517d-1bb0-4705-a952-8f0d2746b4c5.jpg")!,
                 isPaymentProvider: true
             ),
@@ -132,31 +132,26 @@ final class CCDOnrampViewDataProvider {
     
     static func generateSwipeluxURL(
         baseURL: URL,
-        targetAddress: String? = nil,
-        phone: String? = nil,
-        email: String? = nil,
-        fiatAmount: Double? = nil
-    ) -> URL {
-        var urlComponents = URLComponents(string: baseURL.absoluteString)
-        
-        var queryItems: [URLQueryItem] = []
-        
-        if let targetAddress = targetAddress {
-            queryItems.append(URLQueryItem(name: "targetAddress", value: targetAddress))
-        }
-        if let phone = phone {
-            queryItems.append(URLQueryItem(name: "phone", value: phone))
-        }
-        if let email = email {
-            queryItems.append(URLQueryItem(name: "email", value: email))
-        }
-        if let fiatAmount = fiatAmount {
-            queryItems.append(URLQueryItem(name: "fiatAmount", value: "\(fiatAmount)"))
-        }
-        
-        urlComponents?.queryItems?.append(contentsOf: queryItems)
-        
-        return urlComponents?.url ?? baseURL
-    }
+        targetAddress: String?) -> URL {
+            let settings: [String: Any] = [
+                "apiKey": AppConstants.apiKey,
+                "defaultValues": [
+                    "targetAddress": [
+                        "value": targetAddress ?? "",
+                        "editable": true
+                    ]
+                ]
+            ]
+            
+            guard let jsonData = try? JSONSerialization.data(withJSONObject: settings),
+                  let jsonString = String(data: jsonData, encoding: .utf8),
+                  let encodedString = jsonString.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
+            else {
+                return baseURL
+            }
+            
+            let urlString = "\(baseURL.absoluteString)/?specificSettings=\(encodedString)"
 
+            return URL(string: urlString) ?? baseURL
+        }
 }
