@@ -57,9 +57,11 @@ class MainTabBarController: BaseTabBarController {
         viewControllers = [accountsMainRouter.rootScene(), newsFeedController, moreCoordinator.navigationController]
         hideKeyboardWhenTappedAround()
         transactionNotificationService.delegate = self
-        NotificationCenter.default.addObserver(forName: .hideTabBar, object: nil, queue: .main) { notification in
-            if let isHidden = notification.userInfo?["isHidden"] as? Bool {
+        NotificationCenter.default.addObserver(forName: .hideTabBar, object: nil, queue: .main) { [weak self] notification in
+            if let isHidden = notification.userInfo?["isHidden"] as? Bool, let self {
                 self.tabBar.isHidden = isHidden
+                self.additionalSafeAreaInsets.bottom = isHidden ? -self.tabBar.frame.height : 0
+
             }
         }
     }
