@@ -215,9 +215,7 @@ struct NavigationDestinationBuilder: ViewModifier {
                     case .validatorTransactionStatus(let viewModel):
                         ValidatorTransactionStatusView(viewModel: viewModel)
                             .environmentObject(navigationManager)
-                            .modifier(NavigationViewModifier(title: "Confirmation") {
-                                navigationManager.pop()
-                            })
+                            .modifier(NavigationViewModifier(title: "Confirmation"))
                     case .updateValidatorMenu(let viewModel):
                         ValidatorUpdateMenu(viewModel: viewModel)
                             .modifier(NavigationViewModifier(title: "earn.desc.baking.header".localized) {
@@ -244,9 +242,7 @@ struct NavigationDestinationBuilder: ViewModifier {
                             .onAppear { notifyTabBarHidden(true) }
                     case .delegationTransactionStatus(let viewModel):
                         DelegationTransactionStatusView(viewModel: viewModel)
-                            .modifier(NavigationViewModifier(title: "confirmation".localized) {
-                                navigationManager.pop()
-                            })
+                            .modifier(NavigationViewModifier(title: "confirmation".localized))
                             .onAppear { notifyTabBarHidden(true) }
                     default:
                         EmptyView()

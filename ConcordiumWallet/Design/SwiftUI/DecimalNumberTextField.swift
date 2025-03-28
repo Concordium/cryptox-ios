@@ -15,18 +15,21 @@ struct DecimalNumberTextField: View {
     @State private var textFieldText: String = ""
     
     @Binding var fraction: Int
+    private var ticker: String?
     
-    private let placeholder: String = "0.00"
+    private let placeholder: String = "0"
     private var decimalNumberFormatter: DecimalNumberFormatter
     private var decimalSeparator: Character { decimalNumberFormatter.decimalSeparator }
     private var groupingSeparator: Character { decimalNumberFormatter.groupingSeparator }
     
     init(
         decimalValue: Binding<BigDecimal>,
-        fraction: Binding<Int>
+        fraction: Binding<Int>,
+        ticker: String? = nil
     ) {
         _fraction = fraction
         _decimalValue = decimalValue
+        self.ticker = ticker
         self.decimalNumberFormatter = .init(maximumFractionDigits: fraction.wrappedValue)
         self._textFieldText = decimalValue.wrappedValue.value == .zero ? State(initialValue: "") :  State(initialValue: TokenFormatter().plainString(from: decimalValue.wrappedValue, decimalSeparator: "."))
     }
@@ -41,55 +44,78 @@ struct DecimalNumberTextField: View {
     var body: some View {
         ZStack(alignment: .leading) {
             if textFieldText.isEmpty {
-                HStack {
-                    Text("0.00")
+                HStack(spacing: 8) {
+                    Text("0")
                         .font(.plexSans(size: 55, weight: .medium))
                         .dynamicTypeSize(.xSmall ... .xxLarge)
                         .minimumScaleFactor(0.5)
                         .lineLimit(1)
                         .modifier(RadialGradientForegroundStyleModifier())
                         .opacity(0.5)
-                    Spacer()
-                }
-            }
-            TextField(placeholder, text: binding(for: $decimalValue))
-                .keyboardType(.decimalPad)
-                .font(.plexSans(size: 55, weight: .medium))
-                .dynamicTypeSize(.xSmall ... .xxLarge)
-                .minimumScaleFactor(0.5)
-                .lineLimit(1)
-                .opacity(1)
-                .foregroundColor(.clear)
-                .overlay(
-                    RadialGradient(
-                        colors:
-                            [Color(red: 0.93, green: 0.85, blue: 0.75),
-                             Color(red: 0.64, green: 0.6, blue: 0.89),
-                             Color(red: 0.62, green: 0.95, blue: 0.92)]
-                        ,
-                        center: .topLeading,
-                        startRadius: 50,
-                        endRadius: 300
-                    )
-                    .allowsHitTesting(false)
-                    .saturation(2)
-                    .mask(alignment: .leading, {
-                        Text(textFieldText.isEmpty ? " " : textFieldText)
+                    if let ticker {
+                        Text(ticker)
                             .font(.plexSans(size: 55, weight: .medium))
                             .dynamicTypeSize(.xSmall ... .xxLarge)
                             .minimumScaleFactor(0.5)
                             .lineLimit(1)
-                            .multilineTextAlignment(.leading)
-                            .allowsHitTesting(false)
-                    })
-                )
-                .onChange(of: decimalValue) { newDecimalValue in
-                    if !(newDecimalValue.value == 0) {
-                        self.textFieldText = TokenFormatter().plainString(from: newDecimalValue, decimalSeparator: ".")
-                    } else if newDecimalValue == .zero {
-                        self.textFieldText = ""
+                            .modifier(RadialGradientForegroundStyleModifier())
+                            .opacity(0.5)
                     }
+                        
+                    Spacer()
                 }
+            }
+                TextField(placeholder, text: binding(for: $decimalValue))
+                    .keyboardType(.decimalPad)
+                    .font(.plexSans(size: 55, weight: .medium))
+                    .dynamicTypeSize(.xSmall ... .xxLarge)
+                    .minimumScaleFactor(0.5)
+                    .lineLimit(1)
+                    .opacity(1)
+                    .foregroundColor(.clear)
+                    .overlay(
+                        RadialGradient(
+                            colors:
+                                [Color(red: 0.93, green: 0.85, blue: 0.75),
+                                 Color(red: 0.64, green: 0.6, blue: 0.89),
+                                 Color(red: 0.62, green: 0.95, blue: 0.92)]
+                            ,
+                            center: .topLeading,
+                            startRadius: 50,
+                            endRadius: 300
+                        )
+                        .allowsHitTesting(false)
+                        .saturation(2)
+                        .mask(alignment: .leading, {
+                            HStack(spacing: 8) {
+                                
+                                Text(textFieldText.isEmpty ? " " : textFieldText)
+                                    .font(.plexSans(size: 55, weight: .medium))
+                                    .dynamicTypeSize(.xSmall ... .xxLarge)
+                                    .minimumScaleFactor(0.5)
+                                    .lineLimit(1)
+                                    .multilineTextAlignment(.leading)
+                                    .allowsHitTesting(false)
+                                
+                                if let ticker, !textFieldText.isEmpty {
+                                    Text(ticker)
+                                        .font(.plexSans(size: 55, weight: .medium))
+                                        .dynamicTypeSize(.xSmall ... .xxLarge)
+                                        .minimumScaleFactor(0.5)
+                                        .lineLimit(1)
+                                        .modifier(RadialGradientForegroundStyleModifier())
+                                    Spacer()
+                                }
+                            }
+                        })
+                    )
+                    .onChange(of: decimalValue) { newDecimalValue in
+                        if !(newDecimalValue.value == 0) {
+                            self.textFieldText = TokenFormatter().plainString(from: newDecimalValue, decimalSeparator: ".")
+                        } else if newDecimalValue == .zero {
+                            self.textFieldText = ""
+                        }
+                    }
         }
         .frame(height: 30)
         .onChange(of: fraction) { newValue in

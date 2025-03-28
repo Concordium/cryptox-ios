@@ -16,7 +16,7 @@ struct DelegationAmountInputView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack(alignment: .bottom) {
-                DecimalNumberTextField(decimalValue: $viewModel.amountDecimal, fraction: $viewModel.fraction)
+                DecimalNumberTextField(decimalValue: $viewModel.amountDecimal, fraction: $viewModel.fraction, ticker: "CCD")
                     .focused($isFocused)
                     .tint(.white)
                     .frame(alignment: .leading)
