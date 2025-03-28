@@ -1318,7 +1318,7 @@ Remember to restart your node with the validator keys.";
 "earn.info.part2.title" = "Earn your way";
 "earn.info.part2.desc" = "You can delegate to an open pool of your choice, or stake using passive delegation.";
 "earn.info.part3.title" = "Update with ease";
-"earn.info.part3.desc" = "Your stake can be modified at any time. If you decrease the amount or stop the delegation a cool-down period of [X] days applies.";
+"earn.info.part3.desc" = "Your stake can be modified at any time. If you decrease the amount or stop the delegation a cool-down period of 7 days applies.";
 "earn.become.validator" = "Or become a validator (advanced)";
 "earn.start" = "Start earning";
 "read.more" = "Read more";
