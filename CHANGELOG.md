@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased 3.2.2]
+
+### Changed
+- Earn flow design
+- Swipelux onramp flow
+
 ## [Release 3.2.1] Mar 14, 2025
 
 ### Fixed
