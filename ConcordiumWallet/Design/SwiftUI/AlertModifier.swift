@@ -71,7 +71,9 @@ struct AlertView: View {
                                 withAnimation {
                                     isPresenting = false
                                 }
-                                action.completion?()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                    action.completion?()
+                                }
                             } label: {
                                 Text(action.name)
                                     .font(.satoshi(size: 14, weight: .medium))

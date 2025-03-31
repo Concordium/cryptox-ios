@@ -104,7 +104,13 @@ struct ComissionSettingsView: View {
                             .offset(y: 13)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                             .onChange(of: commission.wrappedValue) { newValue in
-                                let roundedValue = (newValue * 100_000).rounded() / 100_000
+                                var roundedValue = (newValue * 100_000).rounded() / 100_000
+                                
+                                // Ensure we can reach 1.0 by checking for rounding issues
+                                if abs(roundedValue - 1.0) < sliderStep {
+                                    roundedValue = 1.0
+                                }
+                                print("Updated commission: \(roundedValue)")
                                 commission.wrappedValue = roundedValue
                             }
 
