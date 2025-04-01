@@ -53,7 +53,7 @@ final class CCDOnrampViewDataProvider {
             ),
             DataProvider(
                 title: "Wert",
-                url: URL(string: "https://wert.io/try-wert")!,
+                url: URL(string: "https://widget.wert.io/01HM0W8FTFG4TEBRB0JPM18G5W/widget/?commodity=CCD&network=concordium&commodity_id=ccd.simple.concordium")!,
                 icon: URL(string: "https://partner.wert.io/icons/apple-touch-icon.png")!,
                 isPaymentProvider: true
             )
