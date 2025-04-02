@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import TargetConditionals
 
 extension UIDevice {
     var isSimulator: Bool {
