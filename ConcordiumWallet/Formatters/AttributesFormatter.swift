@@ -27,6 +27,8 @@ enum ChosenAttributeKeys: String, CodingKey, CaseIterable {
     case firstName, lastName, sex, dob, countryOfResidence, nationality
     case idDocType, idDocNo, idDocIssuer, idDocIssuedAt, idDocExpiresAt
     case nationalIdNo, taxIdNo
+    // Company ID
+    case legalName, businessNumber, registrationAuth, legalCountry, lei
 }
 
 class AttributeFormatter {
@@ -60,6 +62,17 @@ class AttributeFormatter {
                 formattedKey = "attributes.sex".localized
             case .taxIdNo:
                 formattedKey = "attributes.taxIDNo".localized
+            case .legalName:
+                formattedKey = "attributes.legalName".localized
+            case .businessNumber:
+                formattedKey = "attributes.businessNumber".localized
+            case .registrationAuth:
+                formattedKey = "attributes.registrationAuth".localized
+            case .legalCountry:
+                formattedKey = "attributes.legalCountry".localized
+            case .lei:
+                formattedKey = "attributes.lei".localized
+        
         }
         return formattedKey
     }
@@ -68,20 +81,22 @@ class AttributeFormatter {
         let internalFormatter = InternalFormatter()
         var formattedValue = ""
         switch key {
-            case .firstName, .lastName:
+            case .firstName, .lastName, .legalName, .registrationAuth:
                 formattedValue = internalFormatter.format(name: value)
-            case .idDocNo, .nationalIdNo, .taxIdNo :
+            case .idDocNo, .nationalIdNo, .taxIdNo, .businessNumber :
                 formattedValue = internalFormatter.format(plainNumber: value)
             case .dob:
                 formattedValue = internalFormatter.format(dateOfBirth: value)
             case .idDocExpiresAt, .idDocIssuedAt:
                 formattedValue = internalFormatter.format(date: value)
-            case .idDocIssuer, .nationality, .countryOfResidence:
+            case .idDocIssuer, .nationality, .countryOfResidence, .legalCountry:
                 formattedValue = internalFormatter.format(countryCode: value)
             case .idDocType:
                 formattedValue = internalFormatter.format(documentType: value)
             case .sex:
                 formattedValue = internalFormatter.format(sex: value)
+            case .lei:
+                formattedValue = internalFormatter.formatLei(lei: value)
         }
         return formattedValue
     }
@@ -149,5 +164,13 @@ private class InternalFormatter {
         let identifier = NSLocale(localeIdentifier: locale.identifier)
         countryName = identifier.displayName(forKey: NSLocale.Key.countryCode, value: countryCode) ?? ""
         return countryName
+    }
+    
+    func formatLei(lei: String) -> String {
+        if lei.isEmpty {
+            return "unavailable".localized
+        } else {
+            return lei
+        }
     }
 }
