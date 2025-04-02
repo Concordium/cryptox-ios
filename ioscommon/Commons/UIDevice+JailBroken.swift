@@ -8,21 +8,18 @@
 
 import Foundation
 import UIKit
-import TargetConditionals
 
 extension UIDevice {
-    var isSimulator: Bool {
-        return false
-//        return TARGET_OS_SIMULATOR != 0
-    }
-    
     var isJailBroken: Bool {
         get {
-            if UIDevice.current.isSimulator { return false }
+#if targetEnvironment(simulator)
+            return false
+#else
             if JailBrokenHelper.hasCydiaInstalled() { return true }
             if JailBrokenHelper.isContainsSuspiciousApps() { return true }
             if JailBrokenHelper.isSuspiciousSystemPathsExists() { return true }
             return JailBrokenHelper.canEditSystemFiles()
+#endif
         }
     }
 }
