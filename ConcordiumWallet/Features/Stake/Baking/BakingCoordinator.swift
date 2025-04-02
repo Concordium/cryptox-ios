@@ -120,14 +120,9 @@ class BakingCoordinator: Coordinator {
     }
 
     func showComissionSettings(dataHandler: StakeDataHandler) {
-        let viewModel = BakerCommissionSettingsViewModel(
+        let viewModel = ValidatorCommissionSettingsViewModel(
             service: dependencyProvider.stakeService(),
-            handler: dataHandler,
-            didTapContinue: { [weak self] in
-            self?.showMetadataUrl(dataHandler: dataHandler)
-            }) { [weak self] in
-                self?.navigationController.popViewController(animated: true)
-            }
+            handler: dataHandler as! BakerDataHandler)
 
         let view = BakerCommissionSettingsView(viewModel: viewModel)
         let vc = UIHostingController(rootView: view)

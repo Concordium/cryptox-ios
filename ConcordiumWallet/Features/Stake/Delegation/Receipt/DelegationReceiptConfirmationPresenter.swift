@@ -43,7 +43,7 @@ class DelegationReceiptConfirmationPresenter: StakeReceiptPresenterProtocol {
         self.energy = energy
         self.delegate = delegate
         self.dataHandler = dataHandler
-        self.viewModel = StakeReceiptViewModel(dataHandler: dataHandler)
+        self.viewModel = StakeReceiptViewModel(dataHandler: dataHandler, account: account)
         self.transactionsService = dependencyProvider.transactionsService()
         self.stakeService = dependencyProvider.stakeService()
         self.storeManager = dependencyProvider.storageManager()

@@ -253,6 +253,6 @@ extension AccountsMainViewModel {
         hasher.combine(staked)
         hasher.combine(isBackupAlertShown)
         hasher.combine(selectedAccount?.address)
-        hasher.combine(selectedAccount?.account.name)
+        hasher.combine(selectedAccount?.account?.name)
     }
 }

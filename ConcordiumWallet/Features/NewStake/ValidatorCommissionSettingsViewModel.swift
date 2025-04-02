@@ -36,7 +36,7 @@ enum BakerCommissionSettingError: LocalizedError {
     }
 }
 
-class BakerCommissionSettingsViewModel: ObservableObject {
+class ValidatorCommissionSettingsViewModel: ObservableObject {
     @Published var transactionFeeCommission: Double = 0
     @Published var finalizationRewardCommission: Double = 0
     @Published var bakingRewardCommission: Double = 0
@@ -48,19 +48,18 @@ class BakerCommissionSettingsViewModel: ObservableObject {
     @Published var error: BakerCommissionSettingError?
     var dismissView: () -> Void
     private var cancellables = Set<AnyCancellable>()
-    private var didTapContinue: () -> Void
     private var service: StakeServiceProtocol
-    private var handler: StakeDataHandler
-
+    private var handler: BakerDataHandler
+    private var navigationManager: NavigationManager
     init(
         service: StakeServiceProtocol,
-        handler: StakeDataHandler,
-        didTapContinue: @escaping (() -> Void),
+        handler: BakerDataHandler,
+        navigationManager: NavigationManager,
         dismissView: @escaping (() -> Void)
     ) {
         self.service = service
-        self.didTapContinue = didTapContinue
         self.handler = handler
+        self.navigationManager = navigationManager
         self.dismissView = dismissView
     }
 
@@ -121,7 +120,7 @@ class BakerCommissionSettingsViewModel: ObservableObject {
                     transactionComission: transactionFeeCommission
                 )
             )
-            didTapContinue()
+            navigationManager.navigate(to: .validator(.metadataUrl(handler), account: nil))
         }
     }
 

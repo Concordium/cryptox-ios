@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import BigInt
 
 protocol BakerAmountInputPresenterDelegate: AnyObject {
     func finishedAmountInput(dataHandler: StakeDataHandler)
@@ -29,6 +30,15 @@ private enum TransferCostOption {
         }
     }
     
+    var cost: TransferCost? {
+        switch self {
+        case .cost(let transferCost):
+            return transferCost
+        case .range:
+            return nil
+        }
+    }
+    
     var maxCost: GTU {
         switch self {
             case .cost(let transferCost):
@@ -44,7 +54,7 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
     weak var delegate: BakerAmountInputPresenterDelegate?
     
     private let account: AccountDataType
-    private let viewModel = StakeAmountInputViewModel()
+    private let viewModel: StakeAmountInputViewModel
     
     private let dataHandler: StakeDataHandler
     private var validator: StakeAmountInputValidator
@@ -65,7 +75,7 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
         self.dataHandler = dataHandler
         self.transactionService = dependencyProvider.transactionsService()
         self.stakeService = dependencyProvider.stakeService()
-        
+        self.viewModel = StakeAmountInputViewModel(account: account)
         let previouslyStakedInPool = GTU(intValue: self.account.baker?.stakedAmount ?? 0)
         
         validator = StakeAmountInputValidator(
@@ -284,7 +294,7 @@ private extension StakeWarning {
     func asAlert(completion: @escaping () -> Void) -> AlertOptions? {
         switch self {
             case .noChanges:
-                return BakingAlerts.noChanges
+                return LegacyBakingAlerts.noChanges
             case .loweringStake:
                 return nil
             case .moreThan95:
@@ -305,8 +315,8 @@ private extension TransferCostRange {
     var formattedTransactionFee: String {
         String(
             format: "baking.inputamount.transactionfee".localized,
-            minCost.displayValueWithGStroke(),
-            maxCost.displayValueWithGStroke()
+            minCost.displayValueWithTwoNumbersAfterDecimalPoint(),
+            maxCost.displayValueWithTwoNumbersAfterDecimalPoint()
         )
     }
 }
@@ -320,16 +330,6 @@ private extension StakeAmountInputViewModel {
     ) {
         let balance = GTU(intValue: account.forecastBalance)
         let staked = GTU(intValue: account.baker?.stakedAmount ?? 0)
-        self.firstBalance = BalanceViewModel(
-            label: "baking.inputamount.balance".localized,
-            value: balance.displayValueWithGStroke(),
-            highlighted: false
-        )
-        self.secondBalance = BalanceViewModel(
-            label: "baking.inputamount.bakerstake".localized,
-            value: staked.displayValueWithGStroke(),
-            highlighted: false
-        )
         self.showsPoolLimits = false
         self.isAmountLocked = isInCooldown
         self.bottomMessage = "baking.inputamount.bottommessage".localized
@@ -337,7 +337,7 @@ private extension StakeAmountInputViewModel {
         
         if let currentAmount = currentAmount {
             if !isInCooldown {
-                self.amount = currentAmount.displayValue()
+                self.amountString = currentAmount.displayValue()
                 self.amountMessage = "baking.inputamount.newamount".localized
             } else {
                 self.amountMessage = "baking.inputamount.lockedamountmessage".localized

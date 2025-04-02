@@ -72,21 +72,12 @@ struct TransferSendingStatusView: View {
             
             Spacer()
             
-            Button(action: {
+            RoundedButton(action: {
                 if viewModel.isLoading {
                     viewModel.dismiss()
                 }
                 navigationManager.reset()
-            }, label: {
-                Text("close".localized)
-                    .font(Font.satoshi(size: 15, weight: .medium))
-                    .foregroundColor(.blackMain)
-                    .padding(.horizontal, 24)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 56)
-                    .background(.white)
-                    .cornerRadius(48)
-            })
+            }, title: "close".localized)
             .padding(.bottom, 20)
             .padding(.horizontal, 18)
         }
@@ -99,7 +90,6 @@ struct TransferSendingStatusView: View {
                     await viewModel.callTransaction()
                 }
             }
-//            setupBinding()
         }
         .onChange(of: viewModel.isLoading) { _ in
             playAnimationBasedOnState()

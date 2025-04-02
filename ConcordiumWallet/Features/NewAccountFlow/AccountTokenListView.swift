@@ -9,6 +9,7 @@
 import SwiftUI
 import Combine
 import BigInt
+import RealmSwift
 
 enum TokenListMode {
     case normal
@@ -205,7 +206,7 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
         self.isReadOnly = account.isReadOnly
         
         storageManager.subscribeCIS2TokensUpdate(account.address).sink { [weak self] val in
-            Task { @MainActor in
+            Task {
                 await self?.reload()
             }
         }.store(in: &cancellables)
@@ -213,7 +214,8 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
     
     @MainActor
     func reload() async {
-        guard let account else { return }
+        guard let account, !account.isObjectInvalidated() else { return }
+        
         let tokens = storageManager.getAccountSavedCIS2Tokens(account.address)
         let cis2Service = CIS2Service(networkManager: self.dependencyProvider.networkManager(), storageManager: storageManager)
         if !tokens.isEmpty {
@@ -274,7 +276,6 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
         guard let account else { return }
         do {
             try storageManager.removeCIS2Token(token: token, address: account.address)
-            //            self.onDismiss()
         } catch {
             logger.debugLog(error.localizedDescription)
         }

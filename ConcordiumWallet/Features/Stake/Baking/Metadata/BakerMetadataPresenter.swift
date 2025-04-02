@@ -82,7 +82,7 @@ class BakerMetadataPresenter: BakerMetadataPresenterProtocol {
         if dataHandler.containsChanges() || dataHandler.transferType == .registerBaker {
             self.delegate?.finishedMetadata(dataHandler: dataHandler)
         } else {
-            self.view?.showAlert(with: BakingAlerts.noChanges)
+            self.view?.showAlert(with: LegacyBakingAlerts.noChanges)
         }
     }
     

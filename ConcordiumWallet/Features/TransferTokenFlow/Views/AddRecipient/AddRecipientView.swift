@@ -105,29 +105,16 @@ struct AddRecipientView: View {
                     .cornerRadius(12)
             )
             Spacer()
-            Button(action: {
+            
+            RoundedButton(action: {
                 Task {
                     await viewModel.saveTapped()
                 }
+
                 if viewModel.error == nil {
                     onBackTapped()
                 }
-            }, label: {
-                Text("Save".localized)
-                    .font(Font.satoshi(size: 15, weight: .medium))
-                    .foregroundColor(viewModel.enableSave ? .blackMain : .grey4)
-                    .padding(.horizontal, 24)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 56)
-                    .background(viewModel.enableSave ? .white : .blackMain)
-                    .cornerRadius(48)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 48)
-                            .inset(by: 0.5)
-                            .stroke(Color(red: 0.44, green: 0.47, blue: 0.49), lineWidth: viewModel.enableSave ? 0 : 1)
-                        
-                    )
-            })
+            }, title: "Save".localized)
             .disabled(!viewModel.enableSave)
         }
         .padding(.horizontal, 18)

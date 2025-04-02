@@ -35,7 +35,7 @@ final class DelegationEntity: Object {
         self.delegationTargetType = accountDelegationModel.delegationTarget.delegateType
         self.delegationTargetBakerID = accountDelegationModel.delegationTarget.bakerID ?? -1
         self.pendingChangeEntity = PendingChangeEntity(pendingChange: accountDelegationModel.pendingChange)
-        self.isSuspended = accountDelegationModel.isSuspended
+        self.isSuspended = accountDelegationModel.isSuspended ?? false
         self.isPrimedForSuspension = accountDelegationModel.isPrimedForSuspension ?? false
     }
 }

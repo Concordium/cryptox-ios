@@ -1,5 +1,11 @@
 # Changelog
 
+## [Release 3.2.1] Mar 14, 2025
+
+### Fixed
+- Crash while switching/removing/importing accounts
+- Fetching of the account balances
+
 ## [Release 3.2.0] Mar 11, 2025
 
 ### Fixed

@@ -162,16 +162,7 @@ protocol AccountValue: FieldValue {
 
 extension AccountValue {
     func getDisplayValues(type: TransferType) -> [DisplayValue] {
-        if let accountName = self.accountName {
-            return [
-                DisplayValue(
-                    key: field.getLabelText(),
-                    value: String(format: "stake.receipt.formattedaccount".localized, accountName, accountAddress)
-                )
-            ]
-        } else {
             return [DisplayValue(key: field.getLabelText(), value: accountAddress)]
-        }
     }
     
     func getCostParameters(type: TransferType) -> [TransferCostParameter] {
@@ -331,15 +322,15 @@ struct BakerKeyData: FieldValue {
         [
             DisplayValue(
                 key: "baking.receipt.electionverifykey".localized,
-                value: keys.electionVerifyKey.splitInto(lines: 2)
+                value: keys.electionVerifyKey
             ),
             DisplayValue(
                 key: "baking.receipt.signatureverifykey".localized,
-                value: keys.signatureVerifyKey.splitInto(lines: 2)
+                value: keys.signatureVerifyKey
             ),
             DisplayValue(
                 key: "baking.receipt.aggregationverifykey".localized,
-                value: keys.aggregationVerifyKey.splitInto(lines: 6)
+                value: keys.aggregationVerifyKey
             )
         ]
     }
@@ -506,7 +497,7 @@ struct DelegationAmountData: SimpleFieldValue {
     let amount: GTU
     
     var displayValue: String {
-        amount.displayValueWithGStroke()
+        amount.displayValueWithCCDStroke()
     }
     
     func getCostParameters(type: TransferType) -> [TransferCostParameter] {
@@ -527,7 +518,7 @@ struct BakerAmountData: SimpleFieldValue {
     let amount: GTU
     
     var displayValue: String {
-        amount.displayValueWithGStroke()
+        amount.displayValueWithCCDStroke()
     }
     var costParameters: [TransferCostParameter] { [.amount(nil)] }
     
@@ -562,7 +553,7 @@ enum CurrentDataBuilder {
     }
 }
 
-class StakeDataHandler {
+class StakeDataHandler: ObservableObject {
     let transferType: TransferType
     
     // this is the data that is currently on the chain
@@ -731,5 +722,15 @@ class StakeDataHandler {
             transfer.capital = "0"
         }
         return transfer
+    }
+}
+
+extension StakeDataHandler: Equatable, Hashable {
+    static func == (lhs: StakeDataHandler, rhs: StakeDataHandler) -> Bool {
+        lhs.transferType == rhs.transferType
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self)
     }
 }

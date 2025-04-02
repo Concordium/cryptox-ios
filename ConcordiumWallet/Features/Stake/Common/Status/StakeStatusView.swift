@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct StakeStatusView: View {
-    @ObservedObject var viewModel: StakeStatusViewModel
+    @ObservedObject var viewModel: LegacyStakeStatusViewModel
     @State private var updateTimer: Timer?
     @SwiftUI.Environment(\.dismiss) private var dismiss
     

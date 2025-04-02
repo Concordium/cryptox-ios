@@ -15,11 +15,15 @@ struct NavigationDestinationBuilder: ViewModifier {
     weak var router: AccountsMainViewDelegate?
     @State var isNewTokenAdded: Bool = false
     var onAddressPicked = PassthroughSubject<String, Never>()
-
+    
     func body(content: Content) -> some View {
         content
+            .onAppear {
+                notifyTabBarHidden(false)
+            }
             .navigationDestination(for: NavigationPaths.self) { destination in
                 Group {
+                    // General navigation flow
                     switch destination {
                     case .accountsOverview(let viewModel):
                         AccountsOverviewView(path: $navigationManager.path, viewModel: viewModel, router: router)
@@ -47,7 +51,6 @@ struct NavigationDestinationBuilder: ViewModifier {
                         } else {
                             EmptyView()
                         }
-
                     case .send(let account, let tokenType):
                         SendTokenView(path: $navigationManager.path,
                                       viewModel: .init(
@@ -77,22 +80,20 @@ struct NavigationDestinationBuilder: ViewModifier {
                         .modifier(NavigationViewModifier(title: "Choose token", backAction: {
                             navigationManager.pop()
                         }))
-                    case .earn:
-                        EmptyView()
                     case .addToken(let account):
-                            AddTokenView(
-                                path: $navigationManager.path,
-                                viewModel: .init(storageManager: dependencyProvider.storageManager(),
-                                                 networkManager: dependencyProvider.networkManager(),
-                                                 account: account),
-                                searchTokenViewModel: SearchTokenViewModel(
-                                    cis2Service: CIS2Service(
-                                        networkManager: dependencyProvider.networkManager(),
-                                        storageManager: dependencyProvider.storageManager()
-                                    )
-                                ),
-                                onTokenAdded: { isNewTokenAdded = true }
-                            )
+                        AddTokenView(
+                            path: $navigationManager.path,
+                            viewModel: .init(storageManager: dependencyProvider.storageManager(),
+                                             networkManager: dependencyProvider.networkManager(),
+                                             account: account),
+                            searchTokenViewModel: SearchTokenViewModel(
+                                cis2Service: CIS2Service(
+                                    networkManager: dependencyProvider.networkManager(),
+                                    storageManager: dependencyProvider.storageManager()
+                                )
+                            ),
+                            onTokenAdded: { isNewTokenAdded = true }
+                        )
                     case .addTokenDetails(let token):
                         TokenDetailsView(token: token, isAddTokenDetails: true, showRawMd: .constant(false))
                             .modifier(NavigationViewModifier(title: "Add token", backAction: {
@@ -118,7 +119,7 @@ struct NavigationDestinationBuilder: ViewModifier {
                         }, onBackTapped: {
                             navigationManager.pop()
                         })
-                            .environmentObject(navigationManager)
+                        .environmentObject(navigationManager)
                     case .confirmTransaction(let vm):
                         ConfirmTransactionView(viewModel: vm, path: $navigationManager.path)
                             .modifier(NavigationViewModifier(title: "Confirmation", backAction: {
@@ -142,15 +143,170 @@ struct NavigationDestinationBuilder: ViewModifier {
                             .onAppear {
                                 notifyTabBarHidden(true)
                             }
+                        
+                    case .earnMain(let account):
+                        EarnMainView(account: account)
+                            .environmentObject(navigationManager)
+                            .modifier(NavigationViewModifier(title: "Earn") {
+                                navigationManager.pop()
+                            })
+                            .onAppear {
+                                notifyTabBarHidden(true)
+                            }
+                    case .earn(let account):
+                        showEarn(account: account)
+                    case .earnReadMode(let mode, let account):
+                        EarnReadMoreView(mode: mode, account: account)
+                            .environmentObject(navigationManager)
+                            .modifier(NavigationViewModifier(title: mode == .validator ? "learn.about.validation".localized : "learn.about.earning".localized) {
+                                navigationManager.pop()
+                            })
+                            .onAppear {
+                                notifyTabBarHidden(true)
+                            }
+                        
+                        // MARK: - Validator Flow
+                    case .amountInput(let viewModel):
+                        ValidatorAmountInputView(viewModel: viewModel)
+                            .modifier(NavigationViewModifier(title: "baking.inputamount.title.create".localized) {
+                                navigationManager.pop()
+                            })
+                            .onAppear { notifyTabBarHidden(true) }
+                        
+                    case .openningPool(let viewModel):
+                        OpenPoolView(viewModel: viewModel)
+                            .environmentObject(navigationManager)
+                            .modifier(NavigationViewModifier(title: "validator.opening.pool.title".localized) {
+                                navigationManager.pop()
+                            })
+                            .onAppear { notifyTabBarHidden(true) }
+                        
+                    case .commissionSettings(let viewModel):
+                        ComissionSettingsView(viewModel: viewModel)
+                            .environmentObject(navigationManager)
+                            .modifier(NavigationViewModifier(title: "validator.commission.title".localized) {
+                                navigationManager.pop()
+                            })
+                            .onAppear { notifyTabBarHidden(true) }
+                        
+                    case .metadataUrl(let viewModel):
+                        ValidatorMetadataView(viewModel: viewModel)
+                            .environmentObject(navigationManager)
+                            .modifier(NavigationViewModifier(title: "validator.metadata.title".localized) {
+                                navigationManager.pop()
+                            })
+                            .onAppear { notifyTabBarHidden(true) }
+                        
+                    case .generateKey(let viewModel):
+                        ValidatorGenerateKeysView(viewModel: viewModel)
+                            .environmentObject(navigationManager)
+                            .modifier(NavigationViewModifier(title: "validator.validator.keys.title".localized) {
+                                navigationManager.pop()
+                            })
+                            .onAppear { notifyTabBarHidden(true) }
+                        
+                    case .validatorRequestConfirmation(let viewModel):
+                        ValidatorSubmissionView(viewModel: viewModel)
+                            .environmentObject(navigationManager)
+                            .modifier(NavigationViewModifier(title: "baking.receiptconfirmation.submit".localized) {
+                                navigationManager.pop()
+                            })
+                            .onAppear { notifyTabBarHidden(true) }
+                    case .validatorTransactionStatus(let viewModel):
+                        ValidatorTransactionStatusView(viewModel: viewModel)
+                            .environmentObject(navigationManager)
+                            .modifier(NavigationViewModifier(title: "Confirmation") {
+                                navigationManager.pop()
+                            })
+                    case .updateValidatorMenu(let viewModel):
+                        ValidatorUpdateMenu(viewModel: viewModel)
+                            .modifier(NavigationViewModifier(title: "earn.desc.baking.header".localized) {
+                                navigationManager.pop()
+                            })
+                    case .delegationAmountInput(let viewModel):
+                        DelegationAmountInputView(viewModel: viewModel)
+                            .modifier(NavigationViewModifier(title: "earn".localized) {
+                                navigationManager.pop()
+                            })
+                            .onAppear { notifyTabBarHidden(true) }
+                    case .delegationStakingMode(let viewModel):
+                        DelegationStakingModeView(viewModel: viewModel)
+                            .modifier(NavigationViewModifier(title: "earn".localized) {
+                                navigationManager.pop()
+                            })
+                            .onAppear { notifyTabBarHidden(true) }
+                    case .delegationRequestConfirmation(let viewModel):
+                        DelegationSubmissionView(viewModel: viewModel)
+                            .environmentObject(navigationManager)
+                            .modifier(NavigationViewModifier(title: "earn".localized) {
+                                navigationManager.pop()
+                            })
+                            .onAppear { notifyTabBarHidden(true) }
+                    case .delegationTransactionStatus(let viewModel):
+                        DelegationTransactionStatusView(viewModel: viewModel)
+                            .modifier(NavigationViewModifier(title: "earn".localized) {
+                                navigationManager.pop()
+                            })
+                            .onAppear { notifyTabBarHidden(true) }
+                    default:
+                        EmptyView()
                     }
                 }
-            }
-            .onAppear {
-                notifyTabBarHidden(false)
             }
     }
     
     func notifyTabBarHidden(_ isHidden: Bool) {
-        NotificationCenter.default.post(name: .hideTabBar, object: nil, userInfo: ["isHidden": isHidden])
+        let currentState = UserDefaults.standard.bool(forKey: "isTabBarHidden")
+        if currentState != isHidden {
+            UserDefaults.standard.setValue(isHidden, forKey: "isTabBarHidden")
+            NotificationCenter.default.post(name: .hideTabBar, object: nil, userInfo: ["isHidden": isHidden])
+        }
+    }
+    
+    @ViewBuilder
+    func showEarn(account: AccountEntity) -> some View {
+        
+        let transfers = self.dependencyProvider.storageManager().getTransfers(for: account.address).filter { transfer in
+            transfer.transferType.isDelegationTransfer
+        }
+        
+        // Check if the account has a baker or delegation
+        if account.baker == nil && account.delegation == nil && transfers.count == 0 {
+            // If no baker or delegation, show the main earn view
+            
+            EarnMainView(account: account)
+                .environmentObject(navigationManager)
+                .modifier(NavigationViewModifier(title: "Earn") {
+                    navigationManager.pop()
+                })
+                .onAppear {
+                    notifyTabBarHidden(true)
+                }
+        } else if account.baker != nil {
+            let statusViewModel = ValidatorStakeStatusViewModel(account: account,
+                                                                dependencyProvider: dependencyProvider,
+                                                                navigationManager: navigationManager)
+            // If the account has a baker, show the validator flow
+            ValidatorStatusView(viewModel: statusViewModel)
+                .environmentObject(navigationManager)
+                .modifier(NavigationViewModifier(title: "earn.desc.baking.header".localized) {
+                    navigationManager.pop()
+                })
+                .onAppear {
+                    notifyTabBarHidden(true)
+                }
+        } else if account.delegation != nil || transfers.count > 0 {
+            let statusViewModel = DelegationStatusViewModel(account: account,
+                                                            dependencyProvider: dependencyProvider,
+                                                            navigationManager: navigationManager)
+            DelegationStatusView(viewModel: statusViewModel)
+                .environmentObject(navigationManager)
+                .modifier(NavigationViewModifier(title: "earn".localized) {
+                    navigationManager.pop()
+                })
+                .onAppear {
+                    notifyTabBarHidden(true)
+                }
+        }
     }
 }

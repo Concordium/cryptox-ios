@@ -15,7 +15,7 @@ protocol EarnPresenterDelegate: AnyObject {
 }
 
 protocol StakeStatusViewProtocol: Loadable, ShowAlert {
-    func bind(viewModel: StakeStatusViewModel)
+    func bind(viewModel: LegacyStakeStatusViewModel)
 }
 
 class EarnPresenter: SwiftUIPresenter<EarnViewModel> {
