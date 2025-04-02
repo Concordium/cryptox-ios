@@ -10,16 +10,21 @@ import Foundation
 import UIKit
 
 extension UIDevice {
+    var isSimulator: Bool {
+#if targetEnvironment(simulator)
+            return true
+#else
+            return false
+#endif
+    }
+    
     var isJailBroken: Bool {
         get {
-#if targetEnvironment(simulator)
-            return false
-#else
+            if UIDevice.current.isSimulator { return false }
             if JailBrokenHelper.hasCydiaInstalled() { return true }
             if JailBrokenHelper.isContainsSuspiciousApps() { return true }
             if JailBrokenHelper.isSuspiciousSystemPathsExists() { return true }
             return JailBrokenHelper.canEditSystemFiles()
-#endif
         }
     }
 }
