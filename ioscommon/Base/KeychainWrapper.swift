@@ -10,6 +10,7 @@ import LocalAuthentication
 import Security
 import CryptoKit
 import Combine
+import CommonCrypto
 
 protocol KeychainWrapperProtocol {
     func hasValue(key: String) -> Bool
@@ -24,51 +25,123 @@ protocol KeychainWrapperProtocol {
 }
 
 extension KeychainWrapperProtocol {
-    private var passwordCheck: String { "passwordcheck" }
-    
+    private var saltKey: String { "password_salt" }
+    private var passwordCheckKey: String { KeychainKeys.loginPassword.rawValue }
+    private var biometricKey: String { KeychainKeys.password.rawValue }
+
+    /// Hashes a password using PBKDF2 + SHA512 and returns hex string
     func hashPassword(_ password: String) -> String {
-        let data = password.data(using: .utf8)!
-        return SHA512.hash(data: data).compactMap { String(format: "%02x", $0) }.joined()
+        let salt = getOrCreateSalt()
+
+        guard let hashData = pbkdf2Hash(password: password, salt: salt) else {
+            return ""
+        }
+
+        return hashData.map { String(format: "%02x", $0) }.joined()
     }
-    
+
+    /// Stores password by saving a known value ("passwordcheck") protected by the password-derived key
     func storePassword(password: String) -> Result<String, KeychainError> {
         let hash = hashPassword(password)
         return store(
-            key: KeychainKeys.loginPassword.rawValue,
-            value: passwordCheck,
+            key: passwordCheckKey,
+            value: "passwordcheck",
             securedByPassword: hash
         ).map { _ in hash }
-        
     }
-    
+
+    /// Verifies password hash by checking if the known value can be unlocked
     func checkPasswordHash(pwHash: String) -> Result<Bool, KeychainError> {
-        getValue(for: KeychainKeys.loginPassword.rawValue, securedByPassword: pwHash)
-            .map { readPwCheck in
-                passwordCheck == readPwCheck
-        }.flatMap { pwEquals in
-            pwEquals ? Result.success(true) : Result.failure(KeychainError.wrongPassword)
-        }
+        getValue(for: passwordCheckKey, securedByPassword: pwHash)
+            .map { $0 == "passwordcheck" }
+            .flatMap { isMatch in
+                isMatch ? .success(true) : .failure(.wrongPassword)
+            }
     }
-    
+
+    /// Verifies the password by hashing it and comparing
     func checkPassword(password: String) -> Result<Bool, KeychainError> {
         checkPasswordHash(pwHash: hashPassword(password))
     }
-    
+
+    /// Checks if password has ever been stored
     func passwordCreated() -> Bool {
-        hasValue(key: KeychainKeys.loginPassword.rawValue)
+        hasValue(key: passwordCheckKey)
     }
-    
+
+    /// Stores password hash with biometrics
     func storePasswordBehindBiometrics(pwHash: String) -> AnyPublisher<Void, KeychainError> {
-        deleteKeychainItem(withKey: KeychainKeys.password.rawValue)
+        deleteKeychainItem(withKey: biometricKey)
             .publisher
             .flatMap { _ in
-                self.storeWithBiometrics(key: KeychainKeys.password.rawValue, value: pwHash)
+                self.storeWithBiometrics(key: biometricKey, value: pwHash)
             }
             .eraseToAnyPublisher()
     }
-    
+
+    /// Retrieves password hash with biometrics
     func getPasswordWithBiometrics() -> AnyPublisher<String, KeychainError> {
-        getValueWithBiometrics(for: KeychainKeys.password.rawValue)
+        getValueWithBiometrics(for: biometricKey)
+    }
+
+    // MARK: - Helpers
+
+    /// Returns salt from Keychain or creates and stores one
+    private func getOrCreateSalt() -> Data {
+        if let savedSalt = load(key: saltKey) {
+            return savedSalt
+        }
+
+        let newSalt = Data((0..<16).map { _ in UInt8.random(in: 0...255) })
+        save(newSalt, key: saltKey)
+        return newSalt
+    }
+
+    /// Low-level PBKDF2 implementation using CommonCrypto
+    private func pbkdf2Hash(password: String, salt: Data, keyByteCount: Int = 64, rounds: Int = 10_000) -> Data? {
+        guard let passwordData = password.data(using: .utf8) else { return nil }
+
+        var derivedKey = Data(repeating: 0, count: keyByteCount)
+        let result = derivedKey.withUnsafeMutableBytes { derivedBytes in
+            salt.withUnsafeBytes { saltBytes in
+                CCKeyDerivationPBKDF(
+                    CCPBKDFAlgorithm(kCCPBKDF2),
+                    password, passwordData.count,
+                    saltBytes.bindMemory(to: UInt8.self).baseAddress!, salt.count,
+                    CCPseudoRandomAlgorithm(kCCPRFHmacAlgSHA512),
+                    UInt32(rounds),
+                    derivedBytes.bindMemory(to: UInt8.self).baseAddress!, keyByteCount
+                )
+            }
+        }
+
+        return result == kCCSuccess ? derivedKey : nil
+    }
+    
+    func save(_ data: Data, key: String) {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: key,
+            kSecValueData as String: data
+        ]
+
+        SecItemDelete(query as CFDictionary) // Remove any existing item first
+        SecItemAdd(query as CFDictionary, nil)
+    }
+
+    func load(key: String) -> Data? {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: key,
+            kSecReturnData as String: true,
+            kSecMatchLimit as String: kSecMatchLimitOne
+        ]
+
+        var dataTypeRef: AnyObject?
+        let status = SecItemCopyMatching(query as CFDictionary, &dataTypeRef)
+
+        guard status == errSecSuccess else { return nil }
+        return dataTypeRef as? Data
     }
 }
 
