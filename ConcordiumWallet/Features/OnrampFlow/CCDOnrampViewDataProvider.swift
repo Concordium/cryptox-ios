@@ -133,8 +133,9 @@ final class CCDOnrampViewDataProvider {
     static func generateSwipeluxURL(
         baseURL: URL,
         targetAddress: String?) -> URL {
+            guard let apiKey = Bundle.main.infoDictionary?["API_KEY"] else { return baseURL }
             let settings: [String: Any] = [
-                "apiKey": AppConstants.apiKey,
+                "apiKey": apiKey,
                 "defaultValues": [
                     "targetAddress": [
                         "value": targetAddress ?? "",

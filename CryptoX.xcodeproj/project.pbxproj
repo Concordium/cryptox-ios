@@ -1732,6 +1732,9 @@
 		1534956F2D9FEADD00D65610 /* DelegationPoolValidatorIdError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1534956E2D9FEADD00D65610 /* DelegationPoolValidatorIdError.swift */; };
 		153495702D9FEADD00D65610 /* DelegationPoolValidatorIdError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1534956E2D9FEADD00D65610 /* DelegationPoolValidatorIdError.swift */; };
 		153495712D9FEADD00D65610 /* DelegationPoolValidatorIdError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1534956E2D9FEADD00D65610 /* DelegationPoolValidatorIdError.swift */; };
+		1534957C2D9FFD6500D65610 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1534957B2D9FFD6500D65610 /* Config.xcconfig */; };
+		1534957D2D9FFD6500D65610 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1534957B2D9FFD6500D65610 /* Config.xcconfig */; };
+		1534957E2D9FFD6500D65610 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1534957B2D9FFD6500D65610 /* Config.xcconfig */; };
 		153F2F4B2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */; };
 		153F2F4C2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */; };
 		153F2F4D2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */; };
@@ -3088,6 +3091,7 @@
 		153495652D9FEA0F00D65610 /* ValidatorPoolStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorPoolStatus.swift; sourceTree = "<group>"; };
 		1534956A2D9FEA4700D65610 /* PendingChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingChanges.swift; sourceTree = "<group>"; };
 		1534956E2D9FEADD00D65610 /* DelegationPoolValidatorIdError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationPoolValidatorIdError.swift; sourceTree = "<group>"; };
+		1534957B2D9FFD6500D65610 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTokenNotificationPopup.swift; sourceTree = "<group>"; };
 		153F2F4E2CC2D100009C8347 /* NotificationTokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTokenService.swift; sourceTree = "<group>"; };
 		1546CFD12D8050B0007BE2EB /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
@@ -5400,6 +5404,7 @@
 		7FF07A6023EADB1200F1FC04 = {
 			isa = PBXGroup;
 			children = (
+				1534957B2D9FFD6500D65610 /* Config.xcconfig */,
 				15F3F0AB2C8F386500EF8975 /* ProdMainNet.entitlements */,
 				15069A1D2C89A1C000697017 /* ProdTestNet.entitlements */,
 				507629652BF2040B00B4D390 /* CHANGELOG.md */,
@@ -6300,6 +6305,7 @@
 				08C1692C2BB7396200E61326 /* baker_update_flow_en_2.html in Resources */,
 				50D3891A2C0607D700B3675A /* AccountCardView.xib in Resources */,
 				08C1692D2BB7396200E61326 /* intro_flow_style.css in Resources */,
+				1534957C2D9FFD6500D65610 /* Config.xcconfig in Resources */,
 				08C1692E2BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus_com.json in Resources */,
 				08C1692F2BB7396200E61326 /* intro_flow_onboarding_en_4.html in Resources */,
 				08C169302BB7396200E61326 /* 2.4.2.RX_backend_submissionStatus.json in Resources */,
@@ -6448,6 +6454,7 @@
 				088FF3552A02CA2700042957 /* baker_update_flow_en_2.html in Resources */,
 				50D389192C0607D600B3675A /* AccountCardView.xib in Resources */,
 				088FF2F22A02C98F00042957 /* intro_flow_style.css in Resources */,
+				1534957D2D9FFD6500D65610 /* Config.xcconfig in Resources */,
 				D589F3D72794B96C003F2FBB /* 3.4.2.RX_backend_submissionStatus_com.json in Resources */,
 				088FF2F42A02C98F00042957 /* intro_flow_onboarding_en_4.html in Resources */,
 				D589F4072794B96D003F2FBB /* 2.4.2.RX_backend_submissionStatus.json in Resources */,
@@ -6596,6 +6603,7 @@
 				088FF3492A02CA2700042957 /* baker_update_flow_en_2.html in Resources */,
 				50D389182C0607D600B3675A /* AccountCardView.xib in Resources */,
 				088FF2E62A02C98E00042957 /* intro_flow_style.css in Resources */,
+				1534957E2D9FFD6500D65610 /* Config.xcconfig in Resources */,
 				D589F3D52794B96C003F2FBB /* 3.4.2.RX_backend_submissionStatus_com.json in Resources */,
 				088FF2E82A02C98E00042957 /* intro_flow_onboarding_en_4.html in Resources */,
 				D589F4052794B96D003F2FBB /* 2.4.2.RX_backend_submissionStatus.json in Resources */,
@@ -8997,6 +9005,7 @@
 		};
 		7FF07A8623EADB1500F1FC04 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1534957B2D9FFD6500D65610 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -9061,6 +9070,7 @@
 		};
 		7FF07A8723EADB1500F1FC04 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1534957B2D9FFD6500D65610 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

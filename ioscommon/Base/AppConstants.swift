@@ -37,7 +37,6 @@ struct AppConstants {
         }()
     }
     static let rssFeedURL = URL(string: "https://concordium-new.webflow.io/cryptox-news-articles/rss.xml")!
-    static let apiKey = "6515da6d-a065-4676-a214-c83e5b18f5f3"
     
     struct MatomoTracker {
         static let baseUrl: String = "https://concordium.matomo.cloud/matomo.php"
