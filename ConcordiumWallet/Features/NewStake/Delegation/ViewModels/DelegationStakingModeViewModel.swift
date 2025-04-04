@@ -21,7 +21,7 @@ class DelegationStakingModeViewModel: ObservableObject {
     @Published var validatorIdErrorMessage: String? = nil
     @Published var bottomMessage: String = ""
     @Published var bakerPoolResponse: BakerPoolResponse? = nil
-    @Published private var validSelectedPool: BakerTarget? = .passive
+    @Published private var validSelectedPool: ValidatorTarget? = .passive
     @Published var isContinueEnabled: Bool = false
     @Published var alertOptions: SwiftUIAlertOptions?
     @Published var showAlert: Bool = false
@@ -43,7 +43,7 @@ class DelegationStakingModeViewModel: ObservableObject {
         let currentPoolData: PoolDelegationData? = dataHandler.getNewEntry() ?? dataHandler.getCurrentEntry()
         if let pool = currentPoolData?.pool {
             self.validSelectedPool = pool
-            if case BakerTarget.passive = pool {
+            if case ValidatorTarget.passive = pool {
                 self.selectedPool = .passive
             } else {
                 self.selectedPool = .validatorPool
@@ -57,7 +57,7 @@ class DelegationStakingModeViewModel: ObservableObject {
         $validatorId
             .debounce(for: 0.5, scheduler: DispatchQueue.main)
             .removeDuplicates()
-            .flatMap { [weak self] bakerId -> AnyPublisher<Result<Int, DelegationPoolBakerIdError>, Never> in
+            .flatMap { [weak self] bakerId -> AnyPublisher<Result<Int, DelegationPoolValidatorIdError>, Never> in
                 guard let self = self, selectedPool != .passive else { return .just(.failure(.invalid)) }
                 validSelectedPool = nil
                 return self.fetchBakerPool(bakerId: bakerId)
@@ -89,11 +89,11 @@ class DelegationStakingModeViewModel: ObservableObject {
             .assign(to: &$isContinueEnabled)
     }
 
-    func fetchBakerPool(bakerId: String) -> AnyPublisher<Result<Int, DelegationPoolBakerIdError>, Never> {
+    func fetchBakerPool(bakerId: String) -> AnyPublisher<Result<Int, DelegationPoolValidatorIdError>, Never> {
         self.validatorId = bakerId
         
         guard let bakerIdInt = Int(bakerId) else {
-            return .just(Result.failure(DelegationPoolBakerIdError.invalid))
+            return .just(Result.failure(DelegationPoolValidatorIdError.invalid))
         }
         
         return stakeService.getBakerPool(bakerId: bakerIdInt)
@@ -111,14 +111,14 @@ class DelegationStakingModeViewModel: ObservableObject {
             .eraseToAnyPublisher()
     }
 
-    func resetToCurrentBakerPool() -> Result<Int, DelegationPoolBakerIdError> {
+    func resetToCurrentBakerPool() -> Result<Int, DelegationPoolValidatorIdError> {
         guard let currentPoolData: PoolDelegationData = (dataHandler.getNewEntry() ?? dataHandler.getCurrentEntry()) else {
             self.validatorId = ""
             self.validSelectedPool = nil
 
             return .failure(.empty)
         }
-        if case let BakerTarget.bakerPool(bakerId) = currentPoolData.pool {
+        if case let ValidatorTarget.bakerPool(bakerId) = currentPoolData.pool {
             self.validSelectedPool = currentPoolData.pool
             validatorId = bakerId.string
             return .success(bakerId)
@@ -132,13 +132,13 @@ class DelegationStakingModeViewModel: ObservableObject {
 
     func getCurrentBakerId() -> Int? {
         guard let currentPoolData: PoolDelegationData = dataHandler.getCurrentEntry(),
-              case let BakerTarget.bakerPool(bakerId) = currentPoolData.pool else {
+              case let ValidatorTarget.bakerPool(bakerId) = currentPoolData.pool else {
             return nil
         }
         return bakerId
     }
 
-    func handleBakerPoolResponse(_ result: Result<Int, DelegationPoolBakerIdError>) {
+    func handleBakerPoolResponse(_ result: Result<Int, DelegationPoolValidatorIdError>) {
         guard selectedPool != .passive else { return }
         switch result {
         case .success(let validatorID):

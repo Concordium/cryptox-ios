@@ -20,7 +20,7 @@ class DelegationDataHandler: StakeDataHandler {
                     DelegationAmountData(amount: GTU(intValue: delegation.stakedAmount))
                     RestakeDelegationData(restake: delegation.restakeEarnings)
                     PoolDelegationData(
-                        pool: BakerTarget.from(
+                        pool: ValidatorTarget.from(
                             delegationType: delegation.delegationTargetType,
                             bakerId: delegation.delegationTargetBakerID
                         )

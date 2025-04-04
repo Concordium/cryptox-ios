@@ -1,5 +1,5 @@
 //
-//  DelegationPoolBakerIdError.swift
+//  DelegationPoolValidatorIdError.swift
 //  CryptoX
 //
 //  Created by Zhanna Komar on 04.04.2025.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum DelegationPoolBakerIdError: Error {
+enum DelegationPoolValidatorIdError: Error {
     case empty
     case invalid
     case closed

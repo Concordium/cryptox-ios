@@ -420,7 +420,7 @@ struct DelegationStopAccountData: AccountValue {
 
 struct PoolDelegationData: SimpleFieldValue {
     let field = Field.pool
-    let pool: BakerTarget
+    let pool: ValidatorTarget
     
     var displayValue: String {
         pool.getDisplayValue()

@@ -86,7 +86,7 @@ final class DelegationAmountInputViewModel: StakeAmountInputViewModel {
         let previouslyStakedInPool = GTU(intValue: self.account.delegation?.stakedAmount ?? 0)
         // If we are updating delegation and we dont't change the pool,
         // we need to check the existing value of the pool
-        let pool: BakerTarget
+        let pool: ValidatorTarget
         if let newPool = newPool?.pool {
             pool = newPool
         } else if let existingPool = existingPool?.pool {

@@ -1,5 +1,5 @@
 //
-//  BakerPoolStatus.swift
+//  ValidatorPoolStatus.swift
 //  StagingNet
 //
 //  Created by Zhanna Komar on 04.04.2025.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-enum BakerPoolStatus: Equatable, Hashable {
+enum ValidatorPoolStatus: Equatable, Hashable {
     case pendingTransfer
     case registered(currentSettings: BakerDataType)
     
-    static func == (lhs: BakerPoolStatus, rhs: BakerPoolStatus) -> Bool {
+    static func == (lhs: ValidatorPoolStatus, rhs: ValidatorPoolStatus) -> Bool {
         switch (lhs, rhs) {
         case (.pendingTransfer, .pendingTransfer):
             return true

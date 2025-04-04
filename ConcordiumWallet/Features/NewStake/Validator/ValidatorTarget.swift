@@ -1,5 +1,5 @@
 //
-//  BakerTarget.swift
+//  ValidatorTarget.swift
 //  StagingNet
 //
 //  Created by Zhanna Komar on 04.04.2025.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum BakerTarget: Equatable {
+enum ValidatorTarget: Equatable {
     case passive
     case bakerPool(bakerId: Int)
     
@@ -21,7 +21,7 @@ enum BakerTarget: Equatable {
         }
     }
     
-    static func from(delegationType: String, bakerId: Int?) -> BakerTarget {
+    static func from(delegationType: String, bakerId: Int?) -> ValidatorTarget {
         if let bakerId = bakerId, delegationType == "Baker" {
             return .bakerPool(bakerId: bakerId)
         } else {
