@@ -9,10 +9,6 @@
 import UIKit
 import Combine
 
-protocol AccountDetailRoutable: AnyObject {
-    func showTx(_ tx: TransactionViewModel)
-}
-
 protocol CIS2TokenDetailRoutable: AnyObject {
     func showAccountAddressQR(_ account: AccountDataType)
 }
@@ -31,8 +27,7 @@ final class AccountDetailRouter: ObservableObject {
 }
 
 
-extension AccountDetailRouter: TransactionDetailPresenterDelegate {}
-extension AccountDetailRouter: AccountDetailRoutable {
+extension AccountDetailRouter {
 
     @MainActor
     func showAccountSettings(_ account: AccountDataType) {
@@ -47,11 +42,6 @@ extension AccountDetailRouter: AccountDetailRoutable {
         accountDetailCoordinator.start(entryPoint: .settings)
     }
 
-    func showTx(_ tx: TransactionViewModel) {
-//        let vc = TransactionDetailFactory.create(with: TransactionDetailPresenter(delegate: self, viewModel: tx))
-//        navigationController.pushViewController(vc, animated: true)
-    }
-    
     func notifyShowNavBar(_ isHidden: Bool) {
         NotificationCenter.default.post(name: .showNavBar, object: nil, userInfo: ["isHidden": isHidden])
     }

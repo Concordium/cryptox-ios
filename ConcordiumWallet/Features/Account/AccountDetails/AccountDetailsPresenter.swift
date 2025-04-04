@@ -24,49 +24,27 @@ protocol AccountDetailsViewProtocol: ShowAlert, Loadable {
 }
 
 // MARK: -
-// MARK: Delegate
-protocol AccountDetailsPresenterDelegate: ShowShieldedDelegate {
-    func accountDetailsShowBurgerMenu(_ accountDetailsPresenter: AccountDetailsPresenter,
-                                      balanceType: AccountBalanceTypeEnum,
-                                      showsDecrypt: Bool)
-
-    func accountDetailsPresenterAddress(_ accountDetailsPresenter: AccountDetailsPresenter)
-    func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, retryFailedAccount: AccountDataType)
-    func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, removeFailedAccount: AccountDataType)
-    func showOnrampFlow()
-
-    func accountDetailsClosed()
-}
-
-// MARK: -
 // MARK: Presenter
 protocol AccountDetailsPresenterProtocol: AnyObject {
     var view: AccountDetailsViewProtocol? { get set }
     func viewDidLoad()
     func viewWillAppear()
-    func viewWillDisappear()
     
     func getTitle() -> String
-    func userTappedAddress()
-    func userTappedRetryAccountCreation()
-    func userTappedRemoveFailedAccount()
     func gtuDropTapped()
-    func burgerButtonTapped()
-    func showOnrampFlow()
 
     func userSelectedIdentityData()
     func userSelectedGeneral()
     func userSelectedTransfers()
 
     func showGTUDrop() -> Bool
-    func getIdentityDataPresenter() -> AccountDetailsIdentityDataPresenter
     func updateTransfersOnChanges()
 }
 
 class AccountDetailsPresenter {
 
     weak var view: AccountDetailsViewProtocol?
-    var delegate: (AccountDetailsPresenterDelegate & RequestPasswordDelegate)?
+    var delegate: (RequestPasswordDelegate)?
     private let storageManager: StorageManagerProtocol
 
     var account: AccountDataType
@@ -84,7 +62,7 @@ class AccountDetailsPresenter {
     
     init(dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
          account: AccountDataType,
-         delegate: (AccountDetailsPresenterDelegate & RequestPasswordDelegate)? = nil) {
+         delegate: (RequestPasswordDelegate)? = nil) {
         self.accountsService = dependencyProvider.accountsService()
         self.storageManager = dependencyProvider.storageManager()
         self.account = account
@@ -96,7 +74,6 @@ class AccountDetailsPresenter {
 }
 
 extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
-    
     func showGTUDrop() -> Bool {
         return true
     }
@@ -165,36 +142,7 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
             shouldRefresh = false
         }
     }
-    
-    func viewWillDisappear() {
-        delegate?.accountDetailsClosed()
-    }
-    
-    func showOnrampFlow() {
-        delegate?.showOnrampFlow()
-    }
-    
-    func userTappedAddress() {
-        delegate?.accountDetailsPresenterAddress(self)
-        shouldRefresh = true
-    }
 
-    func userTappedRetryAccountCreation() {
-        storageManager.removeAccount(account: nil)
-        delegate?.accountDetailsPresenter(self, retryFailedAccount: account)
-        shouldRefresh = true
-    }
-
-    func userTappedRemoveFailedAccount() {
-        storageManager.removeAccount(account: nil)
-        delegate?.accountDetailsPresenter(self, removeFailedAccount: account)
-    }
-
-    func burgerButtonTapped() {
-        viewModel.toggleMenu()
-        delegate?.accountDetailsShowBurgerMenu(self, balanceType: self.balanceType, showsDecrypt: viewModel.showUnlockButton)
-    }
-    
     func userSelectedGeneral() {
         if balanceType != .balance {
             switchToBalanceType(.balance)
@@ -210,11 +158,7 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
         updateTransfers()
         viewModel.selectedTab = .transfers
     }
-
-    func getIdentityDataPresenter() -> AccountDetailsIdentityDataPresenter {
-        AccountDetailsIdentityDataPresenter(account: account)
-    }
-
+    
     func gtuDropTapped() {
         accountsService.gtuDrop(for: account.address)
                 .mapError(ErrorMapper.toViewError)
@@ -321,19 +265,5 @@ extension AccountDetailsPresenter: TransactionsFetcher {
 extension AccountDetailsPresenter: BurgerMenuAccountDetailsDismissDelegate {
     func bugerMenuDismissedWithAction(_action action: BurgerMenuAccountDetailsAction) {
         self.viewModel.menuState = .closed
-    }
-}
-
-extension AccountDetailsPresenter: ShowShieldedDelegate {
-    func onboardingCarouselClosed() {
-        self.delegate?.onboardingCarouselClosed()
-    }
-
-    func onboardingCarouselSkiped() {
-        self.delegate?.onboardingCarouselSkiped()
-    }
-    
-    func onboardingCarouselFinished() {
-        self.delegate?.onboardingCarouselFinished()
     }
 }

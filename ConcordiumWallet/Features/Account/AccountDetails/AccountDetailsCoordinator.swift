@@ -135,41 +135,6 @@ class AccountDetailsCoordinator: Coordinator,
     }
 }
 
-extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
-
-    func accountDetailsPresenterAddress(_ accountDetailsPresenter: AccountDetailsPresenter) {
-        showAccountAddressQR(account)
-    }
-
-    func showOnrampFlow() {
-        let childView = UIHostingController(rootView: CCDOnrampView(dependencyProvider: dependencyProvider))
-        navigationController.present(childView, animated: true)
-    }
-
-    func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, retryFailedAccount account: AccountDataType) {
-        var accountCopy = AccountDataTypeFactory.create()
-        accountCopy.name = account.name
-        dependencyProvider.storageManager().removeAccount(account: account)
-        parentCoordinator?.retryCreateAccount(failedAccount: accountCopy)
-    }
-
-    func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, removeFailedAccount account: AccountDataType) {
-        dependencyProvider.storageManager().removeAccount(account: account)
-        parentCoordinator?.accountRemoved()
-    }
-    
-    func accountDetailsShowBurgerMenu(_ accountDetailsPresenter: AccountDetailsPresenter,
-                                      balanceType: AccountBalanceTypeEnum,
-                                      showsDecrypt: Bool) {
-        let presenter = AccountSettingsPresenter(account: account, delegate: self)
-        navigationController.pushViewController(presenter.present(AccountSettingsView.self), animated: true)
-    }
-
-    func accountDetailsClosed() {
-        self.parentCoordinator?.accountDetailsClosed()
-    }
-}
-
 extension AccountDetailsCoordinator: ShowShieldedDelegate {
     func onboardingCarouselClosed() {
         navigationController.popViewController(animated: true)
@@ -203,10 +168,6 @@ extension AccountDetailsCoordinator: AccountAddressQRCoordinatorDelegate {
         navigationController.dismiss(animated: true)
         self.childCoordinators.removeAll {$0 is AccountAddressQRCoordinator}
     }
-}
-
-extension AccountDetailsCoordinator: TransactionDetailPresenterDelegate {
-    
 }
 
 extension AccountDetailsCoordinator: AccountSettingsPresenterDelegate {

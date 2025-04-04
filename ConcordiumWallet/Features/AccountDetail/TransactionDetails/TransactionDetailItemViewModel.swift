@@ -1,9 +1,9 @@
 //
-//  TransactionDetailViewController.swift
-//  ConcordiumWallet
+//  TransactionDetailItemViewModel.swift
+//  CryptoX
 //
-//  Created by Concordium on 5/5/20.
-//  Copyright © 2020 concordium. All rights reserved.
+//  Created by Zhanna Komar on 04.04.2025.
+//  Copyright © 2025 pioneeringtechventures. All rights reserved.
 //
 
 import UIKit
@@ -29,4 +29,3 @@ enum TransactionDetailCell: Hashable {
     case details(TransactionDetailItemViewModel)
     case memo(TransactionDetailItemViewModel)
 }
-
