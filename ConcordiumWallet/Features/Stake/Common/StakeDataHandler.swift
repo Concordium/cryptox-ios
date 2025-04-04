@@ -233,7 +233,7 @@ struct BakerStopAccountData: AccountValue {
 
 struct BakerPoolSettingsData: SimpleFieldValue {
     let field = Field.poolSettings
-    let poolSettings: BakerPoolSetting
+    let poolSettings: ValidatorPoolSetting
     
     var displayValue: String { poolSettings.getDisplayValue() }
     var costParameters: [TransferCostParameter] { [.openStatus] }

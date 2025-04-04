@@ -17,16 +17,12 @@ protocol AccountDetailsDelegate: AnyObject {
 
 enum AccountDetailsFlowEntryPoint {
     case receive
-    case earn
     case settings
 }
 
 @MainActor
 class AccountDetailsCoordinator: Coordinator,
-                                 RequestPasswordDelegate,
-                                 EarnPresenterDelegate,
-                                 DelegationOnboardingCoordinatorDelegate,
-                                 DelegationStatusPresenterDelegate
+                                 RequestPasswordDelegate
 {
     var childCoordinators = [Coordinator]()
     weak var parentCoordinator: AccountDetailsDelegate?
@@ -61,8 +57,6 @@ class AccountDetailsCoordinator: Coordinator,
         switch entryPoint {
         case .receive:
                 showAccountAddressQR(account)
-        case .earn:
-            showEarn(account: account)
         case .settings:
             showSettings()
         }
@@ -73,89 +67,10 @@ class AccountDetailsCoordinator: Coordinator,
         navigationController.pushViewController(presenter.present(AccountSettingsView.self), animated: true)
     }
 
-    func showOldAccountDetails(account: AccountDataType)  {
-        accountDetailsPresenter = AccountDetailsPresenter(dependencyProvider: dependencyProvider,
-                                                          account: account,
-                                                          delegate: self)
-        let vc = AccountDetailsFactory.create(with: accountDetailsPresenter!)
-        navigationController.pushViewController(vc, animated: true)
-    }
-    
-    func showLegacyAccountDetails(account: AccountDataType) {
-        accountDetailsPresenter = AccountDetailsPresenter(dependencyProvider: dependencyProvider,
-                                                          account: account,
-                                                          delegate: self)
-        let vc = AccountDetailsFactory.create(with: accountDetailsPresenter!)
-        vc.hidesBottomBarWhenPushed = true
-        navigationController.pushViewController(vc, animated: true)
-    }
-    
-    @MainActor func showEarn(account: AccountDataType) {
-        if account.baker == nil && account.delegation == nil {
-            let presenter = EarnPresenter(account: account, delegate: self)
-            navigationController.pushViewController(presenter.present(EarnView.self), animated: true)
-        } else if account.baker != nil {
-            let bakingCoordinator = BakingCoordinator(
-                navigationController: CXNavigationController(),
-                dependencyProvider: dependencyProvider,
-                account: account,
-                parentCoordinator: self)
-            bakingCoordinator.start()
-            childCoordinators.append(bakingCoordinator)
-            navigationController.present(bakingCoordinator.navigationController, animated: true)
-            self.navigationController.popViewController(animated: false)
-        } else if account.delegation != nil {
-            let coordinator = DelegationCoordinator(navigationController: CXNavigationController(),
-                                                              dependencyProvider: dependencyProvider ,
-                                                              account: account,
-                                                              parentCoordinator: self)
-            coordinator.showStatus()
-            childCoordinators.append(coordinator)
-            navigationController.present(coordinator.navigationController, animated: true, completion: nil)
-        }
-    }
-    
-    func baker() {
-        let bakingCoordinator = BakingCoordinator(
-            navigationController: CXNavigationController(),
-            dependencyProvider: dependencyProvider,
-            account: account,
-            parentCoordinator: self)
-        bakingCoordinator.start()
-        childCoordinators.append(bakingCoordinator)
-        navigationController.present(bakingCoordinator.navigationController, animated: true)
-        self.navigationController.popViewController(animated: false)
-    }
-     
-    func delegation() {
-        self.navigationController.popViewController(animated: false)
-        let onboardingDelegator = DelegationOnboardingCoordinator(navigationController: navigationController,
-                                                                  parentCoordinator: self,
-                                                                  mode: .register)
-        childCoordinators.append(onboardingDelegator)
-        onboardingDelegator.start()
-    }
-
-    func finished(mode: DelegationOnboardingMode) {
-        self.navigationController.popViewController(animated: false)
-        let coordinator = DelegationCoordinator(navigationController: CXNavigationController(),
-                                                          dependencyProvider: dependencyProvider,
-                                                          account: account,
-                                                          parentCoordinator: self)
-        coordinator.showPoolSelection(dataHandler: DelegationDataHandler(account: account, isRemoving: false))
-        childCoordinators.append(coordinator)
-        navigationController.present(coordinator.navigationController, animated: true, completion: nil)
-    }
-
     func pressedDismiss() {
         navigationController.dismiss(animated: false)
     }
 
-    func closed() {
-        self.navigationController.popViewController(animated: true)
-        childCoordinators.removeAll { $0 is DelegationOnboardingCoordinator }
-    }
-    
     func showAccountAddressQR(_ account: AccountDataType) {
         let accountAddressQRCoordinator = AccountAddressQRCoordinator(navigationController: CXNavigationController(),
                                                                       delegate: self,
@@ -164,44 +79,12 @@ class AccountDetailsCoordinator: Coordinator,
         navigationController.present(accountAddressQRCoordinator.navigationController, animated: true)
         self.childCoordinators.append(accountAddressQRCoordinator)
     }
-    
-    func showTransactionDetail(viewModel: TransactionViewModel) {
-//        let tokenDetailsView = TransactionDetailsView()
-//        tokenDetailsView.
-//        navigationController.pushViewController(vc, animated: true)
-    }
-    
+
     func showReleaseSchedule(account: AccountDataType) {
         let vc = ReleaseScheduleDataFactory.create(with: ReleaseSchedulePresenter(delegate: self, account: account))
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func showDelegation() {
-        let coordinator = DelegationCoordinator(navigationController: CXNavigationController(),
-                                                          dependencyProvider: dependencyProvider ,
-                                                          account: account,
-                                                          parentCoordinator: self)
-        coordinator.start()
-        childCoordinators.append(coordinator)
-        navigationController.present(coordinator.navigationController, animated: true, completion: nil)
-    }
-    
-    func showBaking() {
-        let coordinator = BakingCoordinator(
-            navigationController: CXNavigationController(),
-            dependencyProvider: dependencyProvider,
-            account: account,
-            parentCoordinator: self)
-        
-        coordinator.start()
-        childCoordinators.append(coordinator)
-        navigationController.present(coordinator.navigationController, animated: true)
-    }
-    
-    func pressedStop(cost: GTU, energy: Int) {}
-    func pressedRegisterOrUpdate() {}
-    func pressedClose() {}
-
     func showTransferFilters(account: AccountDataType) {
         let vc = TransferFiltersFactory.create(with: TransferFiltersPresenter(delegate: self, account: account))
         navigationController.pushViewController(vc, animated: true)
@@ -236,7 +119,6 @@ class AccountDetailsCoordinator: Coordinator,
                         let newRecipient = RecipientEntity(name: newName, address: account.address)
                         try self.dependencyProvider.storageManager().editRecipient(oldRecipient: recipient, newRecipient: newRecipient)
                     }
-                    self.navigationController.viewControllers.last(where: { $0 is AccountDetailsViewController })?.title = newName
                     self.navigationController.viewControllers.last?.showToast(title: "Name changed", imageName: "ico_successfully")
                 } catch {
                     print("\(error.localizedDescription)")
@@ -259,10 +141,6 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
         showAccountAddressQR(account)
     }
 
-    func showEarn() {
-        showEarn(account: account)
-    }
-    
     func showOnrampFlow() {
         let childView = UIHostingController(rootView: CCDOnrampView(dependencyProvider: dependencyProvider))
         navigationController.present(childView, animated: true)
@@ -286,11 +164,7 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
         let presenter = AccountSettingsPresenter(account: account, delegate: self)
         navigationController.pushViewController(presenter.present(AccountSettingsView.self), animated: true)
     }
-    
-    func transactionSelected(viewModel: TransactionViewModel) {
-        showTransactionDetail(viewModel: viewModel)
-    }
-    
+
     func accountDetailsClosed() {
         self.parentCoordinator?.accountDetailsClosed()
     }
@@ -357,24 +231,6 @@ extension AccountDetailsCoordinator: AccountSettingsPresenterDelegate {
     }
 }
 
-extension AccountDetailsCoordinator: DelegationCoordinatorDelegate {
-    func finished() {
-        navigationController.dismiss(animated: true)
-        childCoordinators.removeAll()
-        refreshTransactionList()
-        parentCoordinator?.accountDetailsClosed()
-    }
-}
-
-extension AccountDetailsCoordinator: BakingCoordinatorDelegate {
-    func finishedBakingCoordinator() {
-        navigationController.dismiss(animated: true)
-        childCoordinators.removeAll()
-        refreshTransactionList()
-        parentCoordinator?.accountDetailsClosed()
-    }
-}
-
 extension AccountDetailsCoordinator: ExportPrivateKeyPresenterDelegate {
     func finishedExportingPrivateKey() {
         navigationController.popViewController(animated: true)
@@ -402,11 +258,5 @@ extension AccountDetailsCoordinator {
             SceneViewController(content: AccountSettingsView(viewModel: .init(account: account))),
             animated: true
         )
-    }
-}
-
-extension AccountDetailsCoordinator {
-    func showTransactionDetailsFromNotification(transaction: TransactionViewModel) {
-        showTransactionDetail(viewModel: transaction)
     }
 }

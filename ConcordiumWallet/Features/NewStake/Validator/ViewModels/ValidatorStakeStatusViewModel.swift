@@ -133,7 +133,7 @@ extension ValidatorStakeStatusViewModel {
             RestakeBakerData(restake: currentSettings.restakeEarnings)
         ]
         
-        if let poolSetting = BakerPoolSetting(rawValue: poolInfo.openStatus) {
+        if let poolSetting = ValidatorPoolSetting(rawValue: poolInfo.openStatus) {
             updatedRows.append(BakerPoolSettingsData(poolSettings: poolSetting))
         }
         

@@ -33,10 +33,8 @@ protocol AccountDetailsPresenterDelegate: ShowShieldedDelegate {
     func accountDetailsPresenterAddress(_ accountDetailsPresenter: AccountDetailsPresenter)
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, retryFailedAccount: AccountDataType)
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, removeFailedAccount: AccountDataType)
-    func showEarn()
     func showOnrampFlow()
 
-    func transactionSelected(viewModel: TransactionViewModel)
     func accountDetailsClosed()
 }
 
@@ -54,7 +52,6 @@ protocol AccountDetailsPresenterProtocol: AnyObject {
     func userTappedRemoveFailedAccount()
     func gtuDropTapped()
     func burgerButtonTapped()
-    func showEarn()
     func showOnrampFlow()
 
     func userSelectedIdentityData()
@@ -63,7 +60,6 @@ protocol AccountDetailsPresenterProtocol: AnyObject {
 
     func showGTUDrop() -> Bool
     func getIdentityDataPresenter() -> AccountDetailsIdentityDataPresenter
-    func getTransactionsDataPresenter() -> AccountTransactionsDataPresenter
     func updateTransfersOnChanges()
 }
 
@@ -77,8 +73,6 @@ class AccountDetailsPresenter {
     private var balanceType: AccountBalanceTypeEnum = .balance
     private var cancellables: [AnyCancellable] = []
     private var viewModel: AccountDetailsViewModel
-
-    private var transactionsPresenter: AccountTransactionsDataPresenter?
 
     private var accountsService: AccountsServiceProtocol
     private let transactionsLoadingHandler: TransactionsLoadingHandler
@@ -174,11 +168,6 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     
     func viewWillDisappear() {
         delegate?.accountDetailsClosed()
-        transactionsPresenter?.viewUnload()
-    }
-    
-    func showEarn() {
-        delegate?.showEarn()
     }
     
     func showOnrampFlow() {
@@ -224,14 +213,6 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
 
     func getIdentityDataPresenter() -> AccountDetailsIdentityDataPresenter {
         AccountDetailsIdentityDataPresenter(account: account)
-    }
-
-    func getTransactionsDataPresenter() -> AccountTransactionsDataPresenter {
-        transactionsPresenter = AccountTransactionsDataPresenter(
-                delegate: self, account: account,
-                viewModel: viewModel.transactionsList,
-                transactionsFetcher: self)
-        return transactionsPresenter!
     }
 
     func gtuDropTapped() {
@@ -323,23 +304,6 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
                         self.getTransactions(startingFrom: transactionListAll.last)
                     }
                 }).store(in: &cancellables)
-    }
-}
-
-extension AccountDetailsPresenter: AccountTransactionsDataPresenterDelegate {
-    func transactionSelected(_ transaction: TransactionViewModel) {
-        delegate?.transactionSelected(viewModel: transaction)
-    }
-    
-    func userSelectedDecryption(for transactionWithHash: String) {
-        guard let delegate = delegate else { return }
-        transactionsLoadingHandler.decryptUndecryptedTransaction(withTransactionHash: transactionWithHash, requestPasswordDelegate: delegate)
-            .mapError(ErrorMapper.toViewError)
-            .sink(receiveError: {[weak self] error in
-                self?.view?.showErrorAlert(error)
-                }, receiveValue: { [weak self] _ in
-                    self?.updateTransfers()
-            }).store(in: &cancellables)
     }
 }
 

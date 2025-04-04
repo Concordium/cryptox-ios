@@ -50,3 +50,13 @@ extension DelegationEntity: DelegationDataType {
         }
     }
 }
+
+extension DelegationDataType {
+    var isInCooldown: Bool {
+        if let pendingChange = pendingChange, pendingChange.change != .NoChange {
+            return true
+        } else {
+            return false
+        }
+    }
+}

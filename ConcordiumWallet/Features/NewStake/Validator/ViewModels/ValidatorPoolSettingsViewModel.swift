@@ -10,9 +10,26 @@ import Foundation
 import Combine
 import SwiftUICore
 
+enum ValidatorPoolSetting: String {
+    case open = "openForAll"
+    case closedForNew = "closedForNew"
+    case closed = "closedForAll"
+    
+    func getDisplayValue() -> String {
+        switch self {
+        case .open:
+            return "baking.open".localized
+        case .closedForNew:
+            return "baking.closedfornew".localized
+        case .closed:
+            return "baking.closed".localized
+        }
+    }
+}
+
 final class ValidatorPoolSettingsViewModel: ObservableObject {
     @Published var showsCloseForNew: Bool = false
-    @Published var currentSettings: BakerPoolSetting?
+    @Published var currentSettings: ValidatorPoolSetting?
     @Published var selectedPoolSettingIndex: Int = 0
     @Published var dataHandler: BakerDataHandler
     private var cancellables = Set<AnyCancellable>()

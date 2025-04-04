@@ -48,7 +48,7 @@ struct PoolSettingsSelector: View {
     var body: some View {
         HStack(spacing: 0) {
             pickerOption(
-                title: BakerPoolSetting.open.getDisplayValue(),
+                title: ValidatorPoolSetting.open.getDisplayValue(),
                 index: 0,
                 isFirst: true,
                 isLast: viewModel.showsCloseForNew == false
@@ -56,14 +56,14 @@ struct PoolSettingsSelector: View {
 
             if viewModel.showsCloseForNew {
                 pickerOption(
-                    title: BakerPoolSetting.closedForNew.getDisplayValue(),
+                    title: ValidatorPoolSetting.closedForNew.getDisplayValue(),
                     index: 1,
                     isFirst: false,
                     isLast: true
                 )
             } else {
                 pickerOption(
-                    title: BakerPoolSetting.closed.getDisplayValue(),
+                    title: ValidatorPoolSetting.closed.getDisplayValue(),
                     index: 2,
                     isFirst: false,
                     isLast: true

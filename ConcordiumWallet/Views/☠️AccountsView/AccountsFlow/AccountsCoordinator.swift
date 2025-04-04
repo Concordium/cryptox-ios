@@ -54,18 +54,8 @@ class AccountsCoordinator: Coordinator {
         self.walletConnectService.delegate = self
     }
 
-    func start() {
-        let AccountsPresenter = AccountsPresenter(
-            dependencyProvider: dependencyProvider,
-            delegate: self.accountsPresenterDelegate!,
-            appSettingsDelegate: appSettingsDelegate
-        )
-        let accountsViewController = AccountsFactory.create(with: AccountsPresenter)
-        accountsViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "tab_item_home"), tag: 0)
-        accountsViewController.tabBarItem.selectedImage = UIImage(named: "tab_item_home_selected")?.withRenderingMode(.alwaysOriginal)
-        navigationController.viewControllers = [accountsViewController]
-    }
-
+    func start() { }
+    
     func showCreateNewAccount(withDefaultValuesFrom account: AccountDataType? = nil) {
         if FeatureFlag.enabledFlags.contains(.recoveryCode) && !dependencyProvider.mobileWallet().isLegacyAccount() {
             let seedIdentitiesCoordinator = SeedIdentitiesCoordinator(
@@ -172,8 +162,6 @@ extension AccountsCoordinator: AccountsPresenterDelegate {
         switch action {
         case .tap, .more:
             entryPoint = .settings
-        case .earn:
-            entryPoint = .earn
         case .receive:
             entryPoint = .receive
         }

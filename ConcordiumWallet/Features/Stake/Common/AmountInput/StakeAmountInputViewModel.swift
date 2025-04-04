@@ -1,5 +1,5 @@
 //
-//  StakeAmountInputPresenterProtocol.swift
+//  StakeAmountInputViewModel.swift
 //  ConcordiumWallet
 //
 //  Created by Ruxandra Nistor on 03/03/2022.
@@ -164,13 +164,4 @@ extension StakeAmountInputViewModel {
             hasher.combine(isContinueEnabled)
             hasher.combine(euroEquivalentForCCD)
         }
-}
-
-// MARK: -
-// MARK: Presenter
-protocol StakeAmountInputPresenterProtocol: AnyObject {
-	var view: StakeAmountInputViewProtocol? { get set }
-    func viewDidLoad()
-    func pressedContinue()
-    func closeButtonTapped()
 }

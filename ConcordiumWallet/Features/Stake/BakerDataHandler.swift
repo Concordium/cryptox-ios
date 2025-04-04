@@ -98,7 +98,7 @@ private extension BakerDataType {
 
 private extension PoolInfo {
     func addStakeData(to set: inout [FieldValue]) {
-        if let poolSettings = BakerPoolSetting(rawValue: openStatus) {
+        if let poolSettings = ValidatorPoolSetting(rawValue: openStatus) {
             set.append(BakerPoolSettingsData(poolSettings: poolSettings))
         }
         set.append(BakerMetadataURLData(metadataURL: metadataURL))

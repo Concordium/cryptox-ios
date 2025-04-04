@@ -20,7 +20,6 @@ protocol AccountsMainViewDelegate: AnyObject {
     func showUnshieldAssetsFlow()
     func showNotConfiguredAccountPopup()
     func createAccountFromOnboarding(isCreatingAccount: Binding<Bool>)
-    func showEarnFlow(_ account: AccountDataType)
     func showSettings(_ account: AccountDataType)
 }
 
@@ -92,13 +91,6 @@ final class AccountsMainRouter: ObservableObject {
         viewController.hidesBottomBarWhenPushed = true
         viewController.modalPresentationStyle = .overFullScreen
         navigationController.present(viewController, animated: true, completion: nil)
-    }
-    
-    @MainActor
-    func showEarnFlow(_ account: AccountDataType) {
-        let router = AccountDetailRouter(account: account, navigationController: navigationController, dependencyProvider: dependencyProvider)
-        router.accountMainViewDelegate = self
-        router.showEarnFlow(account)
     }
     
     @MainActor

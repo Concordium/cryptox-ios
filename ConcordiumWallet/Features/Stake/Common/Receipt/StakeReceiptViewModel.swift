@@ -1,5 +1,5 @@
 //
-//  StakeReceiptPresenter.swift
+//  StakeReceiptViewModel.swift
 //  ConcordiumWallet
 //
 //  Created by Ruxandra Nistor on 11/03/2022.
@@ -50,15 +50,6 @@ class StakeReceiptViewModel {
         }
         return viewModel
     }
-}
-
-// MARK: -
-// MARK: Presenter
-protocol StakeReceiptPresenterProtocol: AnyObject {
-	var view: StakeReceiptViewProtocol? { get set }
-    func viewDidLoad()
-    func pressedButton()
-    func closeButtonTapped()
 }
 
 extension StakeReceiptViewModel: Equatable, Hashable {
