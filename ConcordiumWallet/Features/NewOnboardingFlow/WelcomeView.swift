@@ -91,7 +91,7 @@ struct WelcomeView: View {
                         + Text(" ")
                         + Text("and".localized)
                         + Text(" ")
-                        + Text("[\("new_onb_privacy".localized)](https://www.concordium.com/privacy-policy)").underline()
+                        + Text("[\("new_onb_privacy".localized)](https://www.concordium.com/legal/privacy-policy)").underline()
                     }
                     .accentColor(Color.Neutral.tint1)
                     .font(.satoshi(size: 14, weight: .regular))

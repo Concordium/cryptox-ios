@@ -772,9 +772,9 @@ Once the transaction has finalized, you can see the time of the release on the d
 "delegation.receiptnextpayday.ok" = "Okay";
 
 "delegation.receiptremove.title" = "Notice";
-"delegation.receiptremove.message" = "Your delegation will stop at the next pay day after a cool-down of %@.
+"delegation.receiptremove.message" = "Your stake will stop at the next pay day after a cool-down of %@ days.
 
-Once the transaction has finalized, you can see the estimated time on the delegation status screen.";
+Once the transaction has finalized, you can see the estimated time on the earn screen.";
 "delegation.receiptremove.ok" = "Okay";
 
 
@@ -1312,14 +1312,13 @@ Remember to restart your node with the validator keys.";
 "transaction.status.failed" = "Transaction failed to send";
 
 "earn.info.title.part1" = "Earn up to";
-"earn.info.title.part2" = "%@ APY";
-"earn.info.title.part3" = " on your CCD";
+"earn.info.title.part2" = "%@";
 "earn.info.part1.title" = "Get rewarded for staking";
-"earn.info.part1.desc" = "As a validator you participate in the network by producing blocks on the Concordium network.";
-"earn.info.part2.title" = "Multiple options to choose from";
-"earn.info.part2.desc" = "As a validator you participate in the network by producing blocks on the Concordium network.";
+"earn.info.part1.desc" = "Stake your CCD to earn rewards. Rewards can be restaked automatically.";
+"earn.info.part2.title" = "Earn your way";
+"earn.info.part2.desc" = "You can delegate to an open pool of your choice, or stake using passive delegation.";
 "earn.info.part3.title" = "Update with ease";
-"earn.info.part3.desc" = "As a validator you participate in the network by producing blocks on the Concordium network.";
+"earn.info.part3.desc" = "Your stake can be modified at any time. If you decrease the amount or stop the delegation a cool-down period of 7 days applies.";
 "earn.become.validator" = "Or become a validator (advanced)";
 "earn.start" = "Start earning";
 "read.more" = "Read more";
@@ -1346,9 +1345,9 @@ Remember to restart your node with the validator keys.";
 "delegation.title" = "Delegation";
 "staking.mode" = "Staking mode";
 "restake.reward" = "Restake rewards";
-"restake.reward.desc" = "I want to automatically add my delegation rewards to my delegation amount.";
+"restake.reward.desc" = "Automatically reinvest rewards to compound your staking returns over time.";
 "staking.mode.desc" = "You can delegate to an open pool of your choice, or you can stake using passive delegation.";
-"validation.pool.desc" = "If you don’t already know which validator pool you want to delegate an amount to, you can look for on ";
+"validation.pool.desc" = "If you don’t already know which validator pool you want to delegate an amount to, you can look on ";
 "validator.pool" = "Validator pool";
 "eneter.validator.pool.id" = "Enter validator pool ID";
 
@@ -1416,9 +1415,10 @@ Remember to restart your node with the validator keys.";
 "resume.validation" = "Resume validation";
 "submit" = "Submit";
 
-"delegation.staking.desc" = "You can delegate to an open pool of your choice, or you can stake using passive delegation.";
-"delegation.staking.mode.validator.pool.desc" = "If you don’t already know which validator pool you want to delegate an amount to, you can look for on ";
-"delegation.staking.mode.ccdScan" = "ccdscan.io/staking";
+"delegation.staking.desc" = "Delegate to an open pool of your choice, or stake your CCD using passive delegation.";
+"delegation.staking.mode.validator.pool.desc" = "If you don’t already know which validator pool you want to delegate an amount to, you can look on ";
+"delegation.staking.mode.ccdScan.mainnet" = "ccdscan.io/staking";
+"delegation.staking.mode.ccdScan.testnet" = "testnet.ccdscan.io/staking";
 "delegation.staking.mode.passive" = "Passive delegation";
 "delegation.staking.mode.validator.pool" = "Validator pool";
 "delegation.staking.mode" = "Staking mode";
@@ -1450,5 +1450,8 @@ Remember to restart your node with the validator keys.";
 "apy" = "APY";
 "mode" = "Mode";
 "staking.carousel.desc" = "Stake your CCD and earn rewards";
-"apy.additional.info" = "Estimated APY based on past results. Actual returns may vary.";
+"apy.additional.info" = "Estimated rewards are based on past results. Actual returns may vary.";
 "earn" = "Earn";
+"projected.rewards" = "Projected rewards";
+"confirmation" = "Confirmation";
+"staking.mode.nil" = "Staking mode must be confirmed";

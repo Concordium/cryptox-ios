@@ -71,7 +71,7 @@ class AboutViewController: BaseViewController, AboutViewProtocol, Storyboarded, 
         // Note the spaces since we only want to insert links at the exact match in the orginal text.
         let links = ["support@concordium.software": "mailto:support@concordium.software",
                      "concordium.com": "https://concordium.com",
-                     "Privacy policy": "https://www.concordium.com/privacy-policy",
+                     "Privacy policy": "https://www.concordium.com/legal/privacy-policy",
                      "Terms and Conditions": "https://developer.concordium.software/en/mainnet/net/resources/terms-and-conditions-cryptox.html"]
 
         let supportText = "more.about.support.text".localized

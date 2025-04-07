@@ -28,7 +28,7 @@ final class ValidatorSubmissionViewModel: StakeReceiptViewModel, ObservableObjec
         withAnimation(.easeInOut(duration: 1)) {
             if isTransactionExecuting {
                 return inProgressTransactionText
-            } else if !isTransactionExecuting {
+            } else if !isTransactionExecuting && error == nil {
                 return successTransactionText
             }
             if error != nil {

@@ -258,6 +258,14 @@ class DelegationStakingModeViewModel: ObservableObject {
             self.showAlert = true
         }
     }
+    
+    func getCCDScanLink() -> String {
+        #if MAINNET
+        return "delegation.staking.mode.ccdScan.mainnet".localized
+        #else
+        return "delegation.staking.mode.ccdScan.testnet".localized
+        #endif
+    }
 }
 
 

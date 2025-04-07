@@ -29,7 +29,7 @@ struct DelegationTransactionStatusView: View {
                 animationView()
                     .id(animationState)
                     .fixedSize()
-                
+                Divider()
                 VStack(spacing: 8) {
                     Text(viewModel.transactionStatusLabel)
                         .font(.satoshi(size: 12, weight: .medium))
@@ -102,7 +102,7 @@ struct DelegationTransactionStatusView: View {
                 } label: {
                     HStack(spacing: 8) {
                         Text("accountDetails.title".localized)
-                            .font(.satoshi(size: 12, weight: .medium))
+                            .font(.satoshi(size: 15, weight: .medium))
                             .foregroundStyle(.white)
                         Image("ico_back")
                             .rotationEffect(.degrees(180))
