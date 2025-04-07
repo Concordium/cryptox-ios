@@ -2219,6 +2219,7 @@
 		50EB310B2BFFF515002B2558 /* UnshieldAssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB310A2BFFF515002B2558 /* UnshieldAssetsViewModel.swift */; };
 		50EB310C2BFFF515002B2558 /* UnshieldAssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB310A2BFFF515002B2558 /* UnshieldAssetsViewModel.swift */; };
 		50EB310D2BFFF515002B2558 /* UnshieldAssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB310A2BFFF515002B2558 /* UnshieldAssetsViewModel.swift */; };
+		50F25EA52DA3D07100B8E941 /* Concordium in Frameworks */ = {isa = PBXBuildFile; productRef = 50F25EA42DA3D07100B8E941 /* Concordium */; };
 		50F3BC382D53A6C100839F7F /* ConcordiumClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F3BC372D53A6C100839F7F /* ConcordiumClient.swift */; };
 		50F3BC392D53A6C100839F7F /* ConcordiumClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F3BC372D53A6C100839F7F /* ConcordiumClient.swift */; };
 		50F3BC3A2D53A6C100839F7F /* ConcordiumClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F3BC372D53A6C100839F7F /* ConcordiumClient.swift */; };
@@ -3791,6 +3792,7 @@
 				08A0442529FA893700DACE1F /* Base58Swift in Frameworks */,
 				50E0D16B2D35466600853594 /* ReownWalletKit in Frameworks */,
 				7F85B8BA246A9AB600ED09B8 /* WebKit.framework in Frameworks */,
+				50F25EA52DA3D07100B8E941 /* Concordium in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6677,6 +6679,7 @@
 				509A563E2CB43561005EA908 /* FirebaseMessaging */,
 				50E0D1682D35466100853594 /* Starscream */,
 				50E0D16A2D35466600853594 /* ReownWalletKit */,
+				50F25EA42DA3D07100B8E941 /* Concordium */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
@@ -6779,7 +6782,7 @@
 				1557CC962C89B8DE008ABF67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				501F5AE02D2ECA1F00C55008 /* XCRemoteSwiftPackageReference "reown-swift" */,
 				50E0D1632D2ECDDD00853594 /* XCRemoteSwiftPackageReference "Starscream" */,
-				50F8E3002D53898E009D8D39 /* XCLocalSwiftPackageReference "../../concordium/concordium-swift-sdk" */,
+				50F25EA32DA3D07100B8E941 /* XCLocalSwiftPackageReference "../../concordium/concordium-swift-sdk" */,
 			);
 			productRefGroup = 7FF07A6A23EADB1200F1FC04 /* Products */;
 			projectDirPath = "";
@@ -9694,7 +9697,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pioneeringtechventures.cryptox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -9726,7 +9728,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pioneeringtechventures.cryptox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -10030,7 +10031,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		50F8E3002D53898E009D8D39 /* XCLocalSwiftPackageReference "../../concordium/concordium-swift-sdk" */ = {
+		50F25EA32DA3D07100B8E941 /* XCLocalSwiftPackageReference "../../concordium/concordium-swift-sdk" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = "../../concordium/concordium-swift-sdk";
 		};
@@ -10376,6 +10377,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 501F5AE02D2ECA1F00C55008 /* XCRemoteSwiftPackageReference "reown-swift" */;
 			productName = ReownWalletKit;
+		};
+		50F25EA42DA3D07100B8E941 /* Concordium */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Concordium;
 		};
 		50F8E3012D53898E009D8D39 /* Concordium */ = {
 			isa = XCSwiftPackageProductDependency;
