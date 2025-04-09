@@ -143,14 +143,12 @@
 		088FEE152A0167FA00042957 /* AccountDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE082A0167F100042957 /* AccountDetailsViewModel.swift */; };
 		088FEE162A0167FA00042957 /* ButtonSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE062A0167F100042957 /* ButtonSlider.swift */; };
 		088FEE172A0167FA00042957 /* ShowShieldedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE0C2A0167F300042957 /* ShowShieldedDelegate.swift */; };
-		088FEE182A0167FA00042957 /* ButtonsShielded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE052A0167F000042957 /* ButtonsShielded.swift */; };
 		088FEE192A0167FA00042957 /* AccountDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE072A0167F100042957 /* AccountDetailsPresenter.swift */; };
 		088FEE1B2A0167FA00042957 /* TransactionsLoadingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE092A0167F200042957 /* TransactionsLoadingHandler.swift */; };
 		088FEE1C2A0167FA00042957 /* AccountDetailsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE0B2A0167F200042957 /* AccountDetailsCoordinator.swift */; };
 		088FEE252A0167FB00042957 /* AccountDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE082A0167F100042957 /* AccountDetailsViewModel.swift */; };
 		088FEE262A0167FB00042957 /* ButtonSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE062A0167F100042957 /* ButtonSlider.swift */; };
 		088FEE272A0167FB00042957 /* ShowShieldedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE0C2A0167F300042957 /* ShowShieldedDelegate.swift */; };
-		088FEE282A0167FB00042957 /* ButtonsShielded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE052A0167F000042957 /* ButtonsShielded.swift */; };
 		088FEE292A0167FB00042957 /* AccountDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE072A0167F100042957 /* AccountDetailsPresenter.swift */; };
 		088FEE2B2A0167FB00042957 /* TransactionsLoadingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE092A0167F200042957 /* TransactionsLoadingHandler.swift */; };
 		088FEE2C2A0167FB00042957 /* AccountDetailsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE0B2A0167F200042957 /* AccountDetailsCoordinator.swift */; };
@@ -168,8 +166,6 @@
 		088FEE7B2A025AB000042957 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE772A025AA800042957 /* ButtonStyles.swift */; };
 		088FEE7F2A025AE300042957 /* GTUTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE7D2A025AE300042957 /* GTUTextFieldDelegate.swift */; };
 		088FEE812A025AE300042957 /* GTUTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE7D2A025AE300042957 /* GTUTextFieldDelegate.swift */; };
-		088FEE842A025B9100042957 /* MaterialTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE822A025B9100042957 /* MaterialTabBar.swift */; };
-		088FEE862A025B9100042957 /* MaterialTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE822A025B9100042957 /* MaterialTabBar.swift */; };
 		088FEE892A025CD900042957 /* Shape+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE872A025CD900042957 /* Shape+Extensions.swift */; };
 		088FEE8B2A025CD900042957 /* Shape+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE872A025CD900042957 /* Shape+Extensions.swift */; };
 		088FEE8D2A02609800042957 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088FED6C2A0166C700042957 /* Account.storyboard */; };
@@ -420,17 +416,13 @@
 		088FF16A2A028AFD00042957 /* Identity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088FF1662A028AFC00042957 /* Identity.storyboard */; };
 		088FF16D2A0292DB00042957 /* Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF16B2A0292DB00042957 /* Features.swift */; };
 		088FF16F2A0292DB00042957 /* Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF16B2A0292DB00042957 /* Features.swift */; };
-		088FF17F2A02947A00042957 /* InitialAccountSummaryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1722A02947400042957 /* InitialAccountSummaryPresenter.swift */; };
 		088FF1802A02947A00042957 /* GettingStartedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1762A02947500042957 /* GettingStartedViewController.swift */; };
 		088FF1812A02947A00042957 /* InitialAccountInfoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1732A02947400042957 /* InitialAccountInfoPresenter.swift */; };
-		088FF1822A02947A00042957 /* InitialAccountSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1772A02947600042957 /* InitialAccountSummaryViewController.swift */; };
 		088FF1832A02947A00042957 /* GettingStartedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1742A02947400042957 /* GettingStartedPresenter.swift */; };
 		088FF1842A02947A00042957 /* InitialAccountInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1712A02947300042957 /* InitialAccountInfoViewController.swift */; };
 		088FF1852A02947A00042957 /* InitialAccountsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1752A02947500042957 /* InitialAccountsCoordinator.swift */; };
-		088FF18D2A02947B00042957 /* InitialAccountSummaryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1722A02947400042957 /* InitialAccountSummaryPresenter.swift */; };
 		088FF18E2A02947B00042957 /* GettingStartedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1762A02947500042957 /* GettingStartedViewController.swift */; };
 		088FF18F2A02947B00042957 /* InitialAccountInfoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1732A02947400042957 /* InitialAccountInfoPresenter.swift */; };
-		088FF1902A02947B00042957 /* InitialAccountSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1772A02947600042957 /* InitialAccountSummaryViewController.swift */; };
 		088FF1912A02947B00042957 /* GettingStartedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1742A02947400042957 /* GettingStartedPresenter.swift */; };
 		088FF1922A02947B00042957 /* InitialAccountInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1712A02947300042957 /* InitialAccountInfoViewController.swift */; };
 		088FF1932A02947B00042957 /* InitialAccountsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1752A02947500042957 /* InitialAccountsCoordinator.swift */; };
@@ -497,22 +489,6 @@
 		088FF2812A02BDF100042957 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088FF27D2A02BDEC00042957 /* Onboarding.storyboard */; };
 		088FF28D2A02C8C200042957 /* XButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF28B2A02C8C200042957 /* XButton.swift */; };
 		088FF28F2A02C8C200042957 /* XButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF28B2A02C8C200042957 /* XButton.swift */; };
-		088FF2C52A02C98700042957 /* delegation_intro_flow_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B82A02C96C00042957 /* delegation_intro_flow_en_4.html */; };
-		088FF2C62A02C98700042957 /* delegation_intro_flow_en_6.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2BA2A02C96D00042957 /* delegation_intro_flow_en_6.html */; };
-		088FF2C72A02C98700042957 /* delegation_intro_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B72A02C96C00042957 /* delegation_intro_flow_en_1.html */; };
-		088FF2C82A02C98700042957 /* delegation_intro_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B92A02C96C00042957 /* delegation_intro_flow_en_3.html */; };
-		088FF2C92A02C98700042957 /* delegation_intro_flow_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B42A02C96B00042957 /* delegation_intro_flow_en_5.html */; };
-		088FF2CA2A02C98700042957 /* delegation_intro_flow_en_7.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B52A02C96B00042957 /* delegation_intro_flow_en_7.html */; };
-		088FF2CB2A02C98700042957 /* registerdelegation_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2BC2A02C97E00042957 /* registerdelegation_flow_style.css */; };
-		088FF2CC2A02C98700042957 /* delegation_intro_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B62A02C96C00042957 /* delegation_intro_flow_en_2.html */; };
-		088FF2D52A02C98800042957 /* delegation_intro_flow_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B82A02C96C00042957 /* delegation_intro_flow_en_4.html */; };
-		088FF2D62A02C98800042957 /* delegation_intro_flow_en_6.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2BA2A02C96D00042957 /* delegation_intro_flow_en_6.html */; };
-		088FF2D72A02C98800042957 /* delegation_intro_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B72A02C96C00042957 /* delegation_intro_flow_en_1.html */; };
-		088FF2D82A02C98800042957 /* delegation_intro_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B92A02C96C00042957 /* delegation_intro_flow_en_3.html */; };
-		088FF2D92A02C98800042957 /* delegation_intro_flow_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B42A02C96B00042957 /* delegation_intro_flow_en_5.html */; };
-		088FF2DA2A02C98800042957 /* delegation_intro_flow_en_7.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B52A02C96B00042957 /* delegation_intro_flow_en_7.html */; };
-		088FF2DB2A02C98800042957 /* registerdelegation_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2BC2A02C97E00042957 /* registerdelegation_flow_style.css */; };
-		088FF2DC2A02C98800042957 /* delegation_intro_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B62A02C96C00042957 /* delegation_intro_flow_en_2.html */; };
 		088FF2E32A02C98E00042957 /* intro_flow_onboarding_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2862A02C7E300042957 /* intro_flow_onboarding_en_1.html */; };
 		088FF2E42A02C98E00042957 /* intro_flow_onboarding_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2842A02C7E300042957 /* intro_flow_onboarding_en_3.html */; };
 		088FF2E52A02C98E00042957 /* intro_flow_onboarding_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2872A02C7E400042957 /* intro_flow_onboarding_en_5.html */; };
@@ -535,42 +511,6 @@
 		088FF3272A02CA1600042957 /* seed_identity_onboarding_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3132A02CA0600042957 /* seed_identity_onboarding_en_1.html */; };
 		088FF3282A02CA1600042957 /* seed_identity_onboarding_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3112A02CA0500042957 /* seed_identity_onboarding_en_4.html */; };
 		088FF3292A02CA1600042957 /* seed_identity_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3152A02CA1100042957 /* seed_identity_style.css */; };
-		088FF32C2A02CA1C00042957 /* baker_remove_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF30D2A02C9F500042957 /* baker_remove_flow_en_1.html */; };
-		088FF32D2A02CA1C00042957 /* bakerremove_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF30E2A02C9F600042957 /* bakerremove_flow_style.css */; };
-		088FF3302A02CA1D00042957 /* baker_remove_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF30D2A02C9F500042957 /* baker_remove_flow_en_1.html */; };
-		088FF3312A02CA1D00042957 /* bakerremove_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF30E2A02C9F600042957 /* bakerremove_flow_style.css */; };
-		088FF3362A02CA2100042957 /* baker_intro_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF30B2A02C9E800042957 /* baker_intro_flow_en_1.html */; };
-		088FF3372A02CA2100042957 /* baker_intro_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3092A02C9E700042957 /* baker_intro_flow_en_2.html */; };
-		088FF3382A02CA2100042957 /* baker_intro_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF30A2A02C9E800042957 /* baker_intro_flow_en_3.html */; };
-		088FF3392A02CA2100042957 /* registerbaker_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3082A02C9E700042957 /* registerbaker_flow_style.css */; };
-		088FF33E2A02CA2200042957 /* baker_intro_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF30B2A02C9E800042957 /* baker_intro_flow_en_1.html */; };
-		088FF33F2A02CA2200042957 /* baker_intro_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3092A02C9E700042957 /* baker_intro_flow_en_2.html */; };
-		088FF3402A02CA2200042957 /* baker_intro_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF30A2A02C9E800042957 /* baker_intro_flow_en_3.html */; };
-		088FF3412A02CA2200042957 /* registerbaker_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3082A02C9E700042957 /* registerbaker_flow_style.css */; };
-		088FF3482A02CA2700042957 /* bakerupdate_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3062A02C9D900042957 /* bakerupdate_flow_style.css */; };
-		088FF3492A02CA2700042957 /* baker_update_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3022A02C9D800042957 /* baker_update_flow_en_2.html */; };
-		088FF34A2A02CA2700042957 /* baker_update_flow_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3032A02C9D900042957 /* baker_update_flow_en_4.html */; };
-		088FF34B2A02CA2700042957 /* baker_update_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3052A02C9D900042957 /* baker_update_flow_en_1.html */; };
-		088FF34C2A02CA2700042957 /* baker_update_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3012A02C9D800042957 /* baker_update_flow_en_3.html */; };
-		088FF34D2A02CA2700042957 /* baker_update_flow_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3042A02C9D900042957 /* baker_update_flow_en_5.html */; };
-		088FF3542A02CA2700042957 /* bakerupdate_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3062A02C9D900042957 /* bakerupdate_flow_style.css */; };
-		088FF3552A02CA2700042957 /* baker_update_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3022A02C9D800042957 /* baker_update_flow_en_2.html */; };
-		088FF3562A02CA2700042957 /* baker_update_flow_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3032A02C9D900042957 /* baker_update_flow_en_4.html */; };
-		088FF3572A02CA2700042957 /* baker_update_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3052A02C9D900042957 /* baker_update_flow_en_1.html */; };
-		088FF3582A02CA2700042957 /* baker_update_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3012A02C9D800042957 /* baker_update_flow_en_3.html */; };
-		088FF3592A02CA2700042957 /* baker_update_flow_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3042A02C9D900042957 /* baker_update_flow_en_5.html */; };
-		088FF35D2A02CA2C00042957 /* delegation_remove_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2FC2A02C9BD00042957 /* delegation_remove_flow_en_1.html */; };
-		088FF35E2A02CA2C00042957 /* removedelegation_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2FF2A02C9C800042957 /* removedelegation_flow_style.css */; };
-		088FF3632A02CA2C00042957 /* delegation_remove_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2FC2A02C9BD00042957 /* delegation_remove_flow_en_1.html */; };
-		088FF3642A02CA2C00042957 /* removedelegation_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2FF2A02C9C800042957 /* removedelegation_flow_style.css */; };
-		088FF36A2A02CA3200042957 /* updatedelegation_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2FA2A02C9AE00042957 /* updatedelegation_flow_style.css */; };
-		088FF36B2A02CA3200042957 /* delegation_update_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2F62A02C9A100042957 /* delegation_update_flow_en_1.html */; };
-		088FF36C2A02CA3200042957 /* delegation_update_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2F72A02C9A100042957 /* delegation_update_flow_en_2.html */; };
-		088FF36D2A02CA3200042957 /* delegation_update_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2F82A02C9A200042957 /* delegation_update_flow_en_3.html */; };
-		088FF3722A02CA3300042957 /* updatedelegation_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2FA2A02C9AE00042957 /* updatedelegation_flow_style.css */; };
-		088FF3732A02CA3300042957 /* delegation_update_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2F62A02C9A100042957 /* delegation_update_flow_en_1.html */; };
-		088FF3742A02CA3300042957 /* delegation_update_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2F72A02C9A100042957 /* delegation_update_flow_en_2.html */; };
-		088FF3752A02CA3300042957 /* delegation_update_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2F82A02C9A200042957 /* delegation_update_flow_en_3.html */; };
 		088FF3782A02CA7900042957 /* RobotoMono.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3762A02CA7900042957 /* RobotoMono.ttf */; };
 		088FF37A2A02CA7900042957 /* RobotoMono.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3762A02CA7900042957 /* RobotoMono.ttf */; };
 		088FF37C2A03B93500042957 /* SendFund.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088FF26F2A02ADB100042957 /* SendFund.storyboard */; };
@@ -974,7 +914,6 @@
 		08C166E72BB7396200E61326 /* MenuItemCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C916DAE82467F480008EA16A /* MenuItemCellView.swift */; };
 		08C166E82BB7396200E61326 /* SubmitSeedAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFB32A02717800042957 /* SubmitSeedAccountViewModel.swift */; };
 		08C166E92BB7396200E61326 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F3072794B678003F2FBB /* StorageManager.swift */; };
-		08C166EB2BB7396200E61326 /* SegmentedPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CB72A25FA73001CCA96 /* SegmentedPicker.swift */; };
 		08C166EC2BB7396200E61326 /* UIButton+StoryboardLocalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C097A42433163A00ACA35A /* UIButton+StoryboardLocalization.swift */; };
 		08C166ED2BB7396200E61326 /* IdentityImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1F32A02A76700042957 /* IdentityImporter.swift */; };
 		08C166EE2BB7396200E61326 /* TransferFiltersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEDF12A0167CD00042957 /* TransferFiltersPresenter.swift */; };
@@ -1001,10 +940,8 @@
 		08C167052BB7396200E61326 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52055F852552C1D90071F7CA /* NibLoadable.swift */; };
 		08C167082BB7396200E61326 /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AE123EADEFD00F1FC04 /* String+Localizable.swift */; };
 		08C167092BB7396200E61326 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1A82A02A67E00042957 /* ExportService.swift */; };
-		08C1670A2BB7396200E61326 /* MaterialTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE822A025B9100042957 /* MaterialTabBar.swift */; };
 		08C1670E2BB7396200E61326 /* OriginTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F1382794B5EC003F2FBB /* OriginTypeEnum.swift */; };
 		08C167102BB7396200E61326 /* MobileWalletFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EB878FC7456177133AEA /* MobileWalletFacade.swift */; };
-		08C167112BB7396200E61326 /* InitialAccountSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1772A02947600042957 /* InitialAccountSummaryViewController.swift */; };
 		08C167122BB7396200E61326 /* ExportTransactionLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FED812A01672800042957 /* ExportTransactionLogView.swift */; };
 		08C167142BB7396200E61326 /* NFTItemsStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58EA764290F53A30033C8FD /* NFTItemsStatusView.swift */; };
 		08C167152BB7396200E61326 /* ServicesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F30E2794B678003F2FBB /* ServicesProvider.swift */; };
@@ -1130,7 +1067,6 @@
 		08C167AA2BB7396200E61326 /* AccountDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CAD2A24D085001CCA96 /* AccountDetailView.swift */; };
 		08C167AB2BB7396200E61326 /* ChainParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A044D929FA99C500DACE1F /* ChainParametersResponse.swift */; };
 		08C167AC2BB7396200E61326 /* SeedIdentityOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEFF92A0271E400042957 /* SeedIdentityOnboardingView.swift */; };
-		08C167AD2BB7396200E61326 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69C812A1D2183001CCA96 /* AccountView.swift */; };
 		08C167AE2BB7396200E61326 /* SceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089B34312A17ACD000F3CD90 /* SceneViewController.swift */; };
 		08C167B02BB7396200E61326 /* Model+Marketplace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5553250291091C700A69230 /* Model+Marketplace.swift */; };
 		08C167B12BB7396200E61326 /* IdentityConfirmedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEECD2A026E8200042957 /* IdentityConfirmedPresenter.swift */; };
@@ -1282,7 +1218,6 @@
 		08C1685A2BB7396200E61326 /* MoreMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1AE2A02A6FE00042957 /* MoreMenuPresenter.swift */; };
 		08C1685C2BB7396200E61326 /* DeleteIdentityButtonWidgetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEF272A02709600042957 /* DeleteIdentityButtonWidgetPresenter.swift */; };
 		08C1685D2BB7396200E61326 /* ReleaseScheduleEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F12E2794B5EC003F2FBB /* ReleaseScheduleEntity.swift */; };
-		08C1685E2BB7396200E61326 /* ButtonsShielded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE052A0167F000042957 /* ButtonsShielded.swift */; };
 		08C1685F2BB7396200E61326 /* ToastLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E3CDEECE4195E320FCBF /* ToastLabel.swift */; };
 		08C168602BB7396200E61326 /* OnboardingCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FECD42A01621900042957 /* OnboardingCarouselView.swift */; };
 		08C168612BB7396200E61326 /* ObjectWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A0445329FA987100DACE1F /* ObjectWrapper.swift */; };
@@ -1323,7 +1258,6 @@
 		08C1688A2BB7396200E61326 /* AccountsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B16EFC2A01185E002E6B33 /* AccountsPresenter.swift */; };
 		08C1688B2BB7396200E61326 /* CommissionRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A044F029FA99C800DACE1F /* CommissionRange.swift */; };
 		08C1688C2BB7396200E61326 /* Optional+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08520A542B45B5DC008DC851 /* Optional+Ext.swift */; };
-		08C1688D2BB7396200E61326 /* InitialAccountSummaryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1722A02947400042957 /* InitialAccountSummaryPresenter.swift */; };
 		08C1688F2BB7396200E61326 /* ApiConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F30B2794B678003F2FBB /* ApiConstants.swift */; };
 		08C168902BB7396200E61326 /* DefaultCIS2TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AB08E22A696C1100C226F3 /* DefaultCIS2TokenManager.swift */; };
 		08C168912BB7396200E61326 /* ValueCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A044C829FA99C200DACE1F /* ValueCredential.swift */; };
@@ -1444,33 +1378,25 @@
 		08C1691E2BB7396200E61326 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99CFF6D243EFD7E0045B8E6 /* WebKit.framework */; };
 		08C169212BB7396200E61326 /* intro_flow_onboarding_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2852A02C7E300042957 /* intro_flow_onboarding_en_2.html */; };
 		08C169222BB7396200E61326 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A7723EADB1400F1FC04 /* LaunchScreen.storyboard */; };
-		08C169232BB7396200E61326 /* baker_update_flow_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3032A02C9D900042957 /* baker_update_flow_en_4.html */; };
 		08C169242BB7396200E61326 /* NFTEmptyStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5087B5F28EE4C4A0082A05F /* NFTEmptyStatusView.xib */; };
-		08C169252BB7396200E61326 /* delegation_intro_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B72A02C96C00042957 /* delegation_intro_flow_en_1.html */; };
 		08C169282BB7396200E61326 /* IBMPlexSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08A6BD9C2B30A66700869317 /* IBMPlexSans-Regular.ttf */; };
 		08C169292BB7396200E61326 /* 2.4.2.RX_backend_submissionStatus_received.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3662794B96B003F2FBB /* 2.4.2.RX_backend_submissionStatus_received.json */; };
 		08C1692A2BB7396200E61326 /* Identity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088FF1662A028AFC00042957 /* Identity.storyboard */; };
 		08C1692B2BB7396200E61326 /* IBMPlexSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08A6BD992B30A66600869317 /* IBMPlexSans-SemiBold.ttf */; };
-		08C1692C2BB7396200E61326 /* baker_update_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3022A02C9D800042957 /* baker_update_flow_en_2.html */; };
 		08C1692D2BB7396200E61326 /* intro_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2892A02C7F600042957 /* intro_flow_style.css */; };
 		08C1692E2BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus_com.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3672794B96B003F2FBB /* 3.4.2.RX_backend_submissionStatus_com.json */; };
 		08C1692F2BB7396200E61326 /* intro_flow_onboarding_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2832A02C7E300042957 /* intro_flow_onboarding_en_4.html */; };
 		08C169302BB7396200E61326 /* 2.4.2.RX_backend_submissionStatus.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3732794B96B003F2FBB /* 2.4.2.RX_backend_submissionStatus.json */; };
 		08C169312BB7396200E61326 /* NFTMarketplaceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5E6CBF0290F47BE009856B7 /* NFTMarketplaceCell.xib */; };
-		08C169322BB7396200E61326 /* baker_remove_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF30D2A02C9F500042957 /* baker_remove_flow_en_1.html */; };
 		08C169332BB7396200E61326 /* QRConnect.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA7C079726C5A726008714CB /* QRConnect.storyboard */; };
 		08C169352BB7396200E61326 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08A6BDBF2B3318B300869317 /* Colors.xcassets */; };
 		08C169362BB7396200E61326 /* QRTransactionDataViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5CFCF2A273922D800888E1B /* QRTransactionDataViewController.xib */; };
 		08C169372BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus_success.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3512794B96A003F2FBB /* 3.4.2.RX_backend_submissionStatus_success.json */; };
-		08C169382BB7396200E61326 /* baker_update_flow_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3042A02C9D900042957 /* baker_update_flow_en_5.html */; };
-		08C169392BB7396200E61326 /* baker_update_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3052A02C9D900042957 /* baker_update_flow_en_1.html */; };
 		08C1693A2BB7396200E61326 /* NoDataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D54ABC1F26E14A5C00F4E773 /* NoDataView.xib */; };
 		08C1693B2BB7396200E61326 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A9F23EADBB100F1FC04 /* README.md */; };
 		08C1693C2BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus_com_amb.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3702794B96B003F2FBB /* 3.4.2.RX_backend_submissionStatus_com_amb.json */; };
 		08C1693D2BB7396200E61326 /* ImportStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 088FF21F2A02A89500042957 /* ImportStatusCell.xib */; };
 		08C1693E2BB7396200E61326 /* NFTItemsStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D58EA769290F53AE0033C8FD /* NFTItemsStatusView.xib */; };
-		08C1693F2BB7396200E61326 /* baker_intro_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF30B2A02C9E800042957 /* baker_intro_flow_en_1.html */; };
-		08C169412BB7396200E61326 /* delegation_intro_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B92A02C96C00042957 /* delegation_intro_flow_en_3.html */; };
 		08C169422BB7396200E61326 /* NFTErrorStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5087B5A28EE4C380082A05F /* NFTErrorStatusView.xib */; };
 		08C169432BB7396200E61326 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		08C169442BB7396200E61326 /* NFTInputStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5087B5028EE49260082A05F /* NFTInputStatusView.xib */; };
@@ -1489,19 +1415,15 @@
 		08C169532BB7396200E61326 /* NFTProviderEmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D58EA790290FB7E90033C8FD /* NFTProviderEmptyCell.xib */; };
 		08C169542BB7396200E61326 /* Collections.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D54F032E28EA1746009A1057 /* Collections.storyboard */; };
 		08C169552BB7396200E61326 /* 1.1.2.RX-backend_identity_provider_info.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3522794B96A003F2FBB /* 1.1.2.RX-backend_identity_provider_info.json */; };
-		08C169562BB7396200E61326 /* registerdelegation_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2BC2A02C97E00042957 /* registerdelegation_flow_style.css */; };
 		08C169572BB7396200E61326 /* IBMPlexSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08A6BD982B30A66600869317 /* IBMPlexSans-Light.ttf */; };
 		08C169582BB7396200E61326 /* TransactionAccountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5962CC3272161E200A757A5 /* TransactionAccountView.xib */; };
 		08C169592BB7396200E61326 /* 2.4.2.RX_backend_submissionStatus_success.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3722794B96B003F2FBB /* 2.4.2.RX_backend_submissionStatus_success.json */; };
-		08C1695B2BB7396200E61326 /* registerbaker_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3082A02C9E700042957 /* registerbaker_flow_style.css */; };
 		08C1695C2BB7396200E61326 /* backend_server_error.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3742794B96B003F2FBB /* backend_server_error.json */; };
 		08C1695D2BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus_rec.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F35C2794B96B003F2FBB /* 3.4.2.RX_backend_submissionStatus_rec.json */; };
 		08C1695E2BB7396200E61326 /* Satoshi-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 08A6BDAE2B30AF3200869317 /* Satoshi-Medium.otf */; };
 		08C1695F2BB7396200E61326 /* seed_identity_onboarding_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3112A02CA0500042957 /* seed_identity_onboarding_en_4.html */; };
 		08C169602BB7396200E61326 /* 3.2.2.RX-lib_create_transfer.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3682794B96B003F2FBB /* 3.2.2.RX-lib_create_transfer.json */; };
-		08C169612BB7396200E61326 /* delegation_remove_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2FC2A02C9BD00042957 /* delegation_remove_flow_en_1.html */; };
 		08C169622BB7396200E61326 /* 2.4.2.RX_backend_submissionStatus_committed.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F36B2794B96B003F2FBB /* 2.4.2.RX_backend_submissionStatus_committed.json */; };
-		08C169632BB7396200E61326 /* delegation_intro_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B62A02C96C00042957 /* delegation_intro_flow_en_2.html */; };
 		08C169642BB7396200E61326 /* NFTDataStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5087B6428EE4C5E0082A05F /* NFTDataStatusView.xib */; };
 		08C169652BB7396200E61326 /* intro_flow_onboarding_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2842A02C7E300042957 /* intro_flow_onboarding_en_3.html */; };
 		08C169662BB7396200E61326 /* VersionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5CACC5626ED5AF800D3C3CF /* VersionView.xib */; };
@@ -1518,30 +1440,22 @@
 		08C169732BB7396200E61326 /* 1.2.1.TX-lib_create_id_request_and_private_data.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F35E2794B96B003F2FBB /* 1.2.1.TX-lib_create_id_request_and_private_data.json */; };
 		08C169742BB7396200E61326 /* icon-22-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FD435FC249A2D34002D2AC3 /* icon-22-29.png */; };
 		08C169752BB7396200E61326 /* 3.3.2.RX_backend_submitTransfer.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3582794B96B003F2FBB /* 3.3.2.RX_backend_submitTransfer.json */; };
-		08C169762BB7396200E61326 /* delegation_intro_flow_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B82A02C96C00042957 /* delegation_intro_flow_en_4.html */; };
 		08C169792BB7396200E61326 /* NFTEmptySearchStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5883FCD29040C290014F83C /* NFTEmptySearchStatusView.xib */; };
 		08C1697A2BB7396200E61326 /* TextEditView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D54ABC1526E100B800F4E773 /* TextEditView.xib */; };
 		08C1697C2BB7396200E61326 /* 4.2.2.RX_backend_accTransactions.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3572794B96B003F2FBB /* 4.2.2.RX_backend_accTransactions.json */; };
-		08C1697E2BB7396200E61326 /* delegation_intro_flow_en_7.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B52A02C96B00042957 /* delegation_intro_flow_en_7.html */; };
 		08C1697F2BB7396200E61326 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088FF0742A02784A00042957 /* Login.storyboard */; };
 		08C169802BB7396200E61326 /* Widget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088FEF882A0270BB00042957 /* Widget.storyboard */; };
 		08C169822BB7396200E61326 /* seed_identity_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3152A02CA1100042957 /* seed_identity_style.css */; };
-		08C169832BB7396200E61326 /* baker_intro_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3092A02C9E700042957 /* baker_intro_flow_en_2.html */; };
 		08C169842BB7396200E61326 /* 2.1.2.RX-backend_global.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3692794B96B003F2FBB /* 2.1.2.RX-backend_global.json */; };
-		08C169852BB7396200E61326 /* delegation_update_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2F72A02C9A100042957 /* delegation_update_flow_en_2.html */; };
 		08C169862BB7396200E61326 /* IBMPlexMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08A6BDAB2B30A69900869317 /* IBMPlexMono-Regular.ttf */; };
 		08C169872BB7396200E61326 /* NFTDataItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5E6CBD4290F4771009856B7 /* NFTDataItemCell.xib */; };
-		08C169882BB7396200E61326 /* delegation_intro_flow_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2B42A02C96B00042957 /* delegation_intro_flow_en_5.html */; };
 		08C169892BB7396200E61326 /* NFTDataReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5E6CBD5290F4771009856B7 /* NFTDataReusableView.xib */; };
 		08C1698A2BB7396200E61326 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0832EB472B34B8CA00BD2ECD /* Localizable.strings */; };
 		08C1698B2BB7396200E61326 /* QRTransactionBuyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5B393F127197CDD0094A9F5 /* QRTransactionBuyView.xib */; };
-		08C1698C2BB7396200E61326 /* delegation_update_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2F82A02C9A200042957 /* delegation_update_flow_en_3.html */; };
-		08C1698D2BB7396200E61326 /* removedelegation_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2FF2A02C9C800042957 /* removedelegation_flow_style.css */; };
 		08C1698E2BB7396200E61326 /* IBMPlexMono-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08A6BDA92B30A69800869317 /* IBMPlexMono-Bold.ttf */; };
 		08C1698F2BB7396200E61326 /* 1.2.2.RX-lib_create_id_request_and_private_data.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F35A2794B96B003F2FBB /* 1.2.2.RX-lib_create_id_request_and_private_data.json */; };
 		08C169902BB7396200E61326 /* 4.4.1.TX_lib_decrypt_encrypted_amount.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3762794B96B003F2FBB /* 4.4.1.TX_lib_decrypt_encrypted_amount.json */; };
 		08C169932BB7396200E61326 /* TransactionOperationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5962CBE2721613E00A757A5 /* TransactionOperationView.xib */; };
-		08C169942BB7396200E61326 /* updatedelegation_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2FA2A02C9AE00042957 /* updatedelegation_flow_style.css */; };
 		08C169952BB7396200E61326 /* Satoshi-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 08A6BDAF2B30AF3200869317 /* Satoshi-Regular.otf */; };
 		08C169962BB7396200E61326 /* 4.5.1.TX_lib_generate_accounts.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3542794B96A003F2FBB /* 4.5.1.TX_lib_generate_accounts.json */; };
 		08C169972BB7396200E61326 /* backend_invalidRequest_error.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3772794B96B003F2FBB /* backend_invalidRequest_error.json */; };
@@ -1550,15 +1464,11 @@
 		08C1699A2BB7396200E61326 /* NFTProviderHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D58EA776290FAEB60033C8FD /* NFTProviderHeaderView.xib */; };
 		08C1699B2BB7396200E61326 /* IBMPlexMono-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08A6BDAA2B30A69800869317 /* IBMPlexMono-Medium.ttf */; };
 		08C1699C2BB7396200E61326 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088FED6C2A0166C700042957 /* Account.storyboard */; };
-		08C1699E2BB7396200E61326 /* bakerupdate_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3062A02C9D900042957 /* bakerupdate_flow_style.css */; };
 		08C1699F2BB7396200E61326 /* More.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2192A02A78300042957 /* More.storyboard */; };
 		08C169A02BB7396200E61326 /* seed_identity_onboarding_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3102A02CA0500042957 /* seed_identity_onboarding_en_2.html */; };
 		08C169A12BB7396200E61326 /* seed_identity_onboarding_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3132A02CA0600042957 /* seed_identity_onboarding_en_1.html */; };
 		08C169A32BB7396200E61326 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088FF27D2A02BDEC00042957 /* Onboarding.storyboard */; };
-		08C169A42BB7396200E61326 /* delegation_update_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2F62A02C9A100042957 /* delegation_update_flow_en_1.html */; };
-		08C169A52BB7396200E61326 /* baker_intro_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF30A2A02C9E800042957 /* baker_intro_flow_en_3.html */; };
 		08C169A62BB7396200E61326 /* 2.2.1.TX-lib_create_credential.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3612794B96B003F2FBB /* 2.2.1.TX-lib_create_credential.json */; };
-		08C169A72BB7396200E61326 /* delegation_intro_flow_en_6.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF2BA2A02C96D00042957 /* delegation_intro_flow_en_6.html */; };
 		08C169A82BB7396200E61326 /* SendFund.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088FF26F2A02ADB100042957 /* SendFund.storyboard */; };
 		08C169A92BB7396200E61326 /* 3.1.2.RX_backend_accNonce.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F35D2794B96B003F2FBB /* 3.1.2.RX_backend_accNonce.json */; };
 		08C169AA2BB7396200E61326 /* 4.5.2.RX_lib_generate_accounts.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3532794B96A003F2FBB /* 4.5.2.RX_lib_generate_accounts.json */; };
@@ -1571,9 +1481,7 @@
 		08C169B12BB7396200E61326 /* 4.3.2.RX_backend_accEncryptionKey.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3502794B96A003F2FBB /* 4.3.2.RX_backend_accEncryptionKey.json */; };
 		08C169B32BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F36D2794B96B003F2FBB /* 3.4.2.RX_backend_submissionStatus.json */; };
 		08C169B42BB7396200E61326 /* 2.2.2.RX-lib_create_credential.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3602794B96B003F2FBB /* 2.2.2.RX-lib_create_credential.json */; };
-		08C169B62BB7396200E61326 /* bakerremove_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 088FF30E2A02C9F600042957 /* bakerremove_flow_style.css */; };
 		08C169B72BB7396200E61326 /* 2.3.2.RX_backend_submitCredential.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3632794B96B003F2FBB /* 2.3.2.RX_backend_submitCredential.json */; };
-		08C169B82BB7396200E61326 /* baker_update_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 088FF3012A02C9D800042957 /* baker_update_flow_en_3.html */; };
 		08C169BA2BB7396200E61326 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A7523EADB1400F1FC04 /* Assets.xcassets */; };
 		08C169BC2BB7396200E61326 /* 4.1.2.RX_backend_accBalance.json in Resources */ = {isa = PBXBuildFile; fileRef = D589F3642794B96B003F2FBB /* 4.1.2.RX_backend_accBalance.json */; };
 		08C169C62BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169C52BBFE1C900E61326 /* AnyPublisher+Extentions.swift */; };
@@ -1655,8 +1563,6 @@
 		08E472BB2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472BA2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift */; };
 		08E472BC2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472BA2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift */; };
 		08E472BD2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E472BA2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift */; };
-		08E69C832A1D2183001CCA96 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69C812A1D2183001CCA96 /* AccountView.swift */; };
-		08E69C852A1D2183001CCA96 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69C812A1D2183001CCA96 /* AccountView.swift */; };
 		08E69C992A1FCAA5001CCA96 /* AccountTokensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69C972A1FCAA5001CCA96 /* AccountTokensView.swift */; };
 		08E69C9B2A1FCAA5001CCA96 /* AccountTokensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69C972A1FCAA5001CCA96 /* AccountTokensView.swift */; };
 		08E69CA32A20DADA001CCA96 /* CIS2TokenModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CA12A20DADA001CCA96 /* CIS2TokenModels.swift */; };
@@ -1667,8 +1573,6 @@
 		08E69CB12A24D085001CCA96 /* AccountDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CAD2A24D085001CCA96 /* AccountDetailView.swift */; };
 		08E69CB42A254570001CCA96 /* TokenFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CB22A254570001CCA96 /* TokenFormatter.swift */; };
 		08E69CB62A254570001CCA96 /* TokenFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CB22A254570001CCA96 /* TokenFormatter.swift */; };
-		08E69CB92A25FA73001CCA96 /* SegmentedPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CB72A25FA73001CCA96 /* SegmentedPicker.swift */; };
-		08E69CBB2A25FA73001CCA96 /* SegmentedPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CB72A25FA73001CCA96 /* SegmentedPicker.swift */; };
 		08E69CC82A265E1B001CCA96 /* CIS2TokenDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CC62A265E1B001CCA96 /* CIS2TokenDetailView.swift */; };
 		08E69CCA2A265E1B001CCA96 /* CIS2TokenDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E69CC62A265E1B001CCA96 /* CIS2TokenDetailView.swift */; };
 		08FD0B802A7D271B003774A6 /* GrayRoundedBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FD0B7F2A7D271B003774A6 /* GrayRoundedBackgroundModifier.swift */; };
@@ -1904,9 +1808,6 @@
 		15EFE9F52C739D7B00B7145C /* ImportTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */; };
 		15EFE9F62C739D7B00B7145C /* ImportTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */; };
 		15EFE9F72C739D7B00B7145C /* ImportTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */; };
-		15EFE9F92C74CD4700B7145C /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */; };
-		15EFE9FA2C74CD4700B7145C /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */; };
-		15EFE9FB2C74CD4700B7145C /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */; };
 		15F3F0A42C8B032200EF8975 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F3F0A32C8B032200EF8975 /* NotificationsView.swift */; };
 		15F3F0A52C8B032500EF8975 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F3F0A32C8B032200EF8975 /* NotificationsView.swift */; };
 		15F3F0A62C8B032600EF8975 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F3F0A32C8B032200EF8975 /* NotificationsView.swift */; };
@@ -2672,7 +2573,6 @@
 		088FEDE62A0167B800042957 /* ReleaseSchedulePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseSchedulePresenter.swift; sourceTree = "<group>"; };
 		088FEDF02A0167CC00042957 /* TransferFiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferFiltersViewController.swift; sourceTree = "<group>"; };
 		088FEDF12A0167CD00042957 /* TransferFiltersPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferFiltersPresenter.swift; sourceTree = "<group>"; };
-		088FEE052A0167F000042957 /* ButtonsShielded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsShielded.swift; sourceTree = "<group>"; };
 		088FEE062A0167F100042957 /* ButtonSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonSlider.swift; sourceTree = "<group>"; };
 		088FEE072A0167F100042957 /* AccountDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsPresenter.swift; sourceTree = "<group>"; };
 		088FEE082A0167F100042957 /* AccountDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsViewModel.swift; sourceTree = "<group>"; };
@@ -2686,7 +2586,6 @@
 		088FEE712A025A7800042957 /* String+Links.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Links.swift"; sourceTree = "<group>"; };
 		088FEE772A025AA800042957 /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 		088FEE7D2A025AE300042957 /* GTUTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GTUTextFieldDelegate.swift; sourceTree = "<group>"; };
-		088FEE822A025B9100042957 /* MaterialTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTabBar.swift; sourceTree = "<group>"; };
 		088FEE872A025CD900042957 /* Shape+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Shape+Extensions.swift"; sourceTree = "<group>"; };
 		088FEE922A026B6400042957 /* CreateNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNicknameViewController.swift; sourceTree = "<group>"; };
 		088FEE932A026B6400042957 /* CreateAccountCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountCoordinator.swift; sourceTree = "<group>"; };
@@ -2811,12 +2710,10 @@
 		088FF1662A028AFC00042957 /* Identity.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Identity.storyboard; sourceTree = "<group>"; };
 		088FF16B2A0292DB00042957 /* Features.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Features.swift; sourceTree = "<group>"; };
 		088FF1712A02947300042957 /* InitialAccountInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialAccountInfoViewController.swift; sourceTree = "<group>"; };
-		088FF1722A02947400042957 /* InitialAccountSummaryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialAccountSummaryPresenter.swift; sourceTree = "<group>"; };
 		088FF1732A02947400042957 /* InitialAccountInfoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialAccountInfoPresenter.swift; sourceTree = "<group>"; };
 		088FF1742A02947400042957 /* GettingStartedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GettingStartedPresenter.swift; sourceTree = "<group>"; };
 		088FF1752A02947500042957 /* InitialAccountsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialAccountsCoordinator.swift; sourceTree = "<group>"; };
 		088FF1762A02947500042957 /* GettingStartedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GettingStartedViewController.swift; sourceTree = "<group>"; };
-		088FF1772A02947600042957 /* InitialAccountSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialAccountSummaryViewController.swift; sourceTree = "<group>"; };
 		088FF1A52A02A67D00042957 /* ExportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
 		088FF1A62A02A67D00042957 /* ExportPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPresenter.swift; sourceTree = "<group>"; };
 		088FF1A72A02A67D00042957 /* ImportCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportCoordinator.swift; sourceTree = "<group>"; };
@@ -2853,32 +2750,6 @@
 		088FF2872A02C7E400042957 /* intro_flow_onboarding_en_5.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = intro_flow_onboarding_en_5.html; sourceTree = "<group>"; };
 		088FF2892A02C7F600042957 /* intro_flow_style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = intro_flow_style.css; sourceTree = "<group>"; };
 		088FF28B2A02C8C200042957 /* XButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XButton.swift; sourceTree = "<group>"; };
-		088FF2B42A02C96B00042957 /* delegation_intro_flow_en_5.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = delegation_intro_flow_en_5.html; sourceTree = "<group>"; };
-		088FF2B52A02C96B00042957 /* delegation_intro_flow_en_7.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = delegation_intro_flow_en_7.html; sourceTree = "<group>"; };
-		088FF2B62A02C96C00042957 /* delegation_intro_flow_en_2.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = delegation_intro_flow_en_2.html; sourceTree = "<group>"; };
-		088FF2B72A02C96C00042957 /* delegation_intro_flow_en_1.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = delegation_intro_flow_en_1.html; sourceTree = "<group>"; };
-		088FF2B82A02C96C00042957 /* delegation_intro_flow_en_4.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = delegation_intro_flow_en_4.html; sourceTree = "<group>"; };
-		088FF2B92A02C96C00042957 /* delegation_intro_flow_en_3.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = delegation_intro_flow_en_3.html; sourceTree = "<group>"; };
-		088FF2BA2A02C96D00042957 /* delegation_intro_flow_en_6.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = delegation_intro_flow_en_6.html; sourceTree = "<group>"; };
-		088FF2BC2A02C97E00042957 /* registerdelegation_flow_style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = registerdelegation_flow_style.css; sourceTree = "<group>"; };
-		088FF2F62A02C9A100042957 /* delegation_update_flow_en_1.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = delegation_update_flow_en_1.html; sourceTree = "<group>"; };
-		088FF2F72A02C9A100042957 /* delegation_update_flow_en_2.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = delegation_update_flow_en_2.html; sourceTree = "<group>"; };
-		088FF2F82A02C9A200042957 /* delegation_update_flow_en_3.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = delegation_update_flow_en_3.html; sourceTree = "<group>"; };
-		088FF2FA2A02C9AE00042957 /* updatedelegation_flow_style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = updatedelegation_flow_style.css; sourceTree = "<group>"; };
-		088FF2FC2A02C9BD00042957 /* delegation_remove_flow_en_1.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = delegation_remove_flow_en_1.html; sourceTree = "<group>"; };
-		088FF2FF2A02C9C800042957 /* removedelegation_flow_style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = removedelegation_flow_style.css; sourceTree = "<group>"; };
-		088FF3012A02C9D800042957 /* baker_update_flow_en_3.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = baker_update_flow_en_3.html; sourceTree = "<group>"; };
-		088FF3022A02C9D800042957 /* baker_update_flow_en_2.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = baker_update_flow_en_2.html; sourceTree = "<group>"; };
-		088FF3032A02C9D900042957 /* baker_update_flow_en_4.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = baker_update_flow_en_4.html; sourceTree = "<group>"; };
-		088FF3042A02C9D900042957 /* baker_update_flow_en_5.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = baker_update_flow_en_5.html; sourceTree = "<group>"; };
-		088FF3052A02C9D900042957 /* baker_update_flow_en_1.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = baker_update_flow_en_1.html; sourceTree = "<group>"; };
-		088FF3062A02C9D900042957 /* bakerupdate_flow_style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = bakerupdate_flow_style.css; sourceTree = "<group>"; };
-		088FF3082A02C9E700042957 /* registerbaker_flow_style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = registerbaker_flow_style.css; sourceTree = "<group>"; };
-		088FF3092A02C9E700042957 /* baker_intro_flow_en_2.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = baker_intro_flow_en_2.html; sourceTree = "<group>"; };
-		088FF30A2A02C9E800042957 /* baker_intro_flow_en_3.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = baker_intro_flow_en_3.html; sourceTree = "<group>"; };
-		088FF30B2A02C9E800042957 /* baker_intro_flow_en_1.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = baker_intro_flow_en_1.html; sourceTree = "<group>"; };
-		088FF30D2A02C9F500042957 /* baker_remove_flow_en_1.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = baker_remove_flow_en_1.html; sourceTree = "<group>"; };
-		088FF30E2A02C9F600042957 /* bakerremove_flow_style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = bakerremove_flow_style.css; sourceTree = "<group>"; };
 		088FF3102A02CA0500042957 /* seed_identity_onboarding_en_2.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = seed_identity_onboarding_en_2.html; sourceTree = "<group>"; };
 		088FF3112A02CA0500042957 /* seed_identity_onboarding_en_4.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = seed_identity_onboarding_en_4.html; sourceTree = "<group>"; };
 		088FF3122A02CA0500042957 /* seed_identity_onboarding_en_3.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = seed_identity_onboarding_en_3.html; sourceTree = "<group>"; };
@@ -3061,13 +2932,11 @@
 		08E472B22BCEFAA4004F0088 /* IncomeRequestValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeRequestValidator.swift; sourceTree = "<group>"; };
 		08E472B62BCEFB53004F0088 /* SessionRequestDataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequestDataType.swift; sourceTree = "<group>"; };
 		08E472BA2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequestDataProvidable.swift; sourceTree = "<group>"; };
-		08E69C812A1D2183001CCA96 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		08E69C972A1FCAA5001CCA96 /* AccountTokensView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTokensView.swift; sourceTree = "<group>"; };
 		08E69CA12A20DADA001CCA96 /* CIS2TokenModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokenModels.swift; sourceTree = "<group>"; };
 		08E69CA62A24A2C9001CCA96 /* CIS2TokenMetadataEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokenMetadataEntity.swift; sourceTree = "<group>"; };
 		08E69CAD2A24D085001CCA96 /* AccountDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailView.swift; sourceTree = "<group>"; };
 		08E69CB22A254570001CCA96 /* TokenFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenFormatter.swift; sourceTree = "<group>"; };
-		08E69CB72A25FA73001CCA96 /* SegmentedPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedPicker.swift; sourceTree = "<group>"; };
 		08E69CC62A265E1B001CCA96 /* CIS2TokenDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokenDetailView.swift; sourceTree = "<group>"; };
 		08FD0B7F2A7D271B003774A6 /* GrayRoundedBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayRoundedBackgroundModifier.swift; sourceTree = "<group>"; };
 		08FD0B812A7D31D9003774A6 /* GradienBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradienBackgroundModifier.swift; sourceTree = "<group>"; };
@@ -3149,7 +3018,6 @@
 		15ED6DEC2D64F60500B1BB44 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		15ED6DF02D64F8D300B1BB44 /* ValidatorPoolSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorPoolSettingsViewModel.swift; sourceTree = "<group>"; };
 		15EFE9F42C739D7B00B7145C /* ImportTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTokenViewModel.swift; sourceTree = "<group>"; };
-		15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		15F3F0A32C8B032200EF8975 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		15F3F0A72C8B1CFF00EF8975 /* TransactionNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionNotificationService.swift; sourceTree = "<group>"; };
 		15F3F0AB2C8F386500EF8975 /* ProdMainNet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProdMainNet.entitlements; sourceTree = "<group>"; };
@@ -3591,12 +3459,6 @@
 				08A6BD972B30A5D300869317 /* fonts */,
 				088FF3762A02CA7900042957 /* RobotoMono.ttf */,
 				088FF30F2A02C9FD00042957 /* SeedIdentityOnboarding */,
-				088FF30C2A02C9EE00042957 /* BakerRemoveOnboarding */,
-				088FF3072A02C9E000042957 /* BakerRegisterOnboarding */,
-				088FF3002A02C9D100042957 /* BakerUpdateOnboarding */,
-				088FF2FB2A02C9B600042957 /* RemoveDelegationOnboarding */,
-				088FF2F52A02C99800042957 /* UpdateDelegationOnboarding */,
-				088FF2B32A02C96200042957 /* RegisterDelegationOnboarding */,
 				088FF2822A02C7D900042957 /* IntroductionFlowOnboarding  */,
 				7FD435FC249A2D34002D2AC3 /* icon-22-29.png */,
 				7FD435FD249A2D34002D2AC3 /* icon-44-58.png */,
@@ -3839,7 +3701,6 @@
 				088FEE072A0167F100042957 /* AccountDetailsPresenter.swift */,
 				088FEE082A0167F100042957 /* AccountDetailsViewModel.swift */,
 				088FEE062A0167F100042957 /* ButtonSlider.swift */,
-				088FEE052A0167F000042957 /* ButtonsShielded.swift */,
 				088FEE0C2A0167F300042957 /* ShowShieldedDelegate.swift */,
 				088FEE092A0167F200042957 /* TransactionsLoadingHandler.swift */,
 				088FEDEF2A0167C300042957 /* TransferFilters */,
@@ -3958,17 +3819,14 @@
 				089B342B2A16898400F3CD90 /* Extensions */,
 				088FF01A2A0276FF00042957 /* PageIndicator.swift */,
 				088FEE872A025CD900042957 /* Shape+Extensions.swift */,
-				088FEE822A025B9100042957 /* MaterialTabBar.swift */,
 				088FEE2D2A01687400042957 /* LoadingIndicator.swift */,
 				088FEC8C2A01606100042957 /* StyledLabel.swift */,
 				08B16F362A011E59002E6B33 /* ColorPalette.swift */,
 				088FEE772A025AA800042957 /* ButtonStyles.swift */,
 				089B34262A16858D00F3CD90 /* TagsView.swift */,
 				089B34312A17ACD000F3CD90 /* SceneViewController.swift */,
-				08E69C812A1D2183001CCA96 /* AccountView.swift */,
 				08BFE22C2A3C9320007A7B1E /* DecimalNumberTextField.swift */,
 				083505012A9F46D4000D5175 /* CryptoImage.swift */,
-				15EFE9F82C74CD4700B7145C /* CustomSearchBar.swift */,
 				1580EBD82D4919C30051C55D /* SliderButton.swift */,
 				152AE63B2D50E17700B0B073 /* PrsssedButtonStyle.swift */,
 				15ED6C782D639E2600B1BB44 /* CustomToggle.swift */,
@@ -4384,8 +4242,6 @@
 				088FF1732A02947400042957 /* InitialAccountInfoPresenter.swift */,
 				088FF1712A02947300042957 /* InitialAccountInfoViewController.swift */,
 				088FF1752A02947500042957 /* InitialAccountsCoordinator.swift */,
-				088FF1722A02947400042957 /* InitialAccountSummaryPresenter.swift */,
-				088FF1772A02947600042957 /* InitialAccountSummaryViewController.swift */,
 			);
 			path = InitialAccount;
 			sourceTree = "<group>";
@@ -4534,98 +4390,6 @@
 				088FF28B2A02C8C200042957 /* XButton.swift */,
 			);
 			path = Style;
-			sourceTree = "<group>";
-		};
-		088FF2B32A02C96200042957 /* RegisterDelegationOnboarding */ = {
-			isa = PBXGroup;
-			children = (
-				088FF2BB2A02C97500042957 /* styles */,
-				088FF2B72A02C96C00042957 /* delegation_intro_flow_en_1.html */,
-				088FF2B62A02C96C00042957 /* delegation_intro_flow_en_2.html */,
-				088FF2B92A02C96C00042957 /* delegation_intro_flow_en_3.html */,
-				088FF2B82A02C96C00042957 /* delegation_intro_flow_en_4.html */,
-				088FF2B42A02C96B00042957 /* delegation_intro_flow_en_5.html */,
-				088FF2BA2A02C96D00042957 /* delegation_intro_flow_en_6.html */,
-				088FF2B52A02C96B00042957 /* delegation_intro_flow_en_7.html */,
-			);
-			path = RegisterDelegationOnboarding;
-			sourceTree = "<group>";
-		};
-		088FF2BB2A02C97500042957 /* styles */ = {
-			isa = PBXGroup;
-			children = (
-				088FF2BC2A02C97E00042957 /* registerdelegation_flow_style.css */,
-			);
-			path = styles;
-			sourceTree = "<group>";
-		};
-		088FF2F52A02C99800042957 /* UpdateDelegationOnboarding */ = {
-			isa = PBXGroup;
-			children = (
-				088FF2F92A02C9A700042957 /* styles */,
-				088FF2F62A02C9A100042957 /* delegation_update_flow_en_1.html */,
-				088FF2F72A02C9A100042957 /* delegation_update_flow_en_2.html */,
-				088FF2F82A02C9A200042957 /* delegation_update_flow_en_3.html */,
-			);
-			path = UpdateDelegationOnboarding;
-			sourceTree = "<group>";
-		};
-		088FF2F92A02C9A700042957 /* styles */ = {
-			isa = PBXGroup;
-			children = (
-				088FF2FA2A02C9AE00042957 /* updatedelegation_flow_style.css */,
-			);
-			path = styles;
-			sourceTree = "<group>";
-		};
-		088FF2FB2A02C9B600042957 /* RemoveDelegationOnboarding */ = {
-			isa = PBXGroup;
-			children = (
-				088FF2FE2A02C9C200042957 /* styles */,
-				088FF2FC2A02C9BD00042957 /* delegation_remove_flow_en_1.html */,
-			);
-			path = RemoveDelegationOnboarding;
-			sourceTree = "<group>";
-		};
-		088FF2FE2A02C9C200042957 /* styles */ = {
-			isa = PBXGroup;
-			children = (
-				088FF2FF2A02C9C800042957 /* removedelegation_flow_style.css */,
-			);
-			path = styles;
-			sourceTree = "<group>";
-		};
-		088FF3002A02C9D100042957 /* BakerUpdateOnboarding */ = {
-			isa = PBXGroup;
-			children = (
-				088FF3052A02C9D900042957 /* baker_update_flow_en_1.html */,
-				088FF3022A02C9D800042957 /* baker_update_flow_en_2.html */,
-				088FF3012A02C9D800042957 /* baker_update_flow_en_3.html */,
-				088FF3032A02C9D900042957 /* baker_update_flow_en_4.html */,
-				088FF3042A02C9D900042957 /* baker_update_flow_en_5.html */,
-				088FF3062A02C9D900042957 /* bakerupdate_flow_style.css */,
-			);
-			path = BakerUpdateOnboarding;
-			sourceTree = "<group>";
-		};
-		088FF3072A02C9E000042957 /* BakerRegisterOnboarding */ = {
-			isa = PBXGroup;
-			children = (
-				088FF30B2A02C9E800042957 /* baker_intro_flow_en_1.html */,
-				088FF3092A02C9E700042957 /* baker_intro_flow_en_2.html */,
-				088FF30A2A02C9E800042957 /* baker_intro_flow_en_3.html */,
-				088FF3082A02C9E700042957 /* registerbaker_flow_style.css */,
-			);
-			path = BakerRegisterOnboarding;
-			sourceTree = "<group>";
-		};
-		088FF30C2A02C9EE00042957 /* BakerRemoveOnboarding */ = {
-			isa = PBXGroup;
-			children = (
-				088FF30D2A02C9F500042957 /* baker_remove_flow_en_1.html */,
-				088FF30E2A02C9F600042957 /* bakerremove_flow_style.css */,
-			);
-			path = BakerRemoveOnboarding;
 			sourceTree = "<group>";
 		};
 		088FF30F2A02C9FD00042957 /* SeedIdentityOnboarding */ = {
@@ -4971,7 +4735,6 @@
 				08BC95082A30A5A40058F1B9 /* AccountDetailRouter.swift */,
 				08E69CAD2A24D085001CCA96 /* AccountDetailView.swift */,
 				08E69CB22A254570001CCA96 /* TokenFormatter.swift */,
-				08E69CB72A25FA73001CCA96 /* SegmentedPicker.swift */,
 			);
 			path = AccountDetail;
 			sourceTree = "<group>";
@@ -6295,14 +6058,11 @@
 				08C169222BB7396200E61326 /* LaunchScreen.storyboard in Resources */,
 				152D8E472D67763600B2C589 /* bakersuspension_flow_style.css in Resources */,
 				152D8E482D67763600B2C589 /* baker_suspension_flow_en_1.html in Resources */,
-				08C169232BB7396200E61326 /* baker_update_flow_en_4.html in Resources */,
 				08C169242BB7396200E61326 /* NFTEmptyStatusView.xib in Resources */,
-				08C169252BB7396200E61326 /* delegation_intro_flow_en_1.html in Resources */,
 				08C169282BB7396200E61326 /* IBMPlexSans-Regular.ttf in Resources */,
 				08C169292BB7396200E61326 /* 2.4.2.RX_backend_submissionStatus_received.json in Resources */,
 				08C1692A2BB7396200E61326 /* Identity.storyboard in Resources */,
 				08C1692B2BB7396200E61326 /* IBMPlexSans-SemiBold.ttf in Resources */,
-				08C1692C2BB7396200E61326 /* baker_update_flow_en_2.html in Resources */,
 				50D3891A2C0607D700B3675A /* AccountCardView.xib in Resources */,
 				08C1692D2BB7396200E61326 /* intro_flow_style.css in Resources */,
 				1534957C2D9FFD6500D65610 /* Config.xcconfig in Resources */,
@@ -6310,21 +6070,16 @@
 				08C1692F2BB7396200E61326 /* intro_flow_onboarding_en_4.html in Resources */,
 				08C169302BB7396200E61326 /* 2.4.2.RX_backend_submissionStatus.json in Resources */,
 				08C169312BB7396200E61326 /* NFTMarketplaceCell.xib in Resources */,
-				08C169322BB7396200E61326 /* baker_remove_flow_en_1.html in Resources */,
 				08C169332BB7396200E61326 /* QRConnect.storyboard in Resources */,
 				08C169352BB7396200E61326 /* Colors.xcassets in Resources */,
 				08C169362BB7396200E61326 /* QRTransactionDataViewController.xib in Resources */,
 				08C169372BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus_success.json in Resources */,
-				08C169382BB7396200E61326 /* baker_update_flow_en_5.html in Resources */,
-				08C169392BB7396200E61326 /* baker_update_flow_en_1.html in Resources */,
 				08C1693A2BB7396200E61326 /* NoDataView.xib in Resources */,
 				507629682BF2040B00B4D390 /* CHANGELOG.md in Resources */,
 				08C1693B2BB7396200E61326 /* README.md in Resources */,
 				08C1693C2BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus_com_amb.json in Resources */,
 				08C1693D2BB7396200E61326 /* ImportStatusCell.xib in Resources */,
 				08C1693E2BB7396200E61326 /* NFTItemsStatusView.xib in Resources */,
-				08C1693F2BB7396200E61326 /* baker_intro_flow_en_1.html in Resources */,
-				08C169412BB7396200E61326 /* delegation_intro_flow_en_3.html in Resources */,
 				08C169422BB7396200E61326 /* NFTErrorStatusView.xib in Resources */,
 				08C169432BB7396200E61326 /* (null) in Resources */,
 				08C169442BB7396200E61326 /* NFTInputStatusView.xib in Resources */,
@@ -6344,20 +6099,16 @@
 				08C169532BB7396200E61326 /* NFTProviderEmptyCell.xib in Resources */,
 				08C169542BB7396200E61326 /* Collections.storyboard in Resources */,
 				08C169552BB7396200E61326 /* 1.1.2.RX-backend_identity_provider_info.json in Resources */,
-				08C169562BB7396200E61326 /* registerdelegation_flow_style.css in Resources */,
 				08C169572BB7396200E61326 /* IBMPlexSans-Light.ttf in Resources */,
 				08C169582BB7396200E61326 /* TransactionAccountView.xib in Resources */,
 				08C169592BB7396200E61326 /* 2.4.2.RX_backend_submissionStatus_success.json in Resources */,
 				15E1BC6B2C6B58C100543242 /* Gate_io.png in Resources */,
-				08C1695B2BB7396200E61326 /* registerbaker_flow_style.css in Resources */,
 				08C1695C2BB7396200E61326 /* backend_server_error.json in Resources */,
 				08C1695D2BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus_rec.json in Resources */,
 				08C1695E2BB7396200E61326 /* Satoshi-Medium.otf in Resources */,
 				08C1695F2BB7396200E61326 /* seed_identity_onboarding_en_4.html in Resources */,
 				08C169602BB7396200E61326 /* 3.2.2.RX-lib_create_transfer.json in Resources */,
-				08C169612BB7396200E61326 /* delegation_remove_flow_en_1.html in Resources */,
 				08C169622BB7396200E61326 /* 2.4.2.RX_backend_submissionStatus_committed.json in Resources */,
-				08C169632BB7396200E61326 /* delegation_intro_flow_en_2.html in Resources */,
 				08C169642BB7396200E61326 /* NFTDataStatusView.xib in Resources */,
 				08C169652BB7396200E61326 /* intro_flow_onboarding_en_3.html in Resources */,
 				08C169662BB7396200E61326 /* VersionView.xib in Resources */,
@@ -6374,30 +6125,22 @@
 				08C169732BB7396200E61326 /* 1.2.1.TX-lib_create_id_request_and_private_data.json in Resources */,
 				08C169742BB7396200E61326 /* icon-22-29.png in Resources */,
 				08C169752BB7396200E61326 /* 3.3.2.RX_backend_submitTransfer.json in Resources */,
-				08C169762BB7396200E61326 /* delegation_intro_flow_en_4.html in Resources */,
 				08C169792BB7396200E61326 /* NFTEmptySearchStatusView.xib in Resources */,
 				08C1697A2BB7396200E61326 /* TextEditView.xib in Resources */,
 				08C1697C2BB7396200E61326 /* 4.2.2.RX_backend_accTransactions.json in Resources */,
-				08C1697E2BB7396200E61326 /* delegation_intro_flow_en_7.html in Resources */,
 				08C1697F2BB7396200E61326 /* Login.storyboard in Resources */,
 				08C169802BB7396200E61326 /* Widget.storyboard in Resources */,
 				08C169822BB7396200E61326 /* seed_identity_style.css in Resources */,
-				08C169832BB7396200E61326 /* baker_intro_flow_en_2.html in Resources */,
 				08C169842BB7396200E61326 /* 2.1.2.RX-backend_global.json in Resources */,
-				08C169852BB7396200E61326 /* delegation_update_flow_en_2.html in Resources */,
 				08C169862BB7396200E61326 /* IBMPlexMono-Regular.ttf in Resources */,
 				08C169872BB7396200E61326 /* NFTDataItemCell.xib in Resources */,
-				08C169882BB7396200E61326 /* delegation_intro_flow_en_5.html in Resources */,
 				08C169892BB7396200E61326 /* NFTDataReusableView.xib in Resources */,
 				08C1698A2BB7396200E61326 /* Localizable.strings in Resources */,
 				08C1698B2BB7396200E61326 /* QRTransactionBuyView.xib in Resources */,
-				08C1698C2BB7396200E61326 /* delegation_update_flow_en_3.html in Resources */,
-				08C1698D2BB7396200E61326 /* removedelegation_flow_style.css in Resources */,
 				08C1698E2BB7396200E61326 /* IBMPlexMono-Bold.ttf in Resources */,
 				08C1698F2BB7396200E61326 /* 1.2.2.RX-lib_create_id_request_and_private_data.json in Resources */,
 				08C169902BB7396200E61326 /* 4.4.1.TX_lib_decrypt_encrypted_amount.json in Resources */,
 				08C169932BB7396200E61326 /* TransactionOperationView.xib in Resources */,
-				08C169942BB7396200E61326 /* updatedelegation_flow_style.css in Resources */,
 				08C169952BB7396200E61326 /* Satoshi-Regular.otf in Resources */,
 				08C169962BB7396200E61326 /* 4.5.1.TX_lib_generate_accounts.json in Resources */,
 				08C169972BB7396200E61326 /* backend_invalidRequest_error.json in Resources */,
@@ -6406,16 +6149,12 @@
 				08C1699A2BB7396200E61326 /* NFTProviderHeaderView.xib in Resources */,
 				08C1699B2BB7396200E61326 /* IBMPlexMono-Medium.ttf in Resources */,
 				08C1699C2BB7396200E61326 /* Account.storyboard in Resources */,
-				08C1699E2BB7396200E61326 /* bakerupdate_flow_style.css in Resources */,
 				08C1699F2BB7396200E61326 /* More.storyboard in Resources */,
 				08C169A02BB7396200E61326 /* seed_identity_onboarding_en_2.html in Resources */,
 				08C169A12BB7396200E61326 /* seed_identity_onboarding_en_1.html in Resources */,
 				08C169A32BB7396200E61326 /* Onboarding.storyboard in Resources */,
-				08C169A42BB7396200E61326 /* delegation_update_flow_en_1.html in Resources */,
-				08C169A52BB7396200E61326 /* baker_intro_flow_en_3.html in Resources */,
 				505E11F22CC299510003F6DC /* AppIconTestNet.xcassets in Resources */,
 				08C169A62BB7396200E61326 /* 2.2.1.TX-lib_create_credential.json in Resources */,
-				08C169A72BB7396200E61326 /* delegation_intro_flow_en_6.html in Resources */,
 				08C169A82BB7396200E61326 /* SendFund.storyboard in Resources */,
 				08C169A92BB7396200E61326 /* 3.1.2.RX_backend_accNonce.json in Resources */,
 				08C169AA2BB7396200E61326 /* 4.5.2.RX_lib_generate_accounts.json in Resources */,
@@ -6428,9 +6167,7 @@
 				08C169B12BB7396200E61326 /* 4.3.2.RX_backend_accEncryptionKey.json in Resources */,
 				08C169B32BB7396200E61326 /* 3.4.2.RX_backend_submissionStatus.json in Resources */,
 				08C169B42BB7396200E61326 /* 2.2.2.RX-lib_create_credential.json in Resources */,
-				08C169B62BB7396200E61326 /* bakerremove_flow_style.css in Resources */,
 				08C169B72BB7396200E61326 /* 2.3.2.RX_backend_submitCredential.json in Resources */,
-				08C169B82BB7396200E61326 /* baker_update_flow_en_3.html in Resources */,
 				08C169BA2BB7396200E61326 /* Assets.xcassets in Resources */,
 				08C169BC2BB7396200E61326 /* 4.1.2.RX_backend_accBalance.json in Resources */,
 			);
@@ -6444,14 +6181,11 @@
 				7F85B8BD246A9AB600ED09B8 /* LaunchScreen.storyboard in Resources */,
 				152D8E452D67763600B2C589 /* bakersuspension_flow_style.css in Resources */,
 				152D8E462D67763600B2C589 /* baker_suspension_flow_en_1.html in Resources */,
-				088FF3562A02CA2700042957 /* baker_update_flow_en_4.html in Resources */,
 				D5087B6328EE4C4A0082A05F /* NFTEmptyStatusView.xib in Resources */,
-				088FF2D72A02C98800042957 /* delegation_intro_flow_en_1.html in Resources */,
 				08A6BDA22B30A66D00869317 /* IBMPlexSans-Regular.ttf in Resources */,
 				D589F3D32794B96C003F2FBB /* 2.4.2.RX_backend_submissionStatus_received.json in Resources */,
 				088FF16A2A028AFD00042957 /* Identity.storyboard in Resources */,
 				08A6BDA62B30A66D00869317 /* IBMPlexSans-SemiBold.ttf in Resources */,
-				088FF3552A02CA2700042957 /* baker_update_flow_en_2.html in Resources */,
 				50D389192C0607D600B3675A /* AccountCardView.xib in Resources */,
 				088FF2F22A02C98F00042957 /* intro_flow_style.css in Resources */,
 				1534957D2D9FFD6500D65610 /* Config.xcconfig in Resources */,
@@ -6459,21 +6193,16 @@
 				088FF2F42A02C98F00042957 /* intro_flow_onboarding_en_4.html in Resources */,
 				D589F4072794B96D003F2FBB /* 2.4.2.RX_backend_submissionStatus.json in Resources */,
 				D5E6CBF8290F47BE009856B7 /* NFTMarketplaceCell.xib in Resources */,
-				088FF3302A02CA1D00042957 /* baker_remove_flow_en_1.html in Resources */,
 				FA7C079B26C5A726008714CB /* QRConnect.storyboard in Resources */,
 				08A6BDC12B3318B300869317 /* Colors.xcassets in Resources */,
 				D5CFCF32273922D800888E1B /* QRTransactionDataViewController.xib in Resources */,
 				D589F37F2794B96B003F2FBB /* 3.4.2.RX_backend_submissionStatus_success.json in Resources */,
-				088FF3592A02CA2700042957 /* baker_update_flow_en_5.html in Resources */,
-				088FF3572A02CA2700042957 /* baker_update_flow_en_1.html in Resources */,
 				D54ABC2326E14A5C00F4E773 /* NoDataView.xib in Resources */,
 				507629672BF2040B00B4D390 /* CHANGELOG.md in Resources */,
 				7F85B8C0246A9AB600ED09B8 /* README.md in Resources */,
 				D589F3FB2794B96C003F2FBB /* 3.4.2.RX_backend_submissionStatus_com_amb.json in Resources */,
 				088FF2272A02A89900042957 /* ImportStatusCell.xib in Resources */,
 				D58EA76D290F53AE0033C8FD /* NFTItemsStatusView.xib in Resources */,
-				088FF33E2A02CA2200042957 /* baker_intro_flow_en_1.html in Resources */,
-				088FF2D82A02C98800042957 /* delegation_intro_flow_en_3.html in Resources */,
 				D5087B5E28EE4C380082A05F /* NFTErrorStatusView.xib in Resources */,
 				D58927A4275664EA005644B5 /* (null) in Resources */,
 				D5087B5428EE49260082A05F /* NFTInputStatusView.xib in Resources */,
@@ -6492,20 +6221,16 @@
 				D58EA798290FB7E90033C8FD /* NFTProviderEmptyCell.xib in Resources */,
 				D54F033228EA1746009A1057 /* Collections.storyboard in Resources */,
 				D589F3832794B96B003F2FBB /* 1.1.2.RX-backend_identity_provider_info.json in Resources */,
-				088FF2DB2A02C98800042957 /* registerdelegation_flow_style.css in Resources */,
 				08A6BDA32B30A66D00869317 /* IBMPlexSans-Light.ttf in Resources */,
 				D5962CC7272161E200A757A5 /* TransactionAccountView.xib in Resources */,
 				D589F4032794B96D003F2FBB /* 2.4.2.RX_backend_submissionStatus_success.json in Resources */,
 				15E1BC6A2C6B58C000543242 /* Gate_io.png in Resources */,
-				088FF3412A02CA2200042957 /* registerbaker_flow_style.css in Resources */,
 				D589F40B2794B96D003F2FBB /* backend_server_error.json in Resources */,
 				D589F3AB2794B96C003F2FBB /* 3.4.2.RX_backend_submissionStatus_rec.json in Resources */,
 				08A6BDB52B31C01000869317 /* Satoshi-Medium.otf in Resources */,
 				088FF3282A02CA1600042957 /* seed_identity_onboarding_en_4.html in Resources */,
 				D589F3DB2794B96C003F2FBB /* 3.2.2.RX-lib_create_transfer.json in Resources */,
-				088FF3632A02CA2C00042957 /* delegation_remove_flow_en_1.html in Resources */,
 				D589F3E72794B96C003F2FBB /* 2.4.2.RX_backend_submissionStatus_committed.json in Resources */,
-				088FF2DC2A02C98800042957 /* delegation_intro_flow_en_2.html in Resources */,
 				D5087B6828EE4C5E0082A05F /* NFTDataStatusView.xib in Resources */,
 				088FF2F02A02C98F00042957 /* intro_flow_onboarding_en_3.html in Resources */,
 				D5CACC5A26ED5AF800D3C3CF /* VersionView.xib in Resources */,
@@ -6523,31 +6248,23 @@
 				D589F3B32794B96C003F2FBB /* 1.2.1.TX-lib_create_id_request_and_private_data.json in Resources */,
 				7FD43601249A2D34002D2AC3 /* icon-22-29.png in Resources */,
 				D589F39B2794B96B003F2FBB /* 3.3.2.RX_backend_submitTransfer.json in Resources */,
-				088FF2D52A02C98800042957 /* delegation_intro_flow_en_4.html in Resources */,
 				D5883FD129040C290014F83C /* NFTEmptySearchStatusView.xib in Resources */,
 				D54ABC1926E100B800F4E773 /* TextEditView.xib in Resources */,
 				D589F3972794B96B003F2FBB /* 4.2.2.RX_backend_accTransactions.json in Resources */,
-				088FF2DA2A02C98800042957 /* delegation_intro_flow_en_7.html in Resources */,
 				088FF0782A02784A00042957 /* Login.storyboard in Resources */,
 				088FEF8C2A0270C200042957 /* Widget.storyboard in Resources */,
 				088FF3292A02CA1600042957 /* seed_identity_style.css in Resources */,
-				088FF33F2A02CA2200042957 /* baker_intro_flow_en_2.html in Resources */,
 				D589F3DF2794B96C003F2FBB /* 2.1.2.RX-backend_global.json in Resources */,
-				088FF3742A02CA3300042957 /* delegation_update_flow_en_2.html in Resources */,
 				08A6BDBE2B31C01500869317 /* IBMPlexMono-Regular.ttf in Resources */,
 				D5E6CBE6290F4771009856B7 /* NFTDataItemCell.xib in Resources */,
-				088FF2D92A02C98800042957 /* delegation_intro_flow_en_5.html in Resources */,
 				D5E6CBEA290F4771009856B7 /* NFTDataReusableView.xib in Resources */,
 				0832EB452B34B8CA00BD2ECD /* Localizable.strings in Resources */,
 				D5B393F527197CDD0094A9F5 /* QRTransactionBuyView.xib in Resources */,
-				088FF3752A02CA3300042957 /* delegation_update_flow_en_3.html in Resources */,
-				088FF3642A02CA2C00042957 /* removedelegation_flow_style.css in Resources */,
 				08A6BDBC2B31C01500869317 /* IBMPlexMono-Bold.ttf in Resources */,
 				D589F3A32794B96B003F2FBB /* 1.2.2.RX-lib_create_id_request_and_private_data.json in Resources */,
 				1557CC9B2C89BE26008ABF67 /* GoogleService-Info.plist in Resources */,
 				D589F4132794B96D003F2FBB /* 4.4.1.TX_lib_decrypt_encrypted_amount.json in Resources */,
 				D5962CC22721613E00A757A5 /* TransactionOperationView.xib in Resources */,
-				088FF3722A02CA3300042957 /* updatedelegation_flow_style.css in Resources */,
 				08A6BDB42B31C01000869317 /* Satoshi-Regular.otf in Resources */,
 				D589F38B2794B96B003F2FBB /* 4.5.1.TX_lib_generate_accounts.json in Resources */,
 				D589F4172794B96D003F2FBB /* backend_invalidRequest_error.json in Resources */,
@@ -6556,15 +6273,11 @@
 				D58EA77A290FAEB70033C8FD /* NFTProviderHeaderView.xib in Resources */,
 				08A6BDBD2B31C01500869317 /* IBMPlexMono-Medium.ttf in Resources */,
 				088FEE902A02609A00042957 /* Account.storyboard in Resources */,
-				088FF3542A02CA2700042957 /* bakerupdate_flow_style.css in Resources */,
 				088FF21D2A02A78300042957 /* More.storyboard in Resources */,
 				088FF3262A02CA1600042957 /* seed_identity_onboarding_en_2.html in Resources */,
 				088FF3272A02CA1600042957 /* seed_identity_onboarding_en_1.html in Resources */,
 				088FF2812A02BDF100042957 /* Onboarding.storyboard in Resources */,
-				088FF3732A02CA3300042957 /* delegation_update_flow_en_1.html in Resources */,
-				088FF3402A02CA2200042957 /* baker_intro_flow_en_3.html in Resources */,
 				D589F3BF2794B96C003F2FBB /* 2.2.1.TX-lib_create_credential.json in Resources */,
-				088FF2D62A02C98800042957 /* delegation_intro_flow_en_6.html in Resources */,
 				088FF37E2A03B93600042957 /* SendFund.storyboard in Resources */,
 				D589F3AF2794B96C003F2FBB /* 3.1.2.RX_backend_accNonce.json in Resources */,
 				D589F3872794B96B003F2FBB /* 4.5.2.RX_lib_generate_accounts.json in Resources */,
@@ -6577,9 +6290,7 @@
 				D589F37B2794B96B003F2FBB /* 4.3.2.RX_backend_accEncryptionKey.json in Resources */,
 				D589F3EF2794B96C003F2FBB /* 3.4.2.RX_backend_submissionStatus.json in Resources */,
 				D589F3BB2794B96C003F2FBB /* 2.2.2.RX-lib_create_credential.json in Resources */,
-				088FF3312A02CA1D00042957 /* bakerremove_flow_style.css in Resources */,
 				D589F3C72794B96C003F2FBB /* 2.3.2.RX_backend_submitCredential.json in Resources */,
-				088FF3582A02CA2700042957 /* baker_update_flow_en_3.html in Resources */,
 				7F5F778B24891E9F0016F8D1 /* Assets.xcassets in Resources */,
 				D589F3CB2794B96C003F2FBB /* 4.1.2.RX_backend_accBalance.json in Resources */,
 			);
@@ -6593,14 +6304,11 @@
 				7FF07A7923EADB1400F1FC04 /* LaunchScreen.storyboard in Resources */,
 				152D8E492D67763600B2C589 /* bakersuspension_flow_style.css in Resources */,
 				152D8E4A2D67763600B2C589 /* baker_suspension_flow_en_1.html in Resources */,
-				088FF34A2A02CA2700042957 /* baker_update_flow_en_4.html in Resources */,
 				D5087B6128EE4C4A0082A05F /* NFTEmptyStatusView.xib in Resources */,
-				088FF2C72A02C98700042957 /* delegation_intro_flow_en_1.html in Resources */,
 				08A6BD9D2B30A66D00869317 /* IBMPlexSans-Regular.ttf in Resources */,
 				D589F3D12794B96C003F2FBB /* 2.4.2.RX_backend_submissionStatus_received.json in Resources */,
 				088FF1682A028AFD00042957 /* Identity.storyboard in Resources */,
 				08A6BDA12B30A66D00869317 /* IBMPlexSans-SemiBold.ttf in Resources */,
-				088FF3492A02CA2700042957 /* baker_update_flow_en_2.html in Resources */,
 				50D389182C0607D600B3675A /* AccountCardView.xib in Resources */,
 				088FF2E62A02C98E00042957 /* intro_flow_style.css in Resources */,
 				1534957E2D9FFD6500D65610 /* Config.xcconfig in Resources */,
@@ -6608,21 +6316,16 @@
 				088FF2E82A02C98E00042957 /* intro_flow_onboarding_en_4.html in Resources */,
 				D589F4052794B96D003F2FBB /* 2.4.2.RX_backend_submissionStatus.json in Resources */,
 				D5E6CBF6290F47BE009856B7 /* NFTMarketplaceCell.xib in Resources */,
-				088FF32C2A02CA1C00042957 /* baker_remove_flow_en_1.html in Resources */,
 				7FF07AC923EADBB100F1FC04 /* README.md in Resources */,
 				08A6BDC02B3318B300869317 /* Colors.xcassets in Resources */,
 				D5B393F327197CDD0094A9F5 /* QRTransactionBuyView.xib in Resources */,
 				D589F37D2794B96B003F2FBB /* 3.4.2.RX_backend_submissionStatus_success.json in Resources */,
-				088FF34D2A02CA2700042957 /* baker_update_flow_en_5.html in Resources */,
-				088FF34B2A02CA2700042957 /* baker_update_flow_en_1.html in Resources */,
 				FA7C079926C5A726008714CB /* QRConnect.storyboard in Resources */,
 				507629662BF2040B00B4D390 /* CHANGELOG.md in Resources */,
 				D589F3F92794B96C003F2FBB /* 3.4.2.RX_backend_submissionStatus_com_amb.json in Resources */,
 				D58EA76B290F53AE0033C8FD /* NFTItemsStatusView.xib in Resources */,
 				088FF2232A02A89800042957 /* ImportStatusCell.xib in Resources */,
 				D5087B5C28EE4C380082A05F /* NFTErrorStatusView.xib in Resources */,
-				088FF3362A02CA2100042957 /* baker_intro_flow_en_1.html in Resources */,
-				088FF2C82A02C98700042957 /* delegation_intro_flow_en_3.html in Resources */,
 				D54ABC2126E14A5C00F4E773 /* NoDataView.xib in Resources */,
 				D5962CC02721613E00A757A5 /* TransactionOperationView.xib in Resources */,
 				D54ABC1726E100B800F4E773 /* TextEditView.xib in Resources */,
@@ -6641,21 +6344,17 @@
 				D58EA796290FB7E90033C8FD /* NFTProviderEmptyCell.xib in Resources */,
 				D54F033028EA1746009A1057 /* Collections.storyboard in Resources */,
 				D589F3812794B96B003F2FBB /* 1.1.2.RX-backend_identity_provider_info.json in Resources */,
-				088FF2CB2A02C98700042957 /* registerdelegation_flow_style.css in Resources */,
 				08A6BD9E2B30A66D00869317 /* IBMPlexSans-Light.ttf in Resources */,
 				7FD435FF249A2D34002D2AC3 /* icon-22-29.png in Resources */,
 				D589F4012794B96D003F2FBB /* 2.4.2.RX_backend_submissionStatus_success.json in Resources */,
 				15E1BC692C6B58C000543242 /* Gate_io.png in Resources */,
-				088FF3392A02CA2100042957 /* registerbaker_flow_style.css in Resources */,
 				D589F4092794B96D003F2FBB /* backend_server_error.json in Resources */,
 				D589F3A92794B96C003F2FBB /* 3.4.2.RX_backend_submissionStatus_rec.json in Resources */,
 				08A6BDB22B31C00F00869317 /* Satoshi-Medium.otf in Resources */,
 				088FF31E2A02CA1500042957 /* seed_identity_onboarding_en_4.html in Resources */,
 				D58927A7275664F9005644B5 /* (null) in Resources */,
 				1557CC982C89BBD7008ABF67 /* GoogleService-Info.plist in Resources */,
-				088FF35D2A02CA2C00042957 /* delegation_remove_flow_en_1.html in Resources */,
 				D589F3D92794B96C003F2FBB /* 3.2.2.RX-lib_create_transfer.json in Resources */,
-				088FF2CC2A02C98700042957 /* delegation_intro_flow_en_2.html in Resources */,
 				D589F3E52794B96C003F2FBB /* 2.4.2.RX_backend_submissionStatus_committed.json in Resources */,
 				088FF2E42A02C98E00042957 /* intro_flow_onboarding_en_3.html in Resources */,
 				D5087B6628EE4C5E0082A05F /* NFTDataStatusView.xib in Resources */,
@@ -6671,29 +6370,21 @@
 				D589F3CD2794B96C003F2FBB /* 2.4.2.RX_backend_submissionStatus_absent.json in Resources */,
 				D5E6CBEC290F4771009856B7 /* NFTDataEmptyCell.xib in Resources */,
 				D589F3B12794B96C003F2FBB /* 1.2.1.TX-lib_create_id_request_and_private_data.json in Resources */,
-				088FF2C52A02C98700042957 /* delegation_intro_flow_en_4.html in Resources */,
 				D589F3992794B96B003F2FBB /* 3.3.2.RX_backend_submitTransfer.json in Resources */,
 				D5883FCF29040C290014F83C /* NFTEmptySearchStatusView.xib in Resources */,
 				D589F3952794B96B003F2FBB /* 4.2.2.RX_backend_accTransactions.json in Resources */,
-				088FF2CA2A02C98700042957 /* delegation_intro_flow_en_7.html in Resources */,
 				088FF0762A02784A00042957 /* Login.storyboard in Resources */,
 				088FEF8A2A0270C000042957 /* Widget.storyboard in Resources */,
 				088FF31F2A02CA1500042957 /* seed_identity_style.css in Resources */,
-				088FF3372A02CA2100042957 /* baker_intro_flow_en_2.html in Resources */,
-				088FF36C2A02CA3200042957 /* delegation_update_flow_en_2.html in Resources */,
 				08A6BDBA2B31C01500869317 /* IBMPlexMono-Regular.ttf in Resources */,
 				D589F3DD2794B96C003F2FBB /* 2.1.2.RX-backend_global.json in Resources */,
-				088FF2C92A02C98700042957 /* delegation_intro_flow_en_5.html in Resources */,
 				D5E6CBE4290F4771009856B7 /* NFTDataItemCell.xib in Resources */,
 				D5E6CBE8290F4771009856B7 /* NFTDataReusableView.xib in Resources */,
 				0832EB442B34B8CA00BD2ECD /* Localizable.strings in Resources */,
-				088FF36D2A02CA3200042957 /* delegation_update_flow_en_3.html in Resources */,
-				088FF35E2A02CA2C00042957 /* removedelegation_flow_style.css in Resources */,
 				08A6BDB82B31C01500869317 /* IBMPlexMono-Bold.ttf in Resources */,
 				D589F3A12794B96B003F2FBB /* 1.2.2.RX-lib_create_id_request_and_private_data.json in Resources */,
 				D589F4112794B96D003F2FBB /* 4.4.1.TX_lib_decrypt_encrypted_amount.json in Resources */,
 				FAAC232826E54D2A00EFF43F /* AccountConfirmationCardView.xib in Resources */,
-				088FF36A2A02CA3200042957 /* updatedelegation_flow_style.css in Resources */,
 				08A6BDB12B31C00F00869317 /* Satoshi-Regular.otf in Resources */,
 				D589F3892794B96B003F2FBB /* 4.5.1.TX_lib_generate_accounts.json in Resources */,
 				D589F4152794B96D003F2FBB /* backend_invalidRequest_error.json in Resources */,
@@ -6703,16 +6394,12 @@
 				08A6BDB92B31C01500869317 /* IBMPlexMono-Medium.ttf in Resources */,
 				D58EA778290FAEB70033C8FD /* NFTProviderHeaderView.xib in Resources */,
 				D5CACC5826ED5AF800D3C3CF /* VersionView.xib in Resources */,
-				088FF3482A02CA2700042957 /* bakerupdate_flow_style.css in Resources */,
 				088FF21B2A02A78300042957 /* More.storyboard in Resources */,
 				088FF31C2A02CA1500042957 /* seed_identity_onboarding_en_2.html in Resources */,
 				088FF31D2A02CA1500042957 /* seed_identity_onboarding_en_1.html in Resources */,
 				088FF2802A02BDF000042957 /* Onboarding.storyboard in Resources */,
-				088FF36B2A02CA3200042957 /* delegation_update_flow_en_1.html in Resources */,
-				088FF3382A02CA2100042957 /* baker_intro_flow_en_3.html in Resources */,
 				D589F3BD2794B96C003F2FBB /* 2.2.1.TX-lib_create_credential.json in Resources */,
 				505E11F32CC299560003F6DC /* AppIconTestNet.xcassets in Resources */,
-				088FF2C62A02C98700042957 /* delegation_intro_flow_en_6.html in Resources */,
 				088FF37C2A03B93500042957 /* SendFund.storyboard in Resources */,
 				D589F3AD2794B96C003F2FBB /* 3.1.2.RX_backend_accNonce.json in Resources */,
 				D589F3852794B96B003F2FBB /* 4.5.2.RX_lib_generate_accounts.json in Resources */,
@@ -6726,9 +6413,7 @@
 				D589F3ED2794B96C003F2FBB /* 3.4.2.RX_backend_submissionStatus.json in Resources */,
 				D589F3B92794B96C003F2FBB /* 2.2.2.RX-lib_create_credential.json in Resources */,
 				19C2E2845C662830D186E79E /* .swiftlint.yml in Resources */,
-				088FF32D2A02CA1C00042957 /* bakerremove_flow_style.css in Resources */,
 				D589F3C52794B96C003F2FBB /* 2.3.2.RX_backend_submitCredential.json in Resources */,
-				088FF34C2A02CA2700042957 /* baker_update_flow_en_3.html in Resources */,
 				7F5F778C24891EA00016F8D1 /* Assets.xcassets in Resources */,
 				D589F3C92794B96C003F2FBB /* 4.1.2.RX_backend_accBalance.json in Resources */,
 			);
@@ -6870,7 +6555,6 @@
 				08C166E72BB7396200E61326 /* MenuItemCellView.swift in Sources */,
 				08C166E82BB7396200E61326 /* SubmitSeedAccountViewModel.swift in Sources */,
 				08C166E92BB7396200E61326 /* StorageManager.swift in Sources */,
-				08C166EB2BB7396200E61326 /* SegmentedPicker.swift in Sources */,
 				08C166EC2BB7396200E61326 /* UIButton+StoryboardLocalization.swift in Sources */,
 				08C166ED2BB7396200E61326 /* IdentityImporter.swift in Sources */,
 				08C166EE2BB7396200E61326 /* TransferFiltersPresenter.swift in Sources */,
@@ -6885,7 +6569,6 @@
 				08C166F72BB7396200E61326 /* NFTWalletCell.swift in Sources */,
 				1584D08D2D75F159001D9B3E /* ButtonsGroup.swift in Sources */,
 				08C166F82BB7396200E61326 /* IdentityInfoViewModel.swift in Sources */,
-				15EFE9FB2C74CD4700B7145C /* CustomSearchBar.swift in Sources */,
 				08C166FA2BB7396200E61326 /* RequestExportPasswordPresenter.swift in Sources */,
 				08C166FB2BB7396200E61326 /* BaseLabel.swift in Sources */,
 				08C166FC2BB7396200E61326 /* PublicEncriptionKey.swift in Sources */,
@@ -6901,10 +6584,8 @@
 				08C167052BB7396200E61326 /* NibLoadable.swift in Sources */,
 				08C167082BB7396200E61326 /* String+Localizable.swift in Sources */,
 				08C167092BB7396200E61326 /* ExportService.swift in Sources */,
-				08C1670A2BB7396200E61326 /* MaterialTabBar.swift in Sources */,
 				08C1670E2BB7396200E61326 /* OriginTypeEnum.swift in Sources */,
 				08C167102BB7396200E61326 /* MobileWalletFacade.swift in Sources */,
-				08C167112BB7396200E61326 /* InitialAccountSummaryViewController.swift in Sources */,
 				08E472AD2BCEE883004F0088 /* TransferUpdateRequestModel.swift in Sources */,
 				08C167122BB7396200E61326 /* ExportTransactionLogView.swift in Sources */,
 				08DB5E832BC6C32F00C29663 /* BakerPoolReceiptType.swift in Sources */,
@@ -7065,7 +6746,6 @@
 				08C167AB2BB7396200E61326 /* ChainParametersResponse.swift in Sources */,
 				15FC76742C9C26AB00AC357B /* ImportWalletPrivateKeyViewModel.swift in Sources */,
 				08C167AC2BB7396200E61326 /* SeedIdentityOnboardingView.swift in Sources */,
-				08C167AD2BB7396200E61326 /* AccountView.swift in Sources */,
 				08C167AE2BB7396200E61326 /* SceneViewController.swift in Sources */,
 				08C167B02BB7396200E61326 /* Model+Marketplace.swift in Sources */,
 				509749DE2C3D25E800D28D6B /* OnrampAccountPicker.swift in Sources */,
@@ -7251,7 +6931,6 @@
 				08C1685C2BB7396200E61326 /* DeleteIdentityButtonWidgetPresenter.swift in Sources */,
 				1580EC062D4A41240051C55D /* SelectRecipientView.swift in Sources */,
 				08C1685D2BB7396200E61326 /* ReleaseScheduleEntity.swift in Sources */,
-				08C1685E2BB7396200E61326 /* ButtonsShielded.swift in Sources */,
 				08C1685F2BB7396200E61326 /* ToastLabel.swift in Sources */,
 				08C168602BB7396200E61326 /* OnboardingCarouselView.swift in Sources */,
 				08C168612BB7396200E61326 /* ObjectWrapper.swift in Sources */,
@@ -7297,7 +6976,6 @@
 				08C1688A2BB7396200E61326 /* AccountsPresenter.swift in Sources */,
 				08C1688B2BB7396200E61326 /* CommissionRange.swift in Sources */,
 				08C1688C2BB7396200E61326 /* Optional+Ext.swift in Sources */,
-				08C1688D2BB7396200E61326 /* InitialAccountSummaryPresenter.swift in Sources */,
 				08C1688F2BB7396200E61326 /* ApiConstants.swift in Sources */,
 				08C168902BB7396200E61326 /* DefaultCIS2TokenManager.swift in Sources */,
 				1522AEBE2D79CCD70058EB8C /* AlertHelper.swift in Sources */,
@@ -7558,7 +7236,6 @@
 				7F85B7FB246A9AB600ED09B8 /* MenuItemCellView.swift in Sources */,
 				088FEFBD2A02717E00042957 /* SubmitSeedAccountViewModel.swift in Sources */,
 				D589F3152794B678003F2FBB /* StorageManager.swift in Sources */,
-				08E69CBB2A25FA73001CCA96 /* SegmentedPicker.swift in Sources */,
 				7F85B7FD246A9AB600ED09B8 /* UIButton+StoryboardLocalization.swift in Sources */,
 				088FF2172A02A77200042957 /* IdentityImporter.swift in Sources */,
 				088FEDF92A0167D200042957 /* TransferFiltersPresenter.swift in Sources */,
@@ -7573,7 +7250,6 @@
 				D5E6CBFE290F47FC009856B7 /* NFTWalletCell.swift in Sources */,
 				1584D08C2D75F159001D9B3E /* ButtonsGroup.swift in Sources */,
 				088FEF122A026F0100042957 /* IdentityInfoViewModel.swift in Sources */,
-				15EFE9FA2C74CD4700B7145C /* CustomSearchBar.swift in Sources */,
 				088FF0602A02781C00042957 /* RequestExportPasswordPresenter.swift in Sources */,
 				7F85B800246A9AB600ED09B8 /* BaseLabel.swift in Sources */,
 				08A045DC29FA99D200DACE1F /* PublicEncriptionKey.swift in Sources */,
@@ -7589,10 +7265,8 @@
 				52055F892552C1D90071F7CA /* NibLoadable.swift in Sources */,
 				7F85B805246A9AB600ED09B8 /* String+Localizable.swift in Sources */,
 				088FF1CB2A02A70800042957 /* ExportService.swift in Sources */,
-				088FEE862A025B9100042957 /* MaterialTabBar.swift in Sources */,
 				D589F1DD2794B5ED003F2FBB /* OriginTypeEnum.swift in Sources */,
 				089E327E2A0BA043002AE530 /* MobileWalletFacade.swift in Sources */,
-				088FF1902A02947B00042957 /* InitialAccountSummaryViewController.swift in Sources */,
 				08E472AC2BCEE883004F0088 /* TransferUpdateRequestModel.swift in Sources */,
 				088FED8D2A01672D00042957 /* ExportTransactionLogView.swift in Sources */,
 				08DB5E802BC6C32E00C29663 /* BakerPoolReceiptType.swift in Sources */,
@@ -7753,7 +7427,6 @@
 				08A0460F29FA99D200DACE1F /* ChainParametersResponse.swift in Sources */,
 				15FC76732C9C26AB00AC357B /* ImportWalletPrivateKeyViewModel.swift in Sources */,
 				088FF0052A0271F100042957 /* SeedIdentityOnboardingView.swift in Sources */,
-				08E69C852A1D2183001CCA96 /* AccountView.swift in Sources */,
 				089B34352A17ACD000F3CD90 /* SceneViewController.swift in Sources */,
 				D5553254291091C700A69230 /* Model+Marketplace.swift in Sources */,
 				509749DD2C3D25E800D28D6B /* OnrampAccountPicker.swift in Sources */,
@@ -7939,7 +7612,6 @@
 				088FEF782A0270B000042957 /* DeleteIdentityButtonWidgetPresenter.swift in Sources */,
 				1580EBFE2D4A41240051C55D /* SelectRecipientView.swift in Sources */,
 				D589F1B92794B5ED003F2FBB /* ReleaseScheduleEntity.swift in Sources */,
-				088FEE282A0167FB00042957 /* ButtonsShielded.swift in Sources */,
 				7F85B8A0246A9AB600ED09B8 /* ToastLabel.swift in Sources */,
 				088FECEA2A01622000042957 /* OnboardingCarouselView.swift in Sources */,
 				08A0448D29FA987800DACE1F /* ObjectWrapper.swift in Sources */,
@@ -7985,7 +7657,6 @@
 				08B16F002A01185E002E6B33 /* AccountsPresenter.swift in Sources */,
 				08A0461729FA99D300DACE1F /* CommissionRange.swift in Sources */,
 				08520A562B45B5DC008DC851 /* Optional+Ext.swift in Sources */,
-				088FF18D2A02947B00042957 /* InitialAccountSummaryPresenter.swift in Sources */,
 				D589F3212794B678003F2FBB /* ApiConstants.swift in Sources */,
 				08AB08E42A696C1100C226F3 /* DefaultCIS2TokenManager.swift in Sources */,
 				1522AEBD2D79CCD70058EB8C /* AlertHelper.swift in Sources */,
@@ -8247,7 +7918,6 @@
 				088FF0DA2A02848A00042957 /* AutoFocusTextField.swift in Sources */,
 				068DC80E23F2E464001B2975 /* BaseLabel.swift in Sources */,
 				08A0457129FA99D100DACE1F /* SubmissionStatus.swift in Sources */,
-				08E69CB92A25FA73001CCA96 /* SegmentedPicker.swift in Sources */,
 				088FF20B2A02A77100042957 /* IdentityImporter.swift in Sources */,
 				08A0455929FA99D100DACE1F /* Global.swift in Sources */,
 				088FEFB72A02717D00042957 /* SubmitSeedAccountViewModel.swift in Sources */,
@@ -8264,7 +7934,6 @@
 				1584D08E2D75F159001D9B3E /* ButtonsGroup.swift in Sources */,
 				D5E6CBFC290F47FC009856B7 /* NFTWalletCell.swift in Sources */,
 				088FEF042A026F0000042957 /* IdentityInfoViewModel.swift in Sources */,
-				15EFE9F92C74CD4700B7145C /* CustomSearchBar.swift in Sources */,
 				088FF0502A02781B00042957 /* RequestExportPasswordPresenter.swift in Sources */,
 				08A0454429FA99D100DACE1F /* PublicEncriptionKey.swift in Sources */,
 				D5E6CBF2290F47BE009856B7 /* NFTMarketplaceCell.swift in Sources */,
@@ -8276,11 +7945,9 @@
 				088FF0FB2A0284BC00042957 /* RecoveryPhraseConfirmPhrasePresenter.swift in Sources */,
 				08C169DC2BC04A8500E61326 /* SignMessagePayload.swift in Sources */,
 				088FF1C12A02A70700042957 /* ExportService.swift in Sources */,
-				088FEE842A025B9100042957 /* MaterialTabBar.swift in Sources */,
 				D58EA766290F53A30033C8FD /* NFTItemsStatusView.swift in Sources */,
 				D589F32B2794B678003F2FBB /* ServicesProvider.swift in Sources */,
 				089E327C2A0BA042002AE530 /* MobileWalletFacade.swift in Sources */,
-				088FF1822A02947A00042957 /* InitialAccountSummaryViewController.swift in Sources */,
 				D5CCCB3828EE42A800350D83 /* NFTErrorStatusView.swift in Sources */,
 				08E472AB2BCEE883004F0088 /* TransferUpdateRequestModel.swift in Sources */,
 				08DB5E7D2BC6C32E00C29663 /* BakerPoolReceiptType.swift in Sources */,
@@ -8439,7 +8106,6 @@
 				088FF0BA2A02846000042957 /* RecoveryPhraseInputPresenter.swift in Sources */,
 				08E69CAF2A24D085001CCA96 /* AccountDetailView.swift in Sources */,
 				08A0454C29FA99D100DACE1F /* SubmissionResponse.swift in Sources */,
-				08E69C832A1D2183001CCA96 /* AccountView.swift in Sources */,
 				089B34332A17ACD000F3CD90 /* SceneViewController.swift in Sources */,
 				15FC76722C9C26AB00AC357B /* ImportWalletPrivateKeyViewModel.swift in Sources */,
 				D5553252291091C700A69230 /* Model+Marketplace.swift in Sources */,
@@ -8630,7 +8296,6 @@
 				D5CCCB4728EE42C400350D83 /* NFTDataStatusView.swift in Sources */,
 				1580EBF62D4A41240051C55D /* SelectRecipientView.swift in Sources */,
 				088FEF502A0270AF00042957 /* DeleteIdentityButtonWidgetPresenter.swift in Sources */,
-				088FEE182A0167FA00042957 /* ButtonsShielded.swift in Sources */,
 				D589F1B72794B5ED003F2FBB /* ReleaseScheduleEntity.swift in Sources */,
 				D5D52C6A26DE45530072D20E /* RoundedCurrencyView.swift in Sources */,
 				15FC766D2C9C0F7700AC357B /* ImportWalletPrivateKeyView.swift in Sources */,
@@ -8678,7 +8343,6 @@
 				1522AEBC2D79CCD70058EB8C /* AlertHelper.swift in Sources */,
 				D589F31F2794B678003F2FBB /* ApiConstants.swift in Sources */,
 				08A0456329FA99D100DACE1F /* ValueCredential.swift in Sources */,
-				088FF17F2A02947A00042957 /* InitialAccountSummaryPresenter.swift in Sources */,
 				08A0458029FA99D100DACE1F /* IDRequest.swift in Sources */,
 				15B527602D36666E005FA701 /* AddTokenView.swift in Sources */,
 				088FF1212A0284F500042957 /* RecoveryPhraseGettingStartedPresenter.swift in Sources */,

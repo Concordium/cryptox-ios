@@ -163,7 +163,6 @@ class IdentitiesService {
         if let account = storageManager.getAccounts(for: updatedIdentity).first {
             _ = try account.write {
                 var account = $0
-//                account.credential = identityObjectWrapper.credential.toCredential()
                 account.transactionStatus = .finalized
             }.get()
             self.addAccountToRecipientList(account: account)

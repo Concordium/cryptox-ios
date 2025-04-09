@@ -16,7 +16,7 @@ final class NotificationTokenService {
         CIS2Service(networkManager: defaultProvider.networkManager(), storageManager: defaultProvider.storageManager())
     }()
 
-    // Parse token metadata from userInfo
+    /// Parse token metadata from userInfo
     private func parseTokenMetadata(metadata: Any?) -> [String: Any] {
         (metadata as? String)
                 .flatMap { $0.data(using: .utf8) }
@@ -25,7 +25,7 @@ final class NotificationTokenService {
                 } ?? [:]
     }
 
-    // Fetch token metadata asynchronously from a given URL
+    /// Fetch token metadata asynchronously from a given URL
     func getTokenMetadata(with metadata: Any?) async -> CIS2TokenMetadata? {
         let dictionary = parseTokenMetadata(metadata: metadata)
 
@@ -45,7 +45,7 @@ final class NotificationTokenService {
         }
     }
 
-    // Check if a token exists for a given contract or show alert if not
+    /// Check if a token exists for a given contract or show alert if not
     func checkToken(from userInfo: [AnyHashable: Any], completion: @escaping (TokenResult?) -> Void) {
         guard let (contractName, contractIndex, contractSubindex, accountAddress) = extractContractDetails(from: userInfo) else {
             completion(nil)
@@ -74,7 +74,7 @@ final class NotificationTokenService {
         }
     }
 
-    // Store a new token based on userInfo details
+    /// Store a new token based on userInfo details
     func storeNewToken(from userInfo: [AnyHashable: Any], completion: @escaping (CIS2Token, CIS2TokenBalance?) -> Void) {
         guard let (contractName, contractIndex, contractSubindex, accountAddress) = extractContractDetails(from: userInfo),
               let tokenId = userInfo["token_id"] as? String else {
@@ -96,7 +96,7 @@ final class NotificationTokenService {
         }
     }
 
-    // Extract contract details from the notification payload
+    /// Extract contract details from the notification payload
     private func extractContractDetails(from userInfo: [AnyHashable: Any]) -> (String, Int, Int, String)? {
         guard let contractName = userInfo["contract_name"] as? String else {
             return nil
