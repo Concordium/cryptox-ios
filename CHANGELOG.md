@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased 3.2.2]
+## [Release 3.2.2] Apr 3, 2025
 
 ### Changed
 - Earn flow design
