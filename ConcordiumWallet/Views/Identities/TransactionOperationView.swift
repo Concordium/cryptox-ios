@@ -68,6 +68,5 @@ extension TransactionOperationView {
     func setup(totalAmount: String) {
         titleLabel.text = totalAmount
         detailsLabel.text = "$0,00"
-        //titleLabel.text = GTU(intValue: energy * 10).displayValue() + " CCD"
     }
 }

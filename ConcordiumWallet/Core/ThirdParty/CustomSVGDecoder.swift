@@ -52,7 +52,6 @@ class CustomSVGDecoder: NSObject, SDImageCoder {
         return UIImage(data: imageData)
     }
     
-    //You might need to implement these methods, I didn't check their meaning yet
     func canEncode(to format: SDImageFormat) -> Bool {
         return true
     }

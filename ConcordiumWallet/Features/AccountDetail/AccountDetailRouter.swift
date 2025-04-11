@@ -9,12 +9,6 @@
 import UIKit
 import Combine
 
-protocol AccountDetailRoutable: AnyObject {
-    func showAccountDetailFlow(for account: AccountDataType)
-    func showTx(_ tx: TransactionViewModel)
-    func showEarnFlow(_ account: AccountDataType)
-}
-
 protocol CIS2TokenDetailRoutable: AnyObject {
     func showAccountAddressQR(_ account: AccountDataType)
 }
@@ -33,34 +27,8 @@ final class AccountDetailRouter: ObservableObject {
 }
 
 
-extension AccountDetailRouter: TransactionDetailPresenterDelegate {}
-extension AccountDetailRouter: AccountDetailRoutable {
+extension AccountDetailRouter {
 
-    @MainActor
-    func showAccountDetailFlow(for account: AccountDataType) {
-        let accountDetailCoordinator = AccountDetailsCoordinator.init(
-            navigationController: navigationController,
-            dependencyProvider: dependencyProvider,
-            parentCoordinator: self,
-            account: account)
-        
-        accountDetailCoordinator.accountsMainViewDelegate = accountMainViewDelegate
-        accountDetailCoordinator.showLegacyAccountDetails(account: account)
-    }
-    
-    @MainActor
-    func showEarnFlow(_ account: AccountDataType) {
-        notifyShowNavBar(false)
-        let accountDetailCoordinator = AccountDetailsCoordinator.init(
-            navigationController: navigationController,
-            dependencyProvider: dependencyProvider,
-            parentCoordinator: self,
-            account: account)
-        
-        accountDetailCoordinator.accountsMainViewDelegate = accountMainViewDelegate
-        accountDetailCoordinator.start(entryPoint: .earn)
-    }
-    
     @MainActor
     func showAccountSettings(_ account: AccountDataType) {
         notifyShowNavBar(false)
@@ -74,11 +42,6 @@ extension AccountDetailRouter: AccountDetailRoutable {
         accountDetailCoordinator.start(entryPoint: .settings)
     }
 
-    func showTx(_ tx: TransactionViewModel) {
-//        let vc = TransactionDetailFactory.create(with: TransactionDetailPresenter(delegate: self, viewModel: tx))
-//        navigationController.pushViewController(vc, animated: true)
-    }
-    
     func notifyShowNavBar(_ isHidden: Bool) {
         NotificationCenter.default.post(name: .showNavBar, object: nil, userInfo: ["isHidden": isHidden])
     }

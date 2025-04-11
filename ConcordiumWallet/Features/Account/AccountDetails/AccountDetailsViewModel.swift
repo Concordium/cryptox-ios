@@ -70,7 +70,7 @@ class AccountDetailsViewModel {
             self.stakedValue = GTU(intValue: baker.stakedAmount ).displayValue()
             
         } else if let delegation = account.delegation {
-            let pool = BakerTarget.from(delegationType: delegation.delegationTargetType, bakerId: delegation.delegationTargetBakerID)
+            let pool = ValidatorTarget.from(delegationType: delegation.delegationTargetType, bakerId: delegation.delegationTargetBakerID)
             
             self.hasStaked = true
             self.stakedLabel = pool.getDisplayValueForAccountDetails()
@@ -155,7 +155,7 @@ class AccountDetailsViewModel {
     }
 }
 
-extension BakerTarget {
+extension ValidatorTarget {
     fileprivate func getDisplayValueForAccountDetails() -> String {
         switch self {
         case .passive:

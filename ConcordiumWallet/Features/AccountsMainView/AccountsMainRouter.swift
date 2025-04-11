@@ -17,10 +17,8 @@ protocol AccountsMainViewDelegate: AnyObject {
     func showCreateAccountFlow()
     func showScanQRFlow()
     func showExportFlow()
-    func showUnshieldAssetsFlow()
     func showNotConfiguredAccountPopup()
     func createAccountFromOnboarding(isCreatingAccount: Binding<Bool>)
-    func showEarnFlow(_ account: AccountDataType)
     func showSettings(_ account: AccountDataType)
 }
 
@@ -84,23 +82,7 @@ final class AccountsMainRouter: ObservableObject {
         accountsViewModel.selectedAccount = AccountPreviewViewModel(account: account, tokens: dependencyProvider.storageManager().getAccountSavedCIS2Tokens(account.address))
         navigationManager.navigate(to: .tokenDetails(token: token, AccountDetailViewModel(account: account)))
     }
-    
-    @MainActor func showUnshieldAssetsFlow() {
-        let viewModel = ShieldedAccountsViewModel(dependencyProvider: dependencyProvider)
-        let view = ShieldedAccountsView(viewModel: viewModel)
-        let viewController = SceneViewController(content: view)
-        viewController.hidesBottomBarWhenPushed = true
-        viewController.modalPresentationStyle = .overFullScreen
-        navigationController.present(viewController, animated: true, completion: nil)
-    }
-    
-    @MainActor
-    func showEarnFlow(_ account: AccountDataType) {
-        let router = AccountDetailRouter(account: account, navigationController: navigationController, dependencyProvider: dependencyProvider)
-        router.accountMainViewDelegate = self
-        router.showEarnFlow(account)
-    }
-    
+
     @MainActor
     func showSettings(_ account: AccountDataType) {
         let router = AccountDetailRouter(account: account, navigationController: navigationController, dependencyProvider: dependencyProvider)

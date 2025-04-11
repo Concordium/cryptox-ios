@@ -1,4 +1,4 @@
-# <img src="CryptoX/ConcordiumWallet/Resources/icon-44-58.png" alt="Icon" style="vertical-align: bottom; height: 36px;"/>  CryptoX Concordium Wallet
+# <img src="/ConcordiumWallet/Resources/icon-44-58.png" alt="Icon" style="vertical-align: bottom; height: 36px;"/>  CryptoX Concordium Wallet
 
 Use CryptoX Concordium Wallet to get started with the open-source, privacy-centric and public Concordium Blockchain. 
 
@@ -37,7 +37,7 @@ It is based on Concordium reference wallet and can be used instead of both Conco
 
 ## Development notes
 
-The app requires minimum iOS 15 for development.
+The app requires minimum iOS 16.4 for development.
 
 ### Build variants
 - Testnet (`testnet`) – Public Concordium test network, fake funds and identities. Spaceseven stage

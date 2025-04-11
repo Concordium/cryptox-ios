@@ -90,7 +90,7 @@ final class DelegationSubmissionViewModel: StakeReceiptViewModel, ObservableObje
         restakeText = restakeData?.displayValue ?? ""
         let currentPoolData: PoolDelegationData? = dataHandler.getNewEntry() ?? dataHandler.getCurrentEntry()
         if let pool = currentPoolData?.pool {
-            if case BakerTarget.passive = pool {
+            if case ValidatorTarget.passive = pool {
                 self.stakingMode = .passive
             } else {
                 self.stakingMode = .validatorPool

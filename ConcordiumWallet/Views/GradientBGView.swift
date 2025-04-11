@@ -25,19 +25,6 @@ class GradientBGView: UIView {
     }
     
     private func setup() {
-//        let gradient = CAGradientLayer()
-//        gradient.frame = UIScreen.main.bounds
-//        gradient.colors = [
-//          UIColor(red: 0.139, green: 0.14, blue: 0.154, alpha: 1).cgColor,
-//          UIColor(red: 0.034, green: 0.035, blue: 0.042, alpha: 1).cgColor
-//        ]
-//        gradient.locations = [0, 1]
-//        gradient.startPoint = CGPoint(x: 0.5, y: 0.0)
-//        gradient.endPoint = CGPoint(x: 0.5, y: 1.0)
-//        
-//        gradient.frame = UIScreen.main.bounds
-//        layer.insertSublayer(gradient, at: 0)
-        
         let myLayer = CALayer()
         let myImage = UIImage(named: "new_bg")?.cgImage
         myLayer.frame = UIScreen.main.bounds

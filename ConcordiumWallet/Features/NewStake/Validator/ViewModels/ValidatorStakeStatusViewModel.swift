@@ -28,7 +28,7 @@ final class ValidatorStakeStatusViewModel: ObservableObject {
 
     private var dataHandler: StakeDataHandler?
     private let account: AccountDataType
-    private lazy var status: BakerPoolStatus = .pendingTransfer
+    private lazy var status: ValidatorPoolStatus = .pendingTransfer
     private let stakeService: StakeServiceProtocol
     private let storageManager: StorageManagerProtocol
     private let accountsService: AccountsServiceProtocol
@@ -98,7 +98,7 @@ final class ValidatorStakeStatusViewModel: ObservableObject {
 
 // MARK: - Setup methods
 extension ValidatorStakeStatusViewModel {
-    private func setup(with status: BakerPoolStatus) {
+    private func setup(with status: ValidatorPoolStatus) {
         self.status = status
         if case let .registered(currentSettings) = status {
             stakeService.getBakerPool(bakerId: currentSettings.bakerID)
@@ -133,7 +133,7 @@ extension ValidatorStakeStatusViewModel {
             RestakeBakerData(restake: currentSettings.restakeEarnings)
         ]
         
-        if let poolSetting = BakerPoolSetting(rawValue: poolInfo.openStatus) {
+        if let poolSetting = ValidatorPoolSetting(rawValue: poolInfo.openStatus) {
             updatedRows.append(BakerPoolSettingsData(poolSettings: poolSetting))
         }
         
@@ -164,7 +164,7 @@ extension ValidatorStakeStatusViewModel {
 // MARK: - Status handling
 extension ValidatorStakeStatusViewModel {
     
-    func getStatusViewModel() -> BakerPoolStatus? {
+    func getStatusViewModel() -> ValidatorPoolStatus? {
         if dependencyProvider.storageManager().hasPendingBakerRegistration(for: account.address) {
             return .pendingTransfer
         } else if let currentSettings = account.baker {

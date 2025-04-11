@@ -603,3 +603,19 @@ extension StorageManager {
         }
     }
 }
+
+extension StorageManagerProtocol {
+    func getDelegationTransfers(for account: AccountDataType) -> [TransferDataType] {
+        return getTransfers(for: account.address).filter { transfer in
+            transfer.transferType.isDelegationTransfer
+        }
+    }
+}
+
+extension StorageManagerProtocol {
+    func hasPendingBakerRegistration(for account: String) -> Bool {
+        !getTransfers(for: account)
+            .filter { $0.transferType.isBakingTransfer }
+            .isEmpty
+    }
+}
