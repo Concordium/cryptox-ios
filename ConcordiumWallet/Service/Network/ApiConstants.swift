@@ -32,8 +32,8 @@ struct ApiConstants {
 
     static let appSettings = proxyUrl.appendingPathComponent("/v1/appSettings")
 
-    static let ipInfo =                 proxyUrl.appendingPathComponent("v0/ip_info")
-    static let ipInfoV1 = proxyUrl.appendingPathComponent("/v1/ip_info") // should check whether we have it on our be
+    static let ipInfo =                 proxyUrl.appendingPathComponent("v2/ip_info")
+    static let ipInfoV1 = proxyUrl.appendingPathComponent("/v2/ip_info") // should check whether we have it on our be
     static let global =                 proxyUrl.appendingPathComponent("v0/global")
     static let submitCredential =       proxyUrl.appendingPathComponent("v0/submitCredential")
     static let submissionStatus =       proxyUrl.appendingPathComponent("v0/submissionStatus")

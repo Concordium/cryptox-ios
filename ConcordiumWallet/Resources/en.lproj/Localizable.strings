@@ -277,6 +277,12 @@ process on-chain.";
 "attributes.sex" = "Sex";
 "attributes.taxIDNo" = "Tax ID number";
 "attributes.nationalIDNo" = "National ID number";
+// Company ID
+"attributes.lei" = "LEI-code";
+"attributes.legalName" = "Legal name";
+"attributes.legalCountry" = "Legal jurisdiction country";
+"attributes.businessNumber" = "Business Number";
+"attributes.registrationAuth" = "Registration authority";
 
 "sex.notKnown" = "Not known";
 "Save" = "Save";
@@ -388,6 +394,7 @@ process on-chain.";
 "identityCreation.automaticAccountRemoval.text" = "The related initial account has been automatically removed.";
 
 "privacypolicy" = "Privacy Policy";
+"unavailable" = "Unavailable";
 
 "revealattributes.title" = "Reveal Identity Data?";
 "revealattributes.largeTitle" = "Reveal Identity";
