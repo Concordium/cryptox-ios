@@ -24,29 +24,49 @@ struct CryptoImage: View {
             }
         }
     }
-    
+    @State private var didFail = false
     let url: URL?
     let size: CryptoImage.Size
     
     
     var body: some View {
         if let url = url, url.absoluteString.contains(".svg") {
-            WebImage(
-                url: url,
-                context: [.imageCoder: CustomSVGDecoder(fallbackDecoder: SDImageSVGCoder.shared)]
-            )
-            .resizable()
-            .indicator(.activity)
-            .transition(.fade(duration: 0.5))
-            .aspectRatio(contentMode: .fit)
-            .frame(width: size.size.width, height: size.size.height)
-        } else {
-            AsyncImage(url: url, scale: 1.0) { image in
-                image
+            if didFail {
+                Image("placeholder-crypto-token")
                     .resizable()
                     .clipShape(Circle())
-            } placeholder: {
-                Color.gray.opacity(0.4).clipShape(Circle())
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: size.size.width, height: size.size.height)
+            } else {
+                WebImage(
+                    url: url,
+                    context: [.imageCoder: CustomSVGDecoder(fallbackDecoder: SDImageSVGCoder.shared)]
+                )
+                .onFailure { _ in
+                    didFail = true
+                }
+                .resizable()
+                .indicator(.activity)
+                .transition(.fade(duration: 0.5))
+                .aspectRatio(contentMode: .fit)
+                .frame(width: size.size.width, height: size.size.height)
+            }
+        } else {
+            AsyncImage(url: url, scale: 1.0) { phase in
+                switch phase {
+                case .empty:
+                    Color.gray.opacity(0.4).clipShape(Circle())
+                case .failure:
+                    Image("placeholder-crypto-token")
+                        .resizable()
+                        .clipShape(Circle())
+                case .success(let image):
+                    image
+                        .resizable()
+                        .clipShape(Circle())
+                @unknown default:
+                    EmptyView()
+                }
             }
             .aspectRatio(contentMode: .fit)
             .frame(width: size.size.width, height: size.size.height)
