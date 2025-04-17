@@ -13,9 +13,9 @@ final class DefaultCIS2TokenManager {
     @AppStorage("isRestoredDefaultCIS2Tokens") private var isRestoredDefaultCIS2Tokens = false
     
 #if MAINNET
-    static let defaultCI2TokensIds: [SmartContractAddress] = [.wccd, .euroe, .ethArabella, .wbts, .usdcArabella, .usdtArabella]
+    static let defaultCI2TokensIds: [SmartContractAddress] = [.wccd, .euroe]
 #else
-    static let defaultCI2TokensIds: [SmartContractAddress] = [.wccd, .euroe, .ethArabella, .wbts, .usdcArabella, .usdtArabella]
+    static let defaultCI2TokensIds: [SmartContractAddress] = [.wccd, .euroe]
 #endif
     
     private let storageManager: StorageManagerProtocol
@@ -87,31 +87,7 @@ extension SmartContractAddress {
 #else
     static let wccd: SmartContractAddress = SmartContractAddress(index: 2059, subindex: 0)
 #endif
-    
-#if MAINNET
-    static let ethArabella: SmartContractAddress = SmartContractAddress(index: 9338, subindex: 0)
-#else
-    static let ethArabella: SmartContractAddress = SmartContractAddress(index: 4514, subindex: 0)
-#endif
-    
-#if MAINNET
-    static let wbts: SmartContractAddress = SmartContractAddress(index: 9340, subindex: 0)
-#else
-    static let wbts: SmartContractAddress = SmartContractAddress(index: 4515, subindex: 0)
-#endif
-    
-#if MAINNET
-    static let usdtArabella: SmartContractAddress = SmartContractAddress(index: 9341, subindex: 0)
-#else
-    static let usdtArabella: SmartContractAddress = SmartContractAddress(index: 4517, subindex: 0)
-#endif
-    
-#if MAINNET
-    static let usdcArabella: SmartContractAddress = SmartContractAddress(index: 9339, subindex: 0)
-#else
-    static let usdcArabella: SmartContractAddress = SmartContractAddress(index: 4516, subindex: 0)
-#endif
-    
+
 #if MAINNET
     static let euroe: SmartContractAddress = SmartContractAddress(index: 9390, subindex: 0)
 #else
