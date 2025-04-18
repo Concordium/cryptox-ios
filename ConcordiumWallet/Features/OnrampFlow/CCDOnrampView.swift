@@ -44,10 +44,15 @@ struct CCDOnrampView: View {
                                         let accounts = dependencyProvider.storageManager().getAccounts()
                                         if accounts.count > 1 {
                                             isAccountsPickerShown = provider
-                                        } else {
-                                            UIPasteboard.general.string = accounts.first?.address
-                                            let url = provider.title == "Swipelux" ? CCDOnrampViewDataProvider.generateSwipeluxURL(baseURL: provider.url, targetAddress: accounts.first?.address) : provider.url
-                                            openURL(url)
+                                        } else if let firstAccount = accounts.first {
+                                            UIPasteboard.general.string = firstAccount.address
+                                            Task {
+                                                let url = await CCDOnrampViewDataProvider.getUrlForProvider(
+                                                    provider: provider,
+                                                    accountAddress: firstAccount.address
+                                                )
+                                                openURL(url)
+                                            }
                                         }
                                     }
                                     .listRowSeparator(.hidden)
