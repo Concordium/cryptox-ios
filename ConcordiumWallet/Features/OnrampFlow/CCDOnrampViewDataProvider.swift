@@ -130,7 +130,7 @@ final class CCDOnrampViewDataProvider {
         #endif
     }
     
-    static func generateSwipeluxURL(
+    private static func generateSwipeluxURL(
         baseURL: URL,
         targetAddress: String?) -> URL {
             guard let apiKey = Bundle.main.infoDictionary?["API_KEY"] else { return baseURL }
@@ -155,4 +155,15 @@ final class CCDOnrampViewDataProvider {
 
             return URL(string: urlString) ?? baseURL
         }
+    
+    static func getUrlForProvider(provider: DataProvider, accountAddress: String) async -> URL {
+        if provider.title == "Swipelux" {
+            return generateSwipeluxURL(baseURL: URL(string: "https://track.swipelux.com")!, targetAddress: accountAddress)
+        } else if provider.title == "Wert" {
+                if let url = await WertWidgetManager.getWertIOURL(for: accountAddress) {
+                    return url
+            }
+        }
+        return provider.url
+    }
 }

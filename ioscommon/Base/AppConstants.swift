@@ -61,4 +61,35 @@ struct AppConstants {
         static let subscribe = "subscription"
         static let unsubscribe = "unsubscribe"
     }
+    
+    struct Wert {
+        static let url: String = {
+            var url = ""
+            #if MAINNET
+                url = "https://partner.wert.io/api/external/hpp/create-session"
+            #elseif TESTNET
+                url = "https://partner-sandbox.wert.io/api/external/hpp/create-session"
+            #endif
+            return url
+        }()
+
+        static let apiKey: String = {
+            #if MAINNET
+            guard let apiKey = Bundle.main.infoDictionary?["MAINNET_WERT_API_KEY"] as? String else { return "" }
+            #elseif TESTNET
+            guard let apiKey = Bundle.main.infoDictionary?["TESTNET_WERT_API_KEY"] as? String else { return "" }
+            return apiKey
+            #endif
+        }()
+
+        static let partnerId: String = {
+            #if MAINNET
+            guard let id = Bundle.main.infoDictionary?["MAINNET_WERT_PARTNER_ID"] as? String else { return "" }
+            return id
+            #elseif TESTNET
+            guard let id = Bundle.main.infoDictionary?["TESTNET_WERT_PARTNER_ID"] as? String else { return "" }
+            return id
+            #endif
+        }()
+    }
 }

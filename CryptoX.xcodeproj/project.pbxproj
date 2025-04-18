@@ -1639,6 +1639,9 @@
 		1534957C2D9FFD6500D65610 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1534957B2D9FFD6500D65610 /* Config.xcconfig */; };
 		1534957D2D9FFD6500D65610 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1534957B2D9FFD6500D65610 /* Config.xcconfig */; };
 		1534957E2D9FFD6500D65610 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1534957B2D9FFD6500D65610 /* Config.xcconfig */; };
+		15349AA02DB2654700D65610 /* WertWidgetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15349A9F2DB2654700D65610 /* WertWidgetManager.swift */; };
+		15349AA12DB2654700D65610 /* WertWidgetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15349A9F2DB2654700D65610 /* WertWidgetManager.swift */; };
+		15349AA22DB2654700D65610 /* WertWidgetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15349A9F2DB2654700D65610 /* WertWidgetManager.swift */; };
 		153F2F4B2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */; };
 		153F2F4C2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */; };
 		153F2F4D2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */; };
@@ -2961,6 +2964,7 @@
 		1534956A2D9FEA4700D65610 /* PendingChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingChanges.swift; sourceTree = "<group>"; };
 		1534956E2D9FEADD00D65610 /* DelegationPoolValidatorIdError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationPoolValidatorIdError.swift; sourceTree = "<group>"; };
 		1534957B2D9FFD6500D65610 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		15349A9F2DB2654700D65610 /* WertWidgetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WertWidgetManager.swift; sourceTree = "<group>"; };
 		153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTokenNotificationPopup.swift; sourceTree = "<group>"; };
 		153F2F4E2CC2D100009C8347 /* NotificationTokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTokenService.swift; sourceTree = "<group>"; };
 		1546CFD12D8050B0007BE2EB /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
@@ -5036,6 +5040,7 @@
 				509749D32C3C241B00D28D6B /* ProviderView.swift */,
 				509749D72C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift */,
 				509749DB2C3D25E800D28D6B /* OnrampAccountPicker.swift */,
+				15349A9F2DB2654700D65610 /* WertWidgetManager.swift */,
 			);
 			path = OnrampFlow;
 			sourceTree = "<group>";
@@ -6516,6 +6521,7 @@
 				08DB5EA12BC6C49500C29663 /* Double+Rounding.swift in Sources */,
 				153495602D9FE7EA00D65610 /* ValidatorTarget.swift in Sources */,
 				08C166BF2BB7396200E61326 /* UIStackView+extension.swift in Sources */,
+				15349AA12DB2654700D65610 /* WertWidgetManager.swift in Sources */,
 				08C166C02BB7396200E61326 /* AccountDetailsCoordinator.swift in Sources */,
 				1580EC092D4A41240051C55D /* ConfirmTransactionView.swift in Sources */,
 				08C166C12BB7396200E61326 /* OperationRoundedView.swift in Sources */,
@@ -7197,6 +7203,7 @@
 				08DB5EA02BC6C49500C29663 /* Double+Rounding.swift in Sources */,
 				1534955E2D9FE7EA00D65610 /* ValidatorTarget.swift in Sources */,
 				7F85B7EC246A9AB600ED09B8 /* UIStackView+extension.swift in Sources */,
+				15349AA02DB2654700D65610 /* WertWidgetManager.swift in Sources */,
 				088FEE2C2A0167FB00042957 /* AccountDetailsCoordinator.swift in Sources */,
 				1580EC012D4A41240051C55D /* ConfirmTransactionView.swift in Sources */,
 				D5F7A23926D7A1DB0061E646 /* OperationRoundedView.swift in Sources */,
@@ -7878,6 +7885,7 @@
 				7FF07AC623EADBB100F1FC04 /* String+Additions.swift in Sources */,
 				1534955F2D9FE7EA00D65610 /* ValidatorTarget.swift in Sources */,
 				D5883FCA29040C230014F83C /* NFTEmptySearchStatusView.swift in Sources */,
+				15349AA22DB2654700D65610 /* WertWidgetManager.swift in Sources */,
 				08DB5E9F2BC6C49500C29663 /* Double+Rounding.swift in Sources */,
 				088FEC972A0160B500042957 /* Fonts.swift in Sources */,
 				7FF07AC323EADBB100F1FC04 /* UIStackView+extension.swift in Sources */,

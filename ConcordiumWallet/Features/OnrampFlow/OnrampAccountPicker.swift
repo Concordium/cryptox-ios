@@ -24,9 +24,13 @@ struct OnrampAccountPicker: View {
             
             ForEach(accountModels) { account in
                 Button(action: {
-                    let url = provider.title == "Swipelux" ? CCDOnrampViewDataProvider.generateSwipeluxURL(baseURL: provider.url, targetAddress: account.address) : provider.url
-                    UIPasteboard.general.string = account.address
-                    openURL(url)
+                    Task {
+                        let url = await CCDOnrampViewDataProvider.getUrlForProvider(
+                            provider: provider,
+                            accountAddress: account.address
+                        )
+                        openURL(url)
+                    }
                     dismiss()
                 }, label: {
                     AccountView(account)
