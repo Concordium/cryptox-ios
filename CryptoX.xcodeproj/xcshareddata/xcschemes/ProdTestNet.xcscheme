@@ -6,6 +6,24 @@
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES"
       buildArchitectures = "Automatic">
+      <PreActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;&#10;echo &quot;API_KEY=${API_KEY}&quot; &gt; Config.xcconfig&#10;echo &quot;TESTNET_WERT_API_KEY=${TESTNET_WERT_API_KEY}&quot; &gt;&gt; Config.xcconfig&#10;echo &quot;TESTNET_WERT_PARTNER_ID=${TESTNET_WERT_PARTNER_ID}&quot; &gt;&gt; Config.xcconfig&#10;&#10;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "08C166572BB7396200E61326"
+                     BuildableName = "ProdTestNet.app"
+                     BlueprintName = "ProdTestNet"
+                     ReferencedContainer = "container:CryptoX.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PreActions>
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
