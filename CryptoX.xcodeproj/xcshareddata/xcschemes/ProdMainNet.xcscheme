@@ -10,7 +10,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;echo &quot;API_KEY=${API_KEY}&quot; &gt; Config.xcconfig&#10;echo &quot;MAINNET_WERT_API_KEY=${MAINNET_WERT_API_KEY}&quot; &gt;&gt; Config.xcconfig&#10;echo &quot;MAINNET_WERT_PARTNER_ID=${MAINNET_WERT_PARTNER_ID}&quot; &gt;&gt; Config.xcconfig&#10;">
+               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;echo &quot;API_KEY=${API_KEY}&quot; &gt; Volumes/workspace/repository/Config.xcconfig&#10;echo &quot;MAINNET_WERT_API_KEY=${MAINNET_WERT_API_KEY}&quot; &gt;&gt; Config.xcconfig&#10;echo &quot;MAINNET_WERT_PARTNER_ID=${MAINNET_WERT_PARTNER_ID}&quot; &gt;&gt; Config.xcconfig&#10;">
             </ActionContent>
          </ExecutionAction>
       </PreActions>
