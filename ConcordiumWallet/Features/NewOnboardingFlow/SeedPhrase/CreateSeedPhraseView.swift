@@ -104,6 +104,7 @@ struct CreateSeedPhraseView: View {
                 
                 Button {
                     shareText = ShareText(text: viewModel.mnenonic.joined(separator: " "))
+                    FirebaseAppTracker.seedPhraseCopyClicked()
                     Tracker.trackContentInteraction(name: "Create Seed phrase", interaction: .clicked, piece: "Copy to clipboard")
                 } label: {
                     HStack(spacing: 8) {
@@ -124,6 +125,7 @@ struct CreateSeedPhraseView: View {
                             .contentShape(.rect)
                             .onTapGesture {
                                 isChecked.toggle()
+                                FirebaseAppTracker.seedPhraseCheckboxBoxChecked()
                                 Tracker.trackContentInteraction(name: "Create Seed phrase", interaction: .clicked, piece: "Check box")
                             }
                         Text("seed_phrase_confirm_save".localized)
@@ -134,6 +136,7 @@ struct CreateSeedPhraseView: View {
                     .padding(.horizontal, 16)
                     
                     Button(action: {
+                        FirebaseAppTracker.seedPhraseContinueClicked()
                         Tracker.trackContentInteraction(name: "Create Seed phrase", interaction: .clicked, piece: "Continue")
                         Task {
                             do {
@@ -167,6 +170,9 @@ struct CreateSeedPhraseView: View {
         .sheet(item: $shareText) { shareText in
             ActivityView(text: shareText.text)
         }
-        .onAppear { Tracker.track(view: ["Create Seed phrase"]) }
+        .onAppear {
+            Tracker.track(view: ["Create Seed phrase"])
+            FirebaseAppTracker.seedPhraseScreen()
+        }
     }
 }

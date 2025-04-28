@@ -41,7 +41,10 @@ struct MainPromoView: View {
         .overlay(alignment: .bottom, content: {
             BottomSheet(isShowing: $isCreateAccountSheetShown) {
                 ActivateAccountSheet()
-                    .onAppear { Tracker.track(view: ["Activate account dialog"]) }
+                    .onAppear {
+                        Tracker.track(view: ["Activate account dialog"])
+                        FirebaseAppTracker.welcomeSetUpWalletDialog()
+                    }
             }
         })
         .fullScreenCover(isPresented: $isCreatePasswordFlowShown) {
@@ -71,6 +74,7 @@ struct MainPromoView: View {
             Button {
                 isImportWalletFlowShown.toggle()
                 Tracker.trackContentInteraction(name: "Activate account dialog", interaction: .clicked, piece: "Import Wallet")
+                FirebaseAppTracker.welcomeSetUpWalletDialogImportClicked()
             } label: {
                 VStack(spacing: 2) {
                     Text("import_wallet".localized)
@@ -161,6 +165,7 @@ struct MainPromoView: View {
             Button(action: {
                 isCreatePasswordFlowShown.toggle()
                 Tracker.trackContentInteraction(name: "Activate account dialog", interaction: .clicked, piece: "Create Wallet")
+                FirebaseAppTracker.welcomeSetUpWalletDialogCreateClicked()
             }, label: {
                 HStack {
                     Text("continue_btn_title".localized)

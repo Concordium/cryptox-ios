@@ -46,13 +46,7 @@ struct CCDOnrampView: View {
                                             isAccountsPickerShown = provider
                                         } else if let firstAccount = accounts.first {
                                             UIPasteboard.general.string = firstAccount.address
-                                            Task {
-                                                let url = await CCDOnrampViewDataProvider.getUrlForProvider(
-                                                    provider: provider,
-                                                    accountAddress: firstAccount.address
-                                                )
-                                                openURL(url)
-                                            }
+                                            openURL(for: provider, address: firstAccount.address)
                                         }
                                     }
                                     .listRowSeparator(.hidden)
@@ -86,6 +80,7 @@ struct CCDOnrampView: View {
         })
         .onAppear {
             Tracker.track(view: ["CCD Onramp"])
+            FirebaseAppTracker.homeOnrampScreen()
         }
     }
     
@@ -113,6 +108,17 @@ struct CCDOnrampView: View {
                 .multilineTextAlignment(.leading)
                 .font(.satoshi(size: 14, weight: .regular))
                 .foregroundColor(Color(red: 0.8, green: 0.84, blue: 0.84))
+        }
+    }
+    
+    private func openURL(for provider: CCDOnrampViewDataProvider.DataProvider, address: String) {
+        Task {
+            let url = await CCDOnrampViewDataProvider.getUrlForProvider(
+                provider: provider,
+                accountAddress: address
+            )
+            openURL(url)
+            FirebaseAppTracker.homeOnrampSiteClicked(siteName: url.absoluteString)
         }
     }
 }

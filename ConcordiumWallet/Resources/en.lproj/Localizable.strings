@@ -1462,3 +1462,7 @@ Remember to restart your node with the validator keys.";
 "projected.rewards" = "Projected rewards";
 "confirmation" = "Confirmation";
 "staking.mode.nil" = "Staking mode must be confirmed";
+
+"allow.tracking.title" = "Help Us Improve Your Experience";
+"allow.tracking.msg" = "Please enable tracking in Settings to help us provide better personalized experiences.";
+"go.to.settings" = "Go to settings";

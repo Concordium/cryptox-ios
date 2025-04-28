@@ -135,6 +135,7 @@ struct AccountPreviewCardView: View {
             }
             Button(action: {
                 onCreateAccount?()
+                FirebaseAppTracker.homeCreateAccountClicked()
                 Tracker.trackContentInteraction(name: "Onboarding", interaction: .clicked, piece: "Create Account")
             }) {
                 buttonLabel("create_account_btn_title".localized)
@@ -166,6 +167,7 @@ struct AccountPreviewCardView: View {
             Button(action: {
                 onIdentityVerification?()
                 Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Verify failed identity")
+                FirebaseAppTracker.homeIdentityVerificationClicked()
             }) {
                 buttonLabel("create_wallet_step_3_title".localized)
             }
@@ -205,9 +207,11 @@ struct AccountPreviewCardView: View {
             stepName = "setup.complete".localized
             title = "verification.in.progress".localized
             Tracker.track(view: ["Onboarding: Identity verification step"])
+            FirebaseAppTracker.homeIdentityVerificationStateChanged(state: state.rawValue)
         case .verificationFailed:
             title = "verification.failed".localized
             Tracker.track(view: ["Onboarding: Verification failed step"])
+            FirebaseAppTracker.homeIdentityVerificationStateChanged(state: state.rawValue)
         case .saveSeedPhrase:
             stepName = "next_step_seed_phrase".localized
             progress = 0

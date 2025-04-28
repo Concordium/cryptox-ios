@@ -65,6 +65,7 @@ class PasscodeViewModel: ObservableObject {
                     clearPin()
                 case .repeatPasscode(let array):
                     if array == pin {
+                        FirebaseAppTracker.passcodeSetupConfirmationEntered()
                         Tracker.trackContentInteraction(name: "Create passcode", interaction: .entered, piece: "Successful 6 digit passcode")
                         keychain.storePassword(password: convertPinToString(array))
                             .onSuccess { [weak self] pwHash in
@@ -97,6 +98,7 @@ class PasscodeViewModel: ObservableObject {
         checkPassword
             .onSuccess { [weak self] hash in
                 self?.onSuccess(pwHash)
+                FirebaseAppTracker.passcodeSetupEntered()
             }
             .onFailure { [weak self] error in
                 guard let self = self else { return }
@@ -166,6 +168,7 @@ extension PasscodeViewModel {
                     localizedReason: myLocalizedReasonString) { success, _ in
                 DispatchQueue.main.async {
                     if success {
+                        FirebaseAppTracker.passcodeSetupBiometricsAccepted()
                         Tracker.trackContentInteraction(name: "Dialog: enable biometrics", interaction: .clicked, piece: "success")
                         self.keychain.storePasswordBehindBiometrics(pwHash: self.pwHash ?? "")
                             .receive(on: DispatchQueue.main)
@@ -175,6 +178,7 @@ extension PasscodeViewModel {
                             })
                             .store(in: &self.cancellables)
                     } else {
+                        FirebaseAppTracker.passcodeBiometricsRejected()
                         Tracker.trackContentInteraction(name: "Dialog: enable biometrics", interaction: .clicked, piece: "not allowed")
                     }
                 }
@@ -182,6 +186,7 @@ extension PasscodeViewModel {
         } else {
             error = .noCameraAccess
             Tracker.trackContentInteraction(name: "Dialog: enable biometrics", interaction: .clicked, piece: "error")
+            FirebaseAppTracker.passcodeBiometricsRejected()
         }
     }
     
@@ -191,6 +196,7 @@ extension PasscodeViewModel {
     func continueWithoutBiometrics() {
         AppSettings.biometricsEnabled = false
         self.onSuccess(self.pwHash ?? "")
+        FirebaseAppTracker.passcodeBiometricsRejected()
     }
     
     func biometricsEnabled() -> Bool {
@@ -241,6 +247,7 @@ struct PasscodeView: View {
             withAnimation(.easeInOut.delay(0.2)) {
                 self.animatePasscodeIn = true
             }
+            FirebaseAppTracker.passcodeScreen()
         }
         .errorAlert(error: $viewModel.error) { appError in
             switch appError {
@@ -261,7 +268,10 @@ struct PasscodeView: View {
                        dismissAction: {
             viewModel.continueWithoutBiometrics()
         })
-        .onAppear { Tracker.track(view: ["enable biometrics"]) }
+        .onAppear {
+            Tracker.track(view: ["enable biometrics"])
+            FirebaseAppTracker.passcodeSetupBiometricsDialog()
+        }
     }
 
     

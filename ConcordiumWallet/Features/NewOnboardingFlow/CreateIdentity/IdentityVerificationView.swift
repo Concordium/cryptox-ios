@@ -166,6 +166,7 @@ struct IdentityVerificationView: View {
                                 .contentShape(.rect)
                                 .onTapGesture {
                                     self.selectedProvider = provider
+                                    FirebaseAppTracker.identityVerificationScreen(provider: provider.displayName)
                                     withAnimation(.easeInOut(duration: 0.3)) {
                                         isAuthShown.toggle()
                                     }
@@ -209,6 +210,9 @@ struct IdentityVerificationView: View {
                 .padding(.top, 12)
                 .padding(.trailing, 15)
             }
+        }
+        .onAppear {
+            FirebaseAppTracker.identityVerificationProvidersListScreen()
         }
     }
     

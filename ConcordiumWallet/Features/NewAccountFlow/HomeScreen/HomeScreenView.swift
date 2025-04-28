@@ -113,6 +113,7 @@ struct HomeScreenView: View {
                 }
                 Tracker.track(view: ["Home screen"])
                 updateTimer.start()
+                FirebaseAppTracker.homeScreen()
             }
             .navigationBarTitleDisplayMode(.inline)
             .onDisappear { updateTimer.stop() }
@@ -229,6 +230,7 @@ struct HomeScreenView: View {
             case .createIdentity:
                 Button(action: {
                     self.router?.showCreateIdentityFlow()
+                    FirebaseAppTracker.homeIdentityVerificationClicked()
                     Tracker.trackContentInteraction(name: "Onboarding", interaction: .clicked, piece: "Create Identity")
                 }, label: {
                     Text("create_wallet_step_3_title".localized)
@@ -244,6 +246,7 @@ struct HomeScreenView: View {
             case .saveSeedPhrase:
                 Button {
                     isShowPasscodeViewShown = true
+                    FirebaseAppTracker.homeSaveSeedPhraseClicked()
                     Tracker.trackContentInteraction(name: "Onboarding", interaction: .clicked, piece: "Save Seed Phrase")
                 } label: {
                     Text("create_wallet_step_2_title".localized)
@@ -369,6 +372,7 @@ struct HomeScreenView: View {
             } else {
                 navigationManager.navigate(to: .buy)
                 Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "OnRamp Banner")
+                FirebaseAppTracker.homeOnrampBannerClicked()
             }
         }
         .padding(.horizontal, 16)
