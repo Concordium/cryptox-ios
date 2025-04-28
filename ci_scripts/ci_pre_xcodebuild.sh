@@ -8,7 +8,7 @@
 
 echo "Preparing Config.xcconfig for Xcode Cloud build..."
 
-CONFIG_FILE_PATH="$CI_WORKSPACE/Config.xcconfig"
+CONFIG_FILE_PATH="../Config.xcconfig"
 SCHEME_NAME="$XCODE_CLOUD_SCHEME"
 
 # Create the Config.xcconfig if missing
@@ -17,15 +17,15 @@ if [ ! -f "$CONFIG_FILE_PATH" ]; then
     echo "API_KEY=${API_KEY}" >> "$CONFIG_FILE_PATH"
 
     case "$SCHEME_NAME" in
-        "MAINNET")
+        "ProdMainNet")
             echo "MAINNET_WERT_API_KEY=${MAINNET_WERT_API_KEY}" >> "$CONFIG_FILE_PATH"
             echo "MAINNET_WERT_PARTNER_ID=${MAINNET_WERT_PARTNER_ID}" >> "$CONFIG_FILE_PATH"
             ;;
-        "TESTNET")
+        "ProdTestNet")
             echo "TESTNET_WERT_API_KEY=${TESTNET_WERT_API_KEY}" >> "$CONFIG_FILE_PATH"
             echo "TESTNET_WERT_PARTNER_ID=${TESTNET_WERT_PARTNER_ID}" >> "$CONFIG_FILE_PATH"
             ;;
-        "STAGENET")
+        "StagingNet")
             echo "STAGENET_WERT_API_KEY=${STAGENET_WERT_API_KEY}" >> "$CONFIG_FILE_PATH"
             echo "STAGENET_WERT_PARTNER_ID=${STAGENET_WERT_PARTNER_ID}" >> "$CONFIG_FILE_PATH"
             ;;
