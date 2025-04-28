@@ -110,9 +110,7 @@ struct WelcomeView: View {
                         .contentShape(.rect)
                         .onTapGesture {
                             isAcceptedTracking.toggle()
-                            handleTrackingAuthorization {
-                                showRequestTrackingPopup = true
-                            }
+                            Analytics.setAnalyticsCollectionEnabled(isAcceptedTracking)
                             FirebaseAppTracker.welcomeActivityTrackingCheckBoxChecked()
                         }
                     Text("analytics.trackingConsent".localized)
@@ -151,43 +149,12 @@ struct WelcomeView: View {
         .background(Image("new_bg").resizable().aspectRatio(contentMode: .fill)
             .ignoresSafeArea(.all))
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                handleTrackingAuthorization()
-                DispatchQueue.main.async {
-                    showNotificationsPopup = true
-                }
-            }
+            Analytics.setAnalyticsCollectionEnabled(isAcceptedTracking)
         }
         .overlay(alignment: .center) {
             if !UIApplication.shared.isRegisteredForRemoteNotifications && isShouldShowAllowNotificationsView && showNotificationsPopup {
                 AllowNotificationsPopup(isVisible: $isShouldShowAllowNotificationsView)
             }
-            if showRequestTrackingPopup {
-                AllowTrackingPopup(isVisible: $showRequestTrackingPopup)
-            }
-        }
-    }
-    
-    private func handleTrackingAuthorization(completion: (() -> ())? = nil) {
-        if ATTrackingManager.trackingAuthorizationStatus != .authorized {
-            ATTrackingManager.requestTrackingAuthorization { status in
-                switch status {
-                case .authorized:
-                    // ✅ User allowed tracking
-                    Analytics.setAnalyticsCollectionEnabled(true)
-                    FirebaseAppTracker.welcomeScreen()
-                case .denied, .restricted, .notDetermined:
-                    // 🚫 Disable tracking
-                    Analytics.setAnalyticsCollectionEnabled(false)
-                    isAcceptedTracking = false
-                    completion?()
-                @unknown default:
-                    Analytics.setAnalyticsCollectionEnabled(false)
-                    isAcceptedTracking = false
-                }
-            }
-        } else {
-            Analytics.setAnalyticsCollectionEnabled(isAcceptedTracking)
         }
     }
 }

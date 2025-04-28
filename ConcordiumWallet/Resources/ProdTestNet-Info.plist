@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>FirebaseAutomaticScreenReportingEnabled</key>
+	<false/>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>We collect anonymous data to help improve our app&apos;s performance and user experience.</string>
 	<key>API_KEY</key>

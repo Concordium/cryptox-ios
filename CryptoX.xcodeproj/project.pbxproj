@@ -1787,9 +1787,6 @@
 		15B527582D36666E005FA701 /* AddTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B527502D36666E005FA701 /* AddTokenView.swift */; };
 		15B527602D36666E005FA701 /* AddTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B527502D36666E005FA701 /* AddTokenView.swift */; };
 		15B527682D36666E005FA701 /* AddTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B527502D36666E005FA701 /* AddTokenView.swift */; };
-		15B6D1EB2DBFF94900091449 /* AllowTrackingPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B6D1EA2DBFF94900091449 /* AllowTrackingPopup.swift */; };
-		15B6D1EC2DBFF94900091449 /* AllowTrackingPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B6D1EA2DBFF94900091449 /* AllowTrackingPopup.swift */; };
-		15B6D1ED2DBFF94900091449 /* AllowTrackingPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B6D1EA2DBFF94900091449 /* AllowTrackingPopup.swift */; };
 		15BBDA662D80776100B8A36C /* DelegationAmountInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBDA652D80776100B8A36C /* DelegationAmountInputViewModel.swift */; };
 		15BBDA672D80776100B8A36C /* DelegationAmountInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBDA652D80776100B8A36C /* DelegationAmountInputViewModel.swift */; };
 		15BBDA682D80776100B8A36C /* DelegationAmountInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBDA652D80776100B8A36C /* DelegationAmountInputViewModel.swift */; };
@@ -3013,7 +3010,6 @@
 		15B498D72D5E30F9001B4F65 /* EarnMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarnMainView.swift; sourceTree = "<group>"; };
 		15B498DB2D5E3156001B4F65 /* EarnReadMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarnReadMoreView.swift; sourceTree = "<group>"; };
 		15B527502D36666E005FA701 /* AddTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTokenView.swift; sourceTree = "<group>"; };
-		15B6D1EA2DBFF94900091449 /* AllowTrackingPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowTrackingPopup.swift; sourceTree = "<group>"; };
 		15BBDA652D80776100B8A36C /* DelegationAmountInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationAmountInputViewModel.swift; sourceTree = "<group>"; };
 		15BBDA6D2D807C5000B8A36C /* DelegationStakingModeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationStakingModeViewModel.swift; sourceTree = "<group>"; };
 		15BBDA752D82F1E500B8A36C /* DelegationSubmissionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationSubmissionViewModel.swift; sourceTree = "<group>"; };
@@ -5837,7 +5833,6 @@
 			children = (
 				D5F7A23526D7A1DB0061E646 /* OperationRoundedView.swift */,
 				151A53982C5CF03800EFE20C /* PopupContainer.swift */,
-				15B6D1EA2DBFF94900091449 /* AllowTrackingPopup.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -6692,7 +6687,6 @@
 				08C167682BB7396200E61326 /* CreateAccountButtonWidgetViewController.swift in Sources */,
 				08C167692BB7396200E61326 /* SeedIdentityObject.swift in Sources */,
 				08C1676A2BB7396200E61326 /* NFTImportPresenter.swift in Sources */,
-				15B6D1EB2DBFF94900091449 /* AllowTrackingPopup.swift in Sources */,
 				08C1676C2BB7396200E61326 /* SelectIdentityView.swift in Sources */,
 				1580EC032D4A41240051C55D /* AddMemoViewModel.swift in Sources */,
 				08C1676D2BB7396200E61326 /* IdentityRecoveryStatusViewModel.swift in Sources */,
@@ -7374,7 +7368,6 @@
 				088FEF772A0270B000042957 /* CreateAccountButtonWidgetViewController.swift in Sources */,
 				08A0449729FA987800DACE1F /* SeedIdentityObject.swift in Sources */,
 				D547959628ECDC0E00575649 /* NFTImportPresenter.swift in Sources */,
-				15B6D1EC2DBFF94900091449 /* AllowTrackingPopup.swift in Sources */,
 				088FEF9E2A02715200042957 /* SelectIdentityView.swift in Sources */,
 				1580EBFB2D4A41240051C55D /* AddMemoViewModel.swift in Sources */,
 				088FF09C2A02840F00042957 /* IdentityRecoveryStatusViewModel.swift in Sources */,
@@ -8056,7 +8049,6 @@
 				1580EE6B2D4A8C710051C55D /* RecipientListViewModel.swift in Sources */,
 				08B16F2D2A011B4A002E6B33 /* AccountCell.swift in Sources */,
 				088FEF4F2A0270AF00042957 /* CreateAccountButtonWidgetViewController.swift in Sources */,
-				15B6D1ED2DBFF94900091449 /* AllowTrackingPopup.swift in Sources */,
 				088FEEC12A026B9500042957 /* AccountConfirmedPresenter.swift in Sources */,
 				088FEEE02A026EB000042957 /* IdentityProviderListPresenter.swift in Sources */,
 				D589F19B2794B5ED003F2FBB /* EncryptedDetails.swift in Sources */,
