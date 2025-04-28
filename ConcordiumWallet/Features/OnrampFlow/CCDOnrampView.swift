@@ -79,7 +79,6 @@ struct CCDOnrampView: View {
                 provider: provider)
         })
         .onAppear {
-            Tracker.track(view: ["CCD Onramp"])
             FirebaseAppTracker.homeOnrampScreen()
         }
     }

@@ -111,7 +111,6 @@ struct HomeScreenView: View {
                 Task {
                     await viewModel.reload()
                 }
-                Tracker.track(view: ["Home screen"])
                 updateTimer.start()
                 FirebaseAppTracker.homeScreen()
             }
@@ -139,7 +138,6 @@ struct HomeScreenView: View {
                         .onTapGesture {
                             if SettingsHelper.isIdentityConfigured() {
                                 self.router?.showScanQRFlow()
-                                Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Scan QR")
                             } else {
                                 self.router?.showNotConfiguredAccountPopup()
                             }
@@ -231,7 +229,6 @@ struct HomeScreenView: View {
                 Button(action: {
                     self.router?.showCreateIdentityFlow()
                     FirebaseAppTracker.homeIdentityVerificationClicked()
-                    Tracker.trackContentInteraction(name: "Onboarding", interaction: .clicked, piece: "Create Identity")
                 }, label: {
                     Text("create_wallet_step_3_title".localized)
                         .font(Font.satoshi(size: 15, weight: .medium))
@@ -247,7 +244,6 @@ struct HomeScreenView: View {
                 Button {
                     isShowPasscodeViewShown = true
                     FirebaseAppTracker.homeSaveSeedPhraseClicked()
-                    Tracker.trackContentInteraction(name: "Onboarding", interaction: .clicked, piece: "Save Seed Phrase")
                 } label: {
                     Text("create_wallet_step_2_title".localized)
                         .font(Font.satoshi(size: 15, weight: .medium))
@@ -371,7 +367,6 @@ struct HomeScreenView: View {
                 self.router?.showNotConfiguredAccountPopup()
             } else {
                 navigationManager.navigate(to: .buy)
-                Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "OnRamp Banner")
                 FirebaseAppTracker.homeOnrampBannerClicked()
             }
         }
@@ -415,7 +410,6 @@ struct HomeScreenView: View {
                 self.router?.showNotConfiguredAccountPopup()
             } else if let selectedAccount = viewModel.selectedAccount?.account as? AccountEntity {
                 navigationManager.navigate(to: .earn(selectedAccount))
-                Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Earn Banner")
             }
         }
         .padding(.horizontal, 16)
@@ -452,30 +446,24 @@ struct HomeScreenView: View {
         let actionItems = [
             ActionItem(iconName: "buy", label: "Buy", action: {
                 navigationManager.navigate(to: .buy)
-                Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Buy")
             }),
             ActionItem(iconName: "send", label: "Send", action: {
                 if let account = viewModel.selectedAccount?.account as? AccountEntity {
                     navigationManager.navigate(to: .send(account, tokenType: .ccd))
-                    Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Send funds")
                 }
             }),
             ActionItem(iconName: "receive", label: "Receive", action: {
                 if let account = viewModel.selectedAccount?.account as? AccountEntity {
                     navigationManager.navigate(to: .receive(account))
-                    Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Account QR")
                 }
             }),
             ActionItem(iconName: "Percent", label: "Earn", action: {
                 guard let selectedAccount = viewModel.selectedAccount?.account as? AccountEntity else { return }
                 navigationManager.navigate(to: .earn(selectedAccount))
-
-                Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Earn")
             }),
             ActionItem(iconName: "activity", label: "Activity", action: {
                 if let account = viewModel.selectedAccount?.account as? AccountEntity {
                     navigationManager.navigate(to: .activity(account))
-                    Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Activity")
                 }
             })
         ]

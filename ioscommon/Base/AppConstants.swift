@@ -38,15 +38,6 @@ struct AppConstants {
     }
     static let rssFeedURL = URL(string: "https://concordium-new.webflow.io/cryptox-news-articles/rss.xml")!
     
-    struct MatomoTracker {
-        static let baseUrl: String = "https://concordium.matomo.cloud/matomo.php"
-        static let siteId = "9"
-        static let versionCustomDimensionId: Int = 1
-        static let networkCustomDimensionId: Int = 2
-        
-        static let migratedFromFourPointFourSharedInstance = "migratedFromFourPointFourSharedInstance"
-    }
-    
     struct Notifications {
         static let baseUrl: String  = {
             var url = ""

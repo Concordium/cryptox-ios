@@ -7,7 +7,8 @@
 //
 
 import SwiftUI
-import MatomoTracker
+import FirebaseAnalytics
+import AppTrackingTransparency
 
 struct AnalyticsView: View {
     
@@ -25,7 +26,6 @@ struct AnalyticsView: View {
             .toggleStyle(SwitchToggleStyle(tint: Color.greenSecondary))
             .onChange(of: isAllowedAppTracking, perform: { value in
                 UserDefaults.standard.set(value, forKey: "isAnalyticsEnabled")
-                MatomoTracker.shared.isOptedOut = !value
             })
             
             Text("analytics.trackMessage".localized)
@@ -46,5 +46,33 @@ struct AnalyticsView: View {
             )
             .ignoresSafeArea(.all)
         })
+        .overlay(alignment: .center) {
+            if isAllowedAppTracking {
+                AllowTrackingPopup(isVisible: $isAllowedAppTracking)
+            }
+        }
+    }
+    
+    private func handleTrackingAuthorization(completion: (() -> ())? = nil) {
+        if ATTrackingManager.trackingAuthorizationStatus != .authorized {
+            ATTrackingManager.requestTrackingAuthorization { status in
+                switch status {
+                case .authorized:
+                    // ✅ User allowed tracking
+                    Analytics.setAnalyticsCollectionEnabled(true)
+                    FirebaseAppTracker.welcomeScreen()
+                case .denied, .restricted, .notDetermined:
+                    // 🚫 Disable tracking
+                    Analytics.setAnalyticsCollectionEnabled(false)
+                    isAllowedAppTracking = false
+                    completion?()
+                @unknown default:
+                    Analytics.setAnalyticsCollectionEnabled(false)
+                    isAllowedAppTracking = false
+                }
+            }
+        } else {
+            Analytics.setAnalyticsCollectionEnabled(isAllowedAppTracking)
+        }
     }
 }

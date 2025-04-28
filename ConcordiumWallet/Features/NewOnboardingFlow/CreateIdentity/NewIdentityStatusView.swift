@@ -284,14 +284,10 @@ struct NewIdentityStatusView: View {
                 Button(
                     action: {
                         action()
-                        Tracker.trackContentInteraction(name: "Verification request approved", interaction: .clicked, piece: "Got it")
                     },
                     label: {
                     Image("ic 24")
                 }).offset(x: -48, y: 16)
-            }
-            .onAppear {
-                Tracker.track(view: ["Verification request approved"])
             }
         }
     }

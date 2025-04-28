@@ -9,7 +9,6 @@
 import SwiftUI
 import Combine
 import LocalAuthentication
-import MatomoTracker
 
 class PasscodeViewModel: ObservableObject {
     enum State: Equatable {
@@ -66,7 +65,6 @@ class PasscodeViewModel: ObservableObject {
                 case .repeatPasscode(let array):
                     if array == pin {
                         FirebaseAppTracker.passcodeSetupConfirmationEntered()
-                        Tracker.trackContentInteraction(name: "Create passcode", interaction: .entered, piece: "Successful 6 digit passcode")
                         keychain.storePassword(password: convertPinToString(array))
                             .onSuccess { [weak self] pwHash in
                                 self?.pwHash = pwHash
@@ -169,7 +167,6 @@ extension PasscodeViewModel {
                 DispatchQueue.main.async {
                     if success {
                         FirebaseAppTracker.passcodeSetupBiometricsAccepted()
-                        Tracker.trackContentInteraction(name: "Dialog: enable biometrics", interaction: .clicked, piece: "success")
                         self.keychain.storePasswordBehindBiometrics(pwHash: self.pwHash ?? "")
                             .receive(on: DispatchQueue.main)
                             .sink(receiveError: { _ in }, receiveValue: { [weak self] _ in
@@ -179,13 +176,11 @@ extension PasscodeViewModel {
                             .store(in: &self.cancellables)
                     } else {
                         FirebaseAppTracker.passcodeBiometricsRejected()
-                        Tracker.trackContentInteraction(name: "Dialog: enable biometrics", interaction: .clicked, piece: "not allowed")
                     }
                 }
             }
         } else {
             error = .noCameraAccess
-            Tracker.trackContentInteraction(name: "Dialog: enable biometrics", interaction: .clicked, piece: "error")
             FirebaseAppTracker.passcodeBiometricsRejected()
         }
     }
@@ -269,7 +264,6 @@ struct PasscodeView: View {
             viewModel.continueWithoutBiometrics()
         })
         .onAppear {
-            Tracker.track(view: ["enable biometrics"])
             FirebaseAppTracker.passcodeSetupBiometricsDialog()
         }
     }

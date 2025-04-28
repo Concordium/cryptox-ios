@@ -22,7 +22,6 @@ struct OnboardingRootView: View {
         ZStack {
             MainPromoView(defaultProvider: defaultProvider, onPasswordCreated: onIdentityCreated, onAccountInported: onAccountInported, onLogout: onLogout)
                 .environmentObject(sanityChecker)
-                .onAppear { Tracker.track(view: ["Home screen"]) }
         }
     }
 }

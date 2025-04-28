@@ -31,7 +31,6 @@ struct IdentityCreateWebView: UIViewRepresentable {
     }
   
     func makeUIView(context: Context) -> WKWebView {
-        Tracker.track(view: ["Create Idenity WebView"])
         return webView!
     }
     

@@ -53,7 +53,6 @@ struct IdentityProviderListView: View {
                             providerCell(provider)
                                 .onTapGesture {
                                     viewModel.selectIdentityProvider(provider)
-                                    Tracker.trackContentInteraction(name: "Identity Providers List", interaction: .clicked, piece: "Selected provider \(provider.displayName)")
                                     FirebaseAppTracker.identityVerificationScreen(provider: provider.displayName)
                                 }
                             if provider.displayName != viewModel.identityProviders.last?.displayName {

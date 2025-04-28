@@ -79,7 +79,7 @@ private struct CreateAccountCard: View {
             .blur(radius: viewModel.state == .pending ? 0 : 10)
             Button(viewModel.submitAccount) {
                 submitAccount()
-                Tracker.trackContentInteraction(name: "Account submission", interaction: .clicked, piece: "Submit account")
+                FirebaseAppTracker.identityVerificationResultCreateAccountClicked()
             }
             .applyStandardButtonStyle(disabled: viewModel.state == .notAvailable)
             .padding(.init(top: 30, leading: 60, bottom: 30, trailing: 60))

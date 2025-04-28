@@ -42,7 +42,6 @@ struct MainPromoView: View {
             BottomSheet(isShowing: $isCreateAccountSheetShown) {
                 ActivateAccountSheet()
                     .onAppear {
-                        Tracker.track(view: ["Activate account dialog"])
                         FirebaseAppTracker.welcomeSetUpWalletDialog()
                     }
             }
@@ -73,7 +72,6 @@ struct MainPromoView: View {
                 .multilineTextAlignment(.center)
             Button {
                 isImportWalletFlowShown.toggle()
-                Tracker.trackContentInteraction(name: "Activate account dialog", interaction: .clicked, piece: "Import Wallet")
                 FirebaseAppTracker.welcomeSetUpWalletDialogImportClicked()
             } label: {
                 VStack(spacing: 2) {
@@ -164,7 +162,6 @@ struct MainPromoView: View {
             }
             Button(action: {
                 isCreatePasswordFlowShown.toggle()
-                Tracker.trackContentInteraction(name: "Activate account dialog", interaction: .clicked, piece: "Create Wallet")
                 FirebaseAppTracker.welcomeSetUpWalletDialogCreateClicked()
             }, label: {
                 HStack {

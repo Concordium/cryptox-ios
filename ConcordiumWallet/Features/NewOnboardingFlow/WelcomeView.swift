@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import MatomoTracker
 import AppTrackingTransparency
 import FirebaseAnalytics
 
@@ -82,7 +81,6 @@ struct WelcomeView: View {
                         .contentShape(.rect)
                         .onTapGesture {
                             isChecked.toggle()
-                            Tracker.trackContentInteraction(name: "Welcome screen", interaction: .checked, piece: "Check box")
                             FirebaseAppTracker.welcomeTermAndConditionsCheckBoxChecked()
                         }
                     
@@ -115,8 +113,6 @@ struct WelcomeView: View {
                             handleTrackingAuthorization {
                                 showRequestTrackingPopup = true
                             }
-                            MatomoTracker.shared.isOptedOut = !isAcceptedTracking
-                            Tracker.trackContentInteraction(name: "Welcome screen", interaction: .checked, piece: "Allow tracking check box")
                             FirebaseAppTracker.welcomeActivityTrackingCheckBoxChecked()
                         }
                     Text("analytics.trackingConsent".localized)
@@ -132,7 +128,6 @@ struct WelcomeView: View {
                     action: {
                         isAcceptedPrivacy = true
                         isCreateAccountSheetShown.toggle()
-                        Tracker.trackContentInteraction(name: "Welcome screen", interaction: .clicked, piece: "Get started")
                         FirebaseAppTracker.welcomeGetStartedClicked()
                     }, label: {
                         HStack {
@@ -156,7 +151,6 @@ struct WelcomeView: View {
         .background(Image("new_bg").resizable().aspectRatio(contentMode: .fill)
             .ignoresSafeArea(.all))
         .onAppear {
-            MatomoTracker.shared.isOptedOut = !isAcceptedTracking
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 handleTrackingAuthorization()
                 DispatchQueue.main.async {
