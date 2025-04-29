@@ -7,7 +7,8 @@
 //
 
 import SwiftUI
-import MatomoTracker
+import FirebaseAnalytics
+import AppTrackingTransparency
 
 struct AnalyticsView: View {
     
@@ -25,7 +26,7 @@ struct AnalyticsView: View {
             .toggleStyle(SwitchToggleStyle(tint: Color.greenSecondary))
             .onChange(of: isAllowedAppTracking, perform: { value in
                 UserDefaults.standard.set(value, forKey: "isAnalyticsEnabled")
-                MatomoTracker.shared.isOptedOut = !value
+                Analytics.setAnalyticsCollectionEnabled(isAllowedAppTracking)
             })
             
             Text("analytics.trackMessage".localized)

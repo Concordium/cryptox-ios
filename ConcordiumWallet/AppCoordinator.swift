@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import Combine
 import SwiftUI
-import MatomoTracker
 
 @MainActor
 class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate {
@@ -104,7 +103,6 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         childCoordinators.removeAll {$0 is LoginCoordinator}
     }
     
-//    createNewAccount()
     private func showNewOnboardingFlow() {
         navigationController.popViewController(animated: false)
         navigationController.setViewControllers([UIHostingController(

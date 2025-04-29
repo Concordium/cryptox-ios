@@ -8,7 +8,7 @@
 
 import SwiftUI
 import Combine
-enum AccountsMainViewState {
+enum AccountsMainViewState: String {
     case accounts, createAccount, createIdentity, identityVerification, verificationFailed, empty, saveSeedPhrase
 }
 

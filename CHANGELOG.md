@@ -1,5 +1,15 @@
 # Changelog
 
+## [UNRELEASED 3.3.0]
+
+### Changed
+- Analytics is now collected through Firebase (Google Analytics)
+- Empy state Token logo
+- Improved Wert onramp flow
+
+### Removed
+- USDT, USDC, ETH and WBTC tokens from the default token set
+
 ## [Release 3.2.2] Apr 3, 2025
 
 ### Changed

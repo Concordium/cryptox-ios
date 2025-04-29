@@ -90,7 +90,6 @@ struct SendTokenView: View {
                 } else {
                     path.append(.confirmTransaction(viewModel))
                 }
-                Tracker.trackContentInteraction(name: "Send token", interaction: .clicked, piece: "Continue")
             }, label: {
                 Text("errorAlert.continueButton".localized)
                     .font(Font.satoshi(size: 15, weight: .medium))

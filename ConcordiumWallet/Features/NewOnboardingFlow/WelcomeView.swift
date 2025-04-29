@@ -7,7 +7,8 @@
 //
 
 import SwiftUI
-import MatomoTracker
+import AppTrackingTransparency
+import FirebaseAnalytics
 
 struct WelcomeView: View {
     @State var isChecked: Bool = false
@@ -16,7 +17,9 @@ struct WelcomeView: View {
     @Binding var isCreateAccountSheetShown: Bool
     @AppStorage("isAcceptedPrivacy") private var isAcceptedPrivacy = false
     @AppStorage("isAnalyticsEnabled") private var isAcceptedTracking = true
-    
+    @State var showNotificationsPopup: Bool = false
+    @State var showRequestTrackingPopup: Bool = false
+
     var body: some View {
         VStack {
             Spacer(minLength: 0)
@@ -78,7 +81,7 @@ struct WelcomeView: View {
                         .contentShape(.rect)
                         .onTapGesture {
                             isChecked.toggle()
-                            Tracker.trackContentInteraction(name: "Welcome screen", interaction: .checked, piece: "Check box")
+                            FirebaseAppTracker.welcomeTermAndConditionsCheckBoxChecked()
                         }
                     
                     ///
@@ -107,8 +110,8 @@ struct WelcomeView: View {
                         .contentShape(.rect)
                         .onTapGesture {
                             isAcceptedTracking.toggle()
-                            MatomoTracker.shared.isOptedOut = !isAcceptedTracking
-                            Tracker.trackContentInteraction(name: "Welcome screen", interaction: .checked, piece: "Allow tracking check box")
+                            Analytics.setAnalyticsCollectionEnabled(isAcceptedTracking)
+                            FirebaseAppTracker.welcomeActivityTrackingCheckBoxChecked()
                         }
                     Text("analytics.trackingConsent".localized)
                         .accentColor(Color.Neutral.tint1)
@@ -123,7 +126,7 @@ struct WelcomeView: View {
                     action: {
                         isAcceptedPrivacy = true
                         isCreateAccountSheetShown.toggle()
-                        Tracker.trackContentInteraction(name: "Welcome screen", interaction: .clicked, piece: "Get started")
+                        FirebaseAppTracker.welcomeGetStartedClicked()
                     }, label: {
                         HStack {
                             Text("get_started_btn_title".localized)
@@ -146,11 +149,10 @@ struct WelcomeView: View {
         .background(Image("new_bg").resizable().aspectRatio(contentMode: .fill)
             .ignoresSafeArea(.all))
         .onAppear {
-            isAcceptedTracking = true
-            MatomoTracker.shared.isOptedOut = !isAcceptedTracking
+            Analytics.setAnalyticsCollectionEnabled(isAcceptedTracking)
         }
         .overlay(alignment: .center) {
-            if !UIApplication.shared.isRegisteredForRemoteNotifications && isShouldShowAllowNotificationsView {
+            if !UIApplication.shared.isRegisteredForRemoteNotifications && isShouldShowAllowNotificationsView && showNotificationsPopup {
                 AllowNotificationsPopup(isVisible: $isShouldShowAllowNotificationsView)
             }
         }
