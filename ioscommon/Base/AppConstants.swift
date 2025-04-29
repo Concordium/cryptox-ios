@@ -67,6 +67,7 @@ struct AppConstants {
         static let apiKey: String = {
             #if MAINNET
             guard let apiKey = Bundle.main.infoDictionary?["MAINNET_WERT_API_KEY"] as? String else { return "" }
+            return apiKey
             #elseif TESTNET
             guard let apiKey = Bundle.main.infoDictionary?["TESTNET_WERT_API_KEY"] as? String else { return "" }
             return apiKey
