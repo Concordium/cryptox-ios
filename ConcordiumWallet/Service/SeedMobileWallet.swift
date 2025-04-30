@@ -46,13 +46,6 @@ protocol SeedMobileWalletProtocol {
         accountNumber: Int,
         seed: Seed
     ) -> Result<CreateCredentialRequest, Error>
-    
-    func createIDRecoveryRequest(
-        for identityProvider: IPInfo,
-        global: GlobalWrapper,
-        index: Int,
-        seed: Seed
-    ) -> Result<GenerateRecoveryRequestOutput, Error>
 }
 
 class SeedMobileWallet: SeedMobileWalletProtocol {
@@ -178,6 +171,7 @@ class SeedMobileWallet: SeedMobileWalletProtocol {
         }
     }
     
+    // - done for account recovery
     func createCredentialRequest(
         for identity: IdentityDataType,
         global: GlobalWrapper,
@@ -201,23 +195,23 @@ class SeedMobileWallet: SeedMobileWalletProtocol {
         }
     }
     
-    func createIDRecoveryRequest(
-        for identityProvider: IPInfo,
-        global: GlobalWrapper,
-        index: Int,
-        seed: Seed
-    ) -> Result<GenerateRecoveryRequestOutput, Error> {
-        let input = GenerateRecoveryRequestInput(
-            identityProvider: identityProvider,
-            globalWrapper: global,
-            seed: seed,
-            index: index
-        )
-        
-        return Result {
-            try walletFacade.generateRecoveryRequest(input: input)
-        }
-    }
+//    func createIDRecoveryRequest(
+//        for identityProvider: IPInfo,
+//        global: GlobalWrapper,
+//        index: Int,
+//        seed: Seed
+//    ) -> Result<GenerateRecoveryRequestOutput, Error> {
+//        let input = GenerateRecoveryRequestInput(
+//            identityProvider: identityProvider,
+//            globalWrapper: global,
+//            seed: seed,
+//            index: index
+//        )
+//        
+//        return Result {
+//            try walletFacade.generateRecoveryRequest(input: input)
+//        }
+//    }
 }
 
 private extension CreateIDRequestV1 {

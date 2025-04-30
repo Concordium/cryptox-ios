@@ -4064,7 +4064,6 @@
 		088FEC682A01483D00042957 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				50F3BC362D53A6B500839F7F /* SDK */,
 				15B498D62D5E30EE001B4F65 /* NewStake */,
 				509749DF2C3E862500D28D6B /* NewsFeed */,
 				509749CE2C3C0D2B00D28D6B /* OnrampFlow */,
@@ -5789,6 +5788,7 @@
 				15844E632C888BC2005A3BF1 /* PushNotifications */,
 				509749E82C49195900D28D6B /* Tracking */,
 				50D389212C107C6900B3675A /* ThirdParty */,
+				50F3BC362D53A6B500839F7F /* SDK */,
 			);
 			path = Core;
 			sourceTree = "<group>";

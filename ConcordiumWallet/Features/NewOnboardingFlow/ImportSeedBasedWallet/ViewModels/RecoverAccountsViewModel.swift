@@ -79,39 +79,39 @@ final class RecoverAccountsViewModel: ObservableObject {
                 }
                 let (identities, failedIdentityProviders) = try await defaultProvider.seedIdentitiesService().recoverIdentities(with: seed)
                 
-                let accounts = try await accountsService.recoverAccounts(
-                    for: identities,
-                    seed: seed,
-                    pwHash: pwHash
-                )
-                                
-                var recoveredIdentitiesBuffer: [IdentityDataType] = []
-                
-                for identity in identities {
-                    let isIdentityNewlyCreated = (identity["recover.isNewlyCreatedKey".localized] as? Bool)!
-                    let recoveredIdentity = (identity["recover.identityKey".localized] as? IdentityDataType)!
-                    
-                    if isIdentityNewlyCreated {
-                        recoveredIdentitiesBuffer.append(recoveredIdentity)
-                    } else {
-                        var identityHasRecoveredAccount = false
-                        
-                        for account in accounts {
-                            if account.identity!.id == recoveredIdentity.id {
-                                identityHasRecoveredAccount = true
-                            }
-                        }
-                        
-                        if identityHasRecoveredAccount {
-                            recoveredIdentitiesBuffer.append(recoveredIdentity)
-                        }
-                    }
-                }
-                
-                TransactionNotificationService().sendTokenToConcordiumServer()
-                await MainActor.run { [recoveredIdentitiesBuffer] in
-                    self.handleIdentities(recoveredIdentitiesBuffer, accounts: accounts, failedIdentitiesProviders: failedIdentityProviders)
-                }
+//                let accounts = try await accountsService.recoverAccounts(
+//                    for: identities,
+//                    seed: seed,
+//                    pwHash: pwHash
+//                )
+//                                
+//                var recoveredIdentitiesBuffer: [IdentityDataType] = []
+//                
+//                for identity in identities {
+//                    let isIdentityNewlyCreated = (identity["recover.isNewlyCreatedKey".localized] as? Bool)!
+//                    let recoveredIdentity = (identity["recover.identityKey".localized] as? IdentityDataType)!
+//                    
+//                    if isIdentityNewlyCreated {
+//                        recoveredIdentitiesBuffer.append(recoveredIdentity)
+//                    } else {
+//                        var identityHasRecoveredAccount = false
+//                        
+//                        for account in accounts {
+//                            if account.identity!.id == recoveredIdentity.id {
+//                                identityHasRecoveredAccount = true
+//                            }
+//                        }
+//                        
+//                        if identityHasRecoveredAccount {
+//                            recoveredIdentitiesBuffer.append(recoveredIdentity)
+//                        }
+//                    }
+//                }
+//                
+//                TransactionNotificationService().sendTokenToConcordiumServer()
+//                await MainActor.run { [recoveredIdentitiesBuffer] in
+//                    self.handleIdentities(recoveredIdentitiesBuffer, accounts: accounts, failedIdentitiesProviders: failedIdentityProviders)
+//                }
             } catch {
                 await MainActor.run {
                     self.state = .failed

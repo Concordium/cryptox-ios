@@ -9,7 +9,7 @@
 import Foundation
 import Concordium
 import BigInt
-
+import MnemonicSwift
 
 protocol ConcordiumClientProtocol {
     func transferCIS2(
@@ -49,22 +49,28 @@ final class ConcordiumClient: ObservableObject {
 #endif
     }
     
-    private let nodeClient: GRPCNodeClient
+    static var network: Network {
+#if TESTNET
+        Network.testnet
+#elseif MAINNET
+        Network.mainnet
+#else // Staging
+        Network.testnet
+#endif
+    }
+    
+    static let walletProxyBaseURL = ApiConstants.proxyUrl
+    
+    let nodeClient: GRPCNodeClient
     var networkManager: NetworkManagerProtocol
     private let storageManager: StorageManagerProtocol
+    private let walletProxy: WalletProxy
     
     init(networkManager: NetworkManagerProtocol, storageManager: StorageManagerProtocol) throws {
         self.nodeClient = try GRPCNodeClient(url: Self.grpcURL)
         self.networkManager = networkManager
         self.storageManager = storageManager
-        Task {
-            do {
-                let accountInfo = try await nodeClient.info(account: AccountIdentifier.address(.init(base58Check: "3TCkXUUQ4vp4Ad8f96iSaN5NpKYgN3efev6STq2YW5oRBjnsZu")))
-                print("ska -- \(accountInfo)")
-            } catch {
-                print("ska error -- \(error)")
-            }
-        }
+        self.walletProxy = WalletProxy(baseURL: Self.walletProxyBaseURL)
     }
     
     func getAccountInfo(address: String) async throws -> AccountInfo {
@@ -76,8 +82,21 @@ final class ConcordiumClient: ObservableObject {
 /// Account logic
 ///
 extension ConcordiumClient {
-    func createAccount(keys: AccountKeys) async throws {
+    func createAccount(keys: AccountKeys, seedPhrase: String) async throws { //Concordium.Account
+        let identityProviderID = IdentityProviderID(3)
+
+        
+        let seed = try await Helper.decodeSeed(seedPhrase, ConcordiumClient.network)
+        let identityProvider = try await Helper.findIdentityProvider(walletProxy, identityProviderID)!
+
+        let identityIndex = IdentityIndex(7)
+
         let signer: any Signer = AccountKeysCurve25519(try keys.toAccountKeysJSON().toSDKType().keys)
+        
+        let cryptoParams = try await nodeClient.cryptographicParameters(block: .lastFinal)
+        let identityReq = try Helper.makeIdentityRecoveryRequest(seed, cryptoParams, identityProvider, identityIndex)
+        let identityRes = try await identityReq.send(session: URLSession.shared)
+
     }
 }
 

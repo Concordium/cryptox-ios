@@ -81,6 +81,14 @@ class MobileWallet: MobileWalletProtocol {
         self.storageManager = storageManager
         self.keychain = keychain
         self.concordiumClient = concordiumClient
+        
+//        Task {
+//            do {
+//                try await concordiumClient.recoverIdentity()
+//            } catch {
+//                print(error)
+//            }
+//        }
     }
     
     func getAccountAddressesForIdentity(global: GlobalWrapper,
@@ -103,15 +111,12 @@ class MobileWallet: MobileWalletProtocol {
     
     @MainActor
     func check(accountAddress: String) async -> Bool {
-        //        walletFacade.checkAccountAddress(input: accountAddress)
-//        Task {
-            do {
-                let _ = try await concordiumClient.getAccountInfo(address: accountAddress)
-                return true
-            } catch {
-                return false
-            }
-//        }
+        do {
+            let _ = try await concordiumClient.getAccountInfo(address: accountAddress)
+            return true
+        } catch {
+            return false
+        }
     }
     
     /// Creates an identity request and the associated private data.

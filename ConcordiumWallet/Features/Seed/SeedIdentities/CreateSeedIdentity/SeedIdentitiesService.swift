@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Concordium
 
 struct SeedIdentitiesService {
     let mobileWallet: SeedMobileWalletProtocol
@@ -175,33 +176,37 @@ struct SeedIdentitiesService {
     ) async -> ([String: Any]?, String?) {
         
         guard
-            var recoveryURL = identityProvider.recoverURL,
+//            var recoveryURL = identityProvider.recoverURL,
             let ipInfo = identityProvider.ipInfo
         else {
             return (nil, identityProvider.ipInfo?.ipDescription.name)
         }
         
         do {
-            let request = try mobileWallet.createIDRecoveryRequest(
-                for: ipInfo,
-                global: global,
-                index: index,
-                seed: seed
-            ).get()
+//            let request = try mobileWallet.createIDRecoveryRequest(
+//                for: ipInfo,
+//                global: global,
+//                index: index,
+//                seed: seed
+//            ).get()
             
-            let recoverRequest = try request.encodeToString().addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)?.removingPercentEncoding
+//            let recoverRequest = try request.encodeToString().addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)?.removingPercentEncoding
             
 //            if recoveryURL.absoluteString == "https://id-service.testnet.concordium.com/api/v1/recover" {
 //                recoveryURL = URL(string: "https://jashdjdshfjdhfdhjakfjhak.co")!
 //            }
             
-            let recoverResponse = try await networkManager.loadRecovery(ResourceRequest(url: recoveryURL, parameters: ["state" : recoverRequest]), decoding: SeedIdentityObjectWrapper.self)
+//            let recoverResponse = try await networkManager.loadRecovery(ResourceRequest(url: recoveryURL, parameters: ["state" : recoverRequest]), decoding: SeedIdentityObjectWrapper.self)
             
-            return try (createIdentityFromSeedIdentityObjectWrapper(
-                recoverResponse,
-                index: index,
-                identityProvider: identityProvider
-            ), nil)
+            let identityObject: Concordium.IdentityObject = try await concordiumClient.recoverIdentity(with: ipInfo, global: global, index: index, seed: seed).result.get().value
+            
+            let seedIdentityObject: SeedIdentityObject = SeedIdentityObject(
+                signature: String(data: identityObject.signature, encoding: .utf8) ?? "",
+                attributeList: AttributeList(attributeList: identityObject.attributeList),
+                preIdentityObject: .init(preIdentityObject: identityObject.preIdentityObject)
+            )
+            
+            return try (createIdentityFromSeedIdentityObjectWrapper(seedIdentityObject, index: index, identityProvider: identityProvider), nil)
         } catch NetworkError.dataLoadingError(let statusCode, let data) {
             if statusCode == 404 {
                 var json: [String: Any]?
@@ -219,17 +224,18 @@ struct SeedIdentitiesService {
                 return(nil, identityProvider.ipInfo?.ipDescription.name)
             }
         } catch {
+            debugPrint("Max -- error\(error)")
             return (nil, identityProvider.ipInfo?.ipDescription.name)
         }
     }
     
     @MainActor
     private func createIdentityFromSeedIdentityObjectWrapper(
-        _ seedIdentityObjectWrapper: SeedIdentityObjectWrapper,
+        _ seedIdentityObject: SeedIdentityObject,
         index: Int,
         identityProvider: IdentityProviderDataType
     ) throws -> [String: Any] {
-        if let retrievedIdentity = storageManager.getIdentity(matchingSeedIdentityObject: seedIdentityObjectWrapper.value) {
+        if let retrievedIdentity = storageManager.getIdentity(matchingSeedIdentityObject: seedIdentityObject) {
             return ["identity": retrievedIdentity, "isNewlyCreated": false]
         }
         
@@ -239,7 +245,7 @@ struct SeedIdentitiesService {
         identity.identityProvider = identityProvider
         identity.nickname = identityName()
         identity.state = .confirmed
-        identity.seedIdentityObject = seedIdentityObjectWrapper.value
+        identity.seedIdentityObject = seedIdentityObject
         
         try storageManager.storeIdentity(identity)
         
@@ -393,5 +399,33 @@ extension SeedIdentitiesService {
     public func storePhrase(words: [String], pwHash: String) throws -> Seed {
         try self.mobileWallet.store(recoveryPhrase: .init(phrase: words.joined(separator: " ")), with: pwHash)
             .get()
+    }
+}
+
+extension AttributeList {
+    init(attributeList: Concordium.AttributeList) {
+        self.validTo =  attributeList.validToYearMonth
+        self.createdAt =  attributeList.createdAtYearMonth
+        self.maxAccounts =  Int(attributeList.maxAccounts)
+        self.chosenAttributes =  attributeList.chosenAttributes.reduce(into: [String : String]()) { result, item in
+            result[String(item.key.rawValue)] = item.value
+        }
+    }
+}
+
+extension IDRequestV1.IDObjectRequest {
+    init(preIdentityObject: Concordium.PreIdentityObject) {
+        self.idCredPub = String(data: preIdentityObject.idCredPub, encoding: .utf8) ?? ""
+        self.choiceArData = IDRequestV1.ChoiceArData(arIdentities: preIdentityObject.choiceArData.arIdentities.map { Int($0) }, threshold: Int(preIdentityObject.choiceArData.threshold))
+        self.idCredSecCommitment = String(data: preIdentityObject.idCredSecCommitment, encoding: .utf8) ?? ""
+        self.ipArData = preIdentityObject.ipArData.reduce(into: [String: IDRequestV1.IdentityProviderARData]()) { result, item in
+            result[String(item.key)] = IDRequestV1.IdentityProviderARData.init(
+                encPrfKeyShare: String(data: item.value.encPrfKeyShare, encoding: .utf8) ?? "",
+                proofComEncEq: String(data: item.value.proofComEncEq, encoding: .utf8) ?? ""
+            )
+        }
+        self.prfKeyCommitmentWithIP = String(data: preIdentityObject.prfKeyCommitmentWithIp, encoding: .utf8) ?? ""
+        self.prfKeySharingCoeffCommitments = preIdentityObject.prfKeySharingCoeffCommitments.compactMap { String(data: $0, encoding: .utf8) ?? "" }
+        self.proofsOfKnowledge = String(data: preIdentityObject.proofsOfKnowledge, encoding: .utf8) ?? ""
     }
 }
