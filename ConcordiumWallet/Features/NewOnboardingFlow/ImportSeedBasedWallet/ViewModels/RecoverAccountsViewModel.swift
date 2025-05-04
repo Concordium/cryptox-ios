@@ -78,12 +78,14 @@ final class RecoverAccountsViewModel: ObservableObject {
                     return
                 }
                 let (identities, failedIdentityProviders) = try await defaultProvider.seedIdentitiesService().recoverIdentities(with: seed)
-                
-//                let accounts = try await accountsService.recoverAccounts(
-//                    for: identities,
-//                    seed: seed,
-//                    pwHash: pwHash
-//                )
+                await MainActor.run {
+                    print("suka --- \(identities), \n\n\n failedIdentityProviders: \(failedIdentityProviders)")
+                }
+                let accounts = try await accountsService.recoverAccounts(
+                    for: identities,
+                    seed: seed,
+                    pwHash: pwHash
+                )
 //                                
 //                var recoveredIdentitiesBuffer: [IdentityDataType] = []
 //                

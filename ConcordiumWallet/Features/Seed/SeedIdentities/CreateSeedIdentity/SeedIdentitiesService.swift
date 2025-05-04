@@ -197,8 +197,18 @@ struct SeedIdentitiesService {
 //            }
             
 //            let recoverResponse = try await networkManager.loadRecovery(ResourceRequest(url: recoveryURL, parameters: ["state" : recoverRequest]), decoding: SeedIdentityObjectWrapper.self)
+
             
-            let identityObject: Concordium.IdentityObject = try await concordiumClient.recoverIdentity(with: ipInfo, global: global, index: index, seed: seed).result.get().value
+            let recoverResponse = try await concordiumClient.recoverIdentity(with: ipInfo, global: global, index: index, seed: seed)
+            let accounts = try await concordiumClient.getAccount(recoverResponse, seed: seed, identityProvider: ipInfo, index: index)
+            print("accounts: -- \(accounts)")
+        
+            
+            let accountInfo = try await concordiumClient.nodeClient.info(account: .address(accounts.address))
+            print("AccountInfo --- \(accountInfo)")
+
+            
+            let identityObject: Concordium.IdentityObject = try await recoverResponse.result.get().value
             
             let seedIdentityObject: SeedIdentityObject = SeedIdentityObject(
                 signature: String(data: identityObject.signature, encoding: .utf8) ?? "",
