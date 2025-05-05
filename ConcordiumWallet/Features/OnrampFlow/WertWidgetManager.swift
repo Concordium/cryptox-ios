@@ -47,7 +47,7 @@ class WertWidgetManager {
         do {
             let json = try await createWertSession(for: account)
             if let sessionId = json["sessionId"] as? String {
-                return "https://widget.wert.io/\(AppConstants.Wert.partnerId)/widget?session_id=\(sessionId)&amp;commodity=CCD&amp;network=concordium&amp;commodities=%5B%7B%22commodity%22%3A%22CCD%22%2C%22network%22%3A%22concordium%22%7D%5D&amp;widget_layout_mode=Modal"
+                return "https://widget.wert.io/\(AppConstants.Wert.partnerId)/widget?session_id=\(sessionId)&amp;commodity=CCD&amp;network=concordium&amp;widget_layout_mode=Modal"
             }
         } catch {
             print("Wert session error:", error)
