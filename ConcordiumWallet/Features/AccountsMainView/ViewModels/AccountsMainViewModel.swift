@@ -90,6 +90,18 @@ final class AccountsMainViewModel: ObservableObject, Hashable, Equatable {
         }
     }
     
+    func hasSuspendedAccounts() -> Bool {
+        for acc in accounts {
+            if (acc.baker?.isSuspended ?? false) ||
+               (acc.delegation?.isSuspended ?? false) ||
+               (acc.baker?.isPrimedForSuspension ?? false) ||
+               (acc.delegation?.isPrimedForSuspension ?? false) {
+                return true
+            }
+        }
+        return false
+    }
+    
     private func updateData() {
         accountViewModels = accounts.map { AccountPreviewViewModel.init(account: $0, tokens: dependencyProvider.storageManager().getAccountSavedCIS2Tokens($0.address)) }
         updateDotImageNames()

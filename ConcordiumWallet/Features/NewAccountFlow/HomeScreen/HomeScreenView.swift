@@ -131,6 +131,13 @@ struct HomeScreenView: View {
                         .onTapGesture {
                             navigationManager.navigate(to: .accountsOverview(viewModel))
                         }
+                        .overlay(alignment: .topLeading) {
+                            if viewModel.hasSuspendedAccounts() {
+                                Circle().fill(.attentionRed)
+                                    .frame(width: 8, height: 8)
+                                    .offset(x: -8, y: -8)
+                            }
+                        }
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
