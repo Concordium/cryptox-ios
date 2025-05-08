@@ -11,7 +11,14 @@ import CryptoKit
 import UIKit
 import SafariServices
 
+
+struct WertCommodityInfo: Codable {
+    let commodity: String
+    let network: String
+}
+
 class WertWidgetManager {
+    private static var baseUrl = "https://widget.wert.io/\(AppConstants.Wert.partnerId)/widget"
 
     private static func createWertSession(for account: String) async throws -> [String: Any] {
         guard let url = URL(string: AppConstants.Wert.url) else {
@@ -47,7 +54,26 @@ class WertWidgetManager {
         do {
             let json = try await createWertSession(for: account)
             if let sessionId = json["sessionId"] as? String {
-                return "https://widget.wert.io/\(AppConstants.Wert.partnerId)/widget?session_id=\(sessionId)&amp;commodity=CCD&amp;network=concordium&amp;widget_layout_mode=Modal"
+                let sessionIdEncoded = encodeString(sessionId)
+                let commodityEncoded = encodeString("CCD")
+                let networkEncoded = encodeString("concordium")
+                let layoutModeEncoded = encodeString("Modal")
+                
+                let commodityInfo = [WertCommodityInfo(commodity: "CCD", network: "concordium")]
+                guard let jsonData = try? JSONEncoder().encode(commodityInfo),
+                      let jsonString = String(data: jsonData, encoding: .utf8) else {
+                    return nil
+                }
+
+                let commoditiesEncoded = encodeString(jsonString)
+                
+                let url = "\(baseUrl)?" +
+                                  "session_id=\(sessionIdEncoded)&" +
+                                  "commodity=\(commodityEncoded)&" +
+                                  "network=\(networkEncoded)&" +
+                                  "commodities=\(commoditiesEncoded)&" +
+                                  "widget_layout_mode=\(layoutModeEncoded)"
+                return url
             }
         } catch {
             print("Wert session error:", error)
@@ -60,5 +86,9 @@ class WertWidgetManager {
             return nil
         }
         return url
+    }
+    
+    private static func encodeString(_ value: String) -> String {
+        value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
     }
 }
