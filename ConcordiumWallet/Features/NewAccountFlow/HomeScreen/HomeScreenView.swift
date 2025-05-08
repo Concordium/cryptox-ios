@@ -131,13 +131,6 @@ struct HomeScreenView: View {
                         .onTapGesture {
                             navigationManager.navigate(to: .accountsOverview(viewModel))
                         }
-                        .overlay(alignment: .topLeading) {
-                            if viewModel.hasSuspendedAccounts() {
-                                Circle().fill(.attentionRed)
-                                    .frame(width: 8, height: 8)
-                                    .offset(x: -8, y: -8)
-                            }
-                        }
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
@@ -181,22 +174,34 @@ struct HomeScreenView: View {
                         self.router?.showExportFlow()
                     }
                 }
-                
-                if viewModel.selectedAccount?.account?.baker?.isSuspended == true || viewModel.selectedAccount?.account?.delegation?.isSuspended == true {
+
+                let suspendedAccounts = viewModel.suspendedOrPrimedAccounts()
+
+                if suspendedAccounts.count > 1 {
                     Button {
-                        if let selectedAccount = viewModel.selectedAccount?.account as? AccountEntity {
-                            navigationManager.navigate(to: .earn(selectedAccount))
-                        }
+                        navigationManager.navigate(to: .accountsOverview(viewModel))
                     } label: {
-                        StakerSuspensionStateView(type: .suspended, stakeType: viewModel.selectedAccount?.account?.baker?.isSuspended == true ? .baker : .delegation)
+                        StakerSuspensionStateView(message: "multiple.accounts.suspended".localized, type: nil, stakeType: nil)
                     }
-                } else if viewModel.selectedAccount?.account?.baker?.isPrimedForSuspension == true || viewModel.selectedAccount?.account?.delegation?.isPrimedForSuspension == true {
-                    Button {
-                        if let selectedAccount = viewModel.selectedAccount?.account as? AccountEntity {
-                            navigationManager.navigate(to: .earn(selectedAccount))
+                } else if let account = suspendedAccounts.first {
+                    let isSuspended = account.baker?.isSuspended == true || account.delegation?.isSuspended == true
+                    let isPrimed = account.baker?.isPrimedForSuspension == true || account.delegation?.isPrimedForSuspension == true
+
+                    let suspensionType: StakerSuspensionStateView.StakerSuspensionState? =
+                        isSuspended ? .suspended : (isPrimed ? .primedForSuspension : nil)
+
+                    let stakeType: StakerSuspensionStateView.StakerType? =
+                        account.baker?.isSuspended == true || account.baker?.isPrimedForSuspension == true ? .baker : .delegation
+
+                    if let type = suspensionType, let stake = stakeType {
+                        Button {
+                            if account.address != viewModel.selectedAccount?.account?.address {
+                                viewModel.changeCurrentAccount(account)
+                            }
+                            navigationManager.navigate(to: .earn(account))
+                        } label: {
+                            StakerSuspensionStateView(message: nil, type: type, stakeType: stake)
                         }
-                    } label: {
-                        StakerSuspensionStateView(type: .primedForSuspension, stakeType: viewModel.selectedAccount?.account?.baker?.isPrimedForSuspension == true ? .baker : .delegation)
                     }
                 }
                 
@@ -575,7 +580,6 @@ struct StakerSuspensionStateView: View {
     enum StakerSuspensionState {
         case suspended, primedForSuspension
         
-        
         func title(for type: StakerType) -> String {
             switch (self, type) {
             case (.suspended, .baker):
@@ -595,14 +599,24 @@ struct StakerSuspensionStateView: View {
         case delegation
     }
     
-    let type: StakerSuspensionState
-    let stakeType: StakerType
+    let message: String?
+    let type: StakerSuspensionState?
+    let stakeType: StakerType?
+    
     var body: some View {
         HStack(spacing: 16) {
             Image("Pause")
-            Text(type.title(for: stakeType))
-                .font(.satoshi(size: 12, weight: .regular))
-                .foregroundStyle(Color.white)
+            
+            if let message = message {
+                Text(message)
+                    .font(.satoshi(size: 12, weight: .regular))
+                    .foregroundStyle(Color.white)
+            } else if let type = type, let stakeType = stakeType {
+                Text(type.title(for: stakeType))
+                    .font(.satoshi(size: 12, weight: .regular))
+                    .foregroundStyle(Color.white)
+            }
+            
             Spacer(minLength: 0)
             Image("ArrowUp")
         }

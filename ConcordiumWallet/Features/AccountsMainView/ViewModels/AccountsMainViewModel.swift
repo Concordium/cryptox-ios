@@ -89,17 +89,32 @@ final class AccountsMainViewModel: ObservableObject, Hashable, Equatable {
             debugPrint(error)
         }
     }
-    
-    func hasSuspendedAccounts() -> Bool {
-        for acc in accounts {
-            if (acc.baker?.isSuspended ?? false) ||
-               (acc.delegation?.isSuspended ?? false) ||
-               (acc.baker?.isPrimedForSuspension ?? false) ||
-               (acc.delegation?.isPrimedForSuspension ?? false) {
-                return true
-            }
+
+    func suspendedOrPrimedAccounts() -> [AccountEntity] {
+        var result: [AccountEntity] = []
+
+        if let selected = selectedAccount?.account,
+           selected.baker?.isSuspended == true ||
+           selected.delegation?.isSuspended == true ||
+           selected.baker?.isPrimedForSuspension == true ||
+           selected.delegation?.isPrimedForSuspension == true {
+            result.append(selected)
         }
-        return false
+
+        let others = accountViewModels.compactMap { vm -> AccountEntity? in
+            guard let acc = vm.account else { return nil }
+            let isSuspended = acc.baker?.isSuspended == true || acc.delegation?.isSuspended == true
+            let isPrimed = acc.baker?.isPrimedForSuspension == true || acc.delegation?.isPrimedForSuspension == true
+
+            // Avoid adding the selected account twice
+            if (isSuspended || isPrimed), acc.address != selectedAccount?.account?.address {
+                return acc
+            }
+            return nil
+        }
+
+        result.append(contentsOf: others)
+        return result
     }
     
     private func updateData() {
@@ -136,8 +151,9 @@ final class AccountsMainViewModel: ObservableObject, Hashable, Equatable {
         try await dependencyProvider.accountsService().updateAccountsBalances(accounts: accounts).async()
     }
     
-    func changeCurrentAccount(_ account: AccountPreviewViewModel) {
-        selectedAccount = account
+    func changeCurrentAccount(_ account: AccountEntity?) {
+        let accountPreviewViewModel = accountViewModels.first(where: {$0.address == account?.address})
+        selectedAccount = accountPreviewViewModel
     }
 }
 

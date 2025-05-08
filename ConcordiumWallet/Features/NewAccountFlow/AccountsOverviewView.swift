@@ -27,7 +27,7 @@ struct AccountsOverviewView: View {
                         selectedAccountAddress = account.address
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                             selectedAccountAddress = nil
-                            viewModel.changeCurrentAccount(account)
+                            viewModel.changeCurrentAccount(account.account)
                             dismiss()
                         }
                     } label: {
