@@ -1,6 +1,16 @@
 # Changelog
 
-## [UNRELEASED 3.3.0]
+## [Unreleased 3.3.2]
+
+### Fixed
+- Fix WertIO flow.
+
+## [Release 3.3.1] May 5, 2025
+
+### Fixed
+- Fix an issue with password hashes.
+
+## [Release 3.3.0] Apr 30, 2025
 
 ### Changed
 - Analytics is now collected through Firebase (Google Analytics)
