@@ -1466,3 +1466,6 @@ Remember to restart your node with the validator keys.";
 "allow.tracking.title" = "Help Us Improve Your Experience";
 "allow.tracking.msg" = "Please enable tracking in Settings to help us provide better personalized experiences.";
 "go.to.settings" = "Go to settings";
+"primed.for.suspension.message" = "Your validation is primed for suspension";
+"suspended.message" =  "Your validation has been suspended";
+"multiple.accounts.suspended" = "Validation issues with several accounts";
