@@ -9,6 +9,6 @@
 #ifndef ConcordiumWallet_Briding_Header_File_h
 #define ConcordiumWallet_Briding_Header_File_h
 
-#import "mobile_wallet.h"
+#import "legacy_mobile_wallet.h"
 
 #endif /* ConcordiumWallet_Briding_Header_File_h */
