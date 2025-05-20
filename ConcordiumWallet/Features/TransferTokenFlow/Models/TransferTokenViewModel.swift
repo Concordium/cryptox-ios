@@ -94,6 +94,8 @@ final class TransferTokenViewModel: ObservableObject, Hashable, Equatable {
     @Published var addMemoText: String = ""
     @Published var euroEquivalentForCCD: String = ""
     
+    @Published var chainParametersResponse: ChainParametersResponse?
+    
     var tokenTransferModel: CIS2TokenTransferModel
     private var cost: GTU?
     
@@ -183,6 +185,17 @@ final class TransferTokenViewModel: ObservableObject, Hashable, Equatable {
                 
             }
         }.store(in: &cancellables)
+        
+        updateChainParameters()
+    }
+    
+    private func updateChainParameters() {
+        Task {
+            self.chainParametersResponse = try? await ServicesProvider.defaultProvider().stakeService().getChainParameters().async()
+            await MainActor.run {
+                getEuroValueForCCD()
+            }
+        }
     }
     
     public func sendAll() {
@@ -200,22 +213,19 @@ final class TransferTokenViewModel: ObservableObject, Hashable, Equatable {
     }
  
     private func getEuroValueForCCD() {
+        guard let chainParameters = self.chainParametersResponse else {
+            updateChainParameters()
+            return
+        }
+        
         let value = Decimal(string: amountTokenSend.value.description) ?? 0
-        ServicesProvider.defaultProvider().stakeService().getChainParameters()
-            .sink(receiveCompletion: { completionResult in
-                switch completionResult {
-                default:
-                    break
-                }
-            }, receiveValue: { chainParameters in
-                let microGTUPerEuro = chainParameters.microGTUPerEuro
-                var euroEquivalent = value * (Decimal(microGTUPerEuro.denominator) / Decimal(microGTUPerEuro.numerator))
-                // Round the value to 2 decimal places.
-                var roundedValue = Decimal()
-                NSDecimalRound(&roundedValue, &euroEquivalent, 2, .plain)
-                self.euroEquivalentForCCD = NSDecimalNumber(decimal: roundedValue).stringValue
-            })
-            .store(in: &cancellables)
+        
+        let microGTUPerEuro = chainParameters.microGTUPerEuro
+        var euroEquivalent = value * (Decimal(microGTUPerEuro.denominator) / Decimal(microGTUPerEuro.numerator))
+        // Round the value to 2 decimal places.
+        var roundedValue = Decimal()
+        NSDecimalRound(&roundedValue, &euroEquivalent, 2, .plain)
+        self.euroEquivalentForCCD = NSDecimalNumber(decimal: roundedValue).stringValue
     }
     
     // MARK: - Hashable

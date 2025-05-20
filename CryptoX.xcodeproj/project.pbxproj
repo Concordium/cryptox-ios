@@ -3053,7 +3053,6 @@
 		19C2ED4F802767556C4ABBE9 /* SingleSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleSection.swift; sourceTree = "<group>"; };
 		19C2EE201F8E02CE561DA70D /* GTU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GTU.swift; sourceTree = "<group>"; };
 		19C2EEBD44B62F16333900D2 /* GeneralError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralError.swift; sourceTree = "<group>"; };
-		507541482DD3C4FE000D9445 /* MobileWalletLib */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MobileWalletLib; sourceTree = "<group>"; };
 		507629652BF2040B00B4D390 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		509749CF2C3C0D4E00D28D6B /* CCDOnrampView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCDOnrampView.swift; sourceTree = "<group>"; };
 		509749D32C3C241B00D28D6B /* ProviderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderView.swift; sourceTree = "<group>"; };
@@ -3324,6 +3323,33 @@
 		FAF2C56D26B00DBB00406A86 /* WebSocketService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		50996DA92DDCC88C0059FCB4 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Components,
+				MobileWalletLib,
+			);
+			target = 7FF07A6823EADB1200F1FC04 /* StagingNet */;
+		};
+		50996DAA2DDCC88C0059FCB4 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Components,
+				MobileWalletLib,
+			);
+			target = 7F85B7CF246A9AB600ED09B8 /* ProdMainNet */;
+		};
+		50996DAB2DDCC88C0059FCB4 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Components,
+				MobileWalletLib,
+			);
+			target = 08C166572BB7396200E61326 /* ProdTestNet */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		1534955B2D9FE28300D65610 /* Animations */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Animations; sourceTree = "<group>"; };
 		1534955C2D9FE7D400D65610 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
@@ -3332,6 +3358,7 @@
 		156878E52CD24F4E0080B2F3 /* ViewModels */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ViewModels; sourceTree = "<group>"; };
 		156878E62CD24F6F0080B2F3 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
 		15B6CFA52DBF87F700091449 /* ci_scripts */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ci_scripts; sourceTree = "<group>"; };
+		50996DA82DDCC88C0059FCB4 /* Packages */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (50996DA92DDCC88C0059FCB4 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 50996DAA2DDCC88C0059FCB4 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 50996DAB2DDCC88C0059FCB4 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Packages; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -5162,7 +5189,7 @@
 		7FF07A6023EADB1200F1FC04 = {
 			isa = PBXGroup;
 			children = (
-				507541482DD3C4FE000D9445 /* MobileWalletLib */,
+				50996DA82DDCC88C0059FCB4 /* Packages */,
 				15B6CFA52DBF87F700091449 /* ci_scripts */,
 				1534957B2D9FFD6500D65610 /* Config.xcconfig */,
 				15F3F0AB2C8F386500EF8975 /* ProdMainNet.entitlements */,
@@ -5868,6 +5895,7 @@
 				156878E52CD24F4E0080B2F3 /* ViewModels */,
 				156878E62CD24F6F0080B2F3 /* Views */,
 				15B6CFA52DBF87F700091449 /* ci_scripts */,
+				50996DA82DDCC88C0059FCB4 /* Packages */,
 			);
 			name = ProdTestNet;
 			packageProductDependencies = (
@@ -5913,6 +5941,7 @@
 				156878E52CD24F4E0080B2F3 /* ViewModels */,
 				156878E62CD24F6F0080B2F3 /* Views */,
 				15B6CFA52DBF87F700091449 /* ci_scripts */,
+				50996DA82DDCC88C0059FCB4 /* Packages */,
 			);
 			name = ProdMainNet;
 			packageProductDependencies = (
@@ -5956,6 +5985,7 @@
 				156878E52CD24F4E0080B2F3 /* ViewModels */,
 				156878E62CD24F6F0080B2F3 /* Views */,
 				15B6CFA52DBF87F700091449 /* ci_scripts */,
+				50996DA82DDCC88C0059FCB4 /* Packages */,
 			);
 			name = StagingNet;
 			packageProductDependencies = (

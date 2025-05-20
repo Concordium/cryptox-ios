@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct DelegationAmountInputView: View {
-    
     @ObservedObject var viewModel: DelegationAmountInputViewModel
     @FocusState var isFocused: Bool
     
@@ -56,7 +55,7 @@ struct DelegationAmountInputView: View {
             SendTokenCell(tokenType: .ccd(displayAmount: GTU(intValue: viewModel.account.forecastBalance).displayValueWithTwoNumbersAfterDecimalPoint()),
                           hideCaretRight: true, text: "available.for.staking".localized)
             .frame(maxWidth: .infinity, alignment: .center)
-
+            
             if let poolLimit = viewModel.poolLimit, let currentPoolLimit = viewModel.currentPoolLimit, viewModel.showsPoolLimits {
                 VStack(alignment: .leading, spacing: 8) {
                     Text(currentPoolLimit.label)
@@ -126,11 +125,12 @@ struct DelegationAmountInputView: View {
             
             Spacer()
             
-            RoundedButton(action: {
-                viewModel.pressedContinue()
-            },
-                          title: "continue_btn_title".localized,
-                          isDisabled: !viewModel.isContinueEnabled)
+            RoundedButton(
+                action: {
+                    viewModel.pressedContinue()
+                },
+                title: "continue_btn_title".localized,
+                isDisabled: !viewModel.isContinueEnabled)
         }
         .padding(.horizontal, 18)
         .padding(.top, 40)
