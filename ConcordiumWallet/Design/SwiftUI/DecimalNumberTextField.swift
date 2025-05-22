@@ -61,61 +61,18 @@ struct DecimalNumberTextField: View {
                             .modifier(RadialGradientForegroundStyleModifier())
                             .opacity(0.5)
                     }
-                        
+                    
                     Spacer()
                 }
             }
-                TextField(placeholder, text: binding(for: $decimalValue))
-                    .keyboardType(.decimalPad)
-                    .font(.plexSans(size: 55, weight: .medium))
-                    .dynamicTypeSize(.xSmall ... .xxLarge)
-                    .minimumScaleFactor(0.5)
-                    .lineLimit(1)
-                    .opacity(1)
-                    .foregroundColor(.clear)
-                    .overlay(
-                        RadialGradient(
-                            colors:
-                                [Color(red: 0.93, green: 0.85, blue: 0.75),
-                                 Color(red: 0.64, green: 0.6, blue: 0.89),
-                                 Color(red: 0.62, green: 0.95, blue: 0.92)]
-                            ,
-                            center: .topLeading,
-                            startRadius: 50,
-                            endRadius: 300
-                        )
-                        .allowsHitTesting(false)
-                        .saturation(2)
-                        .mask(alignment: .leading, {
-                            HStack(spacing: 8) {
-                                
-                                Text(textFieldText.isEmpty ? " " : textFieldText)
-                                    .font(.plexSans(size: 55, weight: .medium))
-                                    .dynamicTypeSize(.xSmall ... .xxLarge)
-                                    .minimumScaleFactor(0.5)
-                                    .lineLimit(1)
-                                    .multilineTextAlignment(.leading)
-                                    .allowsHitTesting(false)
-                                
-                                if let ticker, !textFieldText.isEmpty {
-                                    Text(ticker)
-                                        .font(.plexSans(size: 55, weight: .medium))
-                                        .dynamicTypeSize(.xSmall ... .xxLarge)
-                                        .minimumScaleFactor(0.5)
-                                        .lineLimit(1)
-                                        .modifier(RadialGradientForegroundStyleModifier())
-                                    Spacer()
-                                }
-                            }
-                        })
-                    )
-                    .onChange(of: decimalValue) { newDecimalValue in
-                        if !(newDecimalValue.value == 0) {
-                            self.textFieldText = TokenFormatter().plainString(from: newDecimalValue, decimalSeparator: ".")
-                        } else if newDecimalValue == .zero {
-                            self.textFieldText = ""
-                        }
+            AmountInputTextField(text: binding(for: $decimalValue), placeholder:placeholder, ticker: ticker)
+                .onChange(of: decimalValue) { newDecimalValue in
+                    if !(newDecimalValue.value == 0) {
+                        self.textFieldText = TokenFormatter().plainString(from: newDecimalValue, decimalSeparator: ".")
+                    } else if newDecimalValue == .zero {
+                        self.textFieldText = ""
                     }
+                }
         }
         .frame(height: 30)
         .onChange(of: fraction) { newValue in
@@ -183,7 +140,7 @@ struct DecimalNumberTextField: View {
     
     private func updateValues(with newValue: String) {
         var numberString = formatString(newValue)
-
+        
         // Format the string and reduce the tail
         numberString = decimalNumberFormatter.format(value: numberString)
         
@@ -297,5 +254,56 @@ private extension DecimalNumberFormatter {
         }
         
         return value
+    }
+}
+
+struct AmountInputTextField: View {
+    @Binding var text: String
+    let placeholder: String
+    let ticker: String?
+    
+    var tickerText: String {
+        text.isEmpty ? "" : " \(ticker ?? "")"
+    }
+    
+    var body: some View {
+        TextField(placeholder, text: $text)
+            .keyboardType(.decimalPad)
+            .font(.plexSans(size: 55, weight: .medium))
+            .dynamicTypeSize(.xSmall ... .xxLarge)
+            .minimumScaleFactor(0.5)
+            .lineLimit(1)
+            .opacity(1)
+            .foregroundColor(.clear)
+            .overlay(
+                RadialGradient(
+                    colors:
+                        [Color(red: 0.93, green: 0.85, blue: 0.75),
+                         Color(red: 0.64, green: 0.6, blue: 0.89),
+                         Color(red: 0.62, green: 0.95, blue: 0.92)]
+                    ,
+                    center: .topLeading,
+                    startRadius: 50,
+                    endRadius: 300
+                )
+                .allowsHitTesting(false)
+                .saturation(2)
+                .mask(alignment: .leading, {
+                    HStack(spacing: 8) {
+                        Group {
+                            Text(text.isEmpty ? " " : text)
+                            + Text(tickerText)
+                        }
+                        .font(.plexSans(size: 55, weight: .medium))
+                        .dynamicTypeSize(.xSmall ... .xxLarge)
+                        .minimumScaleFactor(0.5)
+                        .lineLimit(1)
+                        .multilineTextAlignment(.leading)
+                        .allowsHitTesting(false)
+                        
+                        Spacer()
+                    }
+                })
+            )
     }
 }
