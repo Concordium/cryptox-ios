@@ -135,6 +135,10 @@ struct DelegationAmountInputView: View {
         .padding(.horizontal, 18)
         .padding(.top, 40)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .onReceive(viewModel.$alertOptions) { newValue in
+            guard newValue != nil else { return }
+            isFocused = false
+        }
         .modifier(AppBackgroundModifier())
         .modifier(AlertModifier(alertOptions: viewModel.alertOptions, isPresenting: $viewModel.showAlert))
     }
