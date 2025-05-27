@@ -1,6 +1,11 @@
 # Changelog
 
-## [Unreleased 3.3.2]
+## [Unreleased 3.3.3]
+- WAL-867 Earn flow_keyboard input field bug
+- WAL-867 Earn flow bug
+- WAL-856 Create separate local package - replacing legacy mobile wallet lib
+
+## [Released 3.3.2] Max 13, 2025
 
 ### Fixed
 - Fix WertIO flow.
