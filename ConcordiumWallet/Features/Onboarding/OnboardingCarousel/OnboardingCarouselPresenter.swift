@@ -41,13 +41,17 @@ protocol OnboardingCarouselPresenterProtocol: AnyObject {
 final class OnboardingCarouselPresenter: OnboardingCarouselPresenterProtocol {
 
     weak var view: OnboardingCarouselViewProtocol?
-    weak var delegate: OnboardingCarouselPresenterDelegate?
+    var delegate: OnboardingCarouselPresenterDelegate?
 
     private var viewModel: OnboardingCarouselViewModel
 
     init(delegate: OnboardingCarouselPresenterDelegate?, viewModel: OnboardingCarouselViewModel) {
         self.delegate = delegate
         self.viewModel = viewModel
+    }
+    
+    deinit {
+        delegate = nil
     }
 
     func viewDidLoad() {

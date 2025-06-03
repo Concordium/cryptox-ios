@@ -19,6 +19,7 @@ class BurgerMenuFactory {
 
 class BurgerMenuViewController: BaseViewController, BurgerMenuViewProtocol, Storyboarded, ShowToast {
     
+    @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
     var presenter: BurgerMenuPresenterProtocol
@@ -52,6 +53,7 @@ class BurgerMenuViewController: BaseViewController, BurgerMenuViewProtocol, Stor
         self.presenter.view = self
         self.presenter.viewDidLoad()
         
+        title = "baking.status.settings.title".localized
         // Do any additional setup after loading the view.
     }
     
@@ -65,6 +67,10 @@ class BurgerMenuViewController: BaseViewController, BurgerMenuViewProtocol, Stor
             delegate: self
         )
         return cell
+    }
+    
+    @IBAction func closeButtonTapped(_ sender: Any) {
+        dismiss(animated: true)
     }
     
     func bind(to viewModel: BurgerMenuViewModel) {

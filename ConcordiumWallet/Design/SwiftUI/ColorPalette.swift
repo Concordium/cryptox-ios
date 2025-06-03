@@ -102,41 +102,6 @@ extension Pallette {
     }
 }
 
-
-//extension Color {
-//    static var deepBlue: Color {
-//        Color("deep_blue")
-//    }
-//    
-//    static var blackAditional: Color {
-//        Color("black_aditional")
-//    }
-//    
-//    static var blackSecondary: Color {
-//        Color("black_secondary")
-//    }
-//    
-//    static var ccdBackground: Color {
-//        Color("ccd_background")
-//    }
-//    
-//    static var graySecondary: Color {
-//        Color("grey_secondary")
-//    }
-//    
-//    static var grayMain: Color {
-//        Color(hex: 0xA9AEB9)
-//    }
-//    
-//    static var greySecondary: Color {
-//        Color("grey_secondary")
-//    }
-//    
-//    static var greenSecondary: Color {
-//        Color("green_secondary")
-//    }
-//}
-
 extension Color {
     init(hex: UInt, alpha: Double = 1) {
         self.init(

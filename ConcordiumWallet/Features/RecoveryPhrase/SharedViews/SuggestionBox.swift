@@ -39,7 +39,7 @@ struct SuggestionBox: View {
                 let isSelected = suggestion.value == selectedSuggestion
                 Text(suggestion.value)
                     .foregroundColor(isSelected ? Pallette.greySecondary : Pallette.greySecondary.opacity(0.7))
-                    .font(.system(size: 15, weight: .medium))
+                    .font(.satoshi(size: 15, weight: .medium))
                     .frame(maxWidth: .infinity, minHeight: minHeight)
                     .overlay(Capsule().stroke(Color(red: 0.66, green: 0.68, blue: 0.73).opacity(0.2), lineWidth: 1))
                     .opacity(suggestion.value.isEmpty ? 0 : 1)

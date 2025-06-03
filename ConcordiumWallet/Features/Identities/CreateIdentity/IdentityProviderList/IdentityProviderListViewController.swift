@@ -87,7 +87,7 @@ class IdentityProviderListViewController: BaseViewController, Storyboarded {
             let fullRange = NSRange(location: 0, length: attributedOriginalText.length)
             attributedOriginalText.addAttribute(.link, value: identity.url ?? "", range: linkRange)
             attributedOriginalText.addAttribute(.paragraphStyle, value: style, range: fullRange)
-            attributedOriginalText.addAttribute(.font, value: UIFont.systemFont(ofSize: 14), range: fullRange)
+            attributedOriginalText.addAttribute(.font, value: UIFont.satoshi(size: 14, weight: .medium), range: fullRange)
             attributedOriginalText.addAttribute(.foregroundColor, value: UIColor.text, range: fullRange)
         }
 

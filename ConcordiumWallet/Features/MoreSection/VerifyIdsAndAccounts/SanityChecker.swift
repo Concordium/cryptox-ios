@@ -15,17 +15,11 @@ enum SanityCheckerMode {
     case manual
 }
 
-//protocol ImportExport: AnyObject {
-//    func showImport()
-//    func showExport()
-//}
-
 class SanityChecker: ObservableObject {
     var errorDisplayer: ShowAlert?
     var mobileWallet: MobileWalletProtocol
     var storageManager: StorageManagerProtocol
     weak var coordinator: Coordinator?
-//    weak var delegate: ImportExport?
     
     private var cancellables: [AnyCancellable] = []
     
@@ -117,8 +111,7 @@ class SanityChecker: ObservableObject {
             self?.keepAsReadOnly(report: report)
             completion()
         }
-        let redirectToImport = UIAlertAction(title: "more.validateIdsAndAccount.import".localized, style: .cancel) {  [weak self] (_) in
-//            self?.redirectToImport()
+        let redirectToImport = UIAlertAction(title: "more.validateIdsAndAccount.import".localized, style: .cancel) { (_) in
             completion()
         }
         
@@ -133,12 +126,8 @@ class SanityChecker: ObservableObject {
         alert.addAction(keepAsReadonly)
         alert.addAction(redirectToImport)
         
-//        present(alert, animated: true)
     }
-    
-//    private func redirectToImport() {
-//        self.delegate?.showImport()
-//    }
+
     /*
      The method returns the identities that failed to be removed. If some of the identities in the report also
      contain accounts that have keys, that identity will not be removed
@@ -208,13 +197,11 @@ class SanityChecker: ObservableObject {
             self?.keepAsReadOnly(report: report)
             completion()
         }
-        let redirectToImport = UIAlertAction(title: "more.validateIdsAndAccount.import".localized, style: .default) {  [weak self] (_) in
-//            self?.redirectToImport()
+        let redirectToImport = UIAlertAction(title: "more.validateIdsAndAccount.import".localized, style: .default) { (_) in
             completion()
         }
         alert.addAction(removeAction)
         alert.addAction(keepAsReadonly)
-//        alert.addAction(redirectToImport)
         present(alert, animated: true)
     }
     /*

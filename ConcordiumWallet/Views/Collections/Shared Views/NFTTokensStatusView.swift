@@ -55,7 +55,7 @@ extension NFTTokensStatusView {
         searchBar.backgroundImage = UIImage()
         // Remove border of search field to match design
         let searchField = searchBar.searchTextField
-        searchField.font = UIFont.systemFont(ofSize: 17.0)
+        searchField.font = UIFont.satoshi(size: 17.0, weight: .medium)
         searchField.layer.cornerRadius = 8.0
         searchField.borderStyle = .none
         searchField.backgroundColor = UIColor.greyAdditional.withAlphaComponent(0.1)

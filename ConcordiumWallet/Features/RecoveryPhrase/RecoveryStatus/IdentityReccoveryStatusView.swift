@@ -16,10 +16,10 @@ struct IdentityReccoveryStatusView: Page {
             HStack(spacing: 12) {
                 VStack(alignment: .leading, spacing: 16) {
                     Text(viewModel.title)
-                        .font(Font.system(size: 19, weight: .medium))
+                        .font(Font.satoshi(size: 19, weight: .medium))
                         .foregroundColor(.white)
                     Text(viewModel.message)
-                        .font(Font.system(size: 15, weight: .medium))
+                        .font(Font.satoshi(size: 15, weight: .medium))
                         .foregroundColor(.white)
                 }
                 Spacer()
@@ -53,15 +53,6 @@ struct IdentityReccoveryStatusView: Page {
         switch viewModel.status {
         case .fetching:
             EmptyView()
-//        case .emptyResponse:
-//            Button(viewModel.tryAgain) {
-//                viewModel.send(.fetchIdentities)
-//            }
-//            .applyStandardButtonStyle()
-//            .padding([.bottom], 16)
-//            Button(viewModel.changeRecoveryPhrase) {
-//                viewModel.send(.changeRecoveryPhrase)
-//            }.applyStandardButtonStyle()
         case .success, .emptyResponse:
             Button(viewModel.continueLongLabel) {
                 viewModel.send(.finish)
@@ -79,22 +70,6 @@ struct IdentityReccoveryStatusView: Page {
             }
         }
     }
-    
-//    private var titleColor: Color {
-//        if viewModel.status == .emptyResponse {
-//            return Pallette.error
-//        } else {
-//            return Pallette.primary
-//        }
-//    }
-    
-//    private var messageColor: Color {
-//        if viewModel.status == .fetching {
-//            return Pallette.fadedText
-//        } else {
-//            return Pallette.text
-//        }
-//    }
     
     private var imageName: String {
         switch viewModel.status {
@@ -118,11 +93,11 @@ private struct IdentityList: View {
                 VStack {
                     HStack{
                         Text(identity.nickname)
-                            .font(.system(size: 16, weight: .semibold))
+                            .font(.satoshi(size: 16, weight: .semibold))
                             .foregroundColor(.white)
                         Spacer()
                         Text("Accounts: \(accounts.filter { $0.identity?.id == identity.id }.count)")
-                            .font(.system(size: 15, weight: .medium))
+                            .font(.satoshi(size: 15, weight: .medium))
                             .foregroundColor(Color(red: 0.83, green: 0.84, blue: 0.86))
                             .padding(.horizontal, 12)
                             .padding(.vertical, 4)
@@ -140,11 +115,11 @@ private struct IdentityList: View {
                         if account.identity!.id == identity.id {
                             HStack {
                                 Text(account.displayName)
-                                    .font(.system(size: 15, weight: .medium))
+                                    .font(.satoshi(size: 15, weight: .medium))
                                     .foregroundColor(Color(red: 0.73, green: 0.75, blue: 0.78))
                                 Spacer()
                                 Text(GTU(intValue: account.finalizedBalance).displayValueWithCCDStroke())
-                                    .font(.system(size: 15, weight: .medium))
+                                    .font(.satoshi(size: 15, weight: .medium))
                                     .foregroundColor(.white)
                             }
                             .padding(20)
@@ -179,34 +154,8 @@ struct IdentityReccoveryStatusView_Previews: PreviewProvider {
                 continueLongLabel: "Continue to wallet",
                 continueLabel: "Continue",
                 tryAgain: "Try again"
-//                changeRecoveryPhrase: "Enter another recovery phrase"
             )
         )
-        
-//        IdentityReccoveryStatusView(
-//            viewModel: .init(
-//                status: .emptyResponse,
-//                title: "We found nothing to recover.",
-//                message: """
-//There was no accounts to be found for the secret recovery phrase. Did you maybe enter a wrong recovery phrase?
-//
-//If you only have an identity and no accounts, this can also be the reason. In this case please specify which identity provider you used to get your identity, so we can send them a request.
-//""",
-//                continueLabel: "Continue to wallet",
-//                tryAgain: "Try again"
-////                changeRecoveryPhrase: "Enter another recovery phrase")
-//        )
-        
-//        IdentityReccoveryStatusView(
-//            viewModel: .init(
-//                status: .success([IdentityEntity()], [AccountEntity()]),
-//                title: "Recovery finished",
-//                message: "You have successfully recovered:",
-//                continueLabel: "Continue to wallet",
-//                tryAgain: "Try again"
-////                changeRecoveryPhrase: "Enter another recovery phrase"
-//            )
-//        )
     }
 }
 
@@ -225,6 +174,10 @@ private extension TestIdentity {
 private final class TestIdentity: IdentityDataType {
     func write(code: (TestIdentity) -> Void) -> Result<Void, Error> {
         .success(())
+    }
+    
+    func isObjectInvalidated() -> Bool {
+        return false
     }
     
     var id: String = UUID().uuidString
@@ -280,7 +233,7 @@ private extension TestAccountDataType {
     )
 }
 private final class TestAccountDataType: AccountDataType {
-    internal init(name: String? = nil, displayName: String, address: String, accountIndex: Int, submissionId: String? = nil, transactionStatus: SubmissionStatusEnum? = nil, encryptedAccountData: String? = nil, encryptedPrivateKey: String? = nil, encryptedCommitmentsRandomness: String? = nil, identity: IdentityDataType? = nil, revealedAttributes: [String : String], finalizedBalance: Int, forecastBalance: Int, finalizedEncryptedBalance: Int, forecastEncryptedBalance: Int, totalForecastBalance: Int, encryptedBalance: EncryptedBalanceDataType? = nil, encryptedBalanceStatus: ShieldedAccountEncryptionStatus? = nil, accountNonce: Int, credential: Credential? = nil, createdTime: Date, usedIncomingAmountIndex: Int, isReadOnly: Bool, baker: BakerDataType? = nil, delegation: DelegationDataType? = nil, releaseSchedule: ReleaseScheduleDataType? = nil, transferFilters: TransferFilter? = nil, showsShieldedBalance: Bool, hasShieldedTransactions: Bool) {
+    internal init(name: String? = nil, displayName: String, address: String, accountIndex: Int, submissionId: String? = nil, transactionStatus: SubmissionStatusEnum? = nil, encryptedAccountData: String? = nil, encryptedPrivateKey: String? = nil, encryptedCommitmentsRandomness: String? = nil, identity: IdentityDataType? = nil, revealedAttributes: [String : String], finalizedBalance: Int, forecastBalance: Int, finalizedEncryptedBalance: Int, forecastEncryptedBalance: Int, totalForecastBalance: Int, encryptedBalance: EncryptedBalanceDataType? = nil, encryptedBalanceStatus: ShieldedAccountEncryptionStatus? = nil, accountNonce: Int, credential: Credential? = nil, createdTime: Date, usedIncomingAmountIndex: Int, isReadOnly: Bool, baker: BakerDataType? = nil, delegation: DelegationDataType? = nil, cooldowns: [CooldownDataType] = [], releaseSchedule: ReleaseScheduleDataType? = nil, transferFilters: TransferFilter? = nil, showsShieldedBalance: Bool, hasShieldedTransactions: Bool) {
         self.name = name
         self.displayName = displayName
         self.address = address
@@ -310,6 +263,7 @@ private final class TestAccountDataType: AccountDataType {
         self.transferFilters = transferFilters
         self.showsShieldedBalance = showsShieldedBalance
         self.hasShieldedTransactions = hasShieldedTransactions
+        self.cooldowns = cooldowns
     }
     
     var name: String?
@@ -370,7 +324,13 @@ private final class TestAccountDataType: AccountDataType {
     
     var hasShieldedTransactions: Bool
     
+    var cooldowns: [any CooldownDataType]
+    
     func write(code: (TestAccountDataType) -> Void) -> Result<Void, Error> {
         .success(())
+    }
+    
+    func isObjectInvalidated() -> Bool {
+        return false
     }
 }

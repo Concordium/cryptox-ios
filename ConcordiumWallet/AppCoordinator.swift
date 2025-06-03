@@ -11,9 +11,6 @@ import UIKit
 import Combine
 import SwiftUI
 
-import WalletConnectPairing
-import Web3Wallet
-
 @MainActor
 class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate {
     
@@ -24,29 +21,39 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     
     var mode: Mode = .standart
     var childCoordinators = [Coordinator]()
+    weak var notificationNavigationDelegate: NotificationNavigationDelegate?
 
     var navigationController: UINavigationController
     let defaultProvider = ServicesProvider.defaultProvider()
     private var cancellables: [AnyCancellable] = []
     private var sanityChecker: SanityChecker
+    private var navigationManager = NavigationManager()
     private var accountsCoordinator: AccountsCoordinator?
     
+    let walletConnectService: WalletConnectService = WalletConnectService()
+
     private var isMainFlowActive: Bool = false
     var appStartOpenURLAction: AppStartOpenURLAction = .none
     enum AppStartOpenURLAction {
         case none
         case openWalletConnect(URL)
+        case openTransactionDetailsFromNotification([AnyHashable: Any])
     }
     
     private let defaultCIS2TokenManager: DefaultCIS2TokenManager
     
     @AppStorage("isRestoredDefaultCIS2Tokens") private var isRestoredDefaultCIS2Tokens = false
     @AppStorage("isAcceptedPrivacy") private var isAcceptedPrivacy = false
-
+    ///
+    /// Well, this is was done because of keychain migration issue,  we can remove this after some migration
+    /// Release with this changes will be 2.0.0
+    ///
+    @AppStorage("shoudlLogoutAllUsers") private var shoudlLogoutAllUsers = true
+    
     override init() {
         navigationController = CXNavigationController()
         sanityChecker = SanityChecker(mobileWallet: defaultProvider.mobileWallet(), storageManager: defaultProvider.storageManager())
-        self.defaultCIS2TokenManager = .init(storageManager: defaultProvider.storageManager())
+        self.defaultCIS2TokenManager = .init(storageManager: defaultProvider.storageManager(), networkManager: defaultProvider.networkManager())
         
         super.init()
         sanityChecker.coordinator = self
@@ -59,6 +66,8 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         }
 
         AppSettings.hasRunBefore = true
+        
+        legacyLogoutMigration()
         showLogin()
     }
     
@@ -77,26 +86,28 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     private func onboardingDone() {
         defaultProvider.storageManager().removeAccountsWithoutAddress()
         
-        let identities = defaultProvider.storageManager().getIdentities()
+        let identities = defaultProvider.storageManager().getIdentities().filter({$0.identityCreationError.isEmpty})
         let accounts = defaultProvider.storageManager().getAccounts()
         
-        if !accounts.isEmpty || !identities.isEmpty {
+        if !accounts.isEmpty || !identities.isEmpty || defaultProvider.keychainWrapper().passwordCreated() {
             showMainTabbar()
         } else {
             showInitialIdentityCreation()
         }
         // Remove login from hierarchy.
-        self.navigationController.viewControllers = [self.navigationController.viewControllers.last!]
+        let lastViewController = self.navigationController.viewControllers.last
+        if #unavailable(iOS 17) {
+            self.navigationController.dismiss(animated: false)
+        }
+        self.navigationController.viewControllers = [lastViewController!]
         childCoordinators.removeAll {$0 is LoginCoordinator}
     }
     
-//    createNewAccount()
     private func showNewOnboardingFlow() {
         navigationController.popViewController(animated: false)
         navigationController.setViewControllers([UIHostingController(
             rootView:
                 OnboardingRootView(
-                    keychain: .init(),
                     identitiesService: defaultProvider.seedIdentitiesService(),
                     defaultProvider: defaultProvider,
                     onIdentityCreated: { [weak self] in
@@ -129,13 +140,12 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     
 
     private func showLogin() {
-        let identities = defaultProvider.storageManager().getIdentities()
+        let identities = defaultProvider.storageManager().getIdentities().filter({$0.identityCreationError.isEmpty})
         let accounts = defaultProvider.storageManager().getAccounts()
         
         navigationController.popViewController(animated: false)
         
-        
-        if !accounts.isEmpty || !identities.isEmpty {
+        if !accounts.isEmpty || !identities.isEmpty || defaultProvider.keychainWrapper().passwordCreated() {
             navigationController.setViewControllers([UIHostingController(
                 rootView:
                     PasscodeView(keychain: defaultProvider.keychainWrapper(), sanityChecker: sanityChecker) { _ in
@@ -156,17 +166,25 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
                 
         }
     }
-
+    
+    @MainActor
+    private func legacyLogoutMigration() {
+        guard shoudlLogoutAllUsers else { return }
+        isAcceptedPrivacy = false
+        isRestoredDefaultCIS2Tokens = false
+        clearAppDataFromPreviousInstall()
+        try? defaultProvider.storageManager().removeAllAccounts()
+        shoudlLogoutAllUsers = false
+    }
+    
     func showMainTabbar() {
         let accountsCoordinator = AccountsCoordinator(
             navigationController: CXNavigationController(),
             dependencyProvider: defaultProvider,
-            appSettingsDelegate: self
+            appSettingsDelegate: self,
+            walletConnectService: walletConnectService
         )
         self.accountsCoordinator = accountsCoordinator
-        
-        let collectionsCoordinator = CollectionsCoordinator(navigationController: CXNavigationController(),
-                                                      dependencyProvider: defaultProvider)
         
         let moreCoordinator = MoreCoordinator(navigationController: CXNavigationController(),
                                               dependencyProvider: defaultProvider,
@@ -174,13 +192,14 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         )
         
         let tabBarController = MainTabBarController(accountsCoordinator: accountsCoordinator,
-                                                    collectionsCoordinator: collectionsCoordinator,
                                                     moreCoordinator: moreCoordinator,
-                                                    accountsMainRouter: .init(dependencyProvider: defaultProvider, walletConnectService: .init())
+                                                    accountsMainRouter: .init(dependencyProvider: defaultProvider, walletConnectService: walletConnectService)
                                 )
         self.navigationController.setNavigationBarHidden(true, animated: false)
-        self.navigationController.pushViewController(tabBarController, animated: true)
+        self.navigationController.view.setFadeAnimation()
+        self.navigationController.pushViewController(tabBarController, animated: false)
         
+        self.notificationNavigationDelegate = tabBarController
         self.isMainFlowActive = true
         self.handleOpenURLActionIfNeeded()
         
@@ -195,6 +214,8 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
 
         
         guard defaultProvider.keychainWrapper().passwordCreated() else {
+            navigationController.dismiss(animated: true)
+
             navigationController.present(UIHostingController(
                 rootView:
                     PasscodeView(keychain: defaultProvider.keychainWrapper(), sanityChecker: sanityChecker) { _ in
@@ -213,11 +234,14 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
                                                   parentCoordinator: self,
                                                   importFileUrl: url)
         importCoordinator.navigationController.modalPresentationStyle = .fullScreen
-        navigationController.present(importCoordinator.navigationController, animated: true)
-        importCoordinator.navigationController.presentationController?.delegate = self
-        importCoordinator.start()
-        childCoordinators.append(importCoordinator)
-    }
+        dismissAllPresentedViewControllers {
+               self.navigationController.present(importCoordinator.navigationController, animated: true)
+           }
+
+           importCoordinator.navigationController.presentationController?.delegate = self
+           importCoordinator.start()
+           childCoordinators.append(importCoordinator)
+       }
     
     func showInitialIdentityCreation() {
         if FeatureFlag.enabledFlags.contains(.recoveryCode) {
@@ -356,7 +380,7 @@ extension AppCoordinator: LoginCoordinatorDelegate {
         let identities = defaultProvider.storageManager().getIdentities()
         let accounts = defaultProvider.storageManager().getAccounts()
         
-        if !accounts.isEmpty || !identities.isEmpty {
+        if !accounts.isEmpty || !identities.isEmpty || defaultProvider.keychainWrapper().passwordCreated() {
             showMainTabbar()
         } else {
             showInitialIdentityCreation()
@@ -419,36 +443,7 @@ extension AppCoordinator: IdentitiesCoordinatorDelegate {
 
 
 extension AppCoordinator: AppSettingsDelegate {
-    func checkForAppSettings() {
-//        guard needsAppCheck else { return }
-//        needsAppCheck = false
-//
-//        defaultProvider.appSettingsService()
-//            .getAppSettings()
-//            .sink(
-//                receiveCompletion: { _ in },
-//                receiveValue: { [weak self] response in
-//                    self?.handleAppSettings(response: response)
-//                }
-//            )
-//            .store(in: &cancellables)
-    }
-    
-//    private func handleAppSettings(response: AppSettingsResponse) {
-//        showUpdateDialogIfNeeded(
-//            appSettingsResponse: response
-//        ) { action in
-//            switch action {
-//            case .update(let url, let forced):
-//                if forced {
-//                    self.handleAppSettings(response: response)
-//                }
-//                UIApplication.shared.open(url)
-//            case .cancel:
-//                break
-//            }
-//        }
-//    }
+    func checkForAppSettings() {}
 }
 
 extension AppCoordinator: RecoveryPhraseCoordinatorDelegate {
@@ -465,6 +460,10 @@ extension AppCoordinator: RecoveryPhraseCoordinatorDelegate {
 
 extension AppCoordinator: SeedIdentitiesCoordinatorDelegate {
     func seedIdentityCoordinatorWasFinished(for identity: IdentityDataType) {
+        showMainTabbar()
+    }
+    
+    func seedIdentityCoordinatorDidFail(with error: IdentityRejectionError) {
         showMainTabbar()
     }
 }
@@ -504,16 +503,7 @@ extension AppCoordinator {
     func didSelectPendingIdentity(identity: IdentityDataType) {
     }
 
-    func newTermsAvailable() {
-//        accountsCoordinator?.showNewTerms()
-    }
-    
-    func showSettings() {
-//        let moreCoordinator = MoreCoordinator(navigationController: self.navigationController,
-//                                              dependencyProvider: defaultProvider,
-//                                              parentCoordinator: self)
-//        moreCoordinator.start()
-    }
+    func showSettings() {}
 }
 
 extension AppCoordinator: MoreCoordinatorDelegate {
@@ -525,6 +515,14 @@ extension AppCoordinator: MoreCoordinatorDelegate {
         ), animated: true)
     }
     
+    func showExportWalletPrivateKey() {
+        navigationController.present(UIHostingController(
+            rootView:
+                ExportWalletPrivateKeyView(viewModel: .init(dependencyProvider: defaultProvider))
+
+        ), animated: true)
+    }
+    
     func logoutAccounts() {
         isAcceptedPrivacy = false
         isRestoredDefaultCIS2Tokens = false
@@ -532,7 +530,9 @@ extension AppCoordinator: MoreCoordinatorDelegate {
         accountsCoordinator?.childCoordinators.removeAll()
         accountsCoordinator = nil
         childCoordinators.removeAll()
+        AppSettings.removeImportedWalletSetings()
         navigationController = CXNavigationController()
+        UserDefaults.standard.set(false, forKey: "showConfettiAnimation")
         UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController = navigationController
         start()
     }
@@ -551,12 +551,12 @@ extension AppCoordinator {
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             
-            if let error = error { return }
+            if error != nil { return }
             guard let data = data else { return }
             
             do {
                 let dataResponse = try JSONDecoder().decode(QRDataResponse.self, from: data)
-                let t = try JSONSerialization.jsonObject(with: data, options: [])
+                _ = try JSONSerialization.jsonObject(with: data, options: [])
                 
                 DispatchQueue.main.async {
                     let vc = ConnectionRequestVC.instantiate(fromStoryboard: "QRConnect") { coder in
@@ -579,16 +579,20 @@ extension AppCoordinator {
 }
 
 extension AppCoordinator {
-    public func openWCConnect(_ uri: URL) {
+    public func openWCConnect(_ url: URL) {
         guard isMainFlowActive else {
-            self.appStartOpenURLAction = .openWalletConnect(uri)
-            logger.debugLog("postponed action -- \(uri.absoluteString)")
+            self.appStartOpenURLAction = .openWalletConnect(url)
+            logger.debugLog("postponed action -- \(url.absoluteString)")
             return
         }
-        accountsCoordinator?.handlWCDeeplinkConnect(uri)
+        
+        if let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems, let uriValue = queryItems.first(where: { $0.name == "uri" })?.value {
+            accountsCoordinator?.showWalletConnectFlow(uriValue)
+        } else if let uriValue = url.absoluteString.components(separatedBy: "://").last {
+            accountsCoordinator?.showWalletConnectFlow(uriValue)
+        }
     }
 }
-
 
 extension AppCoordinator {
     private func handleOpenURLActionIfNeeded() {
@@ -599,6 +603,22 @@ extension AppCoordinator {
                 logger.debugLog("openWalletConnect -- \(url.absoluteString)")
                 self.openWCConnect(url)
                 self.appStartOpenURLAction = .none
+            case .openTransactionDetailsFromNotification(let userInfo):
+                logger.debugLog("openTransactionDetailsFromNotification")
+                self.handleOpeningTransactionFromNotification(with: userInfo)
+                self.appStartOpenURLAction = .none
         }
+    }
+}
+
+extension AppCoordinator {
+    func handleOpeningTransactionFromNotification(with userInfo: [AnyHashable: Any]) {
+        guard isMainFlowActive else {
+            self.appStartOpenURLAction = .openTransactionDetailsFromNotification(userInfo)
+            logger.debugLog("postponed action -- openTransactionDetailsFromNotification")
+            return
+        }
+        
+        notificationNavigationDelegate?.openTransactionFromNotification(with: userInfo)
     }
 }

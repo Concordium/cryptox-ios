@@ -15,6 +15,8 @@ protocol DelegationDataType: DataStoreProtocol {
     var delegationTargetType: String { get set}
     var delegationTargetBakerID: Int { get set}
     var pendingChange: PendingChangeDataType? { get set }
+    var isSuspended: Bool { get set }
+    var isPrimedForSuspension: Bool { get set }
 }
 
 final class DelegationEntity: Object {
@@ -23,6 +25,8 @@ final class DelegationEntity: Object {
     @objc dynamic var delegationTargetType: String = ""
     @objc dynamic var delegationTargetBakerID: Int = -1
     @objc dynamic var pendingChangeEntity: PendingChangeEntity?
+    @objc dynamic var isSuspended: Bool = false
+    @objc dynamic var isPrimedForSuspension: Bool = false
     
     convenience init(accountDelegationModel: AccountDelegation) {
         self.init()
@@ -31,6 +35,8 @@ final class DelegationEntity: Object {
         self.delegationTargetType = accountDelegationModel.delegationTarget.delegateType
         self.delegationTargetBakerID = accountDelegationModel.delegationTarget.bakerID ?? -1
         self.pendingChangeEntity = PendingChangeEntity(pendingChange: accountDelegationModel.pendingChange)
+        self.isSuspended = accountDelegationModel.isSuspended ?? false
+        self.isPrimedForSuspension = accountDelegationModel.isPrimedForSuspension ?? false
     }
 }
 
@@ -41,6 +47,16 @@ extension DelegationEntity: DelegationDataType {
         }
         set {
             self.pendingChangeEntity = newValue as? PendingChangeEntity
+        }
+    }
+}
+
+extension DelegationDataType {
+    var isInCooldown: Bool {
+        if let pendingChange = pendingChange, pendingChange.change != .NoChange {
+            return true
+        } else {
+            return false
         }
     }
 }

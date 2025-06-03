@@ -39,13 +39,6 @@ class BurgerMenuOptionCell: UITableViewCell {
         optionButton.setTitle(title, for: .normal)
         optionButton.setTitleColor(destructive ? .errorText : .text, for: .normal)
         optionButton.setTitleColor(.fadedText, for: .disabled)
-//        if destructive {
-//            optionButton
-//                .applyConcordiumEdgeStyle(color: .errorText)
-//        } else if !enabled {
-//            optionButton
-//                .applyConcordiumEdgeStyle(color: .fadedText)
-//        }
         optionButton.isEnabled = enabled
     }
     

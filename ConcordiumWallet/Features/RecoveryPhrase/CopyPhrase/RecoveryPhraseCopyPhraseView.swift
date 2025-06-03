@@ -28,7 +28,7 @@ struct RecoveryPhraseCopyPhraseView: Page {
                 List {
                     VStack(alignment: .leading, spacing: 12) {
                         Text(viewModel.title)
-                            .font(Font.system(size: 19, weight: .medium))
+                            .font(Font.satoshi(size: 19, weight: .medium))
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
                             .multilineTextAlignment(.leading)
@@ -53,7 +53,7 @@ struct RecoveryPhraseCopyPhraseView: Page {
             } else {
                 VStack(spacing: 20) {
                     Text(viewModel.recoveryPhrase.hiddenMessage)
-                      .font(Font.system(size: 19, weight: .medium))
+                      .font(Font.satoshi(size: 19, weight: .medium))
                       .foregroundColor(Color(red: 0.83, green: 0.84, blue: 0.86))
                     Button("Reveal") {
                         withAnimation {
@@ -134,10 +134,10 @@ private struct WordPill: View {
     var body: some View {
         HStack(spacing: 16) {
             Text("\(index + 1).")
-                .font(Font.system(size: 15, weight: .medium))
+                .font(Font.satoshi(size: 15, weight: .medium))
                 .foregroundColor(.greySecondary)
             Text(word)
-                .font(Font.system(size: 15, weight: .medium))
+                .font(Font.satoshi(size: 15, weight: .medium))
                 .foregroundColor(.greySecondary)
                 .lineLimit(1)
             Spacer()
@@ -165,7 +165,7 @@ private struct ValidationBox: View {
                     .resizable()
                     .frame(width: 32, height: 32)
                 Text(title)
-                    .font(Font.system(size: 15, weight: .medium))
+                    .font(Font.satoshi(size: 15, weight: .medium))
                     .foregroundColor(.white)
             }
             .frame(maxWidth: .infinity)

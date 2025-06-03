@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 protocol CreateNewAccountDelegate: AnyObject {
     func createNewAccountFinished()
@@ -78,10 +79,10 @@ class CreateAccountCoordinator: Coordinator {
     }
 
     func showRevealAttributes(for account: AccountDataType) {
-        let vc = RevealAttributesFactory.create(with: RevealAttributesPresenter(account: account,
+        let vc = RevealAttributesFactory.create(with: ConfirmAccountCreatePresenter(account: account,
                                                                                 dependencyProvider: dependencyProvider,
                                                                                 delegate: self))
-
+        vc.title = account.name
         navigationController.pushViewController(vc, animated: true)
     }
     
@@ -93,6 +94,26 @@ class CreateAccountCoordinator: Coordinator {
     func showAccountFailed(error: Error) {
         let vc = CreationFailedFactory.create(with: CreationFailedPresenter(serverError: error, delegate: self, mode: .account))
         showModally(vc, from: navigationController)
+    }
+  
+    @MainActor
+    func createAccount(isCreatingAccount: Binding<Bool>) {
+        guard let identity = ServicesProvider.defaultProvider().storageManager().getConfirmedIdentities().first else {
+            isCreatingAccount.wrappedValue = false
+            return
+        }
+        Task {
+            do {
+                let account = try await ServicesProvider.defaultProvider().seedAccountsService().generateAccount(
+                    for: identity,
+                    revealedAttributes: [],
+                    requestPasswordDelegate: DummyRequestPasswordDelegate()
+                )
+            } catch {
+                isCreatingAccount.wrappedValue = false
+                showAccountFailed(error: error)
+            }
+        }
     }
 }
 
@@ -142,10 +163,6 @@ extension CreateAccountCoordinator: AccountConfirmedPresenterDelegate, CreationF
 }
 
 extension CreateAccountCoordinator: RevealAttributesPresenterDelegate {
-    func revealAttributes(_ account: AccountDataType) {
-        showIdentityAttributeSelection(for: account)
-    }
-    
     func revealPresentedCanceled() {
         parentCoordinator?.createNewAccountCancelled()
     }

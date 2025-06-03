@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import Web3Wallet
-import WalletConnectVerify
+import ReownWalletKit
+
 
 protocol SessionRequestDataProvidable {
     var title: String { get }

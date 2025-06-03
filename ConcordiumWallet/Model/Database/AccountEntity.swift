@@ -40,11 +40,11 @@ protocol AccountDataType: DataStoreProtocol {
    
     var baker: BakerDataType? { get set }
     var delegation: DelegationDataType? { get set }
+    var cooldowns: [CooldownDataType] { get set }
     
     var releaseSchedule: ReleaseScheduleDataType? { get set }
     var transferFilters: TransferFilter? { get set }
     
-    var showsShieldedBalance: Bool {get set}
     var hasShieldedTransactions: Bool {get set}
     
     func withUpdatedForecastBalance(_ forecastBalance: Int,
@@ -59,13 +59,13 @@ protocol AccountDataType: DataStoreProtocol {
                                      accountIndex: Int,
                                      delegation: DelegationDataType?,
                                      baker: BakerDataType?,
-                                     releaseSchedule: ReleaseScheduleDataType) -> AccountDataType
+                                     releaseSchedule: ReleaseScheduleDataType,
+                                     cooldowns: [CooldownDataType]) -> AccountDataType
     
     func withUpdatedIdentity(identity: IdentityDataType) -> AccountDataType
     func withUpdatedStatus(status: SubmissionStatusEnum) -> AccountDataType
     func withTransferFilters(filters: TransferFilter) -> AccountDataType
     func withMarkAsReadOnly(_ isReadOnly: Bool) -> AccountDataType
-    func withShowShielded(_ showsShieled: Bool) -> AccountDataType
 }
 
 extension AccountDataType {
@@ -74,6 +74,16 @@ extension AccountDataType {
         let scheduledTotal = releaseSchedule?.total ?? 0
         
         return forecastBalance - max(stakedAmount, scheduledTotal)
+    }
+    
+    var isStaking: Bool {
+        baker != nil || delegation != nil
+    }
+    
+    var stakedAmount: GTU {
+        let stakedSum = (baker?.stakedAmount ?? 0) + (delegation?.stakedAmount ?? 0)
+        let gtu = GTU(intValue: stakedSum)
+        return gtu
     }
     
     func withUpdatedForecastBalance(_ forecastBalance: Int, forecastShieldedBalance: Int) -> AccountDataType {
@@ -94,7 +104,8 @@ extension AccountDataType {
                                      accountIndex: Int,
                                      delegation: DelegationDataType?,
                                      baker: BakerDataType?,
-                                     releaseSchedule: ReleaseScheduleDataType) -> AccountDataType {
+                                     releaseSchedule: ReleaseScheduleDataType,
+                                     cooldowns: [CooldownDataType]) -> AccountDataType {
         _ = write {
             var pAccount = $0
             pAccount.finalizedBalance = finaliedBalance
@@ -107,6 +118,7 @@ extension AccountDataType {
             pAccount.baker = baker
             pAccount.releaseSchedule = releaseSchedule
             pAccount.hasShieldedTransactions = hasShieldedTransactions
+            pAccount.cooldowns = cooldowns
         }
         return self
     }
@@ -124,13 +136,6 @@ extension AccountDataType {
         _ = write {
             var pAccount = $0
             pAccount.transactionStatus = status
-        }
-        return self
-    }
-    func withShowShielded(_ showsShieled: Bool) -> AccountDataType {
-        _ = write {
-            var pAccount = $0
-            pAccount.showsShieldedBalance = showsShieled
         }
         return self
     }
@@ -192,6 +197,7 @@ final class AccountEntity: Object {
     @objc dynamic var releaseScheduleEntity: ReleaseScheduleEntity?
     @objc dynamic var bakerEntity: BakerEntity?
     @objc dynamic var delegationEntity: DelegationEntity?
+    var cooldownsList = List<CooldownEntity>()
     
     @objc dynamic var transferFilters: TransferFilter? = TransferFilter()
     var revealedAttributesList = List<IdentityAttributeEntity>()
@@ -251,6 +257,19 @@ extension AccountEntity: AccountDataType {
             let attributes = newValue.map { IdentityAttributeEntity(name: $0.key, value: $0.value) }
             revealedAttributesList.removeAll()
             revealedAttributesList.append(objectsIn: attributes)
+        }
+    }
+    
+    var cooldowns: [CooldownDataType] {
+        get {
+            return cooldownsList.map { $0 as CooldownDataType }
+        }
+        set {
+            cooldownsList.removeAll()
+            let newList = newValue.map({
+                CooldownEntity(accountCooldownModel: AccountCooldown(timestamp: $0.timestamp, amount: $0.amount, status: $0.status.rawValue))
+            })
+            cooldownsList.append(objectsIn: newList)
         }
     }
 

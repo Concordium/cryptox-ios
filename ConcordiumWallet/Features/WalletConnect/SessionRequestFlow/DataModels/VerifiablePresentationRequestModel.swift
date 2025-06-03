@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Web3Wallet
+import ReownWalletKit
 import WalletConnectVerify
 import Combine
 
@@ -152,6 +152,7 @@ extension VerifiablePresentationRequestModel {
                 return "fix me - nationalIdNo"
             case .taxIdNo:
                 return "fix me - taxIdNo"
+        default: return "fix me - \(statement.attributeTag)"
         }
     }
     

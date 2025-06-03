@@ -64,7 +64,7 @@ extension SeedAccountsService: SeedAccountsServiceProtocol {
             throw GeneralError.unexpectedNullValue
         }
         
-        let request = try await self.mobileWallet.createCredentialRequest(
+        let request = try self.mobileWallet.createCredentialRequest(
             for: identity,
             global: global,
             revealedAttributes: revealedAttributes,
@@ -84,14 +84,14 @@ extension SeedAccountsService: SeedAccountsServiceProtocol {
         
         let submissionResponse = try await submitCredentialRequest(request)
         
-        try await storeAccount(account)
+        try storeAccount(account)
         
         print("+++ Do tuka ne ide")
         
-        account = try await updateAccount(account, withSubmissionsId: submissionResponse.submissionID)
+        account = try updateAccount(account, withSubmissionsId: submissionResponse.submissionID)
         
         let status = try await getSubmissionStatus(for: submissionResponse)
-        account = try await updateAccount(account, withSubmissionStatus: status.status)
+        account = try updateAccount(account, withSubmissionStatus: status.status)
         
         return account
     }
@@ -153,9 +153,9 @@ extension SeedAccountsService: SeedAccountsServiceProtocol {
 
                     let accountBalance = try await getAccountBalance(for: request.accountAddress)
 
-                    if accountBalance.finalizedBalance != nil {
-                        account.finalizedBalance = Int(accountBalance.finalizedBalance!.accountAmount!)!
-                        account.accountIndex = accountBalance.finalizedBalance!.accountIndex
+                    if accountBalance.balance != nil {
+                        account.finalizedBalance = Int(accountBalance.balance!.accountAmount!)!
+                        account.accountIndex = accountBalance.balance!.accountIndex
 
                         try await storeAccount(account)
                         accounts.append(account)
@@ -170,7 +170,7 @@ extension SeedAccountsService: SeedAccountsServiceProtocol {
             }
             currentIndex += 1
         }
-
+        TransactionNotificationService().sendTokenToConcordiumServer()
         return accounts
     }
     

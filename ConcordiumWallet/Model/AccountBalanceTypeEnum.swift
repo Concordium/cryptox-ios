@@ -11,5 +11,4 @@ import Foundation
 enum AccountBalanceTypeEnum: String, Codable {
     case total
     case balance
-    case shielded
 }

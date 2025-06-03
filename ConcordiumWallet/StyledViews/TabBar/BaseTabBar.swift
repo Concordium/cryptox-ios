@@ -20,10 +20,10 @@ class BaseTabBarController: UITabBarController {
         tabBar.isTranslucent = true
 
         tabBar.tintColor = .white
-        tabBar.unselectedItemTintColor = UIColor.greySecondary
+        tabBar.unselectedItemTintColor = UIColor.MineralBlue.blueish3
         
         let appearance = UITabBarItem.appearance()
-        let attributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 12, weight: .medium)]
+        let attributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font:UIFont.satoshi(size: 12, weight: .medium)]
         appearance.setTitleTextAttributes(attributes, for: .normal)
     }
 }

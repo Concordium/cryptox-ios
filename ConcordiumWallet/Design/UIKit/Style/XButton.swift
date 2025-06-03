@@ -37,7 +37,7 @@ public class TapAnimationConfigurator {
 }
 
 extension UIFont {
-    static var button: UIFont { UIFont.systemFont(ofSize: 17, weight: .semibold) }
+    static var button: UIFont { UIFont.satoshi(size: 17, weight: .semibold) }
 }
 
 struct XButtonStyle {

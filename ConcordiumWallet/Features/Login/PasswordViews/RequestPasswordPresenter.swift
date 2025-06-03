@@ -101,7 +101,7 @@ extension RequestPasswordPresenter: PasscodeFieldDelegate {
     }
 }
 
-extension RequestPasswordPresenter: PasswordFieldDelegate {
+extension RequestPasswordPresenter: PasswordFieldDelegate {    
     func setPasswordState(valid: Bool) {
         self.view?.setContinueButtonEnabled(valid)
     }

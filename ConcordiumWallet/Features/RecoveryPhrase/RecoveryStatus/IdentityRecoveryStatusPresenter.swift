@@ -10,7 +10,6 @@ import Foundation
 
 protocol IdentityRecoveryStatusPresenterDelegate: RequestPasswordDelegate {
     func identityRecoveryCompleted()
-//    func reenterRecoveryPhrase()
 }
 
 class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusViewModel> {
@@ -50,7 +49,6 @@ class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusVi
                 continueLongLabel: "identityrecovery.status.continuelong".localized,
                 continueLabel: "identityrecovery.status.continue".localized,
                 tryAgain: "identityrecovery.status.tryagain".localized
-//                changeRecoveryPhrase: "identityrecovery.status.changerecoveryphrase".localized
             )
         )
         
@@ -69,10 +67,7 @@ class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusVi
                 
                 fetchIdentities()
             }
-//        case .changeRecoveryPhrase:
-//            if case .emptyResponse = viewModel.status {
-//                delegate?.reenterRecoveryPhrase()
-//            }
+
         case .finish:
             if !viewModel.status.isFecthing {
                 delegate?.identityRecoveryCompleted()

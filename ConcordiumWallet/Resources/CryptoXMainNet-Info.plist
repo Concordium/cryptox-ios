@@ -2,6 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>FirebaseAutomaticScreenReportingEnabled</key>
+	<false/>
+	<key>API_KEY</key>
+	<string>$(API_KEY)</string>
+	<key>MAINNET_WERT_API_KEY</key>
+	<string>$(MAINNET_WERT_API_KEY)</string>
+	<key>MAINNET_WERT_PARTNER_ID</key>
+	<string>$(MAINNET_WERT_PARTNER_ID)</string>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -96,8 +108,12 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>Concordium Support Mail</key>
+	<string>idiss@concordium.software</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
+	<true/>
+	<key>ITSEncryptionExportComplianceCode</key>
+	<string>6a4b12a4-5886-4e16-a74e-aed598cc486e</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
@@ -125,6 +141,12 @@
 	<string>Enable FaceID for more convenient login</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Used during verification identity stage</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>processing</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -144,6 +166,21 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Dark</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Satoshi-Bold.otf</string>
+		<string>Satoshi-Medium.otf</string>
+		<string>Satoshi-Regular.otf</string>
+		<string>IBMPlexMono-Bold.ttf</string>
+		<string>IBMPlexMono-Medium.ttf</string>
+		<string>IBMPlexMono-Regular.ttf</string>
+		<string>IBMPlexMono-SemiBold.ttf</string>
+		<string>IBMPlexSans-Bold.ttf</string>
+		<string>IBMPlexSans-Light.ttf</string>
+		<string>IBMPlexSans-Medium.ttf</string>
+		<string>IBMPlexSans-Regular.ttf</string>
+		<string>IBMPlexSans-SemiBold.ttf</string>
+	</array>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>

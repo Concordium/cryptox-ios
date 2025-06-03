@@ -31,6 +31,7 @@ private enum TransactionRequest: Hashable {
 class AccountDetailsViewModel {
     var name: String?
     var address: String?
+    var account: AccountDataType?
     
     @Published var selectedTab: AccountDetailTab = .transfers
     @Published var selectedBalance: AccountBalanceTypeEnum = .balance
@@ -42,16 +43,18 @@ class AccountDetailsViewModel {
     @Published var allAccountTransactionsList = TransactionsListViewModel()
     @Published var showUnlockButton = false
     @Published var isReadOnly = false
-    @Published var isShielded = false
     @Published var atDisposal: String = ""
     @Published var stakedValue: String = ""
     @Published var stakedLabel: String?
+    @Published var totalCooldown: String = ""
+    @Published var cooldownLabel: String?
     @Published var hasStaked: Bool = false
-    @Published var isShieldedEnabled: Bool = true
     @Published var menuState: AccountMenuState = .closed
+    
     private var inflightTransactionRequest = Set<TransactionRequest>()
     
     init(account: AccountDataType, balanceType: AccountBalanceTypeEnum) {
+        self.account = account
         setAccount(account: account, balanceType: balanceType)
     }
     
@@ -60,33 +63,27 @@ class AccountDetailsViewModel {
         name = account.displayName
         address = account.address
         isReadOnly = account.isReadOnly
-        isShieldedEnabled = account.showsShieldedBalance
-        if balanceType == .shielded {
-            isShielded = true
-            balance = GTU(intValue: account.forecastEncryptedBalance).displayValue()
-            hasStaked = false
+        balance = GTU(intValue: account.forecastBalance).displayValue()
+        if let baker = account.baker, baker.bakerID != -1 {
+            self.hasStaked = true
+            self.stakedLabel = String(format: "accountDetails.bakingstakelabel".localized, String(baker.bakerID))
+            self.stakedValue = GTU(intValue: baker.stakedAmount ).displayValue()
+            
+        } else if let delegation = account.delegation {
+            let pool = ValidatorTarget.from(delegationType: delegation.delegationTargetType, bakerId: delegation.delegationTargetBakerID)
+            
+            self.hasStaked = true
+            self.stakedLabel = pool.getDisplayValueForAccountDetails()
+            self.stakedValue = GTU(intValue: Int(delegation.stakedAmount) ).displayValue()
         } else {
-            isShielded = false
-            balance = GTU(intValue: account.forecastBalance).displayValue()
-            if let baker = account.baker, baker.bakerID != -1 {
-                self.hasStaked = true
-                self.stakedLabel = String(format: "accountDetails.bakingstakelabel".localized, String(baker.bakerID))
-                self.stakedValue = GTU(intValue: baker.stakedAmount ).displayValueWithGStroke()
-                
-            } else if let delegation = account.delegation {
-                let pool = BakerTarget.from(delegationType: delegation.delegationTargetType, bakerId: delegation.delegationTargetBakerID)
-                
-                self.hasStaked = true
-                self.stakedLabel = pool.getDisplayValueForAccountDetails()
-                self.stakedValue = GTU(intValue: Int(delegation.stakedAmount) ).displayValueWithGStroke()
-            } else {
-                self.hasStaked = false
-                stakedLabel = nil
-            }
+            self.hasStaked = false
+            stakedLabel = nil
         }
-        atDisposal = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
+        atDisposal = GTU(intValue: account.forecastAtDisposalBalance).displayValue()
+        totalCooldown = GTU(intValue: account.cooldowns.compactMap { Int($0.amount) }.reduce(0, +)).displayValue()
+        cooldownLabel = "Cooldown"
     }
-
+    
     func toggleMenu() {
         menuState = menuState == .closed ? .open : .closed
     }
@@ -118,12 +115,12 @@ class AccountDetailsViewModel {
             allAccountTransactionsList.loading = false
         }
     }
-
+    
     func appendTransactions(transactions: [TransactionViewModel], shouldClearPrevious: Bool = false) {
         if transactions.count == 0 {
             if shouldClearPrevious {
                 transactionsList.transactions = transactions
-            } 
+            }
             // we did not receive new transactions - therefore the last transaction in the list must be the last existing
             if transactionsList.transactions.count > 0 {
                 transactionsList.transactions[transactionsList.transactions.count - 1].isLast = true
@@ -158,7 +155,7 @@ class AccountDetailsViewModel {
     }
 }
 
-extension BakerTarget {
+extension ValidatorTarget {
     fileprivate func getDisplayValueForAccountDetails() -> String {
         switch self {
         case .passive:

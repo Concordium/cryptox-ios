@@ -7,29 +7,25 @@
 //
 
 import SwiftUI
+import AppTrackingTransparency
+import FirebaseAnalytics
 
 struct WelcomeView: View {
     @State var isChecked: Bool = false
     @SwiftUI.Environment(\.openURL) var openURL
-    
-    var action: () -> Void
-    
+    @AppStorage("isShouldShowAllowNotificationsView") private var isShouldShowAllowNotificationsView = true
+    @Binding var isCreateAccountSheetShown: Bool
+    @AppStorage("isAcceptedPrivacy") private var isAcceptedPrivacy = false
+    @AppStorage("isAnalyticsEnabled") private var isAcceptedTracking = true
+    @State var showNotificationsPopup: Bool = false
+    @State var showRequestTrackingPopup: Bool = false
+
     var body: some View {
-        ZStack {
-            Image("welcome_background").resizable().aspectRatio(contentMode: .fill)
-                .ignoresSafeArea(.all)
-            
+        VStack {
+            Spacer(minLength: 0)
+            Image("Concordium_logo")
+            Spacer(minLength: 0)
             VStack(alignment: .leading) {
-                Spacer()
-                VStack {
-                    Text("new_onboarding_welcome_title".localized)
-                        .multilineTextAlignment(.leading)
-                        .font(.satoshi(size: 32, weight: .medium))
-                        .foregroundStyle(Color.Neutral.tint1)
-                        .frame(alignment: .leading)
-                }
-                .padding(24)
-                
                 VStack(alignment: .leading, spacing: 24) {
                     HStack(spacing: 12) {
                         Image("welcome_safe_secure_icon")
@@ -38,7 +34,7 @@ struct WelcomeView: View {
                                 .font(.satoshi(size: 16, weight: .medium))
                                 .foregroundStyle(Color.Neutral.tint1)
                                 .frame(alignment: .leading)
-                                
+                            
                             Text("new_onboarding_safe_secure_subtitle".localized)
                                 .multilineTextAlignment(.leading)
                                 .font(.satoshi(size: 14, weight: .regular))
@@ -52,7 +48,7 @@ struct WelcomeView: View {
                                 .font(.satoshi(size: 16, weight: .medium))
                                 .foregroundStyle(Color.Neutral.tint1)
                                 .frame(alignment: .leading)
-                                
+                            
                             Text("new_onboarding_manage_asssets_subtitle".localized)
                                 .multilineTextAlignment(.leading)
                                 .font(.satoshi(size: 14, weight: .regular))
@@ -66,7 +62,7 @@ struct WelcomeView: View {
                                 .font(.satoshi(size: 16, weight: .medium))
                                 .foregroundStyle(Color.Neutral.tint1)
                                 .frame(alignment: .leading)
-                                
+                            
                             Text("new_onboarding_unlimited_possibilities_subtitle".localized)
                                 .multilineTextAlignment(.leading)
                                 .font(.satoshi(size: 14, weight: .regular))
@@ -74,40 +70,64 @@ struct WelcomeView: View {
                         }
                     }
                 }
-                .padding(.leading, 38)
-                .padding(.trailing, 24)
-                
-                Spacer()
-                
-                VStack(spacing: 12) {
-                    HStack(spacing: 16) {
-                        Image(isChecked ? "checkbox_checked" : "checkbox_unchecked")
-                            .contentShape(.rect)
-                            .onTapGesture {
-                                isChecked.toggle()
-                            }
-                        
-                        ///
-                        /// I would love to move this string literals out to constants, but in that case markdown stop working, and treat this string as `string` instead of `markdown`
-                        ///
-                        Group {
-                            Text("new_onb_privacy_read".localized)
-                            + Text(" ")
-                            + Text("[\("new_onb_terms".localized)](https://pioneeringtechventures.com/terms-and-conditions)").underline()
-                            + Text(" ")
-                            + Text("and".localized)
-                            + Text(" ")
-                            + Text("[\("new_onb_privacy".localized)](https://pioneeringtechventures.com/privacy-policy)").underline()
+            }
+            .padding(.horizontal, 24)
+            
+            Spacer(minLength: 0)
+            
+            VStack(spacing: 16) {
+                HStack(spacing: 16) {
+                    Image(isChecked ? "checkbox_checked" : "checkbox_unchecked")
+                        .contentShape(.rect)
+                        .onTapGesture {
+                            isChecked.toggle()
+                            FirebaseAppTracker.welcomeTermAndConditionsCheckBoxChecked()
                         }
+                    
+                    ///
+                    /// I would love to move this string literals out to constants, but in that case markdown stop working, and treat this string as `string` instead of `markdown`
+                    ///
+                    Group {
+                        Text("new_onb_privacy_read".localized)
+                        + Text(" ")
+                        + Text("[\("new_onb_terms".localized)](https://developer.concordium.software/en/mainnet/net/resources/terms-and-conditions-cryptox.html)").underline()
+                        + Text(" ")
+                        + Text("and".localized)
+                        + Text(" ")
+                        + Text("[\("new_onb_privacy".localized)](https://www.concordium.com/legal/privacy-policy)").underline()
+                    }
+                    .accentColor(Color.Neutral.tint1)
+                    .font(.satoshi(size: 14, weight: .regular))
+                    .foregroundStyle(Color.Neutral.tint1)
+                    
+                    Spacer(minLength: 1)
+                }
+                .padding(.horizontal, 16)
+                
+                
+                HStack(spacing: 16) {
+                    Image(isAcceptedTracking ? "checkbox_checked" : "checkbox_unchecked")
+                        .contentShape(.rect)
+                        .onTapGesture {
+                            isAcceptedTracking.toggle()
+                            Analytics.setAnalyticsCollectionEnabled(isAcceptedTracking)
+                            FirebaseAppTracker.welcomeActivityTrackingCheckBoxChecked()
+                        }
+                    Text("analytics.trackingConsent".localized)
                         .accentColor(Color.Neutral.tint1)
                         .font(.satoshi(size: 14, weight: .regular))
                         .foregroundStyle(Color.Neutral.tint1)
-                        
-                        Spacer(minLength: 1)
-                    }
-                    .padding(.horizontal, 16)
                     
-                    Button(action: { action() }, label: {
+                    Spacer(minLength: 1)
+                }
+                .padding(.horizontal, 16)
+                
+                Button(
+                    action: {
+                        isAcceptedPrivacy = true
+                        isCreateAccountSheetShown.toggle()
+                        FirebaseAppTracker.welcomeGetStartedClicked()
+                    }, label: {
                         HStack {
                             Text("get_started_btn_title".localized)
                                 .font(Font.satoshi(size: 16, weight: .medium))
@@ -118,21 +138,23 @@ struct WelcomeView: View {
                         }
                         .padding(.horizontal, 24)
                     })
-                    .opacity(isChecked ? 1.0 : 0.7)
-                    .disabled(!isChecked)
-                    .frame(height: 56)
-                    .background(Color.EggShell.tint1)
-                    .cornerRadius(28, corners: .allCorners)
-                    .padding(.horizontal, 16)
-                }
-                .padding(.bottom, 64)
+                .opacity(isChecked ? 1.0 : 0.7)
+                .disabled(!isChecked)
+                .frame(height: 56)
+                .background(.white)
+                .cornerRadius(28, corners: .allCorners)
+                .padding(.horizontal)
             }
-            
+        }
+        .background(Image("new_bg").resizable().aspectRatio(contentMode: .fill)
+            .ignoresSafeArea(.all))
+        .onAppear {
+            Analytics.setAnalyticsCollectionEnabled(isAcceptedTracking)
+        }
+        .overlay(alignment: .center) {
+            if !UIApplication.shared.isRegisteredForRemoteNotifications && isShouldShowAllowNotificationsView && showNotificationsPopup {
+                AllowNotificationsPopup(isVisible: $isShouldShowAllowNotificationsView)
+            }
         }
     }
 }
-
-#Preview {
-    WelcomeView() {}
-}
-

@@ -29,7 +29,7 @@ protocol MobileWalletProtocol {
                         transferType: TransferType,
                         requestPasswordDelegate: RequestPasswordDelegate,
                         global: GlobalWrapper?, inputEncryptedAmount: InputEncryptedAmount?,
-                        receiverPublicKey: String?) -> AnyPublisher<CreateTransferRequest, Error>
+                        receiverPublicKey: String?, isSuspended: Bool?) -> AnyPublisher<CreateTransferRequest, Error>
     
     func createTransferUpdate(from fromAccount: AccountDataType, to toAccount: String, contractAddress: ContractAddress1,
                               params: String, receiveName: String,
@@ -57,6 +57,8 @@ protocol MobileWalletProtocol {
     func isLegacyAccount() -> Bool
     
     func signMessage(for account: AccountDataType, message: String, requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<StringMessageSignatures, Error>
+    
+    func decryptEncryptedAmounts(from fromAccount: AccountDataType, _ encryptedAmounts: [String], pwHash: String) async throws-> [(String, Int)]
 }
 
 enum MobileWalletError: Error {
@@ -194,8 +196,9 @@ class MobileWallet: MobileWalletProtocol {
                         requestPasswordDelegate: RequestPasswordDelegate,
                         global: GlobalWrapper?,
                         inputEncryptedAmount: InputEncryptedAmount? = nil,
-                        receiverPublicKey: String? = nil)
-                    -> AnyPublisher<CreateTransferRequest, Error> {
+                        receiverPublicKey: String? = nil,
+                        isSuspended: Bool?
+    ) -> AnyPublisher<CreateTransferRequest, Error> {
         requestPasswordDelegate.requestUserPassword(keychain: keychain).tryMap { (pwHash: String) in
             try self.createTransfer(fromAccount: fromAccount,
                                     toAccount: toAccount,
@@ -217,7 +220,9 @@ class MobileWallet: MobileWalletProtocol {
                                     pwHash: pwHash,
                                     global: global,
                                     inputEncryptedAmount: inputEncryptedAmount,
-                                    receiverPublicKey: receiverPublicKey)
+                                    receiverPublicKey: receiverPublicKey,
+                                    isSuspended: isSuspended
+            )
         }.eraseToAnyPublisher()
     }
 
@@ -241,13 +246,14 @@ class MobileWallet: MobileWalletProtocol {
                                 pwHash: String,
                                 global: GlobalWrapper? = nil,
                                 inputEncryptedAmount: InputEncryptedAmount? = nil,
-                                receiverPublicKey: String? = nil
+                                receiverPublicKey: String? = nil,
+                                isSuspended: Bool?
                                 
     ) throws -> CreateTransferRequest {
         let privateAccountKeys = try getPrivateAccountKeys(for: fromAccount, pwHash: pwHash).get()
         
         var secretEncryptionKey: String?
-        if transferType == .transferToPublic || transferType == .encryptedTransfer {
+        if transferType == .transferToPublic /*|| transferType == .encryptedTransfer*/ {
             secretEncryptionKey = try getSecretEncryptionKey(for: fromAccount, pwHash: pwHash).get()
         }
         
@@ -271,7 +277,9 @@ class MobileWallet: MobileWalletProtocol {
                                                                   global: global?.value,
                                                                   senderSecretKey: secretEncryptionKey,
                                                                   inputEncryptedAmount: inputEncryptedAmount,
-                                                                  receiverPublicKey: receiverPublicKey)
+                                                                  receiverPublicKey: receiverPublicKey,
+                                                                  isSuspended: isSuspended
+        )
         
         guard let input = try makeCreateTransferRequest.jsonString() else {
             throw MobileWalletError.invalidArgument
@@ -280,15 +288,11 @@ class MobileWallet: MobileWalletProtocol {
         switch transferType {
         case .simpleTransfer:
             return try CreateTransferRequest(walletFacade.createTransfer(input: input))
-        case .transferToSecret:
-            return try CreateTransferRequest(walletFacade.createShielding(input: input))
         case .transferToPublic:
              return try CreateTransferRequest(walletFacade.createUnshielding(input: input))
-        case .encryptedTransfer:
-             return try CreateTransferRequest(walletFacade.createEncrypted(input: input))
         case .registerDelegation, .removeDelegation, .updateDelegation:
             return try CreateTransferRequest(walletFacade.createConfigureDelegation(input: input))
-        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
+        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker, .updateValidatorSuspendState:
             return try CreateTransferRequest(walletFacade.createConfigureBaker(input: input))
         case .transferUpdate:
             return try CreateTransferRequest(walletFacade.createUpdateTransfer(input: input))
@@ -369,6 +373,7 @@ class MobileWallet: MobileWalletProtocol {
         } catch {
             return .fail(error)
         }
+        
     }
 
     func combineEncryptedAmount(_ encryptedAmount1: String, _ encryptedAmount2: String) -> Result<String, Error> {
@@ -567,5 +572,21 @@ extension MobileWallet {
             return try JSONDecoder().decode(StringMessageSignatures.self, from: Data(res.utf8))
         }
         .eraseToAnyPublisher()
+    }
+}
+
+extension MobileWallet {
+    @MainActor
+    func decryptEncryptedAmounts(from fromAccount: AccountDataType, _ encryptedAmounts: [String], pwHash: String) async throws-> [(String, Int)] {
+        let secretEncryptionKey = try self.getSecretEncryptionKey(for: fromAccount, pwHash: pwHash).get()
+        
+        return try encryptedAmounts.map { (encryptedAmount) -> (String, Int) in
+            let makeDecryptionRequest = MakeDecryptAmountRequest(encryptedAmount: encryptedAmount, encryptionSecretKey: secretEncryptionKey)
+            guard let input = try makeDecryptionRequest.jsonString() else {
+                throw MobileWalletError.invalidArgument
+            }
+            let decryptedValue = try self.walletFacade.decryptEncryptedAmount(input: input)
+            return (encryptedAmount, decryptedValue)
+        }
     }
 }

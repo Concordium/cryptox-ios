@@ -20,7 +20,7 @@ protocol MemoDataType {
     var hasValidSize: Bool { get }
 }
 
-struct Memo: MemoDataType {
+struct Memo: MemoDataType, Hashable {
     private enum Constants {
         static let maxSize = 256
     }

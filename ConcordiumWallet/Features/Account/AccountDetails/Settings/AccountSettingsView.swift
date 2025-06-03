@@ -23,7 +23,6 @@ struct AccountSettingsView: Page {
             HStack {
                 Text(menuItem.text)
                 Spacer()
-                Image(systemName: "chevron.right")
             }
             .padding([.top, .bottom], 8)
             .contentShape(Rectangle())
@@ -37,19 +36,16 @@ struct AccountSettingsView: Page {
                 }
             }
             .animation(.default)
-            .listRowBackground(selectedMenuItemText == menuItem.text ? Color.init(white: 0.85) : .clear)
+            .listRowBackground(selectedMenuItemText == menuItem.text ? Color.grey3.opacity(0.5) : .clear)
         }
         .listStyle(.plain)
+        .padding(.top, 20)
+        .modifier(AppBackgroundModifier())
     }
     
     private func getMenuItems() -> [AccountSettingsMenuItem] {
         var menuItems = [AccountSettingsMenuItem]()
         menuItems.append(AccountSettingsMenuItem(id: 0, text: "burgermenu.transferfilters".localized, action: .transferFilters))
-        if viewModel.account.showsShieldedBalance {
-            menuItems.append(AccountSettingsMenuItem(id: 1, text: "burgermenu.hideshieldedbalance".localized, action: .hideShielded))
-        } else {
-            menuItems.append(AccountSettingsMenuItem(id: 1, text: "burgermenu.showshieldedbalance".localized, action: .showShielded))
-        }
         menuItems.append(AccountSettingsMenuItem(id: 2, text: "burgermenu.releaseschedule".localized, action: .releaseSchedule))
         menuItems.append(AccountSettingsMenuItem(id: 3, text: "burgermenu.exportprivatekey".localized, action: .exportPrivateKey))
         menuItems.append(AccountSettingsMenuItem(id: 4, text: "burgermenu.exporttransactionlog".localized, action: .exportTransactionLog))

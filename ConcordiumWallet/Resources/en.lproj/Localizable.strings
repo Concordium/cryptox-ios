@@ -12,15 +12,18 @@ no = "No"; /*  */
 close = "Close"; /*  */
 start = "Start"; /*  */
 accounts_tab_title = "Accounts"; /*  */
+news_tab_title = "Discover"; /*  */
 collections_tab_title = "NFT"; /*  */
 identities_tab_title = "Identities"; /*  */
-more_tab_title = "More"; /*  */
+more_tab_title = "Wallet Settings"; /*  */
 identity_provider_list_title = "Initial account creation"; /*  */
 passcode_selection_title = "Select Passcode"; /*  */
 add_identity_data = "Reveal Identity Data";
 
 "identityProviders.subtitle" = "The third step:\nChoosing an identity provider";
 "identityProviders.details" =  "As mentioned, the identity provider will verify your identity using a government issued identity document, some identity attributes you provide, and a selfie.\n\nYou can pick one from the list below. To read more about them before deciding, click the links below.";
+"identityVerification.title" = "Identity verification";
+"identity.selectProvider.subtitle" = "Select a provider to verify your identity";
 "errorAlert.title" = "An error occurred";
 "errorAlert.okButton" = "OK";
 "errorAlert.cancelButton" = "Cancel";
@@ -96,16 +99,15 @@ add_identity_data = "Reveal Identity Data";
 "accounts.noIdentityMessage" = "You need to create an identity\nbefore creating an account.";
 "accounts.balance" = "Balance";
 "accounts.shieldedbalance" = "Shielded Balance";
-"accounts.atdisposal" = "At disposal:";
+"accounts.atdisposal" = "at disposal";
 "accounts.staked" = "- Staked";
 "account.accounttotal" = "Account Total";
 "accounts.initial" = "(Initial)";
 "accounts.overview.atdisposal" = "At disposal";
-"accounts.overview.staked" = "Staked";
+"accounts.overview.staked" = "staked";
 "accounts.totalatdisposal" = "Total currently at disposal";
 
 
-"accounts.shieldedamount" = "Shield amount";
 "accounts.unshieldedamount" = "Unshield amount";
 "accounts.amountwillbeshielded" = "Amount will be shielded";
 "accounts.amountwillbeunshielded" = "Amount will be unshielded";
@@ -147,53 +149,6 @@ add_identity_data = "Reveal Identity Data";
 "welcomeScreen.details" = "Before you can start using CryptoX Wallet, you have to set up your passcode and biometrics and either create your initial account or import one or more existing accounts.";
 "welcomeScreen.button" = "Continue";
 
-"termsAndConditionsScreen.title" = "";
-"termsAndConditionsScreen.subtitle" = "Terms and Conditions for CryptoX Wallet";
-"termsAndConditionsScreen.terms1.title" = "Effective from May 15th 2021";
-"termsAndConditionsScreen.terms1.title2" = "\n\nIntroduction\n\n";
-"termsAndConditionsScreen.terms2.details" = "CryptoX Wallet is a digital wallet that is offered worldwide by Pioneering Technology Ventures ApS. At pioneeringtechnologyventures.com, you can read about how the app works. Pioneering Technology Ventures ApS may continually change and/or adjust the functions of CryptoX Wallet. Pioneering Technology Ventures ApS’s terms and conditions apply to CryptoX Wallet users worldwide.\n\nThe wallet will register and use data about you. Pioneering Technology Ventures ApS will not register or use data about you.\n\n";
-"termsAndConditionsScreen.terms3.title" = "Terms and conditions for all services and functions\n\n";
-"termsAndConditionsScreen.terms4.subtitle" = "Parties to the agreement\n\n";
-"termsAndConditionsScreen.terms5.details" = "When you register with Pioneering Technology Ventures ApS, you enter into an agreement with:\n\nPioneering Technology Ventures ApS, Skraenten 8, 8900 Randers, Denmark. Reg no.: DK42753688. Our email address is contact@pioneeringtechnologyventures.com.\n\n";
-"termsAndConditionsScreen.terms6.title" = "What do you need in order to register with CryptoX Wallet\n\n";
-"termsAndConditionsScreen.terms7a.details" = "The following is required to register with CryptoX Wallet:\n\n";
-"termsAndConditionsScreen.terms7.paragraph1" = "•    Have a mobile device (e.g., smartphone or tablet). You can see which operating systems can be used at pioneeringtechventures.com.\n\n";
-"termsAndConditionsScreen.terms7.paragraph2" = "•    Verify your identity with an identity provider. The identity provider will know the identity of the initial account creator.\n\n";
-"termsAndConditionsScreen.terms7b.details" = "You must be at least 18 years old to register.\n\n";
-"termsAndConditionsScreen.terms8.title" = "Registering as a CryptoX Wallet user\n\n";
-"termsAndConditionsScreen.terms9.details" = "Before you can use CryptoX Wallet, you will need to create an initial account and register with an identity provider by following the instructions in the app. An identity provider is a third-party supplier and independent of Pioneering Technology Ventures ApS. The CryptoX Wallet stores data from the identity provider, but Pioneering Technology Ventures ApS does not.\n\nAfter you have created the initial account and registered with an identity provider, you can create additional accounts (‘regular accounts’) with which you will be able to carry out transactions.\n\nPlease note that you can only register one account as the initial account.\n\n";
-"termsAndConditionsScreen.terms10.title" = "Activation code and personal password\n\n";
-"termsAndConditionsScreen.terms11.details" = "When you register in CryptoX Wallet, you will need to create a personal passcode. If your mobile device supports it, you can subsequently activate your fingerprint or use facial recognition instead of the 6-digit password. You should be aware that all fingerprints/facial recognitions linked to your mobile device can be used to log on to CryptoX Wallet and use the functions. You are therefore obliged to ensure that you have only activated your own fingerprints and your own facial recognition if you want to use them instead of the 6-digit password for access to CryptoX Wallet. CryptoX Wallet does not store your fingerprints or facial recognition.\n\n";
-"termsAndConditionsScreen.terms12.title" = "Other obligations etc.\n\n";
-"termsAndConditionsScreen.terms13.details" = "You have a duty to ensure that the details you provide are correct and updated at any given time. Your CryptoX Wallet account is personal and may be used only by you. You must not disclose your passwords to others, write them down, or save them on your mobile device.\n\nCryptoX Wallet must not be used for illegal activities or purposes.\n\nYou must not use CryptoX Wallet in a way that harasses other CryptoX Wallet users.\n\nAll transaction requests are irreversible. You are yourself responsible for ensuring that the recipient of a transaction via CryptoX Wallet is the intended recipient, and you must verify that the transaction amount is correct. You are responsible for providing the correct account to persons and users who want to transfer funds to you.\n\nTo prevent unauthorized use of CryptoX Wallet, you must store your mobile device so that others cannot gain unauthorized access to it. If possible, you should lock your device with a password or keypad lock. Do not disclose the password to third parties.\n\nYou are obliged to verify your identity with an identity provider. The identity provider will know the identity of the initial account creator. Your identity can be revealed via the process of anonymity revocation, which can happen under stringent regulations, such as a court order.\n\nYou are solely responsible for safekeeping your passwords, PINs, account keys, encryption keys, identity, and any other codes you use to access the CryptoX Wallet or any information, GTU, or voucher. If you lose access to the Mobile Wallet, private keys, or identity, and you have not separately stored a backup of your accounts and the corresponding password(s), you acknowledge and agree that any GTU you have associated with that account will become inaccessible.\n\nPlease note: If you have chosen to use assistants based on speech recognition (e.g., Siri) or patterns of use, this means that information about your use of CryptoX Wallet, including recipients, amounts, and messages, is sent to the provider of the assistant. Your own use of any assistant determines what information is sent.\n\nCryptoX Wallet does not send any information.\n\n";
-"termsAndConditionsScreen.terms14.title" = "Term\n\n";
-"termsAndConditionsScreen.terms15.details" = "This agreement will apply between you and Pioneering Technology Ventures ApS from your download of the CryptoX Wallet, and until you have completely removed the CryptoX Wallet in its entirety from your device.\n\nThe section Pioneering Technology Ventures ApS’s liability for damages shall apply indefinitely.\n\n";
-"termsAndConditionsScreen.terms16.title" = "Fees and charges\n\n";
-"termsAndConditionsScreen.terms17.details" = "Pioneering Technology Ventures ApS currently does not charge any fee for registration with CryptoX Wallet. CryptoX Wallet does not charge a transaction fee; however, you have to pay a transaction fee for transactions on the blockchain.\n\nAny other costs and charges related to your use of the CryptoX Wallet shall be paid by you, including but not limited to costs to the identity provider, if any.\n\nIf we introduce new functions, features, products, or services, these may be subject to fees from the start without you receiving any notice of changed terms and conditions. You will always be informed about the fee before you register for the function, feature, product, or service.\n\n";
-"termsAndConditionsScreen.terms18.title" = "Changes\n\n";
-"termsAndConditionsScreen.terms19.details" = "You will be notified on pioneeringtechventures.com if we change the terms and conditions. We may change the terms and conditions without notice. You can read the terms and conditions at pioneeringtechventures.com, from which you can also print, download, or email them.\n\nIf you do not wish to be covered by the new terms and conditions, you must notify us before the new terms and conditions enter into force. If you notify us that you do not wish to be covered by the new terms and conditions, we will consider the CryptoX Wallet agreement to be terminated from the date on which the new terms and conditions enter into force. If we do not hear from you, we will regard it as your acceptance of the changes.\n\n";
-"termsAndConditionsScreen.terms20.title" = "Intellectual property rights and license\n\n";
-"termsAndConditionsScreen.terms22.details" = "Pioneering Technology Ventures ApS retains all right, title, and interest in and to all of Pioneering Technology Ventures ApS’s brands, logos, and trademarks, including, but not limited to, CryptoX Wallet and variations of the wording of the said brands, logos, and trademarks.\n\n";
-"termsAndConditionsScreen.terms23.subtitle" = "Our notification of unauthorized use and security threats\n\n";
-"termsAndConditionsScreen.terms24.details" = "We may issue information about general security threats through pioneeringtechventures.com and social media.\n\n";
-"termsAndConditionsScreen.terms25.title" = "Pioneering Technology Ventures ApS’s liability for damages\n\n";
-"termsAndConditionsScreen.terms26a.details" = "Pioneering Technology Ventures ApS is not liable for damages for late or defective performance of the CryptoX Wallet and/or our contractual obligations resulting from error or negligence.\n\nEven in areas in which stricter liability applies, Pioneering Technology Ventures ApS is not liable for losses arising from\n\n";
-"termsAndConditionsScreen.terms26.paragraph1" = "•    Breakdown of or lack of access to IT systems or damage to data in these systems attributable to any of the events listed below regardless of whether Pioneering Technology Ventures ApS or a third-party supplier is responsible for the operation of these systems, power failure, or breakdown of Pioneering Technology Ventures ApS’s power supply system or telecommunications, statutory intervention or administrative acts, acts of God, war, revolution, riot, civil unrest, sabotage, terrorism, or vandalism (including computer virus attacks or hacking).\n\n";
-"termsAndConditionsScreen.terms26.paragraph2" = "•    Strikes, lockouts, boycotts, or picketing, regardless of whether Pioneering Technology Ventures ApS or its organization is itself a party to or has started such an industrial dispute and regardless of its cause. This also applies if the dispute affects only parts of Pioneering Technology Ventures ApS.\n\n";
-"termsAndConditionsScreen.terms26.paragraph3" = "•    Other circumstances beyond or within the control of Pioneering Technology Ventures ApS.\n\n";
-"termsAndConditionsScreen.terms26b.details" = "Please be advised that Pioneering Technology Ventures ApS is not liable for any defects or deficiencies in the goods or services for which you pay using CryptoX Wallet, Pioneering Technology Ventures ApS accepts no liability for the fundraising campaigns to which you make contributions using CryptoX Wallet. If you have any complaints regarding the delivered goods, services, or fundraising campaigns, you must contact the seller and/or the fundraiser.\n\nPioneering Technology Ventures ApS does not undertake any liability for the conduct of the seller/fundraiser in general.\n\n";
-"termsAndConditionsScreen.terms27.title" = "Privacy\n\n";
-"termsAndConditionsScreen.terms28.details" = "Pioneering Technology Ventures ApS respects your privacy to the effect that Pioneering Technology Ventures ApS will not monitor, edit, or disclose any personal information about you or your account, including its contents or your use of the CryptoX Wallet, without your prior consent unless Pioneering Technology Ventures ApS in good faith beliefs that such action is necessary to: (i) comply with legal process or other legal requirements of any governmental authority; (ii) protect and defend the rights or property of Pioneering Technology Ventures ApS; (iii) enforce this Agreement; (iv) protect the interests of users of the CryptoX Wallet other than you or any other person; (v) operate or conduct maintenance and repair of CryptoX Wallet or Concordium’s services or equipment; or (vi) if your identity is revoked in accordance with the identity revocation process as required to comply with (i). You are assumed to have no expectation of privacy with respect to the Internet generally. Your IP address is transmitted and recorded with each message or other information you send from the CryptoX Wallet. When you create an identity with a third party supplier, you have entered an agreement directly with such a third supplier and such a third party supplier will store data about you and in this case, the third party supplier’s privacy policy and terms and conditions apply.\n\n";
-"termsAndConditionsScreen.terms29.title" = "Governing law and venue\n\n";
-"termsAndConditionsScreen.terms30.details" = "The agreement and any dispute arising out of the agreement are governed by Danish law and such disputes must be heard by Copenhagen District Court or the jurisdiction of the defendant’s domicile unless otherwise provided by absolute consumer rights in Denmark. This applies without consideration for rules in international private law which may lead to the application of other law than Danish law.\n\n";
-"termsAndConditionsScreen.terms31.title" = "Complaints\n\n";
-"termsAndConditionsScreen.terms32.details" = "You can always write to Pioneering Technology Ventures ApS if you disagree with us. In this way, we make sure that such disagreement is not based on a misunderstanding. The address is Pioneering Technology Ventures ApS, Skraenten 8, 8900 Randers, Denmark. Reg no.: DK42753688.\n\n";
-"termsAndConditionsScreen.terms33.title" = "New copy of these terms and conditions\n\n";
-"termsAndConditionsScreen.terms34.details" = "You can always find the latest version on pioneeringtechventures.com.\n\nYou can contact CryptoX Wallet support via contact@pioneeringtechventures.com.\n\n";
-"termsAndConditionsScreen.terms35.title" = "Acceptance\n\n";
-"termsAndConditionsScreen.terms36.details" = "The first time you open the CryptoX Wallet, you’ll be asked to set a check box confirming that you agree to these terms and conditions.";
-"termsAndConditionsScreen.button" = "Yes, I accept";
-
 "okay.gotit" = "Got it!";
 
 "createAccount.tooManyAccounts" = "You already have the maximum number of accounts for this identity.";
@@ -220,13 +175,19 @@ add_identity_data = "Reveal Identity Data";
 "createNickname.next.title" = "Next";
 "Ok.thanks" = "Ok, thanks";
 "Ok" = "Ok";
+
 "accountConfirmed.submitted" = "Account submitted";
 "accountConfirmed.submittedMessage" = "This may take a few minutes to
 process on-chain.";
+
 "accountFailed.title" = "Account creation failed!";
-"accountFailed.tryLater" = "Please try again.";
+"accountFailed.errorMessage" = "Your wallet seems to not be synchronized with the blockchain. You must first make a recovery of existing accounts, before you can make a new one.";
+"accountFailed.tryLater" = "Start the recovery flow, by pressing the button bellow.";
+"accountFailed.buttonTitle" = "Start recovery";
+
 "accountDetails.failedMessage" = "Account creation failed in the process of creation";
 "accountDetails.committedMessage" = "Account creation in progress.\n\nYou can start using this account once it’s been finalized on the chain.";
+
 
 "accountDetails.retryAccountCreation.title" = "Retry account creation";
 "accountDetails.removeAccount.title" = "Remove account from wallet";
@@ -242,24 +203,19 @@ process on-chain.";
 "accountDetails.bakingstakelabel" = "Stake with validator %@";
 "accountDetails.passivevalue" = "Passive delegation";
 "accountDetails.bakerpoolvalue" = "Delegation with staking pool %d";
-
+"accountDetails.events" = "Events";
 
 "sendFund.pageTitle.send" = "Send Funds";
-"sendFund.pageTitle.shieldAmount" = "Shield Amount";
 "sendFund.pageTitle.unshieldAmount" = "Unshield Amount";
 "sendFund.buttonTitle.send" = "Send amount";
-"sendFund.buttonTitle.shieldAmount" = "Shield amount";
 "sendFund.buttonTitle.unshieldAmount" = "Unshield amount";
-"sendFund.sendshielded" = "Send shielded amount";
 "sendFund.selectRecipient" = "Select Recipient";
 "sendFund.feeMessageTitle" = "Estimated transaction fee:";
 "sendFund.feeMessageValue" = "%@ CCD";
 "sendFund.feeMessage" = "Estimated transaction fee: CCD";
 "sendFund.sendingToOwnAccountDisallowed" = "Recipient account is not allowed be the same as sending account";
 "sendFund.insufficientFunds" = "Insufficient funds";
-"sendFund.confirmation.shield" = "Are you sure you want to shield";
 "sendFund.confirmation.unshield" = "Are you sure you want to unshield";
-"sendFund.confirmation.transfer" = "Are you sure you want to transfer";
 "sendFund.confirmation.line2.to" = "to";
 "sendFund.confirmation.line3.fromAccount" = "from account: ";
 "sendFund.confirmation.line3.Account" = "Account: ";
@@ -271,6 +227,7 @@ process on-chain.";
 "sendFund.memo.textValue" = "%@ CCD";
 "sendFund.addMemoButtonTitle" = "Add Memo";
 "sendFund.editMemoButtonTitle" = "Edit Memo";
+"sendFund.confirmation.transfer" = "Transfer Confirmation Details";
 
 "addMemo.pageTitle" = "Add memo";
 "addMemo.pageSubTitle" = "What would you like to name your memo id?";
@@ -320,25 +277,30 @@ process on-chain.";
 "attributes.sex" = "Sex";
 "attributes.taxIDNo" = "Tax ID number";
 "attributes.nationalIDNo" = "National ID number";
+// Company ID
+"attributes.lei" = "LEI-code";
+"attributes.legalName" = "Legal name";
+"attributes.legalCountry" = "Legal jurisdiction country";
+"attributes.businessNumber" = "Business Number";
+"attributes.registrationAuth" = "Registration authority";
 
 "sex.notKnown" = "Not known";
 "Save" = "Save";
 
 "transactionConfirmed.submitted" = "Transaction submitted!";
-"shieldedtransactionConfirmed.submitted" = "Shielded transaction submitted!";
-"shielding.submitted" = "Shielding submitted!";
-"unshielding.submitted" = "Unshielding submitted!";
 
 "transactionFailed.title" = "Transaction error!";
 "TransactionsList.loading" = "Loading...";
 "transactions.shieledtransactionfee" = "Shielded transaction fee";
 "transaction.shieldedAmount" = "Shielded amount";
 "transaction.unshieldedAmount" = "Unshielded amount";
+"transaction.configuredelegation" = "Configure delegation";
+"transaction.configurebaker" = "Configure validator";
 
 "accountDetails.generalbalance" = "Balance";
 "accountDetails.generalshieldedbalance" = "Shielded Balance";
 
-"accountDetails.title" = "Transaction Details";
+"accountDetails.title" = "Transaction details";
 "accountDetails.origin" = "Origin";
 "accountDetails.fromAddress" = "From Address: ";
 "accountDetails.transactionHash" = "Transaction Hash";
@@ -388,9 +350,9 @@ process on-chain.";
 "more.about" = "About";
 "more.about.title" = "About";
 "more.about.support.title" = "Support";
-"more.about.support.text" = "If you encountered a problem, or need help with something, you can reach out to us via\ncontact@pioneeringtechventures.com";
+"more.about.support.text" = "If you encountered a problem, or need help with something, you can reach out to us via\nsupport@concordium.software";
 "more.about.website.title" = "Website";
-"more.about.website.text" = "For more info about CryptoX Wallet you can visit\npioneeringtechventures.com";
+"more.about.website.text" = "For more info about CryptoX Wallet you can visit\nconcordium.com";
 "more.about.appVersion.title" = "App Version";
 
 "accountDetails.testnetGtuDropTitle" = "TESTNET CCD DROP";
@@ -432,6 +394,7 @@ process on-chain.";
 "identityCreation.automaticAccountRemoval.text" = "The related initial account has been automatically removed.";
 
 "privacypolicy" = "Privacy Policy";
+"unavailable" = "Unavailable";
 
 "revealattributes.title" = "Reveal Identity Data?";
 "revealattributes.largeTitle" = "Reveal Identity";
@@ -543,12 +506,12 @@ concordium-backup.concordiumwallet securely.";
 "earn.button.baker" = "Continue to validator setup";
 "earn.button.delegation" = "Continue to delegation setup";
 
-"earn.desc.part1" = "There are two options for earning rewards on Concordium: validation and delegation.";
+"earn.desc.part1" = "Below are two options for earning rewards on CryptoX Wallet:";
 "earn.desc.baking.header" = "Validation";
 "earn.desc.baking.text" = "As a validator you participate in the network by producing blocks on the Concordium network. This requires a minimum of %@ and access to a dedicated node.";
 "earn.desc.delegation.header" = "Delegation";
 "earn.desc.delegation.text" = "If you don't have access to your own node you may delegate your stake to one of the other validators. There is no minimum amount of CCD required when delegating.";
-"earn.desc.part2" = "Choose the option that suits you below to learn more.\n\nNOTE: A single account cannot both be a validator and delegator, but it is possible to stop one and change to the other.";
+"earn.desc.part2" = "Please note, a single account cannot both be a validator and delegator but it is possible to stop one and change to the other.";
 
 
 /// After 2023 update
@@ -561,7 +524,6 @@ concordium-backup.concordiumwallet securely.";
 "accounts.overview.totalatdisposal" = "Total currently at disposal";
 
 
-"accounts.shieldedamount" = "Shield amount";
 "accounts.unshieldedamount" = "Unshield amount";
 "accounts.amountwillbeshielded" = "Amount will be shielded";
 "accounts.amountwillbeunshielded" = "Amount will be unshielded";
@@ -579,15 +541,6 @@ You can show the shielded balance of the account via the option below, or later 
 "onboardingcarousel.button.next.text" = "Next";
 "onboardingcarousel.button.back.text" = "Back";
 "onboardingcarousel.button.continue.text" = "Continue";
-
-"onboardingcarousel.shieldedbalance.title" = "Shielded Balance";
-"onboardingcarousel.shieldedbalance.page1.title" = "Before you continue";
-"onboardingcarousel.shieldedbalance.page2.title" = "Before you continue";
-"onboardingcarousel.shieldedbalance.page3.title" = "The shielding transaction";
-"onboardingcarousel.shieldedbalance.page4.title" = "The shielded transfer";
-"onboardingcarousel.shieldedbalance.page5.title" = "The shielded transfer";
-"onboardingcarousel.shieldedbalance.page6.title" = "The unshielding transaction";
-"onboardingcarousel.shieldedbalance.page7.title" = "Before you continue";
 
 "onboardingcarousel.introflow.title" = "Introduction";
 "onboardingcarousel.introflow.page1.title" = "Welcome to CryptoX Wallet";
@@ -730,12 +683,9 @@ When you have submitted your account, you will be taken to the wallet.";
 
 
 "sendFund.pageTitle.send" = "Send Funds";
-"sendFund.pageTitle.shieldAmount" = "Shield Amount";
 "sendFund.pageTitle.unshieldAmount" = "Unshield Amount";
 "sendFund.buttonTitle.send" = "Send amount";
-"sendFund.buttonTitle.shieldAmount" = "Shield amount";
 "sendFund.buttonTitle.unshieldAmount" = "Unshield amount";
-"sendFund.sendshielded" = "Send shielded amount";
 "sendFund.feeMessage" = "Estimated transaction fee:
 Ͼ";
 "sendFund.addMemo" = "Optional: Add memo";
@@ -743,9 +693,7 @@ When you have submitted your account, you will be taken to the wallet.";
 
 "sendFund.sendingToOwnAccountDisallowed" = "Sender and recipient accounts cannot be the same";
 "sendFund.insufficientFunds" = "Insufficient funds";
-"sendFund.confirmation.shield" = "Are you sure you want to shield";
 "sendFund.confirmation.unshield" = "Are you sure you want to unshield";
-"sendFund.confirmation.transfer" = "Are you sure you want to transfer";
 "sendFund.confirmation.line2.to" = "to";
 "sendFund.confirmation.line3.fromAccount" = "from account: ";
 "sendFund.confirmation.line3.Account" = "Account: ";
@@ -754,7 +702,6 @@ When you have submitted your account, you will be taken to the wallet.";
 "sendFund.memo.text" = "Memo:\n %@";
 
 "sendFund.balanceAtDisposal" = "Balance (at disposal)";
-"sendFund.shieldedBalance" = "Shielded balance";
 "sendFund.total" = "Total";
 "sendFund.atDisposal" = "At disposal";
 "sendFund.scanQr" = "Scan QR";
@@ -784,11 +731,11 @@ If you don’t have enough CCD at disposal on your balance, you might not be abl
 For more info you can visit
 developer.concordium.software";
 
-"delegation.pool.baker" = "Baker";
+"delegation.pool.validator" = "Validator";
 "delegation.pool.passive" = "Passive";
-"delegation.pool.idplaceholder.create" = "Enter baker pool ID";
-"delegation.pool.idplaceholder.update" = "Optional: New baker pool ID";
-"delegation.pool.invalidbakerid" = "Invalid target baker pool ID";
+"delegation.pool.idplaceholder.create" = "Enter validator pool ID";
+"delegation.pool.idplaceholder.update" = "Optional: New validator pool ID";
+"delegation.pool.invalidbakerid" = "Invalid target validator pool ID";
 "delegation.pool.closedpool" = "This pool is closed";
 
 "delegation.pool.sizewarning.title" = "Current delegation amount too large";
@@ -832,9 +779,9 @@ Once the transaction has finalized, you can see the time of the release on the d
 "delegation.receiptnextpayday.ok" = "Okay";
 
 "delegation.receiptremove.title" = "Notice";
-"delegation.receiptremove.message" = "Your delegation will stop at the next pay day after a cool-down of %@.
+"delegation.receiptremove.message" = "Your stake will stop at the next pay day after a cool-down of %@ days.
 
-Once the transaction has finalized, you can see the estimated time on the delegation status screen.";
+Once the transaction has finalized, you can see the estimated time on the earn screen.";
 "delegation.receiptremove.ok" = "Okay";
 
 
@@ -875,6 +822,7 @@ Affected delegator accounts:\n%@";
 "baking.menu.updatebakerstake" = "Update validator stake";
 "baking.menu.updatepoolsettings" = "Update pool settings";
 "baking.menu.updatebakerkeys" = "Update validator keys";
+"baking.menu.suspend" = "Suspend";
 "baking.menu.stopbaking" = "Stop validation";
 
 "baking.inputamount.balance" = "Balance:";
@@ -886,7 +834,7 @@ If you choose to not restake your rewards, the amounts will be at disposal on yo
 "baking.inputamount.newamount" = "Enter your new total validator stake";
 "baking.inputamount.title.create" = "Register validator";
 "baking.inputamount.title.update" = "Update validator stake";
-"baking.inputamount.transactionfee" = "Estimated transaction fee:\n%@ - %@";
+"baking.inputamount.transactionfee" = "≈ %@ - %@";
 "baking.inputamount.lockedamountmessage" = "The validator stake cannot be changed when it already has pending changes.";
 
 "baking.nochanges.title" = "Notice";
@@ -933,9 +881,9 @@ If your pool is already open, you can also close it for new delegators, or you c
 "baking.generatekeys.notice.message" = "This is your only chance to export and save the keys.\n\nThey cannot be recreated, so you will have to generate new keys and register them with a transaction, if you lose these.";
 "baking.updatekeys.title" = "Update validator keys";
 
-"baking.open" = "Open for delegation";
-"baking.closed" = "Closed for delegation";
-"baking.closedfornew" = "Closed for new delegation";
+"baking.open" = "Open";
+"baking.closed" = "Closed";
+"baking.closedfornew" = "Closed for new";
 "baking.metadata.current" = "Current URL: \n %@";
 "baking.metadata.placeholder" = "Paste your metadata URL here";
 
@@ -967,9 +915,13 @@ The validator cannot be removed and the stake cannot be changed until the cool-d
 "baking.receiptconfirmation.removetext" = "Are you sure you want to make the following transaction to stop validation?";
 "baking.receiptconfirmation.stopbaking" = "Transaction: Stop validation";
 "baking.receiptconfirmation.title.register" = "Register validator";
-"baking.receiptconfirmation.registertext" = "You are about to submit a register validator transaction that locks some of your funds in a stake. If you want to unlock the stake again, there will be a cool-down period.";
+"baking.receiptconfirmation.registertext" = "You are about to submit a register validator transaction that locks some of your funds in a stake. If you want to unlock the stake again, there will be a cool-down period of 21 days.";
 "baking.receiptconfirmation.registerbaker" = "Transaction: Register validator";
-"baking.receiptconfirmation.submit" = "Submit validator transaction";
+"baking.receiptconfirmation.submit" = "Submit";
+
+"baking.receiptconfirmation.title.suspend" = "Suspend validation";
+"baking.receiptconfirmation.suspendText" = "Are you sure you want to make the following transaction to suspend validation?";
+"baking.receiptconfirmation.suspendbaking" = "Transaction: Suspend validation";
 
 "baking.receiptconfirmation.feewarning.title" = "Warning";
 "baking.receiptconfirmation.feewarning.message" = "You don’t have any funds on your balance to pay for the fee.";
@@ -1035,6 +987,8 @@ Remember to restart your node with the validator keys.";
 "onboardingcarousel.removebaker.title" = "Validation";
 "onboardingcarousel.removebaker.page1.title" = "Stop validation";
 
+"onboardingcarousel.bakersuspension.title" = "Validation";
+"onboardingcarousel.bakersuspension.page1.title" = "Suspend validation";
 
 "onboardingcarousel.registerbaker.title" = "Become a validator";
 "onboardingcarousel.registerbaker.page1.title" = "Become a validator";
@@ -1073,13 +1027,13 @@ Remember to restart your node with the validator keys.";
 "onboardingcarousel.registerdelegation.page3.title" = "Staking pools";
 "onboardingcarousel.registerdelegation.page4.title" = "Passive delegation";
 "onboardingcarousel.registerdelegation.page5.title" = "Pay days";
-"onboardingcarousel.registerdelegation.page6.title" = "Lock-in and cool-downs";
+"onboardingcarousel.registerdelegation.page6.title" = "Cooldowns";
 "onboardingcarousel.registerdelegation.page7.title" = "The status page";
 
 "onboardingcarousel.updatedelegation.title" = "Delegation";
 "onboardingcarousel.updatedelegation.page1.title" = "Updating your delegation";
 "onboardingcarousel.updatedelegation.page2.title" = "Pay day updates";
-"onboardingcarousel.updatedelegation.page3.title" = "Updates with longer cool-downs";
+"onboardingcarousel.updatedelegation.page3.title" = "Cooldowns";
 
 "onboardingcarousel.removedelegation.title" = "Delegation";
 "onboardingcarousel.removedelegation.page1.title" = "Stop your delegation";
@@ -1105,11 +1059,19 @@ Remember to restart your node with the validator keys.";
 "export.title" = "Export";
 "more.update.successfully" = "Passcode was successfully changed";
 "more.recovery" = "Recovery";
+"more.analytics" = "Analytics";
 "more.deleteAccount" = "Remove wallet";
 "more.deleteAccount.subtitle" = "Remove all sensitive data and private keys from this device";
-"accountFailed.errorMessage" = "Account create error";
-"accountFailed.buttonTitle" = "Recover identities";
+"more.funds.to.unshield" = "Funds to Unshield";
+"more.notifications" = "Notifications";
+"more.exportWallet.privateKey" = "Export wallet private key";
+"more.nft" = "NFT";
 
+"analytics.trackMessage" = "To improve the experience, we would like to track your activity in the app (but never your crypto). Of course, it is completely anonymous.";
+"analytics.popupTrackTitle" = "Help us improve";
+"analytics.allowTracking" = "Allow activity tracking";
+"analytics.askNotToTrack" = "Ask not to track";
+"analytics.trackingConsent" = "I consent to activity tracking inside the app";
 
 "delegation.inputamount.title.create" = "Register delegation";
 "delegation.inputamount.title.update" = "Update delegation";
@@ -1143,6 +1105,9 @@ Remember to restart your node with the validator keys.";
 "recover.identityKey" = "identity";
 "recover.isNewlyCreatedKey" = "isNewlyCreated";
 
+"notifications.ccdtransactions" = "CCD transactions";
+"notifications.cis2tokentransactions" = "CIS-2 token transactions";
+"notifications.seeTransactionDetails" = "See transaction details";
 
 "accountsettings.navigationtitle" = "Account settings";
 
@@ -1153,12 +1118,10 @@ Remember to restart your node with the validator keys.";
 
 "burgermenu.releaseschedule" = "Release Schedule";
 "burgermenu.transferfilters" = "Transfer Filters";
-"burgermenu.showshieldedbalance" = "Show shielded balance";
-"burgermenu.hideshieldedbalance" = "Hide shielded balance";
 "burgermenu.decrypt" = "Decrypt";
 "burgermenu.exportprivatekey" = "Export Private Key";
-"burgermenu.exporttransactionlog" = "Export transaction logs";
-"burgermenu.renameaccount" = "Change account name";
+"burgermenu.exporttransactionlog" = "Export Transaction Logs";
+"burgermenu.renameaccount" = "Change Account Name";
 
 "exporttransactionlog.navigationtitle" = "Export transaction logs";
 "exporttransactionlog.save" = "Save transaction logs";
@@ -1226,19 +1189,21 @@ Remember to restart your node with the validator keys.";
 "baking.status.pendingchange" = "The following changes will take effect on %@";
 "baking.status.removingbaker" = "The validator will be deregistered, and the stake will be unlocked on the public balance of the account.";
 "baking.status.reducingstake" = "Validator stake will be lowered to";
+"baking.status.settings.title" = "Validator settings";
 
 
 "new_onboarding_welcome_title" = "Welcome to Concordium CryptoX wallet";
 "new_onboarding_safe_secure_title" = "Safe and Secure";
-"new_onboarding_safe_secure_subtitle" = "Trusted by thousands, CryptoX is a secure wallet making the Concordium blockchain accessible to all";
+"new_onboarding_safe_secure_subtitle" = "The CryptoX wallet is self-custodial, has best-in-class security and is trusted by thousands.";
 "new_onboarding_manage_asssets_title" = "Easily manage digital assets";
-"new_onboarding_manage_asssets_subtitle" = "Store, spend and send digital assets like tokens, crypto, unique collectibles";
-"new_onboarding_unlimited_possibilities_title" = "Unlimited possibilities";
-"new_onboarding_unlimited_possibilities_subtitle" = "With CryptoX you can make transactions to invest, earn, sell, play games and more!";
-"new_onb_privacy_read" = "I have read and accept";
+"new_onboarding_manage_asssets_subtitle" = "Seamlessly store, spend and send tokens, crypto, and collectibles.";
+"new_onboarding_unlimited_possibilities_title" = "For a safer tomorrow";
+"new_onboarding_unlimited_possibilities_subtitle" = "Access a global ecosystem and contribute to a secure digital future.";
+"new_onb_privacy_read" = "I have read and understood the";
 "new_onb_terms" = "Terms and Conditions";
 "and" = "and";
 "new_onb_privacy" = "Privacy policy";
+"legal.info" = "Legal information";
 "get_started_btn_title" = "Get started";
 "activate_account_btn_title" = "Activate account";
 "ask_ai_title" = "Ask our AI assistant anything";
@@ -1247,24 +1212,27 @@ Remember to restart your node with the validator keys.";
 "activate_account_and_get" = "Activate your account and get";
 "activate_account_and_get_v2" = "Activate your account and get access to all the features";
 "watch_video" = "Watch video";
-"activate_account_title" = "Activate account";
-"create_wallet_sheet" = "Create Wallet";
-"create_wallet_steps_title" = "You have to complete 3 easy steps to create your wallet:";
+"setup_wallet_title" = "Set up your wallet";
+"create_wallet_sheet" = "Create a new wallet";
 "create_wallet_step_1_title" = "Create 6-digit passcode";
 "create_wallet_step_2_title" = "Save seed phrase";
 "create_wallet_step_3_title" = "Verify identity";
-"create_wallet_sheet_import_wallet" = "You can import your wallet with a secret seed phrase or a backup file";
-"import_wallet" = "Import Wallet";
+"create_wallet_sheet_import_wallet" = "You can import your wallet with a secret seed phrase, wallet private key or a backup file";
+"import_wallet" = "Import a wallet";
 "enable_face_id_title" = "Enable Face ID for next time?";
-"enable_face_id_subtitle" = "After you log out now, you’ll be able to sin in faster when you come back";
+"enable_face_id_subtitle" = "After you log out now, you’ll be able to sign in faster when you come back";
 "enable_face_id_button_title" = "Enable Face ID";
 "enable_face_id_later_button_title" = "Set up later in Settings";
-"seed_phrase_title" = "Your seed phrase";
-"seed_phrase_subtitle" = "Your seed phrase is the access key to all the funds in your wallet. If you forget it you will lose access to your wallet(s). Keep it somewhere safe";
+"seed_phrase_title" = "Secure your seed phrase";
+"seed_phrase_subtitle" = "Your seed phrase is the access key to your wallet. If you lose it, you will lose access to all your funds. Make sure to store it in a secure place.";
+"wallet_private_key_title" = "Your wallet private key";
+"wallet_private_key_subtitle" = "Your wallet private key is the access key to all the funds in your wallet. Copy it and keep it safe. To avoid mistakes, do not write it down manually.";
+"copy_and_keep_safe" = "Copy and keep safe";
 "transcribe" = "Transcribe";
 "digital_copy" = "Digital copy";
 "screenshot" = "Screenshot";
-"seed_phrase_confirm_save" = "I have kept it somewhere safe";
+"show_wallet_private_key" = "Show wallet private key";
+"seed_phrase_confirm_save" = "I have securely backed up my seed phrase";
 "continue_btn_title" = "Continue";
 "identity_verification_title" = "Identity verification";
 "indentity_verification_subtitle" = "Select a provider to verify your identity";
@@ -1295,6 +1263,12 @@ Remember to restart your node with the validator keys.";
 "recover_accounts_recover_button_title" = "Recover";
 "recover_accounts_connect_wallet_button_title" = "Connect wallet";
 
+"recover_accounts.info.seedPhraseDescription" = "Consists of 24 words\n Grants access to all connected accounts\nCan be used to recover a seed phrase wallet";
+"recover_accounts.info.WalletKeyDescription" = "Consists of 128 characters long hexadecimal string\nGrants access to all connected accounts\nCan be used to recover a seed phrase wallet\nUsed in older Concordium wallets";
+
+"import.walletPrivateKey.title" = "Your wallet private key";
+"import.walletPrivateKey.subtitle" = "Please enter your wallet private key exactly how it was presented to you";
+
 "more.show.recovery.phrase.title" = "Show recovery phrase";
 "more.show.recovery.phrase.subtitle" = "Show you recovery seed phrase for this account";
 "more.remove.account.confirmation.title" = "Are you sure want to remove all account and related data?";
@@ -1303,7 +1277,7 @@ Remember to restart your node with the validator keys.";
 "add.token" = "Add token";
 
 "passcode.view.create.passcode.title" = "Create Passcode";
-"passcode.view.repeate.passcode.title" = "Confirm Passcode";
+"passcode.view.repeate.passcode.title" = "Repeat Passcode";
 "passcode.view.enter.passcode.title" = "Enter Passcode";
 "passcode.view.biometry.passcode.title" = "Enable Biometrics";
 
@@ -1317,6 +1291,7 @@ Remember to restart your node with the validator keys.";
 
 
 
+
 // ID 2.5
 
 "reveal_description" = "Note that all the information above will be revealed to the connected service.";
@@ -1325,3 +1300,185 @@ Remember to restart your node with the validator keys.";
 "identity_attribute_birth_date" = "Date of birth";
 "identity_proofs_age_max" = "%@ years or older";
 "identity_proofs_age_min" = "%@ years or younger";
+
+"identityCreation.hasPending" = "You can only have one identity request open at a time. Please wait for your currently pending request to finish before starting a new one.";
+
+"ccd_onramp_list_header_title" = "CCD Listings";
+"ccd_onramp_list_header_subtitle" = "CCD is listed in the following external exchanges and services. Some of these venues will guide you through their onboarding process and wallet choices.";
+"ccd_onramp_list_header_subtitle_more" = "Read our disclaimer for more.";
+"ccd_onramp_list_footer_title" = "Disclaimer";
+"ccd_onramp_list_footer_subtitle" = "The information regarding the CCD on any Concordium website does not constitute an offer or solicitation to purchase CCDs. The information on the CCD on this website is only directed to persons in countries other than the United States. \n\nWithout limiting the foregoing, in no event would any offering of CCD by Concordium be intended to be available to residents of the United States. \n\nBy clicking on any of the above links, you may be getting access to various services, including trading services. \n\nThese services are offered by third parties and the use of such services are subject to terms of conditions defined by such third parties and Concordium is not responsible for and does not assume any liabilities in relation to the use of such services.";
+"ccd_onramp_account_picker_list_header_title" = "Select Account";
+"ccd_onramp_account_picker_list_header_subtitle" = "Which account do you want to use with the external service?";
+
+"setup_progress_title" = "Your account will be here once your set-up is complete.";
+"next_step_seed_phrase" = "Next step: Save your seed phrase";
+"final_step_verify_identity" = "Final step: Verify your identity";
+"verification.in.progress" = "Verification in progress";
+"verification.completed" = "Verification completed";
+"verification.failed" = "Verification unsuccessful";
+"setup.complete" = "Set-up complete";
+"unlock.feature" = "Unlock this feature";
+"unlock.feature.subtitle" = "To use all features please complete your wallet set-up.";
+"go.back" = "Go back";
+"finalizing_account" = "Finalizing account";
+
+"backup.recommendation.message" = "We recommend that you migrate to a seed phrase wallet in order to make use of the full range of CryptoX features.";
+"ccd.description" = "CCD is the native token of the Concordium blockchain. Its main use cases are the payment of transaction fees, the payment for the execution of smart contracts, payments between users, payments for commercial transactions, staking, and the rewards offered to node operators.";
+
+"transaction.in.progress.status" = "Transaction in progress";
+"transaction.status.success" = "You've sent";
+"transaction.status.failed" = "Transaction failed to send";
+
+"earn.info.title.part1" = "Earn up to";
+"earn.info.title.part2" = "%@";
+"earn.info.part1.title" = "Get rewarded for staking";
+"earn.info.part1.desc" = "Stake your CCD to earn rewards. Rewards can be restaked automatically.";
+"earn.info.part2.title" = "Earn your way";
+"earn.info.part2.desc" = "You can delegate to an open pool of your choice, or stake using passive delegation.";
+"earn.info.part3.title" = "Update with ease";
+"earn.info.part3.desc" = "Your stake can be modified at any time. If you decrease the amount or stop the delegation a cool-down period of 7 days applies.";
+"earn.become.validator" = "Or become a validator (advanced)";
+"earn.start" = "Start earning";
+"read.more" = "Read more";
+"learn.about.earning" = "Learn about earning";
+"learn.about.validation" = "Learn about validation";
+
+"delegation.desc" = "Delegation allows users on the Concordium blockchain to earn rewards without the need to become a validator or run a node.\n\nBy delegating some of your funds to a pool, you can earn rewards.\n\nOn the next few pages, we will go through the basics of delegation. If you want to learn more, you can visit our documentation website.";
+
+"staking.pools.desc" = "A staking pool is managed by an individual validator.\n\nRunning a pool allows a validator to attract more stake and thus increate chances of being selected to produce a block.\n\nValidators earn a commission from the delegators upon producing a block.\n\nDelegating to a staking pool is usually more profitable than passive delegation, but there is also a risk of losing out on rewards if the validator is not running properly. It is therefore a good idea to keep an eye on the validator's performance.\n\nYou can read more about how to investigate a validator's performance on our documentation website.";
+
+"passive.delegation.desc" = "For CCD holders who do not want to regularly check the performance of a chosen pool, but just want a stable way of earning rewards, passive delegation offers a low-risk, low-reward alternative.\n\nThis staking strategy is not associated with a specific validator, so there is no risk of poor validator health.\n\nThe trade off when choosing passive delegation is that the return on your stake will be less than what you may receive when delegating to a specific staking pool.";
+
+"pay.days.desc" = "Whether you choose an individual validation pool or passive delegation, rewards are paid out at what is called the pay day. Rewards are distributed to everyone in the pool proportional to their stake, and a commission is paid to the validator by all delegators.\n\nIf you make updates to your delegation at a later point, most of these will also take effect from the next pay day.\n\nTo read more about the pay day, you can visit our documentation website.";
+
+"lockins.cooldowns.desc" = "When you make a delegation to either type of pool, your delegation amount will be locked on your account.\n\nThis means that you cannot use the amount for anything while it is still locked in for delegation.\n\nIf you decrease your delegation amount or stop the delegation altogether, the amount will still be locked for a cool-down period.\n\nAs transactions cost a fee, it is important to take into consideration, that you will need some unlocked funds on your public balance to pay the fee for unlocking your delegation amount again.";
+
+"status.page.desc" = "After starting a delegation, you will be able to see its current status on the status screen.\n\nFrom there, you can also make updates to your delegation, or stop it again.";
+
+"status.page.title" = "The status page";
+"lockins.cooldowns.title" = "Lock-in and cool-downs";
+"pay.days.title" = "Pay days";
+"passive.delegation.title" = "Passive delegation";
+"staling.pools.title" = "Staking pools";
+"delegation.title" = "Delegation";
+"staking.mode" = "Staking mode";
+"restake.reward" = "Restake rewards";
+"restake.reward.desc" = "Automatically reinvest rewards to compound your staking returns over time.";
+"staking.mode.desc" = "You can delegate to an open pool of your choice, or you can stake using passive delegation.";
+"validation.pool.desc" = "If you don’t already know which validator pool you want to delegate an amount to, you can look on ";
+"validator.pool" = "Validator pool";
+"eneter.validator.pool.id" = "Enter validator pool ID";
+
+"warning.earn.note" = "NOTE: A single account cannot both be a validator and delegator, but it is possible to stop one and change to the other.";
+"validator.start.title" = "Become a validator";
+"validator.start.desc" = "A validator is a node that participates in the network by producing new blocks that are added to the chain.\n\nEach validator has a set of cryptographic keys called validator keys that the node needs to produce blocks. You generate the validator keys when you add a validator account.\n\nOnce the validator node has been restarted with the validator keys, it will start validation two epochs after the transaction has been approved.";
+"validator.node.title" = "The node";
+"validator.node.desc" = "To become a validator you must run a node on the Concordium blockchain. Make sure that you have a setup where the node can operate around the clock.  You can run the node yourself or use a third-party provider. Make sure your account in the wallet has the required amount of CCD to become a validator.";
+"validator.opening.pool.title" = "Opening a pool";
+"validator.opening.pool.desc" = "You have the option when adding a validator to open a staking pool or not. A staking pool allows others who want to earn rewards to do so without the need to run a node or become a validator themselves.\n\nTo do this they delegate an amount to your staking pool which then increases your total stake and your chances of winning the lottery to bake a block. At each pay day the rewards will be distributed to you and your delegators.\n\nYou can also choose not to open a pool, in which case only your own stake applies toward the lottery. You can always open or close a pool later.";
+"validator.comissions.desc" = "When you open your validator as a pool, you earn commissions of stake delegated to your pool from other accounts:";
+"validator.transaction.commission" = "Transaction fee commission";
+"validator.reward.commission" = "Block reward commission";
+"validator.commission.title" = "Commissions";
+"validator.metadata.desc" = "You can choose to add a URL with metadata about your validator. Leave it blank if you don’t have any.";
+"validator.enter.md.url" = "Enter metadata URL";
+"validator.metadata.title" = "Metadata";
+"validator.validator.keys.desc" = "Your new validator keys have been generated, Before you can continue, you must have to be added to the validator node.";
+"validator.validator.keys.title" = "Validator keys";
+"validator.validator.export.keys" = "Export keys as .json";
+"estimated.tx.fee" = "Estimated transaction fee";
+"validator.registered.success" = "Your validation is registered";
+"validator.registered.failed" = "Failed to register validation";
+"validator.registered.in.progress" = "Your validation is in progress";
+
+"validator.update.pool.success" = "Your pool settings were updated successfully";
+"validator.update.pool.failed" = "Failed to update pool settings";
+"validator.update.pool.in.progress" = "Updating pool settings is in progress";
+
+"validator.update.stake.success" = "Your stake was updated successfully";
+"validator.update.stake.failed" = "Failed to update stake";
+"validator.update.stake.in.progress" = "Updating stake is in progress";
+
+"validator.update.keys.success" = "Your keys were successfully updated";
+"validator.update.keys.failed" = "Failed to update keys";
+"validator.update.keys.in.progress" = "Updating keys is in progress";
+
+"validator.stop.success" = "You submitted a transaction to stop your validator";
+"validator.stop.in.progress" = "Transaction to stop validation is being submitted";
+"validator.stop.failed" = "Failed to submit transaction to stop validation";
+
+"validator.suspend.success" = "You suspended your validation";
+"validator.suspend.failed" = "Failed to suspend validation";
+"validator.suspend.in.progress" = "Transaction to suspend your validation is being submitted";
+
+"validator.resume.success" = "You resumed your validation";
+"validator.resume.failed" = "Failed to resume validation";
+"validator.resume.in.progress" = "Transaction to resume your validation is being submitted";
+
+"validation.stop.title" = "Stop validation";
+"validation.stop.desc" = "If you stop validating there is a cooldown period, after which the full stake amount will be unlocked on your public balance.\n\nIf your pool has any delegators, they will be automatically moved to passive delegation.\n\nDeregistering the validator does not shut down your node. You must shut down the node in a separate action if you no longer wish to run a node on the Concordium blockchain.";
+"transaction.fee" = "Transaction fee ≈ %@ CCD";
+"validation.stop.message" = "Your validator will stop at the next pay day after a cooldown of %@ days.\n\nOnce the transaction has finalized, you can see the estimated time on the validator status screen.";
+
+"validation.resume" = "Resume";
+"validation.status.suspended.title" = "Your validation has been suspended";
+"validation.status.suspended.desc" = "Your node does not earn rewards at the moment.\n\nTo lift the suspension and earn rewards again ensure your node is up-to-date and click “Resume”.";
+"validation.status.primed.for.suspension.title" = "Your validation is primed for suspension";
+"validation.status.primed.for.suspension.desc" = "Your node was inactive for a number of hours. If it has been inactive for too long it will be suspended. Suspended nodes don’t earn rewards.\n\nTo prevent suspension ensure your node is up-to-date and active. Once your node is active you will no longer be primed for suspension.";
+
+"important" = "Important";
+"validation.alert.suspend.desc" = "You are about to self-suspend your validation.\n\nPlease be aware that:\n\n\t • Suspended nodes don’t earn rewards \n\t • Your delegators will stop earning rewards \n\t • Your delegators will be notified about the suspension";
+
+"effective.from" = "Effective from next payday";
+"resume.validation" = "Resume validation";
+"submit" = "Submit";
+
+"delegation.staking.desc" = "Delegate to an open pool of your choice, or stake your CCD using passive delegation.";
+"delegation.staking.mode.validator.pool.desc" = "If you don’t already know which validator pool you want to delegate an amount to, you can look on ";
+"delegation.staking.mode.ccdScan.mainnet" = "ccdscan.io/staking";
+"delegation.staking.mode.ccdScan.testnet" = "testnet.ccdscan.io/staking";
+"delegation.staking.mode.passive" = "Passive delegation";
+"delegation.staking.mode.validator.pool" = "Validator pool";
+"delegation.staking.mode" = "Staking mode";
+"delegation.validator.pool.id" = "Enter validator pool ID";
+"available.for.staking" = "Available for staking";
+
+"delegation.stop.alert.title" = "Stop earning";
+"delegation.stop.alert.message" = "If you decide to stop your delegation, a cool-down period applies.\n\nAt the end of the cool-down period, the delegated amount is unlocked on your public balance, and the funds will be at disposal again.";
+
+"delegation.registered.success" = "You are delegating";
+"delegation.registered.failed" = "Failed to register delegation";
+"delegation.registered.in.progress" = "Your delegation is in progress";
+
+"delegation.update.success" = "Your delegation settings were updated successfully";
+"delegation.update.failed" = "Failed to update delegation settings";
+"delegation.update.in.progress" = "Updating delegation settings is in progress";
+
+"delegation.stop.success" = "You submitted a transaction to stop your staking";
+"delegation.stop.in.progress" = "Transaction to stop staking is being submitted";
+"delegation.stop.failed" = "Failed to submit transaction to stop staking";
+
+"delegation.submit.delegation" = "Submit delegation";
+"delegation.suspended.title" = "Your validator has been suspended";
+"delegation.suspended.desc" = "Your delegation amount does not earn rewards until validation is resumed.";
+"delegation.targeted.delegation" = "Targeted delegation";
+"stop.staking" = "Stop staking";
+"earning" = "Earning";
+"staked.balance" = "Staked balance";
+"apy" = "APY";
+"mode" = "Mode";
+"staking.carousel.desc" = "Stake your CCD and earn rewards";
+"apy.additional.info" = "Estimated rewards are based on past results. Actual returns may vary.";
+"earn" = "Earn";
+"projected.rewards" = "Projected rewards";
+"confirmation" = "Confirmation";
+"staking.mode.nil" = "Staking mode must be confirmed";
+
+"allow.tracking.title" = "Help Us Improve Your Experience";
+"allow.tracking.msg" = "Please enable tracking in Settings to help us provide better personalized experiences.";
+"go.to.settings" = "Go to settings";
+"primed.for.suspension.message" = "Your validation is primed for suspension";
+"suspended.message" =  "Your validation has been suspended";
+"multiple.accounts.suspended" = "Validation issues with several accounts";
+

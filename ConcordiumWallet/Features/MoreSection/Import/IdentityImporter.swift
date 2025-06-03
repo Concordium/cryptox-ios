@@ -41,6 +41,7 @@ class IdentityImporter {
             importAccounts(identityData: identityDataToImport, identityEntity: identityEntity, pwHash: pwHash)
             importReadOnlyAccounts(readOnlyAccounts, identityEntity: identityEntity, pwHash: pwHash)
             importReport.importedIdentities.append(importedIdentity)
+            TransactionNotificationService().sendTokenToConcordiumServer()
             return identityEntity
             
         } catch {

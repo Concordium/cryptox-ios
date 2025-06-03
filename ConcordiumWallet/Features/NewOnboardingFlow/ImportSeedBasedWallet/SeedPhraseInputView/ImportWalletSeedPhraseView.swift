@@ -48,10 +48,11 @@ final class ImportWalletSeedPhraseViewModel: ObservableObject {
         if selectedWords.allSatisfy({ !$0.isEmpty }) {
             switch recoveryService.validate(recoveryPhrase: selectedWords) {
             case .success:
-                    isValidPhrase = true
+                isValidPhrase = true
+                error = nil
             case .failure:
                 error = "recoveryphrase.recover.input.validationerror".localized
-                    isValidPhrase = false
+                isValidPhrase = false
             }
         }
     }
@@ -90,7 +91,7 @@ struct ImportWalletSeedPhraseView: View {
 
 
             SeedPhraseInput(
-                selectedWords: viewModel.selectedWords,
+                selectedWords: $viewModel.selectedWords,
                 selectedIndex: $viewModel.selectedIndex,
                 suggestions: viewModel.currentSuggestions,
                 editable: true,
@@ -102,7 +103,7 @@ struct ImportWalletSeedPhraseView: View {
                     viewModel.clearAll()
                     viewModel.selectedIndex = 0
                 }
-                .font(.system(size: 14, weight: .medium))
+                .font(.satoshi(size: 14, weight: .medium))
                 .foregroundColor(Color(red: 0.73, green: 0.75, blue: 0.78))
                 .offset(y: 28)
             }
@@ -124,7 +125,7 @@ struct ImportWalletSeedPhraseView: View {
             })
             .disabled(!viewModel.isValidPhrase)
             .frame(height: 56)
-            .background(Color.EggShell.tint1)
+            .background(.white)
             .cornerRadius(28, corners: .allCorners)
             .opacity(viewModel.isValidPhrase ? 1.0 : 0)
             .animation(.easeInOut, value: viewModel.isValidPhrase)

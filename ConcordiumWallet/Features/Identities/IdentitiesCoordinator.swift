@@ -21,13 +21,17 @@ class IdentitiesCoordinator: Coordinator {
 
     private var dependencyProvider: IdentitiesFlowCoordinatorDependencyProvider
     weak var delegate: IdentitiesCoordinatorDelegate?
+    weak var configureAccountAlertDelegate: ConfigureAccountAlertDelegate?
+    
     init(navigationController: UINavigationController,
          dependencyProvider: IdentitiesFlowCoordinatorDependencyProvider,
-         parentCoordinator: IdentitiesCoordinatorDelegate) {
+         parentCoordinator: IdentitiesCoordinatorDelegate,
+         configureAccountAlertDelegate: ConfigureAccountAlertDelegate?) {
 
         self.navigationController = navigationController
         self.dependencyProvider = dependencyProvider
         self.delegate = parentCoordinator
+        self.configureAccountAlertDelegate = configureAccountAlertDelegate
     }
 
     func start() {
@@ -36,7 +40,7 @@ class IdentitiesCoordinator: Coordinator {
 
     func showInitial(animated: Bool = false) {
         let identitiesPresenter = IdentitiesPresenter(dependencyProvider: dependencyProvider, delegate: self)
-        let vc = IdentitiesFactory.create(with: identitiesPresenter, flow: .show)
+        let vc = IdentitiesFactory.create(with: identitiesPresenter, flow: .show, configureAccountAlertDelegate: configureAccountAlertDelegate)
         vc.tabBarItem = UITabBarItem(title: "identities_tab_title".localized, image: UIImage(named: "tab_bar_identities_icon"), tag: 0)
         vc.hidesBottomBarWhenPushed = true
         navigationController.pushViewController(vc, animated: animated)
@@ -164,5 +168,14 @@ extension IdentitiesCoordinator: SeedIdentitiesCoordinatorDelegate {
         
         let identityDict = ["identity" : identity]
         NotificationCenter.default.post(name: Notification.Name("seedIdentityCoordinatorWasFinishedNotification"), object: nil, userInfo: identityDict)
+    }
+    
+    func seedIdentityCoordinatorDidFail(with error: IdentityRejectionError) {
+        let alert = UIAlertController(title: "identityStatus.failed".localized, message: error.description, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "identityfailed.tryagain".localized, style: .default, handler: { _ in
+            self.showCreateNewIdentity()
+        }))
+        alert.addAction(UIAlertAction(title: "Try later", style: .default, handler: nil))
+        navigationController.present(alert, animated: true, completion: nil)
     }
 }

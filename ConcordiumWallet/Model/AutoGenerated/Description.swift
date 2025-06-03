@@ -8,9 +8,10 @@ import Foundation
 // MARK: - Description
 struct Description: Codable {
     let name, url, desc: String
+    let display: String?
 
     enum CodingKeys: String, CodingKey {
-        case name, url
+        case name, url, display
         case desc = "description"
     }
 }
@@ -36,12 +37,14 @@ extension Description {
     func with(
         name: String? = nil,
         url: String? = nil,
-        desc: String? = nil
+        desc: String? = nil,
+        display: String? = nil
     ) -> Description {
         return Description(
             name: name ?? self.name,
             url: url ?? self.url,
-            desc: desc ?? self.desc
+            desc: desc ?? self.desc,
+            display: display
         )
     }
 

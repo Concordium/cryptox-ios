@@ -49,3 +49,14 @@ extension UIView {
         }
     }
 }
+
+extension UIView {
+    func setFadeAnimation() {
+        let transition = CATransition()
+        transition.duration = 0.2
+        transition.type = .fade
+        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        
+        self.layer.add(transition, forKey: kCATransition)
+    }
+}

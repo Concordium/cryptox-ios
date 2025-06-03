@@ -126,7 +126,7 @@ private struct PageListCell: View {
     var body: some View {
         HStack(spacing: 8) {
             Text("\(index + 1).")
-                .font(Font.system(size: 15, weight: .medium))
+                .font(Font.satoshi(size: 15, weight: .medium))
                 .foregroundColor(.greySecondary)
             if isSelected && editable {
                 AutoFocusTextField(text: $input)
@@ -134,7 +134,7 @@ private struct PageListCell: View {
                     .onAppear { input = label }
             } else {
                 Text(label)
-                    .font(Font.system(size: 15, weight: .medium))
+                    .font(Font.satoshi(size: 15, weight: .medium))
                     .foregroundColor(.greySecondary)
                     .lineLimit(1)
             }

@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct OnboardingRootView: View {
-    let keychain: KeychainWrapper
     let identitiesService: SeedIdentitiesService
     let defaultProvider: ServicesProvider
     
@@ -18,20 +17,11 @@ struct OnboardingRootView: View {
     var onLogout: () -> Void
     
     @EnvironmentObject var sanityChecker: SanityChecker
-    @AppStorage("isAcceptedPrivacy") private var isAcceptedPrivacy = false
 
     var body: some View {
         ZStack {
-            if isAcceptedPrivacy {
-                MainPromoView(defaultProvider: defaultProvider, onIdentityCreated: onIdentityCreated, onAccountInported: onAccountInported, onLogout: onLogout)
-                    .environmentObject(sanityChecker)
-            } else {
-                WelcomeView {
-                    isAcceptedPrivacy = true
-                }
-            }
+            MainPromoView(defaultProvider: defaultProvider, onPasswordCreated: onIdentityCreated, onAccountInported: onAccountInported, onLogout: onLogout)
+                .environmentObject(sanityChecker)
         }
-        .animation(.easeInOut, value: isAcceptedPrivacy)
-        .transition(.fade)
     }
 }

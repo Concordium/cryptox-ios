@@ -6,6 +6,24 @@
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES"
       buildArchitectures = "Automatic">
+      <PreActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;&#10;echo &quot;API_KEY=${API_KEY}&quot; &gt; /Volumes/workspace/repository/Config.xcconfig&#10;echo &quot;TESTNET_WERT_API_KEY=${TESTNET_WERT_API_KEY}&quot; &gt;&gt; Config.xcconfig&#10;echo &quot;TESTNET_WERT_PARTNER_ID=${TESTNET_WERT_PARTNER_ID}&quot; &gt;&gt; Config.xcconfig&#10;&#10;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "08C166572BB7396200E61326"
+                     BuildableName = "ProdTestNet.app"
+                     BlueprintName = "ProdTestNet"
+                     ReferencedContainer = "container:CryptoX.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PreActions>
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
@@ -50,6 +68,12 @@
             ReferencedContainer = "container:CryptoX.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "-FIRAnalyticsDebugEnabled"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -74,5 +98,23 @@
    <ArchiveAction
       buildConfiguration = "Release"
       revealArchiveInOrganizer = "YES">
+      <PreActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;CONFIG_FILE_PATH=&quot;$SRCROOT/Config.xcconfig&quot;&#10;&#10;if [ ! -f &quot;$CONFIG_FILE_PATH&quot; ]; then&#10;  echo &quot;// Auto-generated for Xcode Cloud build&quot; &gt; &quot;$CONFIG_FILE_PATH&quot;&#10;echo &quot;API_KEY=${API_KEY}&quot; &gt;&gt; &quot;$CONFIG_FILE_PATH&quot;&#10;echo &quot;TESTNET_WERT_API_KEY=${TESTNET_WERT_API_KEY}&quot; &gt;&gt; &quot;$CONFIG_FILE_PATH&quot;&#10;echo &quot;TESTNET_WERT_PARTNER_ID=${TESTNET_WERT_PARTNER_ID}&quot; &gt;&gt; &quot;$CONFIG_FILE_PATH&quot;&#10;fi&#10;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "08C166572BB7396200E61326"
+                     BuildableName = "ProdTestNet.app"
+                     BlueprintName = "ProdTestNet"
+                     ReferencedContainer = "container:CryptoX.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PreActions>
    </ArchiveAction>
 </Scheme>

@@ -57,8 +57,9 @@ private class HostingController<ViewModel: PageModel & EventHandler, Content: Pa
         self.presenter = presenter
         
         super.init(rootView: page)
-        
-        setup()
+        if isViewLoaded {
+            setup()
+        }
     }
     
     private func setup() {

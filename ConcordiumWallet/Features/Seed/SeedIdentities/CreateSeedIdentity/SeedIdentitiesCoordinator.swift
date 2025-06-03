@@ -12,10 +12,15 @@ import SafariServices
 
 protocol SeedIdentitiesCoordinatorDelegate: AnyObject {
     func seedIdentityCoordinatorWasFinished(for identity: IdentityDataType)
+    func seedIdentityCoordinatorDidFail(with error: IdentityRejectionError)
+}
+
+protocol SubmittedSeedAccountPresenterDelegate: AnyObject {
+    func accountHasBeenFinished(for identity: IdentityDataType)
 }
 
 @MainActor
-class SeedIdentitiesCoordinator: Coordinator {
+class SeedIdentitiesCoordinator: Coordinator, ShowAlert {
     enum Action {
         case createInitialIdentity
         case createAccount
@@ -68,18 +73,15 @@ class SeedIdentitiesCoordinator: Coordinator {
     }
     
     private func showIdentityProviders(enablePop: Bool = true, isNewIdentityAfterSettingUpTheWallet: Bool = false) {
-        let presenter = SelectIdentityProviderPresenter(
-            identitiesService: identititesService,
-            delegate: self,
-            isNewIdentityAfterSettingUpTheWallet: isNewIdentityAfterSettingUpTheWallet
-        )
+        let identityView = IdentityProviderListView(viewModel: .init(identitiesService: identititesService,
+                                                                     delegate: self,
+                                                                     isNewIdentityAfterSettingUpTheWallet: isNewIdentityAfterSettingUpTheWallet))
         
+        let vc = SceneViewController(content: identityView)
         if enablePop {
-            navigationController.pushViewController(
-                presenter.present(SelectIdentityProviderView.self),
-                animated: true)
+            navigationController.pushViewController(vc, animated: true)
         } else {
-            navigationController.setViewControllers([presenter.present(SelectIdentityProviderView.self)], animated: true)
+            navigationController.present(vc, animated: true)
         }
     }
     
@@ -97,14 +99,13 @@ class SeedIdentitiesCoordinator: Coordinator {
     }
     
     private func showIdentityStatus(identity: IdentityDataType, isNewIdentityAfterSettingUpTheWallet: Bool = false) {
-        let presenter = SeedIdentityStatusPresenter(
+        navigationController.dismiss(animated: true)
+        _ = SeedIdentityStatusService(
             identity: identity,
             identitiesService: identititesService,
-            delegate: self,
-            isNewIdentityAfterSettingUpTheWallet: isNewIdentityAfterSettingUpTheWallet
+            isNewIdentityAfterSettingUpTheWallet: isNewIdentityAfterSettingUpTheWallet,
+            delegate: self
         )
-        
-        navigationController.setViewControllers([presenter.present(SeedIdentityStatusView.self)], animated: true)
     }
     
     private func showSubmitAccount(for identity: IdentityDataType, isNewAccountAfterSettingUpTheWallet: Bool = false) {
@@ -128,17 +129,6 @@ class SeedIdentitiesCoordinator: Coordinator {
         navigationController.pushViewController(presenter.present(SelectIdentityView.self), animated: true)
     }
     
-    private func showSubmittedAccount(for identity: IdentityDataType) {
-        let presenter = SubmittedSeedAccountPresenter(
-            identity: identity,
-            identitiesService: identititesService,
-            accountsService: dependencyProvider.seedAccountsService(),
-            delegate: self
-        )
-        
-        navigationController.setViewControllers([presenter.present(SubmittedSeedAccountView.self)], animated: true)
-    }
-    
     func recoverySelected() async throws {
         let pwHash = try await self.requestUserPassword(keychain: KeychainWrapper())
         let seedValue = try KeychainWrapper().getValue(for: "RecoveryPhraseSeed", securedByPassword: pwHash).get()
@@ -160,19 +150,6 @@ class SeedIdentitiesCoordinator: Coordinator {
     private func replaceTopController(with controller: UIViewController) {
         let viewControllers = navigationController.viewControllers.filter { $0.isPresenting(page: RecoveryPhraseGettingStartedView.self) }
         navigationController.setViewControllers(viewControllers + [controller], animated: true)
-    }
-    
-    func showMainTabbar() {
-//        navigationController.setupBaseNavigationControllerStyle()
-
-        accountsCoordinator = AccountsCoordinator(
-            navigationController: self.navigationController,
-            dependencyProvider: ServicesProvider.defaultProvider(),
-            appSettingsDelegate: self//,
-//            accountsPresenterDelegate: self
-        )
-        // accountsCoordinator?.delegate = self
-        accountsCoordinator?.start()
     }
 }
 
@@ -255,15 +232,15 @@ extension SeedIdentitiesCoordinator: SeedIdentityStatusPresenterDelegate {
     func makeNewAccount(with identity: IdentityDataType) {
         showSubmitAccount(for: identity, isNewAccountAfterSettingUpTheWallet: true)
     }
+    
+    func seedIdentityStatusDidFail(with error: IdentityRejectionError) {
+        delegate?.seedIdentityCoordinatorDidFail(with: error)
+    }
 }
 
 extension SeedIdentitiesCoordinator: SubmitSeedAccountPresenterDelegate {
     func accountHasBeenSubmitted(_ account: AccountDataType, isNewAccountAfterSettingUpTheWallet: Bool, forIdentity identity: IdentityDataType) {
-        if isNewAccountAfterSettingUpTheWallet {
-            showSubmittedAccount(for: identity)
-        } else {
             delegate?.seedIdentityCoordinatorWasFinished(for: identity)
-        }
     }
     
     func makeNewIdentityRequest() {
@@ -295,8 +272,8 @@ extension SeedIdentitiesCoordinator: SubmittedSeedAccountPresenterDelegate {
 
 extension SeedIdentitiesCoordinator: IdentityRecoveryStatusPresenterDelegate {
     func identityRecoveryCompleted() {
-        showMainTabbar()
         childCoordinators.removeAll { $0 is RecoveryPhraseCoordinator }
+        navigationController.dismiss(animated: true)
     }
     
     func reenterRecoveryPhrase() {
@@ -310,7 +287,11 @@ extension SeedIdentitiesCoordinator: AppSettingsDelegate {
 }
 
 extension SeedIdentitiesCoordinator: AccountsPresenterDelegate {
-    func scanQR() {}
+    func scanQR() { }
+    func noValidIdentitiesAvailable() { }
+    func tryAgainIdentity() { }
+    func didSelectMakeBackup() { }
+    func didSelectPendingIdentity(identity: IdentityDataType) { }
     
     func createNewIdentity() {
         accountsCoordinator?.showCreateNewIdentity()
@@ -324,25 +305,6 @@ extension SeedIdentitiesCoordinator: AccountsPresenterDelegate {
         accountsCoordinator?.userPerformed(action: action, on: account)
     }
 
-    func enableShielded(on account: AccountDataType) {
-    }
-
-    func noValidIdentitiesAvailable() {
-    }
-
-    func tryAgainIdentity() {
-    }
-
-    func didSelectMakeBackup() {
-    }
-
-    func didSelectPendingIdentity(identity: IdentityDataType) {
-    }
-
-    func newTermsAvailable() {
-        accountsCoordinator?.showNewTerms()
-    }
-    
     func showSettings() {
         let moreCoordinator = MoreCoordinator(navigationController: self.navigationController,
                                               dependencyProvider: ServicesProvider.defaultProvider(),
@@ -352,6 +314,7 @@ extension SeedIdentitiesCoordinator: AccountsPresenterDelegate {
 }
 
 extension SeedIdentitiesCoordinator: IdentitiesCoordinatorDelegate, MoreCoordinatorDelegate {
+    func showExportWalletPrivateKey() {}
     func showRevealSeedPrase() {}
     func logoutAccounts() {}
     func finishedDisplayingIdentities() {}

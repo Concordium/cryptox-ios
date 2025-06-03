@@ -7,8 +7,7 @@
 //
 
 import SwiftUI
-import Web3Wallet
-import WalletConnectVerify
+import ReownWalletKit
 
 enum SessionProposalError: Error {
     case environmentMismatch, methodMismatch
@@ -28,11 +27,13 @@ final class SessionProposalViewModel: ObservableObject {
     ]
     
     var currentChain: String {
-        #if MAINNET
-            "ccd:mainnet"
-        #else
-            "ccd:testnet"
-        #endif
+#if TESTNET
+        "ccd:testnet"
+#elseif MAINNET
+        "ccd:mainnet"
+#else // Staging
+        "ccd:stagenet"
+#endif
     }
     
     private let wallet: MobileWalletProtocol
@@ -92,7 +93,7 @@ final class SessionProposalViewModel: ObservableObject {
                 events: supportedEvents,
                 accounts: supportedAccounts
             )
-            try await Web3Wallet.instance.approve(proposalId: sessionProposal.id, namespaces: sessionNamespaces)
+            try await Sign.instance.approve(proposalId: sessionProposal.id, namespaces: sessionNamespaces)
             completion?()
         } catch {
             logger.debugLog(error.localizedDescription)
@@ -102,7 +103,7 @@ final class SessionProposalViewModel: ObservableObject {
     @MainActor
     func rejectSessionRequest(_ completion: (() -> Void)?) async {
         do {
-            try await Web3Wallet.instance.reject(proposalId: sessionProposal.id, reason: .userRejected)
+            try await Sign.instance.rejectSession(proposalId: sessionProposal.id, reason: .userRejected)
             completion?()
         } catch {
             logger.debugLog(error.localizedDescription)
@@ -130,11 +131,11 @@ struct SessionProposalView: View {
                         .aspectRatio(contentMode: .fit)
                     Text("Connect to \(viewModel.sessionProposal.proposer.name)?")
                         .foregroundColor(.white)
-                        .font(.system(size: 28, weight: .semibold))
+                        .font(.satoshi(size: 28, weight: .semibold))
                     
                     Text(viewModel.sessionProposal.proposer.description)
                         .foregroundColor(.gray)
-                        .font(.system(size: 13, weight: .regular))
+                        .font(.satoshi(size: 13, weight: .regular))
                     
                     VStack {
                         Button(action: {
@@ -147,7 +148,7 @@ struct SessionProposalView: View {
                                         HStack(spacing: 8) {
                                             Text("Choose another account")
                                                 .foregroundColor(.white)
-                                                .font(.system(size: 14, weight: .medium))
+                                                .font(.satoshi(size: 14, weight: .medium))
                                             Image("ico_arrow")
                                             Spacer()
                                         }
@@ -203,7 +204,7 @@ struct SessionProposalView: View {
                             Text("Decline")
                                 .frame(maxWidth: .infinity)
                                 .foregroundColor(.white)
-                                .font(.system(size: 17, weight: .semibold))
+                                .font(.satoshi(size: 17, weight: .semibold))
                                 .padding(.vertical, 11)
                                 .background(Color.clear)
                                 .overlay(
@@ -220,7 +221,7 @@ struct SessionProposalView: View {
                             Text("Allow")
                                 .frame(maxWidth: .infinity)
                                 .foregroundColor(.black)
-                                .font(.system(size: 17, weight: .semibold))
+                                .font(.satoshi(size: 17, weight: .semibold))
                                 .padding(.vertical, 11)
                                 .background(viewModel.selectedAccount == nil ? .white.opacity(0.7) : .white)
                                 .clipShape(Capsule())
@@ -258,9 +259,9 @@ struct SessionProposalView: View {
     private func sessionProposalView(namespaces: ProposalNamespace) -> some View {
         VStack {
             VStack(alignment: .leading) {
-                TagsView(items: Array(namespaces.chains ?? Set())) {
+                TagsView(items: Array(namespaces.chains ?? [])) {
                     Text($0.absoluteString.uppercased())
-                        .font(.system(size: 14, weight: .medium))
+                        .font(.satoshi(size: 14, weight: .medium))
                         .foregroundColor(Color.greySecondary)
                 }
                 
@@ -268,14 +269,14 @@ struct SessionProposalView: View {
                     HStack {
                         Text("Methods")
                             .foregroundColor(.white)
-                            .font(.system(size: 14, weight: .medium))
+                            .font(.satoshi(size: 14, weight: .medium))
                         Spacer()
                     }
                     
                     TagsView(items: Array(namespaces.methods)) {
                         Text($0)
                             .foregroundColor(Color.init(hex: 0x9EF2EB))
-                            .font(.system(size: 15, weight: .medium))
+                            .font(.satoshi(size: 15, weight: .medium))
                             .padding(.horizontal, 8)
                             .padding(.vertical, 3)
                             .background(Color.init(hex: 0x9EF2EB, alpha: 0.12))
@@ -287,7 +288,7 @@ struct SessionProposalView: View {
                             HStack {
                                 Text("Events")
                                     .foregroundColor(.white)
-                                    .font(.system(size: 14, weight: .medium))
+                                    .font(.satoshi(size: 14, weight: .medium))
                                 
                                 Spacer()
                             }
@@ -295,7 +296,7 @@ struct SessionProposalView: View {
                             TagsView(items: Array(namespaces.events)) {
                                 Text($0)
                                     .foregroundColor(Color.init(hex: 0x9EF2EB))
-                                    .font(.system(size: 15, weight: .medium))
+                                    .font(.satoshi(size: 15, weight: .medium))
                                     .padding(.horizontal, 8)
                                     .padding(.vertical, 3)
                                     .background(Color.init(hex: 0x9EF2EB, alpha: 0.12))

@@ -46,7 +46,7 @@ private struct TextFieldWrapper: UIViewRepresentable {
         
         textField.delegate = context.coordinator
         textField.text = text
-        textField.font = .systemFont(ofSize: 15, weight: .medium)
+        textField.font = .satoshi(size: 15, weight: .medium)
         textField.textColor = .white
         textField.textAlignment = .center
         textField.backgroundColor = .clear

@@ -11,31 +11,19 @@ import SwiftUI
 private let size: CGFloat = 60.0
 
 struct ButtonSlider: View {
-    var isShielded: Bool
-    
-    var actionSend: () -> Void
     var actionReceive: () -> Void
     var actionEarn: () -> Void
-    var actionShield: () -> Void
-    var actionSettings: () -> Void
+    var onPlus: () -> Void
     
     @State var disabled: Bool = false
     
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
-            ActionButton(imageName: "button_slider_send", disabled: disabled, action: actionSend)
+            ActionButton(imageName: "ico_onramp", disabled: disabled, action: onPlus)
             VerticalLine()
             ActionButton(imageName: "button_slider_receive", disabled: disabled, action: actionReceive)
             VerticalLine()
             ActionButton(imageName: "button_slider_earn", disabled: disabled, action: actionEarn)
-            if isShielded {
-                VerticalLine()
-                ActionButton(imageName: "button_slider_shield", disabled: disabled, action: actionShield)
-//                VerticalLine()
-//                ActionButton(imageName: "button_slider_settings", disabled: disabled, action: actionSettings)
-            } else {
-//                ActionButton(imageName: "button_slider_settings", disabled: disabled, action: actionSettings)
-            }
         }
         .frame(maxWidth: .infinity, maxHeight: size)
         .background(Color.blackSecondary)
@@ -71,12 +59,9 @@ struct VerticalLine: View {
 struct ButtonSlider_Previews: PreviewProvider {
     static var previews: some View {
         ButtonSlider(
-            isShielded: true,
-            actionSend: {
-            }, actionReceive: {
+            actionReceive: {
             }, actionEarn: {
-            }, actionShield: {
-            }, actionSettings: {
+            }, onPlus: {
             })
     }
 }

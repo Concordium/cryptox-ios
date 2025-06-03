@@ -6,13 +6,11 @@
 //  Copyright © 2024 pioneeringtechventures. All rights reserved.
 //
 
-import Web3Wallet
-import WalletConnectVerify
-
+import ReownWalletKit
 
 enum SessionRequstError: Error {
     case environmentMismatch(chain: String), accountNotFound, accountMissmatch, noValidWCSession(topic: String)
-    case invalidRequestmethod, invalidRequestPayload, unSupportedRequestMethod
+    case invalidRequestMethod, invalidRequestPayload, unSupportedRequestMethod
     
     var errorMessage: String {
         switch self {
@@ -22,7 +20,7 @@ enum SessionRequstError: Error {
                 "Can't find apropriate acount to sign"
             case .noValidWCSession(let topic):
                 "No session found for the received topic: \(topic)"
-            case .invalidRequestmethod: "Unknown sesion requestmethod"
+            case .invalidRequestMethod: "Unknown sesion requestmethod"
             case .invalidRequestPayload: "Invalid request payload"
             case .unSupportedRequestMethod: "Unsupported request method"
         }
@@ -31,10 +29,12 @@ enum SessionRequstError: Error {
 
 final class IncomeRequestValidator {
     static var currentChain: String {
-#if MAINNET
-        "ccd:mainnet"
-#else
+#if TESTNET
         "ccd:testnet"
+#elseif MAINNET
+        "ccd:mainnet"
+#else // Staging
+        "ccd:stagenet"
 #endif
     }
     
@@ -47,9 +47,8 @@ final class IncomeRequestValidator {
         // A WalletConnect session should always be for exactly one account. If there are more, then
         // we cannot uniquely determine the correct account address.
         guard
-            let session = Web3Wallet.instance.getSessions().first(where: { $0.topic == sessionRequest.topic }),
-            session.accounts.count == 1,
-            let walletConnectAccount = session.accounts.first
+            let session = Sign.instance.getSessions().first(where: { $0.topic == sessionRequest.topic }),
+            let sessionAccount = session.namespaces.values.compactMap(\.accounts).compactMap(\.first).first
         else {
             throw SessionRequstError.noValidWCSession(topic: sessionRequest.topic)
         }
@@ -60,7 +59,7 @@ final class IncomeRequestValidator {
         }
     
         // Get `Account` associated with Wallet Connect request
-        guard let account = storageManager.getAccounts().first(where: { $0.address == walletConnectAccount.address }) as? AccountEntity else {
+        guard let account = storageManager.getAccounts().first(where: { $0.address == sessionAccount.address }) as? AccountEntity else {
             throw SessionRequstError.accountNotFound
         }
         

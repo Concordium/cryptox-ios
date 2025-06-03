@@ -6,30 +6,33 @@
 import Foundation
 import UIKit
 import Combine
+import SwiftUI
 
 protocol MoreCoordinatorDelegate: IdentitiesCoordinatorDelegate {
     func logoutAccounts()
     func showRevealSeedPrase()
+    func showExportWalletPrivateKey()
 }
 
 @MainActor
 class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
-    typealias DependencyProvider = MoreFlowCoordinatorDependencyProvider & IdentitiesFlowCoordinatorDependencyProvider
+    typealias DependencyProvider = MoreFlowCoordinatorDependencyProvider & IdentitiesFlowCoordinatorDependencyProvider & NFTFlowCoordinatorDependencyProvider
     
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
+    
     private var dependencyProvider: DependencyProvider
     private var loginDependencyProvider: LoginDependencyProvider
     private var sanityChecker: SanityChecker
     private var accountsCoordinator: AccountsCoordinator?
     private let mobileWallet: MobileWalletProtocol
-    
     weak var delegate: MoreCoordinatorDelegate?
     weak var parentCoordinator: MoreCoordinatorDelegate?
+    weak var configureAccountAlertDelegate: ConfigureAccountAlertDelegate?
     private var cancellables: [AnyCancellable] = []
     
     init(navigationController: UINavigationController,
-         dependencyProvider: DependencyProvider & LoginDependencyProvider & WalletAndStorageDependencyProvider,
+         dependencyProvider: DependencyProvider & LoginDependencyProvider & WalletAndStorageDependencyProvider & NFTFlowCoordinatorDependencyProvider,
          parentCoordinator: MoreCoordinatorDelegate
     ) {
         self.mobileWallet = dependencyProvider.mobileWallet()
@@ -50,7 +53,8 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
     func showIdentities() {
         let identitiesCoordinator = IdentitiesCoordinator(navigationController: navigationController,
                                                           dependencyProvider: dependencyProvider,
-                                                          parentCoordinator: self)
+                                                          parentCoordinator: self,
+                                                          configureAccountAlertDelegate: configureAccountAlertDelegate)
         self.childCoordinators.append(identitiesCoordinator)
         identitiesCoordinator.showInitial(animated: true)
     }
@@ -58,7 +62,8 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
     func showCreateNewIdentity() {
         let identitiesCoordinator = IdentitiesCoordinator(navigationController: navigationController,
                                                           dependencyProvider: dependencyProvider,
-                                                          parentCoordinator: self)
+                                                          parentCoordinator: self,
+                                                          configureAccountAlertDelegate: configureAccountAlertDelegate)
         self.childCoordinators.append(identitiesCoordinator)
         identitiesCoordinator.start()
         identitiesCoordinator.showCreateNewIdentity()
@@ -66,38 +71,23 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
     
     func showMenu() {
         let vc = MoreMenuFactory.create(with: MoreMenuPresenter(dependencyProvider: dependencyProvider, delegate: self))
-        vc.tabBarItem = UITabBarItem(title: "more_tab_title".localized, image: UIImage(named: "more_tab_icon"), tag: 0)
+        vc.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "more_tab_icon"), tag: 0)
+        vc.tabBarItem.selectedImage = UIImage(named: "tab_icon_more_selected")?.withRenderingMode(.alwaysOriginal)
+        vc.view.setFadeAnimation()
         navigationController.pushViewController(vc, animated: false)
     }
     
     // MARK: Address Book
     func showAddressBook() {
-        let vc = SelectRecipientFactory.create(with: SelectRecipientPresenter(delegate: self,
-                                                                              storageManager: dependencyProvider.storageManager(),
-                                                                              mode: .addressBook))
+        let view = SelectRecipientView(viewModel: RecipientListViewModel(storageManager: dependencyProvider.storageManager(), mode: .addressBook), onRecipientSelected: {_ in }, onBackTapped: {
+            self.navigationController.popViewController(animated: false)
+        })
+            .environmentObject(NavigationManager())
+        let vc = SceneViewController(content: view)
+        navigationController.navigationBar.isHidden = true
         navigationController.pushViewController(vc, animated: true)
     }
-    
-    func showAddRecipient() {
-        let vc = AddRecipientFactory.create(with: AddRecipientPresenter(delegate: self, dependencyProvider: dependencyProvider, mode: .add))
-        vc.hidesBottomBarWhenPushed = true
-        navigationController.pushViewController(vc, animated: true)
-    }
-    
-    func showScanAddressQR() {
-        let vc = ScanAddressQRFactory.create(with: ScanAddressQRPresenter(wallet: dependencyProvider.mobileWallet(), delegate: self))
-        vc.hidesBottomBarWhenPushed = true
-        navigationController.pushViewController(vc, animated: true)
-    }
-    
-    func showEditRecipient(_ recipient: RecipientDataType) {
-        let vc = AddRecipientFactory.create(with: AddRecipientPresenter(delegate: self,
-                                                                        dependencyProvider: dependencyProvider,
-                                                                        mode: .edit(recipient: recipient)))
-        vc.hidesBottomBarWhenPushed = true
-        navigationController.pushViewController(vc, animated: true)
-    }
-    
+
     //    // MARK: Import
     func showImport() {
         let initialAccountPresenter = InitialAccountInfoPresenter(delegate: self, type: .importAccount)
@@ -135,11 +125,27 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
         updatePasswordCoordinator.start()
     }
     
+    // MARK: Analytics
+    
+    func showAnalytics() {
+        let analyticsVc = UIHostingController(rootView: AnalyticsView())
+        analyticsVc.title = "Analytics"
+        navigationController.pushViewController(analyticsVc, animated: true)
+    }
+    
+    
     // MARK: About
     func showAbout() {
         let vc = AboutFactory.create(with: AboutPresenter(delegate: self))
         vc.hidesBottomBarWhenPushed = true
         navigationController.pushViewController(vc, animated: true)
+    }
+    
+    // MARK: Notifications
+    func showNotifications() {
+        let notificationsVc = UIHostingController(rootView: NotificationsView())
+        notificationsVc.title = "more.notifications".localized
+        navigationController.pushViewController(notificationsVc, animated: true)
     }
     
     func logoutAccounts() {}
@@ -202,61 +208,29 @@ extension MoreCoordinator: MoreMenuPresenterDelegate {
         navigationController.present(vc, animated: true)
     }
     
-    func showMainTabbar() {
-        accountsCoordinator = AccountsCoordinator(
-            navigationController: self.navigationController,
-            dependencyProvider: ServicesProvider.defaultProvider(),
-            appSettingsDelegate: self
-        )
-        
-        accountsCoordinator?.start()
+    func analyticsSelected() {
+        showAnalytics()
     }
     
     func aboutSelected() {
         showAbout()
     }
-}
-
-extension MoreCoordinator: SelectRecipientPresenterDelegate {
-    func didSelect(recipient: RecipientDataType) {
-        showEditRecipient(recipient)
+    
+    func notificationsSelected() {
+        showNotifications()
     }
     
-    func createRecipient() {
-        showAddRecipient()
-    }
-    
-    func selectRecipientDidSelectQR() {
-        DispatchQueue.main.async {
-            self.showScanAddressQR()
-        }
+    func showExportWalletPrivateKey() {
+        parentCoordinator?.showExportWalletPrivateKey()
     }
 }
 
-extension MoreCoordinator: AddRecipientPresenterDelegate {
-    
-    func addRecipientDidSelectSave(recipient: RecipientDataType) {
-        navigationController.popViewController(animated: true)
-    }
-    
-    func addRecipientDidSelectQR() {
-        showScanAddressQR()
-    }
-}
-
-extension MoreCoordinator: ScanAddressQRPresenterDelegate, AddRecipientCoordinatorHelper {
-    func scanAddressQr(didScan output: QRScannerOutput) {
-        switch output {
-            case .address(let string):
-                scanAddressQr(didScanAddress: string)
-            case .airdrop, .connectURL, .walletConnectV2: break
-        }
-    }
-    
-    func scanAddressQr(didScanAddress address: String) {
-        let addRecipientViewController = getAddRecipientViewController(dependencyProvider: dependencyProvider)
-        self.navigationController.popToViewController(addRecipientViewController, animated: true)
-        addRecipientViewController.presenter.setAccountAddress(address)
+extension MoreCoordinator {
+    func userSelectedNft() {
+        let collectionsCoordinator = CollectionsCoordinator(navigationController: navigationController,
+                                                            dependencyProvider: dependencyProvider)
+        collectionsCoordinator.configureAccountAlertDelegate = configureAccountAlertDelegate
+        collectionsCoordinator.start()
     }
 }
 
@@ -359,9 +333,12 @@ extension MoreCoordinator: AppSettingsDelegate {
 }
 
 extension MoreCoordinator: AccountsPresenterDelegate {
-    func scanQR() {
-        
-    }
+    func scanQR() {}
+    func noValidIdentitiesAvailable() { }
+    func tryAgainIdentity() { }
+    func didSelectMakeBackup() { }
+    func didSelectPendingIdentity(identity: IdentityDataType) { }
+    
     func createNewIdentity() {
         accountsCoordinator?.showCreateNewIdentity()
     }
@@ -373,26 +350,7 @@ extension MoreCoordinator: AccountsPresenterDelegate {
     func userPerformed(action: AccountCardAction, on account: AccountDataType) {
         accountsCoordinator?.userPerformed(action: action, on: account)
     }
-    
-    func enableShielded(on account: AccountDataType) {
-    }
-    
-    func noValidIdentitiesAvailable() {
-    }
-    
-    func tryAgainIdentity() {
-    }
-    
-    func didSelectMakeBackup() {
-    }
-    
-    func didSelectPendingIdentity(identity: IdentityDataType) {
-    }
-    
-    func newTermsAvailable() {
-        accountsCoordinator?.showNewTerms()
-    }
-    
+
     func showSettings() {
         let moreCoordinator = MoreCoordinator(navigationController: self.navigationController,
                                               dependencyProvider: ServicesProvider.defaultProvider(),

@@ -20,7 +20,6 @@ protocol BurgerMenuAccountDetailsDismissDelegate: AnyObject {
 enum BurgerMenuAccountDetailsAction: BurgerMenuAction {
     case releaseSchedule
     case transferFilters
-    case shieldedBalance(accountName: String, shouldShow: Bool, delegate: ShowShieldedDelegate?)
     case exportPrivateKey
     case dismiss
     case decrypt
@@ -33,12 +32,6 @@ enum BurgerMenuAccountDetailsAction: BurgerMenuAction {
             return "burgermenu.releaseschedule".localized
         case .transferFilters:
             return "burgermenu.transferfilters".localized
-        case .shieldedBalance(let accountName, let shouldShow, _):
-            if shouldShow {
-                return String(format: "burgermenu.showshieldedbalance".localized, accountName)
-            } else {
-                return String(format: "burgermenu.hideshieldedbalance".localized, accountName)
-            }
         case .exportPrivateKey:
             return "burgermenu.exportprivatekey".localized
         case .exportTransactionLog:
@@ -84,24 +77,16 @@ class BurgerMenuAccountDetailsPresenter: BurgerMenuPresenterProtocol {
                 self.actions = [
                     .releaseSchedule,
                     .transferFilters,
-                    .shieldedBalance(accountName: account.displayName,
-                                     shouldShow: !account.showsShieldedBalance,
-                                     delegate: showShieldedDelegate),
                      .exportPrivateKey,
                      .exportTransactionLog,
                      .renameAccount]
             } else {
                 if showsDecrypt {
                     self.actions = [
-                        .decrypt,
-                        .shieldedBalance(accountName: account.displayName,
-                                         shouldShow: !account.showsShieldedBalance,
-                                         delegate: showShieldedDelegate)]
+                        .decrypt
+                    ]
                 } else {
-                    self.actions = [
-                        .shieldedBalance(accountName: account.displayName,
-                                         shouldShow: !account.showsShieldedBalance,
-                                         delegate: showShieldedDelegate)]
+                    self.actions = []
                 }
             }
         }
@@ -118,14 +103,7 @@ class BurgerMenuAccountDetailsPresenter: BurgerMenuPresenterProtocol {
     }
     
     func selectedAction(_ action: BurgerMenuAccountDetailsAction) {
-        let account: AccountDataType!
-        if case .shieldedBalance = action, self.account.showsShieldedBalance {
-            // if we are hiding it, we hide it here directly
-            account = self.account.withShowShielded(!self.account.showsShieldedBalance)
-        } else {
-            account = self.account
-        }
-     
+        let account: AccountDataType =  self.account
         self.delegate?.pressedOption(action: action, account: account)
         self.dismissDelegate?.bugerMenuDismissedWithAction(_action: action)
     }

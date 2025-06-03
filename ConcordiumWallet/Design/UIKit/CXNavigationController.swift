@@ -21,7 +21,7 @@ class CXNavigationController: UINavigationController {
     }
     
     private func setup() {
-        let image = UIImage(named: "backButtonIcon")
+        let image = UIImage(named: "ico_back")
         
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithTransparentBackground()

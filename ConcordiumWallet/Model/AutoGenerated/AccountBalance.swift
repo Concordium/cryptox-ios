@@ -7,12 +7,10 @@ import Foundation
 
 // MARK: - AccountBalance
 struct AccountBalance: Codable {
-    let currentBalance: Balance?
-    let finalizedBalance: Balance?
+    let balance: Balance?
 
     enum CodingKeys: String, CodingKey {
-        case currentBalance = "currentBalance"
-        case finalizedBalance = "finalizedBalance"
+        case balance = "finalizedBalance"
     }
 }
 
@@ -35,12 +33,10 @@ extension AccountBalance {
     }
 
     func with(
-        currentBalance: Balance?? = nil,
         finalizedBalance: Balance?? = nil
     ) -> AccountBalance {
         return AccountBalance(
-            currentBalance: currentBalance ?? self.currentBalance,
-            finalizedBalance: finalizedBalance ?? self.finalizedBalance
+            balance: finalizedBalance ?? self.balance
         )
     }
 

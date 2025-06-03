@@ -8,17 +8,16 @@
 
 import UIKit
 import Base58Swift
-import Web3Wallet
+import FirebaseMessaging
+import FirebaseCore
 
-extension Notification.Name {
-    static let didReceiveIdentityData = Notification.Name("didReceiveIdentityData")
-}
-
-//@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    var appCoordinator = AppCoordinator()
+    var appCoordinator: AppCoordinator = AppCoordinator(/*walletConnectService: WalletConnectService()*/)
+    let transactionNotificationService = TransactionNotificationService()
     
+    let gcmMessageIDKey = "gcm.message_id"
+
     private lazy var backgroundWindow: UIWindow = {
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.rootViewController = LaunchScreenFactory.create()
@@ -31,11 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window?.rootViewController = appCoordinator.navigationController
         window?.makeKeyAndVisible()
-        
-        ConsentManager.shared.start()
-        
-        configure()
-        
         
         // Warn if device is jail broken.
         if  let url = launchOptions?[.url] as? URL, let scheme = url.scheme, scheme.localizedCaseInsensitiveCompare("tcwb") == .orderedSame, let view = url.host {
@@ -69,8 +63,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                object: nil)
         
         UIApplication.shared.statusBarStyle = .lightContent
+                
+        UNUserNotificationCenter.current().delegate = self
+        FirebaseApp.configure()
+        transactionNotificationService.subscribeToUserDefaultsUpdates()
+        Messaging.messaging().delegate = self
+
+        if let remoteNotification = launchOptions?[.remoteNotification] as? [AnyHashable: Any] {
+            transactionNotificationService.handleNotificationsWithData(data: remoteNotification)
+        }
         
         return true
+    }
+    
+    /// Checks if the given URL string matches a specified URL scheme pattern.
+    /// - Parameters:
+    ///  - url: The URL string to be checked.
+    ///     - Returns:
+    ///        - `true` if the URL string matches the specified pattern, otherwise `false`.
+    ///     - Note:
+    ///       The function checks if the provided `url` matches one of two patterns:
+    ///       1. The URL scheme specified by the `ApiConstants.scheme` constant, followed by "://wc".
+    ///       2. The exact URL scheme "concordiumwallet" followed by "://wc".
+    ///       The reason for these check is that we want to check if url follows `concordiumwallet` scheme for WalletConnect,
+    ///       but need to support also DeepLinks per scheme, for instance `concordiumwallettest` or  `concordiumwalletstaging`
+    private func matchesURLScheme(_ url: String) -> Bool {
+        let regexPattern = #"^\#(ApiConstants.scheme)://wc.*|concordiumwallet://wc.*|cryptox://wc.*|cryptoxtestnet://wc.*|cryptoxstage://wc.*"#
+        guard let regex = try? NSRegularExpression(pattern: regexPattern, options: []) else { return false }
+        let range = NSRange(location: 0, length: url.utf16.count)
+        if let match = regex.firstMatch(in: url, options: [], range: range) {
+            return match.range == range
+        }
+        return false
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
@@ -79,9 +103,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if url.absoluteString.starts(with: ApiConstants.notabeneCallback) {
             receivedCreateIdentityCallback(url)
-        } else if url.host == "wc" {
+        } else if matchesURLScheme(url.absoluteString) {
             appCoordinator.openWCConnect(url)
-        } else if let scheme = url.scheme, scheme.localizedCaseInsensitiveCompare("tcwb") == .orderedSame, let view = url.host {
+        } else if let scheme = url.scheme, scheme.localizedCaseInsensitiveCompare("tcwb") == .orderedSame, let _ = url.host {
             
             var parameters: [String: String] = [:]
             URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.forEach {
@@ -150,30 +174,60 @@ extension UIApplication {
     }
 }
 
-extension AppDelegate {
-    func configure() {
-        Networking.configure(projectId: "f64859abcbf5c1de9520a27399f3097c", socketFactory: DefaultSocketFactory())
-
-        let metadata = AppMetadata(
-            name: "CryptoX",
-            description: "CryptoX - Blockchain Wallet",
-            url: "https://apps.apple.com/app/cryptox-wallet/id1593386457",
-            icons: ["https://is2-ssl.mzstatic.com/image/thumb/Purple122/v4/d2/76/4f/d2764f4a-cb11-2039-7edf-7bb1a7ea36d8/AppIcon-1x_U007emarketing-0-5-0-sRGB-85-220.png/230x0w.png"]
-        )
-        
-        Web3Wallet.configure(metadata: metadata, crypto: DefaultCryptoProvider(), environment: APNSEnvironment.sandbox)
+// MARK: - Notifications handling
+extension AppDelegate: MessagingDelegate {
+    @objc func messaging(_: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        print("Firebase token: \(String(describing: fcmToken))")
+        if UIApplication.shared.isRegisteredForRemoteNotifications {
+            transactionNotificationService.updateFcmToken(fcmToken)
+        }
     }
 }
 
-struct DefaultCryptoProvider: CryptoProvider {
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
+        return [.banner, .list, .sound]
+    }
+    
+    func userNotificationCenter(
+        _: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        let userInfo = response.notification.request.content.userInfo
+        appCoordinator.handleOpeningTransactionFromNotification(with: userInfo)
+        completionHandler()
+    }
+}
 
-    public func recoverPubKey(signature: EthereumSignature, message: Data) throws -> Data {
-      Data()
+extension AppDelegate {
+    func application(_: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Oh no! Failed to register for remote notifications with error \(error)")
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        var readableToken = ""
+        for index in 0 ..< deviceToken.count {
+            readableToken += String(format: "%02.2hhx", deviceToken[index] as CVarArg)
+        }
+        print("Received an APNs device token: \(readableToken)")
+        
+        Messaging.messaging().apnsToken = deviceToken
+        
+        Messaging.messaging().token { token, error in
+            if let error {
+                print("Error fetching FCM registration token: \(error)")
+            } else if let token {
+                print("FCM registration token: \(token)")
+                self.transactionNotificationService.updateFcmToken(token)
+            }
+        }
     }
 
-    public func keccak256(_ data: Data) -> Data { Data()
-//        let digest = SHA3(variant: .keccak256)
-//        let hash = digest.calculate(for: [UInt8](data))
-//        return Data(hash)
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) async -> UIBackgroundFetchResult {
+        transactionNotificationService.handleNotificationsWithData(data: userInfo)
+
+      return UIBackgroundFetchResult.newData
     }
 }

@@ -30,6 +30,7 @@ enum Field: Hashable {
     case bakerId
     case bakerAmount
     case bakerCommission
+    case suspend
  
     // swiftlint:disable cyclomatic_complexity
     func getLabelText() -> String {
@@ -71,6 +72,7 @@ enum Field: Hashable {
             return ""
         case .bakerCommission:
             return ""
+        case .suspend: return ""
         }
     }
 
@@ -80,6 +82,8 @@ enum Field: Hashable {
         // common
         case .restake:
             return 3
+            
+        case .suspend: return 0
             
         // delegation
         case .delegationAccount:
@@ -158,16 +162,7 @@ protocol AccountValue: FieldValue {
 
 extension AccountValue {
     func getDisplayValues(type: TransferType) -> [DisplayValue] {
-        if let accountName = self.accountName {
-            return [
-                DisplayValue(
-                    key: field.getLabelText(),
-                    value: String(format: "stake.receipt.formattedaccount".localized, accountName, accountAddress)
-                )
-            ]
-        } else {
             return [DisplayValue(key: field.getLabelText(), value: accountAddress)]
-        }
     }
     
     func getCostParameters(type: TransferType) -> [TransferCostParameter] {
@@ -192,6 +187,22 @@ struct StakeData: Hashable {
     
     static func == (lhs: StakeData, rhs: StakeData) -> Bool {
         return lhs.field == rhs.field
+    }
+}
+
+struct BakerUpdateSuspend: SimpleFieldValue {    
+    let field = Field.suspend
+    let isSuspended: Bool
+    
+    var displayValue: String { "suspend" }
+    var costParameters: [TransferCostParameter] {[.suspended(isSuspended)] }
+    
+    func add(to transaction: inout TransferDataType) {
+        transaction.isSuspended = isSuspended
+    }
+    
+    func getCostParameters(type: TransferType) -> [TransferCostParameter] {
+        [.suspended(isSuspended)]
     }
 }
 
@@ -222,7 +233,7 @@ struct BakerStopAccountData: AccountValue {
 
 struct BakerPoolSettingsData: SimpleFieldValue {
     let field = Field.poolSettings
-    let poolSettings: BakerPoolSetting
+    let poolSettings: ValidatorPoolSetting
     
     var displayValue: String { poolSettings.getDisplayValue() }
     var costParameters: [TransferCostParameter] { [.openStatus] }
@@ -311,15 +322,15 @@ struct BakerKeyData: FieldValue {
         [
             DisplayValue(
                 key: "baking.receipt.electionverifykey".localized,
-                value: keys.electionVerifyKey.splitInto(lines: 2)
+                value: keys.electionVerifyKey
             ),
             DisplayValue(
                 key: "baking.receipt.signatureverifykey".localized,
-                value: keys.signatureVerifyKey.splitInto(lines: 2)
+                value: keys.signatureVerifyKey
             ),
             DisplayValue(
                 key: "baking.receipt.aggregationverifykey".localized,
-                value: keys.aggregationVerifyKey.splitInto(lines: 6)
+                value: keys.aggregationVerifyKey
             )
         ]
     }
@@ -409,7 +420,7 @@ struct DelegationStopAccountData: AccountValue {
 
 struct PoolDelegationData: SimpleFieldValue {
     let field = Field.pool
-    let pool: BakerTarget
+    let pool: ValidatorTarget
     
     var displayValue: String {
         pool.getDisplayValue()
@@ -486,7 +497,7 @@ struct DelegationAmountData: SimpleFieldValue {
     let amount: GTU
     
     var displayValue: String {
-        amount.displayValueWithGStroke()
+        amount.displayValueWithCCDStroke()
     }
     
     func getCostParameters(type: TransferType) -> [TransferCostParameter] {
@@ -507,7 +518,7 @@ struct BakerAmountData: SimpleFieldValue {
     let amount: GTU
     
     var displayValue: String {
-        amount.displayValueWithGStroke()
+        amount.displayValueWithCCDStroke()
     }
     var costParameters: [TransferCostParameter] { [.amount(nil)] }
     
@@ -542,7 +553,7 @@ enum CurrentDataBuilder {
     }
 }
 
-class StakeDataHandler {
+class StakeDataHandler: ObservableObject {
     let transferType: TransferType
     
     // this is the data that is currently on the chain
@@ -711,5 +722,15 @@ class StakeDataHandler {
             transfer.capital = "0"
         }
         return transfer
+    }
+}
+
+extension StakeDataHandler: Equatable, Hashable {
+    static func == (lhs: StakeDataHandler, rhs: StakeDataHandler) -> Bool {
+        lhs.transferType == rhs.transferType
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self)
     }
 }

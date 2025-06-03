@@ -54,7 +54,7 @@ public class TokenFormatter {
         let integer = parts[0]
         let fractional = parts[1].removingTrailingZeroes
         guard fractional.count <= precision else { return nil }
-        guard let integerNumber = BigInt(integer), let fractionalNumber = BigInt(fractional) else { return nil }
+        guard let integerNumber = BigInt(integer), let fractionalNumber = BigInt(fractional.isEmpty ? "0" : fractional) else { return nil }
         let value = integerNumber * BigInt(10).power(precision) +
             fractionalNumber * BigInt(10).power(precision - fractional.count)
         return BigDecimal(value, precision)
@@ -212,7 +212,7 @@ public class TokenFormatter {
         fractional = fractional.removingTrailingZeroes
 
         let integerGroupped = Self.groups(string: integer, size: 3).joined(separator: thousandSeparator)
-        let magnitude = fractional.isEmpty ? integerGroupped : integerGroupped + decimalSeparator + fractional
+        let magnitude = fractional.isEmpty ? integerGroupped + decimalSeparator + "00" : integerGroupped + decimalSeparator + fractional
         let sign = magnitude != "0" ? (isNegative ? negativeSign : positiveSign) : ""
 
         if magnitude == "0" {
@@ -226,16 +226,40 @@ public class TokenFormatter {
         return sign + magnitude + literal
     }
     
+    public func displayStringWithTwoValuesAfterComma(from number: BigDecimal,
+                                                     decimalSeparator: String = Locale.autoupdatingCurrent.decimalSeparator ?? ".",
+                                                     thousandSeparator: String = Locale.autoupdatingCurrent.groupingSeparator ?? ",") -> String {
+        let stringValue = string(from: number, decimalSeparator: decimalSeparator, thousandSeparator: thousandSeparator)
+        let minimumFractionDigits = 2
+        // Split the input into the whole part and fractional part
+        let components = stringValue.split(separator: ".", maxSplits: 1)
+        guard components.count == 2 else {
+            // No fractional part, return as is
+            return stringValue
+        }
+        
+        let wholePart = components[0]
+        var fractionalPart = components[1]
+        
+        // Remove trailing values while respecting `minimumFractionDigits`
+        while fractionalPart.count > minimumFractionDigits {
+            fractionalPart.removeLast()
+        }
+        let adjustedString = fractionalPart.isEmpty ? String(wholePart) : "\(wholePart).\(fractionalPart)"
+        // Return the adjusted string
+        return adjustedString == "0" ? "0.00" : adjustedString
+    }
+    
     public func plainString(from number: BigDecimal, decimalSeparator: String = Locale.autoupdatingCurrent.decimalSeparator ?? ".") -> String {
         var numberString = String(abs(number.value))
         let leadingZeroesForSmallNumbers = String(repeating: "0",
                                                   count: max(0, number.precision - numberString.count + 1))
         numberString = leadingZeroesForSmallNumbers + numberString
         var fractional = String(numberString.suffix(number.precision))
-        var integer = String(numberString.prefix(numberString.count - fractional.count))
+        let integer = String(numberString.prefix(numberString.count - fractional.count))
         fractional = fractional.removingTrailingZeroes
         
-        let integerGroupped = Self.groups(string: integer, size: 3).joined(separator: "")
+        let integerGroupped = Self.groups(string: integer, size: 3).joined(separator: ",")
 
         
         return fractional.isEmpty ? integerGroupped : integerGroupped + decimalSeparator + fractional

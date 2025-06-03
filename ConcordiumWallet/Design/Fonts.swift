@@ -10,15 +10,15 @@ import UIKit
 import SwiftUI
 
 struct Fonts {
-    static let title = UIFont.systemFont(ofSize: 32)
-    static let heading = UIFont.systemFont(ofSize: 24)
-    static let subheading = UIFont.systemFont(ofSize: 20)
-    static let body = UIFont.systemFont(ofSize: 15)
-    static let navigationBarTitle = UIFont.systemFont(ofSize: 17, weight: .bold)
-    static let info = UIFont.systemFont(ofSize: 16, weight: .bold)
-    static let buttonTitle = UIFont.systemFont(ofSize: 17, weight: .semibold)
-    static let cellHeading = UIFont.systemFont(ofSize: 10, weight: .medium)
-    static let tabBar = UIFont.systemFont(ofSize: 14, weight: .medium)
+    static let title = UIFont.satoshi(size: 32, weight: .medium)
+    static let heading = UIFont.satoshi(size: 24, weight: .medium)
+    static let subheading = UIFont.satoshi(size: 20,  weight: .medium)
+    static let body = UIFont.satoshi(size: 15, weight: .medium)
+    static let navigationBarTitle = UIFont.satoshi(size: 17, weight: .bold)
+    static let info = UIFont.satoshi(size: 16, weight: .bold)
+    static let buttonTitle = UIFont.satoshi(size: 17, weight: .semibold)
+    static let cellHeading = UIFont.satoshi(size: 10, weight: .medium)
+    static let tabBar = UIFont.satoshi(size: 14, weight: .medium)
     static let mono = UIFont(name: "RobotoMono-Regular", size: 12)
 }
 
@@ -51,6 +51,17 @@ extension Font {
             case .semibold: return .custom("IBMPlexSans-Semibold", size: size)
             case .light: return .custom("IBMPlexSans-Light", size: size)
             default: return .system(size: size, weight: weight)
+        }
+    }
+}
+
+extension UIFont {
+    static func satoshi(size: CGFloat, weight: UIFont.Weight) -> UIFont {
+        switch weight {
+        case .bold: return .init(name: "Satoshi-Bold", size: size) ?? UIFont.systemFont(ofSize: size)
+        case .medium: return .init(name: "Satoshi-Medium", size: size) ?? UIFont.systemFont(ofSize: size)
+        case .regular: return .init(name:"Satoshi-Regular", size: size) ?? UIFont.systemFont(ofSize: size)
+        default: return UIFont.systemFont(ofSize: size, weight: weight)
         }
     }
 }

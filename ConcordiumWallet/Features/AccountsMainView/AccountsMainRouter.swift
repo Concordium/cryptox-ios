@@ -7,10 +7,20 @@
 //
 
 import UIKit
-import WalletConnectPairing
-import Web3Wallet
 import Combine
 import SwiftUI
+import ReownWalletKit
+
+protocol AccountsMainViewDelegate: AnyObject {
+    func showCreateIdentityFlow()
+    func showSaveSeedPhraseFlow(pwHash: String, identitiesService: SeedIdentitiesService, completion: @escaping ([String]) -> Void)
+    func showCreateAccountFlow()
+    func showScanQRFlow()
+    func showExportFlow()
+    func showNotConfiguredAccountPopup()
+    func createAccountFromOnboarding(isCreatingAccount: Binding<Bool>)
+    func showSettings(_ account: AccountDataType)
+}
 
 extension AccountsMainRouter: AccountsMainViewDelegate {}
 
@@ -20,49 +30,64 @@ final class AccountsMainRouter: ObservableObject {
     private let dependencyProvider: ServicesProvider
     private let walletConnectService: WalletConnectService
     private let onAccountsUpdate = PassthroughSubject<Void, Never>()
+    weak var configureAccountAlertDelegate: ConfigureAccountAlertDelegate?
+    private let navigationManager = NavigationManager()
 
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
+    @AppStorage("isShouldShowSunsetShieldingView") private var isShouldShowSunsetShieldingView = true
 
     /// Legacy codebase support
     var childCoordinators = [Coordinator]()
     let updateTimer = UpdateTimer()
-
+    lazy var accountsViewModel: AccountsMainViewModel = {
+        let viewModel: AccountsMainViewModel = .init(dependencyProvider: dependencyProvider, onReload: onAccountsUpdate.eraseToAnyPublisher(), walletConnectService: walletConnectService)
+        return viewModel
+    }()
+    
     init(dependencyProvider: ServicesProvider, walletConnectService: WalletConnectService) {
         self.dependencyProvider = dependencyProvider
         self.walletConnectService = walletConnectService
         self.walletConnectService.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNavBarVisibility(_:)), name: .showNavBar, object: nil)
     }
     
     func rootScene() -> UINavigationController {
-        let viewModel: AccountsMainViewModel = .init(dependencyProvider: dependencyProvider, onReload: onAccountsUpdate.eraseToAnyPublisher(), walletConnectService: walletConnectService)
-        let view = AccountsMainView(viewModel: viewModel, router: self)
+        let view = HomeScreenView(viewModel: self.accountsViewModel, keychain: dependencyProvider.keychainWrapper(), identitiesService: dependencyProvider.seedIdentitiesService(), router: self)
             .environmentObject(updateTimer)
+            .environmentObject(navigationManager)
         let viewController = SceneViewController(content: view)
-        viewController.tabBarItem = UITabBarItem(title: "accounts_tab_title".localized, image: UIImage(named: "tab_bar_accounts_icon"), tag: 0)
+        viewController.onAppear = {
+            NotificationCenter.default.post(name: .showNavBar, object: nil, userInfo: ["isHidden": true])
+        }
+        navigationController.setNavigationBarHidden(true, animated: false)
+        viewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "tab_item_home"), tag: 0)
+        viewController.tabBarItem.selectedImage = UIImage(named: "tab_item_home_selected")?.withRenderingMode(.alwaysOriginal)
         navigationController.setViewControllers([viewController], animated: false)
         return navigationController
     }
     
-    @MainActor func showAccountDetail(_ account: AccountDataType) {
-        let router = AccountDetailRouter(account: account, navigationController: navigationController, dependencyProvider: dependencyProvider)
-        let viewModel = AccountDetailViewModel(
-            router: router,
-            account: account,
-            storageManager: dependencyProvider.storageManager(),
-            dependencyProvider: dependencyProvider
-        )
-        let view = AccountDetailView(viewModel: viewModel)
-        let viewController = SceneViewController(content: view)
-        viewController.hidesBottomBarWhenPushed = true
-        navigationController.pushViewController(viewController, animated: true)
+    @objc private func handleNavBarVisibility(_ notification: Notification) {
+        if let isHidden = notification.userInfo?["isHidden"] as? Bool {
+            navigationController.setNavigationBarHidden(isHidden, animated: false)
+        }
     }
     
-    func showSendFundsFlow(_ account: AccountDataType) {
-        //TODO: - add tip here why this (`SendToken`) button isnt tappable
-        guard account.isReadOnly == false else { return }
-        guard account.forecastAtDisposalBalance > 0 else { return }
-        let router = TransferTokenRouter(root: navigationController, account: account, dependencyProvider: dependencyProvider)
-        router.showSendTokenFlow(tokenType: .ccd)
+    func showTransactionDetailFromNotifications(for account: AccountDataType, tx: TransactionDetailViewModel) {
+        accountsViewModel.selectedAccount = AccountPreviewViewModel(account: account, tokens: dependencyProvider.storageManager().getAccountSavedCIS2Tokens(account.address))
+        navigationManager.navigate(to: .transactionDetails(transaction: tx))
+    }
+    
+    @MainActor
+    func showCIS2TokenDetailsFromNotification(for account: AccountDataType, token: AccountDetailAccount) {
+        accountsViewModel.selectedAccount = AccountPreviewViewModel(account: account, tokens: dependencyProvider.storageManager().getAccountSavedCIS2Tokens(account.address))
+        navigationManager.navigate(to: .tokenDetails(token: token, AccountDetailViewModel(account: account)))
+    }
+
+    @MainActor
+    func showSettings(_ account: AccountDataType) {
+        let router = AccountDetailRouter(account: account, navigationController: navigationController, dependencyProvider: dependencyProvider)
+        router.accountMainViewDelegate = self
+        router.showAccountSettings(account)
     }
     
     func showExportFlow() {
@@ -80,7 +105,7 @@ extension AccountsMainRouter {
     func showScanQRFlow() {
         let vc = ScanAddressQRFactory.create(with: ScanAddressQRPresenter(wallet: dependencyProvider.mobileWallet(), delegate: self))
         vc.hidesBottomBarWhenPushed = true
-        navigationController.pushViewController(vc, animated: true)
+        navigationController.present(vc, animated: true)
     }
     
     @MainActor
@@ -108,24 +133,44 @@ extension AccountsMainRouter {
     
     @MainActor
     func showCreateIdentityFlow() {
-        if dependencyProvider.mobileWallet().isLegacyAccount() {
-            let createIdentityCoordinator = CreateIdentityCoordinator(navigationController: CXNavigationController(),
-                    dependencyProvider: dependencyProvider, parentCoordinator: self)
-            childCoordinators.append(createIdentityCoordinator)
-            createIdentityCoordinator.start()
-            navigationController.present(createIdentityCoordinator.navigationController, animated: true, completion: nil)
-        } else {
-            let seedIdentitiesCoordinator = SeedIdentitiesCoordinator(
-                navigationController: CXNavigationController(),
-                action: .createIdentity,
-                dependencyProvider: dependencyProvider,
-                delegate: self
-            )
-
-            childCoordinators.append(seedIdentitiesCoordinator)
-            seedIdentitiesCoordinator.start()
-            navigationController.present(seedIdentitiesCoordinator.navigationController, animated: true)
-        }
+        let seedIdentitiesCoordinator = SeedIdentitiesCoordinator(
+            navigationController: CXNavigationController(),
+            action: .createIdentity,
+            dependencyProvider: dependencyProvider,
+            delegate: self
+        )
+        
+        childCoordinators.append(seedIdentitiesCoordinator)
+        seedIdentitiesCoordinator.start()
+        navigationController.present(seedIdentitiesCoordinator.navigationController, animated: true)
+    }
+    
+    func showSaveSeedPhraseFlow(pwHash: String, identitiesService: SeedIdentitiesService, completion: @escaping ([String]) -> Void) {
+        let view =  CreateSeedPhraseView(
+            viewModel: .init(pwHash: pwHash, identitiesService: identitiesService),
+            onConfirmed: { phrase in
+                DispatchQueue.main.async { [weak self] in
+                    self?.navigationController.dismiss(animated: true, completion: nil)
+                }
+                completion(phrase)
+            })
+        let vc = SceneViewController(content: view)
+        vc.hidesBottomBarWhenPushed = true
+        navigationController.present(vc, animated: true)
+    }
+    
+    func showNotConfiguredAccountPopup() {
+        configureAccountAlertDelegate?.showConfigureAccountAlert()
+        FirebaseAppTracker.homeUnlockFeatureDialog()
+    }
+    
+    @MainActor
+    func createAccountFromOnboarding(isCreatingAccount: Binding<Bool>) {
+        let createAccountCoordinator = CreateAccountCoordinator(navigationController: CXNavigationController(),
+                                                                dependencyProvider: dependencyProvider,
+                                                                parentCoordinator: self
+        )
+        createAccountCoordinator.createAccount(isCreatingAccount: isCreatingAccount)
     }
 }
 
@@ -198,14 +243,8 @@ extension AccountsMainRouter: ScanAddressQRPresenterDelegate {
 
 extension AccountsMainRouter {
     public func handlWCDeeplinkConnect(_ url: URL) {
-        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
-
-        guard let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems else { return }
-        guard let uriItems = queryItems.first(where: { $0.name == "uri" })?.value else { return }
-        guard let pairURI = WalletConnectURI(string: uriItems) else { return }
-        
         Task {
-            await self.walletConnectService.pair(pairURI)
+            await self.walletConnectService.pair(url.absoluteString)
         }
     }
     
@@ -240,7 +279,9 @@ extension AccountsMainRouter: WalletConnectServiceProtocol {
                     storageManager: self.dependencyProvider.storageManager())
             )
         )
-        self.navigationController.present(viewController, animated: true)
+        self.navigationController.dismiss(animated: true) {
+            self.navigationController.present(viewController, animated: true)
+        }
     }
 }
 
@@ -277,6 +318,11 @@ extension AccountsMainRouter: SeedIdentitiesCoordinatorDelegate {
         NotificationCenter.default.post(name: Notification.Name("seedAccountCoordinatorWasFinishedNotification"), object: nil)
         onAccountsUpdate.send(())
         #warning("add here handler")
+    }
+    
+    func seedIdentityCoordinatorDidFail(with error: IdentityRejectionError) {
+        navigationController.dismiss(animated: true)
+        childCoordinators.removeAll(where: { $0 is SeedIdentitiesCoordinator })
     }
 }
 

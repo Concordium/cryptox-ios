@@ -71,6 +71,10 @@ extension RequestExportPasswordPresenter: PasswordFieldDelegate {
     func passwordView(_ passwordView: PasswordFieldViewController, didFinishEnteringPassword password: String) {
         passwordEntered(password: password)
     }
+    
+    func editingChanged() {
+        view?.showError("")
+    }
 }
 
 extension RequestExportPasswordPresenter: PasscodeFieldDelegate {

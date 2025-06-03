@@ -48,7 +48,10 @@ class ImportCoordinator: Coordinator {
         let vc = EnterPasswordFactory.create(with: presenter)
         let importPasswordNavigationController = CXNavigationController(rootViewController: vc)
         importPasswordNavigationController.modalPresentationStyle = .fullScreen
-        navigationController.present(importPasswordNavigationController, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.navigationController.present(importPasswordNavigationController, animated: true)
+        }
     }
 
     func importData(exportPassword: String, appPassword pwHash: String) throws -> AnyPublisher<ImportedItemsReport, Error> {
@@ -74,6 +77,7 @@ class ImportCoordinator: Coordinator {
                 receiveValue: { [weak self] (importedItemsReport: ImportedItemsReport?) in
                     guard let self = self, let importedItemsReport = importedItemsReport else { return }
                     self.showImportReceipt(report: importedItemsReport)
+                    AppSettings.isImportedFromFile = true
             })
             .store(in: &cancellables)
     }

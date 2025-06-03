@@ -14,6 +14,8 @@ struct CurrentPaydayStatus: Codable {
     let lotteryPower: Double
     let blocksBaked: Int
     let delegatedCapital: String
+    let isPrimedForSuspension: Bool
+    let missedRounds: Int
 
     enum CodingKeys: String, CodingKey {
         case finalizationLive = "finalizationLive"
@@ -23,6 +25,8 @@ struct CurrentPaydayStatus: Codable {
         case lotteryPower = "lotteryPower"
         case blocksBaked = "blocksBaked"
         case delegatedCapital = "delegatedCapital"
+        case missedRounds = "missedRounds"
+        case isPrimedForSuspension = "isPrimedForSuspension"
     }
 }
 
@@ -51,7 +55,9 @@ extension CurrentPaydayStatus {
         bakerEquityCapital: String? = nil,
         lotteryPower: Double? = nil,
         blocksBaked: Int? = nil,
-        delegatedCapital: String? = nil
+        delegatedCapital: String? = nil,
+        isPrimedForSuspension: Bool? = nil,
+        missedRounds: Int? = nil
     ) -> CurrentPaydayStatus {
         return CurrentPaydayStatus(
             finalizationLive: finalizationLive ?? self.finalizationLive,
@@ -60,7 +66,9 @@ extension CurrentPaydayStatus {
             bakerEquityCapital: bakerEquityCapital ?? self.bakerEquityCapital,
             lotteryPower: lotteryPower ?? self.lotteryPower,
             blocksBaked: blocksBaked ?? self.blocksBaked,
-            delegatedCapital: delegatedCapital ?? self.delegatedCapital
+            delegatedCapital: delegatedCapital ?? self.delegatedCapital,
+            isPrimedForSuspension: isPrimedForSuspension ?? self.isPrimedForSuspension,
+            missedRounds: missedRounds ?? self.missedRounds
         )
     }
 

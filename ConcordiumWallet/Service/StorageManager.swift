@@ -8,6 +8,7 @@ protocol StorageManagerProtocol {
     func getIdentity(matchingSeedIdentityObject seedIdentityObject: SeedIdentityObject) -> IdentityDataType?
     func getConfirmedIdentities() -> [IdentityDataType]
     func getPendingIdentities() -> [IdentityDataType]
+    func getFailedIdentities() -> [IdentityDataType]
     func removeIdentity(_ identity: IdentityDataType?)
     
     func storePrivateIdObjectData(_: PrivateIDObjectData, pwHash: String) -> Result<String, Error>
@@ -85,7 +86,7 @@ enum StorageError: Error {
     case nullDataError
 }
 
-class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_body_length
+class StorageManager: StorageManagerProtocol {
     private var realm: Realm
     private var keychain: KeychainWrapperProtocol
 
@@ -94,7 +95,7 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
         configuration: Realm.Configuration = RealmHelper.realmConfiguration
     ) {
         self.keychain = keychain
-        self.realm = try! Realm(configuration: RealmHelper.realmConfiguration) // swiftlint:disable:this force_try
+        self.realm = try! Realm(configuration: configuration) // swiftlint:disable:this force_try
         LegacyLogger.debug("Initialized Realm database at \(realm.configuration.fileURL?.absoluteString ?? "")")
         excludeDocumentsAndLibraryFoldersFromBackup()
     }
@@ -133,6 +134,10 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
         return Array(realm.objects(IdentityEntity.self).filter("stateString == '\(IdentityState.pending.rawValue)'"))
     }
 
+    func getFailedIdentities() -> [IdentityDataType] {
+        return Array(realm.objects(IdentityEntity.self).filter("stateString == '\(IdentityState.failed.rawValue)'"))
+    }
+    
     func storePrivateIdObjectData(_ privateIdObjectData: PrivateIDObjectData, pwHash: String) -> Result<String, Error> {
         let id = UUID().uuidString
         do {
@@ -517,7 +522,6 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
         let libraryPaths = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)
         var libraryURL = libraryPaths[0]
         excludeFromBackup(url: &libraryURL)
-        
     }
     
     private func excludeFromBackup(url:inout URL) {
@@ -597,5 +601,21 @@ extension StorageManager {
         } catch {
             LegacyLogger.error("ERROR wanishing realm \(error)")
         }
+    }
+}
+
+extension StorageManagerProtocol {
+    func getDelegationTransfers(for account: AccountDataType) -> [TransferDataType] {
+        return getTransfers(for: account.address).filter { transfer in
+            transfer.transferType.isDelegationTransfer
+        }
+    }
+}
+
+extension StorageManagerProtocol {
+    func hasPendingBakerRegistration(for account: String) -> Bool {
+        !getTransfers(for: account)
+            .filter { $0.transferType.isBakingTransfer }
+            .isEmpty
     }
 }

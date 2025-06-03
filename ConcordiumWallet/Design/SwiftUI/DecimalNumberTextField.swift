@@ -8,25 +8,30 @@
 
 import SwiftUI
 import Combine
+import BigInt
 
 struct DecimalNumberTextField: View {
     @Binding private var decimalValue: BigDecimal
     @State private var textFieldText: String = ""
     
     @Binding var fraction: Int
+    private var ticker: String?
     
-    private let placeholder: String = "0.0"
+    private let placeholder: String = "0"
     private var decimalNumberFormatter: DecimalNumberFormatter
     private var decimalSeparator: Character { decimalNumberFormatter.decimalSeparator }
     private var groupingSeparator: Character { decimalNumberFormatter.groupingSeparator }
     
     init(
         decimalValue: Binding<BigDecimal>,
-        fraction: Binding<Int>
+        fraction: Binding<Int>,
+        ticker: String? = nil
     ) {
         _fraction = fraction
         _decimalValue = decimalValue
+        self.ticker = ticker
         self.decimalNumberFormatter = .init(maximumFractionDigits: fraction.wrappedValue)
+        self._textFieldText = decimalValue.wrappedValue.value == .zero ? State(initialValue: "") :  State(initialValue: TokenFormatter().plainString(from: decimalValue.wrappedValue, decimalSeparator: "."))
     }
     
     private var textFieldProxyBinding: Binding<String> {
@@ -37,22 +42,36 @@ struct DecimalNumberTextField: View {
     }
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .leading) {
             if textFieldText.isEmpty {
-                HStack {
-                    Text("0.0")
-                        .font(.system(size: 25, weight: .medium))
-                        .foregroundColor(.blackSecondary)
+                HStack(spacing: 8) {
+                    Text("0")
+                        .font(.plexSans(size: 55, weight: .medium))
+                        .dynamicTypeSize(.xSmall ... .xxLarge)
+                        .minimumScaleFactor(0.5)
+                        .lineLimit(1)
+                        .modifier(RadialGradientForegroundStyleModifier())
+                        .opacity(0.5)
+                    if let ticker {
+                        Text(ticker)
+                            .font(.plexSans(size: 55, weight: .medium))
+                            .dynamicTypeSize(.xSmall ... .xxLarge)
+                            .minimumScaleFactor(0.5)
+                            .lineLimit(1)
+                            .modifier(RadialGradientForegroundStyleModifier())
+                            .opacity(0.5)
+                    }
+                    
                     Spacer()
                 }
             }
-            TextField(placeholder, text: binding(for: $decimalValue))
-                .keyboardType(.decimalPad)
-                .font(.system(size: 25, weight: .medium))
-                .foregroundColor(.blackSecondary)
-                .tint(.blackSecondary)
+            AmountInputTextField(text: binding(for: $decimalValue), placeholder:placeholder, ticker: ticker)
                 .onChange(of: decimalValue) { newDecimalValue in
-                    self.textFieldText = TokenFormatter().plainString(from: newDecimalValue)
+                    if !(newDecimalValue.value == 0) {
+                        self.textFieldText = TokenFormatter().plainString(from: newDecimalValue, decimalSeparator: ".")
+                    } else if newDecimalValue == .zero {
+                        self.textFieldText = ""
+                    }
                 }
         }
         .frame(height: 30)
@@ -67,13 +86,14 @@ struct DecimalNumberTextField: View {
             set: { newValue in
                 let formattedValue = self.formatString(newValue)
                 
-                self.textFieldText = formattedValue
+                self.textFieldText = decimalNumberFormatter.format(value: formattedValue)
                 
-                if let token = TokenFormatter().number(from: formattedValue, precision: value.wrappedValue.precision) {
+                if formattedValue.isEmpty {
+                    value.wrappedValue = BigDecimal.zero(value.wrappedValue.precision)
+                }
+                else if let token = TokenFormatter().number(from: formattedValue, precision: fraction, decimalSeparators: ".") {
                     value.wrappedValue = token
                     print(TokenFormatter().string(from: token))
-                } else {
-                    
                 }
             }
         )
@@ -82,6 +102,19 @@ struct DecimalNumberTextField: View {
     private func formatString(_ newValue: String) -> String {
         var numberString = newValue
         
+        if numberString.last == "," {
+            numberString.removeLast()
+            numberString.append(".")
+        }
+        
+        if let decimalIndex = numberString.firstIndex(of: decimalSeparator) {
+            let fractionalPart = numberString[decimalIndex..<numberString.endIndex]
+            let maximumFractionLength = fraction + 1
+            if fractionalPart.count > maximumFractionLength {
+                numberString = String(numberString[..<numberString.index(decimalIndex, offsetBy: maximumFractionLength)])
+            }
+        }
+        
         // If user start enter number with `decimalSeparator` add zero before it
         if numberString == String(decimalSeparator) {
             numberString.insert("0", at: numberString.startIndex)
@@ -98,28 +131,16 @@ struct DecimalNumberTextField: View {
             numberString.removeLast()
         }
         
+        // Remove thousands separator, so we can convert this to BigInt
+        if numberString.contains(groupingSeparator) {
+            numberString = numberString.replacingOccurrences(of: "\(groupingSeparator)", with: "")
+        }
         return numberString
     }
     
     private func updateValues(with newValue: String) {
-        var numberString = newValue
+        var numberString = formatString(newValue)
         
-        // If user start enter number with `decimalSeparator` add zero before it
-        if numberString == String(decimalSeparator) {
-            numberString.insert("0", at: numberString.startIndex)
-        }
-        
-        // If user double tap on zero, add `decimalSeparator` to continue enter number
-        if numberString == "00" {
-            numberString.insert(decimalSeparator, at: numberString.index(before: numberString.endIndex))
-        }
-        
-        // If text already have `decimalSeparator` remove last one
-        if numberString.last == decimalSeparator,
-           numberString.prefix(numberString.count - 1).contains(decimalSeparator) {
-            numberString.removeLast()
-        }
-
         // Format the string and reduce the tail
         numberString = decimalNumberFormatter.format(value: numberString)
         
@@ -144,6 +165,8 @@ class DecimalNumberFormatter {
         numberFormatter.numberStyle = .decimal
         numberFormatter.minimumFractionDigits = 0 // Just for case
         numberFormatter.maximumFractionDigits = maximumFractionDigits
+        numberFormatter.groupingSeparator = ","
+        numberFormatter.decimalSeparator = "."
     }
     
     func update(maximumFractionDigits: Int) {
@@ -231,5 +254,56 @@ private extension DecimalNumberFormatter {
         }
         
         return value
+    }
+}
+
+struct AmountInputTextField: View {
+    @Binding var text: String
+    let placeholder: String
+    let ticker: String?
+    
+    var tickerText: String {
+        text.isEmpty ? "" : " \(ticker ?? "")"
+    }
+    
+    var body: some View {
+        TextField(placeholder, text: $text)
+            .keyboardType(.decimalPad)
+            .font(.plexSans(size: 55, weight: .medium))
+            .dynamicTypeSize(.xSmall ... .xxLarge)
+            .minimumScaleFactor(0.5)
+            .lineLimit(1)
+            .opacity(1)
+            .foregroundColor(.clear)
+            .overlay(
+                RadialGradient(
+                    colors:
+                        [Color(red: 0.93, green: 0.85, blue: 0.75),
+                         Color(red: 0.64, green: 0.6, blue: 0.89),
+                         Color(red: 0.62, green: 0.95, blue: 0.92)]
+                    ,
+                    center: .topLeading,
+                    startRadius: 50,
+                    endRadius: 300
+                )
+                .allowsHitTesting(false)
+                .saturation(2)
+                .mask(alignment: .leading, {
+                    HStack(spacing: 8) {
+                        Group {
+                            Text(text.isEmpty ? " " : text)
+                            + Text(tickerText)
+                        }
+                        .font(.plexSans(size: 55, weight: .medium))
+                        .dynamicTypeSize(.xSmall ... .xxLarge)
+                        .minimumScaleFactor(0.5)
+                        .lineLimit(1)
+                        .multilineTextAlignment(.leading)
+                        .allowsHitTesting(false)
+                        
+                        Spacer()
+                    }
+                })
+            )
     }
 }

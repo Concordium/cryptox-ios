@@ -8,7 +8,6 @@ import Foundation
 // MARK: - PassiveDelegation
 struct PassiveDelegation: Codable {
     let commissionRates: CommissionRates
-    let poolType: String
     let currentPaydayDelegatedCapital: String
     let allPoolTotalCapital: String
     let currentPaydayTransactionFeesEarned: String
@@ -16,7 +15,6 @@ struct PassiveDelegation: Codable {
 
     enum CodingKeys: String, CodingKey {
         case commissionRates = "commissionRates"
-        case poolType = "poolType"
         case currentPaydayDelegatedCapital = "currentPaydayDelegatedCapital"
         case allPoolTotalCapital = "allPoolTotalCapital"
         case currentPaydayTransactionFeesEarned = "currentPaydayTransactionFeesEarned"
@@ -44,7 +42,6 @@ extension PassiveDelegation {
 
     func with(
         commissionRates: CommissionRates? = nil,
-        poolType: String? = nil,
         currentPaydayDelegatedCapital: String? = nil,
         allPoolTotalCapital: String? = nil,
         currentPaydayTransactionFeesEarned: String? = nil,
@@ -52,7 +49,6 @@ extension PassiveDelegation {
     ) -> PassiveDelegation {
         return PassiveDelegation(
             commissionRates: commissionRates ?? self.commissionRates,
-            poolType: poolType ?? self.poolType,
             currentPaydayDelegatedCapital: currentPaydayDelegatedCapital ?? self.currentPaydayDelegatedCapital,
             allPoolTotalCapital: allPoolTotalCapital ?? self.allPoolTotalCapital,
             currentPaydayTransactionFeesEarned: currentPaydayTransactionFeesEarned ?? self.currentPaydayTransactionFeesEarned,

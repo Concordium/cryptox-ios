@@ -7,8 +7,7 @@
 //
 
 import Foundation
-import Web3Wallet
-import WalletConnectVerify
+import ReownWalletKit
 
 struct SessionRequestType: Codable {
     let type: TransferType
@@ -82,7 +81,7 @@ enum SessionRequestDataType {
                     throw SessionRequstError.unSupportedRequestMethod
                 }
             default:
-                throw SessionRequstError.invalidRequestmethod
+                throw SessionRequstError.invalidRequestMethod
         }
     }
 }

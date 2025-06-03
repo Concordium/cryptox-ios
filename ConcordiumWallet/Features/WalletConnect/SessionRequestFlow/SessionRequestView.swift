@@ -25,10 +25,10 @@ struct SessionRequestView: View {
                         VStack(alignment: .leading) {
                             Text(viewModel.title)
                                 .foregroundColor(.white)
-                                .font(.system(size: 28, weight: .semibold))
+                                .font(.satoshi(size: 28, weight: .semibold))
                             Text(viewModel.method)
                                 .foregroundColor(.white.opacity(0.3))
-                                .font(.system(size: 13, weight: .regular))
+                                .font(.satoshi(size: 13, weight: .regular))
                         }
                         .padding(.top, 10)
                         Spacer()
@@ -95,7 +95,7 @@ struct SessionRequestView: View {
                             Text("Decline")
                                 .frame(maxWidth: .infinity)
                                 .foregroundColor(.white)
-                                .font(.system(size: 17, weight: .semibold))
+                                .font(.satoshi(size: 17, weight: .semibold))
                                 .padding(.vertical, 11)
                                 .background(Color.clear)
                                 .overlay(
@@ -112,7 +112,7 @@ struct SessionRequestView: View {
                             Text("Sign")
                                 .frame(maxWidth: .infinity)
                                 .foregroundColor(.black)
-                                .font(.system(size: 17, weight: .semibold))
+                                .font(.satoshi(size: 17, weight: .semibold))
                                 .padding(.vertical, 11)
                                 .background(viewModel.account == nil ? .white.opacity(0.7) : .white)
                                 .clipShape(Capsule())
@@ -143,7 +143,7 @@ struct SessionRequestView: View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
                 Text("Message")
-                    .font(.system(size: 14, weight: .medium))
+                    .font(.satoshi(size: 14, weight: .medium))
                     .foregroundColor(Color.greySecondary)
                 
                 VStack(spacing: 0) {
@@ -151,7 +151,7 @@ struct SessionRequestView: View {
                         let content = try! AttributedString(markdown: viewModel.message)
                         Text(content)
                             .foregroundColor(.white)
-                            .font(.system(size: 13, weight: .medium))
+                            .font(.satoshi(size: 13, weight: .medium))
                     }
                     .frame(height: 250)
                 }
@@ -159,6 +159,7 @@ struct SessionRequestView: View {
             }
             .background(.clear)
         }
+        .clipped()
         .frame(maxWidth: .infinity)
         .padding(16)
         .overlay(

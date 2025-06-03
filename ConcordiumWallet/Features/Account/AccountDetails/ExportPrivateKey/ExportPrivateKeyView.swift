@@ -54,6 +54,7 @@ private struct PrivateKeyContainer: View {
                     viewModel.send(.exportTapped)
                 }
                 .applyStandardButtonStyle().opacity(state.isPrivateKeyShown ? 1 : 0)
+                .opacity(viewModel.isExportAvailable ? 1.0 : 0)
             }.frame(maxWidth: .infinity).padding(20)
             VStack {
                 StyledLabel(text: state.hiddenTopMessage, style: .mono, color: Pallette.fadedText)

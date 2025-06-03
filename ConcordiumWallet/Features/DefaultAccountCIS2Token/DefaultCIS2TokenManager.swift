@@ -12,16 +12,20 @@ import SwiftUI
 final class DefaultCIS2TokenManager {
     @AppStorage("isRestoredDefaultCIS2Tokens") private var isRestoredDefaultCIS2Tokens = false
     
-#if STAGINGNET
-    static let defaultCI2TokensIds: [SmartContractAddress] = [.wccd, .euroe, .ethArabella, .wbts, .usdcArabella, .usdtArabella]
+#if MAINNET
+    static let defaultCI2TokensIds: [SmartContractAddress] = [.wccd, .euroe]
 #else
-    static let defaultCI2TokensIds: [SmartContractAddress] = [.wccd, .euroe, .ethArabella, .wbts, .usdcArabella, .usdtArabella]
+    static let defaultCI2TokensIds: [SmartContractAddress] = [.wccd, .euroe]
 #endif
     
     private let storageManager: StorageManagerProtocol
+    private let networkManager: NetworkManagerProtocol
+    private let cis2Service: CIS2Service
     
-    init(storageManager: StorageManagerProtocol) {
+    init(storageManager: StorageManagerProtocol, networkManager: NetworkManagerProtocol) {
         self.storageManager = storageManager
+        self.networkManager = networkManager
+        self.cis2Service = CIS2Service(networkManager: networkManager, storageManager: storageManager)
     }
     
     public func initializeDefaultValues() {
@@ -41,7 +45,7 @@ final class DefaultCIS2TokenManager {
         logger.debugLog("started restore default tokens")
         
         for address in Self.defaultCI2TokensIds {
-            let tkns = try await CIS2TokenService.getCIS2Tokens(for: address.index)
+            let tkns = try await cis2Service.fetchAllTokensData(contractIndex: address.index)
             self.storeTokenToAccounts(tkns.first)
         }
     
@@ -50,8 +54,10 @@ final class DefaultCIS2TokenManager {
     
     public func addDefaultCIS2Token(to account: AccountDataType) async throws {
         for address in Self.defaultCI2TokensIds {
-            guard let token = try await CIS2TokenService.getCIS2Tokens(for: address.index).first else { return }
-            self.storeTokenIfNeeded(token, to: account)
+            guard let token = try await cis2Service.fetchAllTokensData(contractIndex: address.index).first else { return }
+            await MainActor.run {
+                storeTokenIfNeeded(token, to: account)
+            }
         }
     }
     
@@ -66,52 +72,25 @@ final class DefaultCIS2TokenManager {
     }
     
     private func storeTokenIfNeeded(_ token: CIS2Token, to account: AccountDataType) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            if self.storageManager.getAccountSavedCIS2Tokens(account.address).contains(token) { return }
-            do {
-                try self.storageManager.storeCIS2Token(token: token, address: account.address)
-            } catch {
-                logger.errorLog("error while storeTokenIfNeeded -- \(error)")
-            }
+        if self.storageManager.getAccountSavedCIS2Tokens(account.address).contains(token) { return }
+        do {
+            try self.storageManager.storeCIS2Token(token: token, address: account.address)
+        } catch {
+            logger.errorLog("error while storeTokenIfNeeded -- \(error)")
         }
     }
 }
 
 extension SmartContractAddress {
-#if STAGINGNET
-    static let wccd: SmartContractAddress = SmartContractAddress(index: 2059, subindex: 0)
-#else
+#if MAINNET
     static let wccd: SmartContractAddress = SmartContractAddress(index: 9354, subindex: 0)
-#endif
-    
-#if STAGINGNET
-    static let ethArabella: SmartContractAddress = SmartContractAddress(index: 4514, subindex: 0)
 #else
-    static let ethArabella: SmartContractAddress = SmartContractAddress(index: 9338, subindex: 0)
+    static let wccd: SmartContractAddress = SmartContractAddress(index: 2059, subindex: 0)
 #endif
-    
-#if STAGINGNET
-    static let wbts: SmartContractAddress = SmartContractAddress(index: 4515, subindex: 0)
-#else
-    static let wbts: SmartContractAddress = SmartContractAddress(index: 9340, subindex: 0)
-#endif
-    
-#if STAGINGNET
-    static let usdtArabella: SmartContractAddress = SmartContractAddress(index: 4517, subindex: 0)
-#else
-    static let usdtArabella: SmartContractAddress = SmartContractAddress(index: 9341, subindex: 0)
-#endif
-    
-#if STAGINGNET
-    static let usdcArabella: SmartContractAddress = SmartContractAddress(index: 4516, subindex: 0)
-#else
-    static let usdcArabella: SmartContractAddress = SmartContractAddress(index: 9339, subindex: 0)
-#endif
-    
-#if STAGINGNET
-    static let euroe: SmartContractAddress = SmartContractAddress(index: 7260, subindex: 0)
-#else
+
+#if MAINNET
     static let euroe: SmartContractAddress = SmartContractAddress(index: 9390, subindex: 0)
+#else
+    static let euroe: SmartContractAddress = SmartContractAddress(index: 7260, subindex: 0)
 #endif
 }

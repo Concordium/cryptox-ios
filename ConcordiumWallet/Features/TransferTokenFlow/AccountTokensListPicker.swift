@@ -16,24 +16,29 @@ final class AccountTokensListPickerViewModel: ObservableObject {
 
 
     private let storageManager: StorageManagerProtocol
+    private let networkManager: NetworkManagerProtocol
     let account: AccountDataType
     
-    init(account: AccountDataType, storageManager: StorageManagerProtocol, selectedToken: CXTokenType) {
+    private let cis2Service: CIS2Service
+    
+    init(account: AccountDataType, storageManager: StorageManagerProtocol, networkManager: NetworkManagerProtocol, selectedToken: CXTokenType) {
         self.storageManager = storageManager
+        self.networkManager = networkManager
         self.account = account
         self.selectedToken = selectedToken
+        self.cis2Service = CIS2Service(networkManager: networkManager, storageManager: storageManager)
     }
     
     @MainActor
     func reload() {
         let tokens = storageManager.getAccountSavedCIS2Tokens(account.address)
-        var tmpAccounts: [AccountDetailAccount] = [.ccd(amount: GTU(intValue: account.forecastBalance).displayValue())]
+        var tmpAccounts: [AccountDetailAccount] = [.ccd(amount: GTU(intValue: account.forecastBalance))]
         if !tokens.isEmpty {
             Task {
                 do {
                     self.error = nil
                     
-                    let balances = try await Self.loadCIS2TokenBalances(tokens, address: account.address)
+                    let balances = try await Self.loadCIS2TokenBalances(tokens, address: account.address, cis2Service: cis2Service)
                     var tmpTokens: [AccountDetailAccount] = []
                     tmpTokens = tokens.compactMap { token -> AccountDetailAccount? in
                         guard let (balances, _) = balances.first(where: { $0.1 == token.contractAddress.index }) else { return nil }
@@ -52,11 +57,11 @@ final class AccountTokensListPickerViewModel: ObservableObject {
         self.accounts = tmpAccounts
     }
     
-    private static func loadCIS2TokenBalances(_ tokens: [CIS2Token], address: String) async throws -> [([CIS2TokenBalance], Int)] {
+    private static func loadCIS2TokenBalances(_ tokens: [CIS2Token], address: String, cis2Service: CIS2Service) async throws -> [([CIS2TokenBalance], Int)] {
         return try await withThrowingTaskGroup(of: ([CIS2TokenBalance], Int).self, body: { group in
             for token in tokens {
                 group.addTask {
-                    try await (CIS2TokenService.getCIS2TokenBalance(index: token.contractAddress.index, tokenIds: [token.tokenId], address: address), token.contractAddress.index)
+                    try await (cis2Service.fetchTokensBalance(contractIndex: token.contractAddress.index.string, accountAddress: address, tokenId: token.tokenId), token.contractAddress.index)
                 }
             }
             
@@ -81,13 +86,13 @@ struct AccountTokensListPicker: View {
             if viewModel.error != nil {
                 Text("Failed to load Tokens")
                     .foregroundColor(.white)
-                    .font(.system(size: 17, weight: .semibold))
+                    .font(.satoshi(size: 17, weight: .semibold))
                     .onTapGesture { viewModel.reload() }
             } else {
                 VStack(alignment: .leading) {
                     Text(viewModel.account.displayName + ": " + "select_token".localized)
                         .foregroundColor(.white)
-                        .font(.system(size: 19, weight: .bold))
+                        .font(.satoshi(size: 19, weight: .bold))
                         .onTapGesture { viewModel.reload() }
                         .padding(.horizontal, 18)
                         .padding(.vertical, 24)
@@ -108,13 +113,7 @@ struct AccountTokensListPicker: View {
                 }
             }
         }
-        .background {
-            LinearGradient(
-                colors: [Color(hex: 0x242427), Color(hex: 0x09090B)],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            ).ignoresSafeArea()
-        }
+        .modifier(AppBackgroundModifier())
     }
 }
 

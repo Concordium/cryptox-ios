@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "tab_tokens_icon.pdf",
+      "filename" : "info-square-02-contained-filled.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "info-square-02-contained-filled (1).png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "info-square-02-contained-filled (2).png",
       "idiom" : "universal",
       "scale" : "3x"
     }

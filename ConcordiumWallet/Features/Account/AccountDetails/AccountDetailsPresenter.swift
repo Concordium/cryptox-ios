@@ -24,69 +24,33 @@ protocol AccountDetailsViewProtocol: ShowAlert, Loadable {
 }
 
 // MARK: -
-// MARK: Delegate
-protocol AccountDetailsPresenterDelegate: ShowShieldedDelegate {
-    func accountDetailsShowBurgerMenu(_ accountDetailsPresenter: AccountDetailsPresenter,
-                                      balanceType: AccountBalanceTypeEnum,
-                                      showsDecrypt: Bool)
-
-    func accountDetailsPresenterSend(_ accountDetailsPresenter: AccountDetailsPresenter, balanceType: AccountBalanceTypeEnum)
-    func accountDetailsPresenterShieldUnshield(_ accountDetailsPresenter: AccountDetailsPresenter, balanceType: AccountBalanceTypeEnum)
-    func accountDetailsPresenterAddress(_ accountDetailsPresenter: AccountDetailsPresenter)
-    func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, retryFailedAccount: AccountDataType)
-    func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, removeFailedAccount: AccountDataType)
-    func showEarn()
-
-    func transactionSelected(viewModel: TransactionViewModel)
-    func accountDetailsClosed()
-    
-    func showImportTokenFlow(_ address: String)
-}
-
-// MARK: -
 // MARK: Presenter
 protocol AccountDetailsPresenterProtocol: AnyObject {
     var view: AccountDetailsViewProtocol? { get set }
     func viewDidLoad()
     func viewWillAppear()
-    func viewWillDisappear()
     
     func getTitle() -> String
-    func userTappedSend()
-    func userTappedShieldUnshield()
-    func userTappedAddress()
-    func userTappedRetryAccountCreation()
-    func userTappedRemoveFailedAccount()
     func gtuDropTapped()
-    func burgerButtonTapped()
-    func pressedUnlock()
-    func showEarn()
 
     func userSelectedIdentityData()
     func userSelectedGeneral()
-    func userSelectedShieled() 
     func userSelectedTransfers()
 
     func showGTUDrop() -> Bool
-    func getIdentityDataPresenter() -> AccountDetailsIdentityDataPresenter
-    func getTransactionsDataPresenter() -> AccountTransactionsDataPresenter
     func updateTransfersOnChanges()
-    
-    func showImportTokenFlow()
 }
 
 class AccountDetailsPresenter {
 
     weak var view: AccountDetailsViewProtocol?
-    var delegate: (AccountDetailsPresenterDelegate & RequestPasswordDelegate)?
+    var delegate: (RequestPasswordDelegate)?
     private let storageManager: StorageManagerProtocol
 
     var account: AccountDataType
     private var balanceType: AccountBalanceTypeEnum = .balance
     private var cancellables: [AnyCancellable] = []
     private var viewModel: AccountDetailsViewModel
-
-    private var transactionsPresenter: AccountTransactionsDataPresenter?
 
     private var accountsService: AccountsServiceProtocol
     private let transactionsLoadingHandler: TransactionsLoadingHandler
@@ -98,7 +62,7 @@ class AccountDetailsPresenter {
     
     init(dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
          account: AccountDataType,
-         delegate: (AccountDetailsPresenterDelegate & RequestPasswordDelegate)? = nil) {
+         delegate: (RequestPasswordDelegate)? = nil) {
         self.accountsService = dependencyProvider.accountsService()
         self.storageManager = dependencyProvider.storageManager()
         self.account = account
@@ -110,24 +74,12 @@ class AccountDetailsPresenter {
 }
 
 extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
-    
-    func showImportTokenFlow() {
-        delegate?.showImportTokenFlow(account.address)
-    }
-    
     func showGTUDrop() -> Bool {
-        if balanceType == .shielded {
-            return false
-        }
         return true
     }
     
     func getTitle() -> String {
-        if balanceType == .shielded {
-            return self.account.displayName
-        } else {
-            return self.account.displayName
-        }
+        return self.account.displayName
     }
     
     func viewDidLoad() {
@@ -136,16 +88,6 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     
     func setShouldRefresh(_ refresh: Bool) {
         shouldRefresh = refresh
-    }
-    
-    func showShieldedBalance(shouldShow: Bool) {
-        account = account.withShowShielded(shouldShow)
-        if shouldShow {
-            switchToBalanceType(.shielded)
-        } else {
-            switchToBalanceType(.balance)
-        }
-        userSelectedTransfers()
     }
     
     func switchToBalanceType(_ balanceType: AccountBalanceTypeEnum) {
@@ -200,82 +142,7 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
             shouldRefresh = false
         }
     }
-    
-    func viewWillDisappear() {
-        delegate?.accountDetailsClosed()
-        transactionsPresenter?.viewUnload()
-    }
-    
-    func userTappedSend() {
-        guard let delegate = delegate else { return }
-        accountsService.recalculateAccountBalance(account: account, balanceType: balanceType)
-            .mapError(ErrorMapper.toViewError)
-            .sink(receiveError: { [weak self] error in
-                self?.view?.showErrorAlert(error)
-                }, receiveValue: { [weak self] _ in
-                    guard let self = self else { return }
-                    delegate.accountDetailsPresenterSend(self, balanceType: self.balanceType)
-                    self.shouldRefresh = true
-            }).store(in: &cancellables)
-    }
 
-    func userTappedShieldUnshield() {
-        guard let delegate = delegate else { return }
-        accountsService.recalculateAccountBalance(account: account, balanceType: balanceType)
-            .mapError(ErrorMapper.toViewError)
-            .sink(receiveError: { [weak self] error in
-                self?.view?.showErrorAlert(error)
-                }, receiveValue: { [weak self] _ in
-                    guard let self = self else { return }
-                    delegate.accountDetailsPresenterShieldUnshield(self, balanceType: self.balanceType)
-                    self.shouldRefresh = true
-            }).store(in: &cancellables)
-    }
-    
-    func showEarn() {
-        delegate?.showEarn()
-    }
-    
-    func userTappedAddress() {
-        delegate?.accountDetailsPresenterAddress(self)
-        shouldRefresh = true
-    }
-
-    func userTappedRetryAccountCreation() {
-        storageManager.removeAccount(account: nil)
-        delegate?.accountDetailsPresenter(self, retryFailedAccount: account)
-        shouldRefresh = true
-    }
-
-    func userTappedRemoveFailedAccount() {
-        storageManager.removeAccount(account: nil)
-        delegate?.accountDetailsPresenter(self, removeFailedAccount: account)
-    }
-
-    func burgerButtonTapped() {
-        viewModel.toggleMenu()
-        delegate?.accountDetailsShowBurgerMenu(self, balanceType: self.balanceType, showsDecrypt: viewModel.showUnlockButton)
-    }
-
-    func pressedUnlock() {
-        guard let delegate = delegate else { return }
-        transactionsLoadingHandler.decryptUndecryptedTransactions(requestPasswordDelegate: delegate)
-            .mapError(ErrorMapper.toViewError)
-            .sink(receiveError: {[weak self] error in
-                self?.view?.showErrorAlert(error)
-                }, receiveValue: { [weak self] _ in
-                    self?.switchToBalanceType(.shielded)
-                    self?.updateTransfers()
-            }).store(in: &cancellables)
-    }
-    
-    func userSelectedShieled() {
-        if balanceType != .shielded {
-            switchToBalanceType(.shielded)
-            userSelectedTransfers()
-        }
-    }
-    
     func userSelectedGeneral() {
         if balanceType != .balance {
             switchToBalanceType(.balance)
@@ -291,19 +158,7 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
         updateTransfers()
         viewModel.selectedTab = .transfers
     }
-
-    func getIdentityDataPresenter() -> AccountDetailsIdentityDataPresenter {
-        AccountDetailsIdentityDataPresenter(account: account)
-    }
-
-    func getTransactionsDataPresenter() -> AccountTransactionsDataPresenter {
-        transactionsPresenter = AccountTransactionsDataPresenter(
-                delegate: self, account: account,
-                viewModel: viewModel.transactionsList,
-                transactionsFetcher: self)
-        return transactionsPresenter!
-    }
-
+    
     func gtuDropTapped() {
         accountsService.gtuDrop(for: account.address)
                 .mapError(ErrorMapper.toViewError)
@@ -396,23 +251,6 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     }
 }
 
-extension AccountDetailsPresenter: AccountTransactionsDataPresenterDelegate {
-    func transactionSelected(_ transaction: TransactionViewModel) {
-        delegate?.transactionSelected(viewModel: transaction)
-    }
-    
-    func userSelectedDecryption(for transactionWithHash: String) {
-        guard let delegate = delegate else { return }
-        transactionsLoadingHandler.decryptUndecryptedTransaction(withTransactionHash: transactionWithHash, requestPasswordDelegate: delegate)
-            .mapError(ErrorMapper.toViewError)
-            .sink(receiveError: {[weak self] error in
-                self?.view?.showErrorAlert(error)
-                }, receiveValue: { [weak self] _ in
-                    self?.updateTransfers()
-            }).store(in: &cancellables)
-    }
-}
-
 extension AccountDetailsPresenter: TransactionsFetcher {
     func getNextTransactions() {
         guard let lastRemoteTransaction = viewModel.allAccountTransactionsList.transactions.last(where: { $0.source is Transaction }),
@@ -427,30 +265,5 @@ extension AccountDetailsPresenter: TransactionsFetcher {
 extension AccountDetailsPresenter: BurgerMenuAccountDetailsDismissDelegate {
     func bugerMenuDismissedWithAction(_action action: BurgerMenuAccountDetailsAction) {
         self.viewModel.menuState = .closed
-        if case let BurgerMenuAccountDetailsAction.shieldedBalance(_, shouldShow, _ ) = action {
-            // we only take action here for hiding the shielded balance.
-            // The showing will be done after the carousel is being presented
-            if !shouldShow {
-                showShieldedBalance(shouldShow: false)
-            }
-        } else if case BurgerMenuAccountDetailsAction.decrypt = action {
-            pressedUnlock()
-        }
-    }
-}
-
-extension AccountDetailsPresenter: ShowShieldedDelegate {
-    func onboardingCarouselClosed() {
-        self.delegate?.onboardingCarouselClosed()
-    }
-
-    func onboardingCarouselSkiped() {
-        showShieldedBalance(shouldShow: true)
-        self.delegate?.onboardingCarouselSkiped()
-    }
-    
-    func onboardingCarouselFinished() {
-        showShieldedBalance(shouldShow: true)
-        self.delegate?.onboardingCarouselFinished()
     }
 }

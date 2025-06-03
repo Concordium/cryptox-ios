@@ -27,15 +27,15 @@ enum UserDefaultKeys: String {
     case needsBackupWarning
     case lastKnownAppVersionSinceBackupWarning
     
-    case isGDPRRegion
-    case isGDPREnabled
-    
     case lastKnownAppVersion
     
     case dismissedWarningIds
     case dismissedAlertIds
     
     case hasRunBefore
+    case isImportedFromFile
+    
+    case lastSelectedAccountAddress
 }
 
 struct AppSettings {
@@ -130,39 +130,6 @@ struct AppSettings {
 }
 
 
-
-extension AppSettings {
-    
-    static var isGDPREnabled: Bool? {
-        get {
-            if UserDefaults.standard.object(forKey: UserDefaultKeys.isGDPREnabled.rawValue) == nil {
-                AppSettings.isGDPREnabled = nil
-                return nil
-            } else {
-                return UserDefaults.standard.bool(forKey: UserDefaultKeys.isGDPREnabled.rawValue)
-            }
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.isGDPREnabled.rawValue)
-        }
-    }
-    
-    
-    static var isGDPRRegion: Bool? {
-        get {
-            if UserDefaults.standard.object(forKey: UserDefaultKeys.isGDPRRegion.rawValue) == nil {
-                AppSettings.isGDPRRegion = nil
-                return nil
-            } else {
-                return UserDefaults.standard.bool(forKey: UserDefaultKeys.isGDPRRegion.rawValue)
-            }
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.isGDPRRegion.rawValue)
-        }
-    }
-}
-
 extension AppSettings {
     static var lastKnownAppVersion: String? {
         get {
@@ -197,6 +164,29 @@ extension AppSettings {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.hasRunBefore.rawValue)
+        }
+    }
+    
+    static var isImportedFromFile: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: UserDefaultKeys.isImportedFromFile.rawValue)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.isImportedFromFile.rawValue)
+        }
+    }
+    
+    static func removeImportedWalletSetings() {
+        UserDefaults.removeObject(forKey: UserDefaultKeys.isImportedFromFile.rawValue)
+        UserDefaults.removeObject(forKey: UserDefaultKeys.lastSelectedAccountAddress.rawValue)
+    }
+    
+    static var lastSelectedAccountAddress: String? {
+        get {
+            UserDefaults.standard.string(forKey: UserDefaultKeys.lastSelectedAccountAddress.rawValue)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.lastSelectedAccountAddress.rawValue)
         }
     }
 }

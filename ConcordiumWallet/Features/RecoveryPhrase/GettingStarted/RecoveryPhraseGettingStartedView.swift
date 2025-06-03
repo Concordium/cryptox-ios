@@ -16,7 +16,7 @@ struct RecoveryPhraseGettingStartedView: Page {
         ScrollView {
             VStack {
                 Text(viewModel.title)
-                    .font(Font.system(size: 25, weight: .medium))
+                    .font(Font.satoshi(size: 25, weight: .medium))
                     .foregroundColor(.white)
                     .frame(width: 339, alignment: .topLeading)
                 GettingStartedSection(section: viewModel.createNewWalletSection, tapAction: {

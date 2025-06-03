@@ -77,6 +77,7 @@ class CreateAccountButtonWidgetPresenter: CreateAccountButtonWidgetPresenterProt
                     LegacyLogger.debug("received value: \(storedAccount)")
                     self.addAccountToRecipientList(account: self.account)
                     self.delegate?.createAccountFinished(self.account)
+                    TransactionNotificationService().sendTokenToConcordiumServer()
                 })
                 .store(in: &cancellables)
 

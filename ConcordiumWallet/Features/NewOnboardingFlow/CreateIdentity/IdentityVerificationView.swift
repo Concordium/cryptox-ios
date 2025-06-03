@@ -165,6 +165,7 @@ struct IdentityVerificationView: View {
                                 .contentShape(.rect)
                                 .onTapGesture {
                                     self.selectedProvider = provider
+                                    FirebaseAppTracker.identityVerificationScreen(provider: provider.displayName)
                                     withAnimation(.easeInOut(duration: 0.3)) {
                                         isAuthShown.toggle()
                                     }
@@ -209,6 +210,9 @@ struct IdentityVerificationView: View {
                 .padding(.trailing, 15)
             }
         }
+        .onAppear {
+            FirebaseAppTracker.identityVerificationProvidersListScreen()
+        }
     }
     
     @ViewBuilder
@@ -218,7 +222,7 @@ struct IdentityVerificationView: View {
                 Image.init(base64String: provider.metadata.icon)?
                     .resizable()
                     .frame(width: 60, height: 60)
-                Text(provider.ipInfo.ipDescription.name)
+                Text(provider.displayName)
                     .font(.satoshi(size: 16, weight: .medium))
                     .foregroundStyle(Color.Neutral.tint1)
                     .multilineTextAlignment(.center)
