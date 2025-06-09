@@ -91,4 +91,19 @@ final class SeedPhraseBackupManager {
         
         return archive.url
     }
+    
+    func saveToICloud(fileURL: URL) throws -> URL {
+        guard let iCloudURL = FileManager.default.url(forUbiquityContainerIdentifier: "iCloud.com.pioneeringtechventures.cryptox") else {
+            throw NSError(domain: "iCloudError", code: 1, userInfo: [NSLocalizedDescriptionKey: "iCloud not available"])
+        }
+
+        // Save into "Documents/Backups" inside iCloud Drive
+        let destinationFolder = iCloudURL.appendingPathComponent("Documents/Backups", isDirectory: true)
+        try FileManager.default.createDirectory(at: destinationFolder, withIntermediateDirectories: true)
+
+        let destinationURL = destinationFolder.appendingPathComponent(fileURL.lastPathComponent)
+        try FileManager.default.copyItem(at: fileURL, to: destinationURL)
+
+        return destinationURL
+    }
 }

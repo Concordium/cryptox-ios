@@ -57,8 +57,8 @@ struct ImportWalletView: View {
                         selection: $flow) { EmptyView() }
 
                     NavigationLink(
-                        destination: ImportSeedPhraseBackupFileView(viewModel: BackupFileViewModel.init(recoveryService: defaultProvider.recoveryPhraseService(), onValidPhrase: { key in
-                            self.walletPrivateKey = key
+                        destination: ImportSeedPhraseBackupFileView(viewModel: BackupFileViewModel.init(recoveryService: defaultProvider.recoveryPhraseService(), onValidPhrase: { phrase in
+                            self.recoveryPhrase = phrase
                         })),
                         tag: Flow.recoverwithSeedPhraseBackup,
                         selection: $flow) { EmptyView() }
@@ -149,6 +149,19 @@ struct ImportWalletView: View {
             }
             .onTapGesture {
                 self.flow = .recoverWithWalletKey
+            }
+            
+            Divider()
+                .tint(Color("black_secondary"))
+            
+            HStack {
+                Text("Import via iCloud backup")
+                    .font(.satoshi(size: 14, weight: .regular))
+                Spacer()
+                Image(systemName: "arrow.right").tint(Color.Neutral.tint1)
+            }
+            .onTapGesture {
+                self.flow = .recoverwithSeedPhraseBackup
             }
         }
         .frame(maxWidth: .infinity)

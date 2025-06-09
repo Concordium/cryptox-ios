@@ -34,7 +34,7 @@ final class ImportWalletPrivateKeyViewModel: ObservableObject {
         
     func validateCurrentInput() {
         if !currentInput.isEmpty {
-            if validateWalletPrivateKey() {
+            if recoveryService.isValidWalletPrivateKey(key: currentInput) {
                 walletPrivateKey = IdentifiableString(value: currentInput)
                 isValidPhrase = true
                 withAnimation {
@@ -53,47 +53,5 @@ final class ImportWalletPrivateKeyViewModel: ObservableObject {
         if let walletPrivateKey {
             onValidPrivateKey(walletPrivateKey)
         }
-    }
-    
-    private func validateWalletPrivateKey() -> Bool {
-        let hexPattern = "^[0-9a-fA-F]{128}$"
-        
-        do {
-            let regex = try NSRegularExpression(pattern: hexPattern)
-            let range = NSRange(location: 0, length: currentInput.utf16.count)
-            
-            if regex.firstMatch(in: currentInput, options: [], range: range) != nil {
-                let decodedBytes = try hexStringToByteArray(currentInput)
-                return decodedBytes.count == 64
-            } else {
-                return false
-            }
-        } catch {
-            return false
-        }
-    }
-
-
-    
-    private func hexStringToByteArray(_ hex: String) throws -> [UInt8] {
-        guard hex.count % 2 == 0 else {
-            throw NSError(domain: "Invalid hex string: length must be even", code: 0, userInfo: nil)
-        }
-
-        var bytes = [UInt8]()
-        var index = hex.startIndex
-        while index < hex.endIndex {
-            let nextIndex = hex.index(index, offsetBy: 2)
-            let byteString = String(hex[index..<nextIndex])
-            
-            if let byte = UInt8(byteString, radix: 16) {
-                bytes.append(byte)
-            } else {
-                throw NSError(domain: "Invalid hex string", code: 0, userInfo: nil)
-            }
-            
-            index = nextIndex
-        }
-        return bytes
     }
 }

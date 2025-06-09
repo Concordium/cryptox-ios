@@ -36,8 +36,9 @@ final class RevealSeedPhraseViewModel: ObservableObject {
     }
     
     func createBackupFile() throws {
-        let encryptedSeedPhrase = try SeedPhraseEncryptionManager().encryptSeed(mnenonic.joined(separator: " "), password: pwHash)
-        backupFileURL = try SeedPhraseBackupManager().createPKPassFile(encryptedSeed: encryptedSeedPhrase)
+        let encryptedSeedPhrase = try SeedPhraseEncryptionManager().encryptSeed(mnenonic.joined(separator: " "), password: "pwHash")
+        let fileURL = try SeedPhraseBackupManager().createPKPassFile(encryptedSeed: encryptedSeedPhrase)
+        backupFileURL = try SeedPhraseBackupManager().saveToICloud(fileURL: fileURL)
     }
 }
 
