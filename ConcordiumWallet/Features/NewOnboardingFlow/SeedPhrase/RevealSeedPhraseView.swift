@@ -11,7 +11,8 @@ import MnemonicSwift
 
 final class RevealSeedPhraseViewModel: ObservableObject {
     @Published var mnenonic: [String] = []
-    
+    var backupFileURL: URL?
+    var pwHash: String = ""
     private let identitiesService: SeedIdentitiesService
     
     init(identitiesService: SeedIdentitiesService) {
@@ -22,6 +23,7 @@ final class RevealSeedPhraseViewModel: ObservableObject {
         Task {
             do {
                 let seed = try await identitiesService.mobileWallet.getRecoveryPhrase(pwHash: pwHash).joined(separator: " ")
+                self.pwHash = pwHash
                 await MainActor.run {
                     withAnimation(.bouncy) {
                         self.mnenonic = seed.components(separatedBy: " ")
@@ -32,6 +34,11 @@ final class RevealSeedPhraseViewModel: ObservableObject {
             }
         }
     }
+    
+    func createBackupFile() throws {
+        let encryptedSeedPhrase = try SeedPhraseEncryptionManager().encryptSeed(mnenonic.joined(separator: " "), password: pwHash)
+        backupFileURL = try SeedPhraseBackupManager().createPKPassFile(encryptedSeed: encryptedSeedPhrase)
+    }
 }
 
 struct RevealSeedPhraseView: View {
@@ -41,7 +48,7 @@ struct RevealSeedPhraseView: View {
 
     @State var shareText: ShareText?
     @State var isShowPasscodeViewShown: Bool = false
-    
+    @State var showExportSheet: Bool = false
     @Namespace private var animation
     
     var body: some View {
@@ -108,7 +115,27 @@ struct RevealSeedPhraseView: View {
                 }
             }
             .padding(.top, 22)
-            
+            if !viewModel.mnenonic.isEmpty {
+                HStack {
+                    Text("iCloud backup")
+                        .foregroundStyle(Color.Neutral.tint1)
+                        .font(.satoshi(size: 14, weight: .medium))
+                    
+                    Spacer()
+                    
+                    Button {
+                        do {
+                            try viewModel.createBackupFile()
+                            showExportSheet = true
+                        } catch {}
+                    } label: {
+                        Text("Backup now")
+                            .foregroundStyle(Color.attentionRed)
+                            .font(.satoshi(size: 14, weight: .medium))
+                    }
+                }
+            }
+
             Spacer()
         }
         .padding(.horizontal, 16)
@@ -130,6 +157,11 @@ struct RevealSeedPhraseView: View {
         }
         .passcodeInput(isPresented: $isShowPasscodeViewShown) { pwHash in
             viewModel.revealSeedPhrase(pwHash)
+        }
+        .sheet(isPresented: $showExportSheet) {
+            if let url = viewModel.backupFileURL {
+                BackupExportView(backupFileURL: url)
+            }
         }
     }
     

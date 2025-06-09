@@ -19,6 +19,7 @@ struct ImportWalletView: View {
     enum Flow {
         case recoverPhraseInput
         case recoverWithWalletKey
+        case recoverwithSeedPhraseBackup
     }
     
     @State private var flow: Flow? = nil
@@ -54,7 +55,14 @@ struct ImportWalletView: View {
                         })),
                         tag: Flow.recoverWithWalletKey,
                         selection: $flow) { EmptyView() }
-                    
+
+                    NavigationLink(
+                        destination: ImportSeedPhraseBackupFileView(viewModel: BackupFileViewModel.init(recoveryService: defaultProvider.recoveryPhraseService(), onValidPhrase: { key in
+                            self.walletPrivateKey = key
+                        })),
+                        tag: Flow.recoverwithSeedPhraseBackup,
+                        selection: $flow) { EmptyView() }
+
                     optionsView()
                 }
                 
