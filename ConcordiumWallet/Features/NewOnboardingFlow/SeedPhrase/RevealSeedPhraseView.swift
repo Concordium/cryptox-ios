@@ -9,10 +9,36 @@
 import SwiftUI
 import MnemonicSwift
 
+enum ICloudBackupError: Error {
+    case failedToSave
+    case failedToRetrieve
+    case failedToCreateFile
+    case iCloudNotAvailable
+    case generalError(Error)
+    
+    var errorLocalizedDescription: String {
+        switch self {
+        case .failedToSave:
+            return "Failed to save backup file to iCloud."
+        case .failedToRetrieve:
+            return "Failed to retrieve backup file from iCloud."
+        case .failedToCreateFile:
+            return "Failed to create backup file."
+        case .iCloudNotAvailable:
+            return "iCloud is not available."
+        case .generalError(let error):
+            return error.localizedDescription
+        }
+    }
+}
+
 final class RevealSeedPhraseViewModel: ObservableObject {
     @Published var mnenonic: [String] = []
-    var backupFileURL: URL?
+    @Published var error: ICloudBackupError?
+    @Published var showSuccessPopup: Bool = false
+    @Published var backupFileURL: URL?
     var pwHash: String = ""
+    @Published var hasBackedUp: Bool = false
     private let identitiesService: SeedIdentitiesService
     
     init(identitiesService: SeedIdentitiesService) {
@@ -35,10 +61,32 @@ final class RevealSeedPhraseViewModel: ObservableObject {
         }
     }
     
-    func createBackupFile() throws {
-        let encryptedSeedPhrase = try SeedPhraseEncryptionManager().encryptSeed(mnenonic.joined(separator: " "), password: "pwHash")
-        let fileURL = try SeedPhraseBackupManager().createPKPassFile(encryptedSeed: encryptedSeedPhrase)
-        backupFileURL = try SeedPhraseBackupManager().saveToICloud(fileURL: fileURL)
+    func createBackupFile() {
+        do {
+            let encryptedSeedPhrase = try SeedPhraseEncryptionManager().encryptSeed(mnenonic.joined(separator: " "), password: "pwHash")
+            SeedPhraseBackupManager().createPKPassFileInICloud(encryptedSeed: encryptedSeedPhrase) { result in
+                switch result {
+                case .success(let url):
+                    self.backupFileURL = url
+                case .failure:
+                    self.error = .failedToSave
+                }
+            }
+        } catch(let error) {
+            if let iCloudError = error as? ICloudBackupError {
+                self.error = iCloudError
+            } else {
+                self.error = ICloudBackupError.generalError(error)
+            }
+        }
+    }
+    
+    func removeAllBackupFiles() {
+        SeedPhraseBackupManager().deleteAllICloudBackups()
+    }
+    
+    func doesBackupFileExists() -> Bool {
+        SeedPhraseBackupManager().isBackupFileCreated() || hasBackedUp
     }
 }
 
@@ -46,7 +94,7 @@ struct RevealSeedPhraseView: View {
     @ObservedObject var viewModel: RevealSeedPhraseViewModel
     
     @SwiftUI.Environment(\.dismiss) var dismiss
-
+    @State private var isShowingError = false
     @State var shareText: ShareText?
     @State var isShowPasscodeViewShown: Bool = false
     @State var showExportSheet: Bool = false
@@ -121,18 +169,20 @@ struct RevealSeedPhraseView: View {
                     Text("iCloud backup")
                         .foregroundStyle(Color.Neutral.tint1)
                         .font(.satoshi(size: 14, weight: .medium))
-                    
                     Spacer()
-                    
-                    Button {
-                        do {
-                            try viewModel.createBackupFile()
-                            showExportSheet = true
-                        } catch {}
-                    } label: {
-                        Text("Backup now")
-                            .foregroundStyle(Color.attentionRed)
+                    if viewModel.doesBackupFileExists() {
+                        Text("Active")
+                            .foregroundStyle(Color.successGreen)
                             .font(.satoshi(size: 14, weight: .medium))
+                    } else {
+                        Button {
+                            viewModel.createBackupFile()
+                            showExportSheet = true
+                        } label: {
+                            Text("Backup now")
+                                .foregroundStyle(Color.attentionRed)
+                                .font(.satoshi(size: 14, weight: .medium))
+                        }
                     }
                 }
             }
@@ -160,9 +210,31 @@ struct RevealSeedPhraseView: View {
             viewModel.revealSeedPhrase(pwHash)
         }
         .sheet(isPresented: $showExportSheet) {
-            if let url = viewModel.backupFileURL {
-                BackupExportView(backupFileURL: url)
+            if let url = viewModel.backupFileURL, FileManager.default.fileExists(atPath: url.path) {
+                BackupExportView(backupFileURL: url) { didExport in
+                        if didExport {
+                            viewModel.hasBackedUp = true
+                            viewModel.showSuccessPopup = true
+                        } else {
+                            print("User cancelled backup export")
+                        }
+                    }
             }
+        }
+        .toast(isPresented: $viewModel.showSuccessPopup, position: .bottom) {
+            ToastGradientView(title: "seed.icloud.backup.success".localized, imageName: "ico_successfully")
+        }
+        .onReceive(viewModel.$error) { newError in
+            isShowingError = newError != nil
+        }
+        .alert(isPresented: $isShowingError) {
+            Alert(
+                title: Text("Error"),
+                message: Text(viewModel.error?.errorLocalizedDescription ?? "Unknown error"),
+                dismissButton: .default(Text("OK")) {
+                    viewModel.error = nil
+                }
+            )
         }
     }
     

@@ -13,6 +13,7 @@ struct BackupFile: Identifiable {
     let id = UUID()
     let url: URL
     var name: String { url.lastPathComponent }
+    let createdDate: Date?
 }
 
 final class BackupFileViewModel: ObservableObject {
@@ -37,17 +38,17 @@ final class BackupFileViewModel: ObservableObject {
             return
         }
 
-        let documentsURL = iCloudURL.appendingPathComponent("Documents/Backups")
+        let documentsURL = iCloudURL.appendingPathComponent("Documents/")
         
         do {
             let contents = try FileManager.default.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
-            let pkpassFiles = contents.filter { $0.pathExtension == "pkpass" && $0.absoluteString.contains("cryptoX") }
+            let pkpassFiles = contents.filter { $0.pathExtension == "pkpass"}
             
             for fileURL in pkpassFiles {
                 try ensureFileIsDownloaded(at: fileURL)
                 print("Ready to use: \(fileURL.lastPathComponent)")
             }
-            backupFiles = pkpassFiles.map { BackupFile(url: $0) }.sorted(by: { $0.name > $1.name })
+            backupFiles = pkpassFiles.map { BackupFile(url: $0, createdDate: getCreationDate(of: $0)) }.sorted(by: { $0.name > $1.name })
         } catch {
             print("Failed to list iCloud documents: \(error)")
         }
@@ -82,6 +83,16 @@ final class BackupFileViewModel: ObservableObject {
             default:
                 break
             }
+        }
+    }
+    
+    func getCreationDate(of fileURL: URL) -> Date? {
+        do {
+            let resourceValues = try fileURL.resourceValues(forKeys: [.creationDateKey])
+            return resourceValues.creationDate
+        } catch {
+            print("Error fetching creation date: \(error)")
+            return nil
         }
     }
 }

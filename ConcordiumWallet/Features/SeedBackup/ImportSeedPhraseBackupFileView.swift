@@ -17,11 +17,11 @@ struct ImportSeedPhraseBackupFileView: View {
     var body: some View {
         VStack(spacing: 40) {
             VStack(spacing: 12) {
-                Text("import.walletPrivateKey.title".localized)
+                Text("import.icloudBackup.title".localized)
                     .font(.satoshi(size: 24, weight: .medium))
                     .foregroundColor(Color.Neutral.tint1)
                     .multilineTextAlignment(.center)
-                Text("import.walletPrivateKey.subtitle".localized)
+                Text("import.icloudBackup.subtitle".localized)
                     .font(.satoshi(size: 14, weight: .regular))
                     .foregroundColor(Color.Neutral.tint2)
                     .multilineTextAlignment(.center)
@@ -30,7 +30,7 @@ struct ImportSeedPhraseBackupFileView: View {
             
             List {
                 ForEach(viewModel.backupFiles) { file in
-                    backupCell(title: file.name)
+                    backupCell(title: file.name, date: file.createdDate)
                         .listRowBackground(Color.clear)
                         .padding(.top, 8)
                         .onTapGesture {
@@ -42,7 +42,8 @@ struct ImportSeedPhraseBackupFileView: View {
             .listRowSeparator(.hidden)
         }
         .padding(.horizontal, 18)
-        .padding(.vertical, 40)
+        .padding(.top, 20)
+        .padding(.bottom, 40)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .navigationBarBackButtonHidden(true)
         .modifier(AppBackgroundModifier())
@@ -61,16 +62,23 @@ struct ImportSeedPhraseBackupFileView: View {
     }
     
     @ViewBuilder
-    func backupCell(title: String) -> some View {
+    func backupCell(title: String, date: Date?) -> some View {
         HStack(alignment: .center, spacing: 17) {
             Image(systemName: "icloud.and.arrow.down")
                     .resizable()
                     .frame(width: 40, height: 40)
-                HStack(spacing: 0) {
-                    Text(title)
-                        .font(.satoshi(size: 15, weight: .medium))
+            VStack(alignment: .leading, spacing: 5) {
+                Text(title)
+                    .font(.satoshi(size: 15, weight: .medium))
+                    .foregroundStyle(.white)
+                if let date {
+                    Text(date.formatted())
+                        .font(.satoshi(size: 13, weight: .medium))
+                        .foregroundStyle(.whiteMainOpacity50)
                 }
+            }
         }
+        .frame(maxWidth: .infinity)
         .listRowInsets(EdgeInsets())
         .listRowSeparator(.hidden)
         .padding(.horizontal, 12)
