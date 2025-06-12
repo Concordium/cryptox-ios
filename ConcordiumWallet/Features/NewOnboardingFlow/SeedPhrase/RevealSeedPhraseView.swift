@@ -37,10 +37,10 @@ final class RevealSeedPhraseViewModel: ObservableObject {
     @Published var error: ICloudBackupError?
     @Published var showSuccessPopup: Bool = false
     @Published var backupFileURL: URL?
-    var pwHash: String = ""
-    @Published var hasBackedUp: Bool = false
+    @Published var isBackupAvailable: Bool = false
+
     private let identitiesService: SeedIdentitiesService
-    
+
     init(identitiesService: SeedIdentitiesService) {
         self.identitiesService = identitiesService
     }
@@ -49,7 +49,6 @@ final class RevealSeedPhraseViewModel: ObservableObject {
         Task {
             do {
                 let seed = try await identitiesService.mobileWallet.getRecoveryPhrase(pwHash: pwHash).joined(separator: " ")
-                self.pwHash = pwHash
                 await MainActor.run {
                     withAnimation(.bouncy) {
                         self.mnenonic = seed.components(separatedBy: " ")
@@ -68,6 +67,8 @@ final class RevealSeedPhraseViewModel: ObservableObject {
                 switch result {
                 case .success(let url):
                     self.backupFileURL = url
+                    self.updateBackupStatus()
+                    self.showSuccessPopup = true
                 case .failure:
                     self.error = .failedToSave
                 }
@@ -85,8 +86,8 @@ final class RevealSeedPhraseViewModel: ObservableObject {
         SeedPhraseBackupManager().deleteAllICloudBackups()
     }
     
-    func doesBackupFileExists() -> Bool {
-        SeedPhraseBackupManager().isBackupFileCreated() || hasBackedUp
+    func updateBackupStatus() {
+        isBackupAvailable = SeedPhraseBackupManager().isBackupFileCreated()
     }
 }
 
@@ -164,20 +165,19 @@ struct RevealSeedPhraseView: View {
                 }
             }
             .padding(.top, 22)
-            if !viewModel.mnenonic.isEmpty {
+            if !viewModel.mnenonic.isEmpty && AppSettings.isOnboardingFinished {
                 HStack {
                     Text("iCloud backup")
                         .foregroundStyle(Color.Neutral.tint1)
                         .font(.satoshi(size: 14, weight: .medium))
                     Spacer()
-                    if viewModel.doesBackupFileExists() {
+                    if viewModel.isBackupAvailable {
                         Text("Active")
                             .foregroundStyle(Color.successGreen)
                             .font(.satoshi(size: 14, weight: .medium))
                     } else {
                         Button {
                             viewModel.createBackupFile()
-                            showExportSheet = true
                         } label: {
                             Text("Backup now")
                                 .foregroundStyle(Color.attentionRed)
@@ -209,17 +209,9 @@ struct RevealSeedPhraseView: View {
         .passcodeInput(isPresented: $isShowPasscodeViewShown) { pwHash in
             viewModel.revealSeedPhrase(pwHash)
         }
-        .sheet(isPresented: $showExportSheet) {
-            if let url = viewModel.backupFileURL, FileManager.default.fileExists(atPath: url.path) {
-                BackupExportView(backupFileURL: url) { didExport in
-                        if didExport {
-                            viewModel.hasBackedUp = true
-                            viewModel.showSuccessPopup = true
-                        } else {
-                            print("User cancelled backup export")
-                        }
-                    }
-            }
+        .onAppear {
+            viewModel.removeAllBackupFiles()
+            viewModel.updateBackupStatus()
         }
         .toast(isPresented: $viewModel.showSuccessPopup, position: .bottom) {
             ToastGradientView(title: "seed.icloud.backup.success".localized, imageName: "ico_successfully")
