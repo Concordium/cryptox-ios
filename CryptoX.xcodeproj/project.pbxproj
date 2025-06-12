@@ -1699,9 +1699,6 @@
 		1571AC342DF6BFBD006A6431 /* SeedPhraseBackupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1571AC312DF6BFBD006A6431 /* SeedPhraseBackupManager.swift */; };
 		1571AC372DF6C147006A6431 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 1571AC362DF6C147006A6431 /* ZIPFoundation */; };
 		1571AC392DF6C14E006A6431 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 1571AC382DF6C14E006A6431 /* ZIPFoundation */; };
-		1571AC3B2DF6C5E6006A6431 /* BackupExportFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1571AC3A2DF6C5E6006A6431 /* BackupExportFileView.swift */; };
-		1571AC3C2DF6C5E6006A6431 /* BackupExportFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1571AC3A2DF6C5E6006A6431 /* BackupExportFileView.swift */; };
-		1571AC3D2DF6C5E6006A6431 /* BackupExportFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1571AC3A2DF6C5E6006A6431 /* BackupExportFileView.swift */; };
 		1571AC3F2DF6DCCC006A6431 /* SeedPhraseEncryptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1571AC3E2DF6DCCC006A6431 /* SeedPhraseEncryptionManager.swift */; };
 		1571AC402DF6DCCC006A6431 /* SeedPhraseEncryptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1571AC3E2DF6DCCC006A6431 /* SeedPhraseEncryptionManager.swift */; };
 		1571AC412DF6DCCC006A6431 /* SeedPhraseEncryptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1571AC3E2DF6DCCC006A6431 /* SeedPhraseEncryptionManager.swift */; };
@@ -2997,7 +2994,6 @@
 		155EE1F02D7B3BFC005EF86E /* AlertModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModifier.swift; sourceTree = "<group>"; };
 		155EE23C2D7B4955005EF86E /* KeyboardAvoidingPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAvoidingPadding.swift; sourceTree = "<group>"; };
 		1571AC312DF6BFBD006A6431 /* SeedPhraseBackupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseBackupManager.swift; sourceTree = "<group>"; };
-		1571AC3A2DF6C5E6006A6431 /* BackupExportFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupExportFileView.swift; sourceTree = "<group>"; };
 		1571AC3E2DF6DCCC006A6431 /* SeedPhraseEncryptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseEncryptionManager.swift; sourceTree = "<group>"; };
 		1571AC422DF6E185006A6431 /* BackupFileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupFileViewModel.swift; sourceTree = "<group>"; };
 		1571AC462DF6E1FB006A6431 /* ImportSeedPhraseBackupFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportSeedPhraseBackupFileView.swift; sourceTree = "<group>"; };
@@ -4865,7 +4861,6 @@
 			children = (
 				1571AC312DF6BFBD006A6431 /* SeedPhraseBackupManager.swift */,
 				1571AC3E2DF6DCCC006A6431 /* SeedPhraseEncryptionManager.swift */,
-				1571AC3A2DF6C5E6006A6431 /* BackupExportFileView.swift */,
 				1571AC422DF6E185006A6431 /* BackupFileViewModel.swift */,
 				1571AC462DF6E1FB006A6431 /* ImportSeedPhraseBackupFileView.swift */,
 			);
@@ -6663,7 +6658,6 @@
 				08C1672B2BB7396200E61326 /* NFTTokensStatusView.swift in Sources */,
 				08C1672C2BB7396200E61326 /* IDRequestV1.swift in Sources */,
 				08C1672E2BB7396200E61326 /* RecoveryIdentityResponse.swift in Sources */,
-				1571AC3B2DF6C5E6006A6431 /* BackupExportFileView.swift in Sources */,
 				08C1672F2BB7396200E61326 /* CreateSeedIdentityViewModel.swift in Sources */,
 				08C169C82BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */,
 				08E472A92BCEE85C004F0088 /* SignMessageRequestModel.swift in Sources */,
@@ -7349,7 +7343,6 @@
 				D52D4F8A2919D75F00C9A815 /* NFTTokensStatusView.swift in Sources */,
 				08A0449629FA987800DACE1F /* IDRequestV1.swift in Sources */,
 				08A0449029FA987800DACE1F /* RecoveryIdentityResponse.swift in Sources */,
-				1571AC3C2DF6C5E6006A6431 /* BackupExportFileView.swift in Sources */,
 				088FEFE52A0271C000042957 /* CreateSeedIdentityViewModel.swift in Sources */,
 				08C169C72BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */,
 				08E472A82BCEE85C004F0088 /* SignMessageRequestModel.swift in Sources */,
@@ -8035,7 +8028,6 @@
 				08A0447A29FA987700DACE1F /* IDRequestV1.swift in Sources */,
 				08A0447429FA987700DACE1F /* RecoveryIdentityResponse.swift in Sources */,
 				644BB67425DFB4220086ED48 /* main.swift in Sources */,
-				1571AC3D2DF6C5E6006A6431 /* BackupExportFileView.swift in Sources */,
 				08A0454329FA99D100DACE1F /* AttributeList.swift in Sources */,
 				D589F3172794B678003F2FBB /* ErrorMapper.swift in Sources */,
 				08C169C62BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */,
