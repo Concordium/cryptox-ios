@@ -210,7 +210,6 @@ struct RevealSeedPhraseView: View {
             viewModel.revealSeedPhrase(pwHash)
         }
         .onAppear {
-            viewModel.removeAllBackupFiles()
             viewModel.updateBackupStatus()
         }
         .toast(isPresented: $viewModel.showSuccessPopup, position: .bottom) {
