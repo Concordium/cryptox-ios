@@ -1,6 +1,11 @@
 # Changelog
 
-## [Unreleased 3.3.2]
+## [Released 3.3.3]
+- Fixed an issue with the keyboard on the Earn screen
+- Fixed an issue with the amount input field on the Earn screen
+- Added SwiftSDK and replaced concordium-wallet-crypto-swift with a local package
+
+## [Released 3.3.2] Max 13, 2025
 
 ### Fixed
 - Fix WertIO flow.

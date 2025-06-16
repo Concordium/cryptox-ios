@@ -11,10 +11,11 @@ import BigInt
 import Combine
 
 struct SendTokenView: View {
-    
     @Binding var path: [NavigationPaths]
+    
     @StateObject var viewModel: TransferTokenViewModel
     @StateObject var addMemoViewModel = AddMemoViewModel()
+    
     @State var showConfirmationAlertForMemo: Bool = false
     @State private var isContinueDisabled: Bool = true
     @State private var cancellables = Set<AnyCancellable>()
@@ -43,6 +44,8 @@ struct SendTokenView: View {
                             Text("~ \(viewModel.euroEquivalentForCCD) EUR")
                                 .font(.satoshi(size: 12, weight: .medium))
                                 .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
+                                .contentTransition(.numericText())
+                                .animation(.smooth, value: viewModel.euroEquivalentForCCD)
                         }
                         Spacer()
                         Text("Transaction fee")
