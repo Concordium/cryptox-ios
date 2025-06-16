@@ -1,5 +1,8 @@
 # Changelog
 
+## UNRELEASED
+- Fixes an issue with social links
+
 ## [Released 3.3.3]
 - Fixed an issue with the keyboard on the Earn screen
 - Fixed an issue with the amount input field on the Earn screen
