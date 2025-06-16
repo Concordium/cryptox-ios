@@ -34,7 +34,7 @@ final class BackupFileViewModel: ObservableObject {
     
     func loadFilesFromIcloud() {
         guard let iCloudURL = FileManager.default.url(forUbiquityContainerIdentifier: "iCloud.com.pioneeringtechventures.cryptox") else {
-            print("iCloud not available or container not found")
+            debugPrint("iCloud not available or container not found")
             return
         }
 
@@ -46,18 +46,18 @@ final class BackupFileViewModel: ObservableObject {
             
             for fileURL in pkpassFiles {
                 try ensureFileIsDownloaded(at: fileURL)
-                print("Ready to use: \(fileURL.lastPathComponent)")
+                debugPrint("Ready to use: \(fileURL.lastPathComponent)")
             }
             backupFiles = pkpassFiles.map { BackupFile(url: $0, createdDate: getCreationDate(of: $0)) }.sorted(by: { $0.name > $1.name })
         } catch {
-            print("Failed to list iCloud documents: \(error)")
+            debugPrint("Failed to list iCloud documents: \(error)")
         }
     }
     
     func importAction(url: URL, pwHash: String) {
         do {
             let seedPhrase = try SeedPhraseEncryptionManager().decryptBackupFile(at: url)
-            print("Decrypted seed: \(seedPhrase)")
+            debugPrint("Decrypted seed: \(seedPhrase)")
             switch recoveryService.validate(recoveryPhrase: seedPhrase.components(separatedBy: " ")) {
             case .success:
                 let recoveryPhrase = try RecoveryPhrase(phrase: seedPhrase)
@@ -66,7 +66,7 @@ final class BackupFileViewModel: ObservableObject {
                 error = "recoveryphrase.recover.input.validationerror".localized
             }
         } catch {
-            print("Error while importing backup file")
+            debugPrint("Error while importing backup file")
         }
     }
     
@@ -91,7 +91,7 @@ final class BackupFileViewModel: ObservableObject {
             let resourceValues = try fileURL.resourceValues(forKeys: [.creationDateKey])
             return resourceValues.creationDate
         } catch {
-            print("Error fetching creation date: \(error)")
+            debugPrint("Error fetching creation date: \(error)")
             return nil
         }
     }

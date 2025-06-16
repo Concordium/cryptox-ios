@@ -144,7 +144,7 @@ final class SeedPhraseBackupManager {
 
     func deleteAllICloudBackups() {
         guard let ubiquityURL = FileManager.default.url(forUbiquityContainerIdentifier: ubiquityContainerIdentifier)?.appendingPathComponent(fileStorageURL) else {
-            print("iCloud not available")
+            debugPrint("iCloud not available")
             return
         }
 
@@ -154,22 +154,22 @@ final class SeedPhraseBackupManager {
 
             for fileURL in contents {
                 try fileManager.removeItem(at: fileURL)
-                print("Deleted: \(fileURL.lastPathComponent)")
+                debugPrint("Deleted: \(fileURL.lastPathComponent)")
             }
         } catch {
-            print("Failed to delete iCloud files: \(error)")
+            debugPrint("Failed to delete iCloud files: \(error)")
         }
     }
     
     func isBackupFileCreated() -> Bool {
         guard let backupURL = getBackupFileURL(toICloud: true) else {
-            print("iCloud container URL not available")
+            debugPrint("iCloud container URL not available")
             return false
         }
         
         let fileManager = FileManager.default
         let exists = fileManager.fileExists(atPath: backupURL.path)
-        print("Checking backup file existence at iCloud path: \(backupURL.path) - Exists: \(exists)")
+        debugPrint("Checking backup file existence at iCloud path: \(backupURL.path) - Exists: \(exists)")
         return exists
     }
 }

@@ -38,12 +38,7 @@ struct SeedPhraseEncryptionManager {
         combined.append(contentsOf: nonce.withUnsafeBytes { Data($0) })
         combined.append(sealedBox.ciphertext)
         combined.append(sealedBox.tag)
-        
-        print("Salt: \(salt.base64EncodedString())")
-        print("Nonce: \(nonce.withUnsafeBytes { Data($0) }.base64EncodedString())")
-        print("Ciphertext: \(sealedBox.ciphertext.base64EncodedString())")
-        print("Tag: \(sealedBox.tag.base64EncodedString())")
-        
+
         return combined
     }
     
@@ -61,11 +56,6 @@ struct SeedPhraseEncryptionManager {
         let nonce = try AES.GCM.Nonce(data: nonceData)
         let sealedBox = try AES.GCM.SealedBox(nonce: nonce, ciphertext: ciphertext, tag: tag)
         
-        print("Salt: \(salt.base64EncodedString())")
-        print("Nonce: \(nonceData.base64EncodedString())")
-        print("Ciphertext: \(ciphertext.base64EncodedString())")
-        print("Tag: \(tag.base64EncodedString())")
-        
         do {
             let decryptedData = try AES.GCM.open(sealedBox, using: key)
             guard let decryptedString = String(data: decryptedData, encoding: .utf8) else {
@@ -73,7 +63,7 @@ struct SeedPhraseEncryptionManager {
             }
             return decryptedString
         } catch {
-            print(error.localizedDescription)
+            debugPrint(error.localizedDescription)
         }
         return ""
     }
