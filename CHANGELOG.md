@@ -1,5 +1,8 @@
 # Changelog
 
+## [Unreleased]
+- Remove EUROe from default token list for newly created accounts.
+
 ## [Released 3.3.3]
 - Fixed an issue with the keyboard on the Earn screen
 - Fixed an issue with the amount input field on the Earn screen
