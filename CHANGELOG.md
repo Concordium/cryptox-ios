@@ -1,6 +1,7 @@
 # Changelog
 
-## UNRELEASED
+## [Unreleased]
+- Remove EUROe from default token list for newly created accounts.
 - Fixes an issue with social links
 
 ## [Released 3.3.3]
