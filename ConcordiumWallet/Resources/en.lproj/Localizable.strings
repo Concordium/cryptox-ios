@@ -1269,9 +1269,6 @@ Remember to restart your node with the validator keys.";
 "import.walletPrivateKey.title" = "Your wallet private key";
 "import.walletPrivateKey.subtitle" = "Please enter your wallet private key exactly how it was presented to you";
 
-"import.icloudBackup.title" = "Recover wallet using iCloud";
-"import.icloudBackup.subtitle" = "Please select the back up file to proceed with the recovery";
-
 "more.show.recovery.phrase.title" = "Show recovery phrase";
 "more.show.recovery.phrase.subtitle" = "Show you recovery seed phrase for this account";
 "more.remove.account.confirmation.title" = "Are you sure want to remove all account and related data?";
@@ -1472,6 +1469,3 @@ Remember to restart your node with the validator keys.";
 "primed.for.suspension.message" = "Your validation is primed for suspension";
 "suspended.message" =  "Your validation has been suspended";
 "multiple.accounts.suspended" = "Validation issues with several accounts";
-
-"seed.icloud.backup.success" = "Seed phrase was successfully backed up to iCloud";
-
