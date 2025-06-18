@@ -533,7 +533,6 @@ extension AppCoordinator: MoreCoordinatorDelegate {
         AppSettings.removeImportedWalletSetings()
         navigationController = CXNavigationController()
         UserDefaults.standard.set(false, forKey: "showConfettiAnimation")
-        UserDefaults.removeObject(forKey: UserDefaultKeys.isOnboardingFinished.rawValue)
         UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController = navigationController
         start()
     }

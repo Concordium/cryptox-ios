@@ -122,7 +122,6 @@ final class AccountsMainViewModel: ObservableObject, Hashable, Equatable {
         updateDotImageNames()
         if defaultProvider.mobileWallet().isLegacyAccount() && AppSettings.isImportedFromFile {
             state = .accounts
-            AppSettings.isOnboardingFinished = true
         } else {
             withAnimation {
                 if !defaultProvider.seedMobileWallet().hasSetupRecoveryPhrase {
@@ -137,7 +136,6 @@ final class AccountsMainViewModel: ObservableObject, Hashable, Equatable {
                     state = .createAccount
                 } else {
                     state = .accounts
-                    AppSettings.isOnboardingFinished = true
                 }
             }
         }

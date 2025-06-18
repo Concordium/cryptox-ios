@@ -36,7 +36,6 @@ enum UserDefaultKeys: String {
     case isImportedFromFile
     
     case lastSelectedAccountAddress
-    case isOnboardingFinished
 }
 
 struct AppSettings {
@@ -188,15 +187,6 @@ extension AppSettings {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.lastSelectedAccountAddress.rawValue)
-        }
-    }
-    
-    static var isOnboardingFinished: Bool {
-        get {
-            UserDefaults.standard.bool(forKey: UserDefaultKeys.isOnboardingFinished.rawValue)
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.isOnboardingFinished.rawValue)
         }
     }
 }
