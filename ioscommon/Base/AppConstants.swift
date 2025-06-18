@@ -3,6 +3,7 @@ import Foundation
 struct AppConstants {
     struct Support {
         static let concordiumSupportMail: String = Bundle.main.object(forInfoDictionaryKey: "Concordium Support Mail") as? String ?? ""
+        static let ccdsList: URL = URL(string: "https://concordium.com/ccd-wallet")!
     }
     
     struct TermsAndConditions {

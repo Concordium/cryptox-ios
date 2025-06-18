@@ -59,7 +59,7 @@ struct CCDOnrampView: View {
                     }
                     
                     Button {
-                        openURL(URL(string: "https://concordium.com/ccd-wallet")!)
+                        openURL(AppConstants.Support.ccdsList)
                     } label: {
                         Group {
                             Text("List of supported exchanges can be found at")
