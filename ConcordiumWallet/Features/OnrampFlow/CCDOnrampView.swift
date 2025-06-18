@@ -14,7 +14,7 @@ struct CCDOnrampView: View {
     let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     
     @State var isAccountsPickerShown: CCDOnrampViewDataProvider.DataProvider?
-    
+
     var body: some View {
         NavigationView {
             ScrollViewReader(content: { proxy in
@@ -57,6 +57,25 @@ struct CCDOnrampView: View {
                                 .font(.satoshi(size: 12, weight: .regular))
                         }
                     }
+                    
+                    Button {
+                        openURL(AppConstants.Support.ccdsList)
+                    } label: {
+                        Group {
+                            Text("List of supported exchanges can be found at")
+                                .font(.satoshi(size: 12, weight: .regular))
+                              .foregroundColor(Color(red: 0.84, green: 0.89, blue: 0.94))
+                            + Text(" concordium.com/ccd-wallet")
+                                .underline()
+                                .font(.satoshi(size: 12, weight: .regular))
+                                .foregroundColor(Color(red: 0.84, green: 0.89, blue: 0.94))
+                        }
+                        .multilineTextAlignment(.center)
+                    }
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
+                    .padding(.top, 40)
+                    .padding(.horizontal, 32)
                     
                     ListFooter()
                         .listRowSeparator(.hidden)
