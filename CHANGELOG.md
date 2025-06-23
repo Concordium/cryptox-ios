@@ -1,9 +1,17 @@
 # Changelog
 
+## [Unreleased]
+- Remove EUROe from default token list for newly created accounts.
+- Fixes an issue with social links
+- Removed NFT section from settings screen
+- Removed Buy item from main screen
+
+
 ## [Released 3.3.3]
 - Fixed an issue with the keyboard on the Earn screen
 - Fixed an issue with the amount input field on the Earn screen
 - Added SwiftSDK and replaced concordium-wallet-crypto-swift with a local package
+- On the Buy screen, exchange sections are replaced with an external link
 
 ## [Released 3.3.2] Max 13, 2025
 
