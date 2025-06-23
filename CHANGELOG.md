@@ -3,6 +3,8 @@
 ## [Unreleased]
 - Remove EUROe from default token list for newly created accounts.
 - Fixes an issue with social links
+- Removed NFT section from settings screen
+- Removed Buy item from main screen
 
 
 ## [Released 3.3.3]
