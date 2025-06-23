@@ -186,7 +186,7 @@ extension MoreMenuViewController {
         snapshot.appendItems([.notifications(title: "more.notifications".localized)])
         snapshot.appendItems([.addressBook(title: "more.addressBook".localized)])
         snapshot.appendItems([.analytics(title: "more.analytics".localized)])
-        snapshot.appendItems([.nft(title: "more.nft".localized)])
+//        snapshot.appendItems([.nft(title: "more.nft".localized)])
         snapshot.appendItems([.about(title: "more.about".localized)])
         
         snapshot.appendItems([.deleteAccount(title: "more.deleteAccount".localized)])
