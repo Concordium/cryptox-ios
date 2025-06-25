@@ -126,7 +126,7 @@ final class CCDOnrampViewDataProvider {
         let urlWithParameters = baseURL.absoluteString
         +
         "?coinType=CCD" +
-        "&walletAddress=$\(targetAddress)" +
+        "&walletAddress=\(targetAddress)" +
         "&orderType=buy"
         return URL(string: urlWithParameters) ?? baseURL
     }
