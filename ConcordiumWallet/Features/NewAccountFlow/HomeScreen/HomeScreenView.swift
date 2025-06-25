@@ -456,9 +456,9 @@ struct HomeScreenView: View {
     
     private func accountActionItems() -> [ActionItem] {
         let actionItems = [
-//            ActionItem(iconName: "buy", label: "Buy", action: {
-//                navigationManager.navigate(to: .buy)
-//            }),
+            ActionItem(iconName: "buy", label: "Buy", action: {
+                navigationManager.navigate(to: .buy)
+            }),
             ActionItem(iconName: "send", label: "Send", action: {
                 if let account = viewModel.selectedAccount?.account as? AccountEntity {
                     navigationManager.navigate(to: .send(account, tokenType: .ccd))

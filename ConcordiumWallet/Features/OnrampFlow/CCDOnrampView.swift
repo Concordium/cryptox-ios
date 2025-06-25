@@ -71,6 +71,7 @@ struct CCDOnrampView: View {
                                 .foregroundColor(Color(red: 0.84, green: 0.89, blue: 0.94))
                         }
                         .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity)
                     }
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)
