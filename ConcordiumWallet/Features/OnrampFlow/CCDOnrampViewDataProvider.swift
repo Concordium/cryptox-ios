@@ -41,6 +41,7 @@ final class CCDOnrampViewDataProvider {
     
     static var swipelux: [DataProvider] {
         [
+            banxa,
             DataProvider(
                 title: "Swipelux",
                 url: URL(string: "https://track.swipelux.com")!,
@@ -52,8 +53,7 @@ final class CCDOnrampViewDataProvider {
                 url: URL(string: "https://widget.wert.io/01HM0W8FTFG4TEBRB0JPM18G5W/widget/?commodity=CCD&network=concordium&commodity_id=ccd.simple.concordium")!,
                 icon: URL(string: "https://partner.wert.io/icons/apple-touch-icon.png")!,
                 isPaymentProvider: true
-            ),
-            banxa
+            )
         ]
     }
     
