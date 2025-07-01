@@ -123,11 +123,13 @@ final class CCDOnrampViewDataProvider {
     }
     
     private static func generateBanxaURL(baseURL: URL, targetAddress: String) -> URL {
-        let urlWithParameters = baseURL.absoluteString
-        +
-        "?coinType=CCD" +
-        "&walletAddress=\(targetAddress)" +
-        "&orderType=buy"
-        return URL(string: urlWithParameters) ?? baseURL
+        var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: false)
+        components?.queryItems = [
+            URLQueryItem(name: "coinType", value: "CCD"),
+            URLQueryItem(name: "walletAddress", value: targetAddress),
+            URLQueryItem(name: "orderType", value: "buy")
+        ]
+        
+        return components?.url ?? baseURL
     }
 }
