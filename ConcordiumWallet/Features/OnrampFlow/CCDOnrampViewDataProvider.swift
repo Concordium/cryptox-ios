@@ -41,6 +41,7 @@ final class CCDOnrampViewDataProvider {
     
     static var swipelux: [DataProvider] {
         [
+            banxa,
             DataProvider(
                 title: "Swipelux",
                 url: URL(string: "https://track.swipelux.com")!,
@@ -63,6 +64,13 @@ final class CCDOnrampViewDataProvider {
             icon: URL(string: "https://em-content.zobj.net/source/apple/391/smiling-face-with-sunglasses_1f60e.png")!,
             isPaymentProvider: true
         )
+    }
+    
+    static var banxa: DataProvider {
+        DataProvider(title: "Banxa",
+                     url: getBanxaBaseURL(),
+                     icon: URL(string: "https://cdn.prod.website-files.com/67d7fbcd510cf4a3a6267957/685a651d86ccc21ad06deb1b_banxa.jpg")!,
+                     isPaymentProvider: true)
     }
     
     private static func generateSwipeluxURL(
@@ -98,7 +106,30 @@ final class CCDOnrampViewDataProvider {
                 if let url = await WertWidgetManager.getWertIOURL(for: accountAddress) {
                     return url
             }
+        } else if provider.title == "Banxa" {
+            return generateBanxaURL(baseURL: provider.url, targetAddress: accountAddress)
         }
         return provider.url
+    }
+    
+    private static func getBanxaBaseURL() -> URL {
+        var baseURL = ""
+#if MAINNET
+        baseURL = "https://concordium.banxa.com"
+#else
+        baseURL = "http://concordium.banxa-sandbox.com"
+#endif
+        return URL(string: baseURL)!
+    }
+    
+    private static func generateBanxaURL(baseURL: URL, targetAddress: String) -> URL {
+        var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: false)
+        components?.queryItems = [
+            URLQueryItem(name: "coinType", value: "CCD"),
+            URLQueryItem(name: "walletAddress", value: targetAddress),
+            URLQueryItem(name: "orderType", value: "buy")
+        ]
+        
+        return components?.url ?? baseURL
     }
 }
