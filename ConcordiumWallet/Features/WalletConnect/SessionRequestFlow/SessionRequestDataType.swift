@@ -34,12 +34,14 @@ struct SessionRequestType: Codable {
     }
 }
 
+import Concordium
+import Foundation
 
 enum SessionRequestDataType {
     case signMessage(SignMessagePayload)
     case simpleTransfer(SimpleTransferRequestParams)
     case signAndSend(ContractUpdateRequestParams)
-    case verifiablePresentation(VerifiablePresentationRequestParams)
+    case verifiablePresentation(WalletConnectRequestVerifiablePresentationParam)
     
     /// Basically we support two types of incoming wallet connect requests: `sign_message` & `sign_message`
     /// In case of `sign_message` wee need to determine what king of request is: send or update.
@@ -52,8 +54,16 @@ enum SessionRequestDataType {
                         let paramsJson: String
                     }
                     let dummy = try sessionRequest.params.get(DummyJSON.self)
-                    let payload: VerifiablePresentationRequestParams = try JSONDecoder().decode(VerifiablePresentationRequestParams.self, from: Data(dummy.paramsJson.utf8))
-                    self = .verifiablePresentation(payload)
+//                    let payload: VerifiablePresentationRequestParams = try JSONDecoder().decode(VerifiablePresentationRequestParams.self, from: Data(dummy.paramsJson.utf8))
+//                    self = .verifiablePresentation(payload)
+
+                    
+                    let formatter = ISO8601DateFormatter()
+                    formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+                    let value = try JSONDecoder().decode(WalletConnectRequestVerifiablePresentationParam.self, from: dummy.paramsJson.data(using: .utf8)!)
+                    
+                    
+                    self = .verifiablePresentation(value)
                 } catch {
                     throw SessionRequstError.unSupportedRequestMethod
                 }

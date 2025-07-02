@@ -8,7 +8,7 @@
 
 import SwiftUI
 import Combine
-import DotLottie
+//import DotLottie
 
 struct ActionItem: Identifiable {
     let id = UUID()
@@ -93,7 +93,8 @@ struct HomeScreenView: View {
             }
             .overlay(content: {
                 if viewModel.state == .accounts && !UserDefaults.standard.bool(forKey: hasShownAnimationKey) {
-                    DotLottieAnimation(fileName: "confettiAnimation", config: AnimationConfig(autoplay: true, loop: false)).view()
+//                    DotLottieAnimation(fileName: "confettiAnimation", config: AnimationConfig(autoplay: true, loop: false)).view()
+                    Color.clear
                         .allowsHitTesting(false)
                         .opacity(!UserDefaults.standard.bool(forKey: hasShownAnimationKey) ? 1 : 0)
                         .onAppear {

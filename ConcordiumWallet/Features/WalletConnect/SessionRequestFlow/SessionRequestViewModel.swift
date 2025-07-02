@@ -39,6 +39,8 @@ final class SessionRequestViewModel: ObservableObject {
         transactionsService: TransactionsServiceProtocol,
         storageManager: StorageManagerProtocol,
         mobileWallet: MobileWalletProtocol,
+        concordiumClient: ConcordiumClient,
+        identitiesService: SeedIdentitiesService,
         passwordDelegate: RequestPasswordDelegate = DummyRequestPasswordDelegate()
     ) {
         self.sessionRequest = sessionRequest
@@ -68,7 +70,9 @@ final class SessionRequestViewModel: ObservableObject {
                         transactionsService: transactionsService,
                         mobileWallet: mobileWallet,
                         passwordDelegate: passwordDelegate,
-                        storageManager: storageManager
+                        storageManager: storageManager,
+                        concordiumClient: concordiumClient,
+                        identitiesService: identitiesService
                     )
                     self.title = self.requestModel?.title ?? "Sign Transaction"
                 } catch is SessionRequstError {

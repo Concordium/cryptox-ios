@@ -25,7 +25,9 @@ final class SessionRequestDataModelProvider {
         transactionsService: TransactionsServiceProtocol,
         mobileWallet: MobileWalletProtocol,
         passwordDelegate: RequestPasswordDelegate,
-        storageManager: StorageManagerProtocol
+        storageManager: StorageManagerProtocol,
+        concordiumClient: ConcordiumClient,
+        identitiesService: SeedIdentitiesService
     ) -> SessionRequestDataProvidable? {
         switch type {
             case .signMessage(let signMessagePayload):
@@ -64,7 +66,9 @@ final class SessionRequestDataModelProvider {
                     sessionRequest: sessionRequest,
                     transactionsService: transactionsService,
                     mobileWallet: mobileWallet,
-                    passwordDelegate: passwordDelegate
+                    passwordDelegate: passwordDelegate,
+                    concordiumClient: concordiumClient,
+                    identitiesService: identitiesService
                 )
         }
     }
