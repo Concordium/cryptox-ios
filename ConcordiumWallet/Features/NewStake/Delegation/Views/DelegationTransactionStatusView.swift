@@ -7,49 +7,38 @@
 //
 
 import SwiftUI
-//import DotLottie
+import Lottie
 import Combine
 
 struct DelegationTransactionStatusView: View {
-    @State private var animationState: LoadingAnimationState = .loader
-//    @State private var animationConfig = AnimationConfig(autoplay: true, loop: true, segments: (0, 120))
+
+    private enum AnimationState { case loader, success, failure }
+
+    @State private var animationState: AnimationState = .loader
+    @State private var currentSegment: ClosedRange<Int>? = 0...120
+    @State private var loopMode: LottieLoopMode = .loop
+    /// Increment this to force `LottiePlayer` to restart with same segment
+    @State private var playToken = 0
+
+    // MARK: Other View state
     @State private var hasStartedTransaction = false
-    @State private var isTransactionDetailsVisible: Bool = true
     @State private var cancellables = Set<AnyCancellable>()
     @EnvironmentObject var navigationManager: NavigationManager
     @ObservedObject var viewModel: DelegationSubmissionViewModel
 
-//    var animation: DotLottieAnimation {
-//        DotLottieAnimation(fileName: "loadingAnimation", config: animationConfig)
-//    }
-    
+    private let animationFile = "loadingAnimation"
+
     var body: some View {
         VStack {
             VStack(alignment: .center, spacing: 30) {
-                animationView()
+                LottiePlayer(name: animationFile,
+                             segment: currentSegment,
+                             loopMode: loopMode,
+                             playToken: playToken)
                     .id(animationState)
-                    .fixedSize()
+                    .frame(width: 60, height: 60)
                 Divider()
-                VStack(spacing: 8) {
-                    Text(viewModel.transactionStatusLabel)
-                        .font(.satoshi(size: 12, weight: .medium))
-                        .foregroundStyle(.white)
-                        .transition(.scale)
-                        .animation(.easeInOut(duration: 1), value: viewModel.transactionStatusLabel)
-                    if viewModel.shouldDisplayAmount {
-                        Text(viewModel.amountDisplay)
-                            .font(.plexSans(size: 40, weight: .medium))
-                            .dynamicTypeSize(.small ... .xxLarge)
-                            .minimumScaleFactor(0.3)
-                            .lineLimit(1)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                            .modifier(RadialGradientForegroundStyleModifier())
-                        
-                        Text(viewModel.ticker)
-                            .font(.satoshi(size: 12, weight: .medium))
-                            .foregroundStyle(.white)
-                    }
-                }
+                statusSection()
                 transactionDetailsSection()
             }
             .padding(.vertical, 30)
@@ -62,13 +51,11 @@ struct DelegationTransactionStatusView: View {
             )
             .padding(.horizontal, 18)
             .padding(.top, 20)
-            
+
             Spacer()
-            
+
             RoundedButton(action: {
-                viewModel.closeTapped {
-                    navigationManager.reset()
-                }
+                viewModel.closeTapped { navigationManager.reset() }
             }, title: "close".localized)
             .padding(.bottom, 20)
             .padding(.horizontal, 18)
@@ -78,17 +65,41 @@ struct DelegationTransactionStatusView: View {
         .modifier(AlertModifier(alertOptions: viewModel.alertOptions, isPresenting: $viewModel.showAlert))
         .onAppear {
             playAnimationBasedOnState()
-            if !hasStartedTransaction {
-                hasStartedTransaction = true
-                viewModel.pressedButton()
-            }
+            guard !hasStartedTransaction else { return }
+            hasStartedTransaction = true
+            viewModel.pressedButton()
         }
         .onChange(of: viewModel.isTransactionExecuting) { _ in
             playAnimationBasedOnState()
         }
     }
-    
-    private func transactionDetailsSection() -> some View {
+
+    @ViewBuilder private func statusSection() -> some View {
+        VStack(spacing: 8) {
+            Text(viewModel.transactionStatusLabel)
+                .font(.satoshi(size: 12, weight: .medium))
+                .foregroundStyle(.white)
+                .transition(.scale)
+                .animation(.easeInOut(duration: 1),
+                           value: viewModel.transactionStatusLabel)
+
+            if viewModel.shouldDisplayAmount {
+                Text(viewModel.amountDisplay)
+                    .font(.plexSans(size: 40, weight: .medium))
+                    .dynamicTypeSize(.small ... .xxLarge)
+                    .minimumScaleFactor(0.3)
+                    .lineLimit(1)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .modifier(RadialGradientForegroundStyleModifier())
+
+                Text(viewModel.ticker)
+                    .font(.satoshi(size: 12, weight: .medium))
+                    .foregroundStyle(.white)
+            }
+        }
+    }
+
+    @ViewBuilder private func transactionDetailsSection() -> some View {
         Group {
             VStack(spacing: 30) {
                 Divider()
@@ -110,47 +121,27 @@ struct DelegationTransactionStatusView: View {
                 }
                 .transition(.opacity)
             }
-            .opacity(!viewModel.isTransactionExecuting ? 1 : 0)
-            .transition(.opacity)
-            .animation(.easeInOut(duration: 1), value: !viewModel.isTransactionExecuting)
+            .opacity(viewModel.isTransactionExecuting ? 0 : 1)
+            .animation(.easeInOut(duration: 1),
+                       value: viewModel.isTransactionExecuting)
         }
     }
 
-    @ViewBuilder
-    private func animationView() -> some View {
-//        animation.view()
-        Color.clear
-            .frame(width: 60, height: 60)
-    }
-    
     private func playAnimationBasedOnState() {
-        if viewModel.isTransactionExecuting {
-            animationState = .loader
-//            animationConfig = AnimationConfig(autoplay: true, loop: true, segments: (0, 120))
-//            _ = animation.play()
-        } else if viewModel.error != nil {
-            animationState = .failure
-//            animationConfig = AnimationConfig(autoplay: true, loop: false, segments: (300, 360))
-//            _ = animation.play()
-        } else {
-            animationState = .success
-//            animationConfig = AnimationConfig(autoplay: true, loop: false, segments: (121, 239))
-//            _ = animation.play()
+        switch (viewModel.isTransactionExecuting, viewModel.error != nil) {
+        case (true, _):
+            animationState       = .loader
+            currentSegment       = 0...120
+            loopMode             = .loop
+        case (false, true):
+            animationState       = .failure
+            currentSegment       = 300...360
+            loopMode             = .playOnce
+        default:
+            animationState       = .success
+            currentSegment       = 121...239
+            loopMode             = .playOnce
         }
-    }
-    
-    private func setupBinding() {
-        Publishers.CombineLatest(
-            viewModel.$transferDataType,
-            viewModel.$error
-        )
-        .map { transferDataType, error in
-            return transferDataType != nil && error == nil
-        }
-        .receive(on: RunLoop.main)
-        .sink { newValue in
-            self.isTransactionDetailsVisible = newValue
-        }
-        .store(in: &cancellables)
+        playToken += 1
     }
 }

@@ -7,29 +7,33 @@
 //
 
 import SwiftUI
-//import DotLottie
+import Lottie
 import Combine
 
 struct ValidatorTransactionStatusView: View {
-    @State private var animationState: LoadingAnimationState = .loader
-//    @State private var animationConfig = AnimationConfig(autoplay: true, loop: true, segments: (0, 120))
+    private enum AnimationState { case loader, success, failure }
+
+    @State private var animationState: AnimationState = .loader
+    @State private var currentSegment: ClosedRange<Int>? = 0...120
+    @State private var loopMode: LottieLoopMode = .loop
+    @State private var playToken: Int = 0
+
     @State private var hasStartedTransaction = false
     @State private var isTransactionDetailsVisible: Bool = true
     @State private var cancellables = Set<AnyCancellable>()
+
     @EnvironmentObject var navigationManager: NavigationManager
     @ObservedObject var viewModel: ValidatorSubmissionViewModel
 
-//    var animation: DotLottieAnimation {
-//        DotLottieAnimation(fileName: "loadingAnimation", config: animationConfig)
-//    }
-    
+    private let animationFile = "loadingAnimation"
+
     var body: some View {
         VStack {
             VStack(alignment: .center, spacing: 30) {
                 animationView()
                     .id(animationState)
-                    .fixedSize()
-                
+                    .frame(width: 60, height: 60)
+
                 Divider()
                 VStack(spacing: 8) {
                     Text(viewModel.transactionStatusLabel)
@@ -67,7 +71,7 @@ struct ValidatorTransactionStatusView: View {
             Spacer()
             
             RoundedButton(action: {
-                viewModel.closeTapped() {
+                viewModel.closeTapped {
                     navigationManager.reset()
                 }
             }, title: "close".localized)
@@ -119,27 +123,30 @@ struct ValidatorTransactionStatusView: View {
 
     @ViewBuilder
     private func animationView() -> some View {
-//        animation.view()
-        Color.clear
-            .frame(width: 60, height: 60)
+        LottiePlayer(name: animationFile,
+                     segment: currentSegment,
+                     loopMode: loopMode,
+                     playToken: playToken)
     }
-    
+
     private func playAnimationBasedOnState() {
-        if viewModel.isTransactionExecuting {
+        switch (viewModel.isTransactionExecuting, viewModel.error != nil) {
+        case (true, _):
             animationState = .loader
-//            animationConfig = AnimationConfig(autoplay: true, loop: true, segments: (0, 120))
-//            _ = animation.play()
-        } else if viewModel.error != nil {
+            currentSegment = 0...120
+            loopMode = .loop
+        case (false, true):
             animationState = .failure
-//            animationConfig = AnimationConfig(autoplay: true, loop: false, segments: (300, 360))
-//            _ = animation.play()
-        } else {
+            currentSegment = 300...360
+            loopMode = .playOnce
+        default:
             animationState = .success
-//            animationConfig = AnimationConfig(autoplay: true, loop: false, segments: (121, 239))
-//            _ = animation.play()
+            currentSegment = 121...239
+            loopMode = .playOnce
         }
+        playToken += 1
     }
-    
+
     private func setupBinding() {
         Publishers.CombineLatest(
             viewModel.$transferDataType,
