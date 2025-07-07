@@ -1772,6 +1772,12 @@
 		1584D0902D785F03001D9B3E /* ValidatorUpdateMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1584D08F2D785F03001D9B3E /* ValidatorUpdateMenuViewModel.swift */; };
 		1584D0912D785F03001D9B3E /* ValidatorUpdateMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1584D08F2D785F03001D9B3E /* ValidatorUpdateMenuViewModel.swift */; };
 		1584D0922D785F03001D9B3E /* ValidatorUpdateMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1584D08F2D785F03001D9B3E /* ValidatorUpdateMenuViewModel.swift */; };
+		158A351C2E156D0300BDCFDE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 158A351B2E156D0300BDCFDE /* Lottie */; };
+		158A35202E1684E500BDCFDE /* LottiePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158A351F2E1684E500BDCFDE /* LottiePlayer.swift */; };
+		158A35212E1684E500BDCFDE /* LottiePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158A351F2E1684E500BDCFDE /* LottiePlayer.swift */; };
+		158A35222E1684E500BDCFDE /* LottiePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158A351F2E1684E500BDCFDE /* LottiePlayer.swift */; };
+		158A35242E1685AC00BDCFDE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 158A35232E1685AC00BDCFDE /* Lottie */; };
+		158A35262E1685B300BDCFDE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 158A35252E1685B300BDCFDE /* Lottie */; };
 		1599807C2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
 		1599807D2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
 		1599807E2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
@@ -3020,6 +3026,7 @@
 		1584D0872D75F02F001D9B3E /* StakeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeDetailsView.swift; sourceTree = "<group>"; };
 		1584D08B2D75F159001D9B3E /* ButtonsGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsGroup.swift; sourceTree = "<group>"; };
 		1584D08F2D785F03001D9B3E /* ValidatorUpdateMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorUpdateMenuViewModel.swift; sourceTree = "<group>"; };
+		158A351F2E1684E500BDCFDE /* LottiePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottiePlayer.swift; sourceTree = "<group>"; };
 		1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTokenViewModel.swift; sourceTree = "<group>"; };
 		15A761372D6727D200A48204 /* ValidatorMetadataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorMetadataViewModel.swift; sourceTree = "<group>"; };
 		15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedIdentitiesStatusService.swift; sourceTree = "<group>"; };
@@ -3388,6 +3395,7 @@
 				08C169152BB7396200E61326 /* JDStatusBarNotification in Frameworks */,
 				08C169172BB7396200E61326 /* SDWebImageSVGCoder in Frameworks */,
 				50E0D1652D2ECDDD00853594 /* Starscream in Frameworks */,
+				158A351C2E156D0300BDCFDE /* Lottie in Frameworks */,
 				50E0D1672D2ECE1600853594 /* ReownWalletKit in Frameworks */,
 				15339E6D2DB8FF1F003D64D1 /* FirebaseAnalytics in Frameworks */,
 				509A56312CB40BF7005EA908 /* RealmSwift in Frameworks */,
@@ -3410,6 +3418,7 @@
 				08A0441329FA885300DACE1F /* SwiftCBOR in Frameworks */,
 				089FF0EC2A4F4D01007AB1CF /* JDStatusBarNotification in Frameworks */,
 				083505072A9F4F14000D5175 /* SDWebImageSVGCoder in Frameworks */,
+				158A35242E1685AC00BDCFDE /* Lottie in Frameworks */,
 				50E0D1692D35466100853594 /* Starscream in Frameworks */,
 				509A56392CB43540005EA908 /* RealmSwift in Frameworks */,
 				15339E712DB8FF2E003D64D1 /* FirebaseAnalytics in Frameworks */,
@@ -3431,6 +3440,7 @@
 				08A0442129FA892F00DACE1F /* Base58Swift in Frameworks */,
 				083505002A9E3DFA000D5175 /* SDWebImageSVGCoder in Frameworks */,
 				089FF0EA2A4F4CF0007AB1CF /* JDStatusBarNotification in Frameworks */,
+				158A35262E1685B300BDCFDE /* Lottie in Frameworks */,
 				08A0444329FA905700DACE1F /* Kingfisher in Frameworks */,
 				50E0D16D2D35466E00853594 /* Starscream in Frameworks */,
 				509A563C2CB43549005EA908 /* RealmSwift in Frameworks */,
@@ -4670,6 +4680,7 @@
 		08B16F352A011E4C002E6B33 /* Design */ = {
 			isa = PBXGroup;
 			children = (
+				158A351F2E1684E500BDCFDE /* LottiePlayer.swift */,
 				08FD0B7D2A7D26EA003774A6 /* Components */,
 				088FEE7C2A025AC100042957 /* UIKit */,
 				088FEE762A025A9900042957 /* SwiftUI */,
@@ -5948,6 +5959,7 @@
 				5072A1A42DCB4CF1008698C3 /* Concordium */,
 				507541492DD3C590000D9445 /* MobileWalletLib */,
 				5075414C2DD3C5B8000D9445 /* MobileWalletLib */,
+				158A351B2E156D0300BDCFDE /* Lottie */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 08C169C22BB7396200E61326 /* ProdTestNet.app */;
@@ -5991,6 +6003,7 @@
 				50E0D16A2D35466600853594 /* ReownWalletKit */,
 				15339E702DB8FF2E003D64D1 /* FirebaseAnalytics */,
 				507541502DD3C5E0000D9445 /* MobileWalletLib */,
+				158A35232E1685AC00BDCFDE /* Lottie */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
@@ -6034,6 +6047,7 @@
 				50E0D16E2D35467500853594 /* ReownWalletKit */,
 				15339E6E2DB8FF28003D64D1 /* FirebaseAnalytics */,
 				5075414E2DD3C5DC000D9445 /* MobileWalletLib */,
+				158A35252E1685B300BDCFDE /* Lottie */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
@@ -6100,6 +6114,7 @@
 				501F5AE02D2ECA1F00C55008 /* XCRemoteSwiftPackageReference "reown-swift" */,
 				50E0D1632D2ECDDD00853594 /* XCRemoteSwiftPackageReference "Starscream" */,
 				5072A1A32DCB4CF1008698C3 /* XCRemoteSwiftPackageReference "concordium-swift-sdk" */,
+				158A351A2E156D0300BDCFDE /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 7FF07A6A23EADB1200F1FC04 /* Products */;
 			projectDirPath = "";
@@ -6766,6 +6781,7 @@
 				08C167732BB7396200E61326 /* AssetExtractor.swift in Sources */,
 				08E472B12BCEF308004F0088 /* SimpleTrasferRequestModel.swift in Sources */,
 				08E472A42BC98105004F0088 /* SimpleTransferRequestParams.swift in Sources */,
+				158A35202E1684E500BDCFDE /* LottiePlayer.swift in Sources */,
 				08C167742BB7396200E61326 /* CIS2TokenDetailView.swift in Sources */,
 				08C167752BB7396200E61326 /* RecoveryPhraseOnboardingView.swift in Sources */,
 				08C167782BB7396200E61326 /* RecoveryPhrase.swift in Sources */,
@@ -7827,6 +7843,7 @@
 				D547959F28ECDF4B00575649 /* Model+Token.swift in Sources */,
 				089B34302A16898F00F3CD90 /* View.swift in Sources */,
 				D5B393EB27197A960094A9F5 /* QRTransactionView.swift in Sources */,
+				158A35212E1684E500BDCFDE /* LottiePlayer.swift in Sources */,
 				088FF15F2A02895A00042957 /* UserDefaults+Helper.swift in Sources */,
 				509749E62C3E886C00D28D6B /* RSSFeed.swift in Sources */,
 				D589F3402794B7DD003F2FBB /* Model+Transaction.swift in Sources */,
@@ -8512,6 +8529,7 @@
 				089B342E2A16898F00F3CD90 /* View.swift in Sources */,
 				644BB67E25DFB4630086ED48 /* ConcordiumApplication.swift in Sources */,
 				D589F33E2794B7DD003F2FBB /* Model+Transaction.swift in Sources */,
+				158A35222E1684E500BDCFDE /* LottiePlayer.swift in Sources */,
 				088FF15D2A02895A00042957 /* UserDefaults+Helper.swift in Sources */,
 				509749E52C3E886C00D28D6B /* RSSFeed.swift in Sources */,
 				D589F1F72794B5ED003F2FBB /* EncryptionMetadata.swift in Sources */,
@@ -9156,6 +9174,14 @@
 				minimumVersion = 11.1.0;
 			};
 		};
+		158A351A2E156D0300BDCFDE /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.2;
+			};
+		};
 		501F5AE02D2ECA1F00C55008 /* XCRemoteSwiftPackageReference "reown-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/reown-com/reown-swift";
@@ -9300,6 +9326,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1557CC962C89B8DE008ABF67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		158A351B2E156D0300BDCFDE /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 158A351A2E156D0300BDCFDE /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+		158A35232E1685AC00BDCFDE /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 158A351A2E156D0300BDCFDE /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+		158A35252E1685B300BDCFDE /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 158A351A2E156D0300BDCFDE /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 		5059C9B42C00CF1200E40307 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
