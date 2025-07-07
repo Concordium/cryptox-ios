@@ -1482,3 +1482,11 @@ Remember to restart your node with the validator keys.";
 "suspended.message" =  "Your validation has been suspended";
 "multiple.accounts.suspended" = "Validation issues with several accounts";
 
+"walletconnect.error.environmentMismatch" = "Network mismatch.";
+"walletconnect.error.accountMismatch" = "Cannot find a suitable account.";
+"walletconnect.error.invalidSession" = "The session is not valid.";
+"walletconnect.error.invalidMethod" = "Unsupported request method.";
+"walletconnect.error.invalidPayload" = "Request payload is invalid.";
+"walletconnect.error.unsupportedMethod" = "This method is not supported.";
+"walletconnect.error.title.generic" = "Request Error";
+"walletconnect.error.title.model" = "Unable to fulfill the request.";

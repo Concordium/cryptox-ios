@@ -1,39 +1,24 @@
-//
-//  SessionRequestViewModel.swift
-//  CryptoX
-//
-//  Created by Maksym Rachytskyy on 05.04.2024.
-//  Copyright © 2024 pioneeringtechventures. All rights reserved.
-//
-
 import Foundation
 import Combine
 import ReownWalletKit
 
-
 final class SessionRequestViewModel: ObservableObject {
     @Published var account: AccountEntity?
     @Published var isSignButtonEnabled: Bool = false
-    @Published var errorText: String?
-    @Published var shouldRejectOnDismiss =  true
+    @Published var shouldRejectOnDismiss = true
     @Published var error: SessionRequstError?
-    
+
     @Published var message: String
     @Published var method: String
-    
     @Published var title: String = "Sign Transaction"
-    
+
+    @Published var requestModel: SessionRequestDataProvidable?
+    @Published var requestType: SessionRequestDataType?
+    @Published var reownSessionRequest: ReownSessionRequest?
+
     private let sessionRequest: Request
     private var cancellables = [AnyCancellable]()
-    
-    var requestModel: SessionRequestDataProvidable?
-    
-    @Published var requestType: SessionRequestDataType?
-    
-    /// Model will be used for future iteration of UI when we wanted to show more user-friedly request parameters, instead of
-    /// showing them as plain json inside message scroll view
-    @Published var reownSessionRequest: ReownSessionRequest?
-    
+
     init(
         sessionRequest: Request,
         transactionsService: TransactionsServiceProtocol,
@@ -46,7 +31,7 @@ final class SessionRequestViewModel: ObservableObject {
         self.sessionRequest = sessionRequest
         self.message = String(describing: sessionRequest.params.value)
         self.method = sessionRequest.method
-                
+
         if let json = try? sessionRequest.params.json(), let jsonData = json.data(using: .utf8) {
             let decoder = JSONDecoder()
             do {
@@ -56,7 +41,7 @@ final class SessionRequestViewModel: ObservableObject {
                 print("Error decoding session request: \(error)")
             }
         }
-                
+
         Task {
             await MainActor.run {
                 do {
@@ -75,44 +60,49 @@ final class SessionRequestViewModel: ObservableObject {
                         identitiesService: identitiesService
                     )
                     self.title = self.requestModel?.title ?? "Sign Transaction"
-                } catch is SessionRequstError {
-                    self.error = error
-                    logger.debug("\(self.error?.errorMessage ?? "unknown error")")
+                } catch let err as SessionRequstError {
+                    self.error = err
+                    logger.debug("\(err.errorMessage)")
                 } catch {
-                    logger.debug("unknown error --- \(error)")
+                    logger.debug("Unknown error: \(error)")
                 }
             }
         }
-        
+
         sheckAllSetUp()
     }
-    
+
     private func sheckAllSetUp() {
         Task {
             guard let requestModel = self.requestModel else {
                 self.isSignButtonEnabled = true
                 return
             }
-            
+
             self.isSignButtonEnabled = try await requestModel.checkAllSatisfy()
         }
     }
-    
+
     @MainActor
     func approveRequest(_ completion: () -> Void) async {
         self.shouldRejectOnDismiss = false
-        self.errorText = nil
-                
+        self.error = nil
+
         do {
             try await requestModel?.approveRequest()
             completion()
-        } catch is SessionRequstError {
-            self.errorText = error?.errorMessage ?? "Can't find apropriate acount to sign"
+        } catch let modelError as SessionRequstError {
+            self.error = modelError
         } catch {
-            self.errorText = "Can't find apropriate acount to sign"
+            if let verifiableModel = requestModel as? VerifiablePresentationRequestModel,
+               let modelError = verifiableModel.error {
+                self.error = .generic(modelError.description)
+            } else {
+                self.error = .generic("Unable to fulfill the request. Please check your identity details.")
+            }
         }
     }
-    
+
     @MainActor
     func rejectRequest(_ completion: () -> Void) async {
         do {
@@ -123,7 +113,7 @@ final class SessionRequestViewModel: ObservableObject {
             )
             completion()
         } catch {
-            self.errorText = "Cant reject this tx. Try again later"
+            self.error = .generic("Can't reject this transaction. Try again later.")
         }
     }
 }
