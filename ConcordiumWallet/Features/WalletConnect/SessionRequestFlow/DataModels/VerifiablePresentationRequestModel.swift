@@ -13,7 +13,6 @@ import Combine
 import Concordium
 
 protocol VerifiableStatementsPresentation {
-//    var credentialStatements: [VerifiablePresentationStatements] { get }
     var credentialStatements: [WalletConnectRequestVerifiablePresentationParam.CredentialStatement] { get }
 }
 
@@ -214,9 +213,22 @@ extension VerifiablePresentationRequestModel {
         VerifiableStatementListCellModel(
             title: statement.attributeTag.localizedKey,
             value: Self.valueData(for: statement, account: account) ?? "No Data",
-            description: "reveal_description".localized,
+            description: description(for: statement),//"reveal_description".localized,
             isValid: Self.isValidStatement(statement, account: account)
         )
+    }
+    
+    private func description(for statement: AtomicIdentityStatement) -> String {
+        switch statement {
+        case .revealAttribute(let statement):
+            return "reveal_description".localized
+        case .attributeInRange(let statement):
+            return "reveal_description".localized
+        case .attributeInSet(let statement):
+            return statement.set.joined(separator: ", ")
+        case .attributeNotInSet(let statement):
+            return statement.set.joined(separator: ", ")
+        }
     }
     
     static func valueData(for statement: AtomicIdentityStatement, account: AccountEntity) -> String? {
@@ -297,14 +309,7 @@ extension VerifiablePresentationRequestModel {
 
 }
 
-
-
-
-
-
-
-
-struct VerifiableStatementListCellModel {
+struct VerifiableStatementListCellModel: Hashable {
     let title: String
     let value: String
     let description: String
@@ -313,73 +318,6 @@ struct VerifiableStatementListCellModel {
 
 
 extension VerifiablePresentationRequestModel {
-//    func getModel(for statement: VerifiablePresentationStatement) -> VerifiableStatementListCellModel {
-//        VerifiableStatementListCellModel(
-//            title: AttributeFormatter.format(key: statement.attributeTag),
-//            value: Self.valueData(for: statement, account: account) ?? "no data",
-//            description: "reveal_description".localized,
-//            isValid: Self.isValidStatement(statement, account: account)
-//        )
-//    }
-//    
-//    static func valueData(for statement: VerifiablePresentationStatement, account: AccountEntity) -> String? {
-//        switch statement.attributeTag {
-//            case .dob:
-//                let currentDateTimeless = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: Date())) ?? Date()
-//                if statement.upperAsDate > Date() {
-//                    return "identity_proofs_age_min".localized("\(Self.yearsBetweenDates(startDate: currentDateTimeless, endDate: statement.lowerAsDate))")
-//                } else {
-//                    return "identity_proofs_age_max".localized("\(Self.yearsBetweenDates(startDate: currentDateTimeless, endDate: statement.upperAsDate))")
-//                }
-//            case .firstName, .lastName:
-//                return account.identityEntity?.seedIdentityObject?.attributeList.chosenAttributes[statement.attributeTag.rawValue]
-//            case .sex:
-//                return "fix me - sex"
-//            case .countryOfResidence:
-//                return "fix me - countryOfResidence"
-//            case .nationality:
-//                return "fix me - nationality"
-//            case .idDocType:
-//                return "fix me - idDocType"
-//            case .idDocNo:
-//                return "fix me - idDocNo"
-//            case .idDocIssuer:
-//                return account.identityEntity?.seedIdentityObject?.attributeList.chosenAttributes[statement.attributeTag.rawValue]
-//            case .idDocIssuedAt:
-//                return "fix me - idDocIssuedAt"
-//            case .idDocExpiresAt:
-//                return "fix me - idDocExpiresAt"
-//            case .nationalIdNo:
-//                return "fix me - nationalIdNo"
-//            case .taxIdNo:
-//                return "fix me - taxIdNo"
-//        default: return "fix me - \(statement.attributeTag)"
-//        }
-//    }
-    
-//    static func isValidStatement(_ statement: VerifiablePresentationStatement, account: AccountEntity) -> Bool {
-//        switch statement.type {
-//            case .revealAttribute:
-//                return account.identityEntity?.seedIdentityObject?.attributeList.chosenAttributes[statement.attributeTag.rawValue] != nil
-//            case .attributeInSet:
-//                guard let set = statement.set else { return false }
-//                guard let value = valueData(for: statement, account: account) else { return false }
-//                return set.contains(where: { $0 == value })
-//            case .attributeNotInSet: return false
-//            case .attributeInRange:
-//                let value = account.identityEntity?.seedIdentityObject?.attributeList.chosenAttributes[statement.attributeTag.rawValue] ?? ""
-//
-//                switch statement.attributeTag {
-//                    case .dob, .idDocExpiresAt, .idDocIssuedAt:
-//                        // due to api returns value for range min and max values in strange way (ISO 8601) as dates: `"18000101"` in format `"yyyyMMdd"`
-//                        // we cant simply constract an range
-//                        return (statement.lowerAsDate...statement.upperAsDate).contains(Date.initWithFormat(with: value) ?? Date())
-//                    default:
-//                        return Range(uncheckedBounds: (lower: Decimal(string: statement.lower ?? "") ?? .zero, upper: Decimal(string: statement.upper ?? "") ?? .zero)).contains(Decimal(string: value) ?? .zero)
-//                }
-//        }
-//    }
-    
     static func yearsBetweenDates(startDate: Date, endDate: Date) -> Int {
         let calendar = Calendar.current
         let startYear = calendar.component(.year, from: startDate)

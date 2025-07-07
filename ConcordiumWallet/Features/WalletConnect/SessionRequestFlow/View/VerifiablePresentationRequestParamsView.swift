@@ -23,9 +23,7 @@ struct VerifiablePresentationRequestParamsView: View {
             }
             
             List {
-                 ForEach(viewModel.getStatementCellModels().indices, id: \.self) { index in
-                     let model = viewModel.getStatementCellModels()[index]
-
+                 ForEach(viewModel.getStatementCellModels(), id: \.self) { model in
                      Section(model.title) {
                          VStack(alignment: .leading, spacing: 12) {
                              HStack {
