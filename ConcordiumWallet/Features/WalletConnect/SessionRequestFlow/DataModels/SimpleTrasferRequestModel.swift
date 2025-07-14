@@ -12,6 +12,8 @@ import BigInt
 import ReownWalletKit
 
 final class SimpleTrasferRequestModel: SessionRequestDataProvidable {
+    @Published var title: String = "Sign Transfer"
+    
     private let transactionsService: TransactionsServiceProtocol
     private let mobileWallet: MobileWalletProtocol
     private let params: SimpleTransferRequestParams

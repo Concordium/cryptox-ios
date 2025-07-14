@@ -50,3 +50,15 @@ extension String {
         URL(string: self)
     }
 }
+
+extension String {
+    var utf8Encoded: Data { data(using: .utf8)! }
+    var localized: String { NSLocalizedString(self, comment: "") }
+    
+    func localized(_ arguments: CVarArg...) -> String {
+        String(
+            format: NSLocalizedString(self, value: "", comment: ""),
+            arguments: arguments
+        )
+    }
+}

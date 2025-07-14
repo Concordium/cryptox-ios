@@ -11,6 +11,8 @@ import Combine
 import ReownWalletKit
 
 final class SignMessageRequestModel: SessionRequestDataProvidable {
+    @Published var title: String = "Sign Message"
+    
     private let transactionsService: TransactionsServiceProtocol
     private let mobileWallet: MobileWalletProtocol
     private let payload: SignMessagePayload

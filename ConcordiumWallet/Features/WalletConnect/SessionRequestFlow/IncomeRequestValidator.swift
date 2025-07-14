@@ -8,24 +8,36 @@
 
 import ReownWalletKit
 
-enum SessionRequstError: Error {
-    case environmentMismatch(chain: String), accountNotFound, accountMissmatch, noValidWCSession(topic: String)
-    case invalidRequestMethod, invalidRequestPayload, unSupportedRequestMethod
-    
+enum SessionRequstError: Error, Equatable {
+    case environmentMismatch(chain: String)
+    case accountNotFound
+    case accountMissmatch
+    case noValidWCSession(topic: String)
+    case invalidRequestMethod
+    case invalidRequestPayload
+    case unSupportedRequestMethod
+    case generic(String)
+
     var errorMessage: String {
         switch self {
-            case .environmentMismatch(let chain):
-                "The session proposal did not contain a valid namespace. Allowed namespaces are: \(chain)"
-            case .accountNotFound, .accountMissmatch:
-                "Can't find apropriate acount to sign"
-            case .noValidWCSession(let topic):
-                "No session found for the received topic: \(topic)"
-            case .invalidRequestMethod: "Unknown sesion requestmethod"
-            case .invalidRequestPayload: "Invalid request payload"
-            case .unSupportedRequestMethod: "Unsupported request method"
+        case .environmentMismatch(let chain):
+            return "The session proposal did not contain a valid namespace. Allowed namespaces are: \(chain)"
+        case .accountNotFound, .accountMissmatch:
+            return "Can't find appropriate account to sign"
+        case .noValidWCSession(let topic):
+            return "No session found for the received topic: \(topic)"
+        case .invalidRequestMethod:
+            return "Unknown session request method"
+        case .invalidRequestPayload:
+            return "Invalid request payload"
+        case .unSupportedRequestMethod:
+            return "Unsupported request method"
+        case .generic(let message):
+            return message
         }
     }
 }
+
 
 final class IncomeRequestValidator {
     static var currentChain: String {
