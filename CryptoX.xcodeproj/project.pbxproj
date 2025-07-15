@@ -1873,6 +1873,9 @@
 		19C2EEC684BF75B9E3F9EADD /* Sizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E113307579CAF5005F21 /* Sizes.swift */; };
 		19C2EF490E9CA00157B61071 /* EncryptionServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E9AFA3608A553A130503 /* EncryptionServiceTest.swift */; };
 		19C2EFF1CEC944A7FCBC63C5 /* SingleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2ED4F802767556C4ABBE9 /* SingleSection.swift */; };
+		50268F942E267D3400D46E02 /* SessionRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50268F932E267D3400D46E02 /* SessionRequestType.swift */; };
+		50268F952E267D3400D46E02 /* SessionRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50268F932E267D3400D46E02 /* SessionRequestType.swift */; };
+		50268F962E267D3400D46E02 /* SessionRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50268F932E267D3400D46E02 /* SessionRequestType.swift */; };
 		5059C9B52C00CF1200E40307 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5059C9B42C00CF1200E40307 /* SDWebImageSwiftUI */; };
 		5059C9B72C00CF1700E40307 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5059C9B62C00CF1700E40307 /* SDWebImageSwiftUI */; };
 		505E11F12CC2994A0003F6DC /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F779124891F220016F8D1 /* AppIcon.xcassets */; };
@@ -3095,6 +3098,7 @@
 		19C2ED4F802767556C4ABBE9 /* SingleSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleSection.swift; sourceTree = "<group>"; };
 		19C2EE201F8E02CE561DA70D /* GTU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GTU.swift; sourceTree = "<group>"; };
 		19C2EEBD44B62F16333900D2 /* GeneralError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralError.swift; sourceTree = "<group>"; };
+		50268F932E267D3400D46E02 /* SessionRequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequestType.swift; sourceTree = "<group>"; };
 		507629652BF2040B00B4D390 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		508E00C32E0C1AFE004DA300 /* ConcordiumClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcordiumClient.swift; sourceTree = "<group>"; };
 		508E00C72E0C1B61004DA300 /* RecoverIdentity+ConcordiumClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecoverIdentity+ConcordiumClient.swift"; sourceTree = "<group>"; };
@@ -4527,6 +4531,7 @@
 				08C169CE2BC00C5F00E61326 /* SessionRequestViewModel.swift */,
 				08E472B22BCEFAA4004F0088 /* IncomeRequestValidator.swift */,
 				08E472B62BCEFB53004F0088 /* SessionRequestDataType.swift */,
+				50268F932E267D3400D46E02 /* SessionRequestType.swift */,
 				08E472BA2BCEFBAB004F0088 /* SessionRequestDataProvidable.swift */,
 			);
 			path = SessionRequestFlow;
@@ -6723,6 +6728,7 @@
 				08C167042BB7396200E61326 /* AccNonce.swift in Sources */,
 				08C169DE2BC04A8500E61326 /* SignMessagePayload.swift in Sources */,
 				08C167052BB7396200E61326 /* NibLoadable.swift in Sources */,
+				50268F962E267D3400D46E02 /* SessionRequestType.swift in Sources */,
 				08C167062BB7396200E61326 /* (null) in Sources */,
 				08C167082BB7396200E61326 /* String+Localizable.swift in Sources */,
 				08C167092BB7396200E61326 /* ExportService.swift in Sources */,
@@ -7540,6 +7546,7 @@
 				088FEF852A0270B000042957 /* IdentityBaseInfoWidgetViewController.swift in Sources */,
 				088FF2152A02A77200042957 /* Importer.swift in Sources */,
 				D589F1892794B5ED003F2FBB /* ShieldedAmountEntity.swift in Sources */,
+				50268F952E267D3400D46E02 /* SessionRequestType.swift in Sources */,
 				D5B3940927199BED0094A9F5 /* QRTransactionProvider.swift in Sources */,
 				08A0460829FA99D200DACE1F /* MintDistribution.swift in Sources */,
 				153F2F4D2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */,
@@ -8233,6 +8240,7 @@
 				D589F1872794B5ED003F2FBB /* ShieldedAmountEntity.swift in Sources */,
 				088FEF5D2A0270AF00042957 /* IdentityBaseInfoWidgetViewController.swift in Sources */,
 				088FF2092A02A77100042957 /* Importer.swift in Sources */,
+				50268F942E267D3400D46E02 /* SessionRequestType.swift in Sources */,
 				D589F20F2794B5ED003F2FBB /* ExportAccount.swift in Sources */,
 				08A0457029FA99D100DACE1F /* MintDistribution.swift in Sources */,
 				D5CACC4E26ED48DB00D3C3CF /* UIView+Shake.swift in Sources */,
