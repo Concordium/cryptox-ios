@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+- ID2.5 functionality (Reown)
+
+## [Released 3.3.5]
 - Add Banxa provider
 
 ## [Released 3.3.4]
