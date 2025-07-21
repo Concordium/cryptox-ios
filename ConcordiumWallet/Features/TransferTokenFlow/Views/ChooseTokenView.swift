@@ -35,6 +35,8 @@ struct ChooseTokenView: View {
                         }))
                         .listRowBackground(Color.clear)
                         .padding(.vertical, 4)
+                case .plt(token: let token):
+                    EmptyView()
                 }
             }
         }

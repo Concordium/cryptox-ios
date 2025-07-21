@@ -15,6 +15,7 @@ struct Balance: Codable {
     let accountBaker: AccountBaker?
     let accountDelegation: AccountDelegation?
     let accountCooldowns: [AccountCooldown]
+    let accountTokens: [PLTToken]?
 
     enum CodingKeys: String, CodingKey {
         case accountAmount = "accountAmount"
@@ -25,6 +26,7 @@ struct Balance: Codable {
         case accountBaker = "accountBaker"
         case accountDelegation = "accountDelegation"
         case accountCooldowns = "accountCooldowns"
+        case accountTokens = "accountTokens"
     }
 }
 
@@ -54,7 +56,8 @@ extension Balance {
         accountIndex: Int? = nil,
         accountBaker: AccountBaker?? = nil,
         accountDelegation: AccountDelegation?? = nil,
-        accountCooldowns: [AccountCooldown] = []
+        accountCooldowns: [AccountCooldown] = [],
+        accountTokens: [PLTToken] = []
     ) -> Balance {
         return Balance(
             accountAmount: accountAmount ?? self.accountAmount,
@@ -64,7 +67,8 @@ extension Balance {
             accountIndex: accountIndex ?? self.accountIndex,
             accountBaker: accountBaker ?? self.accountBaker,
             accountDelegation: accountDelegation ?? self.accountDelegation,
-            accountCooldowns: accountCooldowns
+            accountCooldowns: accountCooldowns,
+            accountTokens: accountTokens
         )
     }
 

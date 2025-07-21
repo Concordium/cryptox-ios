@@ -163,6 +163,8 @@ struct TokenBalanceView: View {
                 .lineLimit(1)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .modifier(RadialGradientForegroundStyleModifier())
+            case .plt(token: let token):
+                EmptyView()
             }
         }
     }

@@ -64,11 +64,13 @@ struct AccountTokenListView: View {
         }
         .refreshable {
             await viewModel.reload()
+            viewModel.reloadPLTs()
         }
         .onAppear {
             Task {
                 await viewModel.reload()
             }
+            viewModel.reloadPLTs()
         }
         .onAppear {
             showManageTokenList = false
@@ -128,6 +130,21 @@ struct AccountTokenListView: View {
                             }
                         }
                 }
+            case .plt(let token, let amount):
+                Image("placeholder-crypto-token")
+                    .resizable()
+                    .clipShape(Circle())
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 40, height: 40)
+                Text(token.token.tokenState.moduleState.name)
+                    .foregroundColor(.white)
+                    .lineLimit(1)
+                    .font(.satoshi(size: 15, weight: .medium))
+                Spacer()
+                Text(amount)
+                    .foregroundColor(.white)
+                    .font(.satoshi(size: 15, weight: .medium))
+                    .opacity(mode == .normal ? 1 : 0)
             }
             if mode == .normal {
                 Image("caretRight")
@@ -210,12 +227,19 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
                 await self?.reload()
             }
         }.store(in: &cancellables)
+        
+        CoreDataPLTStore.shared.subscribePLTTokensUpdate(for: account.address).sink { [weak self] val in
+            Task {
+                await self?.reloadPLTs()
+            }
+        }.store(in: &cancellables)
     }
     
     @MainActor
     func reload() async {
         guard let account, !account.isObjectInvalidated() else { return }
-        
+        self.accounts.removeAll { $0.isCCDOrCis2 }
+
         let tokens = storageManager.getAccountSavedCIS2Tokens(account.address)
         let cis2Service = CIS2Service(networkManager: self.dependencyProvider.networkManager(), storageManager: storageManager)
         if !tokens.isEmpty {
@@ -231,11 +255,28 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
                 tmpAccounts.append(contentsOf: tmpTokens)
             } catch { }
             
-            self.accounts = tmpAccounts
+            self.accounts.append(contentsOf: tmpAccounts)
         } else {
-            self.accounts = [.ccd(amount: GTU(intValue: account.forecastBalance))]
+            self.accounts.append(.ccd(amount: GTU(intValue: account.forecastBalance)))
         }
         getEuroValueForCCD()
+    }
+    
+    @MainActor
+    func reloadPLTs() {
+        guard let account else { return }
+        self.accounts.removeAll { account in
+            if case .plt = account { return true }
+            return false
+        }
+        do {
+            let pltTokens = try CoreDataPLTStore.shared.fetchTokens(for: account.address)
+            pltTokens.forEach { token in
+                guard let pltToken = PLTToken.makeToken(from: token) else { return }
+                let accDetailAccount = AccountDetailAccount.plt(token: pltToken, amount: TokenFormatter().plainString(from: BigDecimal(BigInt(stringLiteral: pltToken.tokenAccountState.balance.value), pltToken.tokenAccountState.balance.decimals)))
+                self.accounts.append(accDetailAccount)
+            }
+        } catch { }
     }
     
     func getEuroValueForCCD() {

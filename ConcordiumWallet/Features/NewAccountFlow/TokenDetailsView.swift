@@ -101,6 +101,8 @@ struct TokenDetailsView: View {
                             .font(.satoshi(size: 12, weight: .medium))
                             .foregroundStyle(.whiteMain)
                             .frame(maxWidth: .infinity, alignment: .topLeading)
+                    case .plt(token: let token):
+                        EmptyView()
                     }
                 }
                 .padding(16)

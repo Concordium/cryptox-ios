@@ -11,12 +11,13 @@ import BigInt
 import Combine
 
 enum AccountDetailAccount: Equatable, Identifiable, Hashable {
-    case ccd(amount: GTU), token(token: CIS2Token, amount: String)
+    case ccd(amount: GTU), token(token: CIS2Token, amount: String), plt(token: PLTToken, amount: String)
     
     var id: Int {
         switch self {
             case .ccd(let address): return address.hashValue
             case let .token(token, amount): return token.tokenId.hashValue ^ token.contractName.hashValue ^ token.contractAddress.index.hashValue ^ amount.hashValue
+            case let .plt(token, amount): return token.token.tokenID.hashValue ^ amount.hashValue
         }
     }
     
@@ -24,13 +25,28 @@ enum AccountDetailAccount: Equatable, Identifiable, Hashable {
         switch self {
             case .ccd: return "ccd"
             case .token(let token, _): return token.metadata.name ?? ""
+            case .plt(token: let token, _): return token.token.tokenState.moduleState.name
         }
     }
     
     var cis2Token: CIS2Token? {
         switch self {
-        case .ccd: return nil
-        case let .token(token, _): return token
+            case .ccd, .plt: return nil
+            case let .token(token, _): return token
+        }
+    }
+    
+    var isCCDOrCis2: Bool {
+        switch self {
+        case .ccd, .token: return true
+        default: return false
+        }
+    }
+    
+    var pltToken: PLTToken? {
+        switch self {
+            case .ccd, .token: return nil
+            case let .plt(token, _): return token
         }
     }
 }
@@ -63,6 +79,21 @@ struct CCDTokenView: View {
                             .lineLimit(1)
                         .font(.satoshi(size: 13, weight: .medium))
                     }
+            case .plt(let token, let amount):
+                Image("placeholder-crypto-token")
+                    .resizable()
+                    .clipShape(Circle())
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 40, height: 40)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(token.tokenAccountState.balance.value)
+                        .foregroundColor(.white)
+                    .font(.satoshi(size: 15, weight: .medium))
+                    Text(token.token.tokenState.moduleState.name)
+                        .foregroundColor(.white.opacity(0.8))
+                        .lineLimit(1)
+                    .font(.satoshi(size: 13, weight: .medium))
+                }
             }
             Spacer()
         }

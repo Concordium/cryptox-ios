@@ -379,6 +379,52 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
         
         var savedBalance: AccountBalance?
         return getAccountBalance(for: account.address)
+            .map { balance -> (AccountBalance, [PLTToken]) in
+                let tokens = (balance.balance?.accountTokens ?? []).map { token in
+                    PLTToken(
+                        token: Token(
+                            tokenID: token.token.tokenID,
+                            tokenState: TokenState(
+                                decimals: token.token.tokenState.decimals,
+                                moduleState: ModuleState(
+                                    allowList: token.token.tokenState.moduleState.allowList,
+                                    burnable: token.token.tokenState.moduleState.burnable,
+                                    denyList: token.token.tokenState.moduleState.denyList,
+                                    governanceAccount: GovernanceAccount(
+                                        address: token.token.tokenState.moduleState.governanceAccount.address,
+                                        type: token.token.tokenState.moduleState.governanceAccount.type
+                                    ),
+                                    metadata: TokenMetadata(
+                                        url: token.token.tokenState.moduleState.metadata.url
+                                    ),
+                                    mintable: token.token.tokenState.moduleState.mintable,
+                                    name: token.token.tokenState.moduleState.name
+                                ),
+                                tokenModuleRef: token.token.tokenState.tokenModuleRef,
+                                totalSupply: TokenBalance(
+                                    decimals: token.token.tokenState.totalSupply.decimals,
+                                    value: token.token.tokenState.totalSupply.value
+                                )
+                            )
+                        ),
+                        tokenAccountState: TokenAccountState(
+                            balance: TokenBalance(
+                                decimals: token.tokenAccountState.balance.decimals,
+                                value: token.tokenAccountState.balance.value
+                            ),
+                            state: TokenBalanceState(
+                                denyList: token.tokenAccountState.state.denyList
+                            )
+                        )
+                    )
+                }
+                return (balance, tokens)
+            }
+            .flatMap { (balance, tokens) in
+                CoreDataPLTStore.shared.saveTokens(tokens, for: account.address)
+                    .map { balance }
+                    .eraseToAnyPublisher()
+            }
             .flatMap({ (balance: AccountBalance) -> AnyPublisher<[(String, Int)], Error> in
                 savedBalance = balance
                 return .just([])
