@@ -1783,6 +1783,9 @@
 		15ABCCD32CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */; };
 		15ABCCD42CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */; };
 		15ABCCD52CDA39A300D176CE /* SeedIdentitiesStatusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */; };
+		15AE01A92E2EB09900B9322D /* PLTTokenTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AE01A82E2EB09900B9322D /* PLTTokenTags.swift */; };
+		15AE01AA2E2EB09900B9322D /* PLTTokenTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AE01A82E2EB09900B9322D /* PLTTokenTags.swift */; };
+		15AE01AB2E2EB09900B9322D /* PLTTokenTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AE01A82E2EB09900B9322D /* PLTTokenTags.swift */; };
 		15B498D82D5E30F9001B4F65 /* EarnMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B498D72D5E30F9001B4F65 /* EarnMainView.swift */; };
 		15B498D92D5E30F9001B4F65 /* EarnMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B498D72D5E30F9001B4F65 /* EarnMainView.swift */; };
 		15B498DA2D5E30F9001B4F65 /* EarnMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B498D72D5E30F9001B4F65 /* EarnMainView.swift */; };
@@ -3021,6 +3024,7 @@
 		1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTokenViewModel.swift; sourceTree = "<group>"; };
 		15A761372D6727D200A48204 /* ValidatorMetadataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorMetadataViewModel.swift; sourceTree = "<group>"; };
 		15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedIdentitiesStatusService.swift; sourceTree = "<group>"; };
+		15AE01A82E2EB09900B9322D /* PLTTokenTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLTTokenTags.swift; sourceTree = "<group>"; };
 		15B498D72D5E30F9001B4F65 /* EarnMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarnMainView.swift; sourceTree = "<group>"; };
 		15B498DB2D5E3156001B4F65 /* EarnReadMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarnReadMoreView.swift; sourceTree = "<group>"; };
 		15B527502D36666E005FA701 /* AddTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTokenView.swift; sourceTree = "<group>"; };
@@ -4800,6 +4804,7 @@
 			isa = PBXGroup;
 			children = (
 				08FD0B7E2A7D26F5003774A6 /* Modifiers */,
+				15AE01A82E2EB09900B9322D /* PLTTokenTags.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -6935,6 +6940,7 @@
 				509749D22C3C0D4E00D28D6B /* CCDOnrampView.swift in Sources */,
 				08C168252BB7396200E61326 /* DummyRequestPasswordDelegate.swift in Sources */,
 				08C168262BB7396200E61326 /* ImportService.swift in Sources */,
+				15AE01AA2E2EB09900B9322D /* PLTTokenTags.swift in Sources */,
 				08C168282BB7396200E61326 /* Environment.swift in Sources */,
 				08C168292BB7396200E61326 /* RecoveryPhraseService.swift in Sources */,
 				08C1682A2BB7396200E61326 /* UpdatePasswordCoordinator.swift in Sources */,
@@ -7618,6 +7624,7 @@
 				509749D12C3C0D4E00D28D6B /* CCDOnrampView.swift in Sources */,
 				0867CAE82A45CE5600D7887D /* DummyRequestPasswordDelegate.swift in Sources */,
 				088FF2142A02A77200042957 /* ImportService.swift in Sources */,
+				15AE01A92E2EB09900B9322D /* PLTTokenTags.swift in Sources */,
 				08A0463529FAA51000DACE1F /* Environment.swift in Sources */,
 				088FF12F2A0284FA00042957 /* RecoveryPhraseService.swift in Sources */,
 				088FF1E92A02A73D00042957 /* UpdatePasswordCoordinator.swift in Sources */,
@@ -8301,6 +8308,7 @@
 				19C2E05A6CFAD9B9CCECF785 /* LetterSpacingLabel.swift in Sources */,
 				0867CAE72A45CE5600D7887D /* DummyRequestPasswordDelegate.swift in Sources */,
 				D5612B7628EA205E00582AD4 /* NFTFeedViewController.swift in Sources */,
+				15AE01AB2E2EB09900B9322D /* PLTTokenTags.swift in Sources */,
 				509749D02C3C0D4E00D28D6B /* CCDOnrampView.swift in Sources */,
 				088FF2082A02A77100042957 /* ImportService.swift in Sources */,
 				088FEF002A026F0000042957 /* IdentitiesService.swift in Sources */,
