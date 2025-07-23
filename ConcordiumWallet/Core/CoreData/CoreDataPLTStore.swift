@@ -126,6 +126,27 @@ final class CoreDataPLTStore {
         return FetchedResultsPublisher<PLTTokenEntity>(fetchRequest: request, context: context)
             .eraseToAnyPublisher()
     }
+    
+    func deleteToken(tokenId: String, accountAddress: String) async throws {
+        try await withCheckedThrowingContinuation { continuation in
+            container.performBackgroundTask { context in
+                let request: NSFetchRequest<PLTTokenEntity> = PLTTokenEntity.fetchRequest()
+                request.predicate = NSPredicate(format: "token.tokenId == %@ AND accountAddress == %@", tokenId, accountAddress)
+                request.fetchLimit = 1
+
+                do {
+                    if let tokenEntity = try context.fetch(request).first {
+                        context.delete(tokenEntity)
+                        try context.save()
+                    }
+                    continuation.resume()
+                } catch {
+                    context.rollback()
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
 }
 
 final class FetchedResultsPublisher<ResultType: NSFetchRequestResult>: NSObject, NSFetchedResultsControllerDelegate, Publisher {

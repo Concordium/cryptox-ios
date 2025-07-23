@@ -13,7 +13,7 @@ struct ManageTokensView: View {
     @SwiftUI.Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel: AccountDetailViewModel
     @State private var isPresentingAlert = false
-    @State private var selectedToken: CIS2Token?
+    @State private var selectedToken: AccountDetailAccount?
     @State var showRemovedTokenTip: Bool = false
     @State var showTokenListUpdated: Bool = false
     @Binding var path: [NavigationPaths]
@@ -43,7 +43,7 @@ struct ManageTokensView: View {
                     .animation(.easeInOut(duration: 0.3), value: isPresentingAlert)
                 
                 HideTokenPopup(
-                    tokenName: selectedToken?.metadata.name ?? "",
+                    tokenName: selectedToken?.name ?? "",
                     isPresentingAlert: $isPresentingAlert
                 ) {
                     if let selectedToken {
@@ -59,7 +59,7 @@ struct ManageTokensView: View {
             VStack {
                 Spacer()
                 if showRemovedTokenTip {
-                    tokenListUpdatedTip(tokenRemoved: true, tokenName: selectedToken?.metadata.name ?? "")
+                    tokenListUpdatedTip()
                         .frame(maxWidth: .infinity)
                         .padding(.horizontal, 46)
                         .padding(.bottom, 16)
@@ -75,7 +75,7 @@ struct ManageTokensView: View {
                 }
                 
                 if showTokenListUpdated {
-                    tokenListUpdatedTip(tokenRemoved: false, tokenName: "")
+                    tokenListUpdatedTip()
                         .frame(maxWidth: .infinity)
                         .padding(.horizontal, 46)
                         .padding(.bottom, 16)
@@ -108,24 +108,17 @@ struct ManageTokensView: View {
         .modifier(AppBackgroundModifier())
     }
     
-    func tokenListUpdatedTip(tokenRemoved: Bool, tokenName: String) -> some View {
+    func tokenListUpdatedTip() -> some View {
         VStack(alignment: .center) {
             HStack(spacing: 16) {
-                Image(tokenRemoved ? "eyeSlash" : "ico_successfully")
+                Image("ico_successfully")
                     .resizable()
                     .renderingMode(.template)
                     .foregroundStyle(.stone)
                     .frame(width: 24, height: 24)
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Token list updated")
-                        .font(.satoshi(size: 15, weight: .medium))
-                        .foregroundStyle(.grey2)
-                    if tokenRemoved {
-                        Text("\(tokenName) hidden from your wallet")
-                            .font(.satoshi(size: 12, weight: .medium))
-                            .foregroundStyle(.grey2)
-                    }
-                }
+                Text("Token list updated")
+                    .font(.satoshi(size: 15, weight: .medium))
+                    .foregroundStyle(.grey2)
             }
         }
         .padding(.horizontal, 15)

@@ -69,12 +69,12 @@ struct TokenBalanceView: View {
                     .ignoresSafeArea()
                     .transition(.opacity)
                     .animation(.easeInOut(duration: 0.3), value: isPresentingAlert)
-                if let cis2Token = token.cis2Token {
+                if token.name != "ccd" {
                     HideTokenPopup(
-                        tokenName: cis2Token.metadata.name ?? "",
+                        tokenName: token.name,
                         isPresentingAlert: $isPresentingAlert
                     ) {
-                        viewModel.removeToken(cis2Token)
+                        viewModel.removeToken(token)
                         dismiss()
                     }
                     .transition(.scale(scale: 0.9, anchor: .top).combined(with: .opacity))
