@@ -27,8 +27,9 @@ struct TokenBalanceView: View {
     var hideTokenButtonColor: Color {
         hideTokenPressed ? .selectedRed : .attentionRed
     }
+    @State var isActionsDisabled = false
     
-   @State private var selectedActionIndex: Int?
+    @State private var selectedActionIndex: Int?
     
     var body: some View {
         ZStack {
@@ -163,6 +164,19 @@ struct TokenBalanceView: View {
                 .lineLimit(1)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .modifier(RadialGradientForegroundStyleModifier())
+            case .plt(let token, let amount):
+                Text("\(amount) \(token.token.tokenState.moduleState.name)")
+                .font(.plexSans(size: 55, weight: .bold))
+                .dynamicTypeSize(.xSmall ... .xxLarge)
+                .minimumScaleFactor(0.3)
+                .lineLimit(1)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .modifier(RadialGradientForegroundStyleModifier())
+            }
+        }
+        .onAppear {
+            if let isOnDenyList = token.pltToken?.token.tokenState.moduleState.denyList {
+                isActionsDisabled = isOnDenyList
             }
         }
     }
@@ -173,14 +187,15 @@ struct TokenBalanceView: View {
                 if index < actionItems.count {
                     VStack {
                         Image(actionItems[index].iconName)
+                            .renderingMode(.template)
                             .frame(width: 24, height: 24)
                             .padding(11)
-                            .background(selectedActionIndex == index ? .grey4 : Color.grey3)
-                            .foregroundColor(Color.MineralBlue.blueish3)
+                            .background(isActionsDisabled ? .surfacePrimaryDisabled : selectedActionIndex == index ? .grey4 : Color.grey3)
+                            .foregroundColor(isActionsDisabled ? .contentPrimaryDisabled : Color.MineralBlue.blueish3)
                             .cornerRadius(50)
                         Text(actionItems[index].label)
                             .font(.satoshi(size: 12, weight: .medium))
-                            .foregroundColor(Color.MineralBlue.blueish2)
+                            .foregroundColor(isActionsDisabled ? .contentPrimaryDisabled : Color.MineralBlue.blueish2)
                             .padding(.top, 2)
                     }
                     .frame(maxWidth: .infinity)
@@ -191,6 +206,7 @@ struct TokenBalanceView: View {
                             selectedActionIndex = nil
                         }
                     }
+                    .disabled(isActionsDisabled)
                 } else {
                     Spacer()
                         .frame(maxWidth: .infinity)
@@ -211,7 +227,8 @@ struct TokenBalanceView: View {
                         showRawMdPopup = false
                     }
             }
-            Text(token.cis2Token?.metadata.toString() ?? "")
+            let mdDescription = token.pltToken != nil ? token.pltToken!.token.tokenState.moduleState.metadata.toString() : token.cis2Token?.metadata.toString()
+            Text(mdDescription ?? "")
                 .font(.satoshi(size: 12, weight: .medium))
                 .foregroundStyle(.grey1)
         }
