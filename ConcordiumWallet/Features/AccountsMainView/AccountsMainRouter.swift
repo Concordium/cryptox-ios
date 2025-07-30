@@ -263,7 +263,9 @@ extension AccountsMainRouter: WalletConnectServiceProtocol {
                     sessionRequest: request,
                     transactionsService: self.dependencyProvider.transactionsService(),
                     storageManager: self.dependencyProvider.storageManager(), 
-                    mobileWallet: self.dependencyProvider.mobileWallet()
+                    mobileWallet: self.dependencyProvider.mobileWallet(),
+                    concordiumClient: try! ConcordiumClient(networkManager: self.dependencyProvider.networkManager(), storageManager: self.dependencyProvider.storageManager()),
+                    identitiesService: self.dependencyProvider.seedIdentitiesService()
                 )
             )
         )

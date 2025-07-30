@@ -11,6 +11,8 @@ import ReownWalletKit
 
 
 protocol SessionRequestDataProvidable {
+    var title: String { get }
+    
     func checkAllSatisfy() async throws -> Bool
     func approveRequest() async throws
 }
@@ -23,7 +25,9 @@ final class SessionRequestDataModelProvider {
         transactionsService: TransactionsServiceProtocol,
         mobileWallet: MobileWalletProtocol,
         passwordDelegate: RequestPasswordDelegate,
-        storageManager: StorageManagerProtocol
+        storageManager: StorageManagerProtocol,
+        concordiumClient: ConcordiumClient,
+        identitiesService: SeedIdentitiesService
     ) -> SessionRequestDataProvidable? {
         switch type {
             case .signMessage(let signMessagePayload):
@@ -54,6 +58,17 @@ final class SessionRequestDataModelProvider {
                     mobileWallet: mobileWallet,
                     passwordDelegate: passwordDelegate,
                     storageManager: storageManager
+                )
+            case .verifiablePresentation(let params):
+                return VerifiablePresentationRequestModel(
+                    payload: params,
+                    account: account,
+                    sessionRequest: sessionRequest,
+                    transactionsService: transactionsService,
+                    mobileWallet: mobileWallet,
+                    passwordDelegate: passwordDelegate,
+                    concordiumClient: concordiumClient,
+                    identitiesService: identitiesService
                 )
         }
     }

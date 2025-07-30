@@ -1289,6 +1289,18 @@ Remember to restart your node with the validator keys.";
 "[%@](https://pioneeringtechventures.com/privacy-policy)" = "[%@](https://pioneeringtechventures.com/privacy-policy)";
 "[%@](https://pioneeringtechventures.com/terms-and-conditions)" = "[%@](https://pioneeringtechventures.com/terms-and-conditions)";
 
+
+
+
+// ID 2.5
+
+"reveal_description" = "Note that all the information above will be revealed to the connected service.";
+"unable_to_prove_request" = "You are unable to prove the entire request. You may go through the statements, but you won\'t be able to approve the request.";
+"identity_proofs_range_statement_description" = "This will prove that your %@ is between %@ and %@";
+"identity_attribute_birth_date" = "Date of birth";
+"identity_proofs_age_max" = "%@ years or older";
+"identity_proofs_age_min" = "%@ years or younger";
+
 "identityCreation.hasPending" = "You can only have one identity request open at a time. Please wait for your currently pending request to finish before starting a new one.";
 
 "ccd_onramp_list_header_title" = "CCD Listings";
@@ -1469,3 +1481,12 @@ Remember to restart your node with the validator keys.";
 "primed.for.suspension.message" = "Your validation is primed for suspension";
 "suspended.message" =  "Your validation has been suspended";
 "multiple.accounts.suspended" = "Validation issues with several accounts";
+
+"walletconnect.error.environmentMismatch" = "Network mismatch.";
+"walletconnect.error.accountMismatch" = "Cannot find a suitable account.";
+"walletconnect.error.invalidSession" = "The session is not valid.";
+"walletconnect.error.invalidMethod" = "Unsupported request method.";
+"walletconnect.error.invalidPayload" = "Request payload is invalid.";
+"walletconnect.error.unsupportedMethod" = "This method is not supported.";
+"walletconnect.error.title.generic" = "Request Error";
+"walletconnect.error.title.model" = "Unable to fulfill the request.";

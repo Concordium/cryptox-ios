@@ -23,7 +23,7 @@ struct SessionRequestView: View {
                 VStack(spacing: 8) {
                     HStack {
                         VStack(alignment: .leading) {
-                            Text("Sign transaction")
+                            Text(viewModel.title)
                                 .foregroundColor(.white)
                                 .font(.satoshi(size: 28, weight: .semibold))
                             Text(viewModel.method)
@@ -45,32 +45,60 @@ struct SessionRequestView: View {
                                 .padding(.bottom, 16)
                         }
                         
-                        if viewModel.message != "[:]" {
-                            authRequestView()
+                        switch viewModel.requestType {
+                            case .signMessage, .simpleTransfer, .signAndSend:
+                                if viewModel.message != "[:]" {
+                                    authRequestView()
+                                }
+                            case .verifiablePresentation:
+                                if let requestModel = viewModel.requestModel as? VerifiablePresentationRequestModel {
+                                    VerifiablePresentationRequestParamsView(viewModel: requestModel)
+                                } else {
+                                    EmptyView()
+                                }
+                            case .none:
+                                EmptyView()
                         }
                     }
                     .frame(minHeight: 100)
-                    .overlay {
-                        if let error = viewModel.error {
-                            ZStack {
-                                Text(error.errorMessage)
-                                    .multilineTextAlignment(.center)
-                            }
-                            .padding()
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .background(.thinMaterial)
-                            .cornerRadius(24)
-                        }
-                    }
                     
-                    if let errorText = viewModel.errorText {
-                        VStack {
-                            Text("qrtransactiondata.error.title".localized)
-                                .foregroundColor(Pallette.error)
-                                .font(.system(size: 17, weight: .bold, design: .rounded))
-                            Text(errorText)
+                    if let error = viewModel.error {
+                        VStack(spacing: 8) {
+                            switch error {
+                            case .environmentMismatch:
+                                Text("walletconnect.error.environmentMismatch".localized)
+                                    .foregroundColor(Pallette.error)
+                                    .font(.system(size: 17, weight: .bold, design: .rounded))
+                            case .accountNotFound, .accountMissmatch:
+                                Text("walletconnect.error.accountMismatch".localized)
+                                    .foregroundColor(Pallette.error)
+                                    .font(.system(size: 17, weight: .bold, design: .rounded))
+                            case .noValidWCSession:
+                                Text("walletconnect.error.invalidSession".localized)
+                                    .foregroundColor(Pallette.error)
+                                    .font(.system(size: 17, weight: .bold, design: .rounded))
+                            case .invalidRequestMethod:
+                                Text("walletconnect.error.invalidMethod".localized)
+                                    .foregroundColor(Pallette.error)
+                                    .font(.system(size: 17, weight: .bold, design: .rounded))
+                            case .invalidRequestPayload:
+                                Text("walletconnect.error.invalidPayload".localized)
+                                    .foregroundColor(Pallette.error)
+                                    .font(.system(size: 17, weight: .bold, design: .rounded))
+                            case .unSupportedRequestMethod:
+                                Text("walletconnect.error.unsupportedMethod".localized)
+                                    .foregroundColor(Pallette.error)
+                                    .font(.system(size: 17, weight: .bold, design: .rounded))
+                            case .generic:
+                                Text("walletconnect.error.title.generic".localized)
+                                    .foregroundColor(Pallette.error)
+                                    .font(.system(size: 17, weight: .bold, design: .rounded))
+                            }
+
+                            Text(error.errorMessage)
                                 .foregroundColor(Pallette.errorText)
                                 .font(.system(size: 15, weight: .semibold, design: .rounded))
+                                .multilineTextAlignment(.center)
                         }
                         .padding(.top, 12)
                     }
@@ -137,7 +165,8 @@ struct SessionRequestView: View {
                 
                 VStack(spacing: 0) {
                     ScrollView {
-                        Text(viewModel.message)
+                        let content = try! AttributedString(markdown: viewModel.message)
+                        Text(content)
                             .foregroundColor(.white)
                             .font(.satoshi(size: 13, weight: .medium))
                     }

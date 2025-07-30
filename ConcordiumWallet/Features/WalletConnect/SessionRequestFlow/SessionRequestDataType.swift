@@ -6,45 +6,32 @@
 //  Copyright © 2024 pioneeringtechventures. All rights reserved.
 //
 
+import Concordium
 import Foundation
 import ReownWalletKit
-
-struct SessionRequestType: Codable {
-    let type: TransferType
-    
-    enum CodingKeys: String, CodingKey {
-        case type
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        // Decode 'type' field into TransferType.
-        let typeStr = try container.decode(String.self, forKey: .type)
-        if typeStr == "Update" {
-            // For backwards compatibility with older versions of @concordium/wallet-connectors.
-            type = TransferType.transferUpdate
-        } else if typeStr == "transfer" {
-            type = TransferType.simpleTransfer
-        } else if let t = TransferType(rawValue: typeStr) {
-            type = t
-        } else {
-            throw DecodingError.dataCorruptedError(forKey: .type, in: container, debugDescription: "Invalid transaction type '\(typeStr)'")
-        }
-    }
-}
-
 
 enum SessionRequestDataType {
     case signMessage(SignMessagePayload)
     case simpleTransfer(SimpleTransferRequestParams)
     case signAndSend(ContractUpdateRequestParams)
+    case verifiablePresentation(WalletConnectRequestVerifiablePresentationParam)
     
-    /// Basically we support two types of incoming wallet connect requests: `sign_message` & `sign_message`
-    /// In case of `sign_message` wee need to determine what king of request is: send or update.
-    /// having this info we can properly map income request data payload
     init(sessionRequest: Request) throws {
         switch sessionRequest.method {
+            case "request_verifiable_presentation":
+                do {
+                    struct ParamsData: Codable {
+                        let paramsJson: String
+                    }
+                    let paramsData = try sessionRequest.params.get(ParamsData.self)
+                    let formatter = ISO8601DateFormatter()
+                    formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+                    let value = try JSONDecoder().decode(WalletConnectRequestVerifiablePresentationParam.self, from: paramsData.paramsJson.data(using: .utf8)!)
+                    
+                    self = .verifiablePresentation(value)
+                } catch {
+                    throw SessionRequstError.unSupportedRequestMethod
+                }
             case "sign_message":
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: sessionRequest.params.value, options: [])

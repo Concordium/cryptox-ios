@@ -8,7 +8,7 @@
 
 import SwiftUI
 import Combine
-import DotLottie
+import Lottie
 
 struct ActionItem: Identifiable {
     let id = UUID()
@@ -36,7 +36,7 @@ struct HomeScreenView: View {
     @State var phrase: [String]?
     @State private var selectedActionId: Int?
     @State private var hasAppearedForTheFirstTime: Bool = false
-    
+    @State private var confettiPlayToken = 0
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowOnrampMessage") private var isShouldShowOnrampMessage = true
     @AppStorage("isShouldShowEarnBanner") private var isShouldShowEarnBanner = true
@@ -91,18 +91,24 @@ struct HomeScreenView: View {
                     isCreatingAccount = false
                 }
             }
-            .overlay(content: {
-                if viewModel.state == .accounts && !UserDefaults.standard.bool(forKey: hasShownAnimationKey) {
-                    DotLottieAnimation(fileName: "confettiAnimation", config: AnimationConfig(autoplay: true, loop: false)).view()
-                        .allowsHitTesting(false)
-                        .opacity(!UserDefaults.standard.bool(forKey: hasShownAnimationKey) ? 1 : 0)
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.9) {
-                                UserDefaults.standard.set(true, forKey: hasShownAnimationKey)
-                            }
+            .overlay {
+                if viewModel.state == .accounts, !UserDefaults.standard.bool(forKey: hasShownAnimationKey) {
+
+                    LottiePlayer(
+                        name: "confettiAnimation",
+                        loopMode: .playOnce,
+                        playToken: confettiPlayToken,
+                        scale: 1.3
+                    )
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .allowsHitTesting(false)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.9) {
+                            UserDefaults.standard.set(true, forKey: hasShownAnimationKey)
                         }
+                    }
                 }
-            })
+            }
             .onChange(of: viewModel.selectedAccount) { _ in
                 changeAccountDetailViewModel()
             }
