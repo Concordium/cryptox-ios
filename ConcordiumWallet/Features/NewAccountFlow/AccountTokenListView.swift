@@ -22,13 +22,12 @@ struct AccountTokenListView: View {
     @Binding var path: [NavigationPaths]
     @State private var selectedAccountID: Int?
     @State private var managePressed: Bool = false
-    @State private var hideTokenID: Int?
-    
+    @State private var hideTokenID: String?
     var pressedButtonColor: Color {
         managePressed ? Color.buttonPressed : .greyAdditional
     }
     var mode: TokenListMode
-    var onHideToken: ((CIS2Token) -> Void)?
+    var onHideToken: ((AccountDetailAccount) -> Void)?
     var euroAmount: String?
 
     var body: some View {
@@ -78,7 +77,7 @@ struct AccountTokenListView: View {
     }
     
     func tokenListViewCell(account: AccountDetailAccount) -> some View {
-        HStack(alignment: .center, spacing: 17) {
+        HStack(alignment: .center, spacing: 8) {
             switch account {
             case .ccd(let amount):
                 Image("ccd")
@@ -120,13 +119,13 @@ struct AccountTokenListView: View {
                 if mode == .manage {
                     Text("Hide token")
                         .font(.satoshi(size: 12, weight: .medium))
-                        .foregroundStyle(hideTokenID == token.id ? .buttonPressed : Color.MineralBlue.blueish2)
+                        .foregroundStyle(hideTokenID == token.id.string ? .buttonPressed : Color.MineralBlue.blueish2)
                         .opacity(account.name == "ccd" ? 0 : 1)
                         .onTapGesture {
-                            hideTokenID = token.id
+                            hideTokenID = token.id.string
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                                 hideTokenID = nil
-                                onHideToken?(token)
+                                onHideToken?(account)
                             }
                         }
                 }
@@ -138,13 +137,32 @@ struct AccountTokenListView: View {
                     .frame(width: 40, height: 40)
                 Text(token.token.tokenState.moduleState.name)
                     .foregroundColor(.white)
-                    .lineLimit(1)
+                    .lineLimit(0)
                     .font(.satoshi(size: 15, weight: .medium))
+                if token.token.tokenState.moduleState.denyList || !token.token.tokenState.moduleState.allowList {
+                    Image("circled-x-block-deny")
+                        .renderingMode(.template)
+                        .foregroundColor(.accentSecondary)
+                }
                 Spacer()
-                Text(amount)
-                    .foregroundColor(.white)
-                    .font(.satoshi(size: 15, weight: .medium))
-                    .opacity(mode == .normal ? 1 : 0)
+                if mode == .normal {
+                    Text(amount)
+                        .foregroundColor(.white)
+                        .font(.satoshi(size: 15, weight: .medium))
+                }
+                if mode == .manage {
+                    Text("Hide token")
+                        .font(.satoshi(size: 12, weight: .medium))
+                        .foregroundStyle(hideTokenID == token.token.tokenID ? .buttonPressed : Color.MineralBlue.blueish2)
+                        .opacity(account.name == "ccd" ? 0 : 1)
+                        .onTapGesture {
+                            hideTokenID = token.token.tokenID
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                hideTokenID = nil
+                                onHideToken?(account)
+                            }
+                        }
+                }
             }
             if mode == .normal {
                 Image("caretRight")
@@ -313,12 +331,33 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
         })
     }
     
-    func removeToken(_ token: CIS2Token) {
-        guard let account else { return }
+    func removeToken(_ token: AccountDetailAccount) {
+        guard let accountAddress = account?.address else { return }
+        switch token {
+        case .token(let token, _):
+            removeCIS2Token(token: token, accountAddress: accountAddress)
+        case .plt(let token, _):
+            removePLTToken(token: token, accountAddress: accountAddress)
+        default:
+            break
+        }
+    }
+    
+    private func removeCIS2Token(token: CIS2Token, accountAddress: String) {
         do {
-            try storageManager.removeCIS2Token(token: token, address: account.address)
+            try storageManager.removeCIS2Token(token: token, address: accountAddress)
         } catch {
             logger.debugLog(error.localizedDescription)
+        }
+    }
+    
+    private func removePLTToken(token: PLTToken, accountAddress: String) {
+        Task {
+            do {
+                try await CoreDataPLTStore.shared.deleteToken(tokenId: token.token.tokenID, accountAddress: accountAddress)
+            } catch {
+                logger.debugLog(error.localizedDescription)
+            }
         }
     }
 }
