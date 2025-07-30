@@ -355,7 +355,6 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
         Task {
             do {
                 try await CoreDataPLTStore.shared.deleteToken(tokenId: token.token.tokenID, accountAddress: accountAddress)
-                print("✅ Token deleted")
             } catch {
                 logger.debugLog(error.localizedDescription)
             }
