@@ -30,7 +30,7 @@ struct AddTokenView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
-            Text("Enter a contract index to add tokens.")
+            Text("Enter the token name or contract index to search for tokens.")
                 .font(.satoshi(size: 14, weight: .medium))
                 .foregroundStyle(Color.MineralBlue.blueish3)
                 .opacity(0.5)
@@ -38,7 +38,7 @@ struct AddTokenView: View {
             
             HStack {
                 VStack(alignment: .leading, spacing: 5) {
-                    Text("Contract index")
+                    Text("Token name or contract index")
                         .font(.satoshi(size: 12, weight: .medium))
                         .foregroundStyle(Color.MineralBlue.blueish3)
                         .opacity(0.5)
@@ -48,12 +48,11 @@ struct AddTokenView: View {
                         .font(.system(size: 16))
                         .tint(.white)
                         .focused($isContractIdTextFieldFocused)
-                        .keyboardType(.numberPad)
                         .onChange(of: contractIndex) { value in
                             handleContractIndexSearch(value)
                         }
                         .onSubmit {
-                            searchTokenViewModel.runSearch(contractIndex: Int(contractIndex) ?? 0)
+                            searchTokenViewModel.runSearch(contractIndex, contractIndex: Int(contractIndex) ?? 0)
                         }
                 }
                 Image(systemName: !contractIndex.isEmpty ? "xmark" : "magnifyingglass")
@@ -80,7 +79,7 @@ struct AddTokenView: View {
                     .cornerRadius(12)
             )
             
-            if viewModel.tokens.count > 1 {
+            if viewModel.tokens.cis2.count > 1 {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     HStack {
                         VStack(alignment: .leading, spacing: 5) {
@@ -175,8 +174,8 @@ struct AddTokenView: View {
     
     private func handleContractIndexSearch(_ value: String) {
         Task {
-            if !value.isEmpty && value.count > 3 {
-                viewModel.tokens = []
+            if !value.isEmpty && value.count > 1 {
+                viewModel.tokens.clearAll()
                 withAnimation(.easeInOut) {
                     isEnteredNumbers = true
                 }
@@ -199,7 +198,7 @@ struct AddTokenView: View {
             ProgressView()
                 .frame(width: proxy.size.width, height: proxy.size.height)
         case .found(let tokens):
-            if tokens.isEmpty {
+            if tokens.totalTokensCount() == 0 {
                 SearchTokenFullscreenText(text: "This contract has no tokens", proxy: proxy)
             } else {
                 tokenListView(tokens, proxy)
@@ -210,18 +209,18 @@ struct AddTokenView: View {
     @ViewBuilder
     private func AllTokensListView(_ proxy: GeometryProxy) -> some View {
         Group {
-            if !viewModel.tokens.isEmpty && !viewModel.isLoading {
+            if viewModel.tokens.totalTokensCount() > 1 && !viewModel.isLoading {
                 tokenListView(viewModel.tokens, proxy)
             }
         }
     }
     
     @ViewBuilder
-    private func tokenListView(_ tokens: [CIS2Token], _ proxy: GeometryProxy) -> some View {
+    private func tokenListView(_ tokens: UnifiedTokensResult, _ proxy: GeometryProxy) -> some View {
         ScrollViewReader { scrollProxy in
             ScrollView {
                 LazyVStack(spacing: 4) {
-                    ForEach(tokens, id: \.tokenId) { token in
+                    ForEach(tokens.allTokens) { token in
                         tokenCell(token, scrollProxy: scrollProxy)
                     }
                     .refreshable {
@@ -246,36 +245,38 @@ struct AddTokenView: View {
     }
     
     @ViewBuilder
-    private func tokenCell(_ token: CIS2Token, scrollProxy: ScrollViewProxy) -> some View {
-        TokenView(token: token,
-                  isSelected: (viewModel.selectedToken == token || viewModel.isTokenAlreadyImported(tokenId: token.tokenId))) {
-            withAnimation(Animation.easeInOut(duration: 0.3)) {
-                guard !viewModel.isTokenAlreadyImported(tokenId: token.tokenId) else { return }
-                if viewModel.selectedToken == token {
-                    viewModel.selectedToken = nil
-                } else {
-                    viewModel.selectedToken = token
+    private func tokenCell(_ token: UnifiedToken, scrollProxy: ScrollViewProxy) -> some View {
+        let isAlreadyImported = viewModel.isTokenAlreadyImported(tokenId: token.id)
+        let isSelected = (viewModel.selectedToken == token || isAlreadyImported)
+
+        TokenView(token: token, isSelected: isSelected) {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                guard !isAlreadyImported else { return }
+                viewModel.selectedToken = (viewModel.selectedToken == token) ? nil : token
+            }
+        }
+        .id(token.id)
+        .background(selectedTokenId == token.id ? Color.selectedCell : Color.grey3.opacity(0.3))
+        .cornerRadius(12)
+        .onTapGesture {
+            selectedTokenId = token.id
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                selectedTokenId = nil
+                path.append(.addTokenDetails(token: AccountDetailAccount.token(token: token, amount: "")))
+            }
+        }
+        .onAppear {
+            if viewModel.isLastToken(token), tokenId.isEmpty {
+                Task {
+                    await MainActor.run {
+                        withAnimation {
+                            viewModel.loadMore()
+                        }
+                        scrollProxy.scrollTo(token.tokenId, anchor: .top)
+                    }
                 }
             }
         }
-                  .background(selectedTokenId == token.tokenId ? .selectedCell : .grey3.opacity(0.3))
-                  .cornerRadius(12)
-                  .onTapGesture {
-                      selectedTokenId = token.tokenId
-                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                          selectedTokenId = nil
-                          path.append(.addTokenDetails(token: AccountDetailAccount.token(token: token, amount: "")))
-                      }
-                  }
-                  .onAppear {
-                      if token == viewModel.tokens.last && tokenId.isEmpty {
-                          withAnimation {
-                              viewModel.loadMore()
-                          }
-                          // Restore scroll position
-                          scrollProxy.scrollTo(token.tokenId, anchor: .top)
-                      }
-                  }
     }
     
     private func resetToContractSearch() {
@@ -283,7 +284,7 @@ struct AddTokenView: View {
             showingTokenIdView = false
             showTokenDetailView = false
             viewModel.selectedToken = nil
-            viewModel.tokens = []
+            viewModel.tokens.clearAll()
             tokenId = ""
         }
     }

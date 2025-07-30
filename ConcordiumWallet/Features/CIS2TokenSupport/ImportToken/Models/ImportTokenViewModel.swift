@@ -11,9 +11,9 @@ import SwiftUI
 @MainActor
 final class ImportTokenViewModel: ObservableObject {
     @State var accountSavedCIS2Tokens: [CIS2Token]
-    @Published var tokens: [CIS2Token] = []
+    @Published var tokens: UnifiedTokensResult = UnifiedTokensResult(cis2: [], plt: [])
     @Published var searchResultToken: CIS2Token?
-    @Published var selectedToken: CIS2Token?
+    @Published var selectedToken: UnifiedToken?
     @Published var error: ImportTokenError?
     @Published var isLoading: Bool = false
     @Published var hasMore: Bool = true
@@ -28,26 +28,67 @@ final class ImportTokenViewModel: ObservableObject {
     private var contractIndex: Int?
     
     private let cis2Service: CIS2Service
+    private let pltService: PLTTokenService
+    private let tokenFetcher: TokenFetcher
     
     init(storageManager: StorageManagerProtocol, networkManager: NetworkManagerProtocol, account: AccountDataType) {
         self.storageManager = storageManager
         self.networkManager = networkManager
         self.account = account
         self.cis2Service = CIS2Service(networkManager: networkManager, storageManager: storageManager)
-        
+        self.pltService = PLTTokenService(networkManager: networkManager, storageManager: storageManager)
+        self.tokenFetcher = TokenFetcher(pltTokenService: pltService, cis2Service: cis2Service)
         logger.debugLog("savedTokens: -- \(self.storageManager.getAccountSavedCIS2Tokens(account.address))")
         _accountSavedCIS2Tokens = State(initialValue: storageManager.getAccountSavedCIS2Tokens(account.address))
     }
     
     func search(name: String) async {
-        do {
-            guard let index = Int(name) else { return }
-            allContractTokens = try await cis2Service.fetchTokens(contractIndex: name).tokens.map(\.token)
-            contractIndex = index
-            loadMore()
-        } catch {
-            logger.errorLog(error.localizedDescription)
+        // Reset state before new search
+        initialSearchState()
+        
+        var newTokens = [String]()
+        
+        async let pltFetch: Result<[String], Error> = {
+            do {
+                let tokens = try await pltService.fetchTokens(for: name)
+                return .success(tokens.map(\.tokenState.moduleState.name))
+            } catch {
+                return .failure(error)
+            }
+        }()
+
+        async let cis2Fetch: Result<[String], Error> = {
+            do {
+                let tokens = try await cis2Service.fetchTokens(contractIndex: name).tokens
+                return .success(tokens.map(\.token))
+            } catch {
+                return .failure(error)
+            }
+        }()
+
+        let pltResult = await pltFetch
+        let cis2Result = await cis2Fetch
+
+        switch pltResult {
+        case .success(let plt):
+            newTokens.append(contentsOf: plt)
+        case .failure(let err):
+            logger.errorLog("PLT error: \(err.localizedDescription)")
         }
+
+        switch cis2Result {
+        case .success(let cis2):
+            newTokens.append(contentsOf: cis2)
+        case .failure(let err):
+            logger.errorLog("CIS2 error: \(err.localizedDescription)")
+        }
+
+        if let tokenContractIndex = Int(name) {
+            contractIndex = tokenContractIndex
+        }
+
+        allContractTokens = newTokens
+        loadMore()
     }
     
     func saveToken(_ token: CIS2Token?) {
@@ -63,37 +104,31 @@ final class ImportTokenViewModel: ObservableObject {
     
     func loadMore() {
         guard !isLoading, hasMore, let contractIndex else { return }
-        
+
         isLoading = true
-        
+
         Task {
-            do {
-                let ids = allContractTokens.dropFirst((currentPage - 1) * batchSize).prefix(batchSize)
-                
-                guard !ids.isEmpty else {
-                    return await MainActor.run {
-                        hasMore = false
-                        isLoading = false
-                    }
-                }
-                
-                let fetchedTokens = try await self.cis2Service.fetchAllTokensData(contractIndex: contractIndex, tokenIds: ids.joined(separator: ","))
-                
-                await MainActor.run {
-                    
-                    if currentPage == 1 {
-                        tokens = fetchedTokens
-                    } else {
-                        tokens += fetchedTokens
-                    }
-                    hasMore = tokens.count < allContractTokens.count
-                    currentPage += 1
+            let ids = Array(allContractTokens.dropFirst((currentPage - 1) * batchSize).prefix(batchSize))
+
+            guard !ids.isEmpty else {
+                return await MainActor.run {
+                    hasMore = false
                     isLoading = false
                 }
-            } catch {
-                await MainActor.run {
-                    isLoading = false
+            }
+
+            let fetchedTokens = await tokenFetcher.fetchAllTokens(for: ids, contractIndex: contractIndex)
+
+            await MainActor.run {
+                if currentPage == 1 {
+                    tokens = fetchedTokens
+                } else {
+                    tokens.addNewTokens(fetchedTokens)
                 }
+
+                hasMore = tokens.totalTokensCount() < allContractTokens.count
+                currentPage += 1
+                isLoading = false
             }
         }
     }
@@ -101,7 +136,7 @@ final class ImportTokenViewModel: ObservableObject {
     func initialSearchState() {
         loadInitial()
         allContractTokens.removeAll()
-        tokens.removeAll()
+        tokens.clearAll()
     }
     
     func loadInitial() {
@@ -113,6 +148,8 @@ final class ImportTokenViewModel: ObservableObject {
     }
     
     func isTokenAlreadyImported(tokenId: String) -> Bool {
-        return accountSavedCIS2Tokens.filter { $0.contractAddress.index == contractIndex }.contains { $0.tokenId == tokenId }
+        let isCIS2TokenSaved = accountSavedCIS2Tokens.filter { $0.contractAddress.index == contractIndex }.contains { $0.tokenId == tokenId }
+        let isPLTTokenSaved = CoreDataPLTStore.shared.isPLTTokenSaved(tokenId: tokenId, for: account.address)
+        return isCIS2TokenSaved || isPLTTokenSaved
     }
 }

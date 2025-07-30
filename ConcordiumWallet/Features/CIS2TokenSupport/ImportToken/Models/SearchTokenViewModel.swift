@@ -10,13 +10,13 @@ import SwiftUI
 
 final class SearchTokenViewModel: ObservableObject {
     enum State {
-        case idle, searching, found([CIS2Token]), error(String)
+        case idle, searching, found(UnifiedTokensResult), error(String)
         
-        var items: [CIS2Token] {
+        var items: UnifiedTokensResult {
             if case .found(let array) = self {
                 return array
             }
-            return []
+            return UnifiedTokensResult(cis2: [], plt: [])
         }
         
         var isSearching: Bool {
@@ -30,9 +30,11 @@ final class SearchTokenViewModel: ObservableObject {
     @Published var state: SearchTokenViewModel.State = .idle
     
     private let cis2Service: CIS2Service
+    private let pltService: PLTTokenService
     
-    init(cis2Service: CIS2Service){
+    init(cis2Service: CIS2Service, pltService: PLTTokenService){
         self.cis2Service = cis2Service
+        self.pltService = pltService
     }
     
     func runSearch(_ tokenIndex: String? = nil, contractIndex: Int) {
@@ -53,14 +55,45 @@ final class SearchTokenViewModel: ObservableObject {
         }
     }
     
-    private func searchTokenData(by tokenId: String? = nil, contractIndex: Int) async throws -> [CIS2Token] {
-        var tokens = [CIS2Token]()
-        do {
-            tokens = try await cis2Service.fetchAllTokensData(contractIndex: contractIndex, tokenIds: tokenId)
-        } catch {
-            logger.errorLog(error.localizedDescription)
+    private func searchTokenData(by tokenId: String? = nil, contractIndex: Int) async -> UnifiedTokensResult {
+        var result = UnifiedTokensResult(cis2: [], plt: [], cis2Error: nil, pltError: nil)
+
+        async let cis2TokensResult: Result<[CIS2Token], Error> = {
+            do {
+                let tokens = try await cis2Service.fetchAllTokensData(contractIndex: contractIndex, tokenIds: tokenId)
+                return .success(tokens)
+            } catch {
+                return .failure(error)
+            }
+        }()
+
+        async let pltTokensResult: Result<[PLTToken], Error> = {
+            guard let tokenId else { return .success([]) }
+            do {
+                let tokens = try await pltService.fetchTokens(for: tokenId)
+                return .success(tokens)
+            } catch {
+                return .failure(error)
+            }
+        }()
+
+        let cis2Result = await cis2TokensResult
+        let pltResult = await pltTokensResult
+
+        switch cis2Result {
+        case .success(let cis2Tokens):
+            result.cis2 = cis2Tokens
+        case .failure(let error):
+            result.cis2Error = TokenFetchingError.fetchFailed(reason: error.localizedDescription)
         }
-        return tokens
-        
+
+        switch pltResult {
+        case .success(let pltTokens):
+            result.plt = pltTokens
+        case .failure(let error):
+            result.pltError = TokenFetchingError.fetchFailed(reason: error.localizedDescription)
+        }
+
+        return result
     }
 }

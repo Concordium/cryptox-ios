@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct TokenView: View {
-    let token: CIS2Token
+    let token: UnifiedToken
     @State var isSelected: Bool
     let onCheckMarkTapGesture: () -> Void
     

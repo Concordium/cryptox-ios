@@ -290,7 +290,7 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
         do {
             let pltTokens = try CoreDataPLTStore.shared.fetchTokens(for: account.address)
             pltTokens.forEach { token in
-                guard let pltToken = PLTToken.makeToken(from: token) else { return }
+                guard let pltToken = AccountPLTToken.makeToken(from: token) else { return }
                 let accDetailAccount = AccountDetailAccount.plt(token: pltToken, amount: TokenFormatter().plainString(from: BigDecimal(BigInt(stringLiteral: pltToken.tokenAccountState.balance.value), pltToken.tokenAccountState.balance.decimals)))
                 self.accounts.append(accDetailAccount)
             }
@@ -351,7 +351,7 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
         }
     }
     
-    private func removePLTToken(token: PLTToken, accountAddress: String) {
+    private func removePLTToken(token: AccountPLTToken, accountAddress: String) {
         Task {
             do {
                 try await CoreDataPLTStore.shared.deleteToken(tokenId: token.token.tokenID, accountAddress: accountAddress)

@@ -18,11 +18,15 @@ extension CIS2Token: Identifiable {
     var id: Int { tokenId.hashValue ^ metadata.decimals.hashValue ^ contractName.hashValue }
 }
 
-struct CIS2Token: Codable {
+struct CIS2Token: Codable, UnifiedTokensProtocol {
     public let tokenId: String
     public let metadata: CIS2TokenMetadata
     public let contractAddress: SmartContractAddress
     public let contractName: String
+    
+    var uniTokenId: String {
+        return tokenId
+    }
     
     public init(tokenId: String, metadata: CIS2TokenMetadata, contractAddress: SmartContractAddress, contractName: String) {
         self.tokenId = tokenId

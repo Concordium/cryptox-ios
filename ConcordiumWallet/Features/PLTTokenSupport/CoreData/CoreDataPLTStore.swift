@@ -22,7 +22,7 @@ final class CoreDataPLTStore {
         }
     }
 
-    func saveTokens(_ tokens: [PLTToken], for accountAddress: String) -> AnyPublisher<Void, Error> {
+    func saveTokens(_ tokens: [AccountPLTToken], for accountAddress: String) -> AnyPublisher<Void, Error> {
         Future { promise in
             CoreDataPLTStore.shared.container.performBackgroundTask { context in
                 do {
@@ -39,7 +39,7 @@ final class CoreDataPLTStore {
         .eraseToAnyPublisher()
     }
     
-    private func saveAccountTokens(_ tokens: [PLTToken], accountAddress: String, context: NSManagedObjectContext) throws {
+    private func saveAccountTokens(_ tokens: [AccountPLTToken], accountAddress: String, context: NSManagedObjectContext) throws {
         for model in tokens {
             try upsertPLTToken(model, accountAddress: accountAddress, context: context)
         }
@@ -47,7 +47,7 @@ final class CoreDataPLTStore {
         try context.save()
     }
     
-    private func upsertPLTToken(_ model: PLTToken, accountAddress: String, context: NSManagedObjectContext) throws {
+    private func upsertPLTToken(_ model: AccountPLTToken, accountAddress: String, context: NSManagedObjectContext) throws {
         let request: NSFetchRequest<PLTTokenEntity> = PLTTokenEntity.fetchRequest()
         request.predicate = NSPredicate(format: "token.tokenId == %@ AND accountAddress == %@", model.token.tokenID, accountAddress)
         request.fetchLimit = 1
@@ -145,6 +145,21 @@ final class CoreDataPLTStore {
                     continuation.resume(throwing: error)
                 }
             }
+        }
+    }
+    
+    func isPLTTokenSaved(tokenId: String, for address: String) -> Bool {
+        let context = container.viewContext
+        let fetchRequest: NSFetchRequest<PLTTokenEntity> = PLTTokenEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "token.tokenId == %@ AND accountAddress == %@", tokenId, address)
+        fetchRequest.fetchLimit = 1
+
+        do {
+            let count = try context.count(for: fetchRequest)
+            return count > 0
+        } catch {
+            logger.errorLog("Failed to check token: \(error.localizedDescription)")
+            return false
         }
     }
 }

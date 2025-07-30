@@ -379,10 +379,10 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
         
         var savedBalance: AccountBalance?
         return getAccountBalance(for: account.address)
-            .map { balance -> (AccountBalance, [PLTToken]) in
+            .map { balance -> (AccountBalance, [AccountPLTToken]) in
                 let tokens = (balance.balance?.accountTokens ?? []).map { token in
-                    PLTToken(
-                        token: Token(
+                    AccountPLTToken(
+                        token: PLTToken(
                             tokenID: token.token.tokenID,
                             tokenState: TokenState(
                                 decimals: token.token.tokenState.decimals,
