@@ -15,18 +15,22 @@ struct TokenView: View {
     
     var body: some View {
         HStack {
-            if let url = token.metadata.thumbnail?.url {
-                CryptoImage(url: url.toURL, size: .medium)
-                    .clipped()
+            switch token {
+            case .cis2(let cIS2Token):
+                if let url = cIS2Token.metadata.thumbnail?.url {
+                    CryptoImage(url: url.toURL, size: .medium)
+                        .clipped()
+                }
+            case .plt( _):
+                Image("placeholder-crypto-token")
+                    .resizable()
+                    .clipShape(Circle())
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 40, height: 40)
             }
-            VStack(spacing: 8) {
-                Text(token.metadata.name ?? "")
+                Text(token.name)
                     .font(.satoshi(size: 15, weight: .medium))
                     .foregroundStyle(.white)
-                Text(token.tokenId)
-                    .font(.satoshi(size: 15, weight: .medium))
-                    .foregroundStyle(.white)
-            }
             Spacer()
             
             RoundedSquareView(needToFill: $isSelected)
@@ -66,7 +70,7 @@ struct RoundedSquareView: View {
 }
 
 #Preview(body: {
-    TokenView(token: CIS2Token(entity: CIS2TokenEntity()), isSelected: false) {
+    TokenView(token: UnifiedToken.cis2(CIS2Token(entity: CIS2TokenEntity())), isSelected: false) {
         
     }
 })

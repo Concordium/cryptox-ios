@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum UnifiedToken: Identifiable, Equatable {
+enum UnifiedToken: Identifiable, Equatable, Hashable {
     case cis2(CIS2Token)
     case plt(PLTToken)
 
@@ -18,33 +18,58 @@ enum UnifiedToken: Identifiable, Equatable {
         case .plt(let token): return token.tokenID
         }
     }
+    
+    var name: String {
+        switch self {
+        case .cis2(let token): return token.metadata.name ?? ""
+        case .plt(let token): return token.tokenState.moduleState.name
+        }
+    }
 }
 
-struct UnifiedTokensResult {
-    var cis2: [CIS2Token]
-    var plt: [PLTToken]
+class UnifiedTokensResult {
+    var tokens: [UnifiedToken]
     var cis2Error: TokenFetchingError?
     var pltError: TokenFetchingError?
     
-    mutating func clearAll() {
-        cis2.removeAll()
-        plt.removeAll()
+    init(tokens: [UnifiedToken] = [], cis2Error: TokenFetchingError? = nil, pltError: TokenFetchingError? = nil) {
+        self.tokens = tokens
+        self.cis2Error = cis2Error
+        self.pltError = pltError
+    }
+    
+    func clearAll() {
+        tokens.removeAll()
         cis2Error = nil
         pltError = nil
     }
     
-    mutating func addNewTokens(_ newTokens: UnifiedTokensResult) {
-        cis2.append(contentsOf: newTokens.cis2)
-        plt.append(contentsOf: newTokens.plt)
+    func addNewTokens(cis2Tokens: [CIS2Token], pltTokens: [PLTToken]) {
+        let newCIS2 = cis2Tokens.map { UnifiedToken.cis2($0) }
+        let newPLT = pltTokens.map { UnifiedToken.plt($0) }
+        tokens.append(contentsOf: newCIS2 + newPLT)
     }
     
-    func totalTokensCount() -> Int {
-        return cis2.count + plt.count
+    var cis2Tokens: [CIS2Token] {
+        tokens.compactMap {
+            if case let .cis2(token) = $0 { token } else { nil }
+        }
+    }
+    
+    var pltTokens: [PLTToken] {
+        tokens.compactMap {
+            if case let .plt(token) = $0 { token } else { nil }
+        }
     }
 }
 
-extension UnifiedTokensResult {
-    var allTokens: [UnifiedToken] {
-        cis2.map { UnifiedToken.cis2($0) } + plt.map { UnifiedToken.plt($0) }
+extension UnifiedToken {
+    func toAccountDetailAccount() -> AccountDetailAccount {
+        switch self {
+        case .cis2(let token):
+            return AccountDetailAccount.token(token: token, amount: "")
+        case .plt(let pltToken):
+            return AccountDetailAccount.plt(token: AccountPLTToken(token: pltToken, tokenAccountState: TokenAccountState(balance: TokenBalance(decimals: 2, value: ""), state: TokenBalanceState(denyList: false))), amount: "")
+        }
     }
 }

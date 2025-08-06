@@ -63,13 +63,13 @@ struct AccountTokenListView: View {
         }
         .refreshable {
             await viewModel.reload()
-            viewModel.reloadPLTs()
+            await viewModel.reloadPLTs()
         }
         .onAppear {
             Task {
                 await viewModel.reload()
+                await viewModel.reloadPLTs()
             }
-            viewModel.reloadPLTs()
         }
         .onAppear {
             showManageTokenList = false
@@ -281,19 +281,29 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
     }
     
     @MainActor
-    func reloadPLTs() {
+    func reloadPLTs() async {
         guard let account else { return }
         self.accounts.removeAll { account in
             if case .plt = account { return true }
             return false
         }
+        let pltService = PLTTokenService(networkManager: self.dependencyProvider.networkManager(), storageManager: storageManager)
+
         do {
-            let pltTokens = try CoreDataPLTStore.shared.fetchTokens(for: account.address)
-            pltTokens.forEach { token in
-                guard let pltToken = AccountPLTToken.makeToken(from: token) else { return }
-                let accDetailAccount = AccountDetailAccount.plt(token: pltToken, amount: TokenFormatter().plainString(from: BigDecimal(BigInt(stringLiteral: pltToken.tokenAccountState.balance.value), pltToken.tokenAccountState.balance.decimals)))
-                self.accounts.append(accDetailAccount)
+            let pltTokens = try CoreDataPLTStore.shared.fetchPLTTokens(for: account.address)
+            let pltTokenBalances = try await pltService.fetchTokenBalances(for: account.address)
+
+            let tmpTokens: [AccountDetailAccount] = pltTokens.compactMap { token -> AccountDetailAccount? in
+                let tokenBalance = pltTokenBalances.first(where: { $0.key == token.tokenId })
+                let fallbackTokenBalance =  TokenAccountState(balance: TokenBalance(decimals: Int(token.tokenState.decimals), value: "0"), state: TokenBalanceState(denyList: nil))
+                if let accountPLTToken = token.asPLTToken() {
+                    let pltToken = AccountPLTToken(token: accountPLTToken, tokenAccountState: tokenBalance?.value ?? fallbackTokenBalance)
+                    let accDetailAccount = AccountDetailAccount.plt(token: pltToken, amount: TokenFormatter().plainString(from: BigDecimal(BigInt(stringLiteral: pltToken.tokenAccountState.balance.value), pltToken.tokenAccountState.balance.decimals)))
+                    return accDetailAccount
+                }
+                return nil
             }
+            self.accounts.append(contentsOf: tmpTokens)
         } catch { }
     }
     

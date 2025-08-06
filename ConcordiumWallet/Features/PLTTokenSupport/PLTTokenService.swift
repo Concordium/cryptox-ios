@@ -83,4 +83,14 @@ extension PLTTokenService {
 
         return results
     }
+    
+    func fetchTokenBalances(for accountAddress: String) async throws -> [String: TokenAccountState] {
+        let totalAccountBalance: AccountBalance = try await networkManager.load(ResourceRequest(url: ApiConstants.accountBalance.appendingPathComponent(accountAddress)))
+        let pltTokenBalance: [String: TokenAccountState] = totalAccountBalance.balance?.accountTokens?.reduce(into: [:]) { result, token in
+            let state = token.tokenAccountState
+            let key = token.token.tokenID
+            result[key] = state
+        } ?? [:]
+        return pltTokenBalance
+    }
 }

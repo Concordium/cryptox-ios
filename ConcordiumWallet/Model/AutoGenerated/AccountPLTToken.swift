@@ -11,11 +11,8 @@ struct AccountPLTToken: Codable, Equatable, Hashable {
     let tokenAccountState: TokenAccountState
 }
 
-struct PLTToken: Codable, Equatable, Hashable, UnifiedTokensProtocol {
-    var uniTokenId: String {
-        return tokenID
-    }
-    
+struct PLTToken: Codable, Equatable, Hashable {
+
     let tokenID: String
     let tokenState: TokenState
 
@@ -59,35 +56,32 @@ struct TokenAccountState: Codable, Equatable, Hashable {
 }
 
 struct TokenBalanceState: Codable, Equatable, Hashable {
-    let denyList: Bool
+    let denyList: Bool?
 }
 
 extension AccountPLTToken {
 
     /// Builds a value-type `PLTToken` from a Core Data `PLTTokenEntity`.
-    /// - Note:  If any required relationship is missing the function returns `nil`.
-    static func makeToken(from entity: PLTTokenEntity) -> AccountPLTToken? {
+    static func makeToken(from entity: AccountPLTTokenEntity) -> AccountPLTToken {
 
         // MARK: - unwrap the object graph (fail fast if critical links are nil)
-        guard
-            let tokenObj                 = entity.token,
-            let tokenStateObj            = tokenObj.tokenState,
-            let moduleStateObj           = tokenStateObj.moduleState,
-            let governanceObj            = moduleStateObj.governanceAccount,
-            let metadataObj              = moduleStateObj.metadata,
-            let totalSupplyObj           = tokenStateObj.totalSupply,
-            let accountStateObj          = entity.tokenAccountState,
-            let balanceObj               = accountStateObj.balance,
-            let stateObj                 = accountStateObj.state
-        else { return nil } // your model is incomplete – decide how to handle this
+        let tokenObj = entity.token
+        let tokenStateObj = tokenObj.tokenState
+        let moduleStateObj = tokenStateObj.moduleState
+        let governanceObj = moduleStateObj.governanceAccount
+        let metadataObj = moduleStateObj.metadata
+        let totalSupplyObj = tokenStateObj.totalSupply
+        let accountStateObj = entity.tokenAccountState
+        let balanceObj = accountStateObj.balance
+        let stateObj = accountStateObj.state
 
         // MARK: - leaf structs
         let governance = GovernanceAccount(
-            address: governanceObj.address ?? "",
-            type:    governanceObj.type ?? ""
+            address: governanceObj.address,
+            type:    governanceObj.type
         )
 
-        let metadata = TokenMetadata(url: metadataObj.url ?? "")
+        let metadata = TokenMetadata(url: metadataObj.url)
 
         let moduleState = ModuleState(
             allowList:       moduleStateObj.allowList,
@@ -96,7 +90,7 @@ extension AccountPLTToken {
             governanceAccount: governance,
             metadata:        metadata,
             mintable:        moduleStateObj.mintable,
-            name:            moduleStateObj.name ?? ""
+            name:            moduleStateObj.name
         )
 
         let totalSupply = TokenBalance(
@@ -107,7 +101,7 @@ extension AccountPLTToken {
         let tokenState = TokenState(
             decimals:       Int(tokenStateObj.decimals),
             moduleState:    moduleState,
-            tokenModuleRef: tokenStateObj.tokenModuleRef ?? "",
+            tokenModuleRef: tokenStateObj.tokenModuleRef,
             totalSupply:    totalSupply
         )
 
@@ -116,13 +110,13 @@ extension AccountPLTToken {
             value:    balanceObj.value ?? "0"
         )
 
-        let state = TokenBalanceState(denyList: stateObj.denyList)
+        let state = TokenBalanceState(denyList: stateObj?.denyList)
 
         let tokenAccountState = TokenAccountState(balance: balance, state: state)
 
         // MARK: - root structs
         let token = PLTToken(
-            tokenID:    tokenObj.tokenId ?? "",
+            tokenID:    tokenObj.tokenId,
             tokenState: tokenState
         )
 

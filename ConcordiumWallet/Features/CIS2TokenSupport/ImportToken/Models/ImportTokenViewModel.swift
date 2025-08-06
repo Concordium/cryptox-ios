@@ -7,11 +7,12 @@
 //
 
 import SwiftUI
+import Combine
 
 @MainActor
 final class ImportTokenViewModel: ObservableObject {
     @State var accountSavedCIS2Tokens: [CIS2Token]
-    @Published var tokens: UnifiedTokensResult = UnifiedTokensResult(cis2: [], plt: [])
+    @Published var tokens: UnifiedTokensResult?
     @Published var searchResultToken: CIS2Token?
     @Published var selectedToken: UnifiedToken?
     @Published var error: ImportTokenError?
@@ -30,7 +31,8 @@ final class ImportTokenViewModel: ObservableObject {
     private let cis2Service: CIS2Service
     private let pltService: PLTTokenService
     private let tokenFetcher: TokenFetcher
-    
+    private var cancellables = Set<AnyCancellable>()
+
     init(storageManager: StorageManagerProtocol, networkManager: NetworkManagerProtocol, account: AccountDataType) {
         self.storageManager = storageManager
         self.networkManager = networkManager
@@ -91,14 +93,38 @@ final class ImportTokenViewModel: ObservableObject {
         loadMore()
     }
     
-    func saveToken(_ token: CIS2Token?) {
+    func saveToken(_ token: UnifiedToken?) {
         guard let token = token else { return }
-        guard !storageManager.getAccountSavedCIS2Tokens(account.address).contains(token) else { return }
-        
-        do {
-            try storageManager.storeCIS2Token(token: token, address: account.address)
-        } catch {
-            logger.errorLog(error.localizedDescription)
+        saveToken(token)
+    }
+    
+    private func saveToken(_ token: UnifiedToken) {
+        switch token {
+        case .cis2(let cis2Token):
+            guard !storageManager.getAccountSavedCIS2Tokens(account.address).contains(cis2Token) else { return }
+            
+            do {
+                try storageManager.storeCIS2Token(token: cis2Token, address: account.address)
+            } catch {
+                logger.errorLog(error.localizedDescription)
+            }
+        case .plt(let pltToken):
+            guard !CoreDataPLTStore.shared.isPLTTokenSaved(tokenId: pltToken.tokenID, for: account.address) else {
+                return
+            }
+            let tokenAccountState = TokenAccountState(balance: TokenBalance(decimals: pltToken.tokenState.decimals, value: ""), state: TokenBalanceState(denyList: nil))
+            let accountPLTToken = AccountPLTToken(token: pltToken, tokenAccountState: tokenAccountState)
+            CoreDataPLTStore.shared.saveTokens([accountPLTToken], for: account.address)
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { completion in
+                    switch completion {
+                    case .finished:
+                        break
+                    case .failure(_):
+                        self.error = .tokeSaveFailed
+                    }
+                }, receiveValue: {})
+                .store(in: &cancellables)
         }
     }
     
@@ -123,10 +149,10 @@ final class ImportTokenViewModel: ObservableObject {
                 if currentPage == 1 {
                     tokens = fetchedTokens
                 } else {
-                    tokens.addNewTokens(fetchedTokens)
+                    tokens?.addNewTokens(cis2Tokens: fetchedTokens.cis2Tokens, pltTokens: fetchedTokens.pltTokens)
                 }
 
-                hasMore = tokens.totalTokensCount() < allContractTokens.count
+                hasMore = (tokens?.tokens.count ?? 0) < allContractTokens.count
                 currentPage += 1
                 isLoading = false
             }
@@ -136,7 +162,7 @@ final class ImportTokenViewModel: ObservableObject {
     func initialSearchState() {
         loadInitial()
         allContractTokens.removeAll()
-        tokens.clearAll()
+        tokens?.clearAll()
     }
     
     func loadInitial() {

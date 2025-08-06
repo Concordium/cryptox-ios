@@ -79,7 +79,7 @@ struct AddTokenView: View {
                     .cornerRadius(12)
             )
             
-            if viewModel.tokens.cis2.count > 1 {
+            if let tokens = viewModel.tokens, tokens.cis2Tokens.count > 1 {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     HStack {
                         VStack(alignment: .leading, spacing: 5) {
@@ -120,7 +120,7 @@ struct AddTokenView: View {
                 }
             }
             GeometryReader { proxy in
-                if tokenId.isEmpty {
+                if !tokenId.isEmpty {
                     AllTokensListView(proxy)
                 } else {
                     SearchTokensListView(proxy)
@@ -175,7 +175,7 @@ struct AddTokenView: View {
     private func handleContractIndexSearch(_ value: String) {
         Task {
             if !value.isEmpty && value.count > 1 {
-                viewModel.tokens.clearAll()
+                viewModel.tokens?.clearAll()
                 withAnimation(.easeInOut) {
                     isEnteredNumbers = true
                 }
@@ -198,7 +198,7 @@ struct AddTokenView: View {
             ProgressView()
                 .frame(width: proxy.size.width, height: proxy.size.height)
         case .found(let tokens):
-            if tokens.totalTokensCount() == 0 {
+            if tokens.tokens.count == 0 {
                 SearchTokenFullscreenText(text: "This contract has no tokens", proxy: proxy)
             } else {
                 tokenListView(tokens, proxy)
@@ -209,8 +209,8 @@ struct AddTokenView: View {
     @ViewBuilder
     private func AllTokensListView(_ proxy: GeometryProxy) -> some View {
         Group {
-            if viewModel.tokens.totalTokensCount() > 1 && !viewModel.isLoading {
-                tokenListView(viewModel.tokens, proxy)
+            if let tokens = viewModel.tokens, tokens.tokens.count > 0 && !viewModel.isLoading {
+                tokenListView(tokens, proxy)
             }
         }
     }
@@ -220,7 +220,7 @@ struct AddTokenView: View {
         ScrollViewReader { scrollProxy in
             ScrollView {
                 LazyVStack(spacing: 4) {
-                    ForEach(tokens.allTokens) { token in
+                    ForEach(tokens.tokens) { token in
                         tokenCell(token, scrollProxy: scrollProxy)
                     }
                     .refreshable {
@@ -262,17 +262,17 @@ struct AddTokenView: View {
             selectedTokenId = token.id
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 selectedTokenId = nil
-                path.append(.addTokenDetails(token: AccountDetailAccount.token(token: token, amount: "")))
+                path.append(.addTokenDetails(token: token.toAccountDetailAccount()))
             }
         }
         .onAppear {
-            if viewModel.isLastToken(token), tokenId.isEmpty {
+            if viewModel.tokens?.tokens.last == token, tokenId.isEmpty {
                 Task {
                     await MainActor.run {
                         withAnimation {
                             viewModel.loadMore()
                         }
-                        scrollProxy.scrollTo(token.tokenId, anchor: .top)
+                        scrollProxy.scrollTo(token.id, anchor: .top)
                     }
                 }
             }
@@ -284,7 +284,7 @@ struct AddTokenView: View {
             showingTokenIdView = false
             showTokenDetailView = false
             viewModel.selectedToken = nil
-            viewModel.tokens.clearAll()
+            viewModel.tokens?.clearAll()
             tokenId = ""
         }
     }

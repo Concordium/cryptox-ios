@@ -44,12 +44,23 @@ class TokenFetcher {
         let pltTokensResult = await pltResult
         let cis2TokensResult = await cis2Result
 
-        return UnifiedTokensResult(
-            cis2: (try? cis2TokensResult.get()) ?? [],
-            plt: (try? pltTokensResult.get()) ?? [],
-            cis2Error: cis2TokensResult.failure,
-            pltError: pltTokensResult.failure
-        )
+        var unifiedTokens: [UnifiedToken] = []
+        var cis2Error: TokenFetchingError?
+        var pltError: TokenFetchingError?
+        switch cis2TokensResult {
+        case .success(let cis2Tokens):
+            unifiedTokens += cis2Tokens.map { .cis2($0) }
+        case .failure(let error):
+            cis2Error = error
+        }
+
+        switch pltTokensResult {
+        case .success(let pltTokens):
+            unifiedTokens += pltTokens.map { .plt($0) }
+        case .failure(let error):
+            pltError = error
+        }
+        return UnifiedTokensResult(tokens: unifiedTokens, cis2Error: cis2Error, pltError: pltError)
     }
 }
 

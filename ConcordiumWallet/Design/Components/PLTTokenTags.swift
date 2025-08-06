@@ -90,7 +90,7 @@ final class PLTTokenTagViewModel: ObservableObject {
         case .allowList:
             return (.successGreen, .successTertiary, .successSecondary)
         case .notOnAllowList:
-            return (Color.Status.infoOrange, .warningSecondary, .warningTertiary)
+            return (Color.Status.infoOrange, .warningTertiary, .warningSecondary)
         case .denyList:
             return (.errorPrimary, .errorTertiary, .errorSecondary)
         }

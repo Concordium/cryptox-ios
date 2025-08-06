@@ -12,11 +12,11 @@ final class SearchTokenViewModel: ObservableObject {
     enum State {
         case idle, searching, found(UnifiedTokensResult), error(String)
         
-        var items: UnifiedTokensResult {
+        var items: UnifiedTokensResult? {
             if case .found(let array) = self {
                 return array
             }
-            return UnifiedTokensResult(cis2: [], plt: [])
+            return nil
         }
         
         var isSearching: Bool {
@@ -43,7 +43,7 @@ final class SearchTokenViewModel: ObservableObject {
         state = .searching
         Task {
             do {
-                let data = try await searchTokenData(by: tokenIndex, contractIndex: contractIndex)
+                let data = await searchTokenData(by: tokenIndex, contractIndex: contractIndex)
                 await MainActor.run {
                     state = .found(data)
                 }
@@ -56,7 +56,7 @@ final class SearchTokenViewModel: ObservableObject {
     }
     
     private func searchTokenData(by tokenId: String? = nil, contractIndex: Int) async -> UnifiedTokensResult {
-        var result = UnifiedTokensResult(cis2: [], plt: [], cis2Error: nil, pltError: nil)
+        let result = UnifiedTokensResult()
 
         async let cis2TokensResult: Result<[CIS2Token], Error> = {
             do {
@@ -82,14 +82,14 @@ final class SearchTokenViewModel: ObservableObject {
 
         switch cis2Result {
         case .success(let cis2Tokens):
-            result.cis2 = cis2Tokens
+            result.addNewTokens(cis2Tokens: cis2Tokens, pltTokens: [])
         case .failure(let error):
             result.cis2Error = TokenFetchingError.fetchFailed(reason: error.localizedDescription)
         }
 
         switch pltResult {
         case .success(let pltTokens):
-            result.plt = pltTokens
+            result.addNewTokens(cis2Tokens: [], pltTokens: pltTokens)
         case .failure(let error):
             result.pltError = TokenFetchingError.fetchFailed(reason: error.localizedDescription)
         }
