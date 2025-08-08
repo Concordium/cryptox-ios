@@ -9,12 +9,28 @@
 import SwiftUI
 
 struct PressedButtonStyle: ButtonStyle {
+    var isDisabled: Bool = false
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding(.vertical, 18.5)
-            .background(configuration.isPressed ? Color(red: 0.84, green: 0.89, blue: 0.94) : Color.white)
-            .foregroundColor(configuration.isPressed ? Color(red: 0.11, green: 0.29, blue: 0.5) : .blackMain)
+            .frame(maxWidth: .infinity)
+            .background(
+                isDisabled
+                    ? Color.surfacePrimaryDisabled
+                    : (configuration.isPressed
+                        ? Color(red: 0.84, green: 0.89, blue: 0.94)
+                        : Color.white)
+            )
+            .foregroundColor(
+                isDisabled
+                    ? Color.contentPrimaryDisabled
+                    : (configuration.isPressed
+                        ? Color(red: 0.11, green: 0.29, blue: 0.5)
+                        : Color.blackMain)
+            )
             .cornerRadius(28)
+            .disabled(isDisabled)
     }
 }
 

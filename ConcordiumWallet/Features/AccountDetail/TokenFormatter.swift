@@ -125,7 +125,7 @@ public class TokenFormatter {
         // the log10() function for the BigInt type, which we do not have. That is why the String-based
         // operations have been chosen.
 
-        if number.value == 0 { return "0" }
+        if number.value == 0 { return "0\(decimalSeparator)00" }
 
         var numberString = String(abs(number.value))
         let leadingZeroesForSmallNumbers = String(repeating: "0",

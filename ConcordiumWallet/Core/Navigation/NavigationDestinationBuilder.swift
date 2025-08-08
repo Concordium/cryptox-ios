@@ -99,7 +99,7 @@ struct NavigationDestinationBuilder: ViewModifier {
                         )
                     case .addTokenDetails(let token):
                         TokenDetailsView(token: token, isAddTokenDetails: true, showRawMd: .constant(false))
-                            .modifier(NavigationViewModifier(title: "Add token", backAction: {
+                            .modifier(NavigationViewModifier(title: "search.tokens".localized, backAction: {
                                 navigationManager.pop()
                             }))
                     case .activity(let account):

@@ -24,7 +24,7 @@ final class ImportTokenViewModel: ObservableObject {
     private let storageManager: StorageManagerProtocol
     private let networkManager: NetworkManagerProtocol
     private let account: AccountDataType
-    private var allContractTokens = [String]()
+    private var allContractTokens = [String: String]()
     private let batchSize = 20
     private var contractIndex: Int?
     
@@ -48,21 +48,27 @@ final class ImportTokenViewModel: ObservableObject {
         // Reset state before new search
         initialSearchState()
         
-        var newTokens = [String]()
+        var newTokens = [String: String]()
         
-        async let pltFetch: Result<[String], Error> = {
+        async let pltFetch: Result<[String: String], Error> = {
             do {
                 let tokens = try await pltService.fetchTokens(for: name)
-                return .success(tokens.map(\.tokenState.moduleState.name))
+                let dict = Dictionary(uniqueKeysWithValues: tokens.map {
+                    ($0.tokenID, $0.tokenState.moduleState.name)
+                })
+                return .success(dict)
             } catch {
                 return .failure(error)
             }
         }()
 
-        async let cis2Fetch: Result<[String], Error> = {
+        async let cis2Fetch: Result<[String: String], Error> = {
             do {
                 let tokens = try await cis2Service.fetchTokens(contractIndex: name).tokens
-                return .success(tokens.map(\.token))
+                let dict = Dictionary(uniqueKeysWithValues: tokens.map {
+                    ($0.token, $0.id.toString())
+                })
+                return .success(dict)
             } catch {
                 return .failure(error)
             }
@@ -73,14 +79,14 @@ final class ImportTokenViewModel: ObservableObject {
 
         switch pltResult {
         case .success(let plt):
-            newTokens.append(contentsOf: plt)
+            newTokens.merge(plt) { current, _ in current }
         case .failure(let err):
             logger.errorLog("PLT error: \(err.localizedDescription)")
         }
 
         switch cis2Result {
         case .success(let cis2):
-            newTokens.append(contentsOf: cis2)
+            newTokens.merge(cis2) { current, _ in current }
         case .failure(let err):
             logger.errorLog("CIS2 error: \(err.localizedDescription)")
         }
@@ -90,6 +96,8 @@ final class ImportTokenViewModel: ObservableObject {
         }
 
         allContractTokens = newTokens
+        let fetchedTokens = await tokenFetcher.fetchAllTokens(for: Array(newTokens.keys), contractIndex: contractIndex)
+        tokens?.addNewTokens(cis2Tokens: fetchedTokens.cis2Tokens, pltTokens: fetchedTokens.pltTokens)
         loadMore()
     }
     
@@ -129,12 +137,12 @@ final class ImportTokenViewModel: ObservableObject {
     }
     
     func loadMore() {
-        guard !isLoading, hasMore, let contractIndex else { return }
+        guard !isLoading, hasMore else { return }
 
         isLoading = true
 
         Task {
-            let ids = Array(allContractTokens.dropFirst((currentPage - 1) * batchSize).prefix(batchSize))
+            let ids = Array(allContractTokens.keys.dropFirst((currentPage - 1) * batchSize).prefix(batchSize))
 
             guard !ids.isEmpty else {
                 return await MainActor.run {
@@ -162,7 +170,7 @@ final class ImportTokenViewModel: ObservableObject {
     func initialSearchState() {
         loadInitial()
         allContractTokens.removeAll()
-        tokens?.clearAll()
+        tokens = nil
     }
     
     func loadInitial() {

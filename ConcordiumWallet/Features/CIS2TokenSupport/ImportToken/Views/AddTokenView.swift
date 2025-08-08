@@ -16,8 +16,8 @@ struct AddTokenView: View {
     
     @SwiftUI.Environment(\.dismiss) private var dismiss
     @Binding var path: [NavigationPaths]
-    @StateObject var viewModel: ImportTokenViewModel
-    @StateObject var searchTokenViewModel: SearchTokenViewModel
+    @ObservedObject var viewModel: ImportTokenViewModel
+    @ObservedObject var searchTokenViewModel: SearchTokenViewModel
     var onTokenAdded: (() -> Void)
     @State private var contractIndex: String = ""
     @State private var tokenId: String = ""
@@ -27,6 +27,10 @@ struct AddTokenView: View {
     @FocusState private var isContractIdTextFieldFocused: Bool
     @FocusState private var isTokenIdTextFieldFocused: Bool
     @State private var selectedTokenId: String?
+    
+    private var isContinueDisabled: Bool {
+        viewModel.selectedToken == nil
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
@@ -131,17 +135,17 @@ struct AddTokenView: View {
                     viewModel.loadInitial()
                 }
             }
-            if viewModel.selectedToken != nil {
+            if case .found(_) = searchTokenViewModel.state {
                 Button {
                     viewModel.saveToken(viewModel.selectedToken)
                     onTokenAdded()
                     path.removeLast()
                 } label: {
-                    Text("Continue")
+                    Text("Update token list")
                         .font(.satoshi(size: 15, weight: .medium))
                         .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(PressedButtonStyle())
+                .buttonStyle(PressedButtonStyle(isDisabled: isContinueDisabled))
             }
         }
         .padding(.top, 20)
@@ -163,7 +167,7 @@ struct AddTokenView: View {
             }
             ToolbarItem(placement: .principal) {
                 VStack {
-                    Text("Add token")
+                    Text("search.tokens".localized)
                         .font(.satoshi(size: 17, weight: .medium))
                         .foregroundStyle(Color.white)
                 }
@@ -185,6 +189,7 @@ struct AddTokenView: View {
                     isEnteredNumbers = false
                 }
                 viewModel.initialSearchState()
+                searchTokenViewModel.state = .idle
             }
         }
     }

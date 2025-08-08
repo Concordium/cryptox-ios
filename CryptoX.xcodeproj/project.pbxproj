@@ -1892,6 +1892,7 @@
 		15E0BB2F2E412D8E00B8D3FD /* ModuleStateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE82E412D8E00B8D3FD /* ModuleStateEntity+CoreDataClass.swift */; };
 		15E0BB302E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE52E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataProperties.swift */; };
 		15E0BB312E412D8E00B8D3FD /* TokenStateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAF22E412D8E00B8D3FD /* TokenStateEntity+CoreDataClass.swift */; };
+		15E0BB832E43838500B8D3FD /* Concordium in Frameworks */ = {isa = PBXBuildFile; productRef = 15E0BB822E43838500B8D3FD /* Concordium */; };
 		15E1BC692C6B58C000543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
 		15E1BC6A2C6B58C000543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
 		15E1BC6B2C6B58C100543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
@@ -3591,6 +3592,7 @@
 				083505002A9E3DFA000D5175 /* SDWebImageSVGCoder in Frameworks */,
 				089FF0EA2A4F4CF0007AB1CF /* JDStatusBarNotification in Frameworks */,
 				158A35262E1685B300BDCFDE /* Lottie in Frameworks */,
+				15E0BB832E43838500B8D3FD /* Concordium in Frameworks */,
 				08A0444329FA905700DACE1F /* Kingfisher in Frameworks */,
 				50E0D16D2D35466E00853594 /* Starscream in Frameworks */,
 				509A563C2CB43549005EA908 /* RealmSwift in Frameworks */,
@@ -6263,6 +6265,7 @@
 				15339E6E2DB8FF28003D64D1 /* FirebaseAnalytics */,
 				5075414E2DD3C5DC000D9445 /* MobileWalletLib */,
 				158A35252E1685B300BDCFDE /* Lottie */,
+				15E0BB822E43838500B8D3FD /* Concordium */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
@@ -9661,6 +9664,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 158A351A2E156D0300BDCFDE /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		15E0BB822E43838500B8D3FD /* Concordium */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5072A1A32DCB4CF1008698C3 /* XCRemoteSwiftPackageReference "concordium-swift-sdk" */;
+			productName = Concordium;
 		};
 		5026908F2E2686D200D46E02 /* Concordium */ = {
 			isa = XCSwiftPackageProductDependency;
