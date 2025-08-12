@@ -1274,7 +1274,7 @@ Remember to restart your node with the validator keys.";
 "more.remove.account.confirmation.title" = "Are you sure want to remove all account and related data?";
 "copy.to.clipoard" = "Copy to clipboard";
 "show.seed.phrase" = "Show seed phrase ";
-"add.token" = "Add token";
+"search.tokens" = "Search tokens";
 
 "passcode.view.create.passcode.title" = "Create Passcode";
 "passcode.view.repeate.passcode.title" = "Repeat Passcode";

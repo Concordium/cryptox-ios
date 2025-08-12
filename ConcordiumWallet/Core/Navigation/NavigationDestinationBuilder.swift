@@ -90,13 +90,16 @@ struct NavigationDestinationBuilder: ViewModifier {
                                 cis2Service: CIS2Service(
                                     networkManager: dependencyProvider.networkManager(),
                                     storageManager: dependencyProvider.storageManager()
-                                )
+                                ),
+                                pltService: PLTTokenService(networkManager: dependencyProvider.networkManager(),
+                                                            storageManager: dependencyProvider.storageManager()
+                                                           )
                             ),
                             onTokenAdded: { isNewTokenAdded = true }
                         )
                     case .addTokenDetails(let token):
                         TokenDetailsView(token: token, isAddTokenDetails: true, showRawMd: .constant(false))
-                            .modifier(NavigationViewModifier(title: "Add token", backAction: {
+                            .modifier(NavigationViewModifier(title: "search.tokens".localized, backAction: {
                                 navigationManager.pop()
                             }))
                     case .activity(let account):

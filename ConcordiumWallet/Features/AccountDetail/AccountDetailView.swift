@@ -11,7 +11,7 @@ import BigInt
 import Combine
 
 enum AccountDetailAccount: Equatable, Identifiable, Hashable {
-    case ccd(amount: GTU), token(token: CIS2Token, amount: String), plt(token: PLTToken, amount: String)
+    case ccd(amount: GTU), token(token: CIS2Token, amount: String), plt(token: AccountPLTToken, amount: String)
     
     var id: Int {
         switch self {
@@ -43,7 +43,7 @@ enum AccountDetailAccount: Equatable, Identifiable, Hashable {
         }
     }
     
-    var pltToken: PLTToken? {
+    var pltToken: AccountPLTToken? {
         switch self {
             case .ccd, .token: return nil
             case let .plt(token, _): return token

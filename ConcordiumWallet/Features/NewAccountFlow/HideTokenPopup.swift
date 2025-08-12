@@ -24,7 +24,25 @@ struct HideTokenPopup: View {
                 .font(.satoshi(size: 15, weight: .regular))
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.grey1)
-            VStack(spacing: 16) {
+            HStack(spacing: 8) {
+                Button {
+                    goBackTapped = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        goBackTapped = false
+                        withAnimation {
+                            isPresentingAlert = false
+                        }
+                    }
+                } label: {
+                    Text("Go back")
+                        .font(.satoshi(size: 14, weight: .medium))
+                        .foregroundStyle(goBackTapped ? .grey4 : .blackMain)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 16)
+                }
+                .background(.semanticSurfaceInverseSecondary)
+                .cornerRadius(9999)
+
                 Button {
                     onHideToken()
                     withAnimation {
@@ -34,28 +52,14 @@ struct HideTokenPopup: View {
                     Text("Yes, hide it")
                         .font(.satoshi(size: 14, weight: .medium))
                         .foregroundStyle(.white)
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 12)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 16)
                 }
                 .background(.blackMain)
                 .cornerRadius(21)
-                Text("Go back")
-                    .font(.satoshi(size: 14, weight: .medium))
-                    .foregroundStyle(goBackTapped ? .grey4 : .blackMain)
-                    .onTapGesture {
-                        goBackTapped = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            goBackTapped = false
-                            withAnimation {
-                                isPresentingAlert = false
-                            }
-                        }
-                    }
             }
         }
-        .padding(.horizontal, 60)
-        .padding(.top, 60)
-        .padding(.bottom, 30)
+        .padding(32)
         .frame(width: 327, alignment: .top)
         .modifier(FloatingGradientBGStyleModifier())
         .cornerRadius(16)

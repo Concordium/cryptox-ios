@@ -8,11 +8,12 @@ import Foundation
 struct ApiConstants {
 
 #if TESTNET
-    static let proxyUrl = URL(string: UserDefaults.standard.string(forKey: "proxy") ?? "https://wallet-proxy.testnet.concordium.com")!
+// static let proxyUrl = URL(string: UserDefaults.standard.string(forKey: "proxy") ?? "https://wallet-proxy.testnet.concordium.com")!
+    static let proxyUrl = URL(string: "https://wallet-proxy.devnet-plt-beta.concordium.com")!
 #elseif MAINNET
     static let proxyUrl = URL(string: "https://wallet-proxy.mainnet.concordium.software")!
 #else //Staging
-    static let proxyUrl = URL(string: "https://wallet-proxy.stagenet.concordium.com")!
+    static let proxyUrl = URL(string: "https://wallet-proxy.devnet-plt-beta.concordium.com")!
 #endif
     
     #if TESTNET
@@ -54,6 +55,11 @@ struct ApiConstants {
         static let tokens = proxyUrl.appendingPathComponent("/v0/CIS2Tokens")
         static let cis2TokensMetadataV1 = proxyUrl.appendingPathComponent("v1/CIS2TokenMetadata")
         static let cis2TokenBalanceV1 = proxyUrl.appendingPathComponent("v1/CIS2TokenBalance")
+    }
+    
+    struct PLTToken {
+        static let tokens = proxyUrl.appendingPathComponent("/v0/plt/tokens")
+        static let tokenInfo = proxyUrl.appendingPathComponent("/v0/plt/tokenInfo")
     }
 
     

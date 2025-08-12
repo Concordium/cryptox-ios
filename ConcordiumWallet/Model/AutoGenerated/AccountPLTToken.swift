@@ -6,12 +6,13 @@
 import Foundation
 
 // MARK: - PLTToken
-struct PLTToken: Codable, Equatable, Hashable {
-    let token: Token
+struct AccountPLTToken: Codable, Equatable, Hashable {
+    let token: PLTToken
     let tokenAccountState: TokenAccountState
 }
 
-struct Token: Codable, Equatable, Hashable {
+struct PLTToken: Codable, Equatable, Hashable {
+
     let tokenID: String
     let tokenState: TokenState
 
@@ -55,35 +56,32 @@ struct TokenAccountState: Codable, Equatable, Hashable {
 }
 
 struct TokenBalanceState: Codable, Equatable, Hashable {
-    let denyList: Bool
+    let denyList: Bool?
 }
 
-extension PLTToken {
+extension AccountPLTToken {
 
     /// Builds a value-type `PLTToken` from a Core Data `PLTTokenEntity`.
-    /// - Note:  If any required relationship is missing the function returns `nil`.
-    static func makeToken(from entity: PLTTokenEntity) -> PLTToken? {
+    static func makeToken(from entity: AccountPLTTokenEntity) -> AccountPLTToken {
 
         // MARK: - unwrap the object graph (fail fast if critical links are nil)
-        guard
-            let tokenObj                 = entity.token,
-            let tokenStateObj            = tokenObj.tokenState,
-            let moduleStateObj           = tokenStateObj.moduleState,
-            let governanceObj            = moduleStateObj.governanceAccount,
-            let metadataObj              = moduleStateObj.metadata,
-            let totalSupplyObj           = tokenStateObj.totalSupply,
-            let accountStateObj          = entity.tokenAccountState,
-            let balanceObj               = accountStateObj.balance,
-            let stateObj                 = accountStateObj.state
-        else { return nil } // your model is incomplete – decide how to handle this
+        let tokenObj = entity.token
+        let tokenStateObj = tokenObj.tokenState
+        let moduleStateObj = tokenStateObj.moduleState
+        let governanceObj = moduleStateObj.governanceAccount
+        let metadataObj = moduleStateObj.metadata
+        let totalSupplyObj = tokenStateObj.totalSupply
+        let accountStateObj = entity.tokenAccountState
+        let balanceObj = accountStateObj.balance
+        let stateObj = accountStateObj.state
 
         // MARK: - leaf structs
         let governance = GovernanceAccount(
-            address: governanceObj.address ?? "",
-            type:    governanceObj.type ?? ""
+            address: governanceObj.address,
+            type:    governanceObj.type
         )
 
-        let metadata = TokenMetadata(url: metadataObj.url ?? "")
+        let metadata = TokenMetadata(url: metadataObj.url)
 
         let moduleState = ModuleState(
             allowList:       moduleStateObj.allowList,
@@ -92,7 +90,7 @@ extension PLTToken {
             governanceAccount: governance,
             metadata:        metadata,
             mintable:        moduleStateObj.mintable,
-            name:            moduleStateObj.name ?? ""
+            name:            moduleStateObj.name
         )
 
         let totalSupply = TokenBalance(
@@ -103,7 +101,7 @@ extension PLTToken {
         let tokenState = TokenState(
             decimals:       Int(tokenStateObj.decimals),
             moduleState:    moduleState,
-            tokenModuleRef: tokenStateObj.tokenModuleRef ?? "",
+            tokenModuleRef: tokenStateObj.tokenModuleRef,
             totalSupply:    totalSupply
         )
 
@@ -112,16 +110,20 @@ extension PLTToken {
             value:    balanceObj.value ?? "0"
         )
 
-        let state = TokenBalanceState(denyList: stateObj.denyList)
+        let state = TokenBalanceState(denyList: stateObj?.denyList)
 
         let tokenAccountState = TokenAccountState(balance: balance, state: state)
 
         // MARK: - root structs
-        let token = Token(
-            tokenID:    tokenObj.tokenId ?? "",
+        let token = PLTToken(
+            tokenID:    tokenObj.tokenId,
             tokenState: tokenState
         )
 
-        return PLTToken(token: token, tokenAccountState: tokenAccountState)
+        return AccountPLTToken(token: token, tokenAccountState: tokenAccountState)
     }
+}
+
+extension PLTToken: Identifiable {
+    var id: Int { tokenID.hashValue ^ tokenState.decimals.hashValue }
 }

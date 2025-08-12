@@ -22,7 +22,7 @@ final class CoreDataPLTStore {
         }
     }
 
-    func saveTokens(_ tokens: [PLTToken], for accountAddress: String) -> AnyPublisher<Void, Error> {
+    func saveTokens(_ tokens: [AccountPLTToken], for accountAddress: String) -> AnyPublisher<Void, Error> {
         Future { promise in
             CoreDataPLTStore.shared.container.performBackgroundTask { context in
                 do {
@@ -39,7 +39,7 @@ final class CoreDataPLTStore {
         .eraseToAnyPublisher()
     }
     
-    private func saveAccountTokens(_ tokens: [PLTToken], accountAddress: String, context: NSManagedObjectContext) throws {
+    private func saveAccountTokens(_ tokens: [AccountPLTToken], accountAddress: String, context: NSManagedObjectContext) throws {
         for model in tokens {
             try upsertPLTToken(model, accountAddress: accountAddress, context: context)
         }
@@ -47,19 +47,82 @@ final class CoreDataPLTStore {
         try context.save()
     }
     
-    private func upsertPLTToken(_ model: PLTToken, accountAddress: String, context: NSManagedObjectContext) throws {
-        let request: NSFetchRequest<PLTTokenEntity> = PLTTokenEntity.fetchRequest()
+    
+    func savePLTTokens(_ tokens: [PLTToken], for accountAddress: String) -> AnyPublisher<Void, Error> {
+        Future { promise in
+            self.container.performBackgroundTask { context in
+                do {
+                    for model in tokens {
+                        let request: NSFetchRequest<PLTTokenEntity> = PLTTokenEntity.fetchRequest()
+                        request.predicate = NSPredicate(format: "tokenId == %@ AND accountAddress == %@", model.tokenID, accountAddress)
+                        request.fetchLimit = 1
+
+                        let existing = try context.fetch(request).first
+
+                        guard existing == nil else {
+                            continue
+                        }
+
+                        let token = PLTTokenEntity(context: context)
+                        token.accountAddress = accountAddress
+                        token.tokenId = model.tokenID
+
+                        let tokenState = TokenStateEntity(context: context)
+                        tokenState.decimals = Int16(model.tokenState.decimals)
+                        tokenState.tokenModuleRef = model.tokenState.tokenModuleRef
+
+                        let totalSupply = TotalSupplyEntity(context: context)
+                        totalSupply.decimals = Int16(model.tokenState.totalSupply.decimals)
+                        totalSupply.value = model.tokenState.totalSupply.value
+                        tokenState.totalSupply = totalSupply
+
+                        let metadata = MetadataEntity(context: context)
+                        metadata.url = model.tokenState.moduleState.metadata.url
+
+                        let governance = GovernanceAccountEntity(context: context)
+                        governance.address = model.tokenState.moduleState.governanceAccount.address
+                        governance.type = model.tokenState.moduleState.governanceAccount.type
+
+                        let moduleState = ModuleStateEntity(context: context)
+                        moduleState.allowList = model.tokenState.moduleState.allowList
+                        moduleState.burnable = model.tokenState.moduleState.burnable
+                        moduleState.denyList = model.tokenState.moduleState.denyList
+                        moduleState.mintable = model.tokenState.moduleState.mintable
+                        moduleState.name = model.tokenState.moduleState.name
+                        moduleState.metadata = metadata
+                        moduleState.governanceAccount = governance
+
+                        tokenState.moduleState = moduleState
+                        token.tokenState = tokenState
+                    }
+
+                    try context.save()
+                    DispatchQueue.main.async {
+                        promise(.success(()))
+                    }
+                } catch {
+                    context.rollback()
+                    promise(.failure(error))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+
+    private func upsertPLTToken(_ model: AccountPLTToken, accountAddress: String, context: NSManagedObjectContext) throws {
+        let request: NSFetchRequest<AccountPLTTokenEntity> = AccountPLTTokenEntity.fetchRequest()
         request.predicate = NSPredicate(format: "token.tokenId == %@ AND accountAddress == %@", model.token.tokenID, accountAddress)
         request.fetchLimit = 1
 
         let existing = try context.fetch(request).first
 
-        let pltToken = existing ?? PLTTokenEntity(context: context)
+        let pltToken = existing ?? AccountPLTTokenEntity(context: context)
 
         if existing == nil {
             // Only create new if needed
-            let token = CDTokenEntity(context: context)
+            let token = PLTTokenEntity(context: context)
             token.tokenId = model.token.tokenID
+            token.accountAddress = accountAddress
 
             let tokenState = TokenStateEntity(context: context)
             tokenState.decimals = Int16(model.token.tokenState.decimals)
@@ -98,7 +161,7 @@ final class CoreDataPLTStore {
         balance.value = model.tokenAccountState.balance.value
 
         let state = StateEntity(context: context)
-        state.denyList = model.tokenAccountState.state.denyList
+        state.denyList = model.tokenAccountState.state.denyList ?? false
 
         let accountState = TokenAccountStateEntity(context: context)
         accountState.balance = balance
@@ -108,22 +171,28 @@ final class CoreDataPLTStore {
         pltToken.accountAddress = accountAddress
     }
     
-    func fetchTokens(for accountAddress: String) throws -> [PLTTokenEntity] {
+    func fetchPLTTokens(for accountAddress: String) throws -> [PLTTokenEntity] {
         let request: NSFetchRequest<PLTTokenEntity> = PLTTokenEntity.fetchRequest()
         request.predicate = NSPredicate(format: "accountAddress == %@", accountAddress)
         return try CoreDataPLTStore.shared.container.viewContext.fetch(request)
     }
     
-    func subscribePLTTokensUpdate(for address: String) -> AnyPublisher<[PLTTokenEntity], Never> {
-        let request: NSFetchRequest<PLTTokenEntity> = PLTTokenEntity.fetchRequest()
+    func fetchAccountPLTTokens(for accountAddress: String) throws -> [AccountPLTTokenEntity] {
+        let request: NSFetchRequest<AccountPLTTokenEntity> = AccountPLTTokenEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "accountAddress == %@", accountAddress)
+        return try CoreDataPLTStore.shared.container.viewContext.fetch(request)
+    }
+    
+    func subscribePLTTokensUpdate(for address: String) -> AnyPublisher<[AccountPLTTokenEntity], Never> {
+        let request: NSFetchRequest<AccountPLTTokenEntity> = AccountPLTTokenEntity.fetchRequest()
         request.predicate = NSPredicate(format: "accountAddress == %@", address)
         request.sortDescriptors = [
-            NSSortDescriptor(keyPath: \PLTTokenEntity.token?.tokenId, ascending: true)
+            NSSortDescriptor(keyPath: \AccountPLTTokenEntity.token.tokenId, ascending: true)
         ]
 
         let context = CoreDataPLTStore.shared.container.viewContext
 
-        return FetchedResultsPublisher<PLTTokenEntity>(fetchRequest: request, context: context)
+        return FetchedResultsPublisher<AccountPLTTokenEntity>(fetchRequest: request, context: context)
             .eraseToAnyPublisher()
     }
     
@@ -131,7 +200,7 @@ final class CoreDataPLTStore {
         try await withCheckedThrowingContinuation { continuation in
             container.performBackgroundTask { context in
                 let request: NSFetchRequest<PLTTokenEntity> = PLTTokenEntity.fetchRequest()
-                request.predicate = NSPredicate(format: "token.tokenId == %@ AND accountAddress == %@", tokenId, accountAddress)
+                request.predicate = NSPredicate(format: "tokenId == %@ AND accountAddress == %@", tokenId, accountAddress)
                 request.fetchLimit = 1
 
                 do {
@@ -145,6 +214,21 @@ final class CoreDataPLTStore {
                     continuation.resume(throwing: error)
                 }
             }
+        }
+    }
+    
+    func isPLTTokenSaved(tokenId: String, for address: String) -> Bool {
+        let context = container.viewContext
+        let fetchRequest: NSFetchRequest<PLTTokenEntity> = PLTTokenEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "tokenId == %@ AND accountAddress == %@", tokenId, address)
+        fetchRequest.fetchLimit = 1
+
+        do {
+            let count = try context.count(for: fetchRequest)
+            return count > 0
+        } catch {
+            logger.errorLog("Failed to check token: \(error.localizedDescription)")
+            return false
         }
     }
 }
