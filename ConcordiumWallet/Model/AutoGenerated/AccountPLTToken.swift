@@ -123,3 +123,7 @@ extension AccountPLTToken {
         return AccountPLTToken(token: token, tokenAccountState: tokenAccountState)
     }
 }
+
+extension PLTToken: Identifiable {
+    var id: Int { tokenID.hashValue ^ tokenState.decimals.hashValue }
+}

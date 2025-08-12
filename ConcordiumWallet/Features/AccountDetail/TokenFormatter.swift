@@ -235,7 +235,11 @@ public class TokenFormatter {
         let components = stringValue.split(separator: ".", maxSplits: 1)
         guard components.count == 2 else {
             // No fractional part, return as is
-            return stringValue
+            if stringValue == "0" {
+                return "0.00"
+            } else {
+                return stringValue
+            }p
         }
         
         let wholePart = components[0]
@@ -291,6 +295,28 @@ public class TokenFormatter {
             return String(string[lowerIndex..<upperIndex])
         }
         return groups
+    }
+    
+    static func formatPLTTokenAmount(amount: String) -> String {
+        let formatter: NumberFormatter = {
+            let f = NumberFormatter()
+            f.numberStyle = .decimal
+            f.groupingSeparator = "."
+            f.decimalSeparator = "."
+            f.maximumFractionDigits = 1
+            f.minimumFractionDigits = 0
+            return f
+        }()
+        
+        let num = Double(amount) ?? 0
+        switch num {
+        case 1_000_000...:
+            return "\(formatter.string(from: NSNumber(value: num / 1_000_000)) ?? "0") M"
+        case 1_000...:
+            return "\(formatter.string(from: NSNumber(value: num / 1_000)) ?? "0") K"
+        default:
+            return formatter.string(from: NSNumber(value: num)) ?? "0"
+        }
     }
 }
 

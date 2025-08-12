@@ -11,11 +11,6 @@ import Combine
 import BigInt
 import RealmSwift
 
-enum TokenListMode {
-    case normal
-    case manage
-}
-
 struct AccountTokenListView: View {
     @ObservedObject var viewModel: AccountDetailViewModel
     @Binding var showManageTokenList: Bool
@@ -26,7 +21,7 @@ struct AccountTokenListView: View {
     var pressedButtonColor: Color {
         managePressed ? Color.buttonPressed : .greyAdditional
     }
-    var mode: TokenListMode
+    var mode: TokenViewMode
     var onHideToken: ((AccountDetailAccount) -> Void)?
     var euroAmount: String?
 
@@ -34,10 +29,22 @@ struct AccountTokenListView: View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 6) {
                 ForEach(viewModel.accounts.filter { !(mode == .manage && $0.name == "ccd") }, id: \.id) { account in
-                    tokenListViewCell(account: account)
-                        .background(Color.clear)
-                        .contentShape(Rectangle())
-                        .transition(.opacity)
+                    TokenListRow(
+                        data: cellData(for: account),
+                        mode: mode,
+                        isSelected: selectedAccountID == account.id
+                    ) {
+                        onHideToken?(account)
+                    }
+                    .onTapGesture {
+                        if mode == .view {
+                            selectedAccountID = account.id
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                selectedAccountID = nil
+                                path.append(.tokenDetails(token: account, viewModel))
+                            }
+                        }
+                    }
                 }
                 HStack(spacing: 8) {
                     Image("settingsGear")
@@ -57,7 +64,7 @@ struct AccountTokenListView: View {
                         showManageTokenList = true
                     }
                 }
-                .opacity(mode == .normal ? 1 : 0)
+                .opacity(mode == .view ? 1 : 0)
             }
             .animation(.easeInOut, value: viewModel.accounts)
         }
@@ -76,147 +83,52 @@ struct AccountTokenListView: View {
         }
     }
     
-    func tokenListViewCell(account: AccountDetailAccount) -> some View {
-        HStack(alignment: .center, spacing: 8) {
-            switch account {
-            case .ccd(let amount):
-                Image("ccd")
-                    .resizable()
-                    .frame(width: 40, height: 40)
-                HStack(spacing: 0) {
-                    Text("CCD")
-                        .font(.satoshi(size: 15, weight: .medium))
-                    if (viewModel.account?.baker != nil || viewModel.account?.delegation != nil) && mode == .normal {
-                        Text(" · %")
-                            .font(.satoshi(size: 15, weight: .medium))
-                    }
-                }
-                
-                Spacer()
-                VStack(alignment: .trailing, spacing: 4) {
-                    Text(amount.displayValueWithTwoNumbersAfterDecimalPoint())
-                        .font(.satoshi(size: 15, weight: .medium))
-                        .tint(.white)
-                    Text("\(viewModel.ccdEuroEquivalent)")
-                        .font(.satoshi(size: 12, weight: .regular))
-                        .tint(.MineralBlue.blueish3)
-                        .opacity(0.5)
-                }
-                .opacity(mode == .normal ? 1 : 0)
-            case .token(let token, let amount):
-                if let url = token.metadata.thumbnail?.url {
-                    CryptoImage(url: url.toURL, size: .custom(width: 40, height: 40))
-                        .aspectRatio(contentMode: .fit)
-                }
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(token.metadata.symbol ?? token.metadata.name ?? "")
-                        .font(.satoshi(size: 15, weight: .medium))
-                    HStack(spacing: 4) {
-                        Image("coin-crypto-cis-2")
-                            .resizable()
-                            .frame(width: 12, height: 12)
-                        Text("CIS-2")
-                            .font(.satoshi(size: 12, weight: .medium))
-                            .foregroundStyle(.white.opacity(0.4))
-                    }
-                }
-                Spacer()
-                Text(TokenFormatter()
-                    .displayStringWithTwoValuesAfterComma(from: BigDecimal(BigInt(stringLiteral: amount), token.metadata.decimals ?? 0), decimalSeparator: ".", thousandSeparator: ","))
-                    .font(.satoshi(size: 15, weight: .medium))
-                    .tint(.white)
-                if mode == .manage {
-                    Text("Hide token")
-                        .font(.satoshi(size: 12, weight: .medium))
-                        .foregroundStyle(hideTokenID == token.id.string ? .buttonPressed : .semanticContentSecondary)
-                        .opacity(account.name == "ccd" ? 0 : 1)
-                        .padding(6)
-                        .onTapGesture {
-                            hideTokenID = token.id.string
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                hideTokenID = nil
-                                onHideToken?(account)
-                            }
-                        }
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 9999)
-                                .inset(by: 0.5)
-                                .stroke(Color.semanticBorderTertiary, lineWidth: 1)
-                        )
-                }
-            case .plt(let token, let amount):
-                Image("placeholder-crypto-token")
-                    .resizable()
-                    .clipShape(Circle())
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 40, height: 40)
-                VStack(alignment: .leading, spacing: 4) {
-                    HStack(spacing: 4) {
-                        Text(token.token.tokenState.moduleState.name)
-                            .foregroundColor(.white)
-                            .lineLimit(0)
-                            .font(.satoshi(size: 15, weight: .medium))
-                        if token.token.tokenState.moduleState.denyList || !token.token.tokenState.moduleState.allowList {
-                            Image("circled-x-block-deny")
-                                .renderingMode(.template)
-                                .foregroundColor(.accentSecondary)
-                        }
-                    }
-                    HStack(spacing: 4) {
-                        Image("shield-square-crypto")
-                            .resizable()
-                            .frame(width: 12, height: 12)
-                            .foregroundStyle(.accentSecondary)
-                        Text("PLT")
-                            .font(.satoshi(size: 12, weight: .medium))
-                            .foregroundStyle(.accentSecondary)
-                    }
-
-                }
-                Spacer()
-                Text(TokenFormatter()
-                    .displayStringWithTwoValuesAfterComma(from: BigDecimal(BigInt(stringLiteral: amount), token.token.tokenState.decimals), decimalSeparator: ".", thousandSeparator: ","))
-                    .foregroundColor(.white)
-                    .font(.satoshi(size: 15, weight: .medium))
-                if mode == .manage {
-                    Text("Hide token")
-                        .font(.satoshi(size: 12, weight: .medium))
-                        .foregroundStyle(hideTokenID == token.token.tokenID ? .buttonPressed : .semanticContentSecondary)
-                        .opacity(account.name == "ccd" ? 0 : 1)
-                        .padding(6)
-                        .onTapGesture {
-                            hideTokenID = token.token.tokenID
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                hideTokenID = nil
-                                onHideToken?(account)
-                            }
-                        }
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 9999)
-                                .inset(by: 0.5)
-                                .stroke(Color.semanticBorderTertiary, lineWidth: 1)
-                        )
-                }
+    func cellData(for account: AccountDetailAccount) -> TokenListCellData {
+        switch account {
+        case .ccd(let amount):
+            return TokenListCellData(
+                id: account.id,
+                icon: AnyView(Image("ccd").resizable()),
+                title: "CCD",
+                subtitle: (viewModel.account?.baker != nil || viewModel.account?.delegation != nil) ? "· %" : nil,
+                amount: amount.displayValueWithTwoNumbersAfterDecimalPoint(),
+                secondaryAmount: viewModel.ccdEuroEquivalent,
+                tokenImage: nil,
+                showDenyIcon: false,
+                isCCD: true
+            )
+            
+        case .token(let token, let amount):
+            let iconView: AnyView
+            if let url = token.metadata.thumbnail?.url {
+                iconView = AnyView(CryptoImage(url: url.toURL, size: .custom(width: 40, height: 40)))
+            } else {
+                iconView = AnyView(Image("placeholder-crypto-token").resizable())
             }
-            if mode == .normal {
-                Image("caretRight")
-                    .renderingMode(.template)
-                    .foregroundStyle(.grey4)
-                    .frame(width: 30, height: 40)
-            }
-        }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 11)
-        .background(selectedAccountID == account.id ? .selectedCell : Color(red: 0.09, green: 0.1, blue: 0.1))
-        .cornerRadius(12)
-        .onTapGesture {
-            if mode == .normal {
-                selectedAccountID = account.id
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    selectedAccountID = nil
-                    path.append(.tokenDetails(token: account, viewModel))
-                }
-            }
+            return TokenListCellData(
+                id: account.id,
+                icon: iconView,
+                title: token.metadata.symbol ?? token.metadata.name ?? "",
+                subtitle: "CIS-2",
+                amount: TokenFormatter().displayStringWithTwoValuesAfterComma(from: BigDecimal(BigInt(stringLiteral: amount), token.metadata.decimals ?? 0), decimalSeparator: ".", thousandSeparator: ","),
+                secondaryAmount: nil,
+                tokenImage: .cis2,
+                showDenyIcon: false,
+                isCCD: false
+            )
+            
+        case .plt(let token, let amount):
+            return TokenListCellData(
+                id: account.id,
+                icon: AnyView(Image("placeholder-crypto-token").resizable().clipShape(Circle())),
+                title: token.token.tokenState.moduleState.name,
+                subtitle: "PLT",
+                amount: TokenFormatter().displayStringWithTwoValuesAfterComma(from: BigDecimal(BigInt(stringLiteral: amount), token.token.tokenState.decimals), decimalSeparator: ".", thousandSeparator: ","),
+                secondaryAmount: nil,
+                tokenImage: .plt,
+                showDenyIcon: token.token.tokenState.moduleState.denyList || !token.token.tokenState.moduleState.allowList,
+                isCCD: false
+            )
         }
     }
 }

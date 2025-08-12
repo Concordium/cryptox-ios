@@ -93,4 +93,12 @@ extension PLTTokenService {
         } ?? [:]
         return pltTokenBalance
     }
+    
+    func fetchTokenTotalSupply(for tokenId: String) async -> TokenBalance? {
+        do {
+            let token = try await self.fetchTokenInfo(tokenID: tokenId)
+            return token.tokenState.totalSupply
+        } catch { }
+        return nil
+    }
 }
