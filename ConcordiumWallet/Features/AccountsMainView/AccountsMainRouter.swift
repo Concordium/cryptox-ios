@@ -161,7 +161,6 @@ extension AccountsMainRouter {
     
     func showNotConfiguredAccountPopup() {
         configureAccountAlertDelegate?.showConfigureAccountAlert()
-        FirebaseAppTracker.homeUnlockFeatureDialog()
     }
     
     @MainActor

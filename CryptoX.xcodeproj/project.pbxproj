@@ -1651,9 +1651,6 @@
 		15349AA02DB2654700D65610 /* WertWidgetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15349A9F2DB2654700D65610 /* WertWidgetManager.swift */; };
 		15349AA12DB2654700D65610 /* WertWidgetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15349A9F2DB2654700D65610 /* WertWidgetManager.swift */; };
 		15349AA22DB2654700D65610 /* WertWidgetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15349A9F2DB2654700D65610 /* WertWidgetManager.swift */; };
-		15376EB12DB9039F00402C52 /* FirebaseAppTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15376EB02DB9039F00402C52 /* FirebaseAppTracker.swift */; };
-		15376EB22DB9039F00402C52 /* FirebaseAppTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15376EB02DB9039F00402C52 /* FirebaseAppTracker.swift */; };
-		15376EB32DB9039F00402C52 /* FirebaseAppTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15376EB02DB9039F00402C52 /* FirebaseAppTracker.swift */; };
 		153F2F4B2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */; };
 		153F2F4C2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */; };
 		153F2F4D2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */; };
@@ -3009,7 +3006,6 @@
 		1534956E2D9FEADD00D65610 /* DelegationPoolValidatorIdError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationPoolValidatorIdError.swift; sourceTree = "<group>"; };
 		1534957B2D9FFD6500D65610 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		15349A9F2DB2654700D65610 /* WertWidgetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WertWidgetManager.swift; sourceTree = "<group>"; };
-		15376EB02DB9039F00402C52 /* FirebaseAppTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAppTracker.swift; sourceTree = "<group>"; };
 		153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTokenNotificationPopup.swift; sourceTree = "<group>"; };
 		153F2F4E2CC2D100009C8347 /* NotificationTokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTokenService.swift; sourceTree = "<group>"; };
 		1546CFD12D8050B0007BE2EB /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
@@ -5175,14 +5171,6 @@
 			path = NewsFeed;
 			sourceTree = "<group>";
 		};
-		509749E82C49195900D28D6B /* Tracking */ = {
-			isa = PBXGroup;
-			children = (
-				15376EB02DB9039F00402C52 /* FirebaseAppTracker.swift */,
-			);
-			path = Tracking;
-			sourceTree = "<group>";
-		};
 		509A56342CB42EFF005EA908 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -5206,7 +5194,6 @@
 				508E00C22E0C1A69004DA300 /* SDK */,
 				1580EBDC2D4A38190051C55D /* Navigation */,
 				15844E632C888BC2005A3BF1 /* PushNotifications */,
-				509749E82C49195900D28D6B /* Tracking */,
 				50D389212C107C6900B3675A /* ThirdParty */,
 			);
 			path = Core;
@@ -7059,7 +7046,6 @@
 				08C168452BB7396200E61326 /* IdentityProviderEntity.swift in Sources */,
 				08C168462BB7396200E61326 /* ImportViewController.swift in Sources */,
 				08C168472BB7396200E61326 /* DeleteIdentityButtonWidgetViewController.swift in Sources */,
-				15376EB22DB9039F00402C52 /* FirebaseAppTracker.swift in Sources */,
 				08C168482BB7396200E61326 /* CreateCredentialRequest.swift in Sources */,
 				08C168492BB7396200E61326 /* ExportTransactionLogViewModel.swift in Sources */,
 				08C1684A2BB7396200E61326 /* TokenFormatter.swift in Sources */,
@@ -7751,7 +7737,6 @@
 				D589F1952794B5ED003F2FBB /* IdentityProviderEntity.swift in Sources */,
 				088FF2132A02A77200042957 /* ImportViewController.swift in Sources */,
 				088FEF822A0270B000042957 /* DeleteIdentityButtonWidgetViewController.swift in Sources */,
-				15376EB12DB9039F00402C52 /* FirebaseAppTracker.swift in Sources */,
 				08A045FC29FA99D200DACE1F /* CreateCredentialRequest.swift in Sources */,
 				088FED8C2A01672D00042957 /* ExportTransactionLogViewModel.swift in Sources */,
 				08E69CB62A254570001CCA96 /* TokenFormatter.swift in Sources */,
@@ -8445,7 +8430,6 @@
 				088FF0692A02782F00042957 /* BiometricsEnablingViewController.swift in Sources */,
 				08A0456429FA99D100DACE1F /* CreateCredentialRequest.swift in Sources */,
 				15BBDA682D80776100B8A36C /* DelegationAmountInputViewModel.swift in Sources */,
-				15376EB32DB9039F00402C52 /* FirebaseAppTracker.swift in Sources */,
 				088FF0512A02781B00042957 /* EnterPasswordViewController.swift in Sources */,
 				088FF2072A02A77100042957 /* ImportViewController.swift in Sources */,
 				088FED862A01672D00042957 /* ExportTransactionLogViewModel.swift in Sources */,

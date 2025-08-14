@@ -46,9 +46,6 @@ struct NewsFeed: View {
             }
             .modifier(AppBackgroundModifier())
             .navigationBarTitleDisplayMode(.inline)
-            .onAppear {
-                FirebaseAppTracker.discoverScreen()
-            }
         }
     }
     

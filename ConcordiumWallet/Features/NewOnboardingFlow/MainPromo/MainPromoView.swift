@@ -41,9 +41,6 @@ struct MainPromoView: View {
         .overlay(alignment: .bottom, content: {
             BottomSheet(isShowing: $isCreateAccountSheetShown) {
                 ActivateAccountSheet()
-                    .onAppear {
-                        FirebaseAppTracker.welcomeSetUpWalletDialog()
-                    }
             }
         })
         .fullScreenCover(isPresented: $isCreatePasswordFlowShown) {
@@ -72,7 +69,6 @@ struct MainPromoView: View {
                 .multilineTextAlignment(.center)
             Button {
                 isImportWalletFlowShown.toggle()
-                FirebaseAppTracker.welcomeSetUpWalletDialogImportClicked()
             } label: {
                 VStack(spacing: 2) {
                     Text("import_wallet".localized)
@@ -162,7 +158,6 @@ struct MainPromoView: View {
             }
             Button(action: {
                 isCreatePasswordFlowShown.toggle()
-                FirebaseAppTracker.welcomeSetUpWalletDialogCreateClicked()
             }, label: {
                 HStack {
                     Text("continue_btn_title".localized)
