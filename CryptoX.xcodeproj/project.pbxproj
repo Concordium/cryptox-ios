@@ -3155,26 +3155,26 @@
 		15BBDA6D2D807C5000B8A36C /* DelegationStakingModeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationStakingModeViewModel.swift; sourceTree = "<group>"; };
 		15BBDA752D82F1E500B8A36C /* DelegationSubmissionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationSubmissionViewModel.swift; sourceTree = "<group>"; };
 		15BBDA7D2D83034F00B8A36C /* DelegationStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationStatusViewModel.swift; sourceTree = "<group>"; };
-		15E0BAE22E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AccountPLTTokenEntity+CoreDataClass.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/AccountPLTTokenEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		15E0BAE32E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AccountPLTTokenEntity+CoreDataProperties.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/AccountPLTTokenEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		15E0BAE42E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "GovernanceAccountEntity+CoreDataClass.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/GovernanceAccountEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		15E0BAE52E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "GovernanceAccountEntity+CoreDataProperties.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/GovernanceAccountEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		15E0BAE62E412D8E00B8D3FD /* MetadataEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MetadataEntity+CoreDataClass.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/MetadataEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		15E0BAE72E412D8E00B8D3FD /* MetadataEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MetadataEntity+CoreDataProperties.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/MetadataEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		15E0BAE82E412D8E00B8D3FD /* ModuleStateEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ModuleStateEntity+CoreDataClass.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/ModuleStateEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		15E0BAE92E412D8E00B8D3FD /* ModuleStateEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ModuleStateEntity+CoreDataProperties.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/ModuleStateEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		15E0BAEA2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PLTTokenEntity+CoreDataClass.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/PLTTokenEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		15E0BAEB2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PLTTokenEntity+CoreDataProperties.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/PLTTokenEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		15E0BAEC2E412D8E00B8D3FD /* StateEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "StateEntity+CoreDataClass.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/StateEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		15E0BAED2E412D8E00B8D3FD /* StateEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "StateEntity+CoreDataProperties.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/StateEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		15E0BAEE2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TokenAccountStateEntity+CoreDataClass.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/TokenAccountStateEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		15E0BAEF2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TokenAccountStateEntity+CoreDataProperties.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/TokenAccountStateEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		15E0BAF02E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TokenBalanceEntity+CoreDataClass.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/TokenBalanceEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		15E0BAF12E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TokenBalanceEntity+CoreDataProperties.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/TokenBalanceEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		15E0BAF22E412D8E00B8D3FD /* TokenStateEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TokenStateEntity+CoreDataClass.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/TokenStateEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		15E0BAF32E412D8E00B8D3FD /* TokenStateEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TokenStateEntity+CoreDataProperties.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/TokenStateEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		15E0BAF42E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TotalSupplyEntity+CoreDataClass.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/TotalSupplyEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		15E0BAF52E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TotalSupplyEntity+CoreDataProperties.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/TotalSupplyEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		15E0BAE22E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AccountPLTTokenEntity+CoreDataClass.swift"; path = "../ConcordiumWallet/Features/PLTTokenSupport/CoreData/AccountPLTTokenEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		15E0BAE32E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AccountPLTTokenEntity+CoreDataProperties.swift"; path = "../ConcordiumWallet/Features/PLTTokenSupport/CoreData/AccountPLTTokenEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		15E0BAE42E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "GovernanceAccountEntity+CoreDataClass.swift"; path = "../ConcordiumWallet/Features/PLTTokenSupport/CoreData/GovernanceAccountEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		15E0BAE52E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "GovernanceAccountEntity+CoreDataProperties.swift"; path = "../ConcordiumWallet/Features/PLTTokenSupport/CoreData/GovernanceAccountEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		15E0BAE62E412D8E00B8D3FD /* MetadataEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MetadataEntity+CoreDataClass.swift"; path = "../ConcordiumWallet/Features/PLTTokenSupport/CoreData/MetadataEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		15E0BAE72E412D8E00B8D3FD /* MetadataEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MetadataEntity+CoreDataProperties.swift"; path = "../ConcordiumWallet/Features/PLTTokenSupport/CoreData/MetadataEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		15E0BAE82E412D8E00B8D3FD /* ModuleStateEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ModuleStateEntity+CoreDataClass.swift"; path = "../ConcordiumWallet/Features/PLTTokenSupport/CoreData/ModuleStateEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		15E0BAE92E412D8E00B8D3FD /* ModuleStateEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ModuleStateEntity+CoreDataProperties.swift"; path = "../ConcordiumWallet/Features/PLTTokenSupport/CoreData/ModuleStateEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		15E0BAEA2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PLTTokenEntity+CoreDataClass.swift"; path = "../ConcordiumWallet/Features/PLTTokenSupport/CoreData/PLTTokenEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		15E0BAEB2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PLTTokenEntity+CoreDataProperties.swift"; path = "../ConcordiumWallet/Features/PLTTokenSupport/CoreData/PLTTokenEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		15E0BAEC2E412D8E00B8D3FD /* StateEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "StateEntity+CoreDataClass.swift"; path = "../ConcordiumWallet/Features/PLTTokenSupport/CoreData/StateEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		15E0BAED2E412D8E00B8D3FD /* StateEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "StateEntity+CoreDataProperties.swift"; path = "../ConcordiumWallet/Features/PLTTokenSupport/CoreData/StateEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		15E0BAEE2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TokenAccountStateEntity+CoreDataClass.swift"; path = "../ConcordiumWallet/Features/PLTTokenSupport/CoreData/TokenAccountStateEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		15E0BAEF2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TokenAccountStateEntity+CoreDataProperties.swift"; path = "../ConcordiumWallet/Features/PLTTokenSupport/CoreData/TokenAccountStateEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		15E0BAF02E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TokenBalanceEntity+CoreDataClass.swift"; path = "../ConcordiumWallet/Features/PLTTokenSupport/CoreData/TokenBalanceEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		15E0BAF12E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TokenBalanceEntity+CoreDataProperties.swift"; path = "../ConcordiumWallet/Features/PLTTokenSupport/CoreData/TokenBalanceEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		15E0BAF22E412D8E00B8D3FD /* TokenStateEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TokenStateEntity+CoreDataClass.swift"; path = "../ConcordiumWallet/Features/PLTTokenSupport/CoreData/TokenStateEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		15E0BAF32E412D8E00B8D3FD /* TokenStateEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TokenStateEntity+CoreDataProperties.swift"; path = "../ConcordiumWallet/Features/PLTTokenSupport/CoreData/TokenStateEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		15E0BAF42E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TotalSupplyEntity+CoreDataClass.swift"; path = "../ConcordiumWallet/Features/PLTTokenSupport/CoreData/TotalSupplyEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		15E0BAF52E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TotalSupplyEntity+CoreDataProperties.swift"; path = "../ConcordiumWallet/Features/PLTTokenSupport/CoreData/TotalSupplyEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		15E1BC682C6B588900543242 /* Gate_io.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gate_io.png; sourceTree = "<group>"; };
 		15ED6C742D63960600B1BB44 /* ValidatorAmountInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorAmountInputViewModel.swift; sourceTree = "<group>"; };
 		15ED6C782D639E2600B1BB44 /* CustomToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToggle.swift; sourceTree = "<group>"; };
@@ -5117,6 +5117,33 @@
 			path = PLTTokenSupport;
 			sourceTree = "<group>";
 		};
+		15B236862E547AAB00E84423 /* CoreDataSupport */ = {
+			isa = PBXGroup;
+			children = (
+				15E0BAE22E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataClass.swift */,
+				15E0BAE32E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataProperties.swift */,
+				15E0BAE42E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataClass.swift */,
+				15E0BAE52E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataProperties.swift */,
+				15E0BAE62E412D8E00B8D3FD /* MetadataEntity+CoreDataClass.swift */,
+				15E0BAE72E412D8E00B8D3FD /* MetadataEntity+CoreDataProperties.swift */,
+				15E0BAE82E412D8E00B8D3FD /* ModuleStateEntity+CoreDataClass.swift */,
+				15E0BAE92E412D8E00B8D3FD /* ModuleStateEntity+CoreDataProperties.swift */,
+				15E0BAEA2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataClass.swift */,
+				15E0BAEB2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataProperties.swift */,
+				15E0BAEC2E412D8E00B8D3FD /* StateEntity+CoreDataClass.swift */,
+				15E0BAED2E412D8E00B8D3FD /* StateEntity+CoreDataProperties.swift */,
+				15E0BAEE2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataClass.swift */,
+				15E0BAEF2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataProperties.swift */,
+				15E0BAF02E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataClass.swift */,
+				15E0BAF12E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataProperties.swift */,
+				15E0BAF22E412D8E00B8D3FD /* TokenStateEntity+CoreDataClass.swift */,
+				15E0BAF32E412D8E00B8D3FD /* TokenStateEntity+CoreDataProperties.swift */,
+				15E0BAF42E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataClass.swift */,
+				15E0BAF52E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataProperties.swift */,
+			);
+			path = CoreDataSupport;
+			sourceTree = "<group>";
+		};
 		15B498D62D5E30EE001B4F65 /* NewStake */ = {
 			isa = PBXGroup;
 			children = (
@@ -5425,26 +5452,7 @@
 		7FF07A6023EADB1200F1FC04 = {
 			isa = PBXGroup;
 			children = (
-				15E0BAE22E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataClass.swift */,
-				15E0BAE32E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataProperties.swift */,
-				15E0BAE42E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataClass.swift */,
-				15E0BAE52E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataProperties.swift */,
-				15E0BAE62E412D8E00B8D3FD /* MetadataEntity+CoreDataClass.swift */,
-				15E0BAE72E412D8E00B8D3FD /* MetadataEntity+CoreDataProperties.swift */,
-				15E0BAE82E412D8E00B8D3FD /* ModuleStateEntity+CoreDataClass.swift */,
-				15E0BAE92E412D8E00B8D3FD /* ModuleStateEntity+CoreDataProperties.swift */,
-				15E0BAEA2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataClass.swift */,
-				15E0BAEB2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataProperties.swift */,
-				15E0BAEC2E412D8E00B8D3FD /* StateEntity+CoreDataClass.swift */,
-				15E0BAED2E412D8E00B8D3FD /* StateEntity+CoreDataProperties.swift */,
-				15E0BAEE2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataClass.swift */,
-				15E0BAEF2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataProperties.swift */,
-				15E0BAF02E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataClass.swift */,
-				15E0BAF12E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataProperties.swift */,
-				15E0BAF22E412D8E00B8D3FD /* TokenStateEntity+CoreDataClass.swift */,
-				15E0BAF32E412D8E00B8D3FD /* TokenStateEntity+CoreDataProperties.swift */,
-				15E0BAF42E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataClass.swift */,
-				15E0BAF52E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataProperties.swift */,
+				15B236862E547AAB00E84423 /* CoreDataSupport */,
 				158A35A72E1BC57100BDCFDE /* CryptoXDataModel.xcdatamodeld */,
 				50996DA82DDCC88C0059FCB4 /* Packages */,
 				15B6CFA52DBF87F700091449 /* ci_scripts */,
