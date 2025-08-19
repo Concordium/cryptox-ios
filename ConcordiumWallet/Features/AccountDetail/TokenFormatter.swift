@@ -239,7 +239,7 @@ public class TokenFormatter {
                 return "0.00"
             } else {
                 return stringValue
-            }p
+            }
         }
         
         let wholePart = components[0]
