@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+- Fix Wert.io issue
+
+## [Released 3.3.5]
 - ID2.5 functionality (Reown)
 
 ## [Released 3.3.5]
