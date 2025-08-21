@@ -37,7 +37,7 @@ final class ConcordiumClient: ObservableObject {
 #elseif MAINNET
         URL(string: "https://grpc.testnet.concordium.com:20000")!
 #else // Staging
-        URL(string: "https://grpc.devnet-plt-beta.concordium.com:20000")!
+        URL(string: "https://grpc.testnet.concordium.com:20000")!
 #endif
     }
     

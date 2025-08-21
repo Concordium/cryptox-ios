@@ -59,7 +59,7 @@ struct AppConstants {
             var url = ""
             #if MAINNET
                 url = "https://partner.wert.io/api/external/hpp/create-session"
-            #elseif TESTNET
+            #else
                 url = "https://partner-sandbox.wert.io/api/external/hpp/create-session"
             #endif
             return url
@@ -69,7 +69,7 @@ struct AppConstants {
             #if MAINNET
             guard let apiKey = Bundle.main.infoDictionary?["MAINNET_WERT_API_KEY"] as? String else { return "" }
             return apiKey
-            #elseif TESTNET
+            #else
             guard let apiKey = Bundle.main.infoDictionary?["TESTNET_WERT_API_KEY"] as? String else { return "" }
             return apiKey
             #endif
@@ -79,7 +79,7 @@ struct AppConstants {
             #if MAINNET
             guard let id = Bundle.main.infoDictionary?["MAINNET_WERT_PARTNER_ID"] as? String else { return "" }
             return id
-            #elseif TESTNET
+            #else
             guard let id = Bundle.main.infoDictionary?["TESTNET_WERT_PARTNER_ID"] as? String else { return "" }
             return id
             #endif
