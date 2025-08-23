@@ -50,3 +50,6 @@ Update the version in `main`, tag the commit with the version name and push the 
 
 ### Building for release
 Builds for releases tagged with semver version (`X.Y.Z`)
+
+
+https://github.com/Concordium/concordium-swift-sdk.git

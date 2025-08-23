@@ -28,7 +28,7 @@ class ConnectionRequestVC: UIViewController, Storyboarded {
     @ObservedObject var service = WebSocketService()
     var connectionData: QRDataResponse?
     var accs: [AccountDataType]?
-    var dependencyProvider: AccountsFlowCoordinatorDependencyProvider?
+    var dependencyProvider: ServicesProvider?
     private var selectedAcc: AccountDataType!
     var status: ConnectionRequestVCType = .connection
     

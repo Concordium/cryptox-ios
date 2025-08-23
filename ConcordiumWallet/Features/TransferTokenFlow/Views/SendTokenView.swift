@@ -75,6 +75,11 @@ struct SendTokenView: View {
                             .modifier(TappedCellEffect(onTap: {
                                 path.append(.chooseTokenToSend(transferTokenVM: viewModel, AccountDetailViewModel(account: viewModel.account)))
                             }))
+                    case .plt(let token):
+                        SendTokenCell(tokenType: .plt(pltToken: token, availableAmount: viewModel.availableDisplayAmount))
+                            .modifier(TappedCellEffect(onTap: {
+                                path.append(.chooseTokenToSend(transferTokenVM: viewModel, AccountDetailViewModel(account: viewModel.account)))
+                            }))
                     }
                     
                     selectRecipient()

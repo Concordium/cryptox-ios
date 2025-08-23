@@ -42,11 +42,11 @@ enum GeneralAppError: LocalizedError {
 }
 
 enum CXTokenType: Hashable, Equatable {
-    case cis2(CIS2Token), ccd
+    case cis2(CIS2Token), ccd, plt(AccountPLTToken)
     
     var isCIS2Token: Bool {
         switch self {
-            case .ccd: return false
+        case .ccd, .plt: return false
             default: return true
         }
     }
@@ -57,6 +57,8 @@ enum CXTokenType: Hashable, Equatable {
                 return cIS2Token.metadata.name ?? ""
             case .ccd:
                 return "ccd"
+        case .plt(let token):
+            return token.token.tokenID
         }
     }
     
@@ -66,6 +68,8 @@ enum CXTokenType: Hashable, Equatable {
                 return cIS2Token.metadata.decimals ?? 0
             case .ccd:
                 return 6
+        case .plt(let token):
+            return token.token.tokenState.decimals
         }
     }
 }
@@ -296,6 +300,8 @@ extension CXTokenType {
                 return cIS2Token.metadata.thumbnail?.url.toURL
             case .ccd:
                 return AssetExtractor.createLocalUrl(forImageNamed: "icon_ccd")
+        case .plt:
+            return AssetExtractor.createLocalUrl(forImageNamed: "placeholder-crypto-token")
         }
     }
     
@@ -305,6 +311,8 @@ extension CXTokenType {
                 return cIS2Token.metadata.name  ?? ""
             case .ccd:
                 return "CCD"
+        case .plt:
+            return "PLT"
         }
     }
     var decimals: Int {
@@ -313,6 +321,8 @@ extension CXTokenType {
                 return cIS2Token.metadata.decimals ?? 0
             case .ccd:
                 return 6
+        case .plt(let token):
+            return token.token.tokenState.decimals
         }
     }
 }

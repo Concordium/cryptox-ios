@@ -11,11 +11,12 @@ import SwiftUI
 import UIKit
 import BigInt
 import Combine
+import Concordium
 
 final class TransferTokenRouter: ObservableObject {
     private let rootController: UINavigationController
     private let account: AccountDataType
-    private let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
+    private let dependencyProvider: ServicesProvider
     private let navigationController: UINavigationController
     private let navigationManager = NavigationManager()
 
@@ -24,7 +25,7 @@ final class TransferTokenRouter: ObservableObject {
     init(
         root: UINavigationController,
         account: AccountDataType,
-        dependencyProvider: AccountsFlowCoordinatorDependencyProvider
+        dependencyProvider: ServicesProvider
     ) {
         self.rootController = root
         self.account = account

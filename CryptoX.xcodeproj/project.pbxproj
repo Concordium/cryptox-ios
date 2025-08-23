@@ -1832,67 +1832,6 @@
 		15BBDA7E2D83034F00B8A36C /* DelegationStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBDA7D2D83034F00B8A36C /* DelegationStatusViewModel.swift */; };
 		15BBDA7F2D83034F00B8A36C /* DelegationStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBDA7D2D83034F00B8A36C /* DelegationStatusViewModel.swift */; };
 		15BBDA802D83034F00B8A36C /* DelegationStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBDA7D2D83034F00B8A36C /* DelegationStatusViewModel.swift */; };
-		15E0BAF62E412D8E00B8D3FD /* PLTTokenEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAEB2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataProperties.swift */; };
-		15E0BAF72E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAEE2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataClass.swift */; };
-		15E0BAF82E412D8E00B8D3FD /* MetadataEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE72E412D8E00B8D3FD /* MetadataEntity+CoreDataProperties.swift */; };
-		15E0BAF92E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAF02E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataClass.swift */; };
-		15E0BAFA2E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE22E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataClass.swift */; };
-		15E0BAFB2E412D8E00B8D3FD /* StateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAEC2E412D8E00B8D3FD /* StateEntity+CoreDataClass.swift */; };
-		15E0BAFC2E412D8E00B8D3FD /* StateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAED2E412D8E00B8D3FD /* StateEntity+CoreDataProperties.swift */; };
-		15E0BAFD2E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE42E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataClass.swift */; };
-		15E0BAFE2E412D8E00B8D3FD /* MetadataEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE62E412D8E00B8D3FD /* MetadataEntity+CoreDataClass.swift */; };
-		15E0BAFF2E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAF52E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataProperties.swift */; };
-		15E0BB002E412D8E00B8D3FD /* TokenStateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAF32E412D8E00B8D3FD /* TokenStateEntity+CoreDataProperties.swift */; };
-		15E0BB012E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE32E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataProperties.swift */; };
-		15E0BB022E412D8E00B8D3FD /* PLTTokenEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAEA2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataClass.swift */; };
-		15E0BB032E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAF12E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataProperties.swift */; };
-		15E0BB042E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAEF2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataProperties.swift */; };
-		15E0BB052E412D8E00B8D3FD /* ModuleStateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE92E412D8E00B8D3FD /* ModuleStateEntity+CoreDataProperties.swift */; };
-		15E0BB062E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAF42E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataClass.swift */; };
-		15E0BB072E412D8E00B8D3FD /* ModuleStateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE82E412D8E00B8D3FD /* ModuleStateEntity+CoreDataClass.swift */; };
-		15E0BB082E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE52E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataProperties.swift */; };
-		15E0BB092E412D8E00B8D3FD /* TokenStateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAF22E412D8E00B8D3FD /* TokenStateEntity+CoreDataClass.swift */; };
-		15E0BB0A2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAEB2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataProperties.swift */; };
-		15E0BB0B2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAEE2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataClass.swift */; };
-		15E0BB0C2E412D8E00B8D3FD /* MetadataEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE72E412D8E00B8D3FD /* MetadataEntity+CoreDataProperties.swift */; };
-		15E0BB0D2E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAF02E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataClass.swift */; };
-		15E0BB0E2E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE22E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataClass.swift */; };
-		15E0BB0F2E412D8E00B8D3FD /* StateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAEC2E412D8E00B8D3FD /* StateEntity+CoreDataClass.swift */; };
-		15E0BB102E412D8E00B8D3FD /* StateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAED2E412D8E00B8D3FD /* StateEntity+CoreDataProperties.swift */; };
-		15E0BB112E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE42E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataClass.swift */; };
-		15E0BB122E412D8E00B8D3FD /* MetadataEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE62E412D8E00B8D3FD /* MetadataEntity+CoreDataClass.swift */; };
-		15E0BB132E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAF52E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataProperties.swift */; };
-		15E0BB142E412D8E00B8D3FD /* TokenStateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAF32E412D8E00B8D3FD /* TokenStateEntity+CoreDataProperties.swift */; };
-		15E0BB152E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE32E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataProperties.swift */; };
-		15E0BB162E412D8E00B8D3FD /* PLTTokenEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAEA2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataClass.swift */; };
-		15E0BB172E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAF12E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataProperties.swift */; };
-		15E0BB182E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAEF2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataProperties.swift */; };
-		15E0BB192E412D8E00B8D3FD /* ModuleStateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE92E412D8E00B8D3FD /* ModuleStateEntity+CoreDataProperties.swift */; };
-		15E0BB1A2E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAF42E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataClass.swift */; };
-		15E0BB1B2E412D8E00B8D3FD /* ModuleStateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE82E412D8E00B8D3FD /* ModuleStateEntity+CoreDataClass.swift */; };
-		15E0BB1C2E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE52E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataProperties.swift */; };
-		15E0BB1D2E412D8E00B8D3FD /* TokenStateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAF22E412D8E00B8D3FD /* TokenStateEntity+CoreDataClass.swift */; };
-		15E0BB1E2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAEB2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataProperties.swift */; };
-		15E0BB1F2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAEE2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataClass.swift */; };
-		15E0BB202E412D8E00B8D3FD /* MetadataEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE72E412D8E00B8D3FD /* MetadataEntity+CoreDataProperties.swift */; };
-		15E0BB212E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAF02E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataClass.swift */; };
-		15E0BB222E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE22E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataClass.swift */; };
-		15E0BB232E412D8E00B8D3FD /* StateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAEC2E412D8E00B8D3FD /* StateEntity+CoreDataClass.swift */; };
-		15E0BB242E412D8E00B8D3FD /* StateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAED2E412D8E00B8D3FD /* StateEntity+CoreDataProperties.swift */; };
-		15E0BB252E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE42E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataClass.swift */; };
-		15E0BB262E412D8E00B8D3FD /* MetadataEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE62E412D8E00B8D3FD /* MetadataEntity+CoreDataClass.swift */; };
-		15E0BB272E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAF52E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataProperties.swift */; };
-		15E0BB282E412D8E00B8D3FD /* TokenStateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAF32E412D8E00B8D3FD /* TokenStateEntity+CoreDataProperties.swift */; };
-		15E0BB292E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE32E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataProperties.swift */; };
-		15E0BB2A2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAEA2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataClass.swift */; };
-		15E0BB2B2E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAF12E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataProperties.swift */; };
-		15E0BB2C2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAEF2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataProperties.swift */; };
-		15E0BB2D2E412D8E00B8D3FD /* ModuleStateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE92E412D8E00B8D3FD /* ModuleStateEntity+CoreDataProperties.swift */; };
-		15E0BB2E2E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAF42E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataClass.swift */; };
-		15E0BB2F2E412D8E00B8D3FD /* ModuleStateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE82E412D8E00B8D3FD /* ModuleStateEntity+CoreDataClass.swift */; };
-		15E0BB302E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAE52E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataProperties.swift */; };
-		15E0BB312E412D8E00B8D3FD /* TokenStateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0BAF22E412D8E00B8D3FD /* TokenStateEntity+CoreDataClass.swift */; };
-		15E0BB832E43838500B8D3FD /* Concordium in Frameworks */ = {isa = PBXBuildFile; productRef = 15E0BB822E43838500B8D3FD /* Concordium */; };
 		15E1BC692C6B58C000543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
 		15E1BC6A2C6B58C000543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
 		15E1BC6B2C6B58C100543242 /* Gate_io.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E1BC682C6B588900543242 /* Gate_io.png */; };
@@ -1958,16 +1897,80 @@
 		19C2EEC684BF75B9E3F9EADD /* Sizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E113307579CAF5005F21 /* Sizes.swift */; };
 		19C2EF490E9CA00157B61071 /* EncryptionServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E9AFA3608A553A130503 /* EncryptionServiceTest.swift */; };
 		19C2EFF1CEC944A7FCBC63C5 /* SingleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2ED4F802767556C4ABBE9 /* SingleSection.swift */; };
+		500366FD2E5489F700EE5970 /* AccountPLTTokenEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366E62E5489F700EE5970 /* AccountPLTTokenEntity+CoreDataClass.swift */; };
+		500366FE2E5489F700EE5970 /* AccountPLTTokenEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366E72E5489F700EE5970 /* AccountPLTTokenEntity+CoreDataProperties.swift */; };
+		500366FF2E5489F700EE5970 /* CoreDataPLTStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366E82E5489F700EE5970 /* CoreDataPLTStore.swift */; };
+		500367002E5489F700EE5970 /* GovernanceAccountEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366E92E5489F700EE5970 /* GovernanceAccountEntity+CoreDataClass.swift */; };
+		500367012E5489F700EE5970 /* GovernanceAccountEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366EA2E5489F700EE5970 /* GovernanceAccountEntity+CoreDataProperties.swift */; };
+		500367022E5489F700EE5970 /* MetadataEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366EB2E5489F700EE5970 /* MetadataEntity+CoreDataClass.swift */; };
+		500367032E5489F700EE5970 /* MetadataEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366EC2E5489F700EE5970 /* MetadataEntity+CoreDataProperties.swift */; };
+		500367042E5489F700EE5970 /* ModuleStateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366ED2E5489F700EE5970 /* ModuleStateEntity+CoreDataClass.swift */; };
+		500367052E5489F700EE5970 /* ModuleStateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366EE2E5489F700EE5970 /* ModuleStateEntity+CoreDataProperties.swift */; };
+		500367062E5489F700EE5970 /* PLTTokenEntity + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366EF2E5489F700EE5970 /* PLTTokenEntity + Extensions.swift */; };
+		500367072E5489F700EE5970 /* PLTTokenEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F02E5489F700EE5970 /* PLTTokenEntity+CoreDataClass.swift */; };
+		500367082E5489F700EE5970 /* PLTTokenEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F12E5489F700EE5970 /* PLTTokenEntity+CoreDataProperties.swift */; };
+		500367092E5489F700EE5970 /* StateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F22E5489F700EE5970 /* StateEntity+CoreDataClass.swift */; };
+		5003670A2E5489F700EE5970 /* StateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F32E5489F700EE5970 /* StateEntity+CoreDataProperties.swift */; };
+		5003670B2E5489F700EE5970 /* TokenAccountStateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F42E5489F700EE5970 /* TokenAccountStateEntity+CoreDataClass.swift */; };
+		5003670C2E5489F700EE5970 /* TokenAccountStateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F52E5489F700EE5970 /* TokenAccountStateEntity+CoreDataProperties.swift */; };
+		5003670D2E5489F700EE5970 /* TokenBalanceEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F62E5489F700EE5970 /* TokenBalanceEntity+CoreDataClass.swift */; };
+		5003670E2E5489F700EE5970 /* TokenBalanceEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F72E5489F700EE5970 /* TokenBalanceEntity+CoreDataProperties.swift */; };
+		5003670F2E5489F700EE5970 /* TokenStateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F82E5489F700EE5970 /* TokenStateEntity+CoreDataClass.swift */; };
+		500367102E5489F700EE5970 /* TokenStateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F92E5489F700EE5970 /* TokenStateEntity+CoreDataProperties.swift */; };
+		500367112E5489F700EE5970 /* TotalSupplyEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366FA2E5489F700EE5970 /* TotalSupplyEntity+CoreDataClass.swift */; };
+		500367122E5489F700EE5970 /* TotalSupplyEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366FB2E5489F700EE5970 /* TotalSupplyEntity+CoreDataProperties.swift */; };
+		500367132E5489F700EE5970 /* AccountPLTTokenEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366E62E5489F700EE5970 /* AccountPLTTokenEntity+CoreDataClass.swift */; };
+		500367142E5489F700EE5970 /* AccountPLTTokenEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366E72E5489F700EE5970 /* AccountPLTTokenEntity+CoreDataProperties.swift */; };
+		500367152E5489F700EE5970 /* CoreDataPLTStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366E82E5489F700EE5970 /* CoreDataPLTStore.swift */; };
+		500367162E5489F700EE5970 /* GovernanceAccountEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366E92E5489F700EE5970 /* GovernanceAccountEntity+CoreDataClass.swift */; };
+		500367172E5489F700EE5970 /* GovernanceAccountEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366EA2E5489F700EE5970 /* GovernanceAccountEntity+CoreDataProperties.swift */; };
+		500367182E5489F700EE5970 /* MetadataEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366EB2E5489F700EE5970 /* MetadataEntity+CoreDataClass.swift */; };
+		500367192E5489F700EE5970 /* MetadataEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366EC2E5489F700EE5970 /* MetadataEntity+CoreDataProperties.swift */; };
+		5003671A2E5489F700EE5970 /* ModuleStateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366ED2E5489F700EE5970 /* ModuleStateEntity+CoreDataClass.swift */; };
+		5003671B2E5489F700EE5970 /* ModuleStateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366EE2E5489F700EE5970 /* ModuleStateEntity+CoreDataProperties.swift */; };
+		5003671C2E5489F700EE5970 /* PLTTokenEntity + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366EF2E5489F700EE5970 /* PLTTokenEntity + Extensions.swift */; };
+		5003671D2E5489F700EE5970 /* PLTTokenEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F02E5489F700EE5970 /* PLTTokenEntity+CoreDataClass.swift */; };
+		5003671E2E5489F700EE5970 /* PLTTokenEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F12E5489F700EE5970 /* PLTTokenEntity+CoreDataProperties.swift */; };
+		5003671F2E5489F700EE5970 /* StateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F22E5489F700EE5970 /* StateEntity+CoreDataClass.swift */; };
+		500367202E5489F700EE5970 /* StateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F32E5489F700EE5970 /* StateEntity+CoreDataProperties.swift */; };
+		500367212E5489F700EE5970 /* TokenAccountStateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F42E5489F700EE5970 /* TokenAccountStateEntity+CoreDataClass.swift */; };
+		500367222E5489F700EE5970 /* TokenAccountStateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F52E5489F700EE5970 /* TokenAccountStateEntity+CoreDataProperties.swift */; };
+		500367232E5489F700EE5970 /* TokenBalanceEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F62E5489F700EE5970 /* TokenBalanceEntity+CoreDataClass.swift */; };
+		500367242E5489F700EE5970 /* TokenBalanceEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F72E5489F700EE5970 /* TokenBalanceEntity+CoreDataProperties.swift */; };
+		500367252E5489F700EE5970 /* TokenStateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F82E5489F700EE5970 /* TokenStateEntity+CoreDataClass.swift */; };
+		500367262E5489F700EE5970 /* TokenStateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F92E5489F700EE5970 /* TokenStateEntity+CoreDataProperties.swift */; };
+		500367272E5489F700EE5970 /* TotalSupplyEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366FA2E5489F700EE5970 /* TotalSupplyEntity+CoreDataClass.swift */; };
+		500367282E5489F700EE5970 /* TotalSupplyEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366FB2E5489F700EE5970 /* TotalSupplyEntity+CoreDataProperties.swift */; };
+		500367292E5489F700EE5970 /* AccountPLTTokenEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366E62E5489F700EE5970 /* AccountPLTTokenEntity+CoreDataClass.swift */; };
+		5003672A2E5489F700EE5970 /* AccountPLTTokenEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366E72E5489F700EE5970 /* AccountPLTTokenEntity+CoreDataProperties.swift */; };
+		5003672B2E5489F700EE5970 /* CoreDataPLTStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366E82E5489F700EE5970 /* CoreDataPLTStore.swift */; };
+		5003672C2E5489F700EE5970 /* GovernanceAccountEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366E92E5489F700EE5970 /* GovernanceAccountEntity+CoreDataClass.swift */; };
+		5003672D2E5489F700EE5970 /* GovernanceAccountEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366EA2E5489F700EE5970 /* GovernanceAccountEntity+CoreDataProperties.swift */; };
+		5003672E2E5489F700EE5970 /* MetadataEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366EB2E5489F700EE5970 /* MetadataEntity+CoreDataClass.swift */; };
+		5003672F2E5489F700EE5970 /* MetadataEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366EC2E5489F700EE5970 /* MetadataEntity+CoreDataProperties.swift */; };
+		500367302E5489F700EE5970 /* ModuleStateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366ED2E5489F700EE5970 /* ModuleStateEntity+CoreDataClass.swift */; };
+		500367312E5489F700EE5970 /* ModuleStateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366EE2E5489F700EE5970 /* ModuleStateEntity+CoreDataProperties.swift */; };
+		500367322E5489F700EE5970 /* PLTTokenEntity + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366EF2E5489F700EE5970 /* PLTTokenEntity + Extensions.swift */; };
+		500367332E5489F700EE5970 /* PLTTokenEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F02E5489F700EE5970 /* PLTTokenEntity+CoreDataClass.swift */; };
+		500367342E5489F700EE5970 /* PLTTokenEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F12E5489F700EE5970 /* PLTTokenEntity+CoreDataProperties.swift */; };
+		500367352E5489F700EE5970 /* StateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F22E5489F700EE5970 /* StateEntity+CoreDataClass.swift */; };
+		500367362E5489F700EE5970 /* StateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F32E5489F700EE5970 /* StateEntity+CoreDataProperties.swift */; };
+		500367372E5489F700EE5970 /* TokenAccountStateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F42E5489F700EE5970 /* TokenAccountStateEntity+CoreDataClass.swift */; };
+		500367382E5489F700EE5970 /* TokenAccountStateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F52E5489F700EE5970 /* TokenAccountStateEntity+CoreDataProperties.swift */; };
+		500367392E5489F700EE5970 /* TokenBalanceEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F62E5489F700EE5970 /* TokenBalanceEntity+CoreDataClass.swift */; };
+		5003673A2E5489F700EE5970 /* TokenBalanceEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F72E5489F700EE5970 /* TokenBalanceEntity+CoreDataProperties.swift */; };
+		5003673B2E5489F700EE5970 /* TokenStateEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F82E5489F700EE5970 /* TokenStateEntity+CoreDataClass.swift */; };
+		5003673C2E5489F700EE5970 /* TokenStateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F92E5489F700EE5970 /* TokenStateEntity+CoreDataProperties.swift */; };
+		5003673D2E5489F700EE5970 /* TotalSupplyEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366FA2E5489F700EE5970 /* TotalSupplyEntity+CoreDataClass.swift */; };
+		5003673E2E5489F700EE5970 /* TotalSupplyEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366FB2E5489F700EE5970 /* TotalSupplyEntity+CoreDataProperties.swift */; };
 		50268F942E267D3400D46E02 /* SessionRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50268F932E267D3400D46E02 /* SessionRequestType.swift */; };
 		50268F952E267D3400D46E02 /* SessionRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50268F932E267D3400D46E02 /* SessionRequestType.swift */; };
 		50268F962E267D3400D46E02 /* SessionRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50268F932E267D3400D46E02 /* SessionRequestType.swift */; };
-		502690902E2686D200D46E02 /* Concordium in Frameworks */ = {isa = PBXBuildFile; productRef = 5026908F2E2686D200D46E02 /* Concordium */; };
 		5059C9B52C00CF1200E40307 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5059C9B42C00CF1200E40307 /* SDWebImageSwiftUI */; };
 		5059C9B72C00CF1700E40307 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5059C9B62C00CF1700E40307 /* SDWebImageSwiftUI */; };
 		505E11F12CC2994A0003F6DC /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F779124891F220016F8D1 /* AppIcon.xcassets */; };
 		505E11F22CC299510003F6DC /* AppIconTestNet.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F778F24891EFB0016F8D1 /* AppIconTestNet.xcassets */; };
 		505E11F32CC299560003F6DC /* AppIconTestNet.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F778F24891EFB0016F8D1 /* AppIconTestNet.xcassets */; };
-		5072A1A52DCB4CF1008698C3 /* Concordium in Frameworks */ = {isa = PBXBuildFile; productRef = 5072A1A42DCB4CF1008698C3 /* Concordium */; };
 		5075414A2DD3C590000D9445 /* MobileWalletLib in Frameworks */ = {isa = PBXBuildFile; productRef = 507541492DD3C590000D9445 /* MobileWalletLib */; };
 		5075414D2DD3C5B8000D9445 /* MobileWalletLib in Frameworks */ = {isa = PBXBuildFile; productRef = 5075414C2DD3C5B8000D9445 /* MobileWalletLib */; };
 		5075414F2DD3C5DC000D9445 /* MobileWalletLib in Frameworks */ = {isa = PBXBuildFile; productRef = 5075414E2DD3C5DC000D9445 /* MobileWalletLib */; };
@@ -1978,6 +1981,7 @@
 		507629662BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
 		507629672BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
 		507629682BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
+		5085B9EF2E57110D0004EBA8 /* Concordium in Frameworks */ = {isa = PBXBuildFile; productRef = 5085B9EE2E57110D0004EBA8 /* Concordium */; };
 		508E00C42E0C1AFE004DA300 /* ConcordiumClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508E00C32E0C1AFE004DA300 /* ConcordiumClient.swift */; };
 		508E00C52E0C1AFE004DA300 /* ConcordiumClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508E00C32E0C1AFE004DA300 /* ConcordiumClient.swift */; };
 		508E00C62E0C1AFE004DA300 /* ConcordiumClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508E00C32E0C1AFE004DA300 /* ConcordiumClient.swift */; };
@@ -2035,6 +2039,10 @@
 		509A563D2CB43549005EA908 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 509A563B2CB43549005EA908 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		509A563F2CB43561005EA908 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 509A563E2CB43561005EA908 /* FirebaseMessaging */; };
 		509A56412CB43568005EA908 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 509A56402CB43568005EA908 /* FirebaseMessaging */; };
+		50C9B3A82E5A37A200942487 /* AccountKeys+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C9B3A72E5A37A200942487 /* AccountKeys+Ext.swift */; };
+		50C9B3A92E5A37A200942487 /* AccountKeys+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C9B3A72E5A37A200942487 /* AccountKeys+Ext.swift */; };
+		50C9B3AA2E5A37A200942487 /* AccountKeys+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C9B3A72E5A37A200942487 /* AccountKeys+Ext.swift */; };
+		50C9B3AC2E5A450400942487 /* Concordium in Frameworks */ = {isa = PBXBuildFile; productRef = 50C9B3AB2E5A450400942487 /* Concordium */; };
 		50D3890D2C05D66A00B3675A /* ConfirmAccountCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE952A026B6400042957 /* ConfirmAccountCreateViewController.swift */; };
 		50D3890E2C05D66A00B3675A /* ConfirmAccountCreatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE972A026B6500042957 /* ConfirmAccountCreatePresenter.swift */; };
 		50D3890F2C05D66B00B3675A /* ConfirmAccountCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE952A026B6400042957 /* ConfirmAccountCreateViewController.swift */; };
@@ -3155,26 +3163,6 @@
 		15BBDA6D2D807C5000B8A36C /* DelegationStakingModeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationStakingModeViewModel.swift; sourceTree = "<group>"; };
 		15BBDA752D82F1E500B8A36C /* DelegationSubmissionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationSubmissionViewModel.swift; sourceTree = "<group>"; };
 		15BBDA7D2D83034F00B8A36C /* DelegationStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationStatusViewModel.swift; sourceTree = "<group>"; };
-		15E0BAE22E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AccountPLTTokenEntity+CoreDataClass.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/AccountPLTTokenEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		15E0BAE32E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AccountPLTTokenEntity+CoreDataProperties.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/AccountPLTTokenEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		15E0BAE42E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "GovernanceAccountEntity+CoreDataClass.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/GovernanceAccountEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		15E0BAE52E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "GovernanceAccountEntity+CoreDataProperties.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/GovernanceAccountEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		15E0BAE62E412D8E00B8D3FD /* MetadataEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MetadataEntity+CoreDataClass.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/MetadataEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		15E0BAE72E412D8E00B8D3FD /* MetadataEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MetadataEntity+CoreDataProperties.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/MetadataEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		15E0BAE82E412D8E00B8D3FD /* ModuleStateEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ModuleStateEntity+CoreDataClass.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/ModuleStateEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		15E0BAE92E412D8E00B8D3FD /* ModuleStateEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ModuleStateEntity+CoreDataProperties.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/ModuleStateEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		15E0BAEA2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PLTTokenEntity+CoreDataClass.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/PLTTokenEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		15E0BAEB2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PLTTokenEntity+CoreDataProperties.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/PLTTokenEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		15E0BAEC2E412D8E00B8D3FD /* StateEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "StateEntity+CoreDataClass.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/StateEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		15E0BAED2E412D8E00B8D3FD /* StateEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "StateEntity+CoreDataProperties.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/StateEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		15E0BAEE2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TokenAccountStateEntity+CoreDataClass.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/TokenAccountStateEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		15E0BAEF2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TokenAccountStateEntity+CoreDataProperties.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/TokenAccountStateEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		15E0BAF02E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TokenBalanceEntity+CoreDataClass.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/TokenBalanceEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		15E0BAF12E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TokenBalanceEntity+CoreDataProperties.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/TokenBalanceEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		15E0BAF22E412D8E00B8D3FD /* TokenStateEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TokenStateEntity+CoreDataClass.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/TokenStateEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		15E0BAF32E412D8E00B8D3FD /* TokenStateEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TokenStateEntity+CoreDataProperties.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/TokenStateEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		15E0BAF42E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TotalSupplyEntity+CoreDataClass.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/TotalSupplyEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		15E0BAF52E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TotalSupplyEntity+CoreDataProperties.swift"; path = "ConcordiumWallet/Features/PLTTokenSupport/CoreData/TotalSupplyEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		15E1BC682C6B588900543242 /* Gate_io.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gate_io.png; sourceTree = "<group>"; };
 		15ED6C742D63960600B1BB44 /* ValidatorAmountInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorAmountInputViewModel.swift; sourceTree = "<group>"; };
 		15ED6C782D639E2600B1BB44 /* CustomToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToggle.swift; sourceTree = "<group>"; };
@@ -3212,6 +3200,28 @@
 		19C2ED4F802767556C4ABBE9 /* SingleSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleSection.swift; sourceTree = "<group>"; };
 		19C2EE201F8E02CE561DA70D /* GTU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GTU.swift; sourceTree = "<group>"; };
 		19C2EEBD44B62F16333900D2 /* GeneralError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralError.swift; sourceTree = "<group>"; };
+		500366E62E5489F700EE5970 /* AccountPLTTokenEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountPLTTokenEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		500366E72E5489F700EE5970 /* AccountPLTTokenEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountPLTTokenEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		500366E82E5489F700EE5970 /* CoreDataPLTStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPLTStore.swift; sourceTree = "<group>"; };
+		500366E92E5489F700EE5970 /* GovernanceAccountEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GovernanceAccountEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		500366EA2E5489F700EE5970 /* GovernanceAccountEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GovernanceAccountEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		500366EB2E5489F700EE5970 /* MetadataEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MetadataEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		500366EC2E5489F700EE5970 /* MetadataEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MetadataEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		500366ED2E5489F700EE5970 /* ModuleStateEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ModuleStateEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		500366EE2E5489F700EE5970 /* ModuleStateEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ModuleStateEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		500366EF2E5489F700EE5970 /* PLTTokenEntity + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PLTTokenEntity + Extensions.swift"; sourceTree = "<group>"; };
+		500366F02E5489F700EE5970 /* PLTTokenEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PLTTokenEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		500366F12E5489F700EE5970 /* PLTTokenEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PLTTokenEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		500366F22E5489F700EE5970 /* StateEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StateEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		500366F32E5489F700EE5970 /* StateEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StateEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		500366F42E5489F700EE5970 /* TokenAccountStateEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TokenAccountStateEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		500366F52E5489F700EE5970 /* TokenAccountStateEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TokenAccountStateEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		500366F62E5489F700EE5970 /* TokenBalanceEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TokenBalanceEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		500366F72E5489F700EE5970 /* TokenBalanceEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TokenBalanceEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		500366F82E5489F700EE5970 /* TokenStateEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TokenStateEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		500366F92E5489F700EE5970 /* TokenStateEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TokenStateEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		500366FA2E5489F700EE5970 /* TotalSupplyEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TotalSupplyEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		500366FB2E5489F700EE5970 /* TotalSupplyEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TotalSupplyEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		50268F932E267D3400D46E02 /* SessionRequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequestType.swift; sourceTree = "<group>"; };
 		507629652BF2040B00B4D390 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		508E00C32E0C1AFE004DA300 /* ConcordiumClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcordiumClient.swift; sourceTree = "<group>"; };
@@ -3230,6 +3240,7 @@
 		509749E02C3E863B00D28D6B /* NewsFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeed.swift; sourceTree = "<group>"; };
 		509749E42C3E886C00D28D6B /* RSSFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeed.swift; sourceTree = "<group>"; };
 		509A56332CB42EFF005EA908 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		50C9B3A72E5A37A200942487 /* AccountKeys+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountKeys+Ext.swift"; sourceTree = "<group>"; };
 		50D3891C2C107C1E00B3675A /* TokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenView.swift; sourceTree = "<group>"; };
 		50D389222C107C7500B3675A /* CustomSVGDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSVGDecoder.swift; sourceTree = "<group>"; };
 		50E0D1702D35593100853594 /* ReownSessionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReownSessionRequest.swift; sourceTree = "<group>"; };
@@ -3526,7 +3537,6 @@
 		153495722D9FF6C500D65610 /* TransactionDetails */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TransactionDetails; sourceTree = "<group>"; };
 		156878E52CD24F4E0080B2F3 /* ViewModels */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ViewModels; sourceTree = "<group>"; };
 		156878E62CD24F6F0080B2F3 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
-		158E6FEB2E2656170092F583 /* CoreData */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CoreData; sourceTree = "<group>"; };
 		15B6CFA52DBF87F700091449 /* ci_scripts */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ci_scripts; sourceTree = "<group>"; };
 		50996DA82DDCC88C0059FCB4 /* Packages */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (50996DA92DDCC88C0059FCB4 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 50996DAA2DDCC88C0059FCB4 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 50996DAB2DDCC88C0059FCB4 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Packages; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -3539,6 +3549,7 @@
 				158A35A42E1BC4E200BDCFDE /* CoreData.framework in Frameworks */,
 				08C169102BB7396200E61326 /* SDWebImageSwiftUI in Frameworks */,
 				509A56292CB40A10005EA908 /* Base58Swift in Frameworks */,
+				5085B9EF2E57110D0004EBA8 /* Concordium in Frameworks */,
 				08C169122BB7396200E61326 /* SwiftCBOR in Frameworks */,
 				08C169152BB7396200E61326 /* JDStatusBarNotification in Frameworks */,
 				08C169172BB7396200E61326 /* SDWebImageSVGCoder in Frameworks */,
@@ -3550,7 +3561,6 @@
 				1557CCA32C89CA94008ABF67 /* FirebaseMessaging in Frameworks */,
 				08C1691A2BB7396200E61326 /* Kingfisher in Frameworks */,
 				5075414D2DD3C5B8000D9445 /* MobileWalletLib in Frameworks */,
-				5072A1A52DCB4CF1008698C3 /* Concordium in Frameworks */,
 				08C1691B2BB7396200E61326 /* MnemonicSwift in Frameworks */,
 				08C1691E2BB7396200E61326 /* WebKit.framework in Frameworks */,
 				5075414A2DD3C590000D9445 /* MobileWalletLib in Frameworks */,
@@ -3575,7 +3585,6 @@
 				08A0441C29FA888600DACE1F /* MnemonicSwift in Frameworks */,
 				08A0442529FA893700DACE1F /* Base58Swift in Frameworks */,
 				50E0D16B2D35466600853594 /* ReownWalletKit in Frameworks */,
-				502690902E2686D200D46E02 /* Concordium in Frameworks */,
 				7F85B8BA246A9AB600ED09B8 /* WebKit.framework in Frameworks */,
 				507541512DD3C5E0000D9445 /* MobileWalletLib in Frameworks */,
 			);
@@ -3592,7 +3601,7 @@
 				083505002A9E3DFA000D5175 /* SDWebImageSVGCoder in Frameworks */,
 				089FF0EA2A4F4CF0007AB1CF /* JDStatusBarNotification in Frameworks */,
 				158A35262E1685B300BDCFDE /* Lottie in Frameworks */,
-				15E0BB832E43838500B8D3FD /* Concordium in Frameworks */,
+				50C9B3AC2E5A450400942487 /* Concordium in Frameworks */,
 				08A0444329FA905700DACE1F /* Kingfisher in Frameworks */,
 				50E0D16D2D35466E00853594 /* Starscream in Frameworks */,
 				509A563C2CB43549005EA908 /* RealmSwift in Frameworks */,
@@ -5110,7 +5119,7 @@
 			children = (
 				15AE01AD2E36533400B9322D /* PLTTokenService.swift */,
 				15AE01B92E36707100B9322D /* AnyToken.swift */,
-				158E6FEB2E2656170092F583 /* CoreData */,
+				500366FC2E5489F700EE5970 /* CoreData */,
 				15AE01BD2E3682EB00B9322D /* TokenFetcher.swift */,
 				15AE01C12E3691CA00B9322D /* UnifiedToken.swift */,
 			);
@@ -5235,6 +5244,35 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		500366FC2E5489F700EE5970 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				500366E62E5489F700EE5970 /* AccountPLTTokenEntity+CoreDataClass.swift */,
+				500366E72E5489F700EE5970 /* AccountPLTTokenEntity+CoreDataProperties.swift */,
+				500366E82E5489F700EE5970 /* CoreDataPLTStore.swift */,
+				500366E92E5489F700EE5970 /* GovernanceAccountEntity+CoreDataClass.swift */,
+				500366EA2E5489F700EE5970 /* GovernanceAccountEntity+CoreDataProperties.swift */,
+				500366EB2E5489F700EE5970 /* MetadataEntity+CoreDataClass.swift */,
+				500366EC2E5489F700EE5970 /* MetadataEntity+CoreDataProperties.swift */,
+				500366ED2E5489F700EE5970 /* ModuleStateEntity+CoreDataClass.swift */,
+				500366EE2E5489F700EE5970 /* ModuleStateEntity+CoreDataProperties.swift */,
+				500366EF2E5489F700EE5970 /* PLTTokenEntity + Extensions.swift */,
+				500366F02E5489F700EE5970 /* PLTTokenEntity+CoreDataClass.swift */,
+				500366F12E5489F700EE5970 /* PLTTokenEntity+CoreDataProperties.swift */,
+				500366F22E5489F700EE5970 /* StateEntity+CoreDataClass.swift */,
+				500366F32E5489F700EE5970 /* StateEntity+CoreDataProperties.swift */,
+				500366F42E5489F700EE5970 /* TokenAccountStateEntity+CoreDataClass.swift */,
+				500366F52E5489F700EE5970 /* TokenAccountStateEntity+CoreDataProperties.swift */,
+				500366F62E5489F700EE5970 /* TokenBalanceEntity+CoreDataClass.swift */,
+				500366F72E5489F700EE5970 /* TokenBalanceEntity+CoreDataProperties.swift */,
+				500366F82E5489F700EE5970 /* TokenStateEntity+CoreDataClass.swift */,
+				500366F92E5489F700EE5970 /* TokenStateEntity+CoreDataProperties.swift */,
+				500366FA2E5489F700EE5970 /* TotalSupplyEntity+CoreDataClass.swift */,
+				500366FB2E5489F700EE5970 /* TotalSupplyEntity+CoreDataProperties.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		507629692BF2293400B4D390 /* LegacyWalletConnect */ = {
 			isa = PBXGroup;
 			children = (
@@ -5252,6 +5290,7 @@
 			children = (
 				508E00C32E0C1AFE004DA300 /* ConcordiumClient.swift */,
 				508E00C72E0C1B61004DA300 /* RecoverIdentity+ConcordiumClient.swift */,
+				50C9B3A62E5A379900942487 /* Extensions */,
 			);
 			path = SDK;
 			sourceTree = "<group>";
@@ -5321,6 +5360,14 @@
 				509A56332CB42EFF005EA908 /* AppSettings.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		50C9B3A62E5A379900942487 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				50C9B3A72E5A37A200942487 /* AccountKeys+Ext.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		50D3891B2C107C1400B3675A /* ImportToken */ = {
@@ -5425,26 +5472,6 @@
 		7FF07A6023EADB1200F1FC04 = {
 			isa = PBXGroup;
 			children = (
-				15E0BAE22E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataClass.swift */,
-				15E0BAE32E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataProperties.swift */,
-				15E0BAE42E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataClass.swift */,
-				15E0BAE52E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataProperties.swift */,
-				15E0BAE62E412D8E00B8D3FD /* MetadataEntity+CoreDataClass.swift */,
-				15E0BAE72E412D8E00B8D3FD /* MetadataEntity+CoreDataProperties.swift */,
-				15E0BAE82E412D8E00B8D3FD /* ModuleStateEntity+CoreDataClass.swift */,
-				15E0BAE92E412D8E00B8D3FD /* ModuleStateEntity+CoreDataProperties.swift */,
-				15E0BAEA2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataClass.swift */,
-				15E0BAEB2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataProperties.swift */,
-				15E0BAEC2E412D8E00B8D3FD /* StateEntity+CoreDataClass.swift */,
-				15E0BAED2E412D8E00B8D3FD /* StateEntity+CoreDataProperties.swift */,
-				15E0BAEE2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataClass.swift */,
-				15E0BAEF2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataProperties.swift */,
-				15E0BAF02E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataClass.swift */,
-				15E0BAF12E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataProperties.swift */,
-				15E0BAF22E412D8E00B8D3FD /* TokenStateEntity+CoreDataClass.swift */,
-				15E0BAF32E412D8E00B8D3FD /* TokenStateEntity+CoreDataProperties.swift */,
-				15E0BAF42E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataClass.swift */,
-				15E0BAF52E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataProperties.swift */,
 				158A35A72E1BC57100BDCFDE /* CryptoXDataModel.xcdatamodeld */,
 				50996DA82DDCC88C0059FCB4 /* Packages */,
 				15B6CFA52DBF87F700091449 /* ci_scripts */,
@@ -6152,7 +6179,6 @@
 				153495722D9FF6C500D65610 /* TransactionDetails */,
 				156878E52CD24F4E0080B2F3 /* ViewModels */,
 				156878E62CD24F6F0080B2F3 /* Views */,
-				158E6FEB2E2656170092F583 /* CoreData */,
 				15B6CFA52DBF87F700091449 /* ci_scripts */,
 				50996DA82DDCC88C0059FCB4 /* Packages */,
 			);
@@ -6170,10 +6196,10 @@
 				50E0D1642D2ECDDD00853594 /* Starscream */,
 				50E0D1662D2ECE1600853594 /* ReownWalletKit */,
 				15339E6C2DB8FF1F003D64D1 /* FirebaseAnalytics */,
-				5072A1A42DCB4CF1008698C3 /* Concordium */,
 				507541492DD3C590000D9445 /* MobileWalletLib */,
 				5075414C2DD3C5B8000D9445 /* MobileWalletLib */,
 				158A351B2E156D0300BDCFDE /* Lottie */,
+				5085B9EE2E57110D0004EBA8 /* Concordium */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 08C169C22BB7396200E61326 /* ProdTestNet.app */;
@@ -6199,7 +6225,6 @@
 				153495722D9FF6C500D65610 /* TransactionDetails */,
 				156878E52CD24F4E0080B2F3 /* ViewModels */,
 				156878E62CD24F6F0080B2F3 /* Views */,
-				158E6FEB2E2656170092F583 /* CoreData */,
 				15B6CFA52DBF87F700091449 /* ci_scripts */,
 				50996DA82DDCC88C0059FCB4 /* Packages */,
 			);
@@ -6219,7 +6244,6 @@
 				15339E702DB8FF2E003D64D1 /* FirebaseAnalytics */,
 				507541502DD3C5E0000D9445 /* MobileWalletLib */,
 				158A35232E1685AC00BDCFDE /* Lottie */,
-				5026908F2E2686D200D46E02 /* Concordium */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
@@ -6245,7 +6269,6 @@
 				153495722D9FF6C500D65610 /* TransactionDetails */,
 				156878E52CD24F4E0080B2F3 /* ViewModels */,
 				156878E62CD24F6F0080B2F3 /* Views */,
-				158E6FEB2E2656170092F583 /* CoreData */,
 				15B6CFA52DBF87F700091449 /* ci_scripts */,
 				50996DA82DDCC88C0059FCB4 /* Packages */,
 			);
@@ -6265,7 +6288,7 @@
 				15339E6E2DB8FF28003D64D1 /* FirebaseAnalytics */,
 				5075414E2DD3C5DC000D9445 /* MobileWalletLib */,
 				158A35252E1685B300BDCFDE /* Lottie */,
-				15E0BB822E43838500B8D3FD /* Concordium */,
+				50C9B3AB2E5A450400942487 /* Concordium */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
@@ -6331,8 +6354,8 @@
 				1557CC962C89B8DE008ABF67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				501F5AE02D2ECA1F00C55008 /* XCRemoteSwiftPackageReference "reown-swift" */,
 				50E0D1632D2ECDDD00853594 /* XCRemoteSwiftPackageReference "Starscream" */,
-				5072A1A32DCB4CF1008698C3 /* XCRemoteSwiftPackageReference "concordium-swift-sdk" */,
 				158A351A2E156D0300BDCFDE /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				50C9B3A42E5711A300942487 /* XCRemoteSwiftPackageReference "concordium-swift-sdk" */,
 			);
 			productRefGroup = 7FF07A6A23EADB1200F1FC04 /* Products */;
 			projectDirPath = "";
@@ -7009,6 +7032,28 @@
 				08E472A42BC98105004F0088 /* SimpleTransferRequestParams.swift in Sources */,
 				158A35202E1684E500BDCFDE /* LottiePlayer.swift in Sources */,
 				08C167742BB7396200E61326 /* CIS2TokenDetailView.swift in Sources */,
+				500367132E5489F700EE5970 /* AccountPLTTokenEntity+CoreDataClass.swift in Sources */,
+				500367142E5489F700EE5970 /* AccountPLTTokenEntity+CoreDataProperties.swift in Sources */,
+				500367152E5489F700EE5970 /* CoreDataPLTStore.swift in Sources */,
+				500367162E5489F700EE5970 /* GovernanceAccountEntity+CoreDataClass.swift in Sources */,
+				500367172E5489F700EE5970 /* GovernanceAccountEntity+CoreDataProperties.swift in Sources */,
+				500367182E5489F700EE5970 /* MetadataEntity+CoreDataClass.swift in Sources */,
+				500367192E5489F700EE5970 /* MetadataEntity+CoreDataProperties.swift in Sources */,
+				5003671A2E5489F700EE5970 /* ModuleStateEntity+CoreDataClass.swift in Sources */,
+				5003671B2E5489F700EE5970 /* ModuleStateEntity+CoreDataProperties.swift in Sources */,
+				5003671C2E5489F700EE5970 /* PLTTokenEntity + Extensions.swift in Sources */,
+				5003671D2E5489F700EE5970 /* PLTTokenEntity+CoreDataClass.swift in Sources */,
+				5003671E2E5489F700EE5970 /* PLTTokenEntity+CoreDataProperties.swift in Sources */,
+				5003671F2E5489F700EE5970 /* StateEntity+CoreDataClass.swift in Sources */,
+				500367202E5489F700EE5970 /* StateEntity+CoreDataProperties.swift in Sources */,
+				500367212E5489F700EE5970 /* TokenAccountStateEntity+CoreDataClass.swift in Sources */,
+				500367222E5489F700EE5970 /* TokenAccountStateEntity+CoreDataProperties.swift in Sources */,
+				500367232E5489F700EE5970 /* TokenBalanceEntity+CoreDataClass.swift in Sources */,
+				500367242E5489F700EE5970 /* TokenBalanceEntity+CoreDataProperties.swift in Sources */,
+				500367252E5489F700EE5970 /* TokenStateEntity+CoreDataClass.swift in Sources */,
+				500367262E5489F700EE5970 /* TokenStateEntity+CoreDataProperties.swift in Sources */,
+				500367272E5489F700EE5970 /* TotalSupplyEntity+CoreDataClass.swift in Sources */,
+				500367282E5489F700EE5970 /* TotalSupplyEntity+CoreDataProperties.swift in Sources */,
 				08C167752BB7396200E61326 /* RecoveryPhraseOnboardingView.swift in Sources */,
 				08C167782BB7396200E61326 /* RecoveryPhrase.swift in Sources */,
 				08C167792BB7396200E61326 /* ExportRecipient.swift in Sources */,
@@ -7223,26 +7268,6 @@
 				15BBDA662D80776100B8A36C /* DelegationAmountInputViewModel.swift in Sources */,
 				08C168452BB7396200E61326 /* IdentityProviderEntity.swift in Sources */,
 				08C168462BB7396200E61326 /* ImportViewController.swift in Sources */,
-				15E0BB0A2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataProperties.swift in Sources */,
-				15E0BB0B2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataClass.swift in Sources */,
-				15E0BB0C2E412D8E00B8D3FD /* MetadataEntity+CoreDataProperties.swift in Sources */,
-				15E0BB0D2E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataClass.swift in Sources */,
-				15E0BB0E2E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataClass.swift in Sources */,
-				15E0BB0F2E412D8E00B8D3FD /* StateEntity+CoreDataClass.swift in Sources */,
-				15E0BB102E412D8E00B8D3FD /* StateEntity+CoreDataProperties.swift in Sources */,
-				15E0BB112E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataClass.swift in Sources */,
-				15E0BB122E412D8E00B8D3FD /* MetadataEntity+CoreDataClass.swift in Sources */,
-				15E0BB132E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataProperties.swift in Sources */,
-				15E0BB142E412D8E00B8D3FD /* TokenStateEntity+CoreDataProperties.swift in Sources */,
-				15E0BB152E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataProperties.swift in Sources */,
-				15E0BB162E412D8E00B8D3FD /* PLTTokenEntity+CoreDataClass.swift in Sources */,
-				15E0BB172E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataProperties.swift in Sources */,
-				15E0BB182E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataProperties.swift in Sources */,
-				15E0BB192E412D8E00B8D3FD /* ModuleStateEntity+CoreDataProperties.swift in Sources */,
-				15E0BB1A2E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataClass.swift in Sources */,
-				15E0BB1B2E412D8E00B8D3FD /* ModuleStateEntity+CoreDataClass.swift in Sources */,
-				15E0BB1C2E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataProperties.swift in Sources */,
-				15E0BB1D2E412D8E00B8D3FD /* TokenStateEntity+CoreDataClass.swift in Sources */,
 				08C168472BB7396200E61326 /* DeleteIdentityButtonWidgetViewController.swift in Sources */,
 				15376EB22DB9039F00402C52 /* FirebaseAppTracker.swift in Sources */,
 				08C168482BB7396200E61326 /* CreateCredentialRequest.swift in Sources */,
@@ -7347,6 +7372,7 @@
 				08C168AD2BB7396200E61326 /* IdentityObjectWrapper.swift in Sources */,
 				08C168AE2BB7396200E61326 /* CredentialValue.swift in Sources */,
 				15F3F0AA2C8B1CFF00EF8975 /* TransactionNotificationService.swift in Sources */,
+				50C9B3AA2E5A37A200942487 /* AccountKeys+Ext.swift in Sources */,
 				08C168AF2BB7396200E61326 /* PoolInfo.swift in Sources */,
 				08C168B32BB7396200E61326 /* SupportMailProtocol.swift in Sources */,
 				08C168B42BB7396200E61326 /* Transaction.swift in Sources */,
@@ -7614,26 +7640,6 @@
 				088FF1CB2A02A70800042957 /* ExportService.swift in Sources */,
 				D589F1DD2794B5ED003F2FBB /* OriginTypeEnum.swift in Sources */,
 				089E327E2A0BA043002AE530 /* MobileWalletFacade.swift in Sources */,
-				15E0BAF62E412D8E00B8D3FD /* PLTTokenEntity+CoreDataProperties.swift in Sources */,
-				15E0BAF72E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataClass.swift in Sources */,
-				15E0BAF82E412D8E00B8D3FD /* MetadataEntity+CoreDataProperties.swift in Sources */,
-				15E0BAF92E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataClass.swift in Sources */,
-				15E0BAFA2E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataClass.swift in Sources */,
-				15E0BAFB2E412D8E00B8D3FD /* StateEntity+CoreDataClass.swift in Sources */,
-				15E0BAFC2E412D8E00B8D3FD /* StateEntity+CoreDataProperties.swift in Sources */,
-				15E0BAFD2E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataClass.swift in Sources */,
-				15E0BAFE2E412D8E00B8D3FD /* MetadataEntity+CoreDataClass.swift in Sources */,
-				15E0BAFF2E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataProperties.swift in Sources */,
-				15E0BB002E412D8E00B8D3FD /* TokenStateEntity+CoreDataProperties.swift in Sources */,
-				15E0BB012E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataProperties.swift in Sources */,
-				15E0BB022E412D8E00B8D3FD /* PLTTokenEntity+CoreDataClass.swift in Sources */,
-				15E0BB032E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataProperties.swift in Sources */,
-				15E0BB042E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataProperties.swift in Sources */,
-				15E0BB052E412D8E00B8D3FD /* ModuleStateEntity+CoreDataProperties.swift in Sources */,
-				15E0BB062E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataClass.swift in Sources */,
-				15E0BB072E412D8E00B8D3FD /* ModuleStateEntity+CoreDataClass.swift in Sources */,
-				15E0BB082E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataProperties.swift in Sources */,
-				15E0BB092E412D8E00B8D3FD /* TokenStateEntity+CoreDataClass.swift in Sources */,
 				08E472AC2BCEE883004F0088 /* TransferUpdateRequestModel.swift in Sources */,
 				088FED8D2A01672D00042957 /* ExportTransactionLogView.swift in Sources */,
 				08DB5E802BC6C32E00C29663 /* BakerPoolReceiptType.swift in Sources */,
@@ -7980,11 +7986,34 @@
 				D5C9F1252905DD20003C8D17 /* NFTImporDataFlow.swift in Sources */,
 				7F85B89C246A9AB600ED09B8 /* GeneralError.swift in Sources */,
 				08A045F529FA99D200DACE1F /* ArsInfo.swift in Sources */,
+				500367292E5489F700EE5970 /* AccountPLTTokenEntity+CoreDataClass.swift in Sources */,
+				5003672A2E5489F700EE5970 /* AccountPLTTokenEntity+CoreDataProperties.swift in Sources */,
+				5003672B2E5489F700EE5970 /* CoreDataPLTStore.swift in Sources */,
+				5003672C2E5489F700EE5970 /* GovernanceAccountEntity+CoreDataClass.swift in Sources */,
+				5003672D2E5489F700EE5970 /* GovernanceAccountEntity+CoreDataProperties.swift in Sources */,
+				5003672E2E5489F700EE5970 /* MetadataEntity+CoreDataClass.swift in Sources */,
+				5003672F2E5489F700EE5970 /* MetadataEntity+CoreDataProperties.swift in Sources */,
+				500367302E5489F700EE5970 /* ModuleStateEntity+CoreDataClass.swift in Sources */,
+				500367312E5489F700EE5970 /* ModuleStateEntity+CoreDataProperties.swift in Sources */,
+				500367322E5489F700EE5970 /* PLTTokenEntity + Extensions.swift in Sources */,
+				500367332E5489F700EE5970 /* PLTTokenEntity+CoreDataClass.swift in Sources */,
+				500367342E5489F700EE5970 /* PLTTokenEntity+CoreDataProperties.swift in Sources */,
+				500367352E5489F700EE5970 /* StateEntity+CoreDataClass.swift in Sources */,
+				500367362E5489F700EE5970 /* StateEntity+CoreDataProperties.swift in Sources */,
+				500367372E5489F700EE5970 /* TokenAccountStateEntity+CoreDataClass.swift in Sources */,
+				500367382E5489F700EE5970 /* TokenAccountStateEntity+CoreDataProperties.swift in Sources */,
+				500367392E5489F700EE5970 /* TokenBalanceEntity+CoreDataClass.swift in Sources */,
+				5003673A2E5489F700EE5970 /* TokenBalanceEntity+CoreDataProperties.swift in Sources */,
+				5003673B2E5489F700EE5970 /* TokenStateEntity+CoreDataClass.swift in Sources */,
+				5003673C2E5489F700EE5970 /* TokenStateEntity+CoreDataProperties.swift in Sources */,
+				5003673D2E5489F700EE5970 /* TotalSupplyEntity+CoreDataClass.swift in Sources */,
+				5003673E2E5489F700EE5970 /* TotalSupplyEntity+CoreDataProperties.swift in Sources */,
 				088FEE272A0167FB00042957 /* ShowShieldedDelegate.swift in Sources */,
 				1584D0842D75EC13001D9B3E /* ValidatorStakeStatusViewModel.swift in Sources */,
 				088FEE8B2A025CD900042957 /* Shape+Extensions.swift in Sources */,
 				50E0D1712D35593100853594 /* ReownSessionRequest.swift in Sources */,
 				D5CCCB4928EE42C400350D83 /* NFTDataStatusView.swift in Sources */,
+				50C9B3A82E5A37A200942487 /* AccountKeys+Ext.swift in Sources */,
 				088FF1B72A02A70300042957 /* MoreMenuPresenter.swift in Sources */,
 				088FEF782A0270B000042957 /* DeleteIdentityButtonWidgetPresenter.swift in Sources */,
 				1580EBFE2D4A41240051C55D /* SelectRecipientView.swift in Sources */,
@@ -8335,26 +8364,6 @@
 				D58EA766290F53A30033C8FD /* NFTItemsStatusView.swift in Sources */,
 				D589F32B2794B678003F2FBB /* ServicesProvider.swift in Sources */,
 				089E327C2A0BA042002AE530 /* MobileWalletFacade.swift in Sources */,
-				15E0BB1E2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataProperties.swift in Sources */,
-				15E0BB1F2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataClass.swift in Sources */,
-				15E0BB202E412D8E00B8D3FD /* MetadataEntity+CoreDataProperties.swift in Sources */,
-				15E0BB212E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataClass.swift in Sources */,
-				15E0BB222E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataClass.swift in Sources */,
-				15E0BB232E412D8E00B8D3FD /* StateEntity+CoreDataClass.swift in Sources */,
-				15E0BB242E412D8E00B8D3FD /* StateEntity+CoreDataProperties.swift in Sources */,
-				15E0BB252E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataClass.swift in Sources */,
-				15E0BB262E412D8E00B8D3FD /* MetadataEntity+CoreDataClass.swift in Sources */,
-				15E0BB272E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataProperties.swift in Sources */,
-				15E0BB282E412D8E00B8D3FD /* TokenStateEntity+CoreDataProperties.swift in Sources */,
-				15E0BB292E412D8E00B8D3FD /* AccountPLTTokenEntity+CoreDataProperties.swift in Sources */,
-				15E0BB2A2E412D8E00B8D3FD /* PLTTokenEntity+CoreDataClass.swift in Sources */,
-				15E0BB2B2E412D8E00B8D3FD /* TokenBalanceEntity+CoreDataProperties.swift in Sources */,
-				15E0BB2C2E412D8E00B8D3FD /* TokenAccountStateEntity+CoreDataProperties.swift in Sources */,
-				15E0BB2D2E412D8E00B8D3FD /* ModuleStateEntity+CoreDataProperties.swift in Sources */,
-				15E0BB2E2E412D8E00B8D3FD /* TotalSupplyEntity+CoreDataClass.swift in Sources */,
-				15E0BB2F2E412D8E00B8D3FD /* ModuleStateEntity+CoreDataClass.swift in Sources */,
-				15E0BB302E412D8E00B8D3FD /* GovernanceAccountEntity+CoreDataProperties.swift in Sources */,
-				15E0BB312E412D8E00B8D3FD /* TokenStateEntity+CoreDataClass.swift in Sources */,
 				D5CCCB3828EE42A800350D83 /* NFTErrorStatusView.swift in Sources */,
 				08E472AB2BCEE883004F0088 /* TransferUpdateRequestModel.swift in Sources */,
 				08DB5E7D2BC6C32E00C29663 /* BakerPoolReceiptType.swift in Sources */,
@@ -8701,11 +8710,34 @@
 				089B34382A17C05900F3CD90 /* WCAccountCell.swift in Sources */,
 				D5C9F1232905DD20003C8D17 /* NFTImporDataFlow.swift in Sources */,
 				D589F1DF2794B5ED003F2FBB /* AccountSubmissionStatus.swift in Sources */,
+				500366FD2E5489F700EE5970 /* AccountPLTTokenEntity+CoreDataClass.swift in Sources */,
+				500366FE2E5489F700EE5970 /* AccountPLTTokenEntity+CoreDataProperties.swift in Sources */,
+				500366FF2E5489F700EE5970 /* CoreDataPLTStore.swift in Sources */,
+				500367002E5489F700EE5970 /* GovernanceAccountEntity+CoreDataClass.swift in Sources */,
+				500367012E5489F700EE5970 /* GovernanceAccountEntity+CoreDataProperties.swift in Sources */,
+				500367022E5489F700EE5970 /* MetadataEntity+CoreDataClass.swift in Sources */,
+				500367032E5489F700EE5970 /* MetadataEntity+CoreDataProperties.swift in Sources */,
+				500367042E5489F700EE5970 /* ModuleStateEntity+CoreDataClass.swift in Sources */,
+				500367052E5489F700EE5970 /* ModuleStateEntity+CoreDataProperties.swift in Sources */,
+				500367062E5489F700EE5970 /* PLTTokenEntity + Extensions.swift in Sources */,
+				500367072E5489F700EE5970 /* PLTTokenEntity+CoreDataClass.swift in Sources */,
+				500367082E5489F700EE5970 /* PLTTokenEntity+CoreDataProperties.swift in Sources */,
+				500367092E5489F700EE5970 /* StateEntity+CoreDataClass.swift in Sources */,
+				5003670A2E5489F700EE5970 /* StateEntity+CoreDataProperties.swift in Sources */,
+				5003670B2E5489F700EE5970 /* TokenAccountStateEntity+CoreDataClass.swift in Sources */,
+				5003670C2E5489F700EE5970 /* TokenAccountStateEntity+CoreDataProperties.swift in Sources */,
+				5003670D2E5489F700EE5970 /* TokenBalanceEntity+CoreDataClass.swift in Sources */,
+				5003670E2E5489F700EE5970 /* TokenBalanceEntity+CoreDataProperties.swift in Sources */,
+				5003670F2E5489F700EE5970 /* TokenStateEntity+CoreDataClass.swift in Sources */,
+				500367102E5489F700EE5970 /* TokenStateEntity+CoreDataProperties.swift in Sources */,
+				500367112E5489F700EE5970 /* TotalSupplyEntity+CoreDataClass.swift in Sources */,
+				500367122E5489F700EE5970 /* TotalSupplyEntity+CoreDataProperties.swift in Sources */,
 				088FF0EC2A0284A600042957 /* RecoveryPhraseSetupCompleteViewModel.swift in Sources */,
 				088FEED82A026EAA00042957 /* IdentityProviderWebViewViewController.swift in Sources */,
 				D5962CD4272170DB00A757A5 /* TransactionAccountView.swift in Sources */,
 				08A0455D29FA99D100DACE1F /* ArsInfo.swift in Sources */,
 				1584D0862D75EC13001D9B3E /* ValidatorStakeStatusViewModel.swift in Sources */,
+				50C9B3A92E5A37A200942487 /* AccountKeys+Ext.swift in Sources */,
 				088FEE172A0167FA00042957 /* ShowShieldedDelegate.swift in Sources */,
 				50E0D1732D35593100853594 /* ReownSessionRequest.swift in Sources */,
 				088FF1B42A02A70200042957 /* MoreMenuPresenter.swift in Sources */,
@@ -9413,8 +9445,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/unrelentingtech/SwiftCBOR";
 			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 0.4.0;
+				branch = master;
+				kind = branch;
 			};
 		};
 		08A0441429FA887000DACE1F /* XCRemoteSwiftPackageReference "MnemonicSwift" */ = {
@@ -9513,20 +9545,20 @@
 				version = 1.1.1;
 			};
 		};
-		5072A1A32DCB4CF1008698C3 /* XCRemoteSwiftPackageReference "concordium-swift-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Concordium/concordium-swift-sdk.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.2;
-			};
-		};
 		5076296A2BF2573D00B4D390 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 3.0.4;
+			};
+		};
+		50C9B3A42E5711A300942487 /* XCRemoteSwiftPackageReference "concordium-swift-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Concordium/concordium-swift-sdk.git";
+			requirement = {
+				branch = plt;
+				kind = branch;
 			};
 		};
 		50E0D1632D2ECDDD00853594 /* XCRemoteSwiftPackageReference "Starscream" */ = {
@@ -9665,16 +9697,6 @@
 			package = 158A351A2E156D0300BDCFDE /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
 		};
-		15E0BB822E43838500B8D3FD /* Concordium */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5072A1A32DCB4CF1008698C3 /* XCRemoteSwiftPackageReference "concordium-swift-sdk" */;
-			productName = Concordium;
-		};
-		5026908F2E2686D200D46E02 /* Concordium */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5072A1A32DCB4CF1008698C3 /* XCRemoteSwiftPackageReference "concordium-swift-sdk" */;
-			productName = Concordium;
-		};
 		5059C9B42C00CF1200E40307 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5076296A2BF2573D00B4D390 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
@@ -9684,11 +9706,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5076296A2BF2573D00B4D390 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
-		};
-		5072A1A42DCB4CF1008698C3 /* Concordium */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5072A1A32DCB4CF1008698C3 /* XCRemoteSwiftPackageReference "concordium-swift-sdk" */;
-			productName = Concordium;
 		};
 		507541492DD3C590000D9445 /* MobileWalletLib */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -9705,6 +9722,10 @@
 		507541502DD3C5E0000D9445 /* MobileWalletLib */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MobileWalletLib;
+		};
+		5085B9EE2E57110D0004EBA8 /* Concordium */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Concordium;
 		};
 		509A56282CB40A10005EA908 /* Base58Swift */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -9735,6 +9756,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1557CC962C89B8DE008ABF67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		50C9B3AB2E5A450400942487 /* Concordium */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 50C9B3A42E5711A300942487 /* XCRemoteSwiftPackageReference "concordium-swift-sdk" */;
+			productName = Concordium;
 		};
 		50E0D1642D2ECDDD00853594 /* Starscream */ = {
 			isa = XCSwiftPackageProductDependency;

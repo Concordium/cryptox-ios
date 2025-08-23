@@ -248,6 +248,8 @@ struct TokenBalanceView: View {
                     path.append(.send(account, tokenType: .ccd))
                 } else if let token = token.cis2Token {
                     path.append(.send(account, tokenType: .cis2(token)))
+                } else if let token = token.pltToken {
+                    path.append(.send(account, tokenType: .plt(token)))
                 }
             }),
             ActionItem(iconName: "receive", label: "Receive", action: {

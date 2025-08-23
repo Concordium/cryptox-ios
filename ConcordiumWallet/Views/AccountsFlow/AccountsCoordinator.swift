@@ -34,14 +34,14 @@ class AccountsCoordinator: Coordinator {
     weak var accountsPresenterDelegate: AccountsPresenterDelegate?
 
     private weak var appSettingsDelegate: AppSettingsDelegate?
-    private var dependencyProvider: DependencyProvider
+    private var dependencyProvider: ServicesProvider
     private let walletConnectService: WalletConnectService
 
     
     deinit { print("[deallocated] -- \(String(describing: self))") }
     init(
         navigationController: UINavigationController,
-        dependencyProvider: DependencyProvider,
+        dependencyProvider: ServicesProvider,
         appSettingsDelegate: AppSettingsDelegate?,
         walletConnectService: WalletConnectService
     ) {

@@ -123,7 +123,7 @@ struct AccountTokenListView: View {
                 icon: AnyView(Image("placeholder-crypto-token").resizable().clipShape(Circle())),
                 title: token.token.tokenState.moduleState.name,
                 subtitle: "PLT",
-                amount: TokenFormatter().displayStringWithTwoValuesAfterComma(from: BigDecimal(BigInt(stringLiteral: amount), token.token.tokenState.decimals), decimalSeparator: ".", thousandSeparator: ","),
+                amount: amount,
                 secondaryAmount: nil,
                 tokenImage: .plt,
                 showDenyIcon: token.token.tokenState.moduleState.denyList || !token.token.tokenState.moduleState.allowList,

@@ -21,7 +21,7 @@ class WebSocketService : ObservableObject {
         strategy.delegate = self
         return strategy
     }()
-    var dependencyProvider: AccountsFlowCoordinatorDependencyProvider?
+    var dependencyProvider: ServicesProvider?
     var connectionData: QRDataResponse?
 
     let didChange = PassthroughSubject<Void, Never>()

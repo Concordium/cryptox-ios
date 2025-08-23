@@ -61,7 +61,10 @@ struct AppConstants {
                 url = "https://partner.wert.io/api/external/hpp/create-session"
             #elseif TESTNET
                 url = "https://partner-sandbox.wert.io/api/external/hpp/create-session"
-            #endif
+#else // Staging
+            url = "https://partner-sandbox.wert.io/api/external/hpp/create-session"
+#endif
+
             return url
         }()
 
@@ -72,7 +75,10 @@ struct AppConstants {
             #elseif TESTNET
             guard let apiKey = Bundle.main.infoDictionary?["TESTNET_WERT_API_KEY"] as? String else { return "" }
             return apiKey
-            #endif
+#else // Staging
+            guard let apiKey = Bundle.main.infoDictionary?["TESTNET_WERT_API_KEY"] as? String else { return "" }
+            return apiKey
+#endif
         }()
 
         static let partnerId: String = {
@@ -82,7 +88,11 @@ struct AppConstants {
             #elseif TESTNET
             guard let id = Bundle.main.infoDictionary?["TESTNET_WERT_PARTNER_ID"] as? String else { return "" }
             return id
-            #endif
+#else // Staging
+            guard let id = Bundle.main.infoDictionary?["TESTNET_WERT_PARTNER_ID"] as? String else { return "" }
+            return id
+#endif
+
         }()
     }
 }

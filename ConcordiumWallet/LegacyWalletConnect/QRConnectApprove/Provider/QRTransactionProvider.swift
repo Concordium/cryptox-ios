@@ -28,7 +28,7 @@ protocol SendFundConfirmationDelegate: AnyObject {
 
 
 protocol QRTransactionProviderProtocol {
-    var dependencyProvider: AccountsFlowCoordinatorDependencyProvider? { get set }
+    var dependencyProvider: ServicesProvider? { get set }
 
     var nrgLimit: Int { get set }
     
@@ -44,7 +44,7 @@ class QRTransactionProvider: QRTransactionProviderProtocol {
     
     @ObservedObject var service = WebSocketService()
     
-    var dependencyProvider: AccountsFlowCoordinatorDependencyProvider?
+    var dependencyProvider: ServicesProvider?
     private var cancellables = [AnyCancellable]()
     private var fee: Int = 0
     private var energy: Int = 0

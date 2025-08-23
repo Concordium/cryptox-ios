@@ -1,6 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+- Update Send Assets Flow with new SDK
+- Ability to Send/Receive PLTs in CryptoX
+- Update Swift SDK for PLTs in CryptoX
+
+## [Unreleased]
 - ID2.5 functionality (Reown)
 
 ## [Released 3.3.5]

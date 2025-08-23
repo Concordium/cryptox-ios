@@ -35,8 +35,14 @@ struct ChooseTokenView: View {
                         }))
                         .listRowBackground(Color.clear)
                         .padding(.vertical, 4)
-                case .plt(token: let token):
-                    EmptyView()
+                case .plt(let token, let amount):
+                    SendTokenCell(tokenType: .plt(pltToken: token, availableAmount: amount))
+                        .modifier(TappedCellEffect(onTap: {
+                            transferTokenViewModel.tokenTransferModel.tokenType = .plt(token)
+                            onTokenSelected()
+                        }))
+                        .listRowBackground(Color.clear)
+                        .padding(.vertical, 4)
                 }
             }
         }

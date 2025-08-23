@@ -54,23 +54,37 @@ protocol ImportDependencyProvider {
     func keychainWrapper() -> KeychainWrapperProtocol
 }
 
+protocol ConcordiumClientProvider {
+    func concordiumClient() -> ConcordiumClient
+}
+
 class ServicesProvider {
     private let _mobileWallet: MobileWalletProtocol
     private let _networkManager: NetworkManagerProtocol
     private let _storageManager: StorageManagerProtocol
     private let _keychainWrapper: KeychainWrapper
     private let _seedMobileWallet: SeedMobileWalletProtocol
+    private let _concordiumClient: ConcordiumClient
 
     init(mobileWallet: MobileWalletProtocol,
          networkManager: NetworkManagerProtocol,
          seedMobileWallet: SeedMobileWalletProtocol,
          storageManager: StorageManagerProtocol,
-         keychainWrapper: KeychainWrapper) {
+         keychainWrapper: KeychainWrapper,
+         concordiumClient: ConcordiumClient
+    ) {
         self._mobileWallet = mobileWallet
         self._seedMobileWallet = seedMobileWallet
         self._networkManager = networkManager
         self._storageManager = storageManager
         self._keychainWrapper = keychainWrapper
+        self._concordiumClient = concordiumClient
+    }
+}
+
+extension ServicesProvider: ConcordiumClientProvider {
+    func concordiumClient() -> ConcordiumClient {
+        _concordiumClient
     }
 }
 
