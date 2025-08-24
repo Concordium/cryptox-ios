@@ -77,14 +77,14 @@ final class CIS2TokenTransferModel {
     
     public func getTokenMaxAmount() async throws -> BigDecimal {
         switch tokenType {
-            case .ccd:
-                return .init(BigInt(account.forecastAtDisposalBalance) - BigInt(stringLiteral: transaferCost?.cost ?? "0"), 6)
-            case .cis2(let cis2Token):
-                return try await cis2Service.fetchTokensBalance(contractIndex: String(cis2Token.contractAddress.index), accountAddress: self.account.address, tokenId: cis2Token.tokenId)
-                    .first
-                    .map { balance -> BigDecimal in
-                        return .init(BigInt(stringLiteral: balance.balance), cis2Token.metadata.decimals ?? 0)
-                    } ?? .zero(cis2Token.metadata.decimals ?? 0)
+        case .ccd:
+            return .init(BigInt(account.forecastAtDisposalBalance) - BigInt(stringLiteral: transaferCost?.cost ?? "0"), 6)
+        case .cis2(let cis2Token):
+            return try await cis2Service.fetchTokensBalance(contractIndex: String(cis2Token.contractAddress.index), accountAddress: self.account.address, tokenId: cis2Token.tokenId)
+                .first
+                .map { balance -> BigDecimal in
+                    return .init(BigInt(stringLiteral: balance.balance), cis2Token.metadata.decimals ?? 0)
+                } ?? .zero(cis2Token.metadata.decimals ?? 0)
         case .plt(let token):
             return .init(BigInt(stringLiteral: token.token.tokenState.totalSupply.value), token.token.tokenState.totalSupply.decimals)
         }
@@ -92,11 +92,11 @@ final class CIS2TokenTransferModel {
     
     public func getTxCost() async throws -> TransferCost {
         switch tokenType {
-            case .cis2(let cIS2Token):
-                guard let address = recipient, address.isEmpty == false, !amountTokenSend.value.isZero else { return .zero }
-                return try await self.getCIS2TxCost(cIS2Token, amount: amountTokenSend)
-            case .ccd:
-                return try await getCCDTxCost()
+        case .cis2(let cIS2Token):
+            guard let address = recipient, address.isEmpty == false, !amountTokenSend.value.isZero else { return .zero }
+            return try await self.getCIS2TxCost(cIS2Token, amount: amountTokenSend)
+        case .ccd:
+            return try await getCCDTxCost()
         case .plt(let token):
             return try await getCCDTxCost()
         }
@@ -105,21 +105,21 @@ final class CIS2TokenTransferModel {
     private func subscribe() {
         Publishers.CombineLatest4($recipient, $tokenType, $amountTokenSend, $memo).sink(receiveValue: { [weak self] (address, tokenType, amount, memo) in
             await self?.updateMaxAmount()
-
+            
             guard let self = self else { return }
             switch tokenType {
-                case .cis2(let cIS2Token):
-                    guard let address = address, address.isEmpty == false, !amount.value.isZero else { return }
-                    await self.updateCIS2TransferConst(cIS2Token, amount: amount)
-                case .ccd:
-                    await updateCCDTransferCost()
+            case .cis2(let cIS2Token):
+                guard let address = address, address.isEmpty == false, !amount.value.isZero else { return }
+                await self.updateCIS2TransferConst(cIS2Token, amount: amount)
+            case .ccd:
+                await updateCCDTransferCost()
             case .plt(let token):
                 await updateCCDTransferCost()
             }
             await self.updateMaxAmount()
         }).store(in: &cancellables)
     }
-
+    
     public func getCCDTxCost() async throws -> TransferCost {
         return try await dependencyProvider
             .transactionsService()
@@ -135,40 +135,40 @@ final class CIS2TokenTransferModel {
     @MainActor
     public func updateMaxAmount() async {
         switch self.tokenType {
-            case .ccd:
-                await updateCCDTransferCost()
-                self.maxAmountTokenSend = .init(BigInt(account.forecastAtDisposalBalance) - BigInt(stringLiteral: transaferCost?.cost ?? "0"), 6)
-                self.tokenGeneralBalance = .init(BigInt(account.forecastAtDisposalBalance), 6)
-                self.ccdTokenDisposalBalance = .init(BigInt(account.forecastAtDisposalBalance), 6)
-            case .cis2(let token):
-                guard let balance = try? await cis2Service.fetchTokensBalance(contractIndex: String(token.contractAddress.index), accountAddress: self.account.address, tokenId: token.tokenId).first else {
-                    self.maxAmountTokenSend = .zero
-                    self.tokenGeneralBalance = .zero
-                    self.tokenGeneralBalance = .zero
-                    return
-                }
+        case .ccd:
+            await updateCCDTransferCost()
+            self.maxAmountTokenSend = .init(BigInt(account.forecastAtDisposalBalance) - BigInt(stringLiteral: transaferCost?.cost ?? "0"), 6)
+            self.tokenGeneralBalance = .init(BigInt(account.forecastAtDisposalBalance), 6)
+            self.ccdTokenDisposalBalance = .init(BigInt(account.forecastAtDisposalBalance), 6)
+        case .cis2(let token):
+            guard let balance = try? await cis2Service.fetchTokensBalance(contractIndex: String(token.contractAddress.index), accountAddress: self.account.address, tokenId: token.tokenId).first else {
+                self.maxAmountTokenSend = .zero
+                self.tokenGeneralBalance = .zero
+                self.tokenGeneralBalance = .zero
+                return
+            }
             self.maxAmountTokenSend = .init(BigInt(stringLiteral: balance.balance), token.metadata.decimals ?? 0)
-                    self.tokenGeneralBalance = .init(BigInt(stringLiteral: balance.balance), token.metadata.decimals ?? 0)
+            self.tokenGeneralBalance = .init(BigInt(stringLiteral: balance.balance), token.metadata.decimals ?? 0)
         case .plt(let token):
             await updateCCDTransferCost()
-                
+            
             self.maxAmountTokenSend = .init(BigInt(stringLiteral: token.tokenAccountState.balance.value), token.tokenAccountState.balance.decimals)
             self.tokenGeneralBalance = .init(BigInt(stringLiteral: token.tokenAccountState.balance.value), token.tokenAccountState.balance.decimals)
         }
     }
     
-//    func executeTransaction() async throws -> AnyPublisher<TransferEntity, Error> {
-//        return try await callTransaction().tryMap { [weak self] entity in
-//            guard let self = self else { return entity }
-//            switch self.notifyDestination {
-//                case .legacyQrConnect:
-////                    self.legacyQRConnectService?.sendPaymentMessage(hash: entity.submissionId ?? "")
-//                    self.onTxSuccess(entity.submissionId ?? "")
-//                case .none: break
-//            }
-//            return entity
-//        }.eraseToAnyPublisher()
-//    }
+    //    func executeTransaction() async throws -> AnyPublisher<TransferEntity, Error> {
+    //        return try await callTransaction().tryMap { [weak self] entity in
+    //            guard let self = self else { return entity }
+    //            switch self.notifyDestination {
+    //                case .legacyQrConnect:
+    ////                    self.legacyQRConnectService?.sendPaymentMessage(hash: entity.submissionId ?? "")
+    //                    self.onTxSuccess(entity.submissionId ?? "")
+    //                case .none: break
+    //            }
+    //            return entity
+    //        }.eraseToAnyPublisher()
+    //    }
 }
 
 extension CIS2TokenTransferModel {
@@ -219,11 +219,11 @@ extension CIS2TokenTransferModel {
 //            case .ccd:
 //                return try await simpleTransferCCDToken()
 //        case .plt(let token):
-//  
+//
 //            return try await transferPLT(token)
 //        }
 //    }
-//    
+//
 //    private func transferPLT(_ token: AccountPLTToken) async throws -> AnyPublisher<TransferEntity, Error> {
 //        dependencyProvider.concordiumClient().transferPLT(
 //            token: token,
@@ -235,7 +235,7 @@ extension CIS2TokenTransferModel {
 //            memo: <#T##Memo?#>
 //        )
 //    }
-//    
+//
 //    @MainActor
 //    private func simpleTransferCCDToken() async throws -> AnyPublisher<TransferEntity, Error> {
 //        var transfer = TransferDataTypeFactory.create()
@@ -255,11 +255,11 @@ extension CIS2TokenTransferModel {
 //            }
 //            .eraseToAnyPublisher()
 //    }
-//    
+//
 //    @MainActor
 //    private func transferCis2Token(_ token: CIS2Token, amount: BigDecimal, to: String, txCost: TransferCost) async throws -> AnyPublisher<TransferEntity, Error> {
 //        let serializedTransferParams = try MobileWalletFacade().serializeTokenTransferParameters(input: TokenTransferParameters(tokenId: token.tokenId, amount: String(self.amountTokenSend.value), from: self.account.address, to: to))
-//        
+//
 //        var transfer = TransferDataTypeFactory.create()
 //        transfer.transferType = .transferUpdate
 //        transfer.from = self.account.address
@@ -267,7 +267,7 @@ extension CIS2TokenTransferModel {
 //        transfer.expiry = Date().addingTimeInterval(10 * 60)
 //        transfer.energy = txCost.energy
 //        transfer.memo = self.memo?.data.hexDescription
-//        
+//
 //        transfer.receiveName = token.contractName + ".transfer"
 //        transfer.params = serializedTransferParams
 //
@@ -283,65 +283,94 @@ extension CIS2TokenTransferModel {
 
 extension CIS2TokenTransferModel {
     func executeTransfer() async throws {
-            guard let recipient = self.recipient,
-                  let transaferCost = self.transaferCost
-            else { throw TransferTokenError.insuficientData }
-
-            switch self.tokenType {
-            case .cis2(let cIS2Token):
-                try await ececuteTransferCIS2(token: cIS2Token, recipient: recipient)
-            case .ccd:
-                try await executeTransferCCD(recipient: recipient)
-            case .plt(_):
-                break
-            }
+        guard let recipient = self.recipient,
+              let transaferCost = self.transaferCost
+        else { throw TransferTokenError.insuficientData }
+        
+        switch self.tokenType {
+        case .cis2(let cIS2Token):
+            try await ececuteTransferCIS2(token: cIS2Token, recipient: recipient)
+        case .ccd:
+            try await executeTransferCCD(recipient: recipient)
+        case .plt(let token):
+            try await executeTransferPLT(token, recipient: recipient)
         }
-
-        @MainActor
-        func executeTransferCCD(recipient: String) async throws {
-            let pwHash = try await self.passwordDelegate.requestUserPassword(keychain: dependencyProvider.keychainWrapper())
-            guard
-                let encryptedAccountDataKey = account.encryptedAccountData,
-                let accountKeys = try? dependencyProvider.storageManager().getPrivateAccountKeys(key: encryptedAccountDataKey, pwHash: pwHash).get()
-            else { throw WalletError.invalidInput }
-
-            var concordiumMemo: Concordium.Memo? = nil
-            
-            if let memoData = memo?.data {
-                concordiumMemo = Concordium.Memo(memoData)
-            }
-            
-            let submittedTransaction = try await dependencyProvider.concordiumClient().transferCCD(
-                sender: AccountAddress(base58Check: self.account.address),
-                amount: CCD.init(microCCD: MicroCCDAmount(Double(self.amountTokenSend.value))),
-                receiver: AccountAddress(base58Check: recipient),
-                keys: accountKeys,
-                memo: concordiumMemo
-            )
-            // TODO: - should handle tx status
-            let transactionStatus = try await dependencyProvider.concordiumClient().getTransactionStatus(submittedTransaction.hash)
-            print(submittedTransaction)
-            print(transactionStatus)
+    }
+    
+    @MainActor
+    func executeTransferPLT(_ token: AccountPLTToken, recipient: String) async throws {
+        let pwHash = try await self.passwordDelegate.requestUserPassword(keychain: dependencyProvider.keychainWrapper())
+        guard
+            let encryptedAccountDataKey = account.encryptedAccountData,
+            let accountKeys = try? dependencyProvider.storageManager().getPrivateAccountKeys(key: encryptedAccountDataKey, pwHash: pwHash).get()
+        else { throw WalletError.invalidInput }
+        
+        var concordiumMemo: Concordium.Memo? = nil
+        
+        if let memoData = memo?.data {
+            concordiumMemo = Concordium.Memo(memoData)
         }
-
-        @MainActor
-        func ececuteTransferCIS2(token: CIS2Token, recipient: String) async throws {
-            let pwHash = try await self.passwordDelegate.requestUserPassword(keychain: dependencyProvider.keychainWrapper())
-            guard
-                let encryptedAccountDataKey = account.encryptedAccountData,
-                let accountKeys = try? dependencyProvider.storageManager().getPrivateAccountKeys(key: encryptedAccountDataKey, pwHash: pwHash).get()
-            else { throw WalletError.invalidInput }
-
-            let submittedTransaction = try await dependencyProvider.concordiumClient().transferCIS2(
-                sender: AccountAddress(base58Check: self.account.address),
-                receiver: AccountAddress(base58Check: recipient),
-                keys: accountKeys,
-                contractAddress: Concordium.ContractAddress(index: UInt64(token.contractAddress.index), subindex: UInt64(token.contractAddress.subindex)),
-                tokenId: token.tokenId,
-                amount: self.amountTokenSend.value
-            )
-            let transactionStatus = try await dependencyProvider.concordiumClient().getTransactionStatus(submittedTransaction.hash)
-            print(submittedTransaction)
-            print(transactionStatus)
+        
+        let submittedTransaction = try await dependencyProvider.concordiumClient().transferPLT(
+            token: token,
+            sender: AccountAddress(base58Check: self.account.address),
+            amount: self.amountTokenSend,
+            receiver: AccountAddress(base58Check: recipient),
+            keys: accountKeys,
+            memo: concordiumMemo
+        )
+        
+        // TODO: - should handle tx status
+        let transactionStatus = try await dependencyProvider.concordiumClient().getTransactionStatus(submittedTransaction.hash)
+        print(submittedTransaction)
+        print(transactionStatus)
+    }
+    
+    @MainActor
+    func executeTransferCCD(recipient: String) async throws {
+        let pwHash = try await self.passwordDelegate.requestUserPassword(keychain: dependencyProvider.keychainWrapper())
+        guard
+            let encryptedAccountDataKey = account.encryptedAccountData,
+            let accountKeys = try? dependencyProvider.storageManager().getPrivateAccountKeys(key: encryptedAccountDataKey, pwHash: pwHash).get()
+        else { throw WalletError.invalidInput }
+        
+        var concordiumMemo: Concordium.Memo? = nil
+        
+        if let memoData = memo?.data {
+            concordiumMemo = Concordium.Memo(memoData)
         }
+        
+        let submittedTransaction = try await dependencyProvider.concordiumClient().transferCCD(
+            sender: AccountAddress(base58Check: self.account.address),
+            amount: CCD.init(microCCD: MicroCCDAmount(Double(self.amountTokenSend.value))),
+            receiver: AccountAddress(base58Check: recipient),
+            keys: accountKeys,
+            memo: concordiumMemo
+        )
+        // TODO: - should handle tx status
+        let transactionStatus = try await dependencyProvider.concordiumClient().getTransactionStatus(submittedTransaction.hash)
+        print(submittedTransaction)
+        print(transactionStatus)
+    }
+    
+    @MainActor
+    func ececuteTransferCIS2(token: CIS2Token, recipient: String) async throws {
+        let pwHash = try await self.passwordDelegate.requestUserPassword(keychain: dependencyProvider.keychainWrapper())
+        guard
+            let encryptedAccountDataKey = account.encryptedAccountData,
+            let accountKeys = try? dependencyProvider.storageManager().getPrivateAccountKeys(key: encryptedAccountDataKey, pwHash: pwHash).get()
+        else { throw WalletError.invalidInput }
+        
+        let submittedTransaction = try await dependencyProvider.concordiumClient().transferCIS2(
+            sender: AccountAddress(base58Check: self.account.address),
+            receiver: AccountAddress(base58Check: recipient),
+            keys: accountKeys,
+            contractAddress: Concordium.ContractAddress(index: UInt64(token.contractAddress.index), subindex: UInt64(token.contractAddress.subindex)),
+            tokenId: token.tokenId,
+            amount: self.amountTokenSend.value
+        )
+        let transactionStatus = try await dependencyProvider.concordiumClient().getTransactionStatus(submittedTransaction.hash)
+        print(submittedTransaction)
+        print(transactionStatus)
+    }
 }

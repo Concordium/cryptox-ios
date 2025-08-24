@@ -35,8 +35,7 @@ protocol ConcordiumClientProtocol {
     func transferPLT(
         token: AccountPLTToken,
         sender: AccountAddress,
-        amount: String,
-        decimals: UInt16,
+        amount: BigDecimal,
         receiver: AccountAddress,
         keys: AccountKeys,
         memo: Concordium.Memo?
@@ -90,8 +89,7 @@ extension ConcordiumClient {
     func transferPLT(
         token: AccountPLTToken,
         sender: AccountAddress,
-        amount: String,
-        decimals: UInt16,
+        amount: BigDecimal,
         receiver: AccountAddress,
         keys: AccountKeys,
         memo: Concordium.Memo?
@@ -101,7 +99,7 @@ extension ConcordiumClient {
             plt: token.token.tokenID,
             sender: sender,
             receiver: receiver,
-            amount: try Concordium.Amount(amount, decimalCount: decimals),
+            amount: Concordium.Amount(amount.value.magnitude, decimalCount: UInt16(amount.precision)),
             memo: memo)
         
         let expiry: TransactionTime = Self.calculateTransactionExpiry(from: UInt64(Date().timeIntervalSince1970))
@@ -234,6 +232,7 @@ extension ConcordiumClient {
     }
     
     private func send(_ preparedAccountTransaction: PreparedAccountTransaction, keys: AccountKeys) async throws -> SubmittedTransaction {
+        print("payload hex:", preparedAccountTransaction.serializedPayloadHex)
         let signer: any Signer = AccountKeysCurve25519.init(try keys.toAccountKeyDictionary())
         let signedAccountTransaction: SignedAccountTransaction = try signer.sign(transaction: preparedAccountTransaction)
         return try await nodeClient.send(transaction: signedAccountTransaction)

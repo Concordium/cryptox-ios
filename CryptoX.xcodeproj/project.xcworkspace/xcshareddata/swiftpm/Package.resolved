@@ -1,5 +1,5 @@
 {
-  "originHash" : "1a1316cb5ebafd326669c89e00dbbc832792ddf05f07f8c97765aeb48be88b3c",
+  "originHash" : "cfc3e9055ece60274f6b314d3425685cd991a5c0d4ab4cb51345e87acab0bc27",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -61,7 +61,7 @@
       "location" : "https://github.com/Concordium/concordium-swift-sdk.git",
       "state" : {
         "branch" : "plt",
-        "revision" : "a32204536acbc78bd3236b86a5791811000b98ac"
+        "revision" : "747cf38e9ee8c90fcbc76b2e3554fc2b10effc92"
       }
     },
     {
