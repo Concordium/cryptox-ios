@@ -8,8 +8,7 @@ import Foundation
 struct ApiConstants {
 
 #if TESTNET
-// static let proxyUrl = URL(string: UserDefaults.standard.string(forKey: "proxy") ?? "https://wallet-proxy.testnet.concordium.com")!
-    static let proxyUrl = URL(string: "https://wallet-proxy.devnet-plt-beta.concordium.com")!
+    static let proxyUrl = URL(string: UserDefaults.standard.string(forKey: "proxy") ?? "https://wallet-proxy.testnet.concordium.com")!
 #elseif MAINNET
     static let proxyUrl = URL(string: "https://wallet-proxy.mainnet.concordium.software")!
 #else //Staging

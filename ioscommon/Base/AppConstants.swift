@@ -29,9 +29,9 @@ struct AppConstants {
     struct Transaction {
         static let ccdExplorer: String = {
             var url = ""
-            #if MAINNET
+#if MAINNET
             url = "https://ccdexplorer.io/mainnet/transaction/"
-            #elseif TESTNET
+#elseif TESTNET
             url = "https://ccdexplorer.io/testnet/transaction/"
 #endif
             return url
@@ -42,11 +42,11 @@ struct AppConstants {
     struct Notifications {
         static let baseUrl: String  = {
             var url = ""
-            #if MAINNET
-                url = "https://notification-api.mainnet.concordium.software/api/v1/"
-            #elseif TESTNET
-                url = "https://notification-api.testnet.concordium.com/api/v1/"
-            #endif
+#if MAINNET
+            url = "https://notification-api.mainnet.concordium.software/api/v1/"
+#elseif TESTNET
+            url = "https://notification-api.testnet.concordium.com/api/v1/"
+#endif
             return url
         }()
         
@@ -57,22 +57,22 @@ struct AppConstants {
     struct Wert {
         static let url: String = {
             var url = ""
-            #if MAINNET
-                url = "https://partner.wert.io/api/external/hpp/create-session"
-            #elseif TESTNET
-                url = "https://partner-sandbox.wert.io/api/external/hpp/create-session"
+#if MAINNET
+            url = "https://partner.wert.io/api/external/hpp/create-session"
+#elseif TESTNET
+            url = "https://partner-sandbox.wert.io/api/external/hpp/create-session"
 #else // Staging
             url = "https://partner-sandbox.wert.io/api/external/hpp/create-session"
 #endif
-
+            
             return url
         }()
-
+        
         static let apiKey: String = {
-            #if MAINNET
+#if MAINNET
             guard let apiKey = Bundle.main.infoDictionary?["MAINNET_WERT_API_KEY"] as? String else { return "" }
             return apiKey
-            #elseif TESTNET
+#elseif TESTNET
             guard let apiKey = Bundle.main.infoDictionary?["TESTNET_WERT_API_KEY"] as? String else { return "" }
             return apiKey
 #else // Staging
@@ -80,19 +80,19 @@ struct AppConstants {
             return apiKey
 #endif
         }()
-
+        
         static let partnerId: String = {
-            #if MAINNET
+#if MAINNET
             guard let id = Bundle.main.infoDictionary?["MAINNET_WERT_PARTNER_ID"] as? String else { return "" }
             return id
-            #elseif TESTNET
+#elseif TESTNET
             guard let id = Bundle.main.infoDictionary?["TESTNET_WERT_PARTNER_ID"] as? String else { return "" }
             return id
 #else // Staging
             guard let id = Bundle.main.infoDictionary?["TESTNET_WERT_PARTNER_ID"] as? String else { return "" }
             return id
 #endif
-
+            
         }()
     }
 }
