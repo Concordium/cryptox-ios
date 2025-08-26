@@ -53,7 +53,6 @@ struct IdentityProviderListView: View {
                             providerCell(provider)
                                 .onTapGesture {
                                     viewModel.selectIdentityProvider(provider)
-                                    FirebaseAppTracker.identityVerificationScreen(provider: provider.displayName)
                                 }
                             if provider.displayName != viewModel.identityProviders.last?.displayName {
                                 Divider().background(Color.greyAdditional)

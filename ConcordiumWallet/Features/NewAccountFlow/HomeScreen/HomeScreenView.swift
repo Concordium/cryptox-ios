@@ -118,7 +118,6 @@ struct HomeScreenView: View {
                     await viewModel.reload()
                 }
                 updateTimer.start()
-                FirebaseAppTracker.homeScreen()
             }
             .navigationBarTitleDisplayMode(.inline)
             .onDisappear { updateTimer.stop() }
@@ -246,7 +245,6 @@ struct HomeScreenView: View {
             case .createIdentity:
                 Button(action: {
                     self.router?.showCreateIdentityFlow()
-                    FirebaseAppTracker.homeIdentityVerificationClicked()
                 }, label: {
                     Text("create_wallet_step_3_title".localized)
                         .font(Font.satoshi(size: 15, weight: .medium))
@@ -261,7 +259,6 @@ struct HomeScreenView: View {
             case .saveSeedPhrase:
                 Button {
                     isShowPasscodeViewShown = true
-                    FirebaseAppTracker.homeSaveSeedPhraseClicked()
                 } label: {
                     Text("create_wallet_step_2_title".localized)
                         .font(Font.satoshi(size: 15, weight: .medium))
@@ -385,7 +382,6 @@ struct HomeScreenView: View {
                 self.router?.showNotConfiguredAccountPopup()
             } else {
                 navigationManager.navigate(to: .buy)
-                FirebaseAppTracker.homeOnrampBannerClicked()
             }
         }
         .padding(.horizontal, 16)
