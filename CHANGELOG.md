@@ -1,7 +1,7 @@
 # Changelog
 
 ## [Unreleased 3.3.7]
-- Fix Wert.io issue
+- Fix Wert issue
 - Bring back NFT setting
 - Rollback Google analytics
 
