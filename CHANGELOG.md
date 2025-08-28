@@ -1,9 +1,11 @@
 # Changelog
 
-## [Unreleased]
+## [Unreleased 3.3.7]
 - Fix Wert.io issue
+- Bring back NFT setting
+- Rollback Google analytics
 
-## [Released 3.3.5]
+## [Released 3.3.6]
 - ID2.5 functionality (Reown)
 
 ## [Released 3.3.5]
