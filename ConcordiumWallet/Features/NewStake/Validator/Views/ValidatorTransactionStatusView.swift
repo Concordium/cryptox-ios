@@ -7,16 +7,9 @@
 //
 
 import SwiftUI
-import Lottie
 import Combine
 
 struct ValidatorTransactionStatusView: View {
-    private enum AnimationState { case loader, success, failure }
-
-    @State private var animationState: AnimationState = .loader
-    @State private var currentSegment: ClosedRange<Int>? = 0...120
-    @State private var loopMode: LottieLoopMode = .loop
-    @State private var playToken: Int = 0
 
     @State private var hasStartedTransaction = false
     @State private var isTransactionDetailsVisible: Bool = true
@@ -25,14 +18,10 @@ struct ValidatorTransactionStatusView: View {
     @EnvironmentObject var navigationManager: NavigationManager
     @ObservedObject var viewModel: ValidatorSubmissionViewModel
 
-    private let animationFile = "loadingAnimation"
-
     var body: some View {
         VStack {
             VStack(alignment: .center, spacing: 30) {
-                animationView()
-                    .id(animationState)
-                    .frame(width: 60, height: 60)
+                LottieLoadingAnimation(isTransactionExecuting: $viewModel.isTransactionExecuting, error: $viewModel.error)
 
                 Divider()
                 VStack(spacing: 8) {
@@ -82,14 +71,10 @@ struct ValidatorTransactionStatusView: View {
         .modifier(AppBackgroundModifier())
         .modifier(AlertModifier(alertOptions: viewModel.alertOptions, isPresenting: $viewModel.showAlert))
         .onAppear {
-            playAnimationBasedOnState()
             if !hasStartedTransaction {
                 hasStartedTransaction = true
                 viewModel.pressedButton()
             }
-        }
-        .onChange(of: viewModel.isTransactionExecuting) { _ in
-            playAnimationBasedOnState()
         }
     }
     
@@ -119,32 +104,6 @@ struct ValidatorTransactionStatusView: View {
             .transition(.opacity)
             .animation(.easeInOut(duration: 1), value: !viewModel.isTransactionExecuting)
         }
-    }
-
-    @ViewBuilder
-    private func animationView() -> some View {
-        LottiePlayer(name: animationFile,
-                     segment: currentSegment,
-                     loopMode: loopMode,
-                     playToken: playToken)
-    }
-
-    private func playAnimationBasedOnState() {
-        switch (viewModel.isTransactionExecuting, viewModel.error != nil) {
-        case (true, _):
-            animationState = .loader
-            currentSegment = 0...120
-            loopMode = .loop
-        case (false, true):
-            animationState = .failure
-            currentSegment = 300...360
-            loopMode = .playOnce
-        default:
-            animationState = .success
-            currentSegment = 121...239
-            loopMode = .playOnce
-        }
-        playToken += 1
     }
 
     private func setupBinding() {

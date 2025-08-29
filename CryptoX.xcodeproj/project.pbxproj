@@ -1706,6 +1706,9 @@
 		157BB91F2D525EDA002CAD7B /* TappedCellModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157BB91E2D525EDA002CAD7B /* TappedCellModifier.swift */; };
 		157BB9202D525EDA002CAD7B /* TappedCellModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157BB91E2D525EDA002CAD7B /* TappedCellModifier.swift */; };
 		157BB9212D525EDA002CAD7B /* TappedCellModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157BB91E2D525EDA002CAD7B /* TappedCellModifier.swift */; };
+		157F34382E61A68900D16739 /* LottieLoadingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157F34372E61A68900D16739 /* LottieLoadingAnimation.swift */; };
+		157F34392E61A68900D16739 /* LottieLoadingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157F34372E61A68900D16739 /* LottieLoadingAnimation.swift */; };
+		157F343A2E61A68900D16739 /* LottieLoadingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157F34372E61A68900D16739 /* LottieLoadingAnimation.swift */; };
 		1580E9782D43C5700051C55D /* ShakeViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1580E9772D43C5700051C55D /* ShakeViewModifier.swift */; };
 		1580E9792D43C5700051C55D /* ShakeViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1580E9772D43C5700051C55D /* ShakeViewModifier.swift */; };
 		1580E97A2D43C5700051C55D /* ShakeViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1580E9772D43C5700051C55D /* ShakeViewModifier.swift */; };
@@ -3124,6 +3127,7 @@
 		157586312CA43E5500205A6E /* CooldownEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CooldownEntity.swift; sourceTree = "<group>"; };
 		157586352CA441DC00205A6E /* AccountCooldown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCooldown.swift; sourceTree = "<group>"; };
 		157BB91E2D525EDA002CAD7B /* TappedCellModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappedCellModifier.swift; sourceTree = "<group>"; };
+		157F34372E61A68900D16739 /* LottieLoadingAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieLoadingAnimation.swift; sourceTree = "<group>"; };
 		1580E9772D43C5700051C55D /* ShakeViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeViewModifier.swift; sourceTree = "<group>"; };
 		1580EBD82D4919C30051C55D /* SliderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderButton.swift; sourceTree = "<group>"; };
 		1580EBDD2D4A383C0051C55D /* NavigationDestinationBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDestinationBuilder.swift; sourceTree = "<group>"; };
@@ -3640,6 +3644,7 @@
 				52055F852552C1D90071F7CA /* NibLoadable.swift */,
 				D5C9F1172905DAE3003C8D17 /* Reusable.swift */,
 				D5C9F11C2905DBFC003C8D17 /* ReusableViewExtensions.swift */,
+				157F34372E61A68900D16739 /* LottieLoadingAnimation.swift */,
 			);
 			path = StyledViews;
 			sourceTree = "<group>";
@@ -7245,6 +7250,7 @@
 				08C168302BB7396200E61326 /* AboutPresenter.swift in Sources */,
 				08C168312BB7396200E61326 /* LetterSpacingLabel.swift in Sources */,
 				08C168322BB7396200E61326 /* TransactionSubmittedPresenter.swift in Sources */,
+				157F34382E61A68900D16739 /* LottieLoadingAnimation.swift in Sources */,
 				08C168342BB7396200E61326 /* OnboardingCarouselViewController.swift in Sources */,
 				08C168352BB7396200E61326 /* PublicKeys.swift in Sources */,
 				08C168362BB7396200E61326 /* UpdateTimer.swift in Sources */,
@@ -7515,6 +7521,7 @@
 				088FEE362A0168F200042957 /* UILabel+LinkRecognizer.swift in Sources */,
 				08BFE2302A3C9320007A7B1E /* DecimalNumberTextField.swift in Sources */,
 				088FF0B42A02845C00042957 /* RecoveryPhraseRecoverCompleteView.swift in Sources */,
+				157F34392E61A68900D16739 /* LottieLoadingAnimation.swift in Sources */,
 				0851BFD62B504BDB006373AC /* ImportWalletSeedPhraseView.swift in Sources */,
 				08A0460329FA99D200DACE1F /* CreateTransferRequest.swift in Sources */,
 				08A045F829FA99D200DACE1F /* CreateIDRequest.swift in Sources */,
@@ -8239,6 +8246,7 @@
 				088FF0D82A02848A00042957 /* WordSelector.swift in Sources */,
 				08BFE22E2A3C9320007A7B1E /* DecimalNumberTextField.swift in Sources */,
 				088FEE342A0168F200042957 /* UILabel+LinkRecognizer.swift in Sources */,
+				157F343A2E61A68900D16739 /* LottieLoadingAnimation.swift in Sources */,
 				0851BFD52B504BDB006373AC /* ImportWalletSeedPhraseView.swift in Sources */,
 				D5B47104278DE6AC00781EE8 /* RealmHelper.swift in Sources */,
 				088FF0B02A02845B00042957 /* RecoveryPhraseRecoverCompleteView.swift in Sources */,
