@@ -156,19 +156,6 @@ final class CIS2TokenTransferModel {
             self.tokenGeneralBalance = .init(BigInt(stringLiteral: token.tokenAccountState.balance.value), token.tokenAccountState.balance.decimals)
         }
     }
-    
-    //    func executeTransaction() async throws -> AnyPublisher<TransferEntity, Error> {
-    //        return try await callTransaction().tryMap { [weak self] entity in
-    //            guard let self = self else { return entity }
-    //            switch self.notifyDestination {
-    //                case .legacyQrConnect:
-    ////                    self.legacyQRConnectService?.sendPaymentMessage(hash: entity.submissionId ?? "")
-    //                    self.onTxSuccess(entity.submissionId ?? "")
-    //                case .none: break
-    //            }
-    //            return entity
-    //        }.eraseToAnyPublisher()
-    //    }
 }
 
 extension CIS2TokenTransferModel {
@@ -283,22 +270,20 @@ extension CIS2TokenTransferModel {
 
 extension CIS2TokenTransferModel {
     func executeTransfer() async throws {
-        guard let recipient = self.recipient,
-              let transaferCost = self.transaferCost
-        else { throw TransferTokenError.insuficientData }
+        guard let recipient = self.recipient else { throw TransferTokenError.insuficientData }
         
         switch self.tokenType {
         case .cis2(let cIS2Token):
-            try await ececuteTransferCIS2(token: cIS2Token, recipient: recipient)
+            _ = try await ececuteTransferCIS2(token: cIS2Token, recipient: recipient)
         case .ccd:
-            try await executeTransferCCD(recipient: recipient)
+            _  = try await executeTransferCCD(recipient: recipient)
         case .plt(let token):
-            try await executeTransferPLT(token, recipient: recipient)
+            _ = try await executeTransferPLT(token, recipient: recipient)
         }
     }
     
     @MainActor
-    func executeTransferPLT(_ token: AccountPLTToken, recipient: String) async throws {
+    func executeTransferPLT(_ token: AccountPLTToken, recipient: String) async throws -> TransactionStatus {
         let pwHash = try await self.passwordDelegate.requestUserPassword(keychain: dependencyProvider.keychainWrapper())
         guard
             let encryptedAccountDataKey = account.encryptedAccountData,
@@ -320,14 +305,11 @@ extension CIS2TokenTransferModel {
             memo: concordiumMemo
         )
         
-        // TODO: - should handle tx status
-        let transactionStatus = try await dependencyProvider.concordiumClient().getTransactionStatus(submittedTransaction.hash)
-        print(submittedTransaction)
-        print(transactionStatus)
+        return try await dependencyProvider.concordiumClient().getTransactionStatus(submittedTransaction.hash)
     }
     
     @MainActor
-    func executeTransferCCD(recipient: String) async throws {
+    func executeTransferCCD(recipient: String) async throws -> TransactionStatus {
         let pwHash = try await self.passwordDelegate.requestUserPassword(keychain: dependencyProvider.keychainWrapper())
         guard
             let encryptedAccountDataKey = account.encryptedAccountData,
@@ -347,14 +329,12 @@ extension CIS2TokenTransferModel {
             keys: accountKeys,
             memo: concordiumMemo
         )
-        // TODO: - should handle tx status
-        let transactionStatus = try await dependencyProvider.concordiumClient().getTransactionStatus(submittedTransaction.hash)
-        print(submittedTransaction)
-        print(transactionStatus)
+        
+        return try await dependencyProvider.concordiumClient().getTransactionStatus(submittedTransaction.hash)
     }
     
     @MainActor
-    func ececuteTransferCIS2(token: CIS2Token, recipient: String) async throws {
+    func ececuteTransferCIS2(token: CIS2Token, recipient: String) async throws -> TransactionStatus {
         let pwHash = try await self.passwordDelegate.requestUserPassword(keychain: dependencyProvider.keychainWrapper())
         guard
             let encryptedAccountDataKey = account.encryptedAccountData,
@@ -369,8 +349,6 @@ extension CIS2TokenTransferModel {
             tokenId: token.tokenId,
             amount: self.amountTokenSend.value
         )
-        let transactionStatus = try await dependencyProvider.concordiumClient().getTransactionStatus(submittedTransaction.hash)
-        print(submittedTransaction)
-        print(transactionStatus)
+        return try await dependencyProvider.concordiumClient().getTransactionStatus(submittedTransaction.hash)
     }
 }
