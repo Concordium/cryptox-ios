@@ -67,6 +67,7 @@ final class TransferTokenConfirmViewModel: ObservableObject, Equatable, Hashable
         
         do {
             try await tokenTransferModel.executeTransfer()
+            self.isLoading = false
 //                .sink(receiveError: { error in
 //                    self.error = error
 //                }, receiveValue: { transferDataType in
