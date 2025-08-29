@@ -196,21 +196,21 @@ extension CIS2TokenTransferModel {
 }
 
 extension CIS2TokenTransferModel {
-    func executeTransfer() async throws {
+    func executeTransfer() async throws -> TransactionHash {
         guard let recipient = self.recipient else { throw TransferTokenError.insuficientData }
         
         switch self.tokenType {
         case .cis2(let cIS2Token):
-            _ = try await ececuteTransferCIS2(token: cIS2Token, recipient: recipient)
+            return try await ececuteTransferCIS2(token: cIS2Token, recipient: recipient)
         case .ccd:
-            _  = try await executeTransferCCD(recipient: recipient)
+            return try await executeTransferCCD(recipient: recipient)
         case .plt(let token):
-            _ = try await executeTransferPLT(token, recipient: recipient)
+            return try await executeTransferPLT(token, recipient: recipient)
         }
     }
     
     @MainActor
-    func executeTransferPLT(_ token: AccountPLTToken, recipient: String) async throws -> TransactionStatus {
+    func executeTransferPLT(_ token: AccountPLTToken, recipient: String) async throws -> TransactionHash {
         let pwHash = try await self.passwordDelegate.requestUserPassword(keychain: dependencyProvider.keychainWrapper())
         guard
             let encryptedAccountDataKey = account.encryptedAccountData,
@@ -223,20 +223,18 @@ extension CIS2TokenTransferModel {
             concordiumMemo = Concordium.Memo(memoData)
         }
         
-        let submittedTransaction = try await dependencyProvider.concordiumClient().transferPLT(
+        return try await dependencyProvider.concordiumClient().transferPLT(
             token: token,
             sender: AccountAddress(base58Check: self.account.address),
             amount: self.amountTokenSend,
             receiver: AccountAddress(base58Check: recipient),
             keys: accountKeys,
             memo: concordiumMemo
-        )
-        
-        return try await dependencyProvider.concordiumClient().getTransactionStatus(submittedTransaction.hash)
+        ).hash
     }
     
     @MainActor
-    func executeTransferCCD(recipient: String) async throws -> TransactionStatus {
+    func executeTransferCCD(recipient: String) async throws -> TransactionHash {
         let pwHash = try await self.passwordDelegate.requestUserPassword(keychain: dependencyProvider.keychainWrapper())
         guard
             let encryptedAccountDataKey = account.encryptedAccountData,
@@ -249,33 +247,30 @@ extension CIS2TokenTransferModel {
             concordiumMemo = Concordium.Memo(memoData)
         }
         
-        let submittedTransaction = try await dependencyProvider.concordiumClient().transferCCD(
+        return try await dependencyProvider.concordiumClient().transferCCD(
             sender: AccountAddress(base58Check: self.account.address),
             amount: CCD.init(microCCD: MicroCCDAmount(Double(self.amountTokenSend.value))),
             receiver: AccountAddress(base58Check: recipient),
             keys: accountKeys,
             memo: concordiumMemo
-        )
-        
-        return try await dependencyProvider.concordiumClient().getTransactionStatus(submittedTransaction.hash)
+        ).hash
     }
     
     @MainActor
-    func ececuteTransferCIS2(token: CIS2Token, recipient: String) async throws -> TransactionStatus {
+    func ececuteTransferCIS2(token: CIS2Token, recipient: String) async throws -> TransactionHash {
         let pwHash = try await self.passwordDelegate.requestUserPassword(keychain: dependencyProvider.keychainWrapper())
         guard
             let encryptedAccountDataKey = account.encryptedAccountData,
             let accountKeys = try? dependencyProvider.storageManager().getPrivateAccountKeys(key: encryptedAccountDataKey, pwHash: pwHash).get()
         else { throw WalletError.invalidInput }
         
-        let submittedTransaction = try await dependencyProvider.concordiumClient().transferCIS2(
+        return try await dependencyProvider.concordiumClient().transferCIS2(
             sender: AccountAddress(base58Check: self.account.address),
             receiver: AccountAddress(base58Check: recipient),
             keys: accountKeys,
             contractAddress: Concordium.ContractAddress(index: UInt64(token.contractAddress.index), subindex: UInt64(token.contractAddress.subindex)),
             tokenId: token.tokenId,
             amount: self.amountTokenSend.value
-        )
-        return try await dependencyProvider.concordiumClient().getTransactionStatus(submittedTransaction.hash)
+        ).hash
     }
 }

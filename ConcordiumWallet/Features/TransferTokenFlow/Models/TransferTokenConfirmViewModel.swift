@@ -9,6 +9,7 @@
 import SwiftUI
 import BigInt
 import Combine
+import Concordium
 
 struct TokenTransferParameters: Codable {
     let tokenId: String
@@ -45,6 +46,8 @@ final class TransferTokenConfirmViewModel: ObservableObject, Equatable, Hashable
     private let transactionsService: TransactionsServiceProtocol
     private let storageManager: StorageManagerProtocol
     private var cancellables = [AnyCancellable]()
+    
+    private var transactionHash: TransactionHash? = nil
 
     init(
         tokenTransferModel: CIS2TokenTransferModel,
@@ -66,20 +69,15 @@ final class TransferTokenConfirmViewModel: ObservableObject, Equatable, Hashable
         self.error = nil
         
         do {
-            try await tokenTransferModel.executeTransfer()
+            self.transactionHash = try await tokenTransferModel.executeTransfer()
             self.isLoading = false
-//                .sink(receiveError: { error in
-//                    self.error = error
-//                }, receiveValue: { transferDataType in
-//                    self.transferDataType = transferDataType
-//                    self.isLoading = false
-//                }).store(in: &cancellables)
         } catch {
             self.error = error
             self.isLoading = false
         }
     }
     
+    // Zhanna, show ccd scan here, using transactionHash
     func getTransactionViewModel() -> TransactionViewModel? {
         guard let transferDataType else { return nil }
         let viewModel = TransactionViewModel(localTransferData: transferDataType, submissionStatus: nil, account: tokenTransferModel.account, balanceType: .balance) { _ in
