@@ -318,6 +318,18 @@ public class TokenFormatter {
             return formatter.string(from: NSNumber(value: num)) ?? "0"
         }
     }
+    
+    static func formatPLTTokenWithDecimals(_ amount: Int, decimals: Int) -> String {
+        let divisor = pow(10, Double(decimals))
+        let decimalValue = Decimal(amount) / Decimal(divisor)
+
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = decimals
+        formatter.maximumFractionDigits = decimals
+
+        let formatted = formatter.string(from: decimalValue as NSDecimalNumber) ?? ""
+        return formatted
+    }
 }
 
 
