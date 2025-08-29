@@ -26,8 +26,8 @@ final class TransactionListViewModel: ObservableObject {
         self.title = tx.title
         self.total = tx.total?.displayValueWithCCDStroke()
         self.timestamp = GeneralFormatter.formatTime(for: tx.date)
-        if let cost = tx.total?.intValue {
-            self.totalColor =  cost < 0 ? .white : .success
+        if let cost = tx.cost?.intValue {
+            self.totalColor =  cost <= 0 ? .success : .white
         }
         
         switch tx.status {

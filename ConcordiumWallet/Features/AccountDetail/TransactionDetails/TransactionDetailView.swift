@@ -91,7 +91,7 @@ struct TransactionDetailView: View {
                 if let pltAmount = tx.pltAmount {
                     Text(pltAmount)
                         .font(.satoshi(size: 15, weight: .medium))
-                        .foregroundStyle(tx.totalColor)
+                        .foregroundStyle(tx.cost != nil ? tx.amountColor : tx.totalColor)
                 } else if let total = tx.total {
                     Text(total)
                         .font(.satoshi(size: 15, weight: .medium))
