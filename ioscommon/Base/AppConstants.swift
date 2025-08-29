@@ -31,7 +31,7 @@ struct AppConstants {
             var url = ""
 #if MAINNET
             url = "https://ccdexplorer.io/mainnet/transaction/"
-#elseif TESTNET
+#else
             url = "https://ccdexplorer.io/testnet/transaction/"
 #endif
             return url

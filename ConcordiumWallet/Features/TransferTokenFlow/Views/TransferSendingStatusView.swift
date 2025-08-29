@@ -85,8 +85,8 @@ struct TransferSendingStatusView: View {
                     .transition(.opacity)
                 
                 Button {
-                    if let transaction = viewModel.getTransactionViewModel() {
-                        navigationManager.navigate(to: .transactionDetails(transaction: TransactionDetailViewModel(transaction: transaction)))
+                    if let ccdScanURL = viewModel.getCCDScanURL() {
+                        UIApplication.shared.open(ccdScanURL)
                     }
                 } label: {
                     HStack(spacing: 8) {

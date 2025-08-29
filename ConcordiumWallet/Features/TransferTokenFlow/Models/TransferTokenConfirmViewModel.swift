@@ -78,14 +78,13 @@ final class TransferTokenConfirmViewModel: ObservableObject, Equatable, Hashable
     }
     
     // Zhanna, show ccd scan here, using transactionHash
-    func getTransactionViewModel() -> TransactionViewModel? {
-        guard let transferDataType else { return nil }
-        let viewModel = TransactionViewModel(localTransferData: transferDataType, submissionStatus: nil, account: tokenTransferModel.account, balanceType: .balance) { _ in
-            return nil
-        } recipientListLookup: { _ in
-            return nil
+    func getCCDScanURL() -> URL? {
+        guard let transactionHashHex = transactionHash?.hex else { return nil }
+        let urlString = AppConstants.Transaction.ccdExplorer + (transactionHashHex)
+        if let url = URL(string: urlString), UIApplication.shared.canOpenURL(url) {
+            return url
         }
-        return viewModel
+        return nil
     }
     
     func dismiss() {
