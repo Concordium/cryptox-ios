@@ -81,7 +81,6 @@ struct WelcomeView: View {
                         .contentShape(.rect)
                         .onTapGesture {
                             isChecked.toggle()
-                            FirebaseAppTracker.welcomeTermAndConditionsCheckBoxChecked()
                         }
                     
                     ///
@@ -111,7 +110,6 @@ struct WelcomeView: View {
                         .onTapGesture {
                             isAcceptedTracking.toggle()
                             Analytics.setAnalyticsCollectionEnabled(isAcceptedTracking)
-                            FirebaseAppTracker.welcomeActivityTrackingCheckBoxChecked()
                         }
                     Text("analytics.trackingConsent".localized)
                         .accentColor(Color.Neutral.tint1)
@@ -126,7 +124,6 @@ struct WelcomeView: View {
                     action: {
                         isAcceptedPrivacy = true
                         isCreateAccountSheetShown.toggle()
-                        FirebaseAppTracker.welcomeGetStartedClicked()
                     }, label: {
                         HStack {
                             Text("get_started_btn_title".localized)

@@ -98,9 +98,6 @@ struct CCDOnrampView: View {
                 accountModels: dependencyProvider.storageManager().getAccounts().map { AccountPreviewViewModel.init(account: $0, tokens: dependencyProvider.storageManager().getAccountSavedCIS2Tokens($0.address)) },
                 provider: provider)
         })
-        .onAppear {
-            FirebaseAppTracker.homeOnrampScreen()
-        }
     }
     
     private func ListHeader() -> some View {
@@ -137,7 +134,6 @@ struct CCDOnrampView: View {
                 accountAddress: address
             )
             openURL(url)
-            FirebaseAppTracker.homeOnrampSiteClicked(siteName: url.absoluteString)
         }
     }
 }

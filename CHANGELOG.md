@@ -5,7 +5,12 @@
 - Ability to Send/Receive PLTs in CryptoX
 - Update Swift SDK for PLTs in CryptoX
 
-## [Unreleased]
+## [Released 3.3.7]
+- Fix Wert issue
+- Bring back NFT setting
+- Rollback Google analytics
+
+## [Released 3.3.6]
 - ID2.5 functionality (Reown)
 
 ## [Released 3.3.5]

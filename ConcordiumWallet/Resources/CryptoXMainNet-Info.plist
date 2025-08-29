@@ -5,11 +5,11 @@
 	<key>FirebaseAutomaticScreenReportingEnabled</key>
 	<false/>
 	<key>API_KEY</key>
-	<string>$(API_KEY)</string>
+	<string>6515da6d-a065-4676-a214-c83e5b18f5f3</string>
 	<key>MAINNET_WERT_API_KEY</key>
-	<string>$(MAINNET_WERT_API_KEY)</string>
+	<string>wert-prod-0a3392b9c8aa1163334f5bdcef1b27e64593206d</string>
 	<key>MAINNET_WERT_PARTNER_ID</key>
-	<string>$(MAINNET_WERT_PARTNER_ID)</string>
+	<string>01HM0W8FTFG4TEBRB0JPM18G5W</string>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>

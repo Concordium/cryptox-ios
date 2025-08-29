@@ -103,7 +103,6 @@ class AboutViewController: BaseViewController, AboutViewProtocol, Storyboarded, 
         xImage.isUserInteractionEnabled = true
         discordImage.isUserInteractionEnabled = true
         setupSocialMediaButtons()
-        FirebaseAppTracker.aboutScreen()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -112,7 +111,6 @@ class AboutViewController: BaseViewController, AboutViewProtocol, Storyboarded, 
     
     func textView(_ textView: UITextView, shouldInteractWith link: URL, in characterRange: NSRange) -> Bool {
         UIApplication.shared.open(link)
-        FirebaseAppTracker.aboutScreenLinkClicked(url: link.absoluteString)
         return false
     }
     
