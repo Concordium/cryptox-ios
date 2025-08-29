@@ -17,10 +17,8 @@ struct AccountTokenListView: View {
     @Binding var path: [NavigationPaths]
     @State private var selectedAccountID: Int?
     @State private var managePressed: Bool = false
-    @State private var hideTokenID: String?
-    var pressedButtonColor: Color {
-        managePressed ? Color.buttonPressed : .greyAdditional
-    }
+
+    var pressedButtonColor: Color { managePressed ? Color.buttonPressed : .greyAdditional }
     var mode: TokenViewMode
     var onHideToken: ((AccountDetailAccount) -> Void)?
     var euroAmount: String?
@@ -28,7 +26,7 @@ struct AccountTokenListView: View {
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 6) {
-                ForEach(viewModel.accounts.filter { !(mode == .manage && $0.name == "ccd") }, id: \.id) { account in
+                ForEach(viewModel.accounts.filter { !(mode == .manage && $0.name == "ccd") }, id: \.stableId) { account in
                     TokenListRow(
                         data: cellData(for: account),
                         mode: mode,
@@ -46,6 +44,7 @@ struct AccountTokenListView: View {
                         }
                     }
                 }
+
                 HStack(spacing: 8) {
                     Image("settingsGear")
                         .renderingMode(.template)
@@ -53,7 +52,6 @@ struct AccountTokenListView: View {
                     Text("Manage token list")
                         .font(.satoshi(size: 15, weight: .medium))
                         .foregroundStyle(pressedButtonColor)
-                    
                 }
                 .padding(.leading, 24)
                 .padding(.vertical, 8)
@@ -69,14 +67,10 @@ struct AccountTokenListView: View {
             .animation(.easeInOut, value: viewModel.accounts)
         }
         .refreshable {
-            await viewModel.reload()
-            await viewModel.reloadPLTs()
+            await viewModel.reloadAll()
         }
-        .onAppear {
-            Task {
-                await viewModel.reload()
-                await viewModel.reloadPLTs()
-            }
+        .task(id: viewModel.account?.address) {
+            await viewModel.reloadAll()
         }
         .onAppear {
             showManageTokenList = false
@@ -136,10 +130,7 @@ struct AccountTokenListView: View {
 final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
     enum State: String, CaseIterable {
         case accounts, transactions
-        
-        var locTitle: String {
-            self.rawValue.localized
-        }
+        var locTitle: String { self.rawValue.localized }
     }
     
     @Published var state: State = .accounts
@@ -154,82 +145,96 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
     
     var account: AccountDataType? {
         didSet {
-            Task { await reload() }
+            Task { await reloadAll() }
         }
     }
     let storageManager: StorageManagerProtocol
     let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
-    
-    private var cancellables = [AnyCancellable]()
+
+    private var cancellables = Set<AnyCancellable>()
 
     init(account: AccountDataType?) {
         self.dependencyProvider = ServicesProvider.defaultProvider()
         self.storageManager = ServicesProvider.defaultProvider().storageManager()
 
-        guard let account else {
-            self.account = nil
-            return
-        }
         self.account = account
-        sceneTitle = account.displayName
-        
-        //TODO: - use `account.isStaking` intead
-        if let baker = account.baker, baker.bakerID != -1 {
-            self.hasStaked = true
-            self.stakedValue = GTU(intValue: baker.stakedAmount )
-        } else if let delegation = account.delegation {
-            self.hasStaked = true
-            self.stakedValue = GTU(intValue: Int(delegation.stakedAmount) )
-        }
-        
-        self.atDisposal = GTU(intValue: account.forecastAtDisposalBalance)
-        self.totalCooldown = GTU(intValue: account.cooldowns.compactMap { Int($0.amount) }.reduce(0, +))
-        self.isReadOnly = account.isReadOnly
-        
-        storageManager.subscribeCIS2TokensUpdate(account.address).sink { [weak self] val in
-            Task {
-                await self?.reload()
-            }
-        }.store(in: &cancellables)
-        
-        CoreDataPLTStore.shared.subscribePLTTokensUpdate(for: account.address).sink { [weak self] val in
-            Task {
-                await self?.reloadPLTs()
-            }
-        }.store(in: &cancellables)
-    }
-    
-    @MainActor
-    func reload() async {
-        guard let account, !account.isObjectInvalidated() else { return }
-        self.accounts.removeAll { $0.isCCDOrCis2 }
+        if let account {
+            sceneTitle = account.displayName
 
-        let tokens = storageManager.getAccountSavedCIS2Tokens(account.address)
-        let cis2Service = CIS2Service(networkManager: self.dependencyProvider.networkManager(), storageManager: storageManager)
-        if !tokens.isEmpty {
-            var tmpAccounts: [AccountDetailAccount] = [.ccd(amount: GTU(intValue: account.forecastBalance))]
-            do {
-                let balances = try await Self.loadCIS2TokenBalances(tokens, address: account.address, cis2Service: cis2Service)
-                let tmpTokens: [AccountDetailAccount] = tokens.compactMap { token -> AccountDetailAccount? in
-                    let contractTokenBalances = balances.filter { $1 == token.contractAddress.index }.map(\.0).flatMap { $0 }
-                    guard let tokenBalance = contractTokenBalances.first(where: { $0.tokenId == token.tokenId }) else { return nil }
-                    return AccountDetailAccount.token(token: token, amount: tokenBalance.balance)
+            // TODO: replace with account.isStaking when available
+            if let baker = account.baker, baker.bakerID != -1 {
+                self.hasStaked = true
+                self.stakedValue = GTU(intValue: baker.stakedAmount)
+            } else if let delegation = account.delegation {
+                self.hasStaked = true
+                self.stakedValue = GTU(intValue: Int(delegation.stakedAmount))
+            }
+
+            self.atDisposal = GTU(intValue: account.forecastAtDisposalBalance)
+            self.totalCooldown = GTU(intValue: account.cooldowns.compactMap { Int($0.amount) }.reduce(0, +))
+            self.isReadOnly = account.isReadOnly
+
+            storageManager.subscribeCIS2TokensUpdate(account.address)
+                .debounce(for: .milliseconds(150), scheduler: DispatchQueue.main)
+                .sink { [weak self] _ in
+                    Task { await self?.reloadAll() }
                 }
-                
-                tmpAccounts.append(contentsOf: tmpTokens)
-            } catch { }
-            
-            self.accounts.append(contentsOf: tmpAccounts)
-        } else {
-            self.accounts.append(.ccd(amount: GTU(intValue: account.forecastBalance)))
+                .store(in: &cancellables)
+
+            CoreDataPLTStore.shared.subscribePLTTokensUpdate(for: account.address)
+                .debounce(for: .milliseconds(150), scheduler: DispatchQueue.main)
+                .sink { [weak self] _ in
+                    Task { await self?.reloadAll() }
+                }
+                .store(in: &cancellables)
         }
+    }
+
+    // MARK: Public unified loader
+
+    @MainActor
+    func reloadAll() async {
+        guard let account, !account.isObjectInvalidated() else { return }
+
+        async let cis2: [AccountDetailAccount] = loadCIS2Accounts(for: account)
+        async let plt: [AccountDetailAccount]  = loadPLTAccounts(for: account)
+
+        let (cis2Accounts, pltAccounts) = await (cis2, plt)
+
+        self.accounts = cis2Accounts + pltAccounts
         getEuroValueForCCD()
     }
+
+    // MARK: - Sub-loaders
+    private func loadCIS2Accounts(for account: AccountDataType) async -> [AccountDetailAccount] {
+        var result: [AccountDetailAccount] = [.ccd(amount: GTU(intValue: account.forecastBalance))]
+
+        let tokens = storageManager.getAccountSavedCIS2Tokens(account.address)
+        guard !tokens.isEmpty else { return result }
+
+        let cis2Service = CIS2Service(networkManager: dependencyProvider.networkManager(), storageManager: storageManager)
+
+        do {
+            let balances = try await Self.loadCIS2TokenBalances(tokens, address: account.address, cis2Service: cis2Service)
+            let tokensAccs: [AccountDetailAccount] = tokens.compactMap { token in
+                let contractBalances = balances
+                    .filter { $1 == token.contractAddress.index }
+                    .map(\.0)
+                    .flatMap { $0 }
+
+                guard let tokenBalance = contractBalances.first(where: { $0.tokenId == token.tokenId }) else { return nil }
+                return .token(token: token, amount: tokenBalance.balance)
+            }
+            result.append(contentsOf: tokensAccs)
+        } catch {
+        }
+
+        return result
+    }
     
     @MainActor
-    func reloadPLTs() async {
-        guard let account else { return }
-        let pltService = PLTTokenService(networkManager: self.dependencyProvider.networkManager(), storageManager: storageManager)
+    private func loadPLTAccounts(for account: AccountDataType) async -> [AccountDetailAccount] {
+        let pltService = PLTTokenService(networkManager: dependencyProvider.networkManager(), storageManager: storageManager)
 
         do {
             let pltTokens = try CoreDataPLTStore.shared.fetchPLTTokens(for: account.address)
@@ -237,34 +242,47 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
 
             let tmpTokens: [AccountDetailAccount] = pltTokens.compactMap { token -> AccountDetailAccount? in
                 let tokenBalance = pltTokenBalances.first(where: { $0.key == token.tokenId })
-                let fallbackTokenBalance =  TokenAccountState(balance: TokenBalance(decimals: Int(token.tokenState.decimals), value: "0"), state: TokenBalanceState(denyList: nil))
-                if let accountPLTToken = token.asPLTToken() {
-                    let pltToken = AccountPLTToken(token: accountPLTToken, tokenAccountState: tokenBalance?.value ?? fallbackTokenBalance)
-                    let accDetailAccount = AccountDetailAccount.plt(token: pltToken, amount: TokenFormatter().plainString(from: BigDecimal(BigInt(stringLiteral: pltToken.tokenAccountState.balance.value), pltToken.tokenAccountState.balance.decimals)))
-                    return accDetailAccount
-                }
-                return nil
+                let fallback = TokenAccountState(
+                    balance: TokenBalance(decimals: Int(token.tokenState.decimals), value: "0"),
+                    state: TokenBalanceState(denyList: nil)
+                )
+
+                guard let accountPLTToken = token.asPLTToken() else { return nil }
+                let pltToken = AccountPLTToken(token: accountPLTToken, tokenAccountState: tokenBalance?.value ?? fallback)
+
+                let amount = TokenFormatter().plainString(
+                    from: BigDecimal(
+                        BigInt(stringLiteral: pltToken.tokenAccountState.balance.value),
+                        pltToken.tokenAccountState.balance.decimals
+                    )
+                )
+                return .plt(token: pltToken, amount: amount)
             }
-            await MainActor.run {
-                self.accounts.removeAll { account in
-                    if case .plt = account { return true }
-                    return false
-                }
-                self.accounts.append(contentsOf: tmpTokens)
-            }
-        } catch { }
+            return tmpTokens
+        } catch {
+            return []
+        }
     }
-    
+
+    // MARK: - Kept API for external callers (if needed)
+
+    func reload() async {
+        await reloadAll()
+    }
+
+    func reloadPLTs() async {
+        await reloadAll()
+    }
+
+    // MARK: - Helpers
+
     func getEuroValueForCCD() {
         guard let account else { return }
         let ccd = GTU(intValue: account.forecastBalance)
+
         ServicesProvider.defaultProvider().stakeService().getChainParameters()
-            .sink(receiveCompletion: { completionResult in
-                switch completionResult {
-                default:
-                    break
-                }
-            }, receiveValue: { [weak self] chainParameters in
+            .sink(receiveCompletion: { _ in },
+                  receiveValue: { [weak self] chainParameters in
                 let microGTUPerEuro = chainParameters.microGTUPerEuro
                 let euroEquivalent = Double(ccd.intValue) * (Double(microGTUPerEuro.denominator) / Double(microGTUPerEuro.numerator))
                 let rounded = (euroEquivalent * 100).rounded() / 100
@@ -272,21 +290,32 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
             })
             .store(in: &cancellables)
     }
-    
-    private static func loadCIS2TokenBalances(_ tokens: [CIS2Token], address: String, cis2Service: CIS2Service) async throws -> [([CIS2TokenBalance], Int)] {
-        return try await withThrowingTaskGroup(of: ([CIS2TokenBalance], Int).self, body: { group in
+
+    private static func loadCIS2TokenBalances(
+        _ tokens: [CIS2Token],
+        address: String,
+        cis2Service: CIS2Service
+    ) async throws -> [([CIS2TokenBalance], Int)] {
+        try await withThrowingTaskGroup(of: ([CIS2TokenBalance], Int).self) { group in
             for token in tokens {
                 group.addTask {
-                    try await (cis2Service.fetchTokensBalance(contractIndex: token.contractAddress.index.string, accountAddress: address, tokenId: token.tokenId), token.contractAddress.index)
+                    try await (
+                        cis2Service.fetchTokensBalance(
+                            contractIndex: token.contractAddress.index.string,
+                            accountAddress: address,
+                            tokenId: token.tokenId
+                        ),
+                        token.contractAddress.index
+                    )
                 }
             }
-            
+
             var result = [([CIS2TokenBalance], Int)]()
             for try await balance in group {
                 result.append(balance)
             }
             return result
-        })
+        }
     }
     
     func removeToken(_ token: AccountDetailAccount) {

@@ -13,13 +13,18 @@ import Combine
 enum AccountDetailAccount: Equatable, Identifiable, Hashable {
     case ccd(amount: GTU), token(token: CIS2Token, amount: String), plt(token: AccountPLTToken, amount: String)
     
-    var id: Int {
+    var stableId: String {
         switch self {
-            case .ccd(let address): return address.hashValue
-            case let .token(token, amount): return token.tokenId.hashValue ^ token.contractName.hashValue ^ token.contractAddress.index.hashValue ^ amount.hashValue
-            case let .plt(token, amount): return token.token.tokenID.hashValue ^ amount.hashValue
+        case .ccd:
+            return "ccd"
+        case .token(let t, _):
+            return "cis2:\(t.contractAddress.index):\(t.tokenId)"
+        case .plt(let t, _):
+            return "plt:\(t.token.tokenID)"
         }
     }
+
+    var id: Int { stableId.hashValue }
     
     var name: String {
         switch self {
