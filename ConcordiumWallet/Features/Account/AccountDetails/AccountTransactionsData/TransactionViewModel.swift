@@ -19,6 +19,7 @@ struct TransactionViewModel {
 
     let source: TransactionType
     var isLast = false
+    let isPLTTransaction: Bool
     // To uniquely identity the view model in the table view
     let identifier = UUID()
 }
@@ -33,6 +34,8 @@ struct TransactionDetailsViewModel {
     var transactionHash: String?
     var blockHashes: [String]?
     var details: [String]?
+    var tokenID: String?
+    var tokenTransferAmount: TransferAmount?
 }
 
 private struct AddressDisplay {
@@ -60,11 +63,9 @@ extension TransactionViewModel {
                   OriginTypeEnum.account == transaction.origin?.type {
             title = recipientListLookup(source) ?? AddressDisplay.string(from: source)
         }
-        
-        let isEncryptedAmountTransfer = transaction.details.type == "encryptedAmountTransfer"
-        let isEncryptedAmountTransferWithMemo = transaction.details.type == "encryptedAmountTransferWithMemo"
-        let isShielded = isEncryptedAmountTransfer || isEncryptedAmountTransferWithMemo
-        
+
+        let txDetails = TransactionDetailsViewModel(remoteTransactionData: transaction, account: account, recipientListLookup: recipientListLookup)
+        let isPLT = transaction.details.tokenID != nil && transaction.details.type == "tokenUpdate"
         self.init(
             status: .finalized,
             outcome: transaction.details.outcome,
@@ -74,8 +75,9 @@ extension TransactionViewModel {
             title: title,
             date: Date(timeIntervalSince1970: TimeInterval(transaction.blockTime ?? 0.0)),
             memo: Memo(hex: transaction.details.memo),
-            details: TransactionDetailsViewModel(remoteTransactionData: transaction, account: account, recipientListLookup: recipientListLookup),
-            source: transaction
+            details: txDetails,
+            source: transaction,
+            isPLTTransaction: isPLT
         )
         LegacyLogger.trace("Converted remote transaction to view model: \(self)")
     }
@@ -116,7 +118,8 @@ extension TransactionViewModel {
                                                        submissionStatus: submissionStatus,
                                                        account: account,
                                                        recipientListLookup: recipientListLookup),
-                  source: transfer)
+                  source: transfer,
+                  isPLTTransaction: false)
         LegacyLogger.trace("Converted local transfer to view model: \(self)")
     }
     
@@ -128,6 +131,19 @@ extension TransactionViewModel {
         total = GTU(intValue: 0)
         source = TransferEntity()
         isLast = false
+        isPLTTransaction = false
+    }
+    
+    func getPLTAmountToDisplay() -> String? {
+        var amount: String?
+        if isPLTTransaction,
+           let value = details.tokenTransferAmount?.value,
+           let intValue = Int(value),
+           let decimals = details.tokenTransferAmount?.decimals,
+           let tokenId = details.tokenID {
+            amount = TokenFormatter.formatPLTTokenWithDecimals(intValue, decimals: decimals) + " " + tokenId
+        }
+        return amount
     }
 }
 
@@ -157,7 +173,9 @@ extension TransactionDetailsViewModel {
                   toAddressValue: details.transferDestination,
                   transactionHash: transaction.transactionHash,
                   blockHashes: [transaction.blockHash],
-                  details: transactionEvents)
+                  details: transactionEvents,
+                  tokenID: details.tokenID,
+                  tokenTransferAmount: details.tokenTransferAmount)
     }
     
     init(localTransferData transfer: TransferDataType,

@@ -1651,6 +1651,9 @@
 		15349AA02DB2654700D65610 /* WertWidgetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15349A9F2DB2654700D65610 /* WertWidgetManager.swift */; };
 		15349AA12DB2654700D65610 /* WertWidgetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15349A9F2DB2654700D65610 /* WertWidgetManager.swift */; };
 		15349AA22DB2654700D65610 /* WertWidgetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15349A9F2DB2654700D65610 /* WertWidgetManager.swift */; };
+		15368DEE2E5C825B002F56AF /* TransferAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15368DED2E5C825B002F56AF /* TransferAmount.swift */; };
+		15368DEF2E5C825B002F56AF /* TransferAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15368DED2E5C825B002F56AF /* TransferAmount.swift */; };
+		15368DF02E5C825B002F56AF /* TransferAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15368DED2E5C825B002F56AF /* TransferAmount.swift */; };
 		15376EB12DB9039F00402C52 /* FirebaseAppTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15376EB02DB9039F00402C52 /* FirebaseAppTracker.swift */; };
 		15376EB22DB9039F00402C52 /* FirebaseAppTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15376EB02DB9039F00402C52 /* FirebaseAppTracker.swift */; };
 		15376EB32DB9039F00402C52 /* FirebaseAppTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15376EB02DB9039F00402C52 /* FirebaseAppTracker.swift */; };
@@ -3103,6 +3106,7 @@
 		1534956E2D9FEADD00D65610 /* DelegationPoolValidatorIdError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationPoolValidatorIdError.swift; sourceTree = "<group>"; };
 		1534957B2D9FFD6500D65610 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		15349A9F2DB2654700D65610 /* WertWidgetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WertWidgetManager.swift; sourceTree = "<group>"; };
+		15368DED2E5C825B002F56AF /* TransferAmount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferAmount.swift; sourceTree = "<group>"; };
 		15376EB02DB9039F00402C52 /* FirebaseAppTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAppTracker.swift; sourceTree = "<group>"; };
 		153F2F4A2CC2D0DD009C8347 /* NewTokenNotificationPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTokenNotificationPopup.swift; sourceTree = "<group>"; };
 		153F2F4E2CC2D100009C8347 /* NotificationTokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTokenService.swift; sourceTree = "<group>"; };
@@ -5913,6 +5917,7 @@
 				08A044E029FA99C600DACE1F /* IPInfoResponseElement.swift */,
 				08A044CF29FA99C300DACE1F /* JSONSchemaSupport.swift */,
 				08A044EF29FA99C800DACE1F /* Key.swift */,
+				15368DED2E5C825B002F56AF /* TransferAmount.swift */,
 				08A044B629FA99C000DACE1F /* MakeCreateCredentialRequest.swift */,
 				08A044E129FA99C600DACE1F /* MakeCreateTransferRequest.swift */,
 				08A044E329FA99C700DACE1F /* MakeDecryptAmountRequest.swift */,
@@ -6803,6 +6808,7 @@
 				1557CCAB2C8AF779008ABF67 /* AllowNotificationsPopup.swift in Sources */,
 				08C166942BB7396200E61326 /* CreationFailedPresenter.swift in Sources */,
 				08C166952BB7396200E61326 /* CookieJar.swift in Sources */,
+				15368DEF2E5C825B002F56AF /* TransferAmount.swift in Sources */,
 				08C166962BB7396200E61326 /* SelectIdentityPresenter.swift in Sources */,
 				08C166972BB7396200E61326 /* TransferFiltersEntity.swift in Sources */,
 				08C166982BB7396200E61326 /* DefaultSocketFactory.swift in Sources */,
@@ -7674,6 +7680,7 @@
 				08A0449629FA987800DACE1F /* IDRequestV1.swift in Sources */,
 				08A0449029FA987800DACE1F /* RecoveryIdentityResponse.swift in Sources */,
 				088FEFE52A0271C000042957 /* CreateSeedIdentityViewModel.swift in Sources */,
+				15368DEE2E5C825B002F56AF /* TransferAmount.swift in Sources */,
 				08C169C72BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */,
 				08E472A82BCEE85C004F0088 /* SignMessageRequestModel.swift in Sources */,
 				08E472B42BCEFAA4004F0088 /* IncomeRequestValidator.swift in Sources */,
@@ -8398,6 +8405,7 @@
 				08A0447429FA987700DACE1F /* RecoveryIdentityResponse.swift in Sources */,
 				644BB67425DFB4220086ED48 /* main.swift in Sources */,
 				08A0454329FA99D100DACE1F /* AttributeList.swift in Sources */,
+				15368DF02E5C825B002F56AF /* TransferAmount.swift in Sources */,
 				D589F3172794B678003F2FBB /* ErrorMapper.swift in Sources */,
 				08C169C62BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */,
 				08E472A72BCEE85C004F0088 /* SignMessageRequestModel.swift in Sources */,

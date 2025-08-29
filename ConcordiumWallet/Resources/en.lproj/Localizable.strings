@@ -191,7 +191,8 @@ process on-chain.";
 
 "accountDetails.retryAccountCreation.title" = "Retry account creation";
 "accountDetails.removeAccount.title" = "Remove account from wallet";
-"accountDetails.send" = "Send";
+"accountDetails.sent" = "Sent";
+"accountDetails.received" = "Received";
 "accountDetails.shield" = "Shield";
 "accountDetails.unshield" = "Unshield";
 "accountDetails.address" = "Address";
@@ -204,6 +205,7 @@ process on-chain.";
 "accountDetails.passivevalue" = "Passive delegation";
 "accountDetails.bakerpoolvalue" = "Delegation with staking pool %d";
 "accountDetails.events" = "Events";
+"accountDetails.tokenName" = "Token name";
 
 "sendFund.pageTitle.send" = "Send Funds";
 "sendFund.pageTitle.unshieldAmount" = "Unshield Amount";
