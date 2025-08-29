@@ -88,12 +88,16 @@ struct TransactionDetailView: View {
                     .font(.satoshi(size: 15, weight: .medium))
                     .foregroundStyle(.white)
                 Spacer()
-                if tx.amount.isEmpty {
-                    Text("\(tx.total ) CCD")
+                if let pltAmount = tx.pltAmount {
+                    Text(pltAmount)
                         .font(.satoshi(size: 15, weight: .medium))
                         .foregroundStyle(tx.totalColor)
-                } else {
-                    Text("\(tx.amount) CCD")
+                } else if let total = tx.total {
+                    Text(total)
+                        .font(.satoshi(size: 15, weight: .medium))
+                        .foregroundStyle(tx.totalColor)
+                } else if let amount = tx.amount {
+                    Text(amount)
                         .font(.satoshi(size: 15, weight: .medium))
                         .foregroundStyle(tx.amountColor)
                 }
@@ -105,9 +109,11 @@ struct TransactionDetailView: View {
                     .foregroundStyle(Color.MineralBlue.blueish2.opacity(0.5))
                 
                 Spacer()
-                Text(tx.cost)
-                    .font(.satoshi(size: 12, weight: .medium))
-                    .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
+                if let cost = tx.cost {
+                    Text(cost)
+                        .font(.satoshi(size: 12, weight: .medium))
+                        .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
+                }
             }
         }
     }
@@ -240,7 +246,6 @@ final class TransactionDetailViewModel: ObservableObject, Hashable, Equatable {
         }
         return []
     }
-    
     static func == (lhs: TransactionDetailViewModel, rhs: TransactionDetailViewModel) -> Bool {
         lhs.transaction == rhs.transaction && lhs.cells == rhs.cells
     }

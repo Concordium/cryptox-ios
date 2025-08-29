@@ -10,20 +10,21 @@ import SwiftUI
 
 final class TransactionListViewModel: ObservableObject {
     let title: String
-    let total: String
+    let total: String?
     var totalColor: Color = .clear
     let timestamp: String
-    var amount: String = ""
-    var cost: String = ""
+    var amount: String?
+    var cost: String?
     var memo: Memo?
     var sender: String?
+    var pltAmount: String?
     
     var showCostAsEstimate = false
     var isFailed: Bool = false
     
     init(_ tx: TransactionViewModel) {
         self.title = tx.title
-        self.total = tx.total?.displayValueWithCCDStroke() ?? "0.0 CCD"
+        self.total = tx.total?.displayValueWithCCDStroke()
         self.timestamp = GeneralFormatter.formatTime(for: tx.date)
         if let cost = tx.total?.intValue {
             self.totalColor =  cost < 0 ? .white : .success
@@ -41,11 +42,9 @@ final class TransactionListViewModel: ObservableObject {
         case .none:
             break
         }
-        
-        if let cost = tx.cost?.displayValueWithCCDStroke(),
-           let amount = tx.amount?.displayValueWithCCDStroke() {
-            self.amount = amount
-            self.cost = "with fee " + cost
+        self.amount = tx.amount?.displayValueWithCCDStroke()
+        if let cost = tx.cost, cost.intValue != 0 {
+            self.cost = "with fee " + cost.displayValueWithCCDStroke()
         }
         
         if tx.status == .committed && tx.outcome == .reject {
@@ -56,6 +55,7 @@ final class TransactionListViewModel: ObservableObject {
         
         self.memo = tx.memo
         self.sender = tx.details.fromAddressName
+        self.pltAmount = tx.getPLTAmountToDisplay()
     }
 }
 
@@ -92,17 +92,21 @@ struct TransactionListView: View {
                 Spacer()
                 
                 VStack(alignment: .trailing, spacing: 4) {
-                    if viewModel.amount.isEmpty {
-                        Text("\(viewModel.total )")
-                            .font(.satoshi(size: 15, weight: .medium))
-                            .foregroundStyle(viewModel.totalColor)
-                    } else {
-                        Text("\(viewModel.amount)")
+                    if let amount = viewModel.amount {
+                        Text(amount)
                             .font(.satoshi(size: 15, weight: .medium))
                             .foregroundStyle(.white)
+                    } else if let pltAmount = viewModel.pltAmount {
+                        Text(pltAmount)
+                            .font(.satoshi(size: 15, weight: .medium))
+                            .foregroundStyle(viewModel.totalColor)
+                    } else if let total = viewModel.total {
+                        Text(total)
+                            .font(.satoshi(size: 15, weight: .medium))
+                            .foregroundStyle(viewModel.totalColor)
                     }
-                    if !viewModel.cost.isEmpty {
-                        Text(viewModel.cost)
+                    if let cost = viewModel.cost {
+                        Text(cost)
                             .foregroundColor(Color.MineralBlue.blueish3.opacity(0.5))
                             .font(.satoshi(size: 12, weight: .medium))
                     }
