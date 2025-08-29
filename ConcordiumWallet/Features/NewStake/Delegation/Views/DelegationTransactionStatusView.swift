@@ -7,18 +7,9 @@
 //
 
 import SwiftUI
-import Lottie
 import Combine
 
 struct DelegationTransactionStatusView: View {
-
-    private enum AnimationState { case loader, success, failure }
-
-    @State private var animationState: AnimationState = .loader
-    @State private var currentSegment: ClosedRange<Int>? = 0...120
-    @State private var loopMode: LottieLoopMode = .loop
-    /// Increment this to force `LottiePlayer` to restart with same segment
-    @State private var playToken = 0
 
     // MARK: Other View state
     @State private var hasStartedTransaction = false
@@ -26,17 +17,11 @@ struct DelegationTransactionStatusView: View {
     @EnvironmentObject var navigationManager: NavigationManager
     @ObservedObject var viewModel: DelegationSubmissionViewModel
 
-    private let animationFile = "loadingAnimation"
 
     var body: some View {
         VStack {
             VStack(alignment: .center, spacing: 30) {
-                LottiePlayer(name: animationFile,
-                             segment: currentSegment,
-                             loopMode: loopMode,
-                             playToken: playToken)
-                    .id(animationState)
-                    .frame(width: 60, height: 60)
+                LottieLoadingAnimation(isTransactionExecuting: $viewModel.isTransactionExecuting, error: $viewModel.error)
                 Divider()
                 statusSection()
                 transactionDetailsSection()
@@ -64,13 +49,9 @@ struct DelegationTransactionStatusView: View {
         .modifier(AppBackgroundModifier())
         .modifier(AlertModifier(alertOptions: viewModel.alertOptions, isPresenting: $viewModel.showAlert))
         .onAppear {
-            playAnimationBasedOnState()
             guard !hasStartedTransaction else { return }
             hasStartedTransaction = true
             viewModel.pressedButton()
-        }
-        .onChange(of: viewModel.isTransactionExecuting) { _ in
-            playAnimationBasedOnState()
         }
     }
 
@@ -125,23 +106,5 @@ struct DelegationTransactionStatusView: View {
             .animation(.easeInOut(duration: 1),
                        value: viewModel.isTransactionExecuting)
         }
-    }
-
-    private func playAnimationBasedOnState() {
-        switch (viewModel.isTransactionExecuting, viewModel.error != nil) {
-        case (true, _):
-            animationState       = .loader
-            currentSegment       = 0...120
-            loopMode             = .loop
-        case (false, true):
-            animationState       = .failure
-            currentSegment       = 300...360
-            loopMode             = .playOnce
-        default:
-            animationState       = .success
-            currentSegment       = 121...239
-            loopMode             = .playOnce
-        }
-        playToken += 1
     }
 }

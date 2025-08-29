@@ -61,7 +61,7 @@
       "location" : "https://github.com/Concordium/concordium-swift-sdk.git",
       "state" : {
         "branch" : "plt",
-        "revision" : "81c02a73d5f2da5ae42f2abd5ff3191cadf4b37c"
+        "revision" : "747cf38e9ee8c90fcbc76b2e3554fc2b10effc92"
       }
     },
     {

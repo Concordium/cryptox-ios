@@ -206,6 +206,7 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
     }
 
     // MARK: - Sub-loaders
+    @MainActor
     private func loadCIS2Accounts(for account: AccountDataType) async -> [AccountDetailAccount] {
         var result: [AccountDetailAccount] = [.ccd(amount: GTU(intValue: account.forecastBalance))]
 
