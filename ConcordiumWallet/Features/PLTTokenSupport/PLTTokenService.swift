@@ -47,7 +47,7 @@ extension PLTTokenService {
     
     func fetchTokens(for tokenID: String) async throws -> [PLTToken] {
         let allTokens = try await fetchTokens()
-        return allTokens.filter{ $0.tokenState.moduleState.name.lowercased().contains(tokenID.lowercased()) }
+        return allTokens.filter{ $0.tokenID.lowercased().contains(tokenID.lowercased()) }
     }
     
     func fetchTokenInfo(tokenID: String) async throws -> PLTToken {

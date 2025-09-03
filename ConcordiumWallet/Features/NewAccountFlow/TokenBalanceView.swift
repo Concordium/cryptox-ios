@@ -165,7 +165,7 @@ struct TokenBalanceView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .modifier(RadialGradientForegroundStyleModifier())
             case .plt(let token, let amount):
-                Text("\(amount) \(token.token.tokenState.moduleState.name)")
+                Text("\(amount) \(token.token.tokenID)")
                 .font(.plexSans(size: 55, weight: .bold))
                 .dynamicTypeSize(.xSmall ... .xxLarge)
                 .minimumScaleFactor(0.3)
