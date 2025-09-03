@@ -55,14 +55,9 @@ final class PLTTokenTagViewModel: ObservableObject {
     let denyList: Bool
 
     var pltState: PLTTokenState {
-        switch (allowList, denyList) {
-        case (true, false):
-            return .allowList
-        case (false, true):
-            return .denyList
-        default:
-            return .notOnAllowList
-        }
+        if denyList { return .denyList}
+        if allowList { return .allowList }
+        return .notOnAllowList
     }
     
     init(allowList: Bool, denyList: Bool) {
