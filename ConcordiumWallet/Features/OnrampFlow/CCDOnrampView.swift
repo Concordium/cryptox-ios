@@ -95,7 +95,7 @@ struct CCDOnrampView: View {
         }
         .sheet(item: $isAccountsPickerShown, content: { provider in
             OnrampAccountPicker(
-                accountModels: dependencyProvider.storageManager().getAccounts().map { AccountPreviewViewModel.init(account: $0, tokens: dependencyProvider.storageManager().getAccountSavedCIS2Tokens($0.address)) },
+                accountModels: dependencyProvider.storageManager().getAccounts().map { AccountPreviewViewModel.init(account: $0) },
                 provider: provider)
         })
     }

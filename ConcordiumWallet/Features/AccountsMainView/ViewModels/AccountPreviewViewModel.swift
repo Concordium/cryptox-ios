@@ -24,8 +24,6 @@ final class AccountPreviewViewModel: Identifiable, Equatable {
     var dotImageIndex: Int = 1
     let address: String
     
-    @Published var tokens: [CIS2Token] = []
-
     private let accountAddress: String
     
     var account: AccountEntity? {
@@ -34,7 +32,6 @@ final class AccountPreviewViewModel: Identifiable, Equatable {
     
     var id: Int {
         let addressHash = accountAddress.hashValue
-        let tokenCountHash = tokens.count
         let forecastBalanceHash = account?.totalForecastBalance.hashValue ?? 0
         let transactionStatusHash = account?.transactionStatus.hashValue ?? 0
         let disposalBalanceHash = account?.forecastAtDisposalBalance.hashValue ?? 0
@@ -43,7 +40,6 @@ final class AccountPreviewViewModel: Identifiable, Equatable {
         let encryptedBalanceHash = account?.forecastEncryptedBalance.hashValue ?? 0
         
         return addressHash
-            ^ tokenCountHash
             ^ forecastBalanceHash
             ^ transactionStatusHash
             ^ disposalBalanceHash
@@ -52,9 +48,8 @@ final class AccountPreviewViewModel: Identifiable, Equatable {
             ^ encryptedBalanceHash
     }
 
-    init(account: AccountDataType, tokens: [CIS2Token]) {
+    init(account: AccountDataType) {
         self.accountAddress = account.address
-        self.tokens = tokens
         self.address = account.address
         
         self.totalAmount = GTU(intValue: account.totalForecastBalance)

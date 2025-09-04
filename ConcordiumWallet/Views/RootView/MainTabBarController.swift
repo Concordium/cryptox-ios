@@ -141,16 +141,16 @@ extension MainTabBarController: NotificationNavigationDelegate, TransactionNotif
             transactionNotificationService.handleCCDTransaction(account: account, transactionId: transactionId) { viewModel in
                 self.accountsMainRouter.showTransactionDetailFromNotifications(for: account, tx: TransactionDetailViewModel(transaction: viewModel))
             }
-        } else {
-            transactionNotificationService.handleCIS2Notification(userInfo: userInfo) { token, balance in
+        } else if notificationType == TransactionNotificationTypes.cis2.rawValue || notificationType == TransactionNotificationTypes.plt.rawValue {
+            transactionNotificationService.handleCIS2orPLTNotification(userInfo: userInfo) { token in
                 DispatchQueue.main.async {
-                    self.accountsMainRouter.showCIS2TokenDetailsFromNotification(for: account, token: AccountDetailAccount.token(token: token, amount: balance?.balance ?? "0.00"))
+                    self.accountsMainRouter.showTokenDetailsFromNotification(for: account, token: token)
                 }
             }
         }
     }
 
-    func presentTokenAlert(userInfo: [AnyHashable: Any], completion: @escaping (CIS2Token, CIS2TokenBalance?) -> Void) {
+    func presentTokenAlert(userInfo: [AnyHashable: Any], completion: @escaping (AccountDetailAccount) -> Void) {
         let alertView = NewTokenNotificationPopup(isVisible: Binding(
             get: { self.isAlertVisible },
             set: { self.isAlertVisible = $0
@@ -159,9 +159,9 @@ extension MainTabBarController: NotificationNavigationDelegate, TransactionNotif
                 }
             }
         ), userInfo: userInfo) {
-            NotificationTokenService().storeNewToken(from: userInfo) { token, balance in
+            NotificationTokenService().storeNewToken(from: userInfo) { token in
                 DispatchQueue.main.async {
-                    completion(token, balance)
+                    completion(token)
                 }
             }
         }

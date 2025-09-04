@@ -118,7 +118,7 @@ final class AccountsMainViewModel: ObservableObject, Hashable, Equatable {
     }
     
     private func updateData() {
-        accountViewModels = accounts.map { AccountPreviewViewModel.init(account: $0, tokens: dependencyProvider.storageManager().getAccountSavedCIS2Tokens($0.address)) }
+        accountViewModels = accounts.map { AccountPreviewViewModel.init(account: $0) }
         updateDotImageNames()
         if defaultProvider.mobileWallet().isLegacyAccount() && AppSettings.isImportedFromFile {
             state = .accounts

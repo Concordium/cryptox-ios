@@ -11,7 +11,9 @@ import SwiftUI
 struct NotificationsView: View {
     @State private var isCCDTransactionNotificationAllowed = UserDefaults.bool(forKey: TransactionNotificationNames.ccd.rawValue)
     @State private var isCIS2TransactionNotificationAllowed = UserDefaults.bool(forKey: TransactionNotificationNames.cis2.rawValue)
-    
+    @State private var isPLTTransactionNotificationAllowed = UserDefaults.bool(forKey: TransactionNotificationNames.plt.rawValue)
+    @AppStorage("isShouldShowAllowNotificationsView") private var isShouldShowAllowNotificationsView = true
+
     var body: some View {
         VStack(spacing: 24) {
             Divider()
@@ -35,6 +37,15 @@ struct NotificationsView: View {
             .onChange(of: isCIS2TransactionNotificationAllowed, perform: { value in
                 UserDefaults.standard.set(value, forKey: TransactionNotificationNames.cis2.rawValue)
             })
+            Toggle(isOn: $isPLTTransactionNotificationAllowed) {
+                Text("notifications.plttokentransactions".localized)
+                    .font(.satoshi(size: 19, weight: .medium))
+                    .foregroundColor(Color.whiteMain)
+            }
+            .toggleStyle(SwitchToggleStyle(tint: Color.greenSecondary))
+            .onChange(of: isPLTTransactionNotificationAllowed, perform: { value in
+                UserDefaults.standard.set(value, forKey: TransactionNotificationNames.plt.rawValue)
+            })
             Spacer()
         }
         .padding()
@@ -49,6 +60,11 @@ struct NotificationsView: View {
             )
             .ignoresSafeArea(.all)
         })
+        .overlay(alignment: .center) {
+            if !UIApplication.shared.isRegisteredForRemoteNotifications && isShouldShowAllowNotificationsView {
+                AllowNotificationsPopup(isVisible: $isShouldShowAllowNotificationsView)
+            }
+        }
     }
 }
 

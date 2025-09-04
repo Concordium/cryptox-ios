@@ -75,6 +75,6 @@ struct AccountInfoView: View {
 }
 
 #Preview {
-    AccountInfoView(viewModel: AccountPreviewViewModel(account: AccountEntity(name: "account", submissionId: "id", transactionStatus: .finalized, identity: IdentityEntity()), tokens: []))
+    AccountInfoView(viewModel: AccountPreviewViewModel(account: AccountEntity(name: "account", submissionId: "id", transactionStatus: .finalized, identity: IdentityEntity())))
 }
 
