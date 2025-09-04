@@ -27,6 +27,7 @@
         <relationship name="tokenState" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TokenStateEntity"/>
     </entity>
     <entity name="StateEntity" representedClassName="StateEntity" syncable="YES">
+        <attribute name="allowList" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="denyList" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
     <entity name="TokenAccountStateEntity" representedClassName="TokenAccountStateEntity" syncable="YES">

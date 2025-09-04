@@ -69,7 +69,7 @@ struct TokenDetailsView: View {
                             .frame(maxWidth: .infinity, alignment: .topLeading)
                     case .plt(let pltToken, _):
                         titleSection(token: token)
-                        PLTTokenTags(viewModel: PLTTokenTagViewModel(allowList: pltToken.token.tokenState.moduleState.allowList, denyList: pltToken.token.tokenState.moduleState.denyList))
+                        PLTTokenTags(viewModel: PLTTokenTagViewModel(allowList: pltToken.tokenAccountState.state.allowList, denyList: pltToken.tokenAccountState.state.denyList))
                             .padding(.bottom, 4)
                         descriptionSection(decimals: pltToken.tokenAccountState.balance.decimals, decription: pltToken.token.tokenState.moduleState.metadata.url)
                     }

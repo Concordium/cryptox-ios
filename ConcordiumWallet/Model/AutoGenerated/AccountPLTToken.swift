@@ -57,6 +57,7 @@ struct TokenAccountState: Codable, Equatable, Hashable {
 
 struct TokenBalanceState: Codable, Equatable, Hashable {
     let denyList: Bool?
+    let allowList: Bool?
 }
 
 extension AccountPLTToken {
@@ -110,7 +111,7 @@ extension AccountPLTToken {
             value:    balanceObj.value ?? "0"
         )
 
-        let state = TokenBalanceState(denyList: stateObj?.denyList)
+        let state = TokenBalanceState(denyList: stateObj?.denyList, allowList: stateObj?.allowList)
 
         let tokenAccountState = TokenAccountState(balance: balance, state: state)
 
