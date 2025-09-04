@@ -238,17 +238,17 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
         let pltService = PLTTokenService(networkManager: dependencyProvider.networkManager(), storageManager: storageManager)
 
         do {
-            let pltTokens = try CoreDataPLTStore.shared.fetchPLTTokens(for: account.address)
+            let pltTokens = try CoreDataPLTStore.shared.fetchAccountPLTTokens(for: account.address)
             let pltTokenBalances = try await pltService.fetchTokenBalances(for: account.address)
 
             let tmpTokens: [AccountDetailAccount] = pltTokens.compactMap { token -> AccountDetailAccount? in
-                let tokenBalance = pltTokenBalances.first(where: { $0.key == token.tokenId })
+                let tokenBalance = pltTokenBalances.first(where: { $0.key == token.token.tokenId })
                 let fallback = TokenAccountState(
-                    balance: TokenBalance(decimals: Int(token.tokenState.decimals), value: "0"),
+                    balance: TokenBalance(decimals: Int(token.token.tokenState.decimals), value: "0"),
                     state: TokenBalanceState(denyList: nil)
                 )
 
-                guard let accountPLTToken = token.asPLTToken() else { return nil }
+                guard let accountPLTToken = token.token.asPLTToken() else { return nil }
                 let pltToken = AccountPLTToken(token: accountPLTToken, tokenAccountState: tokenBalance?.value ?? fallback)
 
                 let amount = TokenFormatter().plainString(
