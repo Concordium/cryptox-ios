@@ -413,7 +413,8 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                                 value: token.tokenAccountState.balance.value
                             ),
                             state: TokenBalanceState(
-                                denyList: token.tokenAccountState.state.denyList
+                                denyList: token.tokenAccountState.state.denyList,
+                                allowList: token.tokenAccountState.state.allowList
                             )
                         )
                     )

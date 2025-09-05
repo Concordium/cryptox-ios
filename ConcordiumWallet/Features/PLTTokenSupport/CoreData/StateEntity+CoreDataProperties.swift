@@ -18,6 +18,7 @@ extension StateEntity {
     }
 
     @NSManaged public var denyList: Bool
+    @NSManaged public var allowList: Bool
 
 }
 

@@ -61,7 +61,7 @@ struct TokenView: View {
             return TokenListCellData(
                 id: pltToken.id,
                 icon: AnyView(Image("placeholder-crypto-token").resizable().clipShape(Circle())),
-                title: pltToken.tokenState.moduleState.name,
+                title: pltToken.tokenID,
                 subtitle: "PLT",
                 amount: TokenFormatter.formatPLTTokenAmount(amount: pltToken.tokenState.totalSupply.value),
                 secondaryAmount: nil,

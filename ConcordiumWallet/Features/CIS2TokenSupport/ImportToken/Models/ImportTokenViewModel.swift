@@ -120,7 +120,7 @@ final class ImportTokenViewModel: ObservableObject {
             guard !CoreDataPLTStore.shared.isPLTTokenSaved(tokenId: pltToken.tokenID, for: account.address) else {
                 return
             }
-            let tokenAccountState = TokenAccountState(balance: TokenBalance(decimals: pltToken.tokenState.decimals, value: ""), state: TokenBalanceState(denyList: nil))
+            let tokenAccountState = TokenAccountState(balance: TokenBalance(decimals: pltToken.tokenState.decimals, value: ""), state: TokenBalanceState(denyList: nil, allowList: nil))
             let accountPLTToken = AccountPLTToken(token: pltToken, tokenAccountState: tokenAccountState)
             CoreDataPLTStore.shared.saveTokens([accountPLTToken], for: account.address)
                 .receive(on: DispatchQueue.main)
