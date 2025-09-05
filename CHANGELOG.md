@@ -4,6 +4,7 @@
 - Update Send Assets Flow with new SDK
 - Ability to Send/Receive PLTs in CryptoX
 - Update Swift SDK for PLTs in CryptoX
+- Ability to receive notifications for PLT transfers
 
 ## [Released 3.3.7]
 - Fix Wert issue
