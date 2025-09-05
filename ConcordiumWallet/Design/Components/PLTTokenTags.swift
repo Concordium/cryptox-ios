@@ -12,6 +12,7 @@ enum PLTTokenState: String {
     case allowList = "Account is on the allow list"
     case notOnAllowList = "Account not on the allow list"
     case denyList = "Account on the deny list"
+    case undefined
 }
 
 struct PLTTokenTags: View {
@@ -51,16 +52,17 @@ struct PLTTokenTags: View {
 }
 
 final class PLTTokenTagViewModel: ObservableObject {
-    let allowList: Bool
-    let denyList: Bool
+    let allowList: Bool?
+    let denyList: Bool?
 
     var pltState: PLTTokenState {
-        if denyList { return .denyList}
-        if allowList { return .allowList }
-        return .notOnAllowList
+        if let denyList, denyList { return .denyList}
+        if let allowList, allowList { return .allowList }
+        if let allowList, !allowList { return .notOnAllowList }
+        return .undefined
     }
     
-    init(allowList: Bool, denyList: Bool) {
+    init(allowList: Bool?, denyList: Bool?) {
         self.allowList = allowList
         self.denyList = denyList
     }
@@ -74,6 +76,8 @@ final class PLTTokenTagViewModel: ObservableObject {
             return "circled-check-done"
         case .notOnAllowList, .denyList:
             return "circled-x-block-deny"
+        default:
+            return ""
         }
     }
     
@@ -88,6 +92,8 @@ final class PLTTokenTagViewModel: ObservableObject {
             return (Color.Status.infoOrange, .warningTertiary, .warningSecondary)
         case .denyList:
             return (.errorPrimary, .errorTertiary, .errorSecondary)
+        default:
+            return (.clear, .clear, .clear)
         }
     }
 

@@ -69,7 +69,7 @@ extension UnifiedToken {
         case .cis2(let token):
             return AccountDetailAccount.token(token: token, amount: "")
         case .plt(let pltToken):
-            return AccountDetailAccount.plt(token: AccountPLTToken(token: pltToken, tokenAccountState: TokenAccountState(balance: TokenBalance(decimals: 2, value: ""), state: TokenBalanceState(denyList: false))), amount: "")
+            return AccountDetailAccount.plt(token: AccountPLTToken(token: pltToken, tokenAccountState: TokenAccountState(balance: TokenBalance(decimals: 2, value: ""), state: TokenBalanceState(denyList: nil, allowList: nil))), amount: "")
         }
     }
 }

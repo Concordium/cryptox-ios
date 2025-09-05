@@ -98,8 +98,18 @@ final class CoreDataPLTStore {
         balance.decimals = Int16(model.tokenAccountState.balance.decimals)
         balance.value = model.tokenAccountState.balance.value
 
-        let state = StateEntity(context: context)
-        state.denyList = model.tokenAccountState.state.denyList ?? false
+        var state: StateEntity?
+        if model.tokenAccountState.state.denyList != nil ||
+            model.tokenAccountState.state.allowList != nil {
+            
+            state = StateEntity(context: context)
+            if let denyList = model.tokenAccountState.state.denyList {
+                state?.denyList = denyList
+            }
+            if let allowList = model.tokenAccountState.state.allowList {
+                state?.allowList = allowList
+            }
+        }
 
         let accountState = TokenAccountStateEntity(context: context)
         accountState.balance = balance

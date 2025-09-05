@@ -115,12 +115,12 @@ struct AccountTokenListView: View {
             return TokenListCellData(
                 id: account.id,
                 icon: AnyView(Image("placeholder-crypto-token").resizable().clipShape(Circle())),
-                title: token.token.tokenState.moduleState.name,
+                title: token.token.tokenID,
                 subtitle: "PLT",
                 amount: amount,
                 secondaryAmount: nil,
                 tokenImage: .plt,
-                showDenyIcon: token.token.tokenState.moduleState.denyList || !token.token.tokenState.moduleState.allowList,
+                showDenyIcon: token.tokenAccountState.state.denyList ?? false,
                 isCCD: false
             )
         }
@@ -244,8 +244,8 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
             let tmpTokens: [AccountDetailAccount] = pltTokens.compactMap { token -> AccountDetailAccount? in
                 let tokenBalance = pltTokenBalances.first(where: { $0.key == token.token.tokenId })
                 let fallback = TokenAccountState(
-                    balance: TokenBalance(decimals: Int(token.token.tokenState.decimals), value: "0"),
-                    state: TokenBalanceState(denyList: nil)
+                    balance: TokenBalance(decimals: Int(token.tokenState.decimals), value: "0"),
+                    state: TokenBalanceState(denyList: nil, allowList: nil)
                 )
 
                 guard let accountPLTToken = token.token.asPLTToken() else { return nil }
