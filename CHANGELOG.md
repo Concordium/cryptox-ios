@@ -1,6 +1,9 @@
 # Changelog
 
-## [Unreleased 3.3.7]
+## [Unreleased]
+- Fix logic opening app by url schema; add additional check before opening app via file export flow.
+
+## [Relesed 3.3.7 Aug 28, 2025]
 - Fix Wert issue
 - Bring back NFT setting
 - Rollback Google analytics
@@ -27,7 +30,7 @@
 ### Fixed
 - Fix WertIO flow.
 
-## [Release 3.3.1] May 5, 2025
+## [Released 3.3.1] May 5, 2025
 
 ### Fixed
 - Fix an issue with password hashes.
