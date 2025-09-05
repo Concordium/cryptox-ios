@@ -11,7 +11,9 @@ import BigInt
 import Combine
 
 enum AccountDetailAccount: Equatable, Identifiable, Hashable {
-    case ccd(amount: GTU), token(token: CIS2Token, amount: String), plt(token: AccountPLTToken, amount: String)
+    case ccd(amount: GTU),
+         token(token: CIS2Token, amount: String),
+         plt(token: AccountPLTToken, amount: String)
     
     var stableId: String {
         switch self {

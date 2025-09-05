@@ -17,7 +17,6 @@ struct WelcomeView: View {
     @Binding var isCreateAccountSheetShown: Bool
     @AppStorage("isAcceptedPrivacy") private var isAcceptedPrivacy = false
     @AppStorage("isAnalyticsEnabled") private var isAcceptedTracking = true
-    @State var showNotificationsPopup: Bool = false
     @State var showRequestTrackingPopup: Bool = false
 
     var body: some View {
@@ -149,7 +148,7 @@ struct WelcomeView: View {
             Analytics.setAnalyticsCollectionEnabled(isAcceptedTracking)
         }
         .overlay(alignment: .center) {
-            if !UIApplication.shared.isRegisteredForRemoteNotifications && isShouldShowAllowNotificationsView && showNotificationsPopup {
+            if !UIApplication.shared.isRegisteredForRemoteNotifications && isShouldShowAllowNotificationsView {
                 AllowNotificationsPopup(isVisible: $isShouldShowAllowNotificationsView)
             }
         }

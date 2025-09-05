@@ -15,16 +15,18 @@ import BigInt
 enum TransactionNotificationTypes: String {
     case cis2 = "cis2-tx"
     case ccd = "ccd-tx"
+    case plt = "plt-tx"
 }
 
 enum TokenResult {
-    case tokenFound(CIS2Token, CIS2TokenBalance)
+    case tokenFound(AccountDetailAccount)
     case showAlert
 }
 
 enum TransactionNotificationNames: String {
     case cis2 = "isCIS2TransactionNotificationAllowed"
     case ccd = "isCCDTransactionNotificationAllowed"
+    case plt = "isPLTTransactionNotificationAllowed"
 }
 
 protocol NotificationNavigationDelegate: AnyObject {
@@ -32,7 +34,7 @@ protocol NotificationNavigationDelegate: AnyObject {
 }
 
 protocol TransactionNotificationServiceDelegate: AnyObject {
-    func presentTokenAlert(userInfo: [AnyHashable: Any], completion: @escaping (CIS2Token, CIS2TokenBalance?) -> Void)
+    func presentTokenAlert(userInfo: [AnyHashable: Any], completion: @escaping (AccountDetailAccount) -> Void)
 }
 
 final class TransactionNotificationService {
@@ -54,9 +56,11 @@ final class TransactionNotificationService {
     private func getTransactionNotificationPreferences() -> [String]? {
         let cis2Allowed = UserDefaults().bool(forKey: TransactionNotificationNames.cis2.rawValue)
         let ccdAllowed = UserDefaults().bool(forKey: TransactionNotificationNames.ccd.rawValue)
+        let pltAllowed = UserDefaults().bool(forKey: TransactionNotificationNames.plt.rawValue)
         
         return [cis2Allowed ? TransactionNotificationTypes.cis2.rawValue : nil,
-                ccdAllowed ? TransactionNotificationTypes.ccd.rawValue : nil]
+                ccdAllowed ? TransactionNotificationTypes.ccd.rawValue : nil,
+                pltAllowed ? TransactionNotificationTypes.plt.rawValue : nil]
             .compactMap { $0 }
     }
 
@@ -122,15 +126,15 @@ final class TransactionNotificationService {
             .store(in: &cancellables)
     }
     
-    func handleCIS2Notification(userInfo: [AnyHashable: Any], completion: @escaping ((CIS2Token, CIS2TokenBalance?)-> Void)) {
+    func handleCIS2orPLTNotification(userInfo: [AnyHashable: Any], completion: @escaping ((AccountDetailAccount)-> Void)) {
         NotificationTokenService().checkToken(from: userInfo) { result in
             switch result {
-            case .tokenFound(let token, let balance):
-                completion(token, balance)
+            case .tokenFound(let token):
+                completion(token)
             case .showAlert:
-                self.delegate?.presentTokenAlert(userInfo: userInfo) { token, balance in
+                self.delegate?.presentTokenAlert(userInfo: userInfo) { token in
                     DispatchQueue.main.async {
-                        completion(token, balance)
+                        completion(token)
                     }
                 }
             case .none:
@@ -142,6 +146,7 @@ final class TransactionNotificationService {
     func subscribeToUserDefaultsUpdates() {
         UserDefaults.standard.publisher(for: TransactionNotificationNames.cis2.rawValue)
             .merge(with: UserDefaults.standard.publisher(for: TransactionNotificationNames.ccd.rawValue))
+            .merge(with: UserDefaults.standard.publisher(for: TransactionNotificationNames.plt.rawValue))
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
@@ -275,11 +280,29 @@ extension TransactionNotificationService {
     /// https://proposals.concordium.software/CIS/cis-2.html#token-metadata-json
     ///
     
+    
+    /// `PLTToken` send payload example
+    /*
+     {
+       "gcm.message_id": 1756893869167746,
+       "reference": "02e79ec17bfe55524bc4625c21129e8c228a202f96056d17084be288e658abfc",
+       "google.c.sender.id": 124880082147,
+       "type": "plt-tx",
+       "google.c.fid": "fBr_cq_ds0aFhRYa2cx6XC",
+       "value": 50000,
+       "token_id": "EUDemo",
+       "decimals": 6,
+       "aps": {
+         "content-available": 1
+       },
+       "recipient": "2ybST9JB7xd9Vmc6ATXNg4Vk1UniPfc2GaK5Gknae4fkmKvjX4"
+     }
+     */
+
     func handleNotificationsWithData(data: [AnyHashable: Any]) {
         let amount = data["amount"] as? String ?? ""
-        
-        if let type = data["type"] as? String,
-           type == TransactionNotificationTypes.cis2.rawValue,
+        let type = mapTypeToTransactionNotificationTypes(data["type"] as? String)
+        if type == .cis2,
            let tokenMetadata = data["token_metadata"] {
             Task {
                 guard let metadata = await getTokenMetadata(with: tokenMetadata) else {
@@ -293,6 +316,12 @@ extension TransactionNotificationService {
                     userInfo: data
                 )
             }
+        } else if type == .plt {
+            let value = data["value"] as? String ?? ""
+            let decimals = data["decimals"] as? String ?? ""
+            let tokenAmount = TokenFormatter.formatPLTTokenWithDecimals(Int(value) ?? 0, decimals: Int(decimals) ?? 0)
+            let tokenId = data["token_id"] as? String ?? ""
+            self.composeAndSendNotification(title: "You received \(tokenAmount) \(tokenId)", userInfo: data)
         } else {
             let symbol = "CCDs"
             let formattedAmount = TokenFormatter().string(from: BigDecimal(BigInt(stringLiteral: amount), 6), decimalSeparator: ".", thousandSeparator: ",")
@@ -300,6 +329,17 @@ extension TransactionNotificationService {
                 title: "You received \(formattedAmount) \(symbol)",
                 userInfo: data
             )
+        }
+    }
+    
+    private func mapTypeToTransactionNotificationTypes(_ type: String?) -> TransactionNotificationTypes {
+        guard let type else { return .ccd }
+        if type == TransactionNotificationTypes.cis2.rawValue {
+            return .cis2
+        } else if type == TransactionNotificationTypes.plt.rawValue {
+            return .plt
+        } else {
+            return .ccd
         }
     }
 }
