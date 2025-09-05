@@ -421,10 +421,19 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                 }
                 return (balance, tokens)
             }
-            .flatMap { (balance, tokens) in
-                CoreDataPLTStore.shared.saveTokens(tokens, for: account.address)
-                    .map { balance }
-                    .eraseToAnyPublisher()
+            .flatMap { (balance, remoteTokens) -> AnyPublisher<AccountBalance, Error> in
+                do {
+                    let savedEntities = try CoreDataPLTStore.shared.fetchAccountPLTTokens(for: account.address)
+                    let savedIds = Set(savedEntities.compactMap { $0.token.tokenId })
+                    
+                    let toPersist = remoteTokens.filter { savedIds.contains($0.token.tokenID) }
+                    
+                    return CoreDataPLTStore.shared.saveTokens(toPersist, for: account.address)
+                        .map { balance }
+                        .eraseToAnyPublisher()
+                } catch {
+                    return Fail(error: error).eraseToAnyPublisher()
+                }
             }
             .flatMap({ (balance: AccountBalance) -> AnyPublisher<[(String, Int)], Error> in
                 savedBalance = balance
