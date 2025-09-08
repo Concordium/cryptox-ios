@@ -101,10 +101,16 @@ struct AccountTokenListView: View {
             } else {
                 iconView = AnyView(Image("placeholder-crypto-token").resizable())
             }
+            var title = ""
+            if let symbol = token.metadata.symbol, !symbol.isEmpty {
+                title = symbol
+            } else if let name = token.metadata.name, !name.isEmpty {
+                title = name
+            }
             return TokenListCellData(
                 id: account.id,
                 icon: iconView,
-                title: token.metadata.symbol ?? token.metadata.name ?? "",
+                title: title,
                 subtitle: "CIS-2",
                 amount: TokenFormatter().displayStringWithTwoValuesAfterComma(from: BigDecimal(BigInt(stringLiteral: amount), token.metadata.decimals ?? 0), decimalSeparator: ".", thousandSeparator: ","),
                 secondaryAmount: nil,
