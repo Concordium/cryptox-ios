@@ -28,7 +28,10 @@ final class SearchTokenViewModel: ObservableObject {
     }
     
     @Published var state: SearchTokenViewModel.State = .idle
-    
+    @Published var query: String = ""
+    @Published var tokenId: String = ""
+    @Published var tokens: UnifiedTokensResult?
+    @Published var lastVisibleTokenId: String?
     private let cis2Service: CIS2Service
     private let pltService: PLTTokenService
     

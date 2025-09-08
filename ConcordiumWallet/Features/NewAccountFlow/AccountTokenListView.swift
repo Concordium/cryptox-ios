@@ -34,6 +34,8 @@ struct AccountTokenListView: View {
                     ) {
                         onHideToken?(account)
                     }
+                    .background(selectedAccountID == account.id ? Color.selectedCell : Color.grey3.opacity(0.3))
+                    .cornerRadius(12)
                     .onTapGesture {
                         if mode == .view {
                             selectedAccountID = account.id

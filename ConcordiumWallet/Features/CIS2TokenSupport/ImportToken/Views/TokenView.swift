@@ -190,7 +190,6 @@ struct TokenListRow: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 11)
-        .background(Color(red: 0.09, green: 0.1, blue: 0.1))
         .cornerRadius(12)
     }
 }
