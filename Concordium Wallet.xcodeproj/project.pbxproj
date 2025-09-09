@@ -8718,7 +8718,6 @@
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ProdTestNet-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "CryptoX - Testnet Wallet";
 				INFOPLIST_KEY_CFBundleDisplayName = "Concordium Wallet - Testnet Wallet";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
