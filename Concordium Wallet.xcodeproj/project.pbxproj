@@ -1775,6 +1775,10 @@
 		158A35222E1684E500BDCFDE /* LottiePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158A351F2E1684E500BDCFDE /* LottiePlayer.swift */; };
 		158A35242E1685AC00BDCFDE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 158A35232E1685AC00BDCFDE /* Lottie */; };
 		158A35262E1685B300BDCFDE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 158A35252E1685B300BDCFDE /* Lottie */; };
+		15923DB72E70687100D02DE0 /* Concordium in Frameworks */ = {isa = PBXBuildFile; productRef = 15923DB62E70687100D02DE0 /* Concordium */; };
+		15923DB92E7069C500D02DE0 /* CryptoXStagingNet-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 15923DB82E7069C500D02DE0 /* CryptoXStagingNet-Info.plist */; };
+		15923DBA2E7069C500D02DE0 /* CryptoXStagingNet-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 15923DB82E7069C500D02DE0 /* CryptoXStagingNet-Info.plist */; };
+		15923DBB2E7069C500D02DE0 /* CryptoXStagingNet-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 15923DB82E7069C500D02DE0 /* CryptoXStagingNet-Info.plist */; };
 		1599807C2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
 		1599807D2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
 		1599807E2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
@@ -3048,6 +3052,7 @@
 		1584D08B2D75F159001D9B3E /* ButtonsGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsGroup.swift; sourceTree = "<group>"; };
 		1584D08F2D785F03001D9B3E /* ValidatorUpdateMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorUpdateMenuViewModel.swift; sourceTree = "<group>"; };
 		158A351F2E1684E500BDCFDE /* LottiePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottiePlayer.swift; sourceTree = "<group>"; };
+		15923DB82E7069C500D02DE0 /* CryptoXStagingNet-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CryptoXStagingNet-Info.plist"; sourceTree = "<group>"; };
 		1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTokenViewModel.swift; sourceTree = "<group>"; };
 		15A761372D6727D200A48204 /* ValidatorMetadataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorMetadataViewModel.swift; sourceTree = "<group>"; };
 		15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedIdentitiesStatusService.swift; sourceTree = "<group>"; };
@@ -3077,7 +3082,6 @@
 		19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+Utils.swift"; sourceTree = "<group>"; };
 		19C2E3CDEECE4195E320FCBF /* ToastLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastLabel.swift; sourceTree = "<group>"; };
 		19C2E4B1F77014C882288F8E /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		19C2E4C7C42CAF3BEBD66EF0 /* CryptoXStagingNet-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "CryptoXStagingNet-Info.plist"; sourceTree = "<group>"; };
 		19C2E56CCF5D6B0E255FD1E8 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		19C2E793C0A30253D187EC88 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		19C2E837B763654DFA84CC26 /* LegacyLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyLogger.swift; sourceTree = "<group>"; };
@@ -3143,7 +3147,7 @@
 		7FF07A6923EADB1200F1FC04 /* StagingNet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StagingNet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF07A6C23EADB1200F1FC04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7FF07A7523EADB1400F1FC04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		7FF07A7F23EADB1500F1FC04 /* CryptoXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptoXTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FF07A7F23EADB1500F1FC04 /* Concordium WalletTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Concordium WalletTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF07A8523EADB1500F1FC04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7FF07A9123EADBB100F1FC04 /* UIImage+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Additions.swift"; sourceTree = "<group>"; };
 		7FF07A9623EADBB100F1FC04 /* UIViewController+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additions.swift"; sourceTree = "<group>"; };
@@ -3478,6 +3482,7 @@
 				50E0D16F2D35467500853594 /* ReownWalletKit in Frameworks */,
 				08A0440B29FA884100DACE1F /* SwiftCBOR in Frameworks */,
 				08A0441829FA887700DACE1F /* MnemonicSwift in Frameworks */,
+				15923DB72E70687100D02DE0 /* Concordium in Frameworks */,
 				C99CFF6E243EFD7E0045B8E6 /* WebKit.framework in Frameworks */,
 				5075414F2DD3C5DC000D9445 /* MobileWalletLib in Frameworks */,
 			);
@@ -3554,7 +3559,7 @@
 				08A6BDBF2B3318B300869317 /* Colors.xcassets */,
 				19C2EB84A6D34023C95A89C1 /* CryptoX-mock-Info.plist */,
 				19C2EA10C88B8FC7CF3A6D74 /* CryptoXMainNet-Info.plist */,
-				19C2E4C7C42CAF3BEBD66EF0 /* CryptoXStagingNet-Info.plist */,
+				15923DB82E7069C500D02DE0 /* CryptoXStagingNet-Info.plist */,
 				0832EB472B34B8CA00BD2ECD /* Localizable.strings */,
 				08C169C42BB73E5700E61326 /* ProdTestNet-Info.plist */,
 				1534955B2D9FE28300D65610 /* Animations */,
@@ -5303,7 +5308,7 @@
 			isa = PBXGroup;
 			children = (
 				7FF07A6923EADB1200F1FC04 /* StagingNet.app */,
-				7FF07A7F23EADB1500F1FC04 /* CryptoXTests.xctest */,
+				7FF07A7F23EADB1500F1FC04 /* Concordium WalletTests.xctest */,
 				7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */,
 				08C169C22BB7396200E61326 /* ProdTestNet.app */,
 			);
@@ -6094,14 +6099,15 @@
 				15339E6E2DB8FF28003D64D1 /* FirebaseAnalytics */,
 				5075414E2DD3C5DC000D9445 /* MobileWalletLib */,
 				158A35252E1685B300BDCFDE /* Lottie */,
+				15923DB62E70687100D02DE0 /* Concordium */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7FF07A7E23EADB1500F1FC04 /* CryptoXTests */ = {
+		7FF07A7E23EADB1500F1FC04 /* Concordium WalletTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7FF07A8B23EADB1500F1FC04 /* Build configuration list for PBXNativeTarget "CryptoXTests" */;
+			buildConfigurationList = 7FF07A8B23EADB1500F1FC04 /* Build configuration list for PBXNativeTarget "Concordium WalletTests" */;
 			buildPhases = (
 				7FF07A7B23EADB1500F1FC04 /* Sources */,
 				7FF07A7C23EADB1500F1FC04 /* Frameworks */,
@@ -6113,9 +6119,9 @@
 				7FF07A8123EADB1500F1FC04 /* PBXTargetDependency */,
 				7F85B8DF246D3A8600ED09B8 /* PBXTargetDependency */,
 			);
-			name = CryptoXTests;
+			name = "Concordium WalletTests";
 			productName = ConcordiumWalletTests;
-			productReference = 7FF07A7F23EADB1500F1FC04 /* CryptoXTests.xctest */;
+			productReference = 7FF07A7F23EADB1500F1FC04 /* Concordium WalletTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -6138,7 +6144,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 7FF07A6423EADB1200F1FC04 /* Build configuration list for PBXProject "CryptoX" */;
+			buildConfigurationList = 7FF07A6423EADB1200F1FC04 /* Build configuration list for PBXProject "Concordium Wallet" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -6168,7 +6174,7 @@
 			targets = (
 				7FF07A6823EADB1200F1FC04 /* StagingNet */,
 				7F85B7CF246A9AB600ED09B8 /* ProdMainNet */,
-				7FF07A7E23EADB1500F1FC04 /* CryptoXTests */,
+				7FF07A7E23EADB1500F1FC04 /* Concordium WalletTests */,
 				08C166572BB7396200E61326 /* ProdTestNet */,
 			);
 		};
@@ -6275,6 +6281,7 @@
 				08C1699B2BB7396200E61326 /* IBMPlexMono-Medium.ttf in Resources */,
 				08C1699C2BB7396200E61326 /* Account.storyboard in Resources */,
 				08C1699F2BB7396200E61326 /* More.storyboard in Resources */,
+				15923DBB2E7069C500D02DE0 /* CryptoXStagingNet-Info.plist in Resources */,
 				08C169A02BB7396200E61326 /* seed_identity_onboarding_en_2.html in Resources */,
 				08C169A12BB7396200E61326 /* seed_identity_onboarding_en_1.html in Resources */,
 				08C169A32BB7396200E61326 /* Onboarding.storyboard in Resources */,
@@ -6398,6 +6405,7 @@
 				D58EA77A290FAEB70033C8FD /* NFTProviderHeaderView.xib in Resources */,
 				08A6BDBD2B31C01500869317 /* IBMPlexMono-Medium.ttf in Resources */,
 				088FEE902A02609A00042957 /* Account.storyboard in Resources */,
+				15923DB92E7069C500D02DE0 /* CryptoXStagingNet-Info.plist in Resources */,
 				088FF21D2A02A78300042957 /* More.storyboard in Resources */,
 				088FF3262A02CA1600042957 /* seed_identity_onboarding_en_2.html in Resources */,
 				088FF3272A02CA1600042957 /* seed_identity_onboarding_en_1.html in Resources */,
@@ -6521,6 +6529,7 @@
 				D5CACC5826ED5AF800D3C3CF /* VersionView.xib in Resources */,
 				088FF21B2A02A78300042957 /* More.storyboard in Resources */,
 				088FF31C2A02CA1500042957 /* seed_identity_onboarding_en_2.html in Resources */,
+				15923DBA2E7069C500D02DE0 /* CryptoXStagingNet-Info.plist in Resources */,
 				088FF31D2A02CA1500042957 /* seed_identity_onboarding_en_1.html in Resources */,
 				088FF2802A02BDF000042957 /* Onboarding.storyboard in Resources */,
 				D589F3BD2794B96C003F2FBB /* 2.2.1.TX-lib_create_credential.json in Resources */,
@@ -8710,6 +8719,7 @@
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ProdTestNet-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "CryptoX - Testnet Wallet";
+				INFOPLIST_KEY_CFBundleDisplayName = "Concordium Wallet - Testnet Wallet";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -8720,7 +8730,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.3.7;
+				MARKETING_VERSION = 3.3.8;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -8742,7 +8752,7 @@
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ProdTestNet-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "CryptoX - Testnet Wallet";
+				INFOPLIST_KEY_CFBundleDisplayName = "Concordium Wallet - Testnet Wallet";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -8753,7 +8763,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.3.7;
+				MARKETING_VERSION = 3.3.8;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -8786,7 +8796,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.3.7;
+				MARKETING_VERSION = 3.3.8;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pioneeringtechventures.cryptox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -8818,7 +8828,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.3.7;
+				MARKETING_VERSION = 3.3.8;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pioneeringtechventures.cryptox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -8832,7 +8842,6 @@
 		};
 		7FF07A8623EADB1500F1FC04 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1534957B2D9FFD6500D65610 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -8897,7 +8906,6 @@
 		};
 		7FF07A8723EADB1500F1FC04 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1534957B2D9FFD6500D65610 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -8964,7 +8972,7 @@
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/CryptoXStagingNet-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "CryptoX - Stagenet Wallet";
+				INFOPLIST_KEY_CFBundleDisplayName = "Concordium Wallet - Stagenet Wallet";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -9004,7 +9012,7 @@
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/CryptoXStagingNet-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "CryptoX - Stagenet Wallet";
+				INFOPLIST_KEY_CFBundleDisplayName = "Concordium Wallet - Stagenet Wallet";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -9099,7 +9107,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7FF07A6423EADB1200F1FC04 /* Build configuration list for PBXProject "CryptoX" */ = {
+		7FF07A6423EADB1200F1FC04 /* Build configuration list for PBXProject "Concordium Wallet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7FF07A8623EADB1500F1FC04 /* Debug */,
@@ -9117,7 +9125,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7FF07A8B23EADB1500F1FC04 /* Build configuration list for PBXNativeTarget "CryptoXTests" */ = {
+		7FF07A8B23EADB1500F1FC04 /* Build configuration list for PBXNativeTarget "Concordium WalletTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7FF07A8C23EADB1500F1FC04 /* Debug */,
@@ -9408,6 +9416,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 158A351A2E156D0300BDCFDE /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		15923DB62E70687100D02DE0 /* Concordium */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5072A1A32DCB4CF1008698C3 /* XCRemoteSwiftPackageReference "concordium-swift-sdk" */;
+			productName = Concordium;
 		};
 		5026908F2E2686D200D46E02 /* Concordium */ = {
 			isa = XCSwiftPackageProductDependency;

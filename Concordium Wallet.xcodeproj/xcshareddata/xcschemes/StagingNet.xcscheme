@@ -5,28 +5,19 @@
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
-      <PreActions>
-         <ExecutionAction
-            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
-            <ActionContent
-               title = "Run Script"
-               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;echo &quot;API_KEY=${API_KEY}&quot; &gt; Volumes/workspace/repository/Config.xcconfig&#10;echo &quot;MAINNET_WERT_API_KEY=${MAINNET_WERT_API_KEY}&quot; &gt;&gt; Config.xcconfig&#10;echo &quot;MAINNET_WERT_PARTNER_ID=${MAINNET_WERT_PARTNER_ID}&quot; &gt;&gt; Config.xcconfig&#10;">
-            </ActionContent>
-         </ExecutionAction>
-      </PreActions>
       <BuildActionEntries>
          <BuildActionEntry
-            buildForTesting = "YES"
+            buildForTesting = "NO"
             buildForRunning = "YES"
             buildForProfiling = "YES"
             buildForArchiving = "YES"
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7F85B7CF246A9AB600ED09B8"
-               BuildableName = "ProdMainNet.app"
-               BlueprintName = "ProdMainNet"
-               ReferencedContainer = "container:CryptoX.xcodeproj">
+               BlueprintIdentifier = "7FF07A6823EADB1200F1FC04"
+               BuildableName = "StagingNet.app"
+               BlueprintName = "StagingNet"
+               ReferencedContainer = "container:Concordium Wallet.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -37,16 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7FF07A7E23EADB1500F1FC04"
-               BuildableName = "CryptoXTests.xctest"
-               BlueprintName = "CryptoXTests"
-               ReferencedContainer = "container:CryptoX.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -63,12 +44,18 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7F85B7CF246A9AB600ED09B8"
-            BuildableName = "ProdMainNet.app"
-            BlueprintName = "ProdMainNet"
-            ReferencedContainer = "container:CryptoX.xcodeproj">
+            BlueprintIdentifier = "7FF07A6823EADB1200F1FC04"
+            BuildableName = "StagingNet.app"
+            BlueprintName = "StagingNet"
+            ReferencedContainer = "container:Concordium Wallet.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "-NSShowNonLocalizedStrings YES"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -80,10 +67,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7F85B7CF246A9AB600ED09B8"
-            BuildableName = "ProdMainNet.app"
-            BlueprintName = "ProdMainNet"
-            ReferencedContainer = "container:CryptoX.xcodeproj">
+            BlueprintIdentifier = "7FF07A6823EADB1200F1FC04"
+            BuildableName = "StagingNet.app"
+            BlueprintName = "StagingNet"
+            ReferencedContainer = "container:Concordium Wallet.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

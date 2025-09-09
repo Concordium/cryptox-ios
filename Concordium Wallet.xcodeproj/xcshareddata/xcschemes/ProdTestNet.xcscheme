@@ -18,7 +18,7 @@
                      BlueprintIdentifier = "08C166572BB7396200E61326"
                      BuildableName = "ProdTestNet.app"
                      BlueprintName = "ProdTestNet"
-                     ReferencedContainer = "container:CryptoX.xcodeproj">
+                     ReferencedContainer = "container:Concordium Wallet.xcodeproj">
                   </BuildableReference>
                </EnvironmentBuildable>
             </ActionContent>
@@ -36,7 +36,7 @@
                BlueprintIdentifier = "08C166572BB7396200E61326"
                BuildableName = "ProdTestNet.app"
                BlueprintName = "ProdTestNet"
-               ReferencedContainer = "container:CryptoX.xcodeproj">
+               ReferencedContainer = "container:Concordium Wallet.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -65,7 +65,7 @@
             BlueprintIdentifier = "08C166572BB7396200E61326"
             BuildableName = "ProdTestNet.app"
             BlueprintName = "ProdTestNet"
-            ReferencedContainer = "container:CryptoX.xcodeproj">
+            ReferencedContainer = "container:Concordium Wallet.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
@@ -88,7 +88,7 @@
             BlueprintIdentifier = "08C166572BB7396200E61326"
             BuildableName = "ProdTestNet.app"
             BlueprintName = "ProdTestNet"
-            ReferencedContainer = "container:CryptoX.xcodeproj">
+            ReferencedContainer = "container:Concordium Wallet.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
@@ -110,7 +110,7 @@
                      BlueprintIdentifier = "08C166572BB7396200E61326"
                      BuildableName = "ProdTestNet.app"
                      BlueprintName = "ProdTestNet"
-                     ReferencedContainer = "container:CryptoX.xcodeproj">
+                     ReferencedContainer = "container:Concordium Wallet.xcodeproj">
                   </BuildableReference>
                </EnvironmentBuildable>
             </ActionContent>
