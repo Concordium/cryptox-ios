@@ -81,22 +81,10 @@ struct NavigationDestinationBuilder: ViewModifier {
                             navigationManager.pop()
                         }))
                     case .addToken(let account):
-                        AddTokenView(
-                            path: $navigationManager.path,
-                            viewModel: .init(storageManager: dependencyProvider.storageManager(),
-                                             networkManager: dependencyProvider.networkManager(),
-                                             account: account),
-                            searchTokenViewModel: SearchTokenViewModel(
-                                cis2Service: CIS2Service(
-                                    networkManager: dependencyProvider.networkManager(),
-                                    storageManager: dependencyProvider.storageManager()
-                                ),
-                                pltService: PLTTokenService(networkManager: dependencyProvider.networkManager(),
-                                                            storageManager: dependencyProvider.storageManager()
-                                                           )
-                            ),
-                            onTokenAdded: { isNewTokenAdded = true }
-                        )
+                        AddTokenView(path: $navigationManager.path,
+                                       dependencyProvider: dependencyProvider,
+                                       account: account,
+                                       onTokenAdded: { isNewTokenAdded = true })
                     case .addTokenDetails(let token):
                         TokenDetailsView(token: token, isAddTokenDetails: true, showRawMd: .constant(false))
                             .modifier(NavigationViewModifier(title: "search.tokens".localized, backAction: {
