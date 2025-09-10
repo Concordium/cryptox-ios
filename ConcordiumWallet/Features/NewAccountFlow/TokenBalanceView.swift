@@ -175,7 +175,7 @@ struct TokenBalanceView: View {
             }
         }
         .onAppear {
-            if let isOnDenyList = token.pltToken?.token.tokenState.moduleState.denyList {
+            if let isOnDenyList = token.pltToken?.tokenAccountState.state.denyList, isOnDenyList  {
                 isActionsDisabled = isOnDenyList
             }
         }
