@@ -29,7 +29,11 @@ struct TokenBalanceView: View {
     var hideTokenButtonColor: Color {
         hideTokenPressed ? .selectedRed : .attentionRed
     }
-    @State var isActionsDisabled = false
+    
+    private var isActionsDisabled: Bool {
+        (token.pltToken?.tokenAccountState.state.denyList ?? false)
+     || (token.pltToken?.token.tokenState.moduleState.paused ?? false)
+    }
     
     @State private var selectedActionIndex: Int?
     
@@ -198,11 +202,6 @@ struct TokenBalanceView: View {
                 .lineLimit(1)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .modifier(RadialGradientForegroundStyleModifier())
-            }
-        }
-        .onAppear {
-            if let isOnDenyList = token.pltToken?.tokenAccountState.state.denyList, isOnDenyList  {
-                isActionsDisabled = isOnDenyList
             }
         }
     }
