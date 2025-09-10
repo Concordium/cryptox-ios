@@ -15,6 +15,34 @@ struct TokenDetailsView: View {
     
     @Binding var showRawMd: Bool
     @State private var showRawMdTapped = false
+    @State private var isTokenDescPopupVisible: Bool = false
+    @StateObject private var pltTokenTagVM: PLTTokenTagViewModel
+
+    var onTagInfoTapped: ((String, String) -> Void)? = nil
+    
+    init(token: AccountDetailAccount,
+         isAddTokenDetails: Bool = false,
+         showRawMd: Binding<Bool>,
+         onTagInfoTapped: ((String, String) -> Void)? = nil) {
+        self.token = token
+        self.isAddTokenDetails = isAddTokenDetails
+        self._showRawMd = showRawMd
+        self.onTagInfoTapped = onTagInfoTapped
+
+        if case .plt(let pltToken, _) = token {
+            _pltTokenTagVM = StateObject(
+                wrappedValue: PLTTokenTagViewModel(
+                    allowList: pltToken.tokenAccountState.state.allowList,
+                    denyList:  pltToken.tokenAccountState.state.denyList,
+                    paused:    pltToken.token.tokenState.moduleState.paused
+                )
+            )
+        } else {
+            _pltTokenTagVM = StateObject(
+                wrappedValue: PLTTokenTagViewModel(allowList: nil, denyList: nil, paused: nil)
+            )
+        }
+    }
     
     var body: some View {
         ZStack {
@@ -69,7 +97,10 @@ struct TokenDetailsView: View {
                             .frame(maxWidth: .infinity, alignment: .topLeading)
                     case .plt(let pltToken, _):
                         titleSection(token: token)
-                        PLTTokenTags(viewModel: PLTTokenTagViewModel(allowList: pltToken.tokenAccountState.state.allowList, denyList: pltToken.tokenAccountState.state.denyList))
+                        PLTTokenTags(viewModel: pltTokenTagVM,
+                                     onInfoTapped: { title, desc in
+                            onTagInfoTapped?(title, desc)
+                        })
                             .padding(.bottom, 4)
                         descriptionSection(decimals: pltToken.tokenAccountState.balance.decimals, decription: pltToken.token.tokenState.moduleState.metadata.url)
                     }

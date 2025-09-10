@@ -24,7 +24,8 @@ extension PLTTokenEntity {
                                                                                                       type: governanceAccount.type),
                                                                  metadata: TokenMetadata(url: metadata.url),
                                                                  mintable: moduleState.mintable,
-                                                                 name: moduleState.name),
+                                                                 name: moduleState.name,
+                                                                 paused: moduleState.paused),
                                         tokenModuleRef: tokenState.tokenModuleRef,
                                                totalSupply: TokenBalance(decimals: Int(tokenState.decimals), value: "0.00"))
         )
