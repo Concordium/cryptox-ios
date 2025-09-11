@@ -37,6 +37,9 @@ struct PopupContainer<Content: View>: View {
                             .lineSpacing(7)
                             .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
                             .frame(maxWidth: .infinity, alignment: .top)
+                            .lineLimit(nil)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .layoutPriority(1)
                     }
                     content
                     .frame(minHeight: 44)

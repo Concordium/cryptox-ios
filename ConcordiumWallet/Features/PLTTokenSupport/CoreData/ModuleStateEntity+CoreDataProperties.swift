@@ -24,6 +24,7 @@ extension ModuleStateEntity {
     @NSManaged public var name: String
     @NSManaged public var governanceAccount: GovernanceAccountEntity
     @NSManaged public var metadata: MetadataEntity
+    @NSManaged public var paused: Bool
 
 }
 

@@ -21,13 +21,19 @@ struct TokenBalanceView: View {
     @State private var isPresentingAlert = false
     @State private var showRawMdPopup = false
     @State private var hideTokenPressed: Bool = false
+    @State private var tagPopup: TagPopup?
+
     var actionItems: [ActionItem]  {
         return accountActionItems()
     }
     var hideTokenButtonColor: Color {
         hideTokenPressed ? .selectedRed : .attentionRed
     }
-    @State var isActionsDisabled = false
+    
+    private var isActionsDisabled: Bool {
+        (token.pltToken?.tokenAccountState.state.denyList ?? false)
+     || (token.pltToken?.token.tokenState.moduleState.paused ?? false)
+    }
     
     @State private var selectedActionIndex: Int?
     
@@ -42,7 +48,13 @@ struct TokenBalanceView: View {
                         earnStatusView()
                             .padding(.horizontal, 18)
                     }
-                    TokenDetailsView(token: token, showRawMd: $showRawMdPopup)
+                    TokenDetailsView(
+                        token: token,
+                        showRawMd: $showRawMdPopup,
+                        onTagInfoTapped: { title, desc in
+                            tagPopup = TagPopup(title: title, desc: desc)
+                        }
+                    )
                     if token.name != "ccd" {
                         HStack(spacing: 8) {
                             Image("eyeSlash")
@@ -80,6 +92,24 @@ struct TokenBalanceView: View {
                     .transition(.scale(scale: 0.9, anchor: .top).combined(with: .opacity))
                     .animation(.easeInOut(duration: 0.3), value: isPresentingAlert)
                 }
+            }
+            
+            if let popup = tagPopup {
+                Color.black.opacity(0.4)
+                    .ignoresSafeArea()
+                    .transition(.opacity)
+                    .animation(.easeInOut(duration: 0.3), value: tagPopup != nil)
+
+                TagsDescPopup(
+                    isVisible: Binding(
+                        get: { tagPopup != nil },
+                        set: { if !$0 { tagPopup = nil } }
+                    ),
+                    title: popup.title,
+                    desc: popup.desc
+                )
+                .transition(.scale(scale: 0.9).combined(with: .opacity))
+                .zIndex(2)
             }
             
             if showRawMdPopup {
@@ -172,11 +202,6 @@ struct TokenBalanceView: View {
                 .lineLimit(1)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .modifier(RadialGradientForegroundStyleModifier())
-            }
-        }
-        .onAppear {
-            if let isOnDenyList = token.pltToken?.tokenAccountState.state.denyList, isOnDenyList  {
-                isActionsDisabled = isOnDenyList
             }
         }
     }

@@ -18,6 +18,7 @@
         <attribute name="denyList" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="mintable" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="paused" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <relationship name="governanceAccount" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="GovernanceAccountEntity"/>
         <relationship name="metadata" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MetadataEntity"/>
     </entity>

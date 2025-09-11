@@ -398,7 +398,8 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                                         url: token.token.tokenState.moduleState.metadata.url
                                     ),
                                     mintable: token.token.tokenState.moduleState.mintable,
-                                    name: token.token.tokenState.moduleState.name
+                                    name: token.token.tokenState.moduleState.name,
+                                    paused: token.token.tokenState.moduleState.paused
                                 ),
                                 tokenModuleRef: token.token.tokenState.tokenModuleRef,
                                 totalSupply: TokenBalance(

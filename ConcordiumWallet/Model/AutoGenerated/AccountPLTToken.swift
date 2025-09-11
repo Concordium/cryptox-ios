@@ -35,6 +35,7 @@ struct ModuleState: Codable, Equatable, Hashable {
     let metadata: TokenMetadata
     let mintable: Bool
     let name: String
+    let paused: Bool
 }
 
 struct GovernanceAccount: Codable, Equatable, Hashable {
@@ -91,7 +92,8 @@ extension AccountPLTToken {
             governanceAccount: governance,
             metadata:        metadata,
             mintable:        moduleStateObj.mintable,
-            name:            moduleStateObj.name
+            name:            moduleStateObj.name,
+            paused:          moduleStateObj.paused
         )
 
         let totalSupply = TokenBalance(
