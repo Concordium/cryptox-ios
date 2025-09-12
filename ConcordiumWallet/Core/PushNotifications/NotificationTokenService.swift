@@ -20,10 +20,7 @@ final class NotificationTokenService {
         storageManager: provider.storageManager()
     )
 
-    private lazy var pltService = PLTTokenService(
-        networkManager: provider.networkManager(),
-        storageManager: provider.storageManager()
-    )
+    private lazy var pltService = PLTTokenService()
 
     // MARK: Init
 
@@ -210,7 +207,7 @@ final class NotificationTokenService {
                     decimals: Int(balanceEntry.balance.decimals)
                 )
 
-                let accountToken = AccountDetailAccount.plt(token: accountPLTToken, amount: amount)
+                let accountToken = AccountDetailAccount.plt(token: accountPLTToken, amount: amount, metadata: nil)
                 completion(accountToken)
             } catch {
                 log("storeNewPLTtoken: \(error)")
@@ -253,7 +250,7 @@ final class NotificationTokenService {
                         decimals: Int(entry.balance.decimals)
                     )
 
-                    let accountToken = AccountDetailAccount.plt(token: accPLTToken, amount: amount)
+                    let accountToken = AccountDetailAccount.plt(token: accPLTToken, amount: amount, metadata: nil)
                     await MainActor.run {
                         completion(.tokenFound(accountToken))
                     }

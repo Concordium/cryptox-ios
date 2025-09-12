@@ -52,8 +52,7 @@ struct AddTokenView: View {
             SearchTokenViewModel(
                 cis2Service: CIS2Service(networkManager: dependencyProvider.networkManager(),
                                          storageManager: dependencyProvider.storageManager()),
-                pltService: PLTTokenService(networkManager: dependencyProvider.networkManager(),
-                                            storageManager: dependencyProvider.storageManager())
+                pltService: PLTTokenService()
             )
         )
     }

@@ -61,6 +61,15 @@ struct TokenBalanceState: Codable, Equatable, Hashable {
     let allowList: Bool?
 }
 
+struct PLTMetadata: Codable, Equatable, Hashable {
+    let description: String?
+    let thumbnail: Resource?
+}
+
+struct Resource: Codable, Equatable, Hashable {
+    let url: String?
+}
+
 extension AccountPLTToken {
 
     /// Builds a value-type `PLTToken` from a Core Data `PLTTokenEntity`.

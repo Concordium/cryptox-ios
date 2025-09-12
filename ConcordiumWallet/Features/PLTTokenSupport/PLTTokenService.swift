@@ -13,17 +13,21 @@ protocol PLTTokenServiceProtocol {
     func fetchTokenInfo(tokenID: String) async throws -> PLTToken
     func fetchTokens(for tokenID: String) async throws -> [PLTToken]
     func fetchTokenInfo(for tokens: [String]) async -> [PLTToken]
+    func fetchTokenInfoWithMetadata(for tokens: [String]) async -> [PLTTokenModel]
+}
+
+struct PLTTokenModel: Equatable, Hashable {
+    let pltToken: PLTToken
+    let metadata: PLTMetadata?
 }
 
 class PLTTokenService: PLTTokenServiceProtocol {
-    let networkManager: NetworkManagerProtocol
-    let storageManager: StorageManagerProtocol
+    let networkManager: NetworkManagerProtocol = ServicesProvider.defaultProvider().networkManager()
+    let storageManager: StorageManagerProtocol = ServicesProvider.defaultProvider().storageManager()
     let session: URLSession
 
     
-    init(networkManager: NetworkManagerProtocol, storageManager: StorageManagerProtocol) {
-        self.networkManager = networkManager
-        self.storageManager = storageManager
+    init() {
         self.session = URLSession(configuration: URLSessionConfiguration.ephemeral)
     }
 }
@@ -84,6 +88,44 @@ extension PLTTokenService {
         return results
     }
     
+    func fetchTokenInfoWithMetadata(for tokens: [String]) async -> [PLTTokenModel] {
+        var results = [PLTTokenModel]()
+
+        await withTaskGroup(of: PLTTokenModel?.self) { group in
+            for tokenID in tokens {
+                group.addTask { [weak self] in
+                    do {
+                        let token = try await self?.fetchTokenInfo(tokenID: tokenID)
+
+                        let urlString = token?.tokenState.moduleState.metadata.url
+                        let metadataURL = urlString.flatMap(URL.init(string:))
+
+                        let metadata: PLTMetadata?
+                        if let metadataURL {
+                            do {
+                                metadata = try await self?.fetchPLTMetadata(from: metadataURL)
+                            } catch {
+                                metadata = nil
+                            }
+                        } else {
+                            metadata = nil
+                        }
+                        guard let token else { return nil }
+                        return PLTTokenModel(pltToken: token, metadata: metadata)
+                    } catch {
+                        return nil
+                    }
+                }
+            }
+
+            for await item in group {
+                if let item { results.append(item) }
+            }
+        }
+
+        return results
+    }
+
     func fetchTokenBalances(for accountAddress: String) async throws -> [String: TokenAccountState] {
         let totalAccountBalance: AccountBalance = try await networkManager.load(ResourceRequest(url: ApiConstants.accountBalance.appendingPathComponent(accountAddress)))
         let pltTokenBalance: [String: TokenAccountState] = totalAccountBalance.balance?.accountTokens?.reduce(into: [:]) { result, token in
@@ -100,5 +142,10 @@ extension PLTTokenService {
             return token.tokenState.totalSupply
         } catch { }
         return nil
+    }
+    
+    func fetchPLTMetadata(from url: URL) async throws -> PLTMetadata {
+        let (data, _) = try await URLSession.shared.data(from: url)
+        return try JSONDecoder().decode(PLTMetadata.self, from: data)
     }
 }

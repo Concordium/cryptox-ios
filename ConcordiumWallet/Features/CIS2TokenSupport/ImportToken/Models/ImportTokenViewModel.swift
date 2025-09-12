@@ -38,7 +38,7 @@ final class ImportTokenViewModel: ObservableObject {
         self.networkManager = networkManager
         self.account = account
         self.cis2Service = CIS2Service(networkManager: networkManager, storageManager: storageManager)
-        self.pltService = PLTTokenService(networkManager: networkManager, storageManager: storageManager)
+        self.pltService = PLTTokenService()
         self.tokenFetcher = TokenFetcher(pltTokenService: pltService, cis2Service: cis2Service)
         logger.debugLog("savedTokens: -- \(self.storageManager.getAccountSavedCIS2Tokens(account.address))")
         _accountSavedCIS2Tokens = State(initialValue: storageManager.getAccountSavedCIS2Tokens(account.address))
@@ -117,6 +117,7 @@ final class ImportTokenViewModel: ObservableObject {
                 logger.errorLog(error.localizedDescription)
             }
         case .plt(let pltToken):
+            let pltToken = pltToken.pltToken
             guard !CoreDataPLTStore.shared.isPLTTokenSaved(tokenId: pltToken.tokenID, for: account.address) else {
                 return
             }

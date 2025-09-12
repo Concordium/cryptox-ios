@@ -24,8 +24,8 @@ class TokenFetcher {
     }
 
     func fetchAllTokens(for tokenIDs: [String], contractIndex: Int?) async -> UnifiedTokensResult {
-        async let pltResult: Result<[PLTToken], TokenFetchingError> = {
-            let tokens = await pltTokenService.fetchTokenInfo(for: tokenIDs)
+        async let pltResult: Result<[PLTTokenModel], TokenFetchingError> = {
+            let tokens = await pltTokenService.fetchTokenInfoWithMetadata(for: tokenIDs)
             return .success(tokens)
         }()
 
