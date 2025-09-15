@@ -70,14 +70,10 @@ final class SearchTokenViewModel: ObservableObject {
             }
         }()
 
-        async let pltTokensResult: Result<[PLTToken], Error> = {
+        async let pltTokensResult: Result<[PLTTokenModel], Error> = {
             guard let tokenId else { return .success([]) }
-            do {
-                let tokens = try await pltService.fetchTokens(for: tokenId)
-                return .success(tokens)
-            } catch {
-                return .failure(error)
-            }
+            let tokens = await pltService.fetchTokenInfoWithMetadata(for: [tokenId])
+            return .success(tokens)
         }()
 
         let cis2Result = await cis2TokensResult

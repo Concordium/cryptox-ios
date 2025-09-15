@@ -194,7 +194,7 @@ struct TokenBalanceView: View {
                 .lineLimit(1)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .modifier(RadialGradientForegroundStyleModifier())
-            case .plt(let token, let amount):
+            case .plt(let token, let amount, _):
                 Text("\(amount) \(token.token.tokenID)")
                 .font(.plexSans(size: 55, weight: .bold))
                 .dynamicTypeSize(.xSmall ... .xxLarge)

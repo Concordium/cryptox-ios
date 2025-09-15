@@ -10,19 +10,19 @@ import Foundation
 
 enum UnifiedToken: Identifiable, Equatable, Hashable {
     case cis2(CIS2Token)
-    case plt(PLTToken)
+    case plt(PLTTokenModel)
 
     var id: String {
         switch self {
         case .cis2(let token): return token.tokenId
-        case .plt(let token): return token.tokenID
+        case .plt(let token): return token.pltToken.tokenID
         }
     }
     
     var name: String {
         switch self {
         case .cis2(let token): return token.metadata.name ?? ""
-        case .plt(let token): return token.tokenState.moduleState.name
+        case .plt(let token): return token.pltToken.tokenState.moduleState.name
         }
     }
 }
@@ -44,7 +44,7 @@ class UnifiedTokensResult {
         pltError = nil
     }
     
-    func addNewTokens(cis2Tokens: [CIS2Token], pltTokens: [PLTToken]) {
+    func addNewTokens(cis2Tokens: [CIS2Token], pltTokens: [PLTTokenModel]) {
         let newCIS2 = cis2Tokens.map { UnifiedToken.cis2($0) }
         let newPLT = pltTokens.map { UnifiedToken.plt($0) }
         tokens.append(contentsOf: newCIS2 + newPLT)
@@ -56,7 +56,7 @@ class UnifiedTokensResult {
         }
     }
     
-    var pltTokens: [PLTToken] {
+    var pltTokens: [PLTTokenModel] {
         tokens.compactMap {
             if case let .plt(token) = $0 { token } else { nil }
         }
@@ -69,7 +69,7 @@ extension UnifiedToken {
         case .cis2(let token):
             return AccountDetailAccount.token(token: token, amount: "")
         case .plt(let pltToken):
-            return AccountDetailAccount.plt(token: AccountPLTToken(token: pltToken, tokenAccountState: TokenAccountState(balance: TokenBalance(decimals: 2, value: ""), state: TokenBalanceState(denyList: nil, allowList: nil))), amount: "")
+            return AccountDetailAccount.plt(token: AccountPLTToken(token: pltToken.pltToken, tokenAccountState: TokenAccountState(balance: TokenBalance(decimals: 2, value: ""), state: TokenBalanceState(denyList: nil, allowList: nil))), amount: "", metadata: pltToken.metadata)
         }
     }
 }

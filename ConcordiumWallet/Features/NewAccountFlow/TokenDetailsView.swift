@@ -29,7 +29,7 @@ struct TokenDetailsView: View {
         self._showRawMd = showRawMd
         self.onTagInfoTapped = onTagInfoTapped
 
-        if case .plt(let pltToken, _) = token {
+        if case .plt(let pltToken, _, _) = token {
             _pltTokenTagVM = StateObject(
                 wrappedValue: PLTTokenTagViewModel(
                     allowList: pltToken.tokenAccountState.state.allowList,
@@ -84,7 +84,7 @@ struct TokenDetailsView: View {
                         Text("Description")
                             .font(.satoshi(size: 12, weight: .medium))
                             .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
-                        descriptionSection(decimals: cis2Token.metadata.decimals ?? 0, decription: cis2Token.metadata.description ?? "")
+                        descriptionSection(decimals: cis2Token.metadata.decimals ?? 0, description: cis2Token.metadata.description ?? "")
                         separator
                         
                         Text("Contract index, subindex")
@@ -95,14 +95,14 @@ struct TokenDetailsView: View {
                             .font(.satoshi(size: 12, weight: .medium))
                             .foregroundStyle(.whiteMain)
                             .frame(maxWidth: .infinity, alignment: .topLeading)
-                    case .plt(let pltToken, _):
+                    case .plt(let pltToken, _, let md):
                         titleSection(token: token)
                         PLTTokenTags(viewModel: pltTokenTagVM,
                                      onInfoTapped: { title, desc in
                             onTagInfoTapped?(title, desc)
                         })
                             .padding(.bottom, 4)
-                        descriptionSection(decimals: pltToken.tokenAccountState.balance.decimals, decription: pltToken.token.tokenState.moduleState.metadata.url)
+                        descriptionSection(decimals: pltToken.tokenAccountState.balance.decimals, description: md?.description ?? "")
                     }
                 }
                 .padding(16)
@@ -145,13 +145,18 @@ struct TokenDetailsView: View {
                 Text(cis2Token.metadata.name ?? "")
                     .font(.satoshi(size: 16, weight: .semibold))
                     .foregroundStyle(.whiteMain)
-            } else if let pltToken = token.pltToken {
-                Image("placeholder-crypto-token")
-                    .resizable()
-                    .clipShape(Circle())
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 20, height: 20)
-                Text(pltToken.token.tokenState.moduleState.name)
+            } else if case let .plt(token, _, metadata) = token {
+                if let url = metadata?.thumbnail?.url.toURL {
+                    CryptoImage(url: url, size: .custom(width: 20, height: 20))
+                        .aspectRatio(contentMode: .fit)
+                } else {
+                    Image("placeholder-crypto-token")
+                        .resizable()
+                        .clipShape(Circle())
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 20, height: 20)
+                }
+                Text(token.token.tokenState.moduleState.name)
                     .font(.satoshi(size: 16, weight: .semibold))
                     .foregroundStyle(.whiteMain)
             }
@@ -159,17 +164,18 @@ struct TokenDetailsView: View {
     }
     
     @ViewBuilder
-    func descriptionSection(decimals: Int, decription: String) -> some View {
+    func descriptionSection(decimals: Int, description: String) -> some View {
         Group {
-            Text("Description")
-                .font(.satoshi(size: 12, weight: .medium))
-                .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
-            Text(decription)
-                .font(.satoshi(size: 12, weight: .medium))
-                .foregroundStyle(.whiteMain)
-                .frame(maxWidth: .infinity, alignment: .topLeading)
-            separator
-            
+            if !description.isEmpty {
+                Text("Description")
+                    .font(.satoshi(size: 12, weight: .medium))
+                    .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
+                Text(description)
+                    .font(.satoshi(size: 12, weight: .medium))
+                    .foregroundStyle(.whiteMain)
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                separator
+            }
             Text("Decimals")
                 .font(.satoshi(size: 12, weight: .medium))
                 .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))

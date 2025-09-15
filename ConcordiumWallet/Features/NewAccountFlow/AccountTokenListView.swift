@@ -119,10 +119,17 @@ struct AccountTokenListView: View {
                 isCCD: false
             )
             
-        case .plt(let token, let amount):
+        case .plt(let token, let amount, let md):
+            let iconView: AnyView
+            if let url = md?.thumbnail?.url {
+                iconView = AnyView(CryptoImage(url: url.toURL, size: .custom(width: 40, height: 40)))
+            } else {
+                iconView = AnyView(Image("placeholder-crypto-token").resizable())
+            }
+            
             return TokenListCellData(
                 id: account.id,
-                icon: AnyView(Image("placeholder-crypto-token").resizable().clipShape(Circle())),
+                icon: iconView,
                 title: token.token.tokenID,
                 subtitle: "PLT",
                 amount: amount,
@@ -243,21 +250,26 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
     
     @MainActor
     private func loadPLTAccounts(for account: AccountDataType) async -> [AccountDetailAccount] {
-        let pltService = PLTTokenService(networkManager: dependencyProvider.networkManager(), storageManager: storageManager)
+        let pltService = PLTTokenService()
 
         do {
             let pltTokens = try CoreDataPLTStore.shared.fetchAccountPLTTokens(for: account.address)
             let pltTokenBalances = try await pltService.fetchTokenBalances(for: account.address)
 
-            let tmpTokens: [AccountDetailAccount] = pltTokens.compactMap { token -> AccountDetailAccount? in
+            var tmpTokens: [AccountDetailAccount] = []
+
+            for token in pltTokens {
                 let tokenBalance = pltTokenBalances.first(where: { $0.key == token.token.tokenId })
                 let fallback = TokenAccountState(
                     balance: TokenBalance(decimals: Int(token.token.tokenState.decimals), value: "0"),
                     state: TokenBalanceState(denyList: nil, allowList: nil)
                 )
 
-                guard let accountPLTToken = token.token.asPLTToken() else { return nil }
-                let pltToken = AccountPLTToken(token: accountPLTToken, tokenAccountState: tokenBalance?.value ?? fallback)
+                guard let accountPLTToken = token.token.asPLTToken() else { continue }
+                let pltToken = AccountPLTToken(
+                    token: accountPLTToken,
+                    tokenAccountState: tokenBalance?.value ?? fallback
+                )
 
                 let amount = TokenFormatter().plainString(
                     from: BigDecimal(
@@ -265,12 +277,25 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
                         pltToken.tokenAccountState.balance.decimals
                     )
                 )
-                return .plt(token: pltToken, amount: amount)
+
+                var metadata: PLTMetadata? = nil
+                let urlString = pltToken.token.tokenState.moduleState.metadata.url
+                do {
+                    metadata = try await loadPLTMetadata(from: urlString)
+                } catch {}
+                
+                tmpTokens.append(.plt(token: pltToken, amount: amount, metadata: metadata))
             }
+
             return tmpTokens
         } catch {
             return []
         }
+    }
+    
+    func loadPLTMetadata(from stringURL: String) async throws -> PLTMetadata? {
+        guard let url = URL(string: stringURL) else { return nil }
+        return try await PLTTokenService().fetchPLTMetadata(from: url)
     }
 
     // MARK: - Kept API for external callers (if needed)
@@ -332,7 +357,7 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
         switch token {
         case .token(let token, _):
             removeCIS2Token(token: token, accountAddress: accountAddress)
-        case .plt(let token, _):
+        case .plt(let token, _, _):
             removePLTToken(token: token, accountAddress: accountAddress)
         default:
             break

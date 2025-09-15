@@ -58,15 +58,21 @@ struct TokenView: View {
                 isCCD: false
             )
         case .plt(let pltToken):
+            let iconView: AnyView
+            if let url = pltToken.metadata?.thumbnail?.url {
+                iconView = AnyView(CryptoImage(url: url.toURL, size: .custom(width: 40, height: 40)))
+            } else {
+                iconView = AnyView(Image("placeholder-crypto-token").resizable())
+            }
             return TokenListCellData(
-                id: pltToken.id,
-                icon: AnyView(Image("placeholder-crypto-token").resizable().clipShape(Circle())),
-                title: pltToken.tokenID,
+                id: pltToken.pltToken.id,
+                icon: iconView,
+                title: pltToken.pltToken.tokenID,
                 subtitle: "PLT",
-                amount: TokenFormatter.formatPLTTokenAmount(amount: pltToken.tokenState.totalSupply.value),
+                amount: TokenFormatter.formatPLTTokenAmount(amount: pltToken.pltToken.tokenState.totalSupply.value),
                 secondaryAmount: nil,
                 tokenImage: .plt,
-                showDenyIcon: pltToken.tokenState.moduleState.denyList || !pltToken.tokenState.moduleState.allowList,
+                showDenyIcon: pltToken.pltToken.tokenState.moduleState.denyList || !pltToken.pltToken.tokenState.moduleState.allowList,
                 isCCD: false
             )
         }
