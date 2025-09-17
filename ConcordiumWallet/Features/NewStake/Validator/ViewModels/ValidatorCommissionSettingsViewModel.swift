@@ -8,7 +8,7 @@
 
 import Combine
 import Foundation
-import SwiftUICore
+import SwiftUI
 
 extension NumberFormatter {
     static var commissionFormatter: NumberFormatter {

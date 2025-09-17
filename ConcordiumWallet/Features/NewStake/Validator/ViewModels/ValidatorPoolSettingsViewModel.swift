@@ -8,7 +8,7 @@
 
 import Foundation
 import Combine
-import SwiftUICore
+import SwiftUI
 
 enum ValidatorPoolSetting: String {
     case open = "openForAll"
