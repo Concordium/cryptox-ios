@@ -8,7 +8,7 @@
 
 import Combine
 import Foundation
-import SwiftUICore
+import SwiftUI
 
 class ValidatorMetadataViewModel: ObservableObject {
     @Published var currentMetadataUrl: String

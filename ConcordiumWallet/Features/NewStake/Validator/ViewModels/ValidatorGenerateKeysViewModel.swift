@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import SwiftUICore
+import SwiftUI
 
 class ValidatorGenerateKeysViewModel: ObservableObject {
     @Published private(set) var title: String
