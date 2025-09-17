@@ -116,10 +116,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 appCoordinator.mode = .deepLink(url: url)
                 appCoordinator.handle(url)
             }
-        } else {
-            // importing file
+        } else if let scheme = url.scheme, scheme.localizedCaseInsensitiveCompare("file") == .orderedSame {
+            // importing file - only handle file:// URLs
             appCoordinator.importWallet(from: url)
         }
+        // Removed the fallback else case to prevent handling regular deep links as file imports
         
         return true
     }
