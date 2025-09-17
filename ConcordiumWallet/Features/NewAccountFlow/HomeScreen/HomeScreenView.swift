@@ -521,7 +521,7 @@ extension HomeScreenView {
                         viewModel: vm,
                         showManageTokenList: $showManageTokenList,
                         path: $navigationManager.path,
-                        mode: .normal
+                        mode: .view
                     )
                     .frame(maxWidth: .infinity)
                 }

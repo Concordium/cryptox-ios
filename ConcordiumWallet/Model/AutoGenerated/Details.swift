@@ -23,6 +23,8 @@ struct Details: Codable {
     let amountSubtracted: String?
     let rejectReason: String?
     let amountAdded: String?
+    let tokenID: String?
+    let tokenTransferAmount: TransferAmount?
 
     enum CodingKeys: String, CodingKey {
         case transferDestination = "transferDestination"
@@ -41,6 +43,8 @@ struct Details: Codable {
         case amountSubtracted = "amountSubtracted"
         case rejectReason = "rejectReason"
         case amountAdded = "amountAdded"
+        case tokenID = "tokenId"
+        case tokenTransferAmount = "tokenTransferAmount"
     }
 }
 
@@ -78,7 +82,9 @@ extension Details {
         aggregatedIndex: Int?? = nil,
         amountSubtracted: String?? = nil,
         rejectReason: String?? = nil,
-        amountAdded: String?? = nil
+        amountAdded: String?? = nil,
+        tokenID: String?? = nil,
+        tokenTransferAmount: TransferAmount? = nil
     ) -> Details {
         return Details(
             transferDestination: transferDestination ?? self.transferDestination,
@@ -96,7 +102,9 @@ extension Details {
             aggregatedIndex: aggregatedIndex ?? self.aggregatedIndex,
             amountSubtracted: amountSubtracted ?? self.amountSubtracted,
             rejectReason: rejectReason ?? self.rejectReason,
-            amountAdded: amountAdded ?? self.amountAdded
+            amountAdded: amountAdded ?? self.amountAdded,
+            tokenID: tokenID ?? self.tokenID,
+            tokenTransferAmount: tokenTransferAmount ?? self.tokenTransferAmount
         )
     }
 

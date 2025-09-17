@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24A348" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="AccountPLTTokenEntity" representedClassName="AccountPLTTokenEntity" syncable="YES">
+        <attribute name="accountAddress" optional="YES" attributeType="String"/>
+        <relationship name="token" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="PLTTokenEntity"/>
+        <relationship name="tokenAccountState" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="TokenAccountStateEntity"/>
+    </entity>
+    <entity name="GovernanceAccountEntity" representedClassName="GovernanceAccountEntity" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="MetadataEntity" representedClassName="MetadataEntity" syncable="YES">
+        <attribute name="url" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="ModuleStateEntity" representedClassName="ModuleStateEntity" syncable="YES">
+        <attribute name="allowList" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="burnable" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="denyList" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="mintable" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="paused" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <relationship name="governanceAccount" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="GovernanceAccountEntity"/>
+        <relationship name="metadata" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MetadataEntity"/>
+    </entity>
+    <entity name="PLTTokenEntity" representedClassName="PLTTokenEntity" syncable="YES">
+        <attribute name="accountAddress" attributeType="String"/>
+        <attribute name="tokenId" attributeType="String"/>
+        <relationship name="tokenState" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="TokenStateEntity"/>
+    </entity>
+    <entity name="StateEntity" representedClassName="StateEntity" syncable="YES">
+        <attribute name="allowList" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="denyList" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="TokenAccountStateEntity" representedClassName="TokenAccountStateEntity" syncable="YES">
+        <relationship name="balance" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="TokenBalanceEntity"/>
+        <relationship name="state" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="StateEntity"/>
+    </entity>
+    <entity name="TokenBalanceEntity" representedClassName="TokenBalanceEntity" syncable="YES">
+        <attribute name="decimals" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="value" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="TokenStateEntity" representedClassName="TokenStateEntity" syncable="YES">
+        <attribute name="decimals" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="tokenModuleRef" attributeType="String"/>
+        <relationship name="moduleState" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ModuleStateEntity"/>
+        <relationship name="totalSupply" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="TotalSupplyEntity"/>
+    </entity>
+    <entity name="TotalSupplyEntity" representedClassName="TotalSupplyEntity" syncable="YES">
+        <attribute name="decimals" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="value" optional="YES" attributeType="String"/>
+    </entity>
+</model>

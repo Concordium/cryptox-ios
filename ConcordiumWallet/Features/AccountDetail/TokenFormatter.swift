@@ -125,7 +125,7 @@ public class TokenFormatter {
         // the log10() function for the BigInt type, which we do not have. That is why the String-based
         // operations have been chosen.
 
-        if number.value == 0 { return "0" }
+        if number.value == 0 { return "0\(decimalSeparator)00" }
 
         var numberString = String(abs(number.value))
         let leadingZeroesForSmallNumbers = String(repeating: "0",
@@ -235,7 +235,11 @@ public class TokenFormatter {
         let components = stringValue.split(separator: ".", maxSplits: 1)
         guard components.count == 2 else {
             // No fractional part, return as is
-            return stringValue
+            if stringValue == "0" {
+                return "0.00"
+            } else {
+                return stringValue
+            }
         }
         
         let wholePart = components[0]
@@ -291,6 +295,40 @@ public class TokenFormatter {
             return String(string[lowerIndex..<upperIndex])
         }
         return groups
+    }
+    
+    static func formatPLTTokenAmount(amount: String) -> String {
+        let formatter: NumberFormatter = {
+            let f = NumberFormatter()
+            f.numberStyle = .decimal
+            f.groupingSeparator = "."
+            f.decimalSeparator = "."
+            f.maximumFractionDigits = 1
+            f.minimumFractionDigits = 0
+            return f
+        }()
+        
+        let num = Double(amount) ?? 0
+        switch num {
+        case 1_000_000...:
+            return "\(formatter.string(from: NSNumber(value: num / 1_000_000)) ?? "0") M"
+        case 1_000...:
+            return "\(formatter.string(from: NSNumber(value: num / 1_000)) ?? "0") K"
+        default:
+            return formatter.string(from: NSNumber(value: num)) ?? "0"
+        }
+    }
+    
+    static func formatPLTTokenWithDecimals(_ amount: Int, decimals: Int) -> String {
+        let divisor = pow(10, Double(decimals))
+        let decimalValue = Decimal(amount) / Decimal(divisor)
+
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = decimals
+        formatter.maximumFractionDigits = decimals
+
+        let formatted = formatter.string(from: decimalValue as NSDecimalNumber) ?? ""
+        return formatted
     }
 }
 

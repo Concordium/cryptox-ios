@@ -1,5 +1,5 @@
 {
-  "originHash" : "bef521449b040be57ca599cc5f45aeaef240ac0d8e14761f74e614475d15383e",
+  "originHash" : "1a1316cb5ebafd326669c89e00dbbc832792ddf05f07f8c97765aeb48be88b3c",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -60,8 +60,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Concordium/concordium-swift-sdk.git",
       "state" : {
-        "revision" : "de9e51df34eea3c9692b155bbde7d5ca5eca4cc4",
-        "version" : "1.0.2"
+        "branch" : "plt",
+        "revision" : "747cf38e9ee8c90fcbc76b2e3554fc2b10effc92"
       }
     },
     {
@@ -438,8 +438,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/unrelentingtech/SwiftCBOR",
       "state" : {
-        "revision" : "edc01765cf6b3685bb622bb09242ef5964fb991b",
-        "version" : "0.4.6"
+        "branch" : "master",
+        "revision" : "ea5ece79b0efde241495bfaa74eccceeffc382bc"
       }
     },
     {

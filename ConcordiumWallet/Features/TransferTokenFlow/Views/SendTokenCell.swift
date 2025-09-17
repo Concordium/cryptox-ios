@@ -12,6 +12,7 @@ struct SendTokenCell: View {
     enum TokenType {
         case ccd(displayAmount: String)
         case cis2(token: CIS2Token, availableAmount: String)
+        case plt(pltToken: AccountPLTToken, availableAmount: String)
     }
 
     let tokenType: TokenType
@@ -57,6 +58,22 @@ struct SendTokenCell: View {
                 Text(availableAmount)
                     .font(.satoshi(size: 15, weight: .medium))
                     .tint(.white)
+            case .plt(let token, let availableAmount):
+                Image("placeholder-crypto-token")
+                    .resizable()
+                    .frame(width: 40, height: 40)
+                    .clipShape(Circle())
+                VStack(alignment: .leading, spacing: 0) {
+                    Text("PLT")
+                        .font(.satoshi(size: 15, weight: .medium))
+                    Text(token.token.tokenState.moduleState.name)
+                        .font(.satoshi(size: 12, weight: .medium))
+                        .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
+                }
+                Spacer()
+                    Text(availableAmount)
+                        .font(.satoshi(size: 15, weight: .medium))
+                        .tint(.white)
             }
             if !hideCaretRight {
                 Image("caretRight")

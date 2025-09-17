@@ -7,34 +7,19 @@
 //
 
 import SwiftUI
-//import DotLottie
 import Combine
 
-enum LoadingAnimationState: String {
-    case loader = "loader"
-    case success = "success"
-    case failure = "failure"
-}
-
 struct TransferSendingStatusView: View {
-    @State private var animationState: LoadingAnimationState = .loader
-//    @State private var animationConfig = AnimationConfig(autoplay: true, loop: true, segments: (0, 120))
     @ObservedObject var viewModel: TransferTokenConfirmViewModel
     @EnvironmentObject var navigationManager: NavigationManager
     @State private var hasStartedTransaction = false
     @State private var isTransactionDetailsVisible: Bool = true
     @State private var cancellables = Set<AnyCancellable>()
-    
-//    var animation: DotLottieAnimation {
-//        DotLottieAnimation(fileName: "loadingAnimation", config: animationConfig)
-//    }
-    
+
     var body: some View {
         VStack {
             VStack(alignment: .center, spacing: 30) {
-                animationView()
-                    .id(animationState)
-                    .fixedSize()
+                LottieLoadingAnimation(isTransactionExecuting: $viewModel.isLoading, error: $viewModel.error)
                 
                 Divider()
                     .background(.white.opacity(0.1))
@@ -83,16 +68,12 @@ struct TransferSendingStatusView: View {
         }
         .modifier(AppBackgroundModifier())
         .onAppear {
-            playAnimationBasedOnState()
             if !hasStartedTransaction {
                 hasStartedTransaction = true
                 Task {
                     await viewModel.callTransaction()
                 }
             }
-        }
-        .onChange(of: viewModel.isLoading) { _ in
-            playAnimationBasedOnState()
         }
     }
     
@@ -104,8 +85,8 @@ struct TransferSendingStatusView: View {
                     .transition(.opacity)
                 
                 Button {
-                    if let transaction = viewModel.getTransactionViewModel() {
-                        navigationManager.navigate(to: .transactionDetails(transaction: TransactionDetailViewModel(transaction: transaction)))
+                    if let ccdScanURL = viewModel.getCCDScanURL() {
+                        UIApplication.shared.open(ccdScanURL)
                     }
                 } label: {
                     HStack(spacing: 8) {
@@ -124,36 +105,12 @@ struct TransferSendingStatusView: View {
         }
     }
     
-    @ViewBuilder
-    private func animationView() -> some View {
-//        animation.view()
-        Color.clear
-            .frame(width: 60, height: 60)
-    }
-    
-    private func playAnimationBasedOnState() {
-        if viewModel.isLoading {
-            animationState = .loader
-//            animationConfig = AnimationConfig(autoplay: true, loop: true, segments: (0, 120))
-//            _ = animation.play()
-        } else if viewModel.error != nil {
-            animationState = .failure
-//            animationConfig = AnimationConfig(autoplay: true, loop: false, segments: (300, 360))
-//            _ = animation.play()
-        } else {
-            animationState = .success
-//            animationConfig = AnimationConfig(autoplay: true, loop: false, segments: (121, 239))
-//            _ = animation.play()
-        }
-    }
-    
     private func setupBinding() {
         Publishers.CombineLatest(
             viewModel.$transferDataType,
             viewModel.$error
         )
-        .map { [weak viewModel] transferDataType, error in
-            guard let viewModel = viewModel else { return true }
+        .map { transferDataType, error in
             return transferDataType != nil && error == nil
         }
         .receive(on: RunLoop.main)

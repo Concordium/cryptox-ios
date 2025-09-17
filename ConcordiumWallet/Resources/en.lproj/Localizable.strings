@@ -191,7 +191,8 @@ process on-chain.";
 
 "accountDetails.retryAccountCreation.title" = "Retry account creation";
 "accountDetails.removeAccount.title" = "Remove account from wallet";
-"accountDetails.send" = "Send";
+"accountDetails.sent" = "Sent";
+"accountDetails.received" = "Received";
 "accountDetails.shield" = "Shield";
 "accountDetails.unshield" = "Unshield";
 "accountDetails.address" = "Address";
@@ -204,6 +205,7 @@ process on-chain.";
 "accountDetails.passivevalue" = "Passive delegation";
 "accountDetails.bakerpoolvalue" = "Delegation with staking pool %d";
 "accountDetails.events" = "Events";
+"accountDetails.tokenName" = "Token name";
 
 "sendFund.pageTitle.send" = "Send Funds";
 "sendFund.pageTitle.unshieldAmount" = "Unshield Amount";
@@ -1107,6 +1109,7 @@ Remember to restart your node with the validator keys.";
 
 "notifications.ccdtransactions" = "CCD transactions";
 "notifications.cis2tokentransactions" = "CIS-2 token transactions";
+"notifications.plttokentransactions" = "PLT token transactions";
 "notifications.seeTransactionDetails" = "See transaction details";
 
 "accountsettings.navigationtitle" = "Account settings";
@@ -1274,7 +1277,7 @@ Remember to restart your node with the validator keys.";
 "more.remove.account.confirmation.title" = "Are you sure want to remove all account and related data?";
 "copy.to.clipoard" = "Copy to clipboard";
 "show.seed.phrase" = "Show seed phrase ";
-"add.token" = "Add token";
+"search.tokens" = "Search tokens";
 
 "passcode.view.create.passcode.title" = "Create Passcode";
 "passcode.view.repeate.passcode.title" = "Repeat Passcode";
@@ -1490,3 +1493,12 @@ Remember to restart your node with the validator keys.";
 "walletconnect.error.unsupportedMethod" = "This method is not supported.";
 "walletconnect.error.title.generic" = "Request Error";
 "walletconnect.error.title.model" = "Unable to fulfill the request.";
+
+"plt.title" = "Protocol-Level Tokens";
+"plt.description" = "Protocol-Level Tokens (PLTs) are tokens issued and managed directly on the Concordium blockchain without a need for smart contracts. PLTs provide enhanced security by reducing attack vectors, improved efficiency in execution, and direct governance controls for token issuers.\n\nPLTs are implemented on protocol level. All account (balances, transfers etc.) and management operations are handled natively by the chain itself through transactions from regular Concordium accounts.";
+
+"allow.deny.list.title" = "Allow & Deny Lists";
+"allow.deny.list.description" = "Protocol-level tokens can optionally support allow and deny lists to control the ability of Concordium accounts to hold/transfer that PLT. Allow and deny lists are managed by the PLT issuer.";
+
+"paused.token.title" = "Paused Tokens";
+"paused.token.description" = "A paused token refers to a protocol-level token (PLT) whose balance-affecting operations, such as transfers, minting, and burning, are temporarily disabled by the token’s governance account. When a token is paused, any attempt to perform these actions will fail until the token is unpaused.";

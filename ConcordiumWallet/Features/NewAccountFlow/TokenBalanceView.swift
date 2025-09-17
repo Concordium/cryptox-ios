@@ -21,6 +21,8 @@ struct TokenBalanceView: View {
     @State private var isPresentingAlert = false
     @State private var showRawMdPopup = false
     @State private var hideTokenPressed: Bool = false
+    @State private var tagPopup: TagPopup?
+
     var actionItems: [ActionItem]  {
         return accountActionItems()
     }
@@ -28,7 +30,12 @@ struct TokenBalanceView: View {
         hideTokenPressed ? .selectedRed : .attentionRed
     }
     
-   @State private var selectedActionIndex: Int?
+    private var isActionsDisabled: Bool {
+        (token.pltToken?.tokenAccountState.state.denyList ?? false)
+     || (token.pltToken?.token.tokenState.moduleState.paused ?? false)
+    }
+    
+    @State private var selectedActionIndex: Int?
     
     var body: some View {
         ZStack {
@@ -41,7 +48,13 @@ struct TokenBalanceView: View {
                         earnStatusView()
                             .padding(.horizontal, 18)
                     }
-                    TokenDetailsView(token: token, showRawMd: $showRawMdPopup)
+                    TokenDetailsView(
+                        token: token,
+                        showRawMd: $showRawMdPopup,
+                        onTagInfoTapped: { title, desc in
+                            tagPopup = TagPopup(title: title, desc: desc)
+                        }
+                    )
                     if token.name != "ccd" {
                         HStack(spacing: 8) {
                             Image("eyeSlash")
@@ -68,17 +81,35 @@ struct TokenBalanceView: View {
                     .ignoresSafeArea()
                     .transition(.opacity)
                     .animation(.easeInOut(duration: 0.3), value: isPresentingAlert)
-                if let cis2Token = token.cis2Token {
+                if token.name != "ccd" {
                     HideTokenPopup(
-                        tokenName: cis2Token.metadata.name ?? "",
+                        tokenName: token.name,
                         isPresentingAlert: $isPresentingAlert
                     ) {
-                        viewModel.removeToken(cis2Token)
+                        viewModel.removeToken(token)
                         dismiss()
                     }
                     .transition(.scale(scale: 0.9, anchor: .top).combined(with: .opacity))
                     .animation(.easeInOut(duration: 0.3), value: isPresentingAlert)
                 }
+            }
+            
+            if let popup = tagPopup {
+                Color.black.opacity(0.4)
+                    .ignoresSafeArea()
+                    .transition(.opacity)
+                    .animation(.easeInOut(duration: 0.3), value: tagPopup != nil)
+
+                TagsDescPopup(
+                    isVisible: Binding(
+                        get: { tagPopup != nil },
+                        set: { if !$0 { tagPopup = nil } }
+                    ),
+                    title: popup.title,
+                    desc: popup.desc
+                )
+                .transition(.scale(scale: 0.9).combined(with: .opacity))
+                .zIndex(2)
             }
             
             if showRawMdPopup {
@@ -163,6 +194,14 @@ struct TokenBalanceView: View {
                 .lineLimit(1)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .modifier(RadialGradientForegroundStyleModifier())
+            case .plt(let token, let amount, _):
+                Text("\(amount) \(token.token.tokenID)")
+                .font(.plexSans(size: 55, weight: .bold))
+                .dynamicTypeSize(.xSmall ... .xxLarge)
+                .minimumScaleFactor(0.3)
+                .lineLimit(1)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .modifier(RadialGradientForegroundStyleModifier())
             }
         }
     }
@@ -173,14 +212,15 @@ struct TokenBalanceView: View {
                 if index < actionItems.count {
                     VStack {
                         Image(actionItems[index].iconName)
+                            .renderingMode(.template)
                             .frame(width: 24, height: 24)
                             .padding(11)
-                            .background(selectedActionIndex == index ? .grey4 : Color.grey3)
-                            .foregroundColor(Color.MineralBlue.blueish3)
+                            .background(isActionsDisabled ? .surfacePrimaryDisabled : selectedActionIndex == index ? .grey4 : Color.grey3)
+                            .foregroundColor(isActionsDisabled ? .contentPrimaryDisabled : Color.MineralBlue.blueish3)
                             .cornerRadius(50)
                         Text(actionItems[index].label)
                             .font(.satoshi(size: 12, weight: .medium))
-                            .foregroundColor(Color.MineralBlue.blueish2)
+                            .foregroundColor(isActionsDisabled ? .contentPrimaryDisabled : Color.MineralBlue.blueish2)
                             .padding(.top, 2)
                     }
                     .frame(maxWidth: .infinity)
@@ -191,6 +231,7 @@ struct TokenBalanceView: View {
                             selectedActionIndex = nil
                         }
                     }
+                    .disabled(isActionsDisabled)
                 } else {
                     Spacer()
                         .frame(maxWidth: .infinity)
@@ -211,7 +252,8 @@ struct TokenBalanceView: View {
                         showRawMdPopup = false
                     }
             }
-            Text(token.cis2Token?.metadata.toString() ?? "")
+            let mdDescription = token.pltToken != nil ? token.pltToken!.token.tokenState.moduleState.metadata.toString() : token.cis2Token?.metadata.toString()
+            Text(mdDescription ?? "")
                 .font(.satoshi(size: 12, weight: .medium))
                 .foregroundStyle(.grey1)
         }
@@ -231,6 +273,8 @@ struct TokenBalanceView: View {
                     path.append(.send(account, tokenType: .ccd))
                 } else if let token = token.cis2Token {
                     path.append(.send(account, tokenType: .cis2(token)))
+                } else if let token = token.pltToken {
+                    path.append(.send(account, tokenType: .plt(token)))
                 }
             }),
             ActionItem(iconName: "receive", label: "Receive", action: {

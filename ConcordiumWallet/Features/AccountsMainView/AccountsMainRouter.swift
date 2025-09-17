@@ -73,13 +73,13 @@ final class AccountsMainRouter: ObservableObject {
     }
     
     func showTransactionDetailFromNotifications(for account: AccountDataType, tx: TransactionDetailViewModel) {
-        accountsViewModel.selectedAccount = AccountPreviewViewModel(account: account, tokens: dependencyProvider.storageManager().getAccountSavedCIS2Tokens(account.address))
+        accountsViewModel.selectedAccount = AccountPreviewViewModel(account: account)
         navigationManager.navigate(to: .transactionDetails(transaction: tx))
     }
     
     @MainActor
-    func showCIS2TokenDetailsFromNotification(for account: AccountDataType, token: AccountDetailAccount) {
-        accountsViewModel.selectedAccount = AccountPreviewViewModel(account: account, tokens: dependencyProvider.storageManager().getAccountSavedCIS2Tokens(account.address))
+    func showTokenDetailsFromNotification(for account: AccountDataType, token: AccountDetailAccount) {
+        accountsViewModel.selectedAccount = AccountPreviewViewModel(account: account)
         navigationManager.navigate(to: .tokenDetails(token: token, AccountDetailViewModel(account: account)))
     }
 
@@ -263,7 +263,7 @@ extension AccountsMainRouter: WalletConnectServiceProtocol {
                     transactionsService: self.dependencyProvider.transactionsService(),
                     storageManager: self.dependencyProvider.storageManager(), 
                     mobileWallet: self.dependencyProvider.mobileWallet(),
-                    concordiumClient: try! ConcordiumClient(networkManager: self.dependencyProvider.networkManager(), storageManager: self.dependencyProvider.storageManager()),
+                    concordiumClient: self.dependencyProvider.concordiumClient(),
                     identitiesService: self.dependencyProvider.seedIdentitiesService()
                 )
             )

@@ -41,8 +41,8 @@ struct ApiConstants {
     static let accEncryptionKey =       proxyUrl.appendingPathComponent("v0/accEncryptionKey")
     static let submitTransfer =         proxyUrl.appendingPathComponent("v0/submitTransfer")
     static let transferCost =           proxyUrl.appendingPathComponent("v0/transactionCost")
-    static let accountBalance =         proxyUrl.appendingPathComponent("v1/accBalance")
-    static let accountTransactions =    proxyUrl.appendingPathComponent("v2/accTransactions")
+    static let accountBalance =         proxyUrl.appendingPathComponent("v2/accBalance")
+    static let accountTransactions =    proxyUrl.appendingPathComponent("v3/accTransactions")
     static let gtuDrop =                proxyUrl.appendingPathComponent("v0/testnetGTUDrop")
     static let airDrop =                proxyUrl.appendingPathComponent("v0/testnetGTUDrop")
     
@@ -54,6 +54,11 @@ struct ApiConstants {
         static let tokens = proxyUrl.appendingPathComponent("/v0/CIS2Tokens")
         static let cis2TokensMetadataV1 = proxyUrl.appendingPathComponent("v1/CIS2TokenMetadata")
         static let cis2TokenBalanceV1 = proxyUrl.appendingPathComponent("v1/CIS2TokenBalance")
+    }
+    
+    struct PLTToken {
+        static let tokens = proxyUrl.appendingPathComponent("/v0/plt/tokens")
+        static let tokenInfo = proxyUrl.appendingPathComponent("/v0/plt/tokenInfo")
     }
 
     

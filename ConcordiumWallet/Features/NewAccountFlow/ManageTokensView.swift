@@ -13,7 +13,7 @@ struct ManageTokensView: View {
     @SwiftUI.Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel: AccountDetailViewModel
     @State private var isPresentingAlert = false
-    @State private var selectedToken: CIS2Token?
+    @State private var selectedToken: AccountDetailAccount?
     @State var showRemovedTokenTip: Bool = false
     @State var showTokenListUpdated: Bool = false
     @Binding var path: [NavigationPaths]
@@ -21,73 +21,108 @@ struct ManageTokensView: View {
     
     var body: some View {
         ZStack {
-            AccountTokenListView(
-                viewModel: viewModel,
-                showManageTokenList: .constant(false),
-                path: $path,
-                mode: .manage,
-                onHideToken: { token in
-                    withAnimation {
-                        isPresentingAlert = true
-                        selectedToken = token
+            if viewModel.accounts.filter({ $0.name != "ccd" }).isEmpty {
+                VStack(spacing: 16) {
+                    Text("There are no tokens on your list")
+                        .font(.satoshi(size: 16, weight: .medium))
+                        .foregroundStyle(.semanticContentSecondary)
+                    Button {
+                        if let account = viewModel.account as? AccountEntity {
+                            path.append(.addToken(account))
+                        }
+                    } label: {
+                        HStack(spacing: 4) {
+                            Image("buy")
+                                .resizable()
+                                .frame(width: 16, height: 16)
+                                .foregroundStyle(.semanticContentSecondary)
+                            Text("Add Tokens")
+                                .font(.satoshi(size: 14, weight: .medium))
+                                .foregroundStyle(.semanticContentSecondary)
+                        }
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .cornerRadius(9999)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 9999)
+                                .inset(by: 0.5)
+                                .stroke(.semanticBorderTertiary, lineWidth: 1)
+                        )
                     }
                 }
-            )
-            .padding(.horizontal, 16)
-            .padding(.top, 20)
-            
-            if isPresentingAlert {
-                Color.black.opacity(0.8)
-                    .ignoresSafeArea()
-                    .transition(.opacity)
+            } else {
+                AccountTokenListView(
+                    viewModel: viewModel,
+                    showManageTokenList: .constant(false),
+                    path: $path,
+                    mode: .manage,
+                    onHideToken: { token in
+                        withAnimation {
+                            isPresentingAlert = true
+                            selectedToken = token
+                        }
+                    }
+                )
+                .padding(.horizontal, 16)
+                .padding(.top, 20)
+                
+                if isPresentingAlert {
+                    Color.black.opacity(0.8)
+                        .ignoresSafeArea()
+                        .transition(.opacity)
+                        .animation(.easeInOut(duration: 0.3), value: isPresentingAlert)
+                    
+                    HideTokenPopup(
+                        tokenName: selectedToken?.name ?? "",
+                        isPresentingAlert: $isPresentingAlert
+                    ) {
+                        if let selectedToken {
+                            viewModel.removeToken(selectedToken)
+                            Task {
+                                await viewModel.reload()
+                                await viewModel.reloadPLTs()
+                            }
+                            showRemovedTokenTip = true
+                        }
+                    }
+                    .transition(.scale(scale: 0.9).combined(with: .opacity))
+                    .zIndex(2)
                     .animation(.easeInOut(duration: 0.3), value: isPresentingAlert)
+                }
                 
-                HideTokenPopup(
-                    tokenName: selectedToken?.metadata.name ?? "",
-                    isPresentingAlert: $isPresentingAlert
-                ) {
-                    if let selectedToken {
-                        viewModel.removeToken(selectedToken)
-                        showRemovedTokenTip = true
+                VStack {
+                    Spacer()
+                    if showRemovedTokenTip {
+                        tokenListUpdatedTip()
+                            .frame(maxWidth: .infinity)
+                            .padding(.horizontal, 46)
+                            .padding(.bottom, 16)
+                            .onAppear {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                                    withAnimation {
+                                        showRemovedTokenTip = false
+                                    }
+                                }
+                            }
+                            .transition(.opacity.combined(with: .scale(scale: 0.9)))
+                            .animation(.easeInOut(duration: 0.3), value: showRemovedTokenTip)
                     }
-                }
-                .transition(.scale(scale: 0.9).combined(with: .opacity))
-                .zIndex(2)
-                .animation(.easeInOut(duration: 0.3), value: isPresentingAlert)
-            }
-            
-            VStack {
-                Spacer()
-                if showRemovedTokenTip {
-                    tokenListUpdatedTip(tokenRemoved: true, tokenName: selectedToken?.metadata.name ?? "")
-                        .frame(maxWidth: .infinity)
-                        .padding(.horizontal, 46)
-                        .padding(.bottom, 16)
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                                withAnimation {
-                                    showRemovedTokenTip = false
+                    
+                    if showTokenListUpdated {
+                        tokenListUpdatedTip()
+                            .frame(maxWidth: .infinity)
+                            .padding(.horizontal, 46)
+                            .padding(.bottom, 16)
+                            .onAppear {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                                    withAnimation {
+                                        showTokenListUpdated = false
+                                    }
                                 }
                             }
-                        }
-                        .transition(.opacity.combined(with: .scale(scale: 0.9)))
-                        .animation(.easeInOut(duration: 0.3), value: showRemovedTokenTip)
-                }
-                
-                if showTokenListUpdated {
-                    tokenListUpdatedTip(tokenRemoved: false, tokenName: "")
-                        .frame(maxWidth: .infinity)
-                        .padding(.horizontal, 46)
-                        .padding(.bottom, 16)
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                                withAnimation {
-                                    showTokenListUpdated = false
-                                }
-                            }
-                        }
-                        .transition(.opacity.combined(with: .scale(scale: 0.9)))
-                        .animation(.easeInOut(duration: 0.3), value: showTokenListUpdated)
+                            .transition(.opacity.combined(with: .scale(scale: 0.9)))
+                            .animation(.easeInOut(duration: 0.3), value: showTokenListUpdated)
+                    }
                 }
             }
         }
@@ -108,24 +143,17 @@ struct ManageTokensView: View {
         .modifier(AppBackgroundModifier())
     }
     
-    func tokenListUpdatedTip(tokenRemoved: Bool, tokenName: String) -> some View {
+    func tokenListUpdatedTip() -> some View {
         VStack(alignment: .center) {
             HStack(spacing: 16) {
-                Image(tokenRemoved ? "eyeSlash" : "ico_successfully")
+                Image("ico_successfully")
                     .resizable()
                     .renderingMode(.template)
                     .foregroundStyle(.stone)
                     .frame(width: 24, height: 24)
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Token list updated")
-                        .font(.satoshi(size: 15, weight: .medium))
-                        .foregroundStyle(.grey2)
-                    if tokenRemoved {
-                        Text("\(tokenName) hidden from your wallet")
-                            .font(.satoshi(size: 12, weight: .medium))
-                            .foregroundStyle(.grey2)
-                    }
-                }
+                Text("Token list updated")
+                    .font(.satoshi(size: 15, weight: .medium))
+                    .foregroundStyle(.grey2)
             }
         }
         .padding(.horizontal, 15)

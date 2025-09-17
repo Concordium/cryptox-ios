@@ -9,10 +9,13 @@ extension ServicesProvider {
     static func defaultProvider() -> ServicesProvider {
         let keychain: KeychainWrapper = KeychainWrapper()
         let storageManager: StorageManager = StorageManager(keychain: keychain)
+        let networkManager = NetworkManager()
         return ServicesProvider(mobileWallet: MobileWallet(storageManager: storageManager, keychain: keychain),
-                                networkManager: NetworkManager(),
+                                networkManager: networkManager,
                                 seedMobileWallet: SeedMobileWallet(keychain: keychain),
                                 storageManager: storageManager,
-                                keychainWrapper: keychain)
+                                keychainWrapper: keychain,
+                                concordiumClient: try! ConcordiumClient(networkManager: networkManager, storageManager: storageManager)
+            )
     }
 }

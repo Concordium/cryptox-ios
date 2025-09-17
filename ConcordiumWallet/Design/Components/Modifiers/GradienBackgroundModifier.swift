@@ -117,19 +117,17 @@ struct FloatingGradientBGStyleModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
+            .background(.white.opacity(0.7))
             .background(
-                RoundedRectangle(cornerRadius: 40)
-                    .fill(
-                        RadialGradient(
-                            gradient: Gradient(colors:
-                                                [Color(red: 0.62, green: 0.95, blue: 0.92),
-                                                 Color(red: 0.93, green: 0.85, blue: 0.75),
-                                                 Color(red: 0.64, green: 0.6, blue: 0.89)]),
-                            center: .center,
-                            startRadius: 0,
-                            endRadius: 550
-                        )
-                    )
+                EllipticalGradient(
+                    stops: [
+                        Gradient.Stop(color: Color(red: 0.62, green: 0.95, blue: 0.92), location: 0.00),
+                        Gradient.Stop(color: Color(red: 0.93, green: 0.85, blue: 0.75), location: 0.70),
+                        Gradient.Stop(color: Color(red: 0.64, green: 0.6, blue: 0.89), location: 1.00),
+                    ],
+                    center: UnitPoint(x: 0, y: 0)
+                )
+                .saturation(0.5)
             )
     }
 }

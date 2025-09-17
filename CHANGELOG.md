@@ -1,9 +1,13 @@
 # Changelog
 
 ## [Unreleased]
-- Fix logic opening app by url schema; add additional check before opening app via file export flow.
+- Update Send Assets Flow with new SDK
+- Ability to Send/Receive PLTs in CryptoX
+- Update Swift SDK for PLTs in CryptoX
+- Ability to receive notifications for PLT transfers
 
 ## [Relesed 3.3.7 Aug 28, 2025]
+- Fix logic opening app by url schema; add additional check before opening app via file export flow.
 - Fix Wert issue
 - Bring back NFT setting
 - Rollback Google analytics

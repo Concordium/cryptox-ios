@@ -23,7 +23,7 @@ struct CIS2Token: Codable {
     public let metadata: CIS2TokenMetadata
     public let contractAddress: SmartContractAddress
     public let contractName: String
-    
+
     public init(tokenId: String, metadata: CIS2TokenMetadata, contractAddress: SmartContractAddress, contractName: String) {
         self.tokenId = tokenId
         self.metadata = metadata

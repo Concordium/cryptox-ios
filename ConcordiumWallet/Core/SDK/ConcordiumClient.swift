@@ -4,6 +4,9 @@ import BigInt
 import MnemonicSwift
 
 protocol ConcordiumClientProtocol {
+    // TODO: - hide this behind function
+    var nodeClient: GRPCNodeClient { get }
+    
     func transferCIS2(
         sender: AccountAddress,
         receiver: AccountAddress,
@@ -28,16 +31,26 @@ protocol ConcordiumClientProtocol {
         keys: AccountKeys,
         pwHash: String
     ) async throws -> SubmittedTransaction
+    
+    func transferPLT(
+        token: AccountPLTToken,
+        sender: AccountAddress,
+        amount: BigDecimal,
+        receiver: AccountAddress,
+        keys: AccountKeys,
+        memo: Concordium.Memo?
+    ) async throws -> SubmittedTransaction
 }
 
 final class ConcordiumClient: ObservableObject {
     static var grpcURL: URL {
 #if TESTNET
+//        URL(string: "https://grpc.devnet-plt-beta.concordium.com:20000")!
         URL(string: "https://grpc.testnet.concordium.com:20000")!
 #elseif MAINNET
-        URL(string: "https://grpc.testnet.concordium.com:20000")!
+        URL(string: "https://grpc.mainnet.concordium.com:20000")!
 #else // Staging
-        URL(string: "https://grpc.testnet.concordium.com:20000")!
+        URL(string: "https://grpc.stagenet.concordium.com:20000")!
 #endif
     }
     
@@ -53,7 +66,7 @@ final class ConcordiumClient: ObservableObject {
     
     static let walletProxyBaseURL = ApiConstants.proxyUrl
     
-    let nodeClient: GRPCNodeClient
+    var nodeClient: GRPCNodeClient
     var networkManager: NetworkManagerProtocol
     private let storageManager: StorageManagerProtocol
     private let walletProxy: WalletProxy
@@ -67,6 +80,35 @@ final class ConcordiumClient: ObservableObject {
     
     func getAccountInfo(address: String) async throws -> AccountInfo {
         try await nodeClient.info(account: AccountIdentifier.address(.init(base58Check: address)))
+    }
+}
+
+///
+/// PLT
+///
+extension ConcordiumClient {
+    func transferPLT(
+        token: AccountPLTToken,
+        sender: AccountAddress,
+        amount: BigDecimal,
+        receiver: AccountAddress,
+        keys: AccountKeys,
+        memo: Concordium.Memo?
+    ) async throws -> SubmittedTransaction {
+        let accountInfo = try await nodeClient.info(account: AccountIdentifier.address(sender))
+        let transaction: AccountTransaction = AccountTransaction.transfer(
+            plt: token.token.tokenID,
+            sender: sender,
+            receiver: receiver,
+            amount: Concordium.Amount(amount.value.magnitude, decimalCount: UInt16(amount.precision)),
+            memo: memo)
+        
+        let expiry: TransactionTime = Self.calculateTransactionExpiry(from: UInt64(Date().timeIntervalSince1970))
+        let sequenceNumber: SequenceNumber = accountInfo.sequenceNumber
+        
+        let preparedAccountTransaction: PreparedAccountTransaction = transaction.prepare(sequenceNumber: sequenceNumber, expiry: expiry, signatureCount: Int(accountInfo.threshold))
+        
+        return try await send(preparedAccountTransaction, keys: keys)
     }
 }
 
@@ -105,28 +147,6 @@ extension ConcordiumClient {
                 identityObject: identityObject,
                 challenge: Data()
             ).value.proofs)
-    }
-}
-
-///
-/// Account logic
-///
-extension ConcordiumClient {
-    func createAccount(keys: AccountKeys, seedPhrase: String) async throws { //Concordium.Account
-        let identityProviderID = IdentityProviderID(3)
-
-        
-        let seed = try await Helper.decodeSeed(seedPhrase, ConcordiumClient.network)
-        let identityProvider = try await Helper.findIdentityProvider(walletProxy, identityProviderID)!
-
-        let identityIndex = IdentityIndex(7)
-
-        let signer: any Signer = AccountKeysCurve25519(try keys.toAccountKeyDictionary())
-        
-        let cryptoParams = try await nodeClient.cryptographicParameters(block: .lastFinal)
-        let identityReq = try Helper.makeIdentityRecoveryRequest(seed, cryptoParams, identityProvider, identityIndex)
-        let identityRes = try await identityReq.send(session: URLSession.shared)
-
     }
 }
 
@@ -279,32 +299,7 @@ extension ConcordiumClient {
     }
 }
 
-import Foundation
-import Concordium
 
-extension AccountKeys {
-
-    func toAccountKeyDictionary() throws -> [Concordium.CredentialIndex: [Concordium.KeyIndex: AccountKeyCurve25519]] {
-        var result: [Concordium.CredentialIndex: [Concordium.KeyIndex: AccountKeyCurve25519]] = [:]
-
-        for (credIdxString, credKeys) in self.keys {
-            let credIdx = UInt8(credIdxString)
-            let keysDict = try credKeys.keys.reduce(into: [Concordium.KeyIndex: AccountKeyCurve25519]()) { result, pair in
-                let keyIdx = UInt8(pair.key)
-
-                // Serialize to JSON and decode into AccountKeysJSON.Key
-                let jsonData = try JSONSerialization.data(withJSONObject: pair.value, options: [])
-                let key = try JSONDecoder().decode(AccountKeysJSON.Key.self, from: jsonData)
-                result[Concordium.KeyIndex(keyIdx)] = try key.toSDKType()
-            }
-
-            result[Concordium.CredentialIndex(credIdx)] = keysDict
-        }
-
-        return result
-    }
-
-}
 
 import Concordium
 
