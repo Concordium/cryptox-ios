@@ -86,7 +86,7 @@ final class TransferTokenViewModel: ObservableObject, Hashable, Equatable {
     @Published var thumbnail: URL? = nil
     @Published var canSend: Bool = false
     @Published var ticker: String = ""
-    
+    @Published var isPLTPaused: Bool = false
     @Published var error: GeneralAppError?
     @Published var isInsuficientFundsErrorHidden: Bool = true
     
@@ -163,7 +163,17 @@ final class TransferTokenViewModel: ObservableObject, Hashable, Equatable {
             .assign(to: \.canSend, on: self)
             .store(in: &cancellables)
         
-        
+        tokenTransferModel.$tokenType
+            .map {
+                var isPLTPaused = false
+                if case let .plt(token) = $0 {
+                    isPLTPaused = token.token.tokenState.moduleState.paused
+                }
+                return isPLTPaused
+            }
+            .assign(to: \.isPLTPaused, on: self)
+            .store(in: &cancellables)
+
         tokenTransferModel.$tokenGeneralBalance
             .map { TokenFormatter().string(from: $0, decimalSeparator: ".", thousandSeparator: ",") }
             .assign(to: \.availableDisplayAmount, on: self)

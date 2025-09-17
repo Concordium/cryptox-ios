@@ -64,6 +64,12 @@ struct SendTokenView: View {
                             .font(.satoshi(size: 15, weight: .medium))
                     }
                     
+                    if viewModel.isPLTPaused {
+                        Text("Token is paused and cannot be sent".localized)
+                            .foregroundColor(Color(hex: 0xFF163D))
+                            .font(.satoshi(size: 15, weight: .medium))
+                    }
+                    
                     switch viewModel.tokenTransferModel.tokenType {
                     case .ccd:
                         SendTokenCell(tokenType: .ccd(displayAmount: viewModel.atDisposalCCDDisplayAmount))
@@ -162,12 +168,14 @@ struct SendTokenView: View {
     }
     
     private func setupBinding() {
-        Publishers.CombineLatest(
+        Publishers.CombineLatest3(
             viewModel.$canSend,
-            addMemoViewModel.$enableAddMemoToTransferButton
+            addMemoViewModel.$enableAddMemoToTransferButton,
+            viewModel.$isPLTPaused
         )
-        .map { [weak viewModel] canSend, enableMemoButton in
-            guard let viewModel = viewModel else { return true }
+        .map { [weak viewModel] canSend, enableMemoButton, isPLTPaused in
+            guard let viewModel = viewModel,
+            !isPLTPaused else { return true }
             return !canSend || (viewModel.addedMemo != nil && !enableMemoButton)
         }
         .receive(on: RunLoop.main)
