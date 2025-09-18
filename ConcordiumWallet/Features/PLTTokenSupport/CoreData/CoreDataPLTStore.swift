@@ -62,35 +62,14 @@ final class CoreDataPLTStore {
             token.tokenId = model.token.tokenID
             token.accountAddress = accountAddress
 
-            let tokenState = TokenStateEntity(context: context)
-            tokenState.decimals = Int16(model.token.tokenState.decimals)
-            tokenState.tokenModuleRef = model.token.tokenState.tokenModuleRef
-
-            let totalSupply = TotalSupplyEntity(context: context)
-            totalSupply.decimals = Int16(model.token.tokenState.totalSupply.decimals)
-            totalSupply.value = model.token.tokenState.totalSupply.value
-            tokenState.totalSupply = totalSupply
-
-            let metadata = MetadataEntity(context: context)
-            metadata.url = model.token.tokenState.moduleState.metadata.url
-
-            let governance = GovernanceAccountEntity(context: context)
-            governance.address = model.token.tokenState.moduleState.governanceAccount.address
-            governance.type = model.token.tokenState.moduleState.governanceAccount.type
-
-            let moduleState = ModuleStateEntity(context: context)
-            moduleState.allowList = model.token.tokenState.moduleState.allowList
-            moduleState.burnable = model.token.tokenState.moduleState.burnable
-            moduleState.denyList = model.token.tokenState.moduleState.denyList
-            moduleState.mintable = model.token.tokenState.moduleState.mintable
-            moduleState.name = model.token.tokenState.moduleState.name
-            moduleState.metadata = metadata
-            moduleState.governanceAccount = governance
-
-            tokenState.moduleState = moduleState
+            let tokenState = newPLTTokenState(from: model.token, pltTokenEntity: token, context: context)
             token.tokenState = tokenState
 
             pltToken.token = token
+        } else if let savedPLTToken = pltToken.token.asPLTToken(),
+                  isTokenChanged(savedPLTToken, model.token) {
+           let tokenState = newPLTTokenState(from: model.token, pltTokenEntity: pltToken.token, context: context)
+            pltToken.token.tokenState = tokenState
         }
 
         // Always update account state
@@ -117,6 +96,10 @@ final class CoreDataPLTStore {
 
         pltToken.tokenAccountState = accountState
         pltToken.accountAddress = accountAddress
+    }
+    
+    private func isTokenChanged(_ oldToken: PLTToken, _ newToken: PLTToken) -> Bool {
+        return oldToken != newToken
     }
     
     func fetchAccountPLTTokens(for accountAddress: String) throws -> [AccountPLTTokenEntity] {
@@ -177,6 +160,37 @@ final class CoreDataPLTStore {
             logger.errorLog("Failed to check token: \(error.localizedDescription)")
             return false
         }
+    }
+    
+    private func newPLTTokenState(from model: PLTToken, pltTokenEntity: PLTTokenEntity, context: NSManagedObjectContext) -> TokenStateEntity {
+        let tokenState = TokenStateEntity(context: context)
+        tokenState.decimals = Int16(model.tokenState.decimals)
+        tokenState.tokenModuleRef = model.tokenState.tokenModuleRef
+
+        let totalSupply = TotalSupplyEntity(context: context)
+        totalSupply.decimals = Int16(model.tokenState.totalSupply.decimals)
+        totalSupply.value = model.tokenState.totalSupply.value
+        tokenState.totalSupply = totalSupply
+
+        let metadata = MetadataEntity(context: context)
+        metadata.url = model.tokenState.moduleState.metadata.url
+
+        let governance = GovernanceAccountEntity(context: context)
+        governance.address = model.tokenState.moduleState.governanceAccount.address
+        governance.type = model.tokenState.moduleState.governanceAccount.type
+
+        let moduleState = ModuleStateEntity(context: context)
+        moduleState.allowList = model.tokenState.moduleState.allowList
+        moduleState.burnable = model.tokenState.moduleState.burnable
+        moduleState.denyList = model.tokenState.moduleState.denyList
+        moduleState.paused = model.tokenState.moduleState.paused
+        moduleState.mintable = model.tokenState.moduleState.mintable
+        moduleState.name = model.tokenState.moduleState.name
+        moduleState.metadata = metadata
+        moduleState.governanceAccount = governance
+
+        tokenState.moduleState = moduleState
+        return tokenState
     }
 }
 
