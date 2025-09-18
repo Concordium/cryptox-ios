@@ -423,18 +423,7 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                 return (balance, tokens)
             }
             .flatMap { (balance, remoteTokens) -> AnyPublisher<AccountBalance, Error> in
-                do {
-                    let savedEntities = try CoreDataPLTStore.shared.fetchAccountPLTTokens(for: account.address)
-                    let savedIds = Set(savedEntities.compactMap { $0.token.tokenId })
-                    
-                    let toPersist = remoteTokens.filter { savedIds.contains($0.token.tokenID) }
-                    
-                    return CoreDataPLTStore.shared.saveTokens(toPersist, for: account.address)
-                        .map { balance }
-                        .eraseToAnyPublisher()
-                } catch {
-                    return Fail(error: error).eraseToAnyPublisher()
-                }
+                self.saveAccountPLTs(accountAddress: account.address, remoteTokens: remoteTokens, balance: balance)
             }
             .flatMap({ (balance: AccountBalance) -> AnyPublisher<[(String, Int)], Error> in
                 savedBalance = balance
@@ -481,6 +470,11 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                                                            releaseSchedule: releaseSchedule,
                                                            cooldowns: cooldowns)
             })
+            .handleEvents(receiveCompletion: { completion in
+                if case .finished = completion {
+                    AppSettings.markRan(for: account.address)
+                }
+            })
             .eraseToAnyPublisher()
     }
     
@@ -499,5 +493,26 @@ extension AccountsService {
             .flatMap(self.addingBalanceEffectFromTransfers)
             .eraseToAnyPublisher()
             .async()
+    }
+    
+    private func saveAccountPLTs(accountAddress: String, remoteTokens: [AccountPLTToken], balance: AccountBalance) -> AnyPublisher<AccountBalance, Error> {
+        if AppSettings.hasRun(for: accountAddress) {
+            do {
+                let savedEntities = try CoreDataPLTStore.shared.fetchAccountPLTTokens(for: accountAddress)
+                let savedIds = Set(savedEntities.compactMap { $0.token.tokenId })
+                
+                let toPersist = remoteTokens.filter { savedIds.contains($0.token.tokenID) }
+                
+                return CoreDataPLTStore.shared.saveTokens(toPersist, for: accountAddress)
+                    .map { balance }
+                    .eraseToAnyPublisher()
+            } catch {
+                return Fail(error: error).eraseToAnyPublisher()
+            }
+        } else {
+            return CoreDataPLTStore.shared.saveTokens(remoteTokens, for: accountAddress)
+                .map { balance }
+                .eraseToAnyPublisher()
+        }
     }
 }

@@ -36,6 +36,7 @@ enum UserDefaultKeys: String {
     case isImportedFromFile
     
     case lastSelectedAccountAddress
+    case accountBalancesLoadedOnce
 }
 
 struct AppSettings {
@@ -188,5 +189,20 @@ extension AppSettings {
         set {
             UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.lastSelectedAccountAddress.rawValue)
         }
+    }
+}
+
+extension AppSettings {
+    private static let key = "balancesUpdatedAccounts"
+
+    static func hasRun(for address: String) -> Bool {
+        let arr = UserDefaults.standard.stringArray(forKey: key) ?? []
+        return Set(arr).contains(address)
+    }
+
+    static func markRan(for address: String) {
+        var set = Set(UserDefaults.standard.stringArray(forKey: key) ?? [])
+        set.insert(address)
+        UserDefaults.standard.set(Array(set), forKey: key)
     }
 }
