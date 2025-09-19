@@ -51,7 +51,7 @@ struct AccountTokenListView: View {
                     Image("settingsGear")
                         .renderingMode(.template)
                         .foregroundStyle(pressedButtonColor)
-                    Text("Manage token list")
+                    Text("manage.token.list".localized)
                         .font(.satoshi(size: 15, weight: .medium))
                         .foregroundStyle(pressedButtonColor)
                 }

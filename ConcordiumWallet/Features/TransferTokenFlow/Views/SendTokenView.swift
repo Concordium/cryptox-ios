@@ -65,7 +65,7 @@ struct SendTokenView: View {
                     }
                     
                     if viewModel.isPLTPaused {
-                        Text("Token is paused and cannot be sent".localized)
+                        Text("paused.token.error".localized)
                             .foregroundColor(Color(hex: 0xFF163D))
                             .font(.satoshi(size: 15, weight: .medium))
                     }

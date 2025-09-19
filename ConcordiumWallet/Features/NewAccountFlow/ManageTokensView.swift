@@ -133,7 +133,7 @@ struct ManageTokensView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .modifier(NavigationViewModifier(title: "Manage token list", backAction: {
+        .modifier(NavigationViewModifier(title: "manage.token.list".localized, backAction: {
             dismiss()
         }, trailingAction: {
             if let account = viewModel.account as? AccountEntity {

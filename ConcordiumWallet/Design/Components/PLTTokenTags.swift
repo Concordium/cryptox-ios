@@ -22,9 +22,9 @@ struct PLTTokenTags: View {
     var onInfoTapped: (_ title: String, _ desc: String) -> Void
 
     var body: some View {
-        HStack(spacing: 8) {
-            tagView(isPLTTag: true)
-            tagView(isPLTTag: false)
+        Flow(spacing: 8) {
+            tagView(isPLTTag: true).fixedSize(horizontal: true, vertical: true)
+            tagView(isPLTTag: false).fixedSize(horizontal: true, vertical: true)
         }
     }
     
@@ -40,6 +40,8 @@ struct PLTTokenTags: View {
             Text(isPLTTag ? pltTag : viewModel.pltState.rawValue)
                 .font(.satoshi(size: 11, weight: .medium))
                 .foregroundStyle(colors.foreground)
+                .lineLimit(1)
+                .fixedSize(horizontal: true, vertical: true)
             Image("circled-question-mark")
                 .resizable()
                 .foregroundStyle(colors.foreground)
@@ -83,7 +85,7 @@ final class PLTTokenTagViewModel: ObservableObject {
     
     func getImageName(isPLTTag: Bool) -> String {
         guard !isPLTTag else {
-            return "concordium_logo"
+            return "shield-square-crypto"
         }
         switch pltState {
         case .allowList:
@@ -154,7 +156,7 @@ struct TagsDescPopup: View {
                     isVisible = false
                 }
             } label: {
-                Text("Done")
+                Text("done".localized)
                     .font(.satoshi(size: 14, weight: .medium))
                     .foregroundColor(.white)
                     .padding(.horizontal, 20)
@@ -162,6 +164,35 @@ struct TagsDescPopup: View {
                     .background(Color(red: 0.08, green: 0.09, blue: 0.11))
                     .cornerRadius(21)
             }
+        }
+    }
+}
+
+struct Flow: Layout {
+    var spacing: CGFloat = 8
+    var alignment: HorizontalAlignment = .leading
+
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        let maxW = proposal.width ?? .infinity
+        var x: CGFloat = 0, y: CGFloat = 0, rowH: CGFloat = 0
+        for v in subviews {
+            let s = v.sizeThatFits(.unspecified)
+            if x + s.width > maxW { x = 0; y += rowH + spacing; rowH = 0 }
+            rowH = max(rowH, s.height)
+            x += s.width + spacing
+        }
+        return CGSize(width: maxW, height: y + rowH)
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        let maxW = bounds.width
+        var x = bounds.minX, y = bounds.minY, rowH: CGFloat = 0
+        for v in subviews {
+            let s = v.sizeThatFits(.unspecified)
+            if x + s.width > bounds.maxX { x = bounds.minX; y += rowH + spacing; rowH = 0 }
+            v.place(at: CGPoint(x: x, y: y), proposal: ProposedViewSize(s))
+            x += s.width + spacing
+            rowH = max(rowH, s.height)
         }
     }
 }
