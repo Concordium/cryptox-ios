@@ -17,6 +17,11 @@ final class CoreDataPLTStore {
 
     private init() {
         container = NSPersistentContainer(name: "CryptoXDataModel")
+        
+        if let desc = container.persistentStoreDescriptions.first {
+            desc.shouldMigrateStoreAutomatically = true
+            desc.shouldInferMappingModelAutomatically = true
+        }
         container.loadPersistentStores { _, error in
             if let error { fatalError("❌ \(error)") }
         }
@@ -173,7 +178,8 @@ final class CoreDataPLTStore {
         tokenState.totalSupply = totalSupply
 
         let metadata = MetadataEntity(context: context)
-        metadata.url = model.tokenState.moduleState.metadata.url
+        metadata.url = model.tokenState.moduleState.metadata?.url ?? ""
+        metadata.checksumSha256 = model.tokenState.moduleState.metadata?.checksumSha256
 
         let governance = GovernanceAccountEntity(context: context)
         governance.address = model.tokenState.moduleState.governanceAccount.address

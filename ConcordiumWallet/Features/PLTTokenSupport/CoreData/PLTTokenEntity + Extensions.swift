@@ -22,7 +22,7 @@ extension PLTTokenEntity {
                                                                  denyList: moduleState.denyList,
                                                                  governanceAccount: GovernanceAccount(address: governanceAccount.address,
                                                                                                       type: governanceAccount.type),
-                                                                 metadata: TokenMetadata(url: metadata.url),
+                                                                 metadata: TokenMetadata(url: metadata.url, checksumSha256: metadata.checksumSha256),
                                                                  mintable: moduleState.mintable,
                                                                  name: moduleState.name,
                                                                  paused: moduleState.paused),

@@ -193,8 +193,8 @@ final class NotificationTokenService {
 
         Task {
             do {
-                let token = try await pltService.fetchTokenInfo(tokenID: tokenId)
-                guard let balanceEntry = try await pltService.fetchTokenBalances(for: tokenId).first?.value else {
+                guard let token = await pltService.fetchTokenInfoWithMetadata(for: [tokenId]).first?.pltToken,
+                      let balanceEntry = try await pltService.fetchTokenBalances(for: tokenId).first?.value else {
                     log("storeNewPLTtoken: no balance for tokenId=\(tokenId)")
                     return
                 }

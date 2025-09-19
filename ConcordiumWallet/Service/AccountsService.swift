@@ -395,7 +395,8 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                                         type: token.token.tokenState.moduleState.governanceAccount.type
                                     ),
                                     metadata: TokenMetadata(
-                                        url: token.token.tokenState.moduleState.metadata.url
+                                        url: token.token.tokenState.moduleState.metadata?.url ?? "",
+                                        checksumSha256: token.token.tokenState.moduleState.metadata?.checksumSha256
                                     ),
                                     mintable: token.token.tokenState.moduleState.mintable,
                                     name: token.token.tokenState.moduleState.name,
