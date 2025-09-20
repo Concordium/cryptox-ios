@@ -39,10 +39,10 @@ struct CooldownCardView: View {
                     .font(.satoshi(size: 12, weight: .regular))
                     .foregroundColor(Color.MineralBlue.blueish3.opacity(0.5))
                 Spacer()
-                Text("\(calculateCooldownTime(from: cooldown.timestamp))")
+                Text("\(cooldownTime) ")
                     .foregroundColor(.white)
                     .font(.satoshi(size: 12, weight: .regular))
-                Text("days left")
+                Text((cooldownTime == 1 ? "day" : "days") + " left")
                     .font(.satoshi(size: 12, weight: .regular))
                     .foregroundColor(Color.MineralBlue.blueish3.opacity(0.5))
             }
@@ -61,5 +61,9 @@ struct CooldownCardView: View {
         let daysToEndCooldown = differenceInMilliseconds / millisecondsInADay
 
         return max(1, Int(daysToEndCooldown))
+    }
+    
+    var cooldownTime: Int {
+        calculateCooldownTime(from: cooldown.timestamp)
     }
 }
