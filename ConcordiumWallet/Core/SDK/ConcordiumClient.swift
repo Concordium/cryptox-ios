@@ -48,7 +48,7 @@ final class ConcordiumClient: ObservableObject {
 //        URL(string: "https://grpc.devnet-plt-beta.concordium.com:20000")!
         URL(string: "https://grpc.testnet.concordium.com:20000")!
 #elseif MAINNET
-        URL(string: "https://grpc.mainnet.concordium.com:20000")!
+        URL(string: "https://grpc.mainnet.concordium.software:20000")!
 #else // Staging
         URL(string: "https://grpc.stagenet.concordium.com:20000")!
 #endif
