@@ -1781,12 +1781,12 @@
 		158A35A42E1BC4E200BDCFDE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 158A35A32E1BC4E200BDCFDE /* CoreData.framework */; };
 		158A35A52E1BC4ED00BDCFDE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 158A35A32E1BC4E200BDCFDE /* CoreData.framework */; };
 		158A35A62E1BC4F400BDCFDE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 158A35A32E1BC4E200BDCFDE /* CoreData.framework */; };
-		158A35A92E1BC57100BDCFDE /* CryptoXDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 158A35A72E1BC57100BDCFDE /* CryptoXDataModel.xcdatamodeld */; };
 		158A35AA2E1BC57100BDCFDE /* CryptoXDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 158A35A72E1BC57100BDCFDE /* CryptoXDataModel.xcdatamodeld */; };
 		158A35AB2E1BC57100BDCFDE /* CryptoXDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 158A35A72E1BC57100BDCFDE /* CryptoXDataModel.xcdatamodeld */; };
 		158E6FE82E264F5E0092F583 /* AccountPLTToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158E6FE72E264F5E0092F583 /* AccountPLTToken.swift */; };
 		158E6FE92E264F5E0092F583 /* AccountPLTToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158E6FE72E264F5E0092F583 /* AccountPLTToken.swift */; };
 		158E6FEA2E264F5E0092F583 /* AccountPLTToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158E6FE72E264F5E0092F583 /* AccountPLTToken.swift */; };
+		15920B3F2E7D8FE300FDDDF2 /* CryptoXDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 158A35A72E1BC57100BDCFDE /* CryptoXDataModel.xcdatamodeld */; };
 		1599807C2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
 		1599807D2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
 		1599807E2C7738F200AE86B5 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */; };
@@ -3153,6 +3153,7 @@
 		158A35A32E1BC4E200BDCFDE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		158A35A82E1BC57100BDCFDE /* CryptoXDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CryptoXDataModel.xcdatamodel; sourceTree = "<group>"; };
 		158E6FE72E264F5E0092F583 /* AccountPLTToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPLTToken.swift; sourceTree = "<group>"; };
+		15920B3E2E7D887300FDDDF2 /* CryptoXDataModel_v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CryptoXDataModel_v2.xcdatamodel; sourceTree = "<group>"; };
 		1599807B2C7738F200AE86B5 /* SearchTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTokenViewModel.swift; sourceTree = "<group>"; };
 		15A761372D6727D200A48204 /* ValidatorMetadataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorMetadataViewModel.swift; sourceTree = "<group>"; };
 		15ABCCD22CDA39A300D176CE /* SeedIdentitiesStatusService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedIdentitiesStatusService.swift; sourceTree = "<group>"; };
@@ -8611,6 +8612,7 @@
 				508E01652E1BE760004DA300 /* Date+Ent.swift in Sources */,
 				08A0455029FA99D100DACE1F /* TransactionFeeDistribution.swift in Sources */,
 				088FEF562A0270AF00042957 /* IdentityDataSelectionWidgetViewController.swift in Sources */,
+				15920B3F2E7D8FE300FDDDF2 /* CryptoXDataModel.xcdatamodeld in Sources */,
 				088FF16D2A0292DB00042957 /* Features.swift in Sources */,
 				089B341F2A16845600F3CD90 /* SessionProposalView.swift in Sources */,
 				D589F1A72794B5ED003F2FBB /* IdentityAttributeEntity.swift in Sources */,
@@ -9814,9 +9816,10 @@
 		158A35A72E1BC57100BDCFDE /* CryptoXDataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				15920B3E2E7D887300FDDDF2 /* CryptoXDataModel_v2.xcdatamodel */,
 				158A35A82E1BC57100BDCFDE /* CryptoXDataModel.xcdatamodel */,
 			);
-			currentVersion = 158A35A82E1BC57100BDCFDE /* CryptoXDataModel.xcdatamodel */;
+			currentVersion = 15920B3E2E7D887300FDDDF2 /* CryptoXDataModel_v2.xcdatamodel */;
 			path = CryptoXDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

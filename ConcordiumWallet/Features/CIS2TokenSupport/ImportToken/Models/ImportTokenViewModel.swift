@@ -50,16 +50,12 @@ final class ImportTokenViewModel: ObservableObject {
         
         var newTokens = [String: String]()
         
-        async let pltFetch: Result<[String: String], Error> = {
-            do {
-                let tokens = try await pltService.fetchTokens(for: name)
-                let dict = Dictionary(uniqueKeysWithValues: tokens.map {
-                    ($0.tokenID, $0.tokenState.moduleState.name)
-                })
-                return .success(dict)
-            } catch {
-                return .failure(error)
-            }
+        async let pltFetch: Result<[String: String], Never> = {
+            let tokens = await pltService.fetchTokenInfoWithMetadata(for: [name]).map { $0.pltToken }
+            let dict = Dictionary(uniqueKeysWithValues: tokens.map {
+                ($0.tokenID, $0.tokenState.moduleState.name)
+            })
+            return .success(dict)
         }()
 
         async let cis2Fetch: Result<[String: String], Error> = {

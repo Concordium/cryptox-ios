@@ -7,12 +7,9 @@
 //
 
 import Foundation
+import CryptoKit
 
 protocol PLTTokenServiceProtocol {
-    func fetchTokens(limit: Int) async throws -> [PLTToken]
-    func fetchTokenInfo(tokenID: String) async throws -> PLTToken
-    func fetchTokens(for tokenID: String) async throws -> [PLTToken]
-    func fetchTokenInfo(for tokens: [String]) async -> [PLTToken]
     func fetchTokenInfoWithMetadata(for tokens: [String]) async -> [PLTTokenModel]
 }
 
@@ -40,7 +37,7 @@ extension PLTTokenService {
     ///   - tokenId: The ID of the PLT token.
     ///   - limit: The maximum number of tokens to fetch, default is 100.
     /// - Returns: A `PLTToken` containing information about the tokens.
-    func fetchTokens(limit: Int = 100) async throws -> [PLTToken] {
+    private func fetchTokens(limit: Int = 100) async throws -> [PLTToken] {
         try await networkManager.load(
             ResourceRequest(
                 url: ApiConstants.PLTToken.tokens,
@@ -49,12 +46,12 @@ extension PLTTokenService {
         )
     }
     
-    func fetchTokens(for tokenID: String) async throws -> [PLTToken] {
+    private func fetchTokens(for tokenID: String) async throws -> [PLTToken] {
         let allTokens = try await fetchTokens()
         return allTokens.filter{ $0.tokenID.lowercased().contains(tokenID.lowercased()) }
     }
     
-    func fetchTokenInfo(tokenID: String) async throws -> PLTToken {
+    private func fetchTokenInfo(tokenID: String) async throws -> PLTToken {
         try await networkManager.load(
             ResourceRequest(
                 url: ApiConstants.PLTToken.tokenInfo
@@ -63,7 +60,7 @@ extension PLTTokenService {
         )
     }
     
-    func fetchTokenInfo(for tokens: [String]) async -> [PLTToken] {
+    private func fetchTokenInfo(for tokens: [String]) async -> [PLTToken] {
         var results = [PLTToken]()
 
         await withTaskGroup(of: PLTToken?.self) { group in
@@ -89,41 +86,59 @@ extension PLTTokenService {
     }
     
     func fetchTokenInfoWithMetadata(for tokens: [String]) async -> [PLTTokenModel] {
-        var results = [PLTTokenModel]()
-
-        await withTaskGroup(of: PLTTokenModel?.self) { group in
+        await withTaskGroup(of: PLTTokenModel?.self, returning: [PLTTokenModel].self) { group in
             for tokenID in tokens {
-                group.addTask { [weak self] in
+                group.addTask { [weak self] () -> PLTTokenModel? in
+                    guard let self else { return nil }
                     do {
-                        let token = try await self?.fetchTokenInfo(tokenID: tokenID)
+                        let token = try await self.fetchTokenInfo(tokenID: tokenID)
 
-                        let urlString = token?.tokenState.moduleState.metadata.url
-                        let metadataURL = urlString.flatMap(URL.init(string:))
+                        // Verify TokenMetadata (keep or drop it)
+                        let verifiedTM = await self.verifyTokenMetadata(token.tokenState.moduleState.metadata)
 
-                        let metadata: PLTMetadata?
-                        if let metadataURL {
+                        // Use verified metadata in the token we return
+                        let tokenWithVerified = PLTToken(
+                            tokenID: token.tokenID,
+                            tokenState: TokenState(
+                                decimals: token.tokenState.decimals,
+                                moduleState: ModuleState(
+                                    allowList: token.tokenState.moduleState.allowList,
+                                    burnable:  token.tokenState.moduleState.burnable,
+                                    denyList:  token.tokenState.moduleState.denyList,
+                                    governanceAccount: token.tokenState.moduleState.governanceAccount,
+                                    metadata: verifiedTM, // ← only if checksum OK
+                                    mintable:  token.tokenState.moduleState.mintable,
+                                    name:      token.tokenState.moduleState.name,
+                                    paused:    token.tokenState.moduleState.paused
+                                ),
+                                tokenModuleRef: token.tokenState.tokenModuleRef,
+                                totalSupply:    token.tokenState.totalSupply
+                            )
+                        )
+
+                        let metadataURL = verifiedTM?.url
+                        let pltMetadata: PLTMetadata?
+                        if let metadataURL, let url = URL(string: metadataURL) {
                             do {
-                                metadata = try await self?.fetchPLTMetadata(from: metadataURL)
+                                pltMetadata = try await self.fetchPLTMetadata(from: url)
                             } catch {
-                                metadata = nil
+                                pltMetadata = nil
                             }
                         } else {
-                            metadata = nil
+                            pltMetadata = nil
                         }
-                        guard let token else { return nil }
-                        return PLTTokenModel(pltToken: token, metadata: metadata)
+
+                        return PLTTokenModel(pltToken: tokenWithVerified, metadata: pltMetadata)
                     } catch {
                         return nil
                     }
                 }
             }
 
-            for await item in group {
-                if let item { results.append(item) }
-            }
+            var out: [PLTTokenModel] = []
+            for await item in group { if let item { out.append(item) } }
+            return out
         }
-
-        return results
     }
 
     func fetchTokenBalances(for accountAddress: String) async throws -> [String: TokenAccountState] {
@@ -136,16 +151,35 @@ extension PLTTokenService {
         return pltTokenBalance
     }
     
-    func fetchTokenTotalSupply(for tokenId: String) async -> TokenBalance? {
-        do {
-            let token = try await self.fetchTokenInfo(tokenID: tokenId)
-            return token.tokenState.totalSupply
-        } catch { }
-        return nil
-    }
-    
     func fetchPLTMetadata(from url: URL) async throws -> PLTMetadata {
         let (data, _) = try await URLSession.shared.data(from: url)
         return try JSONDecoder().decode(PLTMetadata.self, from: data)
+    }
+    
+    func verifyTokenMetadata(_ tokenMetadata: TokenMetadata?) async -> TokenMetadata? {
+        guard
+            let tokenMetadata,
+            let url = URL(string: tokenMetadata.url),
+            let expectedChecksum = tokenMetadata.checksumSha256
+        else {
+            return tokenMetadata // no checksum to verify → keep as-is
+        }
+
+        do {
+            let (data, _) = try await session.data(from: url)
+
+            let hash = SHA256.hash(data: data)
+            let actualChecksum = hash.map { String(format: "%02x", $0) }.joined()
+
+            if actualChecksum.localizedCaseInsensitiveCompare(expectedChecksum) == .orderedSame {
+                return tokenMetadata
+            } else {
+                print("⚠️ TokenMetadata checksum mismatch at \(url)")
+                return nil
+            }
+        } catch {
+            print("⚠️ Failed to fetch metadata for checksum verification: \(error)")
+            return nil
+        }
     }
 }

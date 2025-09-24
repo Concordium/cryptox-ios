@@ -176,7 +176,7 @@ struct TokenListRow: View {
             }
             
             if mode == .manage && !data.isCCD {
-                Text("Hide token")
+                Text("hide.token".localized)
                     .font(.satoshi(size: 12, weight: .medium))
                     .foregroundStyle(.semanticContentSecondary)
                     .padding(6)

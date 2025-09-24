@@ -51,7 +51,7 @@ struct AccountTokenListView: View {
                     Image("settingsGear")
                         .renderingMode(.template)
                         .foregroundStyle(pressedButtonColor)
-                    Text("Manage token list")
+                    Text("manage.token.list".localized)
                         .font(.satoshi(size: 15, weight: .medium))
                         .foregroundStyle(pressedButtonColor)
                 }
@@ -279,7 +279,7 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
                 )
 
                 var metadata: PLTMetadata? = nil
-                let urlString = pltToken.token.tokenState.moduleState.metadata.url
+                let urlString = pltToken.token.tokenState.moduleState.metadata?.url ?? ""
                 do {
                     metadata = try await loadPLTMetadata(from: urlString)
                 } catch {}

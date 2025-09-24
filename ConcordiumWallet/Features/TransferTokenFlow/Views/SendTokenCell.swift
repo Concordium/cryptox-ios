@@ -64,11 +64,15 @@ struct SendTokenCell: View {
                     .frame(width: 40, height: 40)
                     .clipShape(Circle())
                 VStack(alignment: .leading, spacing: 0) {
-                    Text("PLT")
+                    Text(token.token.tokenID)
                         .font(.satoshi(size: 15, weight: .medium))
-                    Text(token.token.tokenState.moduleState.name)
-                        .font(.satoshi(size: 12, weight: .medium))
-                        .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
+                    HStack(spacing: 4) {
+                        Image("shield-square-crypto")
+                            .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
+                        Text("PLT")
+                            .font(.satoshi(size: 12, weight: .medium))
+                            .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
+                    }
                 }
                 Spacer()
                     Text(availableAmount)

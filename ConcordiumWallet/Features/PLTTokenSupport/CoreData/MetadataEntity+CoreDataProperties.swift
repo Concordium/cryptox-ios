@@ -18,6 +18,7 @@ extension MetadataEntity {
     }
 
     @NSManaged public var url: String
+    @NSManaged public var checksumSha256: String?
 
 }
 

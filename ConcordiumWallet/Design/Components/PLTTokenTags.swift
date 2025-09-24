@@ -8,23 +8,27 @@
 
 import SwiftUI
 
-enum PLTTokenState: String {
+enum TokenTagsDesc: String {
     case allowList = "Account is on the allow list"
     case notOnAllowList = "Account not on the allow list"
     case denyList = "Account on the deny list"
     case paused = "Token paused"
     case undefined
+    case cis2Token = "CIS-2 Token"
 }
 
-struct PLTTokenTags: View {
-    @ObservedObject var viewModel: PLTTokenTagViewModel
+struct TokenTags: View {
+    @ObservedObject var viewModel: TokenTagViewModel
+    let cis2Tag: Bool
     let pltTag = "Protocol Level Token"
     var onInfoTapped: (_ title: String, _ desc: String) -> Void
 
     var body: some View {
-        HStack(spacing: 8) {
-            tagView(isPLTTag: true)
-            tagView(isPLTTag: false)
+        Flow(spacing: 8) {
+            if !cis2Tag {
+                tagView(isPLTTag: true).fixedSize(horizontal: true, vertical: true)
+            }
+            tagView(isPLTTag: false).fixedSize(horizontal: true, vertical: true)
         }
     }
     
@@ -40,6 +44,8 @@ struct PLTTokenTags: View {
             Text(isPLTTag ? pltTag : viewModel.pltState.rawValue)
                 .font(.satoshi(size: 11, weight: .medium))
                 .foregroundStyle(colors.foreground)
+                .lineLimit(1)
+                .fixedSize(horizontal: true, vertical: true)
             Image("circled-question-mark")
                 .resizable()
                 .foregroundStyle(colors.foreground)
@@ -62,34 +68,39 @@ struct PLTTokenTags: View {
     }
 }
 
-final class PLTTokenTagViewModel: ObservableObject {
+final class TokenTagViewModel: ObservableObject {
     let allowList: Bool?
     let denyList: Bool?
     let paused: Bool?
+    let cis2Token: Bool?
 
-    var pltState: PLTTokenState {
+    var pltState: TokenTagsDesc {
+        if let cis2Token, cis2Token { return .cis2Token }
         if let paused, paused { return .paused }
-        if let denyList, denyList { return .denyList}
+        if let denyList, denyList { return .denyList }
         if let allowList, allowList { return .allowList }
         if let allowList, !allowList { return .notOnAllowList }
         return .undefined
     }
     
-    init(allowList: Bool?, denyList: Bool?, paused: Bool?) {
+    init(allowList: Bool?, denyList: Bool?, paused: Bool?, cis2Token: Bool?) {
         self.allowList = allowList
         self.denyList = denyList
         self.paused = paused
+        self.cis2Token = cis2Token
     }
     
     func getImageName(isPLTTag: Bool) -> String {
         guard !isPLTTag else {
-            return "concordium_logo"
+            return "shield-square-crypto"
         }
         switch pltState {
         case .allowList:
             return "circled-check-done"
         case .notOnAllowList, .denyList, .paused:
             return "circled-x-block-deny"
+        case .cis2Token:
+            return "coin-crypto-cis-2"
         default:
             return ""
         }
@@ -106,6 +117,8 @@ final class PLTTokenTagViewModel: ObservableObject {
             return (Color.Status.infoOrange, .warningTertiary, .warningSecondary)
         case .denyList:
             return (.errorPrimary, .errorTertiary, .errorSecondary)
+        case .cis2Token:
+            return (Color.semanticContentSecondary, .clear, Color.semanticBorderTertiary)
         default:
             return (.clear, .clear, .clear)
         }
@@ -120,6 +133,8 @@ final class PLTTokenTagViewModel: ObservableObject {
             return ("allow.deny.list.title".localized, "allow.deny.list.description".localized)
         case .paused:
             return ("paused.token.title".localized, "paused.token.description".localized)
+        case .cis2Token:
+            return ("cis2.title".localized, "cis2.description".localized)
         case .undefined, .notOnAllowList:
            return nil
         }
@@ -154,7 +169,7 @@ struct TagsDescPopup: View {
                     isVisible = false
                 }
             } label: {
-                Text("Done")
+                Text("done".localized)
                     .font(.satoshi(size: 14, weight: .medium))
                     .foregroundColor(.white)
                     .padding(.horizontal, 20)
@@ -162,6 +177,35 @@ struct TagsDescPopup: View {
                     .background(Color(red: 0.08, green: 0.09, blue: 0.11))
                     .cornerRadius(21)
             }
+        }
+    }
+}
+
+struct Flow: Layout {
+    var spacing: CGFloat = 8
+    var alignment: HorizontalAlignment = .leading
+
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        let maxW = proposal.width ?? .infinity
+        var x: CGFloat = 0, y: CGFloat = 0, rowH: CGFloat = 0
+        for v in subviews {
+            let s = v.sizeThatFits(.unspecified)
+            if x + s.width > maxW { x = 0; y += rowH + spacing; rowH = 0 }
+            rowH = max(rowH, s.height)
+            x += s.width + spacing
+        }
+        return CGSize(width: maxW, height: y + rowH)
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        let maxW = bounds.width
+        var x = bounds.minX, y = bounds.minY, rowH: CGFloat = 0
+        for v in subviews {
+            let s = v.sizeThatFits(.unspecified)
+            if x + s.width > bounds.maxX { x = bounds.minX; y += rowH + spacing; rowH = 0 }
+            v.place(at: CGPoint(x: x, y: y), proposal: ProposedViewSize(s))
+            x += s.width + spacing
+            rowH = max(rowH, s.height)
         }
     }
 }

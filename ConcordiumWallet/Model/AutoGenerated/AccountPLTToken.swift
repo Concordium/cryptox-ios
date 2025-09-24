@@ -32,7 +32,7 @@ struct TokenState: Codable, Equatable, Hashable {
 struct ModuleState: Codable, Equatable, Hashable {
     let allowList, burnable, denyList: Bool
     let governanceAccount: GovernanceAccount
-    let metadata: TokenMetadata
+    let metadata: TokenMetadata?
     let mintable: Bool
     let name: String
     let paused: Bool
@@ -44,6 +44,7 @@ struct GovernanceAccount: Codable, Equatable, Hashable {
 
 struct TokenMetadata: Codable, Equatable, Hashable {
     let url: String
+    let checksumSha256: String?
 }
 
 struct TokenBalance: Codable, Equatable, Hashable {
@@ -92,7 +93,7 @@ extension AccountPLTToken {
             type:    governanceObj.type
         )
 
-        let metadata = TokenMetadata(url: metadataObj.url)
+        let metadata = TokenMetadata(url: metadataObj.url, checksumSha256: metadataObj.checksumSha256)
 
         let moduleState = ModuleState(
             allowList:       moduleStateObj.allowList,

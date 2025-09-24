@@ -16,7 +16,7 @@ struct TokenDetailsView: View {
     @Binding var showRawMd: Bool
     @State private var showRawMdTapped = false
     @State private var isTokenDescPopupVisible: Bool = false
-    @StateObject private var pltTokenTagVM: PLTTokenTagViewModel
+    @StateObject private var pltTokenTagVM: TokenTagViewModel
 
     var onTagInfoTapped: ((String, String) -> Void)? = nil
     
@@ -28,18 +28,23 @@ struct TokenDetailsView: View {
         self.isAddTokenDetails = isAddTokenDetails
         self._showRawMd = showRawMd
         self.onTagInfoTapped = onTagInfoTapped
-
+        
         if case .plt(let pltToken, _, _) = token {
             _pltTokenTagVM = StateObject(
-                wrappedValue: PLTTokenTagViewModel(
+                wrappedValue: TokenTagViewModel(
                     allowList: pltToken.tokenAccountState.state.allowList,
                     denyList:  pltToken.tokenAccountState.state.denyList,
-                    paused:    pltToken.token.tokenState.moduleState.paused
+                    paused:    pltToken.token.tokenState.moduleState.paused,
+                    cis2Token: nil
                 )
+            )
+        } else if case .token(let token, let amount) = token {
+            _pltTokenTagVM = StateObject(
+                wrappedValue: TokenTagViewModel(allowList: nil, denyList: nil, paused: nil, cis2Token: true)
             )
         } else {
             _pltTokenTagVM = StateObject(
-                wrappedValue: PLTTokenTagViewModel(allowList: nil, denyList: nil, paused: nil)
+                wrappedValue: TokenTagViewModel(allowList: nil, denyList: nil, paused: nil, cis2Token: nil)
             )
         }
     }
@@ -81,9 +86,12 @@ struct TokenDetailsView: View {
                         
                     case .token(let cis2Token, _):
                         titleSection(token: token)
-                        Text("Description")
-                            .font(.satoshi(size: 12, weight: .medium))
-                            .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
+                        TokenTags(viewModel: pltTokenTagVM,
+                                  cis2Tag: true,
+                                  onInfoTapped: { title, desc in
+                            onTagInfoTapped?(title, desc)
+                        })
+                            .padding(.bottom, 4)
                         descriptionSection(decimals: cis2Token.metadata.decimals ?? 0, description: cis2Token.metadata.description ?? "")
                         separator
                         
@@ -97,8 +105,9 @@ struct TokenDetailsView: View {
                             .frame(maxWidth: .infinity, alignment: .topLeading)
                     case .plt(let pltToken, _, let md):
                         titleSection(token: token)
-                        PLTTokenTags(viewModel: pltTokenTagVM,
-                                     onInfoTapped: { title, desc in
+                        TokenTags(viewModel: pltTokenTagVM,
+                                  cis2Tag: false,
+                                  onInfoTapped: { title, desc in
                             onTagInfoTapped?(title, desc)
                         })
                             .padding(.bottom, 4)
