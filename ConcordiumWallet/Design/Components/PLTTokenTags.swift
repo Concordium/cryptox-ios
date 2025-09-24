@@ -8,22 +8,26 @@
 
 import SwiftUI
 
-enum PLTTokenState: String {
+enum TokenTagsDesc: String {
     case allowList = "Account is on the allow list"
     case notOnAllowList = "Account not on the allow list"
     case denyList = "Account on the deny list"
     case paused = "Token paused"
     case undefined
+    case cis2Token = "CIS-2 Token"
 }
 
-struct PLTTokenTags: View {
-    @ObservedObject var viewModel: PLTTokenTagViewModel
+struct TokenTags: View {
+    @ObservedObject var viewModel: TokenTagViewModel
+    let cis2Tag: Bool
     let pltTag = "Protocol Level Token"
     var onInfoTapped: (_ title: String, _ desc: String) -> Void
 
     var body: some View {
         Flow(spacing: 8) {
-            tagView(isPLTTag: true).fixedSize(horizontal: true, vertical: true)
+            if !cis2Tag {
+                tagView(isPLTTag: true).fixedSize(horizontal: true, vertical: true)
+            }
             tagView(isPLTTag: false).fixedSize(horizontal: true, vertical: true)
         }
     }
@@ -64,23 +68,26 @@ struct PLTTokenTags: View {
     }
 }
 
-final class PLTTokenTagViewModel: ObservableObject {
+final class TokenTagViewModel: ObservableObject {
     let allowList: Bool?
     let denyList: Bool?
     let paused: Bool?
+    let cis2Token: Bool?
 
-    var pltState: PLTTokenState {
+    var pltState: TokenTagsDesc {
+        if let cis2Token, cis2Token { return .cis2Token }
         if let paused, paused { return .paused }
-        if let denyList, denyList { return .denyList}
+        if let denyList, denyList { return .denyList }
         if let allowList, allowList { return .allowList }
         if let allowList, !allowList { return .notOnAllowList }
         return .undefined
     }
     
-    init(allowList: Bool?, denyList: Bool?, paused: Bool?) {
+    init(allowList: Bool?, denyList: Bool?, paused: Bool?, cis2Token: Bool?) {
         self.allowList = allowList
         self.denyList = denyList
         self.paused = paused
+        self.cis2Token = cis2Token
     }
     
     func getImageName(isPLTTag: Bool) -> String {
@@ -92,6 +99,8 @@ final class PLTTokenTagViewModel: ObservableObject {
             return "circled-check-done"
         case .notOnAllowList, .denyList, .paused:
             return "circled-x-block-deny"
+        case .cis2Token:
+            return "coin-crypto-cis-2"
         default:
             return ""
         }
@@ -108,6 +117,8 @@ final class PLTTokenTagViewModel: ObservableObject {
             return (Color.Status.infoOrange, .warningTertiary, .warningSecondary)
         case .denyList:
             return (.errorPrimary, .errorTertiary, .errorSecondary)
+        case .cis2Token:
+            return (Color.semanticContentSecondary, .clear, Color.semanticBorderTertiary)
         default:
             return (.clear, .clear, .clear)
         }
@@ -122,6 +133,8 @@ final class PLTTokenTagViewModel: ObservableObject {
             return ("allow.deny.list.title".localized, "allow.deny.list.description".localized)
         case .paused:
             return ("paused.token.title".localized, "paused.token.description".localized)
+        case .cis2Token:
+            return ("cis2.title".localized, "cis2.description".localized)
         case .undefined, .notOnAllowList:
            return nil
         }

@@ -1505,3 +1505,5 @@ Remember to restart your node with the validator keys.";
 "manage.token.list" = "Manage token list";
 "hide.token" = "Hide token";
 "paused.token.error" = "Token is paused and cannot be sent";
+"cis2.title" = "CIS-2 Tokens";
+"cis2.description" = "CIS-2 (Concordium Implementation Standard 2) is the standard interface for both fungible and non-fungible tokens implemented in a smart contract. The interface provides functions for transferring token ownership, allowing other addresses to transfer tokens and for querying token balances, operators and token metadata. It allows for off-chain applications to track token balances and the location of token metadata using logged events.";
