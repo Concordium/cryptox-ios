@@ -81,9 +81,6 @@ struct TokenDetailsView: View {
                         
                     case .token(let cis2Token, _):
                         titleSection(token: token)
-                        Text("Description")
-                            .font(.satoshi(size: 12, weight: .medium))
-                            .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
                         descriptionSection(decimals: cis2Token.metadata.decimals ?? 0, description: cis2Token.metadata.description ?? "")
                         separator
                         
