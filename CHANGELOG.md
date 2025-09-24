@@ -1,12 +1,19 @@
 # Changelog
 
 ## [Unreleased]
+- Add tag for CIS-2 tokens on token details screen
+- Remove duplication of the 'Description' text on token details screen
+- Fix displaying of the 1 cooldown day
+- Show token ID on the token list screen of the send token flow instead of name
+- Handle metadata checksum mismatch
+
+## [Released 3.3.8 Sep 23, 2025]
 - Update Send Assets Flow with new SDK
 - Ability to Send/Receive PLTs in CryptoX
 - Update Swift SDK for PLTs in CryptoX
 - Ability to receive notifications for PLT transfers
 
-## [Relesed 3.3.7 Aug 28, 2025]
+## [Released 3.3.7 Aug 28, 2025]
 - Fix logic opening app by url schema; add additional check before opening app via file export flow.
 - Fix Wert issue
 - Bring back NFT setting
