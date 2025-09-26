@@ -6,6 +6,8 @@
 	<false/>
 	<key>API_KEY</key>
 	<string>6515da6d-a065-4676-a214-c83e5b18f5f3</string>
+	<key>UIDesignRequiresCompatibility</key>
+	<true/>
 	<key>MAINNET_WERT_API_KEY</key>
 	<string>wert-prod-0a3392b9c8aa1163334f5bdcef1b27e64593206d</string>
 	<key>MAINNET_WERT_PARTNER_ID</key>
