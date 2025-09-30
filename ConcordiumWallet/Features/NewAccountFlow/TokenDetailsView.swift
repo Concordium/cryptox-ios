@@ -111,7 +111,7 @@ struct TokenDetailsView: View {
                             onTagInfoTapped?(title, desc)
                         })
                             .padding(.bottom, 4)
-                        descriptionSection(decimals: pltToken.tokenAccountState.balance.decimals, description: md?.description ?? "")
+                        descriptionSection(decimals: pltToken.token.tokenState.decimals, description: md?.description ?? "")
                     }
                 }
                 .padding(16)
