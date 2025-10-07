@@ -128,7 +128,14 @@ final class TransferTokenViewModel: ObservableObject, Hashable, Equatable {
         tokenTransferModel.$transaferCost.assign(to: \.transaferCost, on: self).store(in: &cancellables)
         tokenTransferModel.$tokenType.map(\.fraction).assign(to: \.fraction, on: self).store(in: &cancellables)
         tokenTransferModel.$tokenType.map(\.ticker).assign(to: \.ticker, on: self).store(in: &cancellables)
-        tokenTransferModel.$tokenType.map(\.tokenThumbnail).assign(to: \.thumbnail, on: self).store(in: &cancellables)
+        tokenTransferModel.$tokenType
+            .sink { [weak self] token in
+                guard let self else { return }
+                Task {
+                    self.thumbnail = await token.fetchThumbnailURL()
+                }
+            }
+            .store(in: &cancellables)
         tokenTransferModel.$tokenType.assign(to: \.selectedToken, on: accountTokensListPickerViewModel).store(in: &cancellables)
         
         onRecipientPicked.assign(to: \.recepientAddress, on: self).store(in: &cancellables)
@@ -304,14 +311,16 @@ extension TransferTokenViewModel {
 }
 
 extension CXTokenType {
-    var tokenThumbnail: URL? {
+    func fetchThumbnailURL() async -> URL? {
         switch self {
-            case .cis2(let cIS2Token):
-                return cIS2Token.metadata.thumbnail?.url.toURL
-            case .ccd:
-                return AssetExtractor.createLocalUrl(forImageNamed: "icon_ccd")
-        case .plt:
-            return AssetExtractor.createLocalUrl(forImageNamed: "placeholder-crypto-token")
+        case .cis2(let token):
+            return token.metadata.thumbnail?.url.toURL
+        case .ccd:
+            return AssetExtractor.createLocalUrl(forImageNamed: "icon_ccd")
+        case .plt(let plt):
+            let md = await PLTTokenService().fetchTokenInfoWithMetadata(for: [plt.token.tokenID]).first
+            return md?.metadata?.thumbnail?.url.flatMap(URL.init)
+                ?? AssetExtractor.createLocalUrl(forImageNamed: "placeholder-crypto-token")
         }
     }
     
