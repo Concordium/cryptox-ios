@@ -326,6 +326,8 @@ public class TokenFormatter {
         let formatter = NumberFormatter()
         formatter.minimumFractionDigits = decimals
         formatter.maximumFractionDigits = decimals
+        formatter.decimalSeparator = "."
+        formatter.groupingSeparator = ","
 
         let formatted = formatter.string(from: decimalValue as NSDecimalNumber) ?? ""
         return formatted
