@@ -95,9 +95,7 @@ final class CIS2TokenTransferModel {
         case .cis2(let cIS2Token):
             guard let address = recipient, address.isEmpty == false, !amountTokenSend.value.isZero else { return .zero }
             return try await self.getCIS2TxCost(cIS2Token, amount: amountTokenSend)
-        case .ccd:
-            return try await getCCDTxCost()
-        case .plt(let token):
+        case .ccd, .plt:
             return try await getCCDTxCost()
         }
     }
@@ -111,9 +109,7 @@ final class CIS2TokenTransferModel {
             case .cis2(let cIS2Token):
                 guard let address = address, address.isEmpty == false, !amount.value.isZero else { return }
                 await self.updateCIS2TransferConst(cIS2Token, amount: amount)
-            case .ccd:
-                await updateCCDTransferCost()
-            case .plt(let token):
+            case .ccd, .plt:
                 await updateCCDTransferCost()
             }
             await self.updateMaxAmount()

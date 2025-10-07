@@ -35,8 +35,8 @@ struct ChooseTokenView: View {
                         }))
                         .listRowBackground(Color.clear)
                         .padding(.vertical, 4)
-                case .plt(let token, let amount, _):
-                    SendTokenCell(tokenType: .plt(pltToken: token, availableAmount: amount))
+                case .plt(let token, let amount, let metadata):
+                    SendTokenCell(tokenType: .plt(pltToken: token, availableAmount: amount, iconURL: metadata?.thumbnail?.url?.toURL))
                         .modifier(TappedCellEffect(onTap: {
                             transferTokenViewModel.tokenTransferModel.tokenType = .plt(token)
                             onTokenSelected()

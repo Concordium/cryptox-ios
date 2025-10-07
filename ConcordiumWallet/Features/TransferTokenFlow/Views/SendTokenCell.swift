@@ -12,7 +12,7 @@ struct SendTokenCell: View {
     enum TokenType {
         case ccd(displayAmount: String)
         case cis2(token: CIS2Token, availableAmount: String)
-        case plt(pltToken: AccountPLTToken, availableAmount: String)
+        case plt(pltToken: AccountPLTToken, availableAmount: String, iconURL: URL?)
     }
 
     let tokenType: TokenType
@@ -58,11 +58,13 @@ struct SendTokenCell: View {
                 Text(availableAmount)
                     .font(.satoshi(size: 15, weight: .medium))
                     .tint(.white)
-            case .plt(let token, let availableAmount):
-                Image("placeholder-crypto-token")
-                    .resizable()
-                    .frame(width: 40, height: 40)
-                    .clipShape(Circle())
+            case .plt(let token, let availableAmount, let iconURL):
+                if let url = iconURL {
+                    CryptoImage(url: url, size: .custom(width: 40, height: 40))
+                } else {
+                    Image("placeholder-crypto-token")
+                        .resizable()
+                }
                 VStack(alignment: .leading, spacing: 0) {
                     Text(token.token.tokenID)
                         .font(.satoshi(size: 15, weight: .medium))
