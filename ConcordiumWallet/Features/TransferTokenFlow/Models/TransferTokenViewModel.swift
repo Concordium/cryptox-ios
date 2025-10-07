@@ -129,10 +129,12 @@ final class TransferTokenViewModel: ObservableObject, Hashable, Equatable {
         tokenTransferModel.$tokenType.map(\.fraction).assign(to: \.fraction, on: self).store(in: &cancellables)
         tokenTransferModel.$tokenType.map(\.ticker).assign(to: \.ticker, on: self).store(in: &cancellables)
         tokenTransferModel.$tokenType
-            .sink { [weak self] token in
-                guard let self else { return }
+            .sink { token in
                 Task {
-                    self.thumbnail = await token.fetchThumbnailURL()
+                    let url = await token.fetchThumbnailURL()
+                    await MainActor.run {
+                        self.thumbnail = url
+                    }
                 }
             }
             .store(in: &cancellables)
