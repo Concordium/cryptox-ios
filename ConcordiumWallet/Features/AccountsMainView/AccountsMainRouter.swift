@@ -186,10 +186,27 @@ extension AccountsMainRouter: CreateNewIdentityDelegate {
 }
 
 extension AccountsMainRouter: ScanAddressQRPresenterDelegate {
+    
+    private func selectedAccount() -> AccountEntity? {
+        let accounts = self.dependencyProvider.storageManager().getAccounts()
+        if let lastSelectedAccountAddress = AppSettings.lastSelectedAccountAddress {
+            return accounts.first(where: {$0.address == lastSelectedAccountAddress}) as? AccountEntity
+        } else {
+            return accounts.first as? AccountEntity
+        }
+    }
+    
     func scanAddressQr(didScan output: QRScannerOutput) {
         navigationController.popViewController(animated: true)
         switch output {
-            case .address: break
+        case let .address(address):
+            navigationController.dismiss(animated: true)
+            
+    
+            
+            if let account = self.selectedAccount() {
+                self.navigationManager.navigate(to: .send(account, tokenType: CXTokenType.ccd, to: address))
+            }
             case .airdrop(let string):
                 scanAddressQr(didScanAddress: string)
             case .connectURL(let string):

@@ -270,11 +270,11 @@ struct TokenBalanceView: View {
             ActionItem(iconName: "send", label: "Send", action: {
                 guard let account = viewModel.account as? AccountEntity else { return }
                 if token.name == "ccd" {
-                    path.append(.send(account, tokenType: .ccd))
+                    path.append(.send(account, tokenType: .ccd, to: nil))
                 } else if let token = token.cis2Token {
-                    path.append(.send(account, tokenType: .cis2(token)))
+                    path.append(.send(account, tokenType: .cis2(token), to: nil))
                 } else if let token = token.pltToken {
-                    path.append(.send(account, tokenType: .plt(token)))
+                    path.append(.send(account, tokenType: .plt(token), to: nil))
                 }
             }),
             ActionItem(iconName: "receive", label: "Receive", action: {

@@ -8436,7 +8436,6 @@
 				08A0455829FA99D100DACE1F /* AccountReleaseSchedule.swift in Sources */,
 				088FEC8E2A01606100042957 /* StyledLabel.swift in Sources */,
 				088FF14E2A02883C00042957 /* UITableView+Extensions.swift in Sources */,
-				158A35A92E1BC57100BDCFDE /* CryptoXDataModel.xcdatamodeld in Sources */,
 				088FEF992A02715100042957 /* SelectIdentityViewModel.swift in Sources */,
 				08A0458529FA99D100DACE1F /* GeneratedBakerKeys.swift in Sources */,
 				088FEF522A0270AF00042957 /* IdentityRevokersWidgetPresenter.swift in Sources */,

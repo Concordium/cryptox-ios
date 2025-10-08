@@ -463,7 +463,7 @@ struct HomeScreenView: View {
             }),
             ActionItem(iconName: "send", label: "Send", action: {
                 if let account = viewModel.selectedAccount?.account as? AccountEntity {
-                    navigationManager.navigate(to: .send(account, tokenType: .ccd))
+                    navigationManager.navigate(to: .send(account, tokenType: .ccd, to: nil))
                 }
             }),
             ActionItem(iconName: "receive", label: "Receive", action: {
