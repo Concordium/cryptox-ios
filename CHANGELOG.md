@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+- Unify QR scanner logic - RocketFuel support
+
+## [Released 3.3.9]
 - Add tag for CIS-2 tokens on token details screen
 - Remove duplication of the 'Description' text on token details screen
 - Fix displaying of the 1 cooldown day
