@@ -126,13 +126,13 @@ struct AccountTokenListView: View {
             } else {
                 iconView = AnyView(Image("placeholder-crypto-token").resizable())
             }
-            
+            let formattedAmount = TokenFormatter.formatPLTTokenWithDecimals(Int(amount) ?? 0, decimals: 2)
             return TokenListCellData(
                 id: account.id,
                 icon: iconView,
                 title: token.token.tokenID,
                 subtitle: "PLT",
-                amount: amount,
+                amount: formattedAmount,
                 secondaryAmount: nil,
                 tokenImage: .plt,
                 showDenyIcon: token.tokenAccountState.state.denyList ?? false,
