@@ -64,6 +64,7 @@ struct SendTokenCell: View {
                 } else {
                     Image("placeholder-crypto-token")
                         .resizable()
+                        .frame(width: 40, height: 40)
                 }
                 VStack(alignment: .leading, spacing: 0) {
                     Text(token.token.tokenID)
