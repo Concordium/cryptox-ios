@@ -1,7 +1,7 @@
 # Changelog
 
 ## [Unreleased]
-- Unify QR scanner logic - RocketFuel support
+- Update QR scanner logic
 
 ## [Released 3.3.9]
 - Add tag for CIS-2 tokens on token details screen
