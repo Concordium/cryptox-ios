@@ -319,18 +319,39 @@ public class TokenFormatter {
         }
     }
     
-    static func formatPLTTokenWithDecimals(_ amount: Int, decimals: Int) -> String {
-        let divisor = pow(10, Double(decimals))
-        let decimalValue = Decimal(amount) / Decimal(divisor)
+    static func formatPLTTokenWithDecimals(_ value: String, decimals: Int) -> String {
+        let hasCommaAsDecimal = value.lastIndex(of: ",") ?? value.startIndex >
+                                (value.lastIndex(of: ".") ?? value.startIndex)
 
-        let formatter = NumberFormatter()
-        formatter.minimumFractionDigits = decimals
-        formatter.maximumFractionDigits = decimals
-        formatter.decimalSeparator = "."
-        formatter.groupingSeparator = ","
+        var normalized = value
 
-        let formatted = formatter.string(from: decimalValue as NSDecimalNumber) ?? ""
-        return formatted
+        if hasCommaAsDecimal {
+            // Swap commas and dots safely using placeholder
+            normalized = value
+                .replacingOccurrences(of: ".", with: "#")
+                .replacingOccurrences(of: ",", with: ".")
+                .replacingOccurrences(of: "#", with: ",")
+        }
+
+        // Step 2: Create a formatter for parsing
+        let parser = NumberFormatter()
+        parser.numberStyle = .decimal
+        parser.groupingSeparator = ","
+        parser.decimalSeparator = "."
+
+        guard let number = parser.number(from: normalized) else {
+            return "0.00"
+        }
+
+        // Step 3: Create a formatter for output
+        let output = NumberFormatter()
+        output.numberStyle = .decimal
+        output.groupingSeparator = ","
+        output.decimalSeparator = "."
+        output.minimumFractionDigits = decimals
+        output.maximumFractionDigits = decimals
+
+        return output.string(from: number) ?? "0.00"
     }
 }
 

@@ -138,10 +138,9 @@ extension TransactionViewModel {
         var amount: String?
         if isPLTTransaction,
            let value = details.tokenTransferAmount?.value,
-           let intValue = Int(value),
            let decimals = details.tokenTransferAmount?.decimals,
            let tokenId = details.tokenID {
-            amount = TokenFormatter.formatPLTTokenWithDecimals(intValue, decimals: decimals) + " " + tokenId
+            amount = TokenFormatter.formatPLTTokenWithDecimals(value, decimals: decimals) + " " + tokenId
         }
         return amount
     }
