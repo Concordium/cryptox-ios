@@ -116,6 +116,7 @@ final class TransferTokenViewModel: ObservableObject, Hashable, Equatable {
         account: AccountDataType,
         dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
         tokenTransferModel: CIS2TokenTransferModel,
+        recepientAddress: String?,
         onRecipientPicked: AnyPublisher<String, Never>
     ) {
         self.tokenTransferModel = tokenTransferModel
@@ -210,6 +211,9 @@ final class TransferTokenViewModel: ObservableObject, Hashable, Equatable {
         }.store(in: &cancellables)
         
         updateChainParameters()
+        
+        self.recepientAddress = recepientAddress ?? ""
+        self.tokenTransferModel.recipient = recepientAddress
     }
     
     private func updateChainParameters() {

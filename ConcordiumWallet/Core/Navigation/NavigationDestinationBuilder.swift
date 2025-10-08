@@ -51,7 +51,7 @@ struct NavigationDestinationBuilder: ViewModifier {
                         } else {
                             EmptyView()
                         }
-                    case .send(let account, let tokenType):
+                    case .send(let account, let tokenType, let address):
                         SendTokenView(path: $navigationManager.path,
                                       viewModel: .init(
                                         tokenType: tokenType,
@@ -66,6 +66,7 @@ struct NavigationDestinationBuilder: ViewModifier {
                                             onTxSuccess: { _ in },
                                             onTxReject: {}
                                         ),
+                                        recepientAddress: address,
                                         onRecipientPicked: onAddressPicked.eraseToAnyPublisher()))
                         .modifier(NavigationViewModifier(title: "Send", backAction: {
                             navigationManager.pop()
