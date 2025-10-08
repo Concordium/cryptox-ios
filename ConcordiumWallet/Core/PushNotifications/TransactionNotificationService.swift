@@ -319,7 +319,7 @@ extension TransactionNotificationService {
         } else if type == .plt {
             let value = data["value"] as? String ?? ""
             let decimals = data["decimals"] as? String ?? ""
-            let tokenAmount = TokenFormatter.formatPLTTokenWithDecimals(Int(value) ?? 0, decimals: Int(decimals) ?? 0)
+            let tokenAmount = TokenFormatter.formatPLTTokenWithDecimals(value, decimals: Int(decimals) ?? 0)
             let tokenId = data["token_id"] as? String ?? ""
             self.composeAndSendNotification(title: "You received \(tokenAmount) \(tokenId)", userInfo: data)
         } else {

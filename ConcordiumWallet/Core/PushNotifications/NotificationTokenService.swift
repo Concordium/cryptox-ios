@@ -203,7 +203,7 @@ final class NotificationTokenService {
                 CoreDataPLTStore.shared.saveTokens([accountPLTToken], for: recipient)
 
                 let amount = TokenFormatter.formatPLTTokenWithDecimals(
-                    Int(balanceEntry.balance.value) ?? 0,
+                    balanceEntry.balance.value,
                     decimals: Int(balanceEntry.balance.decimals)
                 )
 
@@ -246,7 +246,7 @@ final class NotificationTokenService {
 
                     let accPLTToken = AccountPLTToken.makeToken(from: saved)
                     let amount = TokenFormatter.formatPLTTokenWithDecimals(
-                        Int(entry.balance.value) ?? 0,
+                        entry.balance.value,
                         decimals: Int(entry.balance.decimals)
                     )
 
