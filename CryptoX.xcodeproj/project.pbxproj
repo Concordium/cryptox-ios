@@ -1591,6 +1591,7 @@
 		1510F2BE2D4B87D7008E04D0 /* AddRecipientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1510F2BD2D4B87D7008E04D0 /* AddRecipientViewModel.swift */; };
 		1510F2BF2D4B87D7008E04D0 /* AddRecipientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1510F2BD2D4B87D7008E04D0 /* AddRecipientViewModel.swift */; };
 		1510F2C02D4B87D7008E04D0 /* AddRecipientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1510F2BD2D4B87D7008E04D0 /* AddRecipientViewModel.swift */; };
+		151123EF2E97CA930003A845 /* AppIconStageNet.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 151123EE2E97CA930003A845 /* AppIconStageNet.xcassets */; };
 		1517A0F32D5A0E2B0089619F /* ToastGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1517A0F22D5A0E2B0089619F /* ToastGradientView.swift */; };
 		1517A0F42D5A0E2B0089619F /* ToastGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1517A0F22D5A0E2B0089619F /* ToastGradientView.swift */; };
 		1517A0F52D5A0E2B0089619F /* ToastGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1517A0F22D5A0E2B0089619F /* ToastGradientView.swift */; };
@@ -1970,7 +1971,6 @@
 		5059C9B72C00CF1700E40307 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5059C9B62C00CF1700E40307 /* SDWebImageSwiftUI */; };
 		505E11F12CC2994A0003F6DC /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F779124891F220016F8D1 /* AppIcon.xcassets */; };
 		505E11F22CC299510003F6DC /* AppIconTestNet.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F778F24891EFB0016F8D1 /* AppIconTestNet.xcassets */; };
-		505E11F32CC299560003F6DC /* AppIconTestNet.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F778F24891EFB0016F8D1 /* AppIconTestNet.xcassets */; };
 		5075414A2DD3C590000D9445 /* MobileWalletLib in Frameworks */ = {isa = PBXBuildFile; productRef = 507541492DD3C590000D9445 /* MobileWalletLib */; };
 		5075414D2DD3C5B8000D9445 /* MobileWalletLib in Frameworks */ = {isa = PBXBuildFile; productRef = 5075414C2DD3C5B8000D9445 /* MobileWalletLib */; };
 		5075414F2DD3C5DC000D9445 /* MobileWalletLib in Frameworks */ = {isa = PBXBuildFile; productRef = 5075414E2DD3C5DC000D9445 /* MobileWalletLib */; };
@@ -3088,6 +3088,7 @@
 		1505693C2CCF84C9005B81ED /* IdentityProviderListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityProviderListView.swift; sourceTree = "<group>"; };
 		15069A1D2C89A1C000697017 /* ProdTestNet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProdTestNet.entitlements; sourceTree = "<group>"; };
 		1510F2BD2D4B87D7008E04D0 /* AddRecipientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipientViewModel.swift; sourceTree = "<group>"; };
+		151123EE2E97CA930003A845 /* AppIconStageNet.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIconStageNet.xcassets; sourceTree = "<group>"; };
 		1517A0F22D5A0E2B0089619F /* ToastGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastGradientView.swift; sourceTree = "<group>"; };
 		15184CEC2CB0056C00DAE03A /* CooldownCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CooldownCardView.swift; sourceTree = "<group>"; };
 		151A53982C5CF03800EFE20C /* PopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
@@ -3691,6 +3692,7 @@
 				7FD435FD249A2D34002D2AC3 /* icon-44-58.png */,
 				7F5F779124891F220016F8D1 /* AppIcon.xcassets */,
 				7F5F778F24891EFB0016F8D1 /* AppIconTestNet.xcassets */,
+				151123EE2E97CA930003A845 /* AppIconStageNet.xcassets */,
 				7FF07A7523EADB1400F1FC04 /* Assets.xcassets */,
 				08A6BDBF2B3318B300869317 /* Colors.xcassets */,
 				19C2EB84A6D34023C95A89C1 /* CryptoX-mock-Info.plist */,
@@ -6690,6 +6692,7 @@
 				D5CFCF30273922D800888E1B /* QRTransactionDataViewController.xib in Resources */,
 				D589F3F12794B96C003F2FBB /* 2.5.2.RX_backend_transferCost.json in Resources */,
 				D5087B5728EE49740082A05F /* NFTLoadingStatusView.xib in Resources */,
+				151123EF2E97CA930003A845 /* AppIconStageNet.xcassets in Resources */,
 				D589F40D2794B96D003F2FBB /* 3.3.1.TX_backend_submitTransfer.json in Resources */,
 				D589F3CD2794B96C003F2FBB /* 2.4.2.RX_backend_submissionStatus_absent.json in Resources */,
 				D5E6CBEC290F4771009856B7 /* NFTDataEmptyCell.xib in Resources */,
@@ -6723,7 +6726,6 @@
 				088FF31D2A02CA1500042957 /* seed_identity_onboarding_en_1.html in Resources */,
 				088FF2802A02BDF000042957 /* Onboarding.storyboard in Resources */,
 				D589F3BD2794B96C003F2FBB /* 2.2.1.TX-lib_create_credential.json in Resources */,
-				505E11F32CC299560003F6DC /* AppIconTestNet.xcassets in Resources */,
 				088FF37C2A03B93500042957 /* SendFund.storyboard in Resources */,
 				D589F3AD2794B96C003F2FBB /* 3.1.2.RX_backend_accNonce.json in Resources */,
 				D589F3852794B96B003F2FBB /* 4.5.2.RX_lib_generate_accounts.json in Resources */,
