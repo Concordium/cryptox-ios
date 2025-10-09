@@ -5,7 +5,7 @@
 - Fix decimals for the PLTs
 - Fix token balance issue for PLTs
 - iOS 26 UI fixes
-
+- Updated app icon and splash screen
 
 ## [Released 3.3.9]
 - Add tag for CIS-2 tokens on token details screen
