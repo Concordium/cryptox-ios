@@ -8,6 +8,7 @@
 
 import Foundation
 import BigInt
+import UIKit
 
 /// Formats numbers to and from string representations.
 public class TokenFormatter {
@@ -16,6 +17,8 @@ public class TokenFormatter {
                                                   trillions: NSLocalizedString("amount_trillions", comment: "T"))
     public static let defaultLiterals = (millions: "M", billions: "B", trillions: "T")
     public static let decimalSeparators = Locale.autoupdatingCurrent.decimalSeparator ?? "."
+    public static let fixedGroupingSeparator = ","
+    public static let fixedDecimalSeparator = "."
 
     public var roundingBehavior = RoundingBehavior.cutoff
 
@@ -25,6 +28,84 @@ public class TokenFormatter {
     }
 
     public init() {}
+
+    // MARK: - Shared fixed-separator utilities (migrated from ConcordiumFormatter)
+
+    public static func formatTokenBaseUnits(_ value: String,
+                                            decimals: Int,
+                                            minFractionDigits: Int = 0,
+                                            maxFractionDigits: Int? = nil) -> String {
+        let precision = max(0, decimals)
+        let maxFrac = maxFractionDigits ?? min(precision, 6)
+
+        guard let integer = Decimal(string: value, locale: Locale(identifier: "en_US_POSIX")) else {
+            return minFractionDigits > 0 ? "0." + String(repeating: "0", count: minFractionDigits) : "0"
+        }
+
+        let divisor = pow10Decimal(precision)
+        let scaled = integer / divisor
+
+        let formatter = NumberFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = fixedGroupingSeparator
+        formatter.decimalSeparator = fixedDecimalSeparator
+        formatter.usesGroupingSeparator = true
+        formatter.minimumFractionDigits = max(0, minFractionDigits)
+        formatter.maximumFractionDigits = max(0, maxFrac)
+        formatter.roundingMode = .down
+
+        return formatter.string(from: scaled as NSDecimalNumber) ?? (minFractionDigits > 0 ? "0." + String(repeating: "0", count: minFractionDigits) : "0")
+    }
+
+    public static func formatCCD(microCCD: Int, fractionDigits: Int = 2) -> String {
+        let decimals = max(0, min(fractionDigits, 6))
+        let amount = Decimal(microCCD) / Decimal(1_000_000)
+
+        let formatter = NumberFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = fixedGroupingSeparator
+        formatter.decimalSeparator = fixedDecimalSeparator
+        formatter.usesGroupingSeparator = true
+        formatter.minimumFractionDigits = decimals
+        formatter.maximumFractionDigits = decimals
+        formatter.roundingMode = .down
+
+        return formatter.string(from: amount as NSDecimalNumber) ?? (decimals > 0 ? "0." + String(repeating: "0", count: decimals) : "0")
+    }
+
+    public static func formatPLTTokenAmount(_ amount: String) -> String {
+        let formatter: NumberFormatter = {
+            let f = NumberFormatter()
+            f.locale = Locale(identifier: "en_US_POSIX")
+            f.numberStyle = .decimal
+            f.groupingSeparator = fixedGroupingSeparator
+            f.decimalSeparator = fixedDecimalSeparator
+            f.maximumFractionDigits = 1
+            f.minimumFractionDigits = 0
+            return f
+        }()
+
+        let num = Double(amount) ?? 0
+        switch num {
+        case 1_000_000...:
+            let scaledValue = num / 1_000_000
+            return "\(formatter.string(from: NSNumber(value: scaledValue)) ?? "0") M"
+        case 1_000..<1_000_000:
+            let scaledValue = num / 1_000
+            return "\(formatter.string(from: NSNumber(value: scaledValue)) ?? "0") K"
+        default:
+            return formatter.string(from: NSNumber(value: num)) ?? "0"
+        }
+    }
+
+    private static func pow10Decimal(_ n: Int) -> Decimal {
+        if n <= 0 { return 1 }
+        var result: Decimal = 1
+        for _ in 0..<n { result *= 10 }
+        return result
+    }
 
     /// Converts string to a BigDecimal with a known precision.
     ///
@@ -297,61 +378,11 @@ public class TokenFormatter {
         return groups
     }
     
-    static func formatPLTTokenAmount(amount: String) -> String {
-        let formatter: NumberFormatter = {
-            let f = NumberFormatter()
-            f.numberStyle = .decimal
-            f.groupingSeparator = "."
-            f.decimalSeparator = "."
-            f.maximumFractionDigits = 1
-            f.minimumFractionDigits = 0
-            return f
-        }()
-        
-        let num = Double(amount) ?? 0
-        switch num {
-        case 1_000_000...:
-            return "\(formatter.string(from: NSNumber(value: num / 1_000_000)) ?? "0") M"
-        case 1_000...:
-            return "\(formatter.string(from: NSNumber(value: num / 1_000)) ?? "0") K"
-        default:
-            return formatter.string(from: NSNumber(value: num)) ?? "0"
-        }
-    }
-    
     static func formatPLTTokenWithDecimals(_ value: String, decimals: Int) -> String {
-        let hasCommaAsDecimal = value.lastIndex(of: ",") ?? value.startIndex >
-                                (value.lastIndex(of: ".") ?? value.startIndex)
-
-        var normalized = value
-
-        if hasCommaAsDecimal {
-            // Swap commas and dots safely using placeholder
-            normalized = value
-                .replacingOccurrences(of: ".", with: "#")
-                .replacingOccurrences(of: ",", with: ".")
-                .replacingOccurrences(of: "#", with: ",")
-        }
-
-        // Step 2: Create a formatter for parsing
-        let parser = NumberFormatter()
-        parser.numberStyle = .decimal
-        parser.groupingSeparator = ","
-        parser.decimalSeparator = "."
-
-        guard let number = parser.number(from: normalized) else {
-            return "0.00"
-        }
-
-        // Step 3: Create a formatter for output
-        let output = NumberFormatter()
-        output.numberStyle = .decimal
-        output.groupingSeparator = ","
-        output.decimalSeparator = "."
-        output.minimumFractionDigits = decimals
-        output.maximumFractionDigits = decimals
-
-        return output.string(from: number) ?? "0.00"
+        return formatTokenBaseUnits(value,
+                                    decimals: decimals,
+                                    minFractionDigits: 0,
+                                    maxFractionDigits: min(2, max(0, decimals)))
     }
 }
 
