@@ -1967,6 +1967,7 @@
 		50268F962E267D3400D46E02 /* SessionRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50268F932E267D3400D46E02 /* SessionRequestType.swift */; };
 		5032DC762E9E35460051F548 /* SwiftCBOR in Frameworks */ = {isa = PBXBuildFile; productRef = 5032DC752E9E35460051F548 /* SwiftCBOR */; };
 		5032DC782E9E356A0051F548 /* SwiftCBOR in Frameworks */ = {isa = PBXBuildFile; productRef = 5032DC772E9E356A0051F548 /* SwiftCBOR */; };
+		5032DEEA2E9F93370051F548 /* Concordium in Frameworks */ = {isa = PBXBuildFile; productRef = 5032DEE92E9F93370051F548 /* Concordium */; };
 		5059C9B52C00CF1200E40307 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5059C9B42C00CF1200E40307 /* SDWebImageSwiftUI */; };
 		5059C9B72C00CF1700E40307 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5059C9B62C00CF1700E40307 /* SDWebImageSwiftUI */; };
 		505E11F12CC2994A0003F6DC /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F779124891F220016F8D1 /* AppIcon.xcassets */; };
@@ -3583,6 +3584,7 @@
 				083505072A9F4F14000D5175 /* SDWebImageSVGCoder in Frameworks */,
 				158A35242E1685AC00BDCFDE /* Lottie in Frameworks */,
 				50E0D1692D35466100853594 /* Starscream in Frameworks */,
+				5032DEEA2E9F93370051F548 /* Concordium in Frameworks */,
 				509A56392CB43540005EA908 /* RealmSwift in Frameworks */,
 				15339E712DB8FF2E003D64D1 /* FirebaseAnalytics in Frameworks */,
 				08A0444729FA906200DACE1F /* Kingfisher in Frameworks */,
@@ -6242,6 +6244,7 @@
 				507541502DD3C5E0000D9445 /* MobileWalletLib */,
 				158A35232E1685AC00BDCFDE /* Lottie */,
 				5032DC752E9E35460051F548 /* SwiftCBOR */,
+				5032DEE92E9F93370051F548 /* Concordium */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
@@ -9690,6 +9693,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5032DC742E9E35460051F548 /* XCRemoteSwiftPackageReference "SwiftCBOR" */;
 			productName = SwiftCBOR;
+		};
+		5032DEE92E9F93370051F548 /* Concordium */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5023EED62E9E302E00E54341 /* XCRemoteSwiftPackageReference "concordium-swift-sdk" */;
+			productName = Concordium;
 		};
 		5059C9B42C00CF1200E40307 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;

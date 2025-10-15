@@ -14,7 +14,6 @@ final class SessionRequestViewModel: ObservableObject {
 
     @Published var requestModel: SessionRequestDataProvidable?
     @Published var requestType: SessionRequestDataType?
-    @Published var reownSessionRequest: ReownSessionRequest?
 
     private let sessionRequest: Request
     private var cancellables = [AnyCancellable]()
@@ -31,16 +30,6 @@ final class SessionRequestViewModel: ObservableObject {
         self.sessionRequest = sessionRequest
         self.message = String(describing: sessionRequest.params.value)
         self.method = sessionRequest.method
-
-        if let json = try? sessionRequest.params.json(), let jsonData = json.data(using: .utf8) {
-            let decoder = JSONDecoder()
-            do {
-                let sessionRequest = try decoder.decode(ReownSessionRequest.self, from: jsonData)
-                self.reownSessionRequest = sessionRequest
-            } catch {
-                print("Error decoding session request: \(error)")
-            }
-        }
 
         Task {
             await MainActor.run {
