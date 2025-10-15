@@ -14,14 +14,15 @@ import ReownWalletKit
 private let CONCORDIUM_WALLET_CONNECT_PROJECT_ID = "76324905a70fe5c388bab46d3e0564dc"
 
 protocol WalletConnectServiceProtocol: AnyObject {
-    func showSessionProposal(with proposal: Session.Proposal, context: VerifyContext?)
-    func showSessionRequest(with request: Request)
+    func showSessionProposal(with proposal: Session.Proposal, context: VerifyContext?, redirectURL: String?)
+    func showSessionRequest(with request: Request, redirectURL: String?)
 }
 
 final class WalletConnectService {
     weak var delegate: WalletConnectServiceProtocol?
 
     private var publishers = [AnyCancellable]()
+    private var redirectURL: String?
     
     init() {
         initialize()
@@ -60,19 +61,21 @@ final class WalletConnectService {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] session in
                 logger.debugLog("wc: --- sessionRequestPublisher \(session)")
-                self?.delegate?.showSessionRequest(with: session.request)
+                self?.delegate?.showSessionRequest(with: session.request, redirectURL: self?.redirectURL)
             }.store(in: &publishers)
         
         Sign.instance.sessionProposalPublisher.delay(for: 2, scheduler: RunLoop.main)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] session in
                 logger.debugLog("wc: --- sessionProposalPublisher \(session)")
-                self?.delegate?.showSessionProposal(with: session.proposal, context: session.context)
+                self?.delegate?.showSessionProposal(with: session.proposal, context: session.context, redirectURL: self?.redirectURL)
             }
             .store(in: &publishers)
     }
     
     public func pair(_ address: String) async {
+        redirectURL = extractRedirectFromURL(address)
+        
         guard let uri = WalletConnectURI(string: address) else { return }
         LegacyLogger.debug("wc: `pair.address` -- \(uri)")
         
@@ -92,12 +95,28 @@ final class WalletConnectService {
         }
     }
     
+    private func extractRedirectFromURL(_ urlString: String) -> String? {
+        // Parse the URL to extract redirect parameter
+        // Example: cryptoxtestnet://wc:302e268a7f80c4d6cc8a77496b082d723ea361142449afd2e660ae285ad09229@2?relay-protocol=irn&symKey=a7857c3b36f5e80403c178e2fce34790d94be58323f5ba94042c65a3da6ad299&redirect=googlechrome://
+        guard let url = URL(string: urlString),
+              let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+              let queryItems = components.queryItems else {
+            return nil
+        }
+        
+        return queryItems.first(where: { $0.name == "redirect" })?.value
+    }
+    
+    func getRedirectURL() -> String? {
+        return redirectURL
+    }
+    
     private func subscribeSessionProposals() {
         Sign.instance.sessionProposalPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] session in
                 LegacyLogger.debug("wc: --- sessionProposalPublisher \(session)")
-                self?.delegate?.showSessionProposal(with: session.proposal, context: session.context)
+                self?.delegate?.showSessionProposal(with: session.proposal, context: session.context, redirectURL: self?.redirectURL)
             }
             .store(in: &publishers)
     }
@@ -107,7 +126,7 @@ final class WalletConnectService {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] session in
                 LegacyLogger.debug("wc: --- sessionRequestPublisher \(session)")
-                self?.delegate?.showSessionRequest(with: session.request)
+                self?.delegate?.showSessionRequest(with: session.request, redirectURL: self?.redirectURL)
             }.store(in: &publishers)
     }
 }

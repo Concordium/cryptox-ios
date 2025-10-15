@@ -272,7 +272,7 @@ extension AccountsMainRouter {
 }
 
 extension AccountsMainRouter: WalletConnectServiceProtocol {
-    func showSessionRequest(with request: WalletConnectSign.Request) {
+    func showSessionRequest(with request: WalletConnectSign.Request, redirectURL: String?) {
         let viewController = ClearSceneViewController(
             content: SessionRequestView(
                 viewModel: .init(
@@ -281,20 +281,22 @@ extension AccountsMainRouter: WalletConnectServiceProtocol {
                     storageManager: self.dependencyProvider.storageManager(), 
                     mobileWallet: self.dependencyProvider.mobileWallet(),
                     concordiumClient: self.dependencyProvider.concordiumClient(),
-                    identitiesService: self.dependencyProvider.seedIdentitiesService()
+                    identitiesService: self.dependencyProvider.seedIdentitiesService(),
+                    redirectURL: redirectURL
                 )
             )
         )
         self.navigationController.present(viewController, animated: true)
     }
     
-    func showSessionProposal(with proposal: Session.Proposal, context: VerifyContext?) {
+    func showSessionProposal(with proposal: Session.Proposal, context: VerifyContext?, redirectURL: String?) {
         let viewController = ClearSceneViewController(
             content: SessionProposalView(
                 viewModel: .init(
                     sessionProposal: proposal,
                     wallet: self.dependencyProvider.mobileWallet(),
-                    storageManager: self.dependencyProvider.storageManager())
+                    storageManager: self.dependencyProvider.storageManager(),
+                    redirectURL: redirectURL)
             )
         )
         self.navigationController.dismiss(animated: true) {

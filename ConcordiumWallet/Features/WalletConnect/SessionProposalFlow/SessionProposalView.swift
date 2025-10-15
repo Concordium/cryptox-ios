@@ -38,11 +38,13 @@ final class SessionProposalViewModel: ObservableObject {
     
     private let wallet: MobileWalletProtocol
     private let storageManager: StorageManagerProtocol
+    private let redirectURL: String?
     
-    init(sessionProposal: Session.Proposal, wallet: MobileWalletProtocol, storageManager: StorageManagerProtocol) {
+    init(sessionProposal: Session.Proposal, wallet: MobileWalletProtocol, storageManager: StorageManagerProtocol, redirectURL: String? = nil) {
         self.wallet = wallet
         self.sessionProposal = sessionProposal
         self.storageManager = storageManager
+        self.redirectURL = redirectURL
         
         self.selectedAccount = self.accounts().first
         
@@ -84,7 +86,9 @@ final class SessionProposalViewModel: ObservableObject {
         let supportedEvents = Array(sessionProposal.requiredNamespaces.map { $0.value.events }.first ?? [])
         let supportedChains = Array((sessionProposal.requiredNamespaces.map { $0.value.chains }.first ?? [] )!)
         let supportedAccounts: [Account] = supportedChains.map { Account(blockchain: $0, address: selectedAccount?.address ?? "")! }
-        let redirectURL = sessionProposal.proposer.redirect?.universal
+        
+        // Use redirect URL from URL parameter if available, otherwise fall back to proposer.redirect
+        let finalRedirectURL = redirectURL ?? sessionProposal.proposer.redirect?.universal
 
         do {
             let sessionNamespaces = try AutoNamespaces.build(
@@ -95,7 +99,7 @@ final class SessionProposalViewModel: ObservableObject {
                 accounts: supportedAccounts
             )
             try await Sign.instance.approve(proposalId: sessionProposal.id, namespaces: sessionNamespaces)
-            completion?(redirectURL)
+            completion?(finalRedirectURL)
         } catch {
             logger.debugLog(error.localizedDescription)
         }
