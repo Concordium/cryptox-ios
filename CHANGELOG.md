@@ -1,7 +1,17 @@
 # Changelog
 
 ## [Unreleased]
+- fix PLT value formatter
+- fix CCD Transfer with memo: add SwiftSDK v1.1.1.
+- used same CBOR lib as SDK
+- changed app name for production build -> Concordium Wallet
+
+## [Released 3.3.10]
 - Update QR scanner logic
+- Fix decimals for the PLTs
+- Fix token balance issue for PLTs
+- iOS 26 UI fixes
+- Updated app icon and splash screen
 
 ## [Released 3.3.9]
 - Add tag for CIS-2 tokens on token details screen

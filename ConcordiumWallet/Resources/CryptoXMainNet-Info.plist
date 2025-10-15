@@ -2,16 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>FirebaseAutomaticScreenReportingEnabled</key>
-	<false/>
 	<key>API_KEY</key>
 	<string>6515da6d-a065-4676-a214-c83e5b18f5f3</string>
-	<key>UIDesignRequiresCompatibility</key>
-	<true/>
-	<key>MAINNET_WERT_API_KEY</key>
-	<string>wert-prod-0a3392b9c8aa1163334f5bdcef1b27e64593206d</string>
-	<key>MAINNET_WERT_PARTNER_ID</key>
-	<string>01HM0W8FTFG4TEBRB0JPM18G5W</string>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
@@ -19,7 +11,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>CryptoX Wallet</string>
+	<string>Concordium Wallet</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -112,6 +104,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>Concordium Support Mail</key>
 	<string>idiss@concordium.software</string>
+	<key>FirebaseAutomaticScreenReportingEnabled</key>
+	<false/>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<true/>
 	<key>ITSEncryptionExportComplianceCode</key>
@@ -122,6 +116,10 @@
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<false/>
+	<key>MAINNET_WERT_API_KEY</key>
+	<string>wert-prod-0a3392b9c8aa1163334f5bdcef1b27e64593206d</string>
+	<key>MAINNET_WERT_PARTNER_ID</key>
+	<string>01HM0W8FTFG4TEBRB0JPM18G5W</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -143,12 +141,29 @@
 	<string>Enable FaceID for more convenient login</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Used during verification identity stage</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Satoshi-Bold.otf</string>
+		<string>Satoshi-Medium.otf</string>
+		<string>Satoshi-Regular.otf</string>
+		<string>IBMPlexMono-Bold.ttf</string>
+		<string>IBMPlexMono-Medium.ttf</string>
+		<string>IBMPlexMono-Regular.ttf</string>
+		<string>IBMPlexMono-SemiBold.ttf</string>
+		<string>IBMPlexSans-Bold.ttf</string>
+		<string>IBMPlexSans-Light.ttf</string>
+		<string>IBMPlexSans-Medium.ttf</string>
+		<string>IBMPlexSans-Regular.ttf</string>
+		<string>IBMPlexSans-SemiBold.ttf</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
 		<string>processing</string>
 		<string>remote-notification</string>
 	</array>
+	<key>UIDesignRequiresCompatibility</key>
+	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -168,21 +183,6 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Dark</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Satoshi-Bold.otf</string>
-		<string>Satoshi-Medium.otf</string>
-		<string>Satoshi-Regular.otf</string>
-		<string>IBMPlexMono-Bold.ttf</string>
-		<string>IBMPlexMono-Medium.ttf</string>
-		<string>IBMPlexMono-Regular.ttf</string>
-		<string>IBMPlexMono-SemiBold.ttf</string>
-		<string>IBMPlexSans-Bold.ttf</string>
-		<string>IBMPlexSans-Light.ttf</string>
-		<string>IBMPlexSans-Medium.ttf</string>
-		<string>IBMPlexSans-Regular.ttf</string>
-		<string>IBMPlexSans-SemiBold.ttf</string>
-	</array>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>

@@ -69,7 +69,7 @@ struct TokenView: View {
                 icon: iconView,
                 title: pltToken.pltToken.tokenID,
                 subtitle: "PLT",
-                amount: TokenFormatter.formatPLTTokenAmount(amount: pltToken.pltToken.tokenState.totalSupply.value),
+                amount: TokenFormatter.formatPLTTokenAmount(pltToken.pltToken.tokenState.totalSupply.value),
                 secondaryAmount: nil,
                 tokenImage: .plt,
                 showDenyIcon: pltToken.pltToken.tokenState.moduleState.denyList || !pltToken.pltToken.tokenState.moduleState.allowList,
