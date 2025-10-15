@@ -11,7 +11,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>CryptoX - Stagenet Wallet</string>
+	<string>Concordium - Stagenet Wallet</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
