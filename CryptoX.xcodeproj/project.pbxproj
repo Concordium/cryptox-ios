@@ -9000,7 +9000,7 @@
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ProdTestNet-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "CryptoX - Testnet Wallet";
+				INFOPLIST_KEY_CFBundleDisplayName = "Concordium - Testnet Wallet";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -9033,7 +9033,7 @@
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ProdTestNet-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "CryptoX - Testnet Wallet";
+				INFOPLIST_KEY_CFBundleDisplayName = "Concordium - Testnet Wallet";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -9257,7 +9257,7 @@
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/CryptoXStagingNet-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "CryptoX - Stagenet Wallet";
+				INFOPLIST_KEY_CFBundleDisplayName = "Concordium - Stagenet Wallet";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -9297,7 +9297,7 @@
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/CryptoXStagingNet-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "CryptoX - Stagenet Wallet";
+				INFOPLIST_KEY_CFBundleDisplayName = "Concordium - Stagenet Wallet";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
