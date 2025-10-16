@@ -75,9 +75,9 @@ final class WalletConnectService {
     
     public func pair(_ address: String) async {
         redirectURL = extractRedirectFromURL(address)
+        LegacyLogger.debug("wc: `pair` - URL: \(address), Redirect: \(redirectURL ?? "nil")")
         
         guard let uri = WalletConnectURI(string: address) else { return }
-        LegacyLogger.debug("wc: `pair.address` -- \(uri)")
         
         do {
             try await Pair.instance.pair(uri: uri)
@@ -96,15 +96,36 @@ final class WalletConnectService {
     }
     
     private func extractRedirectFromURL(_ urlString: String) -> String? {
-        // Parse the URL to extract redirect parameter
-        // Example: cryptoxtestnet://wc:302e268a7f80c4d6cc8a77496b082d723ea361142449afd2e660ae285ad09229@2?relay-protocol=irn&symKey=a7857c3b36f5e80403c178e2fce34790d94be58323f5ba94042c65a3da6ad299&redirect=googlechrome://
         guard let url = URL(string: urlString),
-              let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-              let queryItems = components.queryItems else {
+              let components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
             return nil
         }
         
-        return queryItems.first(where: { $0.name == "redirect" })?.value
+        if let redirectFromPath = extractRedirectFromWalletConnectPath(components.path) {
+            return redirectFromPath
+        }
+        
+        return extractRedirectFromQueryItems(components.queryItems)
+    }
+    
+    private func extractRedirectFromWalletConnectPath(_ path: String) -> String? {
+        guard path.hasPrefix("wc:") else { return nil }
+        
+        guard let wcURL = URL(string: path),
+              let wcComponents = URLComponents(url: wcURL, resolvingAgainstBaseURL: false) else {
+            return nil
+        }
+        
+        return extractRedirectFromQueryItems(wcComponents.queryItems)
+    }
+    
+    private func extractRedirectFromQueryItems(_ queryItems: [URLQueryItem]?) -> String? {
+        guard let queryItems = queryItems else { return nil }
+        
+        return queryItems
+            .first(where: { $0.name == "redirect" })?
+            .value?
+            .removingPercentEncoding
     }
     
     func getRedirectURL() -> String? {
