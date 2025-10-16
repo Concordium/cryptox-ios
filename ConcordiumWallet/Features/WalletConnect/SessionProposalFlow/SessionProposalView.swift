@@ -38,11 +38,13 @@ final class SessionProposalViewModel: ObservableObject {
     
     private let wallet: MobileWalletProtocol
     private let storageManager: StorageManagerProtocol
+    private let redirectURL: String?
     
-    init(sessionProposal: Session.Proposal, wallet: MobileWalletProtocol, storageManager: StorageManagerProtocol) {
+    init(sessionProposal: Session.Proposal, wallet: MobileWalletProtocol, storageManager: StorageManagerProtocol, redirectURL: String? = nil) {
         self.wallet = wallet
         self.sessionProposal = sessionProposal
         self.storageManager = storageManager
+        self.redirectURL = redirectURL
         
         self.selectedAccount = self.accounts().first
         
@@ -79,12 +81,15 @@ final class SessionProposalViewModel: ObservableObject {
     }
     
     @MainActor
-    func approveSessionRequest(_ completion: (() -> Void)?) async {
+    func approveSessionRequest(_ completion: ((_ url: String?) -> Void)?) async {
         let supportedMethods = Array(sessionProposal.requiredNamespaces.map { $0.value.methods }.first ?? [])
         let supportedEvents = Array(sessionProposal.requiredNamespaces.map { $0.value.events }.first ?? [])
         let supportedChains = Array((sessionProposal.requiredNamespaces.map { $0.value.chains }.first ?? [] )!)
         let supportedAccounts: [Account] = supportedChains.map { Account(blockchain: $0, address: selectedAccount?.address ?? "")! }
         
+        // Use redirect URL from URL parameter if available, otherwise fall back to proposer.redirect
+        let finalRedirectURL = redirectURL ?? sessionProposal.proposer.redirect?.universal
+
         do {
             let sessionNamespaces = try AutoNamespaces.build(
                 sessionProposal: sessionProposal,
@@ -94,7 +99,7 @@ final class SessionProposalViewModel: ObservableObject {
                 accounts: supportedAccounts
             )
             try await Sign.instance.approve(proposalId: sessionProposal.id, namespaces: sessionNamespaces)
-            completion?()
+            completion?(finalRedirectURL)
         } catch {
             logger.debugLog(error.localizedDescription)
         }
@@ -215,7 +220,14 @@ struct SessionProposalView: View {
                         
                         Button {
                             Task(priority: .userInitiated) {
-                                await viewModel.approveSessionRequest { dismiss() }
+                                await viewModel.approveSessionRequest { url in
+                                    dismiss()
+                                    if let url, let redirectURL = URL(string: url) {
+                                        DispatchQueue.main.async {
+                                            UIApplication.shared.open(redirectURL)
+                                        }
+                                    }
+                                }
                             }
                         } label: {
                             Text("Allow")

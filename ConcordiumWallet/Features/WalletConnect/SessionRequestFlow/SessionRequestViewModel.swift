@@ -17,6 +17,7 @@ final class SessionRequestViewModel: ObservableObject {
 
     private let sessionRequest: Request
     private var cancellables = [AnyCancellable]()
+    private let redirectURL: String?
 
     init(
         sessionRequest: Request,
@@ -25,9 +26,11 @@ final class SessionRequestViewModel: ObservableObject {
         mobileWallet: MobileWalletProtocol,
         concordiumClient: ConcordiumClient,
         identitiesService: SeedIdentitiesService,
-        passwordDelegate: RequestPasswordDelegate = DummyRequestPasswordDelegate()
+        passwordDelegate: RequestPasswordDelegate = DummyRequestPasswordDelegate(),
+        redirectURL: String? = nil
     ) {
         self.sessionRequest = sessionRequest
+        self.redirectURL = redirectURL
         self.message = String(describing: sessionRequest.params.value)
         self.method = sessionRequest.method
 
@@ -73,13 +76,13 @@ final class SessionRequestViewModel: ObservableObject {
     }
 
     @MainActor
-    func approveRequest(_ completion: () -> Void) async {
+    func approveRequest(_ completion: ((_ redirectURL: String?) -> Void)? = nil) async {
         self.shouldRejectOnDismiss = false
         self.error = nil
 
         do {
             try await requestModel?.approveRequest()
-            completion()
+            completion?(redirectURL)
         } catch let modelError as SessionRequstError {
             self.error = modelError
         } catch {

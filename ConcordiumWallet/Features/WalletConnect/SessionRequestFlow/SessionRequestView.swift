@@ -123,7 +123,14 @@ struct SessionRequestView: View {
                         
                         Button {
                             Task(priority: .userInitiated) { await
-                                viewModel.approveRequest { dismiss() }
+                                viewModel.approveRequest { redirectURL in
+                                    dismiss()
+                                    if let redirectURL, let url = URL(string: redirectURL) {
+                                        DispatchQueue.main.async {
+                                            UIApplication.shared.open(url)
+                                        }
+                                    }
+                                }
                             }
                         } label: {
                             Text("Sign")
