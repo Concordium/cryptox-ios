@@ -52,7 +52,7 @@ public class TokenFormatter {
         formatter.decimalSeparator = fixedDecimalSeparator
         formatter.usesGroupingSeparator = true
         formatter.minimumFractionDigits = max(0, minFractionDigits)
-        formatter.maximumFractionDigits = max(0, maxFrac)
+        formatter.maximumFractionDigits = max(0, maxFractionDigits ?? decimals)
         formatter.roundingMode = .down
 
         return formatter.string(from: scaled as NSDecimalNumber) ?? (minFractionDigits > 0 ? "0." + String(repeating: "0", count: minFractionDigits) : "0")
