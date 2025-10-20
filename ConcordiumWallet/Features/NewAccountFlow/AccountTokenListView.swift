@@ -126,7 +126,7 @@ struct AccountTokenListView: View {
             } else {
                 iconView = AnyView(Image("placeholder-crypto-token").resizable())
             }
-            let formattedAmount = TokenFormatter.formatPLTTokenWithDecimals(amount, decimals: 2)
+            let formattedAmount = TokenFormatter.formatPLTTokenWithDecimals(amount, decimals: token.token.tokenState.decimals)
             return TokenListCellData(
                 id: account.id,
                 icon: iconView,
@@ -271,20 +271,13 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
                     tokenAccountState: tokenBalance?.value ?? fallback
                 )
 
-                let amount = TokenFormatter().plainString(
-                    from: BigDecimal(
-                        BigInt(stringLiteral: pltToken.tokenAccountState.balance.value),
-                        pltToken.tokenAccountState.balance.decimals
-                    )
-                )
-
                 var metadata: PLTMetadata? = nil
                 let urlString = pltToken.token.tokenState.moduleState.metadata?.url ?? ""
                 do {
                     metadata = try await loadPLTMetadata(from: urlString)
                 } catch {}
                 
-                tmpTokens.append(.plt(token: pltToken, amount: amount, metadata: metadata))
+                tmpTokens.append(.plt(token: pltToken, amount: pltToken.tokenAccountState.balance.value, metadata: metadata))
             }
 
             return tmpTokens
