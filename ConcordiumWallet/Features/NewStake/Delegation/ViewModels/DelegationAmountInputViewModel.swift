@@ -337,6 +337,7 @@ final class DelegationAmountInputViewModel: StakeAmountInputViewModel {
         if let stakingModeViewModel {
             navigationManager.navigate(to: .delegationStakingMode(stakingModeViewModel))
         }
+        validateAmount()
     }
 }
 
