@@ -336,8 +336,8 @@ extension CXTokenType {
                 return cIS2Token.metadata.name  ?? ""
             case .ccd:
                 return "CCD"
-        case .plt:
-            return "PLT"
+        case .plt(let plt):
+            return plt.token.tokenState.moduleState.name
         }
     }
     var decimals: Int {
