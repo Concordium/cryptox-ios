@@ -381,7 +381,7 @@ public class TokenFormatter {
     static func formatPLTTokenWithDecimals(_ value: String, decimals: Int) -> String {
         return formatTokenBaseUnits(value,
                                     decimals: decimals,
-                                    minFractionDigits: 0,
+                                    minFractionDigits: 2,
                                     maxFractionDigits: min(2, max(0, decimals)))
     }
 }
