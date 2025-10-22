@@ -70,13 +70,13 @@ final class DelegationAmountInputViewModel: StakeAmountInputViewModel {
                         validator: validator,
                         showsPoolLimits: showsPoolLimits)
         loadData()
-        Publishers.CombineLatest3($amountDecimal, $stakingMode, $amountErrorMessage)
-            .map { amount, stakingMode, error in
-                let isAmountValid = amount != .zero
-                let isStakingModeValid = stakingMode != nil
-                let isErrorValid = error == nil
-                return isAmountValid && isStakingModeValid && isErrorValid
+        $amountDecimal
+            .combineLatest($stakingMode, $amountErrorMessage)
+            .map { amount, mode, error in
+                amount != .zero && mode != nil && error == nil
             }
+            .removeDuplicates()
+            .receive(on: DispatchQueue.main)
             .assign(to: &$isContinueEnabled)
     }
     
