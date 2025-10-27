@@ -151,6 +151,8 @@ extension AccountsMainRouter {
             onConfirmed: { phrase in
                 DispatchQueue.main.async { [weak self] in
                     self?.navigationController.dismiss(animated: true, completion: nil)
+                    // Mark that user has backed up their seedphrase
+                    UserDefaults.standard.set(true, forKey: "isUserMakeBackup")
                 }
                 completion(phrase)
             })

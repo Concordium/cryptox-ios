@@ -148,7 +148,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         if !accounts.isEmpty || !identities.isEmpty || defaultProvider.keychainWrapper().passwordCreated() {
             navigationController.setViewControllers([UIHostingController(
                 rootView:
-                    PasscodeView(keychain: defaultProvider.keychainWrapper(), sanityChecker: sanityChecker) { _ in
+                    PasscodeView(keychain: defaultProvider.keychainWrapper(), sanityChecker: sanityChecker, identitiesService: defaultProvider.seedIdentitiesService()) { _ in
                         self.showMainTabbar()
                     }
             )], animated: false)
@@ -156,7 +156,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
             if defaultProvider.keychainWrapper().passwordCreated()  {
                 navigationController.setViewControllers([UIHostingController(
                     rootView:
-                        PasscodeView(keychain: defaultProvider.keychainWrapper(), sanityChecker: sanityChecker) { _ in
+                        PasscodeView(keychain: defaultProvider.keychainWrapper(), sanityChecker: sanityChecker, identitiesService: defaultProvider.seedIdentitiesService()) { _ in
                             self.showNewOnboardingFlow()
                         }
                 )], animated: false)

@@ -40,6 +40,7 @@ struct HomeScreenView: View {
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowOnrampMessage") private var isShouldShowOnrampMessage = true
     @AppStorage("isShouldShowEarnBanner") private var isShouldShowEarnBanner = true
+    @AppStorage("isShouldShowSeedphraseBackupBanner") private var isShouldShowSeedphraseBackupBanner = true
 
     let keychain: KeychainWrapperProtocol
     let identitiesService: SeedIdentitiesService
@@ -179,6 +180,21 @@ struct HomeScreenView: View {
                         self.router?.showExportFlow()
                     }
                 }
+                
+                // Seedphrase backup reminder banner
+                if !isUserMakeBackup && isShouldShowSeedphraseBackupBanner && identitiesService.mobileWallet.hasSetupRecoveryPhrase {
+                    SeedphraseBackupBannerView(
+                        onBackupNow: {
+                            // Show passcode view to get password hash, then navigate to seedphrase backup screen
+                            isShowPasscodeViewShown = true
+                        },
+                        onHideAnyway: {
+                            withAnimation(.easeInOut) {
+                                isShouldShowSeedphraseBackupBanner = false
+                            }
+                        }
+                    )
+                }
 
                 let suspendedAccounts = viewModel.suspendedOrPrimedAccounts()
 
@@ -227,7 +243,7 @@ struct HomeScreenView: View {
                 }
                 if  viewModel.selectedAccount?.account?.forecastBalance == 0,
                     viewModel.selectedAccount?.account?.delegation != nil,
-                    isShouldShowOnrampMessage {
+                    isShouldShowOnrampMessage && (!isShouldShowSeedphraseBackupBanner || isUserMakeBackup) {
                         OnrampView
                 } else if viewModel.selectedAccount?.account?.delegation == nil && isShouldShowEarnBanner {
                     EarnView
@@ -555,12 +571,16 @@ extension HomeScreenView {
     private var passcodeView: some View {
         PasscodeView(keychain: keychain,
                      sanityChecker: SanityChecker(mobileWallet: ServicesProvider.defaultProvider().mobileWallet(),
-                                                  storageManager: ServicesProvider.defaultProvider().storageManager())) { pwHash in
+                                                  storageManager: ServicesProvider.defaultProvider().storageManager()),
+                     identitiesService: nil) { pwHash in
             isShowPasscodeViewShown = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.router?.showSaveSeedPhraseFlow(pwHash: pwHash, identitiesService: identitiesService) { phrase in
                     if identitiesService.mobileWallet.hasSetupRecoveryPhrase {
                         self.phrase = phrase
+                        // Mark backup as completed and hide banner
+                        isUserMakeBackup = true
+                        isShouldShowSeedphraseBackupBanner = false
                         Task { await viewModel.reload() }
                     }
                 }
@@ -637,5 +657,74 @@ struct StakerSuspensionStateView: View {
         )
         .cornerRadius(16)
         .shadow(color: .black.opacity(0.25), radius: 7.65, x: 0, y: -6)
+    }
+}
+
+struct SeedphraseBackupBannerView: View {
+    let onBackupNow: () -> Void
+    let onHideAnyway: () -> Void
+    
+    var body: some View {
+        VStack(spacing: 12) {
+            HStack(alignment: .top, spacing: 12) {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundColor(.orange)
+                    .font(.system(size: 20))
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Backup your seedphrase")
+                        .font(.satoshi(size: 15, weight: .medium))
+                        .foregroundColor(.white)
+                    
+                    Text("Your seedphrase is the only way to recover your wallet. Make sure to back it up safely.")
+                        .font(.satoshi(size: 12, weight: .regular))
+                        .foregroundColor(.white.opacity(0.8))
+                        .multilineTextAlignment(.leading)
+                }
+                
+                Spacer()
+                
+                Button(action: onHideAnyway) {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(.white.opacity(0.6))
+                        .font(.system(size: 20))
+                }
+            }
+            
+            HStack(spacing: 12) {
+                Button(action: onBackupNow) {
+                    Text("Backup Now")
+                        .font(.satoshi(size: 14, weight: .medium))
+                        .foregroundColor(.black)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 10)
+                        .background(Color.white)
+                        .cornerRadius(8)
+                }
+                
+                Button(action: onHideAnyway) {
+                    Text("Hide Anyway")
+                        .font(.satoshi(size: 14, weight: .medium))
+                        .foregroundColor(.white.opacity(0.8))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 10)
+                        .background(Color.white.opacity(0.2))
+                        .cornerRadius(8)
+                }
+            }
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 16)
+        .background(
+            LinearGradient(
+                stops: [
+                    Gradient.Stop(color: Color(red: 0.9, green: 0.4, blue: 0.1), location: 0.0),
+                    Gradient.Stop(color: Color(red: 0.8, green: 0.3, blue: 0.0), location: 1.0)
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        )
+        .cornerRadius(12)
     }
 }

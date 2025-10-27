@@ -44,7 +44,7 @@ struct MainPromoView: View {
             }
         })
         .fullScreenCover(isPresented: $isCreatePasswordFlowShown) {
-            PasscodeView(keychain: keychain, sanityChecker: sanityChecker) { pwHash in
+            PasscodeView(keychain: keychain, sanityChecker: sanityChecker, identitiesService: identitiesService) { pwHash in
                 onPasswordCreated()
             }
             .transition(.fade)

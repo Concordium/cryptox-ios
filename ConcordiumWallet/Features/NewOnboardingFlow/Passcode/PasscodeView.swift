@@ -9,6 +9,7 @@
 import SwiftUI
 import Combine
 import LocalAuthentication
+import MnemonicSwift
 
 class PasscodeViewModel: ObservableObject {
     enum State: Equatable {
@@ -44,13 +45,15 @@ class PasscodeViewModel: ObservableObject {
     private let keychain: KeychainWrapperProtocol
     private let onSuccess: (String) -> Void
     private let sanityChecker: SanityChecker
+    private let identitiesService: SeedIdentitiesService?
     private var cancellables = Set<AnyCancellable>()
     private var pwHash: String?
 
-    init(keychain: KeychainWrapperProtocol, sanityChecker: SanityChecker, onSuccess: @escaping (String) -> Void) {
+    init(keychain: KeychainWrapperProtocol, sanityChecker: SanityChecker, identitiesService: SeedIdentitiesService? = nil, onSuccess: @escaping (String) -> Void) {
         self.keychain = keychain
         self.onSuccess = onSuccess
         self.sanityChecker = sanityChecker
+        self.identitiesService = identitiesService
         state = self.keychain.passwordCreated() ? .enterPasscode : .createPasscode
     }
     
@@ -94,13 +97,43 @@ class PasscodeViewModel: ObservableObject {
     private func handlePasswordCheck(checkPassword: Result<Bool, KeychainError>, pwHash: String) {
         checkPassword
             .onSuccess { [weak self] hash in
-                self?.onSuccess(pwHash)
+                // If this is password creation and we have identitiesService, auto-generate seedphrase
+                if self?.state == .createPasscode || self?.state == .repeatPasscode([]), 
+                   let identitiesService = self?.identitiesService {
+                    print("🚀 Starting auto-generate seedphrase for state: \(self?.state)")
+                    self?.autoGenerateAndSaveSeedphrase(pwHash: pwHash)
+                } else {
+                    print("⚠️ Skipping auto-generate seedphrase - state: \(self?.state), identitiesService: \(self?.identitiesService != nil)")
+                    self?.onSuccess(pwHash)
+                }
             }
             .onFailure { [weak self] error in
                 guard let self = self else { return }
                 self.showErrorPasswordAnimation()
                 self.clearPin()
             }
+    }
+    
+    private func autoGenerateAndSaveSeedphrase(pwHash: String) {
+        Task {
+            do {
+                let mnemonic = try Mnemonic.generateMnemonic(strength: 24 / 3 * 32)
+                let words = mnemonic.components(separatedBy: " ")
+                
+                let seed = try identitiesService?.storePhrase(words: words, pwHash: pwHash)
+                print("🔐 Auto-generated seedphrase saved successfully: \(seed != nil)")
+                
+                await MainActor.run {
+                    UserDefaults.standard.set(false, forKey: "isUserMakeBackup")
+                    self.onSuccess(pwHash)
+                }
+            } catch {
+                print("❌ Auto-generated seedphrase failed: \(error)")
+                await MainActor.run {
+                    self.onSuccess(pwHash)
+                }
+            }
+        }
     }
     
     func clearPin() {
@@ -168,7 +201,15 @@ extension PasscodeViewModel {
                             .receive(on: DispatchQueue.main)
                             .sink(receiveError: { _ in }, receiveValue: { [weak self] _ in
                                 AppSettings.biometricsEnabled = true
-                                self?.onSuccess(self?.pwHash ?? "")
+                                // If this is password creation and we have identitiesService, auto-generate seedphrase
+                                if self?.state == .createPasscode || self?.state == .repeatPasscode([]), 
+                                   let identitiesService = self?.identitiesService {
+                                    print("🚀 Starting auto-generate seedphrase for state: \(self?.state) (biometric)")
+                                    self?.autoGenerateAndSaveSeedphrase(pwHash: self?.pwHash ?? "")
+                                } else {
+                                    print("⚠️ Skipping auto-generate seedphrase - state: \(self?.state), identitiesService: \(self?.identitiesService != nil) (biometric)")
+                                    self?.onSuccess(self?.pwHash ?? "")
+                                }
                             })
                             .store(in: &self.cancellables)
                     } else {
@@ -185,7 +226,15 @@ extension PasscodeViewModel {
     ///
     func continueWithoutBiometrics() {
         AppSettings.biometricsEnabled = false
-        self.onSuccess(self.pwHash ?? "")
+        // If this is password creation and we have identitiesService, auto-generate seedphrase
+        if state == .createPasscode || state == .repeatPasscode([]), 
+           let identitiesService = identitiesService {
+            print("🚀 Starting auto-generate seedphrase for state: \(state) (continueWithoutBiometrics)")
+            autoGenerateAndSaveSeedphrase(pwHash: pwHash ?? "")
+        } else {
+            print("⚠️ Skipping auto-generate seedphrase - state: \(state), identitiesService: \(identitiesService != nil) (continueWithoutBiometrics)")
+            self.onSuccess(self.pwHash ?? "")
+        }
     }
     
     func biometricsEnabled() -> Bool {
@@ -214,8 +263,8 @@ struct PasscodeView: View {
     
     @SwiftUI.Environment(\.dismiss) var dismiss
     
-    init(keychain: KeychainWrapperProtocol, sanityChecker: SanityChecker, onSuccess: @escaping (String) -> Void) {
-        _viewModel = .init(wrappedValue: .init(keychain: keychain, sanityChecker: sanityChecker, onSuccess: onSuccess))
+    init(keychain: KeychainWrapperProtocol, sanityChecker: SanityChecker, identitiesService: SeedIdentitiesService? = nil, onSuccess: @escaping (String) -> Void) {
+        _viewModel = .init(wrappedValue: .init(keychain: keychain, sanityChecker: sanityChecker, identitiesService: identitiesService, onSuccess: onSuccess))
     }
     
     var body: some View {

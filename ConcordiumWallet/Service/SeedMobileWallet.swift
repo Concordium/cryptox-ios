@@ -96,8 +96,12 @@ class SeedMobileWallet: SeedMobileWalletProtocol {
     func getSeed(withDelegate requestPasswordDelegate: RequestPasswordDelegate) async throws -> Seed {
         let pwHash = try await requestPasswordDelegate.requestUserPassword(keychain: keychain)
         
+        print("🔍 Trying to get seed with pwHash: \(pwHash.prefix(10))...")
+        print("🔍 Keychain has seedKey: \(keychain.hasValue(key: seedKey))")
+        
         let seedValue = try self.keychain.getValue(for: seedKey, securedByPassword: pwHash).get()
         
+        print("✅ Successfully retrieved seed from keychain")
         return Seed(value: seedValue)
     }
     
@@ -114,9 +118,11 @@ class SeedMobileWallet: SeedMobileWalletProtocol {
             let phrase = recoveryPhrase.joined(separator: " ")
             let seed = try Mnemonic.deterministicSeedString(from: phrase)
          
+            print("💾 Storing seedphrase with pwHash: \(pwHash.prefix(10))...")
             try keychain.store(key: seedKey, value: seed, securedByPassword: pwHash).get()
             try keychain.store(key: recoveryPhraseKey, value: phrase, securedByPassword: pwHash).get()
             
+            print("✅ Successfully stored seedphrase in keychain")
             return Seed(value: seed)
         }
     }
