@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+- Update WC to check for optional namespaces when approving session
+
+## [Released 3.3.11]
 - fix PLT value formatter
 - fix CCD Transfer with memo: add SwiftSDK v1.1.1.
 - used same CBOR lib as SDK
