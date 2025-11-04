@@ -121,23 +121,10 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
                     }
                 )
                 .environmentObject(sanityChecker)
+                .environmentObject(navigationManager)
         )], animated: false)
         navigationController.setNavigationBarHidden(true, animated: false)
     }
-    
-    private func createNewSeedAccount() {
-        let seedIdentitiesCoordinator = SeedIdentitiesCoordinator(
-            navigationController: CXNavigationController(),
-            action: .createAccount,
-            dependencyProvider: defaultProvider,
-            delegate: self
-        )
-
-        childCoordinators.append(seedIdentitiesCoordinator)
-        seedIdentitiesCoordinator.start()
-        navigationController.presentedViewController?.present(seedIdentitiesCoordinator.navigationController, animated: true)
-    }
-    
 
     private func showLogin() {
         let identities = defaultProvider.storageManager().getIdentities().filter({$0.identityCreationError.isEmpty})
