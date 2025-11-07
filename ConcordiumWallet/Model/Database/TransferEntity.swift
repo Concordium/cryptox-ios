@@ -90,7 +90,7 @@ extension TransferDataType {
                 balanceChange = (Int(cost) ?? 0)
             case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker, .updateValidatorSuspendState:
                 balanceChange = (Int(cost) ?? 0)
-            case .transferUpdate:
+            case .transferUpdate, .tokenUpdate:
                 balanceChange = (Int(cost) ?? 0)
             }
         }
@@ -117,7 +117,7 @@ extension TransferDataType {
                 balanceChange = 0
             case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker, .updateValidatorSuspendState:
                 balanceChange = 0
-            case .transferUpdate:
+            case .transferUpdate, .tokenUpdate:
                 balanceChange = 0
             }
             

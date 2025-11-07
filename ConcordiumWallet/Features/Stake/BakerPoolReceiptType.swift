@@ -33,7 +33,7 @@ enum BakerPoolReceiptType {
             } else {
                 self = .remove
             }
-        case .simpleTransfer:
+        case .simpleTransfer, .tokenUpdate:
             self = .remove
         case .transferToPublic:
             self = .remove

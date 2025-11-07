@@ -67,7 +67,14 @@ final class SessionProposalViewModel: ObservableObject {
         self.sessionProposal = sessionProposal
         self.storageManager = storageManager
         self.redirectURL = redirectURL
-        self.selectedAccount = self.accounts().first
+        
+        let allAccounts = self.accounts()
+        if let lastSelectedAccountAddress = AppSettings.lastSelectedAccountAddress,
+           let lastSelectedAccount = allAccounts.first(where: { $0.address == lastSelectedAccountAddress }) {
+            self.selectedAccount = lastSelectedAccount
+        } else {
+            self.selectedAccount = allAccounts.first
+        }
         
         let isCorrectChain = proposalChains.map(\.absoluteString).contains(currentChain)
         let isCorrectMethods: Bool = Set(allowedRequestMethods).isSuperset(of: Set(proposalMethods))

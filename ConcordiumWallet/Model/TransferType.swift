@@ -29,6 +29,8 @@ enum TransferType: String, Codable {
     
     case updateValidatorSuspendState
     
+    case tokenUpdate // used for wc plt transafers
+    
     var isDelegationTransfer: Bool {
         switch self {
         case .registerDelegation, .updateDelegation, .removeDelegation:
@@ -74,6 +76,8 @@ enum TransferType: String, Codable {
             return .configureBaker
         case .transferUpdate:
             return .update
+        case .tokenUpdate:
+            return .tokenUpdate
         }
     }
 }
@@ -98,4 +102,6 @@ enum WalletProxyTransferType: String, Codable {
     case configureBaker
 
     case update
+    
+    case tokenUpdate // used for wc plt transafers
 }

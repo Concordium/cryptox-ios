@@ -59,6 +59,17 @@ final class SessionRequestDataModelProvider {
                     passwordDelegate: passwordDelegate,
                     storageManager: storageManager
                 )
+            case .tokenUpdate(let params):
+                return TokenUpdateRequestModel(
+                    params: params,
+                    account: account,
+                    sessionRequest: sessionRequest,
+                    transactionsService: transactionsService,
+                    mobileWallet: mobileWallet,
+                    passwordDelegate: passwordDelegate,
+                    storageManager: storageManager,
+                    concordiumClient: concordiumClient
+                )
             case .verifiablePresentation(let params):
                 return VerifiablePresentationRequestModel(
                     payload: params,
