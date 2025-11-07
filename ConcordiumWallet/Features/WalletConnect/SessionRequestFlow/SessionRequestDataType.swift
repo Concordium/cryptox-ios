@@ -14,6 +14,7 @@ enum SessionRequestDataType {
     case signMessage(SignMessagePayload)
     case simpleTransfer(SimpleTransferRequestParams)
     case signAndSend(ContractUpdateRequestParams)
+    case tokenUpdate(TokenUpdateRequestParams)
     case verifiablePresentation(WalletConnectRequestVerifiablePresentationParam)
     
     init(sessionRequest: Request) throws {
@@ -45,12 +46,15 @@ enum SessionRequestDataType {
                     let contractType = try sessionRequest.params.get(SessionRequestType.self)
                     
                     switch contractType.type {
-                        case .simpleTransfer:
-                            let params = try sessionRequest.params.get(SimpleTransferRequestParams.self)
-                            self = .simpleTransfer(params)
-                        default:
-                            let params = try sessionRequest.params.get(ContractUpdateRequestParams.self)
-                            self = .signAndSend(params)
+                    case .simpleTransfer:
+                        let params = try sessionRequest.params.get(SimpleTransferRequestParams.self)
+                        self = .simpleTransfer(params)
+                    case .tokenUpdate:
+                        let params = try sessionRequest.params.get(TokenUpdateRequestParams.self)
+                        self = .tokenUpdate(params)
+                    default:
+                        let params = try sessionRequest.params.get(ContractUpdateRequestParams.self)
+                        self = .signAndSend(params)
                     }
                 } catch {
                     throw SessionRequstError.unSupportedRequestMethod

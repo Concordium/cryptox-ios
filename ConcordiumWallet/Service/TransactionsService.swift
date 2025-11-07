@@ -68,7 +68,7 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
             return performBakerTransfer(pTransfer, from: account, bakerKeys: bakerKeys, requestPasswordDelegate: requestPasswordDelegate)
         case .registerDelegation, .removeDelegation, .updateDelegation:
             return performDelegationTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
-        case .transferUpdate:
+        case .transferUpdate, .tokenUpdate:
             return performPublicTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         }
     }
