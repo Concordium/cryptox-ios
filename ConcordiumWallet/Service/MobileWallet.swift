@@ -296,6 +296,8 @@ class MobileWallet: MobileWalletProtocol {
             return try CreateTransferRequest(walletFacade.createConfigureBaker(input: input))
         case .transferUpdate:
             return try CreateTransferRequest(walletFacade.createUpdateTransfer(input: input))
+        case .tokenUpdate:
+            fatalError()
         }
     }
 

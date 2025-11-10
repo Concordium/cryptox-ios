@@ -20,13 +20,14 @@ struct SessionRequestType: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        // Decode 'type' field into TransferType.
         let typeStr = try container.decode(String.self, forKey: .type)
         if typeStr == "Update" {
             // For backwards compatibility with older versions of @concordium/wallet-connectors.
             type = TransferType.transferUpdate
         } else if typeStr == "transfer" {
             type = TransferType.simpleTransfer
+        } else if typeStr == "tokenUpdate" {
+            type = TransferType.tokenUpdate
         } else if let t = TransferType(rawValue: typeStr) {
             type = t
         } else {

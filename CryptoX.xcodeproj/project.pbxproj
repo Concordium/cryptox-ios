@@ -1964,15 +1964,22 @@
 		5003673C2E5489F700EE5970 /* TokenStateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F92E5489F700EE5970 /* TokenStateEntity+CoreDataProperties.swift */; };
 		5003673D2E5489F700EE5970 /* TotalSupplyEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366FA2E5489F700EE5970 /* TotalSupplyEntity+CoreDataClass.swift */; };
 		5003673E2E5489F700EE5970 /* TotalSupplyEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366FB2E5489F700EE5970 /* TotalSupplyEntity+CoreDataProperties.swift */; };
-		5023EED82E9E302E00E54341 /* Concordium in Frameworks */ = {isa = PBXBuildFile; productRef = 5023EED72E9E302E00E54341 /* Concordium */; };
 		50268F942E267D3400D46E02 /* SessionRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50268F932E267D3400D46E02 /* SessionRequestType.swift */; };
 		50268F952E267D3400D46E02 /* SessionRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50268F932E267D3400D46E02 /* SessionRequestType.swift */; };
 		50268F962E267D3400D46E02 /* SessionRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50268F932E267D3400D46E02 /* SessionRequestType.swift */; };
 		5032DC762E9E35460051F548 /* SwiftCBOR in Frameworks */ = {isa = PBXBuildFile; productRef = 5032DC752E9E35460051F548 /* SwiftCBOR */; };
 		5032DC782E9E356A0051F548 /* SwiftCBOR in Frameworks */ = {isa = PBXBuildFile; productRef = 5032DC772E9E356A0051F548 /* SwiftCBOR */; };
-		5032DEEA2E9F93370051F548 /* Concordium in Frameworks */ = {isa = PBXBuildFile; productRef = 5032DEE92E9F93370051F548 /* Concordium */; };
 		5059C9B52C00CF1200E40307 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5059C9B42C00CF1200E40307 /* SDWebImageSwiftUI */; };
 		5059C9B72C00CF1700E40307 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5059C9B62C00CF1700E40307 /* SDWebImageSwiftUI */; };
+		505D4D7E2EBDE6C700B0C24C /* TokenUpdateRequestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D4D7D2EBDE6C700B0C24C /* TokenUpdateRequestParams.swift */; };
+		505D4D7F2EBDE6C700B0C24C /* TokenUpdateRequestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D4D7D2EBDE6C700B0C24C /* TokenUpdateRequestParams.swift */; };
+		505D4D802EBDE6C700B0C24C /* TokenUpdateRequestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D4D7D2EBDE6C700B0C24C /* TokenUpdateRequestParams.swift */; };
+		505D4D822EBDE6EA00B0C24C /* TokenUpdateRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D4D812EBDE6EA00B0C24C /* TokenUpdateRequestModel.swift */; };
+		505D4D832EBDE6EA00B0C24C /* TokenUpdateRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D4D812EBDE6EA00B0C24C /* TokenUpdateRequestModel.swift */; };
+		505D4D842EBDE6EA00B0C24C /* TokenUpdateRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D4D812EBDE6EA00B0C24C /* TokenUpdateRequestModel.swift */; };
+		505D4E032EBE2B0A00B0C24C /* Concordium in Frameworks */ = {isa = PBXBuildFile; productRef = 505D4E022EBE2B0A00B0C24C /* Concordium */; };
+		505D4E052EBE2B1500B0C24C /* Concordium in Frameworks */ = {isa = PBXBuildFile; productRef = 505D4E042EBE2B1500B0C24C /* Concordium */; };
+		505D4E072EBE2B2300B0C24C /* Concordium in Frameworks */ = {isa = PBXBuildFile; productRef = 505D4E062EBE2B2300B0C24C /* Concordium */; };
 		505E11F12CC2994A0003F6DC /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F779124891F220016F8D1 /* AppIcon.xcassets */; };
 		505E11F22CC299510003F6DC /* AppIconTestNet.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F778F24891EFB0016F8D1 /* AppIconTestNet.xcassets */; };
 		5075414A2DD3C590000D9445 /* MobileWalletLib in Frameworks */ = {isa = PBXBuildFile; productRef = 507541492DD3C590000D9445 /* MobileWalletLib */; };
@@ -2042,7 +2049,6 @@
 		509A563D2CB43549005EA908 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 509A563B2CB43549005EA908 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		509A563F2CB43561005EA908 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 509A563E2CB43561005EA908 /* FirebaseMessaging */; };
 		509A56412CB43568005EA908 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 509A56402CB43568005EA908 /* FirebaseMessaging */; };
-		50A807472E61946B003C75B1 /* Concordium in Frameworks */ = {isa = PBXBuildFile; productRef = 50A807462E61946B003C75B1 /* Concordium */; };
 		50C9B3A82E5A37A200942487 /* AccountKeys+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C9B3A72E5A37A200942487 /* AccountKeys+Ext.swift */; };
 		50C9B3A92E5A37A200942487 /* AccountKeys+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C9B3A72E5A37A200942487 /* AccountKeys+Ext.swift */; };
 		50C9B3AA2E5A37A200942487 /* AccountKeys+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C9B3A72E5A37A200942487 /* AccountKeys+Ext.swift */; };
@@ -3232,6 +3238,8 @@
 		500366FA2E5489F700EE5970 /* TotalSupplyEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TotalSupplyEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		500366FB2E5489F700EE5970 /* TotalSupplyEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TotalSupplyEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		50268F932E267D3400D46E02 /* SessionRequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequestType.swift; sourceTree = "<group>"; };
+		505D4D7D2EBDE6C700B0C24C /* TokenUpdateRequestParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenUpdateRequestParams.swift; sourceTree = "<group>"; };
+		505D4D812EBDE6EA00B0C24C /* TokenUpdateRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenUpdateRequestModel.swift; sourceTree = "<group>"; };
 		507629652BF2040B00B4D390 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		508E00C32E0C1AFE004DA300 /* ConcordiumClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcordiumClient.swift; sourceTree = "<group>"; };
 		508E00C72E0C1B61004DA300 /* RecoverIdentity+ConcordiumClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecoverIdentity+ConcordiumClient.swift"; sourceTree = "<group>"; };
@@ -3559,7 +3567,7 @@
 				158A35A42E1BC4E200BDCFDE /* CoreData.framework in Frameworks */,
 				08C169102BB7396200E61326 /* SDWebImageSwiftUI in Frameworks */,
 				509A56292CB40A10005EA908 /* Base58Swift in Frameworks */,
-				5023EED82E9E302E00E54341 /* Concordium in Frameworks */,
+				505D4E072EBE2B2300B0C24C /* Concordium in Frameworks */,
 				08C169152BB7396200E61326 /* JDStatusBarNotification in Frameworks */,
 				08C169172BB7396200E61326 /* SDWebImageSVGCoder in Frameworks */,
 				50E0D1652D2ECDDD00853594 /* Starscream in Frameworks */,
@@ -3588,7 +3596,7 @@
 				083505072A9F4F14000D5175 /* SDWebImageSVGCoder in Frameworks */,
 				158A35242E1685AC00BDCFDE /* Lottie in Frameworks */,
 				50E0D1692D35466100853594 /* Starscream in Frameworks */,
-				5032DEEA2E9F93370051F548 /* Concordium in Frameworks */,
+				505D4E052EBE2B1500B0C24C /* Concordium in Frameworks */,
 				509A56392CB43540005EA908 /* RealmSwift in Frameworks */,
 				15339E712DB8FF2E003D64D1 /* FirebaseAnalytics in Frameworks */,
 				08A0444729FA906200DACE1F /* Kingfisher in Frameworks */,
@@ -3612,13 +3620,13 @@
 				083505002A9E3DFA000D5175 /* SDWebImageSVGCoder in Frameworks */,
 				089FF0EA2A4F4CF0007AB1CF /* JDStatusBarNotification in Frameworks */,
 				158A35262E1685B300BDCFDE /* Lottie in Frameworks */,
-				50A807472E61946B003C75B1 /* Concordium in Frameworks */,
 				08A0444329FA905700DACE1F /* Kingfisher in Frameworks */,
 				50E0D16D2D35466E00853594 /* Starscream in Frameworks */,
 				509A563C2CB43549005EA908 /* RealmSwift in Frameworks */,
 				15339E6F2DB8FF28003D64D1 /* FirebaseAnalytics in Frameworks */,
 				50E0D16F2D35467500853594 /* ReownWalletKit in Frameworks */,
 				08A0441829FA887700DACE1F /* MnemonicSwift in Frameworks */,
+				505D4E032EBE2B0A00B0C24C /* Concordium in Frameworks */,
 				C99CFF6E243EFD7E0045B8E6 /* WebKit.framework in Frameworks */,
 				5075414F2DD3C5DC000D9445 /* MobileWalletLib in Frameworks */,
 			);
@@ -4944,6 +4952,7 @@
 		08E472A02BC980F1004F0088 /* RequestParams */ = {
 			isa = PBXGroup;
 			children = (
+				505D4D7D2EBDE6C700B0C24C /* TokenUpdateRequestParams.swift */,
 				08C169CA2BBFE2CD00E61326 /* ContractUpdateRequestParams.swift */,
 				08E472A12BC98105004F0088 /* SimpleTransferRequestParams.swift */,
 				08E472BE2BD179AE004F0088 /* VerifiablePresentationRequestParams.swift */,
@@ -4960,6 +4969,7 @@
 				08E472AA2BCEE883004F0088 /* TransferUpdateRequestModel.swift */,
 				08E472AE2BCEF308004F0088 /* SimpleTrasferRequestModel.swift */,
 				08E472C22BD2649C004F0088 /* VerifiablePresentationRequestModel.swift */,
+				505D4D812EBDE6EA00B0C24C /* TokenUpdateRequestModel.swift */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";
@@ -6203,8 +6213,8 @@
 				507541492DD3C590000D9445 /* MobileWalletLib */,
 				5075414C2DD3C5B8000D9445 /* MobileWalletLib */,
 				158A351B2E156D0300BDCFDE /* Lottie */,
-				5023EED72E9E302E00E54341 /* Concordium */,
 				5032DC772E9E356A0051F548 /* SwiftCBOR */,
+				505D4E062EBE2B2300B0C24C /* Concordium */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 08C169C22BB7396200E61326 /* ProdTestNet.app */;
@@ -6249,7 +6259,7 @@
 				507541502DD3C5E0000D9445 /* MobileWalletLib */,
 				158A35232E1685AC00BDCFDE /* Lottie */,
 				5032DC752E9E35460051F548 /* SwiftCBOR */,
-				5032DEE92E9F93370051F548 /* Concordium */,
+				505D4E042EBE2B1500B0C24C /* Concordium */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
@@ -6293,7 +6303,7 @@
 				15339E6E2DB8FF28003D64D1 /* FirebaseAnalytics */,
 				5075414E2DD3C5DC000D9445 /* MobileWalletLib */,
 				158A35252E1685B300BDCFDE /* Lottie */,
-				50A807462E61946B003C75B1 /* Concordium */,
+				505D4E022EBE2B0A00B0C24C /* Concordium */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
@@ -6359,8 +6369,8 @@
 				501F5AE02D2ECA1F00C55008 /* XCRemoteSwiftPackageReference "reown-swift" */,
 				50E0D1632D2ECDDD00853594 /* XCRemoteSwiftPackageReference "Starscream" */,
 				158A351A2E156D0300BDCFDE /* XCRemoteSwiftPackageReference "lottie-ios" */,
-				5023EED62E9E302E00E54341 /* XCRemoteSwiftPackageReference "concordium-swift-sdk" */,
 				5032DC742E9E35460051F548 /* XCRemoteSwiftPackageReference "SwiftCBOR" */,
+				505D4E012EBE2B0A00B0C24C /* XCRemoteSwiftPackageReference "concordium-swift-sdk" */,
 			);
 			productRefGroup = 7FF07A6A23EADB1200F1FC04 /* Products */;
 			projectDirPath = "";
@@ -7067,6 +7077,7 @@
 				08C1677B2BB7396200E61326 /* AccountDetailsViewModel.swift in Sources */,
 				08C1677C2BB7396200E61326 /* LoginPresenter.swift in Sources */,
 				08C1677D2BB7396200E61326 /* PassiveDelegation.swift in Sources */,
+				505D4D832EBDE6EA00B0C24C /* TokenUpdateRequestModel.swift in Sources */,
 				08C1677F2BB7396200E61326 /* ConcordiumApplication.swift in Sources */,
 				15B2C4522EBA0E45004A1FA5 /* DismissBackupPopup.swift in Sources */,
 				08C167802BB7396200E61326 /* IdentityEntity.swift in Sources */,
@@ -7359,6 +7370,7 @@
 				08C168962BB7396200E61326 /* IDRequest.swift in Sources */,
 				08C168972BB7396200E61326 /* Image+Ext.swift in Sources */,
 				08C168982BB7396200E61326 /* CreateSeedIdentityPresenter.swift in Sources */,
+				505D4D802EBDE6C700B0C24C /* TokenUpdateRequestParams.swift in Sources */,
 				08C1689B2BB7396200E61326 /* SeedPhrasePillView.swift in Sources */,
 				08C1689C2BB7396200E61326 /* RoundedBackUpView.swift in Sources */,
 				08C1689D2BB7396200E61326 /* GlobalWrapper.swift in Sources */,
@@ -7794,6 +7806,7 @@
 				15AE01C42E3691CA00B9322D /* UnifiedToken.swift in Sources */,
 				08A0460129FA99D200DACE1F /* CurrentPaydayStatus.swift in Sources */,
 				D5B393F027197CD30094A9F5 /* QRTransactionBuyView.swift in Sources */,
+				505D4D822EBDE6EA00B0C24C /* TokenUpdateRequestModel.swift in Sources */,
 				088FEF7B2A0270B000042957 /* ContactSupportButtonWidgetPresenter.swift in Sources */,
 				088FF0AD2A02845300042957 /* RecoveryPhraseRecoverCompletePresenter.swift in Sources */,
 				08A045EA29FA99D200DACE1F /* Encrypted.swift in Sources */,
@@ -7964,6 +7977,7 @@
 				08A0461929FA99D300DACE1F /* PubInfoForIP.swift in Sources */,
 				08A045F229FA99D200DACE1F /* MakeCreateCredentialRequest.swift in Sources */,
 				08A045DD29FA99D200DACE1F /* Aci.swift in Sources */,
+				505D4D7F2EBDE6C700B0C24C /* TokenUpdateRequestParams.swift in Sources */,
 				7F85B88D246A9AB600ED09B8 /* UIView+Additions.swift in Sources */,
 				08E472B82BCEFB53004F0088 /* SessionRequestDataType.swift in Sources */,
 				50D3891E2C107C1F00B3675A /* TokenView.swift in Sources */,
@@ -8520,6 +8534,7 @@
 				08A0456929FA99D100DACE1F /* CurrentPaydayStatus.swift in Sources */,
 				FA7C079F26C5AFF3008714CB /* ConnectionRequestVC.swift in Sources */,
 				088FF00B2A0271F600042957 /* SeedIdentitiesCoordinator.swift in Sources */,
+				505D4D842EBDE6EA00B0C24C /* TokenUpdateRequestModel.swift in Sources */,
 				7FF07AC423EADBB100F1FC04 /* UITableView+scroll.swift in Sources */,
 				08A0455229FA99D100DACE1F /* Encrypted.swift in Sources */,
 				08A0446F29FA987700DACE1F /* SeedIdentityObjectWrapper.swift in Sources */,
@@ -8690,6 +8705,7 @@
 				0893CC432A66B88600A10F73 /* UpdateTimer.swift in Sources */,
 				088FED852A01672D00042957 /* ExportTransactionLogPresenter.swift in Sources */,
 				08A0458129FA99D100DACE1F /* PubInfoForIP.swift in Sources */,
+				505D4D7E2EBDE6C700B0C24C /* TokenUpdateRequestParams.swift in Sources */,
 				08A0455A29FA99D100DACE1F /* MakeCreateCredentialRequest.swift in Sources */,
 				08A0454529FA99D100DACE1F /* Aci.swift in Sources */,
 				D5B39402271990D60094A9F5 /* CircleView.swift in Sources */,
@@ -9019,7 +9035,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.3.13;
+				MARKETING_VERSION = 3.4.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9052,7 +9068,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.3.13;
+				MARKETING_VERSION = 3.4.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9086,7 +9102,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.3.13;
+				MARKETING_VERSION = 3.4.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pioneeringtechventures.cryptox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9119,7 +9135,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.3.13;
+				MARKETING_VERSION = 3.4.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pioneeringtechventures.cryptox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9277,7 +9293,7 @@
 					"$(PROJECT_DIR)/Dependencies",
 				);
 				LOCALIZED_STRING_SWIFTUI_SUPPORT = YES;
-				MARKETING_VERSION = 3.3.13;
+				MARKETING_VERSION = 3.4.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.stagenet;
@@ -9317,7 +9333,7 @@
 					"$(PROJECT_DIR)/Dependencies",
 				);
 				LOCALIZED_STRING_SWIFTUI_SUPPORT = YES;
-				MARKETING_VERSION = 3.3.13;
+				MARKETING_VERSION = 3.4.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.stagenet;
@@ -9542,20 +9558,20 @@
 				version = 1.1.1;
 			};
 		};
-		5023EED62E9E302E00E54341 /* XCRemoteSwiftPackageReference "concordium-swift-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Concordium/concordium-swift-sdk.git";
-			requirement = {
-				kind = exactVersion;
-				version = 1.1.1;
-			};
-		};
 		5032DC742E9E35460051F548 /* XCRemoteSwiftPackageReference "SwiftCBOR" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/valpackett/SwiftCBOR.git";
 			requirement = {
 				kind = exactVersion;
 				version = 0.5.0;
+			};
+		};
+		505D4E012EBE2B0A00B0C24C /* XCRemoteSwiftPackageReference "concordium-swift-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Concordium/concordium-swift-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
 			};
 		};
 		5076296A2BF2573D00B4D390 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
@@ -9687,11 +9703,6 @@
 			package = 158A351A2E156D0300BDCFDE /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
 		};
-		5023EED72E9E302E00E54341 /* Concordium */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5023EED62E9E302E00E54341 /* XCRemoteSwiftPackageReference "concordium-swift-sdk" */;
-			productName = Concordium;
-		};
 		5032DC752E9E35460051F548 /* SwiftCBOR */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5032DC742E9E35460051F548 /* XCRemoteSwiftPackageReference "SwiftCBOR" */;
@@ -9702,11 +9713,6 @@
 			package = 5032DC742E9E35460051F548 /* XCRemoteSwiftPackageReference "SwiftCBOR" */;
 			productName = SwiftCBOR;
 		};
-		5032DEE92E9F93370051F548 /* Concordium */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5023EED62E9E302E00E54341 /* XCRemoteSwiftPackageReference "concordium-swift-sdk" */;
-			productName = Concordium;
-		};
 		5059C9B42C00CF1200E40307 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5076296A2BF2573D00B4D390 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
@@ -9716,6 +9722,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5076296A2BF2573D00B4D390 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		505D4E022EBE2B0A00B0C24C /* Concordium */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 505D4E012EBE2B0A00B0C24C /* XCRemoteSwiftPackageReference "concordium-swift-sdk" */;
+			productName = Concordium;
+		};
+		505D4E042EBE2B1500B0C24C /* Concordium */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 505D4E012EBE2B0A00B0C24C /* XCRemoteSwiftPackageReference "concordium-swift-sdk" */;
+			productName = Concordium;
+		};
+		505D4E062EBE2B2300B0C24C /* Concordium */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 505D4E012EBE2B0A00B0C24C /* XCRemoteSwiftPackageReference "concordium-swift-sdk" */;
+			productName = Concordium;
 		};
 		507541492DD3C590000D9445 /* MobileWalletLib */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -9762,10 +9783,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1557CC962C89B8DE008ABF67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
-		};
-		50A807462E61946B003C75B1 /* Concordium */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Concordium;
 		};
 		50E0D1642D2ECDDD00853594 /* Starscream */ = {
 			isa = XCSwiftPackageProductDependency;
