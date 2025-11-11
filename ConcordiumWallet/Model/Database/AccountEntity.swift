@@ -76,8 +76,14 @@ extension AccountDataType {
         return forecastBalance - max(stakedAmount, scheduledTotal)
     }
     
+    var atDisposalBalance: Int {
+        let totalCooldown = cooldowns.compactMap { Int($0.amount) }.reduce(0, +)
+        let atDisposalValue = forecastAtDisposalBalance - totalCooldown
+        return atDisposalValue
+    }
+    
     var isStaking: Bool {
-        baker != nil || delegation != nil
+        baker != nil || delegation != nil || !cooldowns.isEmpty
     }
     
     var stakedAmount: GTU {
