@@ -146,7 +146,7 @@ struct TokenBalanceView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .modifier(RadialGradientForegroundStyleModifier())
                 VStack(spacing: 4) {
-                    if viewModel.hasStaked {
+                    if viewModel.hasStaked || viewModel.totalCooldown != nil {
                         HStack {
                             Text("At disposal")
                                 .font(.satoshi(size: 12, weight: .medium))

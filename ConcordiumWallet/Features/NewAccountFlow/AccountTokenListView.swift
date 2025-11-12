@@ -185,8 +185,8 @@ final class AccountDetailViewModel: ObservableObject, Hashable, Equatable {
                 self.stakedValue = GTU(intValue: Int(delegation.stakedAmount))
             }
 
-            self.atDisposal = GTU(intValue: account.forecastAtDisposalBalance)
             self.totalCooldown = GTU(intValue: account.cooldowns.compactMap { Int($0.amount) }.reduce(0, +))
+            self.atDisposal = GTU(intValue: account.atDisposalBalance)
             self.isReadOnly = account.isReadOnly
 
             storageManager.subscribeCIS2TokensUpdate(account.address)

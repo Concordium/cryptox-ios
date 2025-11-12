@@ -183,7 +183,7 @@ private extension Optional where Wrapped == ChainParametersEntity {
         let delegatorCooldown = GeneralFormatter.secondsToDays(seconds: self?.delegatorCooldown ?? 0)
         let gracePeriod = String(
             format: "delegation.graceperiod.format".localized,
-            GeneralFormatter.secondsToDays(seconds: delegatorCooldown)
+            delegatorCooldown
         )
         return String(format: primaryMessage, gracePeriod)
     }
