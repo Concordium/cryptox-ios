@@ -45,8 +45,17 @@ struct SessionRequestView: View {
                                 .padding(.bottom, 16)
                         }
                         
+                        if viewModel.requestType != nil,
+                           case .tokenUpdate = viewModel.requestType! {
+                            pltTokenBalanceView()
+                        }
+                        
+                        if let error = viewModel.error {
+                            errorMessageView(error: error)
+                        }
+                        
                         switch viewModel.requestType {
-                            case .signMessage, .simpleTransfer, .signAndSend:
+                            case .signMessage, .simpleTransfer, .signAndSend, .tokenUpdate:
                                 if viewModel.message != "[:]" {
                                     authRequestView()
                                 }
@@ -61,47 +70,6 @@ struct SessionRequestView: View {
                         }
                     }
                     .frame(minHeight: 100)
-                    
-                    if let error = viewModel.error {
-                        VStack(spacing: 8) {
-                            switch error {
-                            case .environmentMismatch:
-                                Text("walletconnect.error.environmentMismatch".localized)
-                                    .foregroundColor(Pallette.error)
-                                    .font(.system(size: 17, weight: .bold, design: .rounded))
-                            case .accountNotFound, .accountMissmatch:
-                                Text("walletconnect.error.accountMismatch".localized)
-                                    .foregroundColor(Pallette.error)
-                                    .font(.system(size: 17, weight: .bold, design: .rounded))
-                            case .noValidWCSession:
-                                Text("walletconnect.error.invalidSession".localized)
-                                    .foregroundColor(Pallette.error)
-                                    .font(.system(size: 17, weight: .bold, design: .rounded))
-                            case .invalidRequestMethod:
-                                Text("walletconnect.error.invalidMethod".localized)
-                                    .foregroundColor(Pallette.error)
-                                    .font(.system(size: 17, weight: .bold, design: .rounded))
-                            case .invalidRequestPayload:
-                                Text("walletconnect.error.invalidPayload".localized)
-                                    .foregroundColor(Pallette.error)
-                                    .font(.system(size: 17, weight: .bold, design: .rounded))
-                            case .unSupportedRequestMethod:
-                                Text("walletconnect.error.unsupportedMethod".localized)
-                                    .foregroundColor(Pallette.error)
-                                    .font(.system(size: 17, weight: .bold, design: .rounded))
-                            case .generic:
-                                Text("walletconnect.error.title.generic".localized)
-                                    .foregroundColor(Pallette.error)
-                                    .font(.system(size: 17, weight: .bold, design: .rounded))
-                            }
-
-                            Text(error.errorMessage)
-                                .foregroundColor(Pallette.errorText)
-                                .font(.system(size: 15, weight: .semibold, design: .rounded))
-                                .multilineTextAlignment(.center)
-                        }
-                        .padding(.top, 12)
-                    }
                     
                     HStack(spacing: 20) {
                         Button {
@@ -141,7 +109,7 @@ struct SessionRequestView: View {
                                 .background(viewModel.account == nil ? .white.opacity(0.7) : .white)
                                 .clipShape(Capsule())
                         }
-                        .disabled(viewModel.account == nil || !viewModel.isSignButtonEnabled)
+                        .disabled(viewModel.account == nil || !viewModel.isSignButtonEnabled || viewModel.pltValidationError != nil)
                     }
                     .padding(.top, 25)
                     .padding(.bottom, 24)
@@ -163,6 +131,78 @@ struct SessionRequestView: View {
         }
     }
     
+    private func errorMessageView(error: SessionRequstError) -> some View {
+        HStack(alignment: .top, spacing: 8) {
+            Image(systemName: "exclamationmark.triangle.fill")
+                .foregroundColor(Pallette.error)
+                .font(.system(size: 14))
+                .padding(.top, 2)
+            
+            Text(error.errorMessage.replacingOccurrences(of: "Request ", with: "").replacingOccurrences(of: "request ", with: ""))
+                .font(.satoshi(size: 13, weight: .medium))
+                .foregroundColor(Pallette.error)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
+        .background(Pallette.error.opacity(0.1))
+        .cornerRadius(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private func pltTokenBalanceView() -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            // Always show balance if available
+            if let balance = viewModel.pltTokenBalance {
+                HStack {
+                    Text("Balance")
+                        .font(.satoshi(size: 14, weight: .medium))
+                        .foregroundColor(Color.greySecondary)
+                    Spacer()
+                    Text(balance)
+                        .font(.satoshi(size: 14, weight: .semibold))
+                        .foregroundColor(.white)
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .background(Color.grey3.opacity(0.3))
+                .cornerRadius(12)
+            }
+            
+            if let error = viewModel.pltValidationError {
+                HStack(alignment: .top, spacing: 8) {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundColor(Pallette.error)
+                        .font(.system(size: 14))
+                        .padding(.top, 2)
+                    Text(error)
+                        .font(.satoshi(size: 13, weight: .medium))
+                        .foregroundColor(Pallette.error)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .background(Pallette.error.opacity(0.1))
+                .cornerRadius(12)
+            }
+            
+            if viewModel.pltTokenBalance == nil && viewModel.pltValidationError == nil {
+                HStack {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        .scaleEffect(0.8)
+                    Text("Loading token balance...")
+                        .font(.satoshi(size: 13, weight: .medium))
+                        .foregroundColor(Color.greySecondary)
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+        .padding(.bottom, 8)
+    }
+    
     private func authRequestView() -> some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
@@ -172,10 +212,23 @@ struct SessionRequestView: View {
                 
                 VStack(spacing: 0) {
                     ScrollView {
-                        let content = try! AttributedString(markdown: viewModel.message)
-                        Text(content)
-                            .foregroundColor(.white)
-                            .font(.satoshi(size: 13, weight: .medium))
+                        VStack(alignment: .leading, spacing: 8) {
+                            let lines = viewModel.message.components(separatedBy: "\n")
+                            ForEach(Array(lines.enumerated()), id: \.offset) { index, line in
+                                if !line.trimmingCharacters(in: .whitespaces).isEmpty {
+                                    let content = (try? AttributedString(markdown: line)) ?? AttributedString(line)
+                                    Text(content)
+                                        .foregroundColor(.white)
+                                        .font(.satoshi(size: 13, weight: .medium))
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                } else {
+                                    // Empty line for spacing
+                                    Text("")
+                                        .frame(height: 4)
+                                }
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     .frame(height: 250)
                 }

@@ -17,11 +17,30 @@ struct OnboardingRootView: View {
     var onLogout: () -> Void
     
     @EnvironmentObject var sanityChecker: SanityChecker
+    @EnvironmentObject var navigationManager: NavigationManager
 
     var body: some View {
-        ZStack {
-            MainPromoView(defaultProvider: defaultProvider, onPasswordCreated: onIdentityCreated, onAccountInported: onAccountInported, onLogout: onLogout)
-                .environmentObject(sanityChecker)
+        NavigationStack(path: $navigationManager.path) {
+            ZStack {
+                CarouselWelcomeView()
+                    .environmentObject(navigationManager)
+            }
+            .navigationDestination(for: NavigationPaths.self) { destination in
+                switch destination {
+                case .welcomeScreen:
+                    NewWelcomeView()
+                        .environmentObject(navigationManager)
+                case .restoreExistingWallet:
+                    ImportWalletView(defaultProvider: defaultProvider, onAccountInported: onAccountInported)
+                case .createNewWallet:
+                    PasscodeView(keychain: defaultProvider.keychainWrapper(), sanityChecker: sanityChecker, identitiesService: identitiesService) { pwHash in
+                        onIdentityCreated()
+                    }
+                default:
+                    EmptyView()
+                }
+            }
         }
+        .accentColor(.white)
     }
 }

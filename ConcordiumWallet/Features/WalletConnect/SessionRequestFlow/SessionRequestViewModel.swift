@@ -14,6 +14,9 @@ final class SessionRequestViewModel: ObservableObject {
 
     @Published var requestModel: SessionRequestDataProvidable?
     @Published var requestType: SessionRequestDataType?
+    
+    @Published var pltTokenBalance: String?
+    @Published var pltValidationError: String?
 
     private let sessionRequest: Request
     private var cancellables = [AnyCancellable]()
@@ -52,6 +55,35 @@ final class SessionRequestViewModel: ObservableObject {
                         identitiesService: identitiesService
                     )
                     self.title = self.requestModel?.title ?? "Sign Transaction"
+                    
+                    // Update message with formatted payload for tokenUpdate requests
+                    if case .tokenUpdate = type,
+                       let tokenUpdateModel = self.requestModel as? TokenUpdateRequestModel {
+                        self.message = tokenUpdateModel.getFormattedMessage()
+                        
+                        // Subscribe to token balance and validation error updates
+                        tokenUpdateModel.$tokenBalance
+                            .assign(to: \.pltTokenBalance, on: self)
+                            .store(in: &self.cancellables)
+                        
+                        tokenUpdateModel.$validationError
+                            .assign(to: \.pltValidationError, on: self)
+                            .store(in: &self.cancellables)
+                        
+                        // Subscribe to validation state to update button when validation completes
+                        // Validation runs automatically after balance is loaded in the model's init
+                        tokenUpdateModel.$isTokenValid
+                            .sink { [weak self] isValid in
+                                Task { @MainActor in
+                                    self?.isSignButtonEnabled = isValid
+                                }
+                            }
+                            .store(in: &self.cancellables)
+                    }
+                    
+                    // Run initial validation for all request types
+                    // For tokenUpdate, full validation will run after balance is loaded (in model's init)
+                    sheckAllSetUp()
                 } catch let err as SessionRequstError {
                     self.error = err
                     logger.debug("\(err.errorMessage)")
@@ -60,8 +92,6 @@ final class SessionRequestViewModel: ObservableObject {
                 }
             }
         }
-
-        sheckAllSetUp()
     }
 
     private func sheckAllSetUp() {
@@ -71,7 +101,12 @@ final class SessionRequestViewModel: ObservableObject {
                 return
             }
 
-            self.isSignButtonEnabled = try await requestModel.checkAllSatisfy()
+            do {
+                self.isSignButtonEnabled = try await requestModel.checkAllSatisfy()
+            } catch {
+                // If validation fails, disable the button
+                self.isSignButtonEnabled = false
+            }
         }
     }
 

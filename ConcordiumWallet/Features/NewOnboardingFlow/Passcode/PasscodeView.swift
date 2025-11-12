@@ -32,6 +32,15 @@ class PasscodeViewModel: ObservableObject {
                 case .biometry: return "passcode.view.biometry.passcode.subtitle".localized
             }
         }
+        
+        var isCreatingOrRepeating: Bool {
+            switch self {
+            case .createPasscode, .repeatPasscode:
+                return true
+            default:
+                return false
+            }
+        }
     }
     
     var state: PasscodeViewModel.State
@@ -97,14 +106,15 @@ class PasscodeViewModel: ObservableObject {
     private func handlePasswordCheck(checkPassword: Result<Bool, KeychainError>, pwHash: String) {
         checkPassword
             .onSuccess { [weak self] hash in
+                guard let self else { return }
                 // If this is password creation and we have identitiesService, auto-generate seedphrase
-                if self?.state == .createPasscode || self?.state == .repeatPasscode([]), 
-                   let identitiesService = self?.identitiesService {
-                    print("🚀 Starting auto-generate seedphrase for state: \(self?.state)")
-                    self?.autoGenerateAndSaveSeedphrase(pwHash: pwHash)
+                if self.state.isCreatingOrRepeating,
+                   let _ = self.identitiesService {
+                    print("🚀 Starting auto-generate seedphrase for state: \(self.state)")
+                    self.autoGenerateAndSaveSeedphrase(pwHash: pwHash)
                 } else {
-                    print("⚠️ Skipping auto-generate seedphrase - state: \(self?.state), identitiesService: \(self?.identitiesService != nil)")
-                    self?.onSuccess(pwHash)
+                    print("⚠️ Skipping auto-generate seedphrase - state: \(self.state), identitiesService: \(self.identitiesService != nil)")
+                    self.onSuccess(pwHash)
                 }
             }
             .onFailure { [weak self] error in
@@ -200,15 +210,16 @@ extension PasscodeViewModel {
                         self.keychain.storePasswordBehindBiometrics(pwHash: self.pwHash ?? "")
                             .receive(on: DispatchQueue.main)
                             .sink(receiveError: { _ in }, receiveValue: { [weak self] _ in
+                                guard let self else { return }
                                 AppSettings.biometricsEnabled = true
                                 // If this is password creation and we have identitiesService, auto-generate seedphrase
-                                if self?.state == .createPasscode || self?.state == .repeatPasscode([]), 
-                                   let identitiesService = self?.identitiesService {
-                                    print("🚀 Starting auto-generate seedphrase for state: \(self?.state) (biometric)")
-                                    self?.autoGenerateAndSaveSeedphrase(pwHash: self?.pwHash ?? "")
+                                if self.state.isCreatingOrRepeating,
+                                   let _ = self.identitiesService {
+                                    print("🚀 Starting auto-generate seedphrase for state: \(self.state) (biometric)")
+                                    self.autoGenerateAndSaveSeedphrase(pwHash: self.pwHash ?? "")
                                 } else {
-                                    print("⚠️ Skipping auto-generate seedphrase - state: \(self?.state), identitiesService: \(self?.identitiesService != nil) (biometric)")
-                                    self?.onSuccess(self?.pwHash ?? "")
+                                    print("⚠️ Skipping auto-generate seedphrase - state: \(self.state), identitiesService: \(self.identitiesService != nil) (biometric)")
+                                    self.onSuccess(self.pwHash ?? "")
                                 }
                             })
                             .store(in: &self.cancellables)
@@ -227,8 +238,7 @@ extension PasscodeViewModel {
     func continueWithoutBiometrics() {
         AppSettings.biometricsEnabled = false
         // If this is password creation and we have identitiesService, auto-generate seedphrase
-        if state == .createPasscode || state == .repeatPasscode([]), 
-           let identitiesService = identitiesService {
+        if state.isCreatingOrRepeating, let _ = identitiesService {
             print("🚀 Starting auto-generate seedphrase for state: \(state) (continueWithoutBiometrics)")
             autoGenerateAndSaveSeedphrase(pwHash: pwHash ?? "")
         } else {

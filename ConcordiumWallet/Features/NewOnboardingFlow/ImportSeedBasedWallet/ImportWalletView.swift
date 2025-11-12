@@ -62,18 +62,6 @@ struct ImportWalletView: View {
             }
             .padding(.horizontal, 16)
             .modifier(AppBackgroundModifier())
-            .overlay(alignment: .topTrailing) {
-                Button(action: { dismiss() }, label: {
-                    Image(systemName: "xmark")
-                        .font(.callout)
-                        .frame(width: 35, height: 35)
-                        .foregroundStyle(Color.primary)
-                        .background(.ultraThinMaterial, in: .circle)
-                        .contentShape(.circle)
-                })
-                .padding(.top, 12)
-                .padding(.trailing, 15)
-            }
             .fullScreenCover(item: $recoveryPhrase) { phrase in
                 RecoverAccountsView(viewModel: .init(phrase: phrase, seedString: nil, defaultProvider: defaultProvider, onAccountInported: onAccountInported))
             }

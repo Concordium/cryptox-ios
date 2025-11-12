@@ -10,6 +10,7 @@ import SwiftUI
 
 struct PressedButtonStyle: ButtonStyle {
     var isDisabled: Bool = false
+    var backgroundColor: Color = .white
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -20,7 +21,7 @@ struct PressedButtonStyle: ButtonStyle {
                     ? Color.surfacePrimaryDisabled
                     : (configuration.isPressed
                         ? Color(red: 0.84, green: 0.89, blue: 0.94)
-                        : Color.white)
+                        : backgroundColor)
             )
             .foregroundColor(
                 isDisabled

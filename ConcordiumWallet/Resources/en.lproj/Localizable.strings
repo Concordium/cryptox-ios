@@ -1216,7 +1216,7 @@ Remember to restart your node with the validator keys.";
 "activate_account_and_get_v2" = "Activate your account and get access to all the features";
 "watch_video" = "Watch video";
 "setup_wallet_title" = "Set up your wallet";
-"create_wallet_sheet" = "Create a new wallet";
+"create_wallet_sheet" = "Create a New Wallet";
 "create_wallet_step_1_title" = "Create 6-digit passcode";
 "create_wallet_step_2_title" = "Save seed phrase";
 "create_wallet_step_3_title" = "Verify identity";
@@ -1507,3 +1507,20 @@ Remember to restart your node with the validator keys.";
 "paused.token.error" = "Token is paused and cannot be sent";
 "cis2.title" = "CIS-2 Tokens";
 "cis2.description" = "CIS-2 (Concordium Implementation Standard 2) is the standard interface for both fungible and non-fungible tokens implemented in a smart contract. The interface provides functions for transferring token ownership, allowing other addresses to transfer tokens and for querying token balances, operators and token metadata. It allows for off-chain applications to track token balances and the location of token metadata using logged events.";
+
+"smart.money.title" = "Smart Money Starts Here";
+"carousel.sec1.headline" = "Your Data. Your Rules.";
+"carousel.sec1.subheadline" = "Verify your access, without exposing your identity.";
+"carousel.sec2.headline" = "Speed Matters";
+"carousel.sec2.subheadline" = "Make payments faster and cheaper using stablecoins.";
+
+"onb.item.1.title" = "Create Passcode";
+"onb.item.1.desc" = "Please enter a unique 6-digit passcode to secure your account.";
+"onb.item.2.title" = "Get Concordium ID";
+"onb.item.2.desc" = "Get your digital identity from a trusted ID provider.";
+"onb.item.3.title" = "Finish";
+"onb.item.3.desc" = "Setup your account to unlock all features.";
+"restore.wallet" = "Restore Existing Wallet";
+
+"dismiss.backup.popup.title" = "Are you sure you want to hide this reminder?";
+"dismiss.backup.popup.desc" = "We highly recommend that you make a secure backup of your unique wallet seed phrase. You will not be able to restore your wallet without your seed phrase.\n\nAlternatively, you can find it later in the wallet settings";

@@ -40,27 +40,49 @@ final class SessionProposalViewModel: ObservableObject {
     private let storageManager: StorageManagerProtocol
     private let redirectURL: String?
     
+    // Combined namespaces from both required and optional
+    // This handles the deprecation where requiredNamespaces may be empty and namespaces are in optionalNamespaces
+    var proposalNamespaces: [String: ProposalNamespace] {
+        var combined = sessionProposal.optionalNamespaces ?? [:]
+        for (key, value) in sessionProposal.requiredNamespaces {
+            combined[key] = value
+        }
+        return combined
+    }
+    
+    private var proposalChains: [Blockchain] {
+        Array(Set(proposalNamespaces.compactMap { $0.value.chains }.flatMap { $0 }))
+    }
+    
+    private var proposalMethods: [String] {
+        Array(Set(proposalNamespaces.flatMap { $0.value.methods }))
+    }
+    
+    private var proposalEvents: [String] {
+        Array(Set(proposalNamespaces.flatMap { $0.value.events }))
+    }
+    
     init(sessionProposal: Session.Proposal, wallet: MobileWalletProtocol, storageManager: StorageManagerProtocol, redirectURL: String? = nil) {
         self.wallet = wallet
         self.sessionProposal = sessionProposal
         self.storageManager = storageManager
         self.redirectURL = redirectURL
         
-        self.selectedAccount = self.accounts().first
+        let allAccounts = self.accounts()
+        if let lastSelectedAccountAddress = AppSettings.lastSelectedAccountAddress,
+           let lastSelectedAccount = allAccounts.first(where: { $0.address == lastSelectedAccountAddress }) {
+            self.selectedAccount = lastSelectedAccount
+        } else {
+            self.selectedAccount = allAccounts.first
+        }
         
-        
-        let chains: [Blockchain] = sessionProposal.requiredNamespaces.compactMap { $0.value.chains }.flatMap { $0 }
-        // Check if proposal `Blockchain` is same as current app schema support
-        let isCorrectChain = chains.map(\.absoluteString).contains(currentChain)
-        
-        // Check if proposal contains allowed methods
-        let methods = sessionProposal.requiredNamespaces.compactMap { $0.value.methods }.flatMap { $0 }
-        var isCorrectMethods: Bool = Set(allowedRequestMethods).isSuperset(of: Set(methods))
+        let isCorrectChain = proposalChains.map(\.absoluteString).contains(currentChain)
+        let isCorrectMethods: Bool = Set(allowedRequestMethods).isSuperset(of: Set(proposalMethods))
 
         logger.debugLog("""
             wc: session proposal
-            chains: \(chains)
-            methods: \(methods.joined(separator: ", "))
+            chains: \(proposalChains)
+            methods: \(proposalMethods.joined(separator: ", "))
         
             isCorrectChain: \(isCorrectChain)
             isCorrectMethods: \(isCorrectMethods)
@@ -82,23 +104,20 @@ final class SessionProposalViewModel: ObservableObject {
     
     @MainActor
     func approveSessionRequest(_ completion: ((_ url: String?) -> Void)?) async {
-        let supportedMethods = Array(sessionProposal.requiredNamespaces.map { $0.value.methods }.first ?? [])
-        let supportedEvents = Array(sessionProposal.requiredNamespaces.map { $0.value.events }.first ?? [])
-        let supportedChains = Array((sessionProposal.requiredNamespaces.map { $0.value.chains }.first ?? [] )!)
-        let supportedAccounts: [Account] = supportedChains.map { Account(blockchain: $0, address: selectedAccount?.address ?? "")! }
-        
-        // Use redirect URL from URL parameter if available, otherwise fall back to proposer.redirect
+        let supportedAccounts: [Account] = proposalChains.map { Account(blockchain: $0, address: selectedAccount?.address ?? "")! }        
         let finalRedirectURL = redirectURL ?? sessionProposal.proposer.redirect?.universal
 
         do {
             let sessionNamespaces = try AutoNamespaces.build(
                 sessionProposal: sessionProposal,
-                chains: supportedChains,
-                methods: supportedMethods,
-                events: supportedEvents,
+                chains: proposalChains,
+                methods: proposalMethods,
+                events: proposalEvents,
                 accounts: supportedAccounts
             )
+            
             try await Sign.instance.approve(proposalId: sessionProposal.id, namespaces: sessionNamespaces)
+            
             completion?(finalRedirectURL)
         } catch {
             logger.debugLog(error.localizedDescription)
@@ -172,8 +191,8 @@ struct SessionProposalView: View {
                         })
                         
                         ScrollView {
-                            ForEach(viewModel.sessionProposal.requiredNamespaces.keys.sorted(), id: \.self) { chain in
-                                if let namespaces = viewModel.sessionProposal.requiredNamespaces[chain] {
+                            ForEach(viewModel.proposalNamespaces.keys.sorted(), id: \.self) { chain in
+                                if let namespaces = viewModel.proposalNamespaces[chain] {
                                     sessionProposalView(namespaces: namespaces)
                                 }
                             }

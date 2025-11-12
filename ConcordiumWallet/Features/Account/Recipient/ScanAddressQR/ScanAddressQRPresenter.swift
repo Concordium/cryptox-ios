@@ -82,7 +82,7 @@ class ScanAddressQRPresenter: ScanAddressQRPresenterProtocol {
             view?.showQrValid()
             self.delegate?.scanAddressQr(didScan: .walletConnectV2(address))
             self.closure?(.walletConnectV2(address))
-        } else if URL(string: address) != nil {
+        } else if let url = URL(string: address), UIApplication.shared.canOpenURL(url) {
             view?.showQrValid()
             self.delegate?.scanAddressQr(didScan: .connectURL(address))
             self.closure?(.connectURL(address))
