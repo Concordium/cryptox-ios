@@ -30,7 +30,7 @@ final class DelegationSubmissionViewModel: StakeReceiptViewModel, ObservableObje
         withAnimation(.easeInOut(duration: 1)) {
             if isTransactionExecuting {
                 return inProgressTransactionText
-            } else if !isTransactionExecuting {
+            } else if !isTransactionExecuting && error == nil {
                 return successTransactionText
             }
             if error != nil {
@@ -77,6 +77,7 @@ final class DelegationSubmissionViewModel: StakeReceiptViewModel, ObservableObje
             .sink(receiveError: { error in
                 if case GeneralError.userCancelled = error { return }
                 self.error = ErrorMapper.toViewError(error: error)
+                self.isTransactionExecuting = false
             }, receiveValue: { [weak self] transfer in
                 self?.transferDataType = transfer
                 self?.isTransactionExecuting = false
