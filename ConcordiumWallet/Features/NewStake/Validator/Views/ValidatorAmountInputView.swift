@@ -47,10 +47,11 @@ struct ValidatorAmountInputView: View {
                     .foregroundStyle(Color.MineralBlue.blueish3.opacity(0.5))
             }
             
-            if let error = viewModel.amountErrorMessage, viewModel.hasStartedInput || viewModel.isAmountLocked {
-                Text(error)
+            if viewModel.amountErrorMessage != nil || viewModel.hasStartedInput || viewModel.isAmountLocked {
+                Text(viewModel.amountErrorMessage ?? "")
                     .foregroundColor(Color(hex: 0xFF163D))
                     .font(.satoshi(size: 15, weight: .medium))
+                    .frame(alignment: .leading)
             }
             
             SendTokenCell(tokenType: .ccd(displayAmount: GTU(intValue: viewModel.account.forecastBalance).displayValueWithTwoNumbersAfterDecimalPoint()),
