@@ -33,8 +33,8 @@ final class DelegationSubmissionViewModel: StakeReceiptViewModel, ObservableObje
             } else if !isTransactionExecuting {
                 return successTransactionText
             }
-            if error != nil {
-                return failedTransactionText
+            if let error {
+                return failedTransactionText + "\n \(error.localizedDescription)"
             }
             return ""
         }
