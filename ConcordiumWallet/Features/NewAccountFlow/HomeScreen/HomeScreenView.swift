@@ -258,7 +258,9 @@ struct HomeScreenView: View {
                 
                 // Seedphrase backup reminder banner
                 if viewModel.accounts.count >= 1 {
-                    if !isUserMakeBackup && isShouldShowSeedphraseBackupBanner && identitiesService.mobileWallet.hasSetupRecoveryPhrase {
+                    if !isUserMakeBackup && isShouldShowSeedphraseBackupBanner
+                        && identitiesService.mobileWallet.hasSetupRecoveryPhrase
+                        && !dependencyProvider.seedMobileWallet().isRecoveredWallet {
                         SeedphraseBackupBannerView(
                             onBackupNow: {
                                 // Show passcode view to get password hash, then navigate to seedphrase backup screen
