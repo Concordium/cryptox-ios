@@ -44,7 +44,9 @@ struct ValidatorTransactionStatusView: View {
                             .foregroundStyle(.white)
                     }
                 }
-                transactionDetailsSection()
+                if viewModel.transferDataType != nil {
+                    transactionDetailsSection()
+                }
             }
             .padding(.vertical, 30)
             .padding(.horizontal, 14)
