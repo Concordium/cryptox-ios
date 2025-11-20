@@ -31,8 +31,8 @@ final class ValidatorSubmissionViewModel: StakeReceiptViewModel, ObservableObjec
             } else if !isTransactionExecuting && error == nil {
                 return successTransactionText
             }
-            if error != nil {
-                return failedTransactionText
+            if let error, let vmError = error as? ViewError {
+                return failedTransactionText + "\n\(vmError.errorDescription ?? error.localizedDescription)"
             }
             return ""
         }

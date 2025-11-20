@@ -33,8 +33,9 @@ final class DelegationSubmissionViewModel: StakeReceiptViewModel, ObservableObje
             } else if !isTransactionExecuting && error == nil {
                 return successTransactionText
             }
-            if error != nil {
-                return failedTransactionText
+            // TODO: - refactor, move description test logic into ViewError class
+            if let error, let vmError = error as? ViewError {
+                return failedTransactionText + "\n\(vmError.errorDescription ?? error.localizedDescription)"
             }
             return ""
         }
