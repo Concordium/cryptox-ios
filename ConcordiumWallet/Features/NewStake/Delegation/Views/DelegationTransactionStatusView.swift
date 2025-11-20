@@ -24,7 +24,9 @@ struct DelegationTransactionStatusView: View {
                 LottieLoadingAnimation(isTransactionExecuting: $viewModel.isTransactionExecuting, error: $viewModel.error)
                 Divider()
                 statusSection()
-                transactionDetailsSection()
+                if viewModel.transferDataType != nil {
+                    transactionDetailsSection()
+                }
             }
             .padding(.vertical, 30)
             .padding(.horizontal, 14)
@@ -63,6 +65,7 @@ struct DelegationTransactionStatusView: View {
                 .transition(.scale)
                 .animation(.easeInOut(duration: 1),
                            value: viewModel.transactionStatusLabel)
+                .multilineTextAlignment(.center)
 
             if viewModel.shouldDisplayAmount {
                 Text(viewModel.amountDisplay)

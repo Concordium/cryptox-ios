@@ -30,11 +30,12 @@ final class DelegationSubmissionViewModel: StakeReceiptViewModel, ObservableObje
         withAnimation(.easeInOut(duration: 1)) {
             if isTransactionExecuting {
                 return inProgressTransactionText
-            } else if !isTransactionExecuting {
+            } else if !isTransactionExecuting && error == nil {
                 return successTransactionText
             }
-            if let error {
-                return failedTransactionText + "\n \(error.localizedDescription)"
+            // TODO: - refactor, move description test logic into ViewError class
+            if let error, let vmError = error as? ViewError {
+                return failedTransactionText + "\n\(vmError.errorDescription ?? error.localizedDescription)"
             }
             return ""
         }
@@ -77,6 +78,7 @@ final class DelegationSubmissionViewModel: StakeReceiptViewModel, ObservableObje
             .sink(receiveError: { error in
                 if case GeneralError.userCancelled = error { return }
                 self.error = ErrorMapper.toViewError(error: error)
+                self.isTransactionExecuting = false
             }, receiveValue: { [weak self] transfer in
                 self?.transferDataType = transfer
                 self?.isTransactionExecuting = false
@@ -182,7 +184,7 @@ private extension Optional where Wrapped == ChainParametersEntity {
         let delegatorCooldown = GeneralFormatter.secondsToDays(seconds: self?.delegatorCooldown ?? 0)
         let gracePeriod = String(
             format: "delegation.graceperiod.format".localized,
-            GeneralFormatter.secondsToDays(seconds: delegatorCooldown)
+            delegatorCooldown
         )
         return String(format: primaryMessage, gracePeriod)
     }

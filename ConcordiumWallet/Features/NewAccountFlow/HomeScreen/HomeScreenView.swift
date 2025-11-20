@@ -350,7 +350,7 @@ struct HomeScreenView: View {
                 .padding(.trailing, 20)
             
             if let account = viewModel.selectedAccount?.account, account.isStaking {
-                Text("\(balanceDisplayValue(account.forecastAtDisposalBalance)) CCD " + "accounts.atdisposal".localized)
+                Text("\(balanceDisplayValue(account.atDisposalBalance)) CCD " + "accounts.atdisposal".localized)
                     .font(.satoshi(size: 15, weight: .medium))
                     .modifier(RadialGradientForegroundStyleModifier())
             }

@@ -42,7 +42,7 @@ extension ViewError: LocalizedError {
         case .networkCommunicationError:
             return "viewError.networkCommunicationError".localized
         case .serverError:
-            return "viewError.internalServerError".localized
+            return "view.error.serverError".localized
         case .duplicateRecipient(let name):
             return "viewError.duplicateRecipient".localized + name
         case .exportUnfinalizedAccounts(let unfinalizedAccountsNames):
