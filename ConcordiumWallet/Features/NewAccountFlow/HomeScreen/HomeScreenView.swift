@@ -605,7 +605,7 @@ extension HomeScreenView {
                      identitiesService: nil) { pwHash in
             isShowPasscodeViewShown = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.router?.showSaveSeedPhraseFlow(pwHash: pwHash, identitiesService: identitiesService) { phrase in
+                self.router?.showBackupSeedPhraseFlow(pwHash: pwHash, identitiesService: identitiesService) { phrase in
                     if identitiesService.mobileWallet.hasSetupRecoveryPhrase {
                         self.phrase = phrase
                         // Mark backup as completed and hide banner

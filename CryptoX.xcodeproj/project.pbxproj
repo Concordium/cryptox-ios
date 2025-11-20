@@ -66,8 +66,6 @@
 		0867CAE82A45CE5600D7887D /* DummyRequestPasswordDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0867CAE62A45CE5600D7887D /* DummyRequestPasswordDelegate.swift */; };
 		088CA9D72B3590BD00898C85 /* PasscodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088CA9D62B3590BD00898C85 /* PasscodeView.swift */; };
 		088CA9D82B3590BD00898C85 /* PasscodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088CA9D62B3590BD00898C85 /* PasscodeView.swift */; };
-		088CA9DB2B35F02700898C85 /* CreateSeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088CA9DA2B35F02700898C85 /* CreateSeedPhraseView.swift */; };
-		088CA9DC2B35F02700898C85 /* CreateSeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088CA9DA2B35F02700898C85 /* CreateSeedPhraseView.swift */; };
 		088FEC5B2A0144B000042957 /* StakeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEC592A0144AD00042957 /* StakeService.swift */; };
 		088FEC5D2A0144B000042957 /* StakeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEC592A0144AD00042957 /* StakeService.swift */; };
 		088FEC652A01459100042957 /* QRDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEC632A01459000042957 /* QRDataResponse.swift */; };
@@ -836,7 +834,6 @@
 		08C1668F2BB7396200E61326 /* ImportWalletSeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0851BFD42B504BDB006373AC /* ImportWalletSeedPhraseView.swift */; };
 		08C166912BB7396200E61326 /* CreateTransferRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A044D429FA99C400DACE1F /* CreateTransferRequest.swift */; };
 		08C166922BB7396200E61326 /* CreateIDRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A044C029FA99C100DACE1F /* CreateIDRequest.swift */; };
-		08C166932BB7396200E61326 /* CreateSeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088CA9DA2B35F02700898C85 /* CreateSeedPhraseView.swift */; };
 		08C166942BB7396200E61326 /* CreationFailedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEEB12A026B7C00042957 /* CreationFailedPresenter.swift */; };
 		08C166952BB7396200E61326 /* CookieJar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A0464629FAB99200DACE1F /* CookieJar.swift */; };
 		08C166962BB7396200E61326 /* SelectIdentityPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEF912A02714600042957 /* SelectIdentityPresenter.swift */; };
@@ -2685,7 +2682,6 @@
 		08520A6B2B482994008DC851 /* NewIdentityStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewIdentityStatusView.swift; sourceTree = "<group>"; };
 		0867CAE62A45CE5600D7887D /* DummyRequestPasswordDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyRequestPasswordDelegate.swift; sourceTree = "<group>"; };
 		088CA9D62B3590BD00898C85 /* PasscodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeView.swift; sourceTree = "<group>"; };
-		088CA9DA2B35F02700898C85 /* CreateSeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSeedPhraseView.swift; sourceTree = "<group>"; };
 		088FEC592A0144AD00042957 /* StakeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeService.swift; sourceTree = "<group>"; };
 		088FEC632A01459000042957 /* QRDataResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRDataResponse.swift; sourceTree = "<group>"; };
 		088FEC8C2A01606100042957 /* StyledLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledLabel.swift; sourceTree = "<group>"; };
@@ -3859,7 +3855,6 @@
 		088CA9D92B35F01B00898C85 /* SeedPhrase */ = {
 			isa = PBXGroup;
 			children = (
-				088CA9DA2B35F02700898C85 /* CreateSeedPhraseView.swift */,
 				0807481A2B59798200990ADA /* RevealSeedPhraseView.swift */,
 				0807481D2B5979B400990ADA /* SeedPhrasePillView.swift */,
 			);
@@ -6811,7 +6806,6 @@
 				08C166912BB7396200E61326 /* CreateTransferRequest.swift in Sources */,
 				08C166922BB7396200E61326 /* CreateIDRequest.swift in Sources */,
 				153F2F4F2CC2D100009C8347 /* NotificationTokenService.swift in Sources */,
-				08C166932BB7396200E61326 /* CreateSeedPhraseView.swift in Sources */,
 				1557CCAB2C8AF779008ABF67 /* AllowNotificationsPopup.swift in Sources */,
 				08C166942BB7396200E61326 /* CreationFailedPresenter.swift in Sources */,
 				08C166952BB7396200E61326 /* CookieJar.swift in Sources */,
@@ -7541,7 +7535,6 @@
 				08A0460329FA99D200DACE1F /* CreateTransferRequest.swift in Sources */,
 				08A045F829FA99D200DACE1F /* CreateIDRequest.swift in Sources */,
 				153F2F512CC2D100009C8347 /* NotificationTokenService.swift in Sources */,
-				088CA9DC2B35F02700898C85 /* CreateSeedPhraseView.swift in Sources */,
 				1557CCAA2C8AF779008ABF67 /* AllowNotificationsPopup.swift in Sources */,
 				088FEEB92A026B8200042957 /* CreationFailedPresenter.swift in Sources */,
 				08A0464A29FAB99200DACE1F /* CookieJar.swift in Sources */,
@@ -8271,7 +8264,6 @@
 				153F2F502CC2D100009C8347 /* NotificationTokenService.swift in Sources */,
 				D5962CCF272170BD00A757A5 /* TransactionOperationView.swift in Sources */,
 				1557CCA92C8AF779008ABF67 /* AllowNotificationsPopup.swift in Sources */,
-				088CA9DB2B35F02700898C85 /* CreateSeedPhraseView.swift in Sources */,
 				08A0456B29FA99D100DACE1F /* CreateTransferRequest.swift in Sources */,
 				08A0456029FA99D100DACE1F /* CreateIDRequest.swift in Sources */,
 				088FEEB72A026B8100042957 /* CreationFailedPresenter.swift in Sources */,
