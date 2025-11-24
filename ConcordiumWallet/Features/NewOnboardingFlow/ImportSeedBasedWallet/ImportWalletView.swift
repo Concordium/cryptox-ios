@@ -45,6 +45,7 @@ struct ImportWalletView: View {
                         destination: ImportWalletSeedPhraseView(viewModel: ImportWalletSeedPhraseViewModel.init(recoveryService: defaultProvider.recoveryPhraseService(), onValidPhrase: { phrase in
                             self.recoveryPhrase = phrase
                             UserDefaults.standard.set(true, forKey:"isWalletRestored")
+                            UserDefaults.standard.set(false, forKey: "isShouldShowSeedphraseBackupBanner")
                         })),
                         tag: Flow.recoverPhraseInput,
                         selection: $flow) { EmptyView() }
@@ -53,6 +54,7 @@ struct ImportWalletView: View {
                         destination: ImportWalletPrivateKeyView(viewModel: ImportWalletPrivateKeyViewModel.init(recoveryService: defaultProvider.recoveryPhraseService(), onValidPrivateKey: { key in
                             self.walletPrivateKey = key
                             UserDefaults.standard.set(true, forKey:"isWalletRestored")
+                            UserDefaults.standard.set(false, forKey: "isShouldShowSeedphraseBackupBanner")
                         })),
                         tag: Flow.recoverWithWalletKey,
                         selection: $flow) { EmptyView() }

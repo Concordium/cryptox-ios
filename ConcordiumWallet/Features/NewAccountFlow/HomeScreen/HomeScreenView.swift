@@ -272,7 +272,7 @@ struct HomeScreenView: View {
                                 }
                             }
                         )
-                    } else if  viewModel.selectedAccount?.account?.forecastBalance == 0,
+                    } else if viewModel.selectedAccount?.account?.forecastBalance == 0,
                                isShouldShowOnrampMessage && (!isShouldShowSeedphraseBackupBanner || isUserMakeBackup) {
                         OnrampView
                     } else if viewModel.selectedAccount?.account?.delegation == nil && isShouldShowEarnBanner {
