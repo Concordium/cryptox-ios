@@ -110,10 +110,8 @@ class PasscodeViewModel: ObservableObject {
                 // If this is password creation and we have identitiesService, auto-generate seedphrase
                 if self.state.isCreatingOrRepeating,
                    let _ = self.identitiesService {
-                    print("🚀 Starting auto-generate seedphrase for state: \(self.state)")
                     self.autoGenerateAndSaveSeedphrase(pwHash: pwHash)
                 } else {
-                    print("⚠️ Skipping auto-generate seedphrase - state: \(self.state), identitiesService: \(self.identitiesService != nil)")
                     self.onSuccess(pwHash)
                 }
             }
@@ -131,14 +129,12 @@ class PasscodeViewModel: ObservableObject {
                 let words = mnemonic.components(separatedBy: " ")
                 
                 let seed = try identitiesService?.storePhrase(words: words, pwHash: pwHash)
-                print("🔐 Auto-generated seedphrase saved successfully: \(seed != nil)")
                 
                 await MainActor.run {
                     UserDefaults.standard.set(false, forKey: "isUserMakeBackup")
                     self.onSuccess(pwHash)
                 }
             } catch {
-                print("❌ Auto-generated seedphrase failed: \(error)")
                 await MainActor.run {
                     self.onSuccess(pwHash)
                 }
@@ -215,10 +211,8 @@ extension PasscodeViewModel {
                                 // If this is password creation and we have identitiesService, auto-generate seedphrase
                                 if self.state.isCreatingOrRepeating,
                                    let _ = self.identitiesService {
-                                    print("🚀 Starting auto-generate seedphrase for state: \(self.state) (biometric)")
                                     self.autoGenerateAndSaveSeedphrase(pwHash: self.pwHash ?? "")
                                 } else {
-                                    print("⚠️ Skipping auto-generate seedphrase - state: \(self.state), identitiesService: \(self.identitiesService != nil) (biometric)")
                                     self.onSuccess(self.pwHash ?? "")
                                 }
                             })
@@ -239,10 +233,8 @@ extension PasscodeViewModel {
         AppSettings.biometricsEnabled = false
         // If this is password creation and we have identitiesService, auto-generate seedphrase
         if state.isCreatingOrRepeating, let _ = identitiesService {
-            print("🚀 Starting auto-generate seedphrase for state: \(state) (continueWithoutBiometrics)")
             autoGenerateAndSaveSeedphrase(pwHash: pwHash ?? "")
         } else {
-            print("⚠️ Skipping auto-generate seedphrase - state: \(state), identitiesService: \(identitiesService != nil) (continueWithoutBiometrics)")
             self.onSuccess(self.pwHash ?? "")
         }
     }
