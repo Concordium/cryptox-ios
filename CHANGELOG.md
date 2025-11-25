@@ -1,7 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+- Onboarding flow UI updates
 - Update WC to check for optional namespaces when approving session
+- Automatically save seed phrase when onboarding.
 
 ## [Released 3.3.11]
 - fix PLT value formatter

@@ -126,6 +126,13 @@ class MoreMenuViewController: BaseViewController, MoreMenuViewProtocol, Storyboa
         MockedData.addMockButton(in: self)
         #endif
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if presenter.hasSavedSeedPhrase() || presenter.hasSavedWalletPrivateKey() {
+            setupUI()
+        }
+    }
 }
 
 extension MoreMenuViewController: UITableViewDelegate {

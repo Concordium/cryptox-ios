@@ -121,23 +121,10 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
                     }
                 )
                 .environmentObject(sanityChecker)
+                .environmentObject(navigationManager)
         )], animated: false)
         navigationController.setNavigationBarHidden(true, animated: false)
     }
-    
-    private func createNewSeedAccount() {
-        let seedIdentitiesCoordinator = SeedIdentitiesCoordinator(
-            navigationController: CXNavigationController(),
-            action: .createAccount,
-            dependencyProvider: defaultProvider,
-            delegate: self
-        )
-
-        childCoordinators.append(seedIdentitiesCoordinator)
-        seedIdentitiesCoordinator.start()
-        navigationController.presentedViewController?.present(seedIdentitiesCoordinator.navigationController, animated: true)
-    }
-    
 
     private func showLogin() {
         let identities = defaultProvider.storageManager().getIdentities().filter({$0.identityCreationError.isEmpty})
@@ -148,7 +135,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         if !accounts.isEmpty || !identities.isEmpty || defaultProvider.keychainWrapper().passwordCreated() {
             navigationController.setViewControllers([UIHostingController(
                 rootView:
-                    PasscodeView(keychain: defaultProvider.keychainWrapper(), sanityChecker: sanityChecker) { _ in
+                    PasscodeView(keychain: defaultProvider.keychainWrapper(), sanityChecker: sanityChecker, identitiesService: defaultProvider.seedIdentitiesService()) { _ in
                         self.showMainTabbar()
                     }
             )], animated: false)
@@ -156,7 +143,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
             if defaultProvider.keychainWrapper().passwordCreated()  {
                 navigationController.setViewControllers([UIHostingController(
                     rootView:
-                        PasscodeView(keychain: defaultProvider.keychainWrapper(), sanityChecker: sanityChecker) { _ in
+                        PasscodeView(keychain: defaultProvider.keychainWrapper(), sanityChecker: sanityChecker, identitiesService: defaultProvider.seedIdentitiesService()) { _ in
                             self.showNewOnboardingFlow()
                         }
                 )], animated: false)
@@ -532,7 +519,11 @@ extension AppCoordinator: MoreCoordinatorDelegate {
         childCoordinators.removeAll()
         AppSettings.removeImportedWalletSetings()
         navigationController = CXNavigationController()
+        navigationManager.reset()
+        UserDefaults.standard.set(false, forKey:"isUserMakeBackup")
+        UserDefaults.standard.set(false, forKey:"isWalletRestored")
         UserDefaults.standard.set(false, forKey: "showConfettiAnimation")
+        UserDefaults.standard.set(true, forKey: "isShouldShowSeedphraseBackupBanner")
         UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController = navigationController
         start()
     }

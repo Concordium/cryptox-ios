@@ -43,4 +43,8 @@ enum NavigationPaths: Hashable {
     case delegationStakingMode(DelegationStakingModeViewModel)
     case delegationRequestConfirmation(DelegationSubmissionViewModel)
     case delegationTransactionStatus(DelegationSubmissionViewModel)
+    // MARK: - Welcome Flow
+    case welcomeScreen
+    case restoreExistingWallet
+    case createNewWallet
 }

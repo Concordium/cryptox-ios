@@ -12,6 +12,7 @@ struct RoundedButton: View {
     let action: () -> Void
     let title: String
     var foregroundColor: Color = .blackMain
+    var backgroundColor: Color = .white
     var isDisabled: Bool = false
 
     var body: some View {
@@ -27,7 +28,7 @@ struct RoundedButton: View {
                 .cornerRadius(28)
         })
         .if(!isDisabled, transform: { view in
-            view.buttonStyle(PressedButtonStyle())
+            view.buttonStyle(PressedButtonStyle(backgroundColor: backgroundColor))
 
         })
         .if(isDisabled, transform: { view in

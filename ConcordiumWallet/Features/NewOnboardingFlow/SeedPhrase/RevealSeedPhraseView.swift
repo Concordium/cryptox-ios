@@ -13,9 +13,18 @@ final class RevealSeedPhraseViewModel: ObservableObject {
     @Published var mnenonic: [String] = []
     
     private let identitiesService: SeedIdentitiesService
+    let isBackup: Bool
+    let pwHash: String?
+    let onBackedUp: (([String]) -> Void)?
     
-    init(identitiesService: SeedIdentitiesService) {
+    init(identitiesService: SeedIdentitiesService, isBackup: Bool = false, pwHash: String? = nil, onBackedUp: (([String]) -> Void)? = nil) {
         self.identitiesService = identitiesService
+        self.isBackup = isBackup
+        self.pwHash = pwHash
+        self.onBackedUp = onBackedUp
+        if let pwHash {
+            revealSeedPhrase(pwHash)
+        }
     }
     
     func revealSeedPhrase(_ pwHash: String) {
@@ -41,7 +50,8 @@ struct RevealSeedPhraseView: View {
 
     @State var shareText: ShareText?
     @State var isShowPasscodeViewShown: Bool = false
-    
+    @State var isChecked: Bool = false
+
     @Namespace private var animation
     
     var body: some View {
@@ -78,7 +88,7 @@ struct RevealSeedPhraseView: View {
                 }
             }
             
-            if viewModel.mnenonic.isEmpty {
+            if viewModel.mnenonic.isEmpty, viewModel.pwHash == nil {
                 Image("seed_phrase_locked_blur")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -97,6 +107,9 @@ struct RevealSeedPhraseView: View {
                 if viewModel.mnenonic.isEmpty {
                     isShowPasscodeViewShown.toggle()
                 } else {
+                    if let pwHash = viewModel.pwHash {
+                        viewModel.revealSeedPhrase(pwHash)
+                    }
                     shareText = ShareText(text: viewModel.mnenonic.joined(separator: " "))
                 }
             } label: {
@@ -110,6 +123,47 @@ struct RevealSeedPhraseView: View {
             .padding(.top, 22)
             
             Spacer()
+            if viewModel.isBackup {
+                VStack(spacing: 24) {
+                    HStack(spacing: 16) {
+                        Image(isChecked ? "checkbox_checked" : "checkbox_unchecked")
+                            .contentShape(.rect)
+                            .onTapGesture {
+                                isChecked.toggle()
+                            }
+                        Text("seed_phrase_confirm_save".localized)
+                            .font(.satoshi(size: 14, weight: .regular))
+                            .foregroundStyle(Color.Neutral.tint1)
+                        Spacer()
+                    }
+                    .padding(.horizontal, 16)
+                    
+                    Button(action: {
+                        Task {
+                            do {
+                                DispatchQueue.main.async {
+                                    viewModel.onBackedUp?(viewModel.mnenonic)
+                                }
+                            }
+                        }
+                    }, label: {
+                        HStack {
+                            Text("continue_btn_title".localized)
+                                .font(Font.satoshi(size: 16, weight: .medium))
+                                .lineSpacing(24)
+                                .foregroundColor(Color.Neutral.tint7)
+                            Spacer()
+                            Image(systemName: "arrow.right").tint(Color.Neutral.tint7)
+                        }
+                        .padding(.horizontal, 24)
+                    })
+                    .opacity(isChecked ? 1.0 : 0.7)
+                    .disabled(!isChecked)
+                    .frame(height: 56)
+                    .background(.whiteMain)
+                    .cornerRadius(28, corners: .allCorners)
+                }
+            }
         }
         .padding(.horizontal, 16)
         .modifier(AppBackgroundModifier())

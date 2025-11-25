@@ -33,6 +33,7 @@ struct HomeScreenView: View {
     @State private var isCreatingAccount = false
     @State private var hasShownAnimationKey = "showConfettiAnimation"
     @State var isShowPasscodeViewShown = false
+    @State private var shouldShowDismissBackupPopup = false
     @State var phrase: [String]?
     @State private var selectedActionId: Int?
     @State private var hasAppearedForTheFirstTime: Bool = false
@@ -40,6 +41,8 @@ struct HomeScreenView: View {
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowOnrampMessage") private var isShouldShowOnrampMessage = true
     @AppStorage("isShouldShowEarnBanner") private var isShouldShowEarnBanner = true
+    @AppStorage("isShouldShowSeedphraseBackupBanner") private var isShouldShowSeedphraseBackupBanner = true
+    @AppStorage("isShouldShowAllowNotificationsView") private var isShouldShowAllowNotificationsView = true
 
     let keychain: KeychainWrapperProtocol
     let identitiesService: SeedIdentitiesService
@@ -55,7 +58,29 @@ struct HomeScreenView: View {
             GeometryReader { proxy in
                 Group {
                     if viewModel.isLoadedAccounts {
-                        HomeViewContent
+                        ZStack {
+                            HomeViewContent
+                            if shouldShowDismissBackupPopup {
+                                Color.black.opacity(0.8)
+                                    .ignoresSafeArea()
+                                    .transition(.opacity)
+                                    .animation(.easeInOut(duration: 0.3), value: shouldShowDismissBackupPopup)
+                                
+                                DismissBackupPopup(
+                                    isPresentingAlert: $shouldShowDismissBackupPopup,
+                                    onBackupTapped: {
+                                        shouldShowDismissBackupPopup = false
+                                        isShowPasscodeViewShown = true
+                                    },
+                                    onHideTapped: {
+                                        isShouldShowSeedphraseBackupBanner = false
+                                    }
+                                )
+                                .transition(.scale(scale: 0.9).combined(with: .opacity))
+                                .zIndex(2)
+                                .animation(.easeInOut(duration: 0.3), value: shouldShowDismissBackupPopup)
+                            }
+                        }
                     } else {
                         HomeScreenViewSkeleton()
                     }
@@ -107,6 +132,11 @@ struct HomeScreenView: View {
                             UserDefaults.standard.set(true, forKey: hasShownAnimationKey)
                         }
                     }
+                }
+            }
+            .overlay(alignment: .center) {
+                if !UIApplication.shared.isRegisteredForRemoteNotifications && isShouldShowAllowNotificationsView {
+                    AllowNotificationsPopup(isVisible: $isShouldShowAllowNotificationsView)
                 }
             }
             .onChange(of: viewModel.selectedAccount) { _ in
@@ -225,12 +255,29 @@ struct HomeScreenView: View {
                             .foregroundStyle(.white)
                     }
                 }
-                if  viewModel.selectedAccount?.account?.forecastBalance == 0,
-                    viewModel.selectedAccount?.account?.delegation != nil,
-                    isShouldShowOnrampMessage {
+                
+                // Seedphrase backup reminder banner
+                if viewModel.accounts.count >= 1 {
+                    if !isUserMakeBackup && isShouldShowSeedphraseBackupBanner
+                        && identitiesService.mobileWallet.hasSetupRecoveryPhrase
+                        && !dependencyProvider.seedMobileWallet().isRecoveredWallet {
+                        SeedphraseBackupBannerView(
+                            onBackupNow: {
+                                // Show passcode view to get password hash, then navigate to seedphrase backup screen
+                                isShowPasscodeViewShown = true
+                            },
+                            onHideAnyway: {
+                                withAnimation(.easeInOut) {
+                                    shouldShowDismissBackupPopup = true
+                                }
+                            }
+                        )
+                    } else if viewModel.selectedAccount?.account?.forecastBalance == 0,
+                               isShouldShowOnrampMessage && (!isShouldShowSeedphraseBackupBanner || isUserMakeBackup) {
                         OnrampView
-                } else if viewModel.selectedAccount?.account?.delegation == nil && isShouldShowEarnBanner {
-                    EarnView
+                    } else if viewModel.selectedAccount?.account?.delegation == nil && isShouldShowEarnBanner {
+                        EarnView
+                    }
                 }
                 
                 AccountStatesView
@@ -417,7 +464,6 @@ struct HomeScreenView: View {
                     }
                 }
                 .frame(alignment: .top)
-                .padding(.bottom, 15)
         }
         .onTapGesture {
             if !SettingsHelper.isIdentityConfigured() {
@@ -555,12 +601,16 @@ extension HomeScreenView {
     private var passcodeView: some View {
         PasscodeView(keychain: keychain,
                      sanityChecker: SanityChecker(mobileWallet: ServicesProvider.defaultProvider().mobileWallet(),
-                                                  storageManager: ServicesProvider.defaultProvider().storageManager())) { pwHash in
+                                                  storageManager: ServicesProvider.defaultProvider().storageManager()),
+                     identitiesService: nil) { pwHash in
             isShowPasscodeViewShown = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.router?.showSaveSeedPhraseFlow(pwHash: pwHash, identitiesService: identitiesService) { phrase in
+                self.router?.showBackupSeedPhraseFlow(pwHash: pwHash, identitiesService: identitiesService) { phrase in
                     if identitiesService.mobileWallet.hasSetupRecoveryPhrase {
                         self.phrase = phrase
+                        // Mark backup as completed and hide banner
+                        isUserMakeBackup = true
+                        isShouldShowSeedphraseBackupBanner = false
                         Task { await viewModel.reload() }
                     }
                 }
@@ -637,5 +687,58 @@ struct StakerSuspensionStateView: View {
         )
         .cornerRadius(16)
         .shadow(color: .black.opacity(0.25), radius: 7.65, x: 0, y: -6)
+    }
+}
+
+struct SeedphraseBackupBannerView: View {
+    let onBackupNow: () -> Void
+    let onHideAnyway: () -> Void
+    
+    var body: some View {
+        VStack(spacing: 12) {
+            HStack(alignment: .center, spacing: 8) {
+                VStack(alignment: .center) {
+                    Image("restore-seed-phrase")
+                        .foregroundColor(.orange)
+                        .font(.system(size: 20))
+                }
+                .padding(0)
+                .frame(width: 40, height: 40, alignment: .center)
+                .background(.white.opacity(0.1))
+                .cornerRadius(9999)
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Backup Your Wallet")
+                        .font(.satoshi(size: 16, weight: .medium))
+                        .foregroundColor(.white)
+                    
+                    Text("Keep your account safe by making a copy of your wallet seed phrase")
+                        .font(.satoshi(size: 12, weight: .regular))
+                        .foregroundColor(.semanticContentSecondary)
+                        .multilineTextAlignment(.leading)
+                }
+                .onTapGesture {
+                    onBackupNow()
+                }
+                
+                Spacer()
+                
+                Button(action: onHideAnyway) {
+                    Image(systemName: "xmark.circle")
+                        .foregroundColor(.semanticContentPrimary.opacity(0.6))
+                        .font(.system(size: 20))
+                }
+            }
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 16)
+        .background(Color(red: 0.09, green: 0.1, blue: 0.1))
+        .cornerRadius(12)
+        .frame(maxWidth: .infinity)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .inset(by: 0.5)
+                .stroke(.semanticBorderTertiary, lineWidth: 1)
+        )
     }
 }

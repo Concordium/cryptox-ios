@@ -124,9 +124,7 @@ final class AccountsMainViewModel: ObservableObject, Hashable, Equatable {
             state = .accounts
         } else {
             withAnimation {
-                if !defaultProvider.seedMobileWallet().hasSetupRecoveryPhrase {
-                    state = .saveSeedPhrase
-                } else if dependencyProvider.storageManager().getIdentities().isEmpty {
+                if dependencyProvider.storageManager().getIdentities().isEmpty {
                     state = .createIdentity
                 } else if !dependencyProvider.storageManager().getPendingIdentities().isEmpty {
                     state = .identityVerification
