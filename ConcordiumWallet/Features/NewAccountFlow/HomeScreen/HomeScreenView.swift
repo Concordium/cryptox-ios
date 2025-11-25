@@ -40,7 +40,7 @@ struct HomeScreenView: View {
     @State private var confettiPlayToken = 0
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowOnrampMessage") private var isShouldShowOnrampMessage = true
-    @AppStorage("isShouldShowEarnBanner") private var isShouldShowEarnBanner = true
+    @AppStorage("isShouldShowStakeBanner") private var isShouldShowStakeBanner = true
     @AppStorage("isShouldShowSeedphraseBackupBanner") private var isShouldShowSeedphraseBackupBanner = true
     @AppStorage("isShouldShowAllowNotificationsView") private var isShouldShowAllowNotificationsView = true
 
@@ -233,7 +233,7 @@ struct HomeScreenView: View {
                             if account.address != viewModel.selectedAccount?.account?.address {
                                 viewModel.changeCurrentAccount(account)
                             }
-                            navigationManager.navigate(to: .earn(account))
+                            navigationManager.navigate(to: .stake(account))
                         } label: {
                             StakerSuspensionStateView(message: nil, type: type, stakeType: stake)
                         }
@@ -275,8 +275,8 @@ struct HomeScreenView: View {
                     } else if viewModel.selectedAccount?.account?.forecastBalance == 0,
                                isShouldShowOnrampMessage && (!isShouldShowSeedphraseBackupBanner || isUserMakeBackup) {
                         OnrampView
-                    } else if viewModel.selectedAccount?.account?.delegation == nil && isShouldShowEarnBanner {
-                        EarnView
+                    } else if viewModel.selectedAccount?.account?.delegation == nil && isShouldShowStakeBanner {
+                        stakeView
                     }
                 }
                 
@@ -389,7 +389,7 @@ struct HomeScreenView: View {
                     })
                 .buttonStyle(.plain)
                 .overlay(alignment: .topTrailing) {
-                    if item.label == "Earn" {
+                    if item.label == "Stake" {
                         if (viewModel.selectedAccount?.account?.baker?.isSuspended == true || viewModel.selectedAccount?.account?.delegation?.isSuspended == true) || (viewModel.selectedAccount?.account?.baker?.isPrimedForSuspension == true || viewModel.selectedAccount?.account?.delegation?.isPrimedForSuspension == true) {
                             Circle().fill(.attentionRed)
                                 .frame(width: 8, height: 8)
@@ -437,7 +437,7 @@ struct HomeScreenView: View {
         .cornerRadius(12)
     }
     
-    private var EarnView: some View {
+    private var stakeView: some View {
         HStack(alignment: .center, spacing: 19) {
             Image("Percent")
                 .resizable()
@@ -445,12 +445,15 @@ struct HomeScreenView: View {
                 .foregroundStyle(.greenMain)
                 .frame(width: 35, height: 35)
             VStack(alignment: .leading, spacing: 2) {
-                Text("earn.info.title.part1".localized + " ")
+                Text("Do ")
                     .font(.satoshi(size: 15, weight: .medium))
                     .foregroundColor(.white) +
-                Text("6%")
+                Text("more")
                     .font(.satoshi(size: 15, weight: .medium))
-                    .foregroundColor(.greenMain)
+                    .foregroundColor(.greenMain) +
+                Text(" with your CCD")
+                    .font(.satoshi(size: 15, weight: .medium))
+                    .foregroundColor(.white)
                 Text("staking.carousel.desc".localized)
                     .font(.satoshi(size: 12, weight: .regular))
                     .foregroundStyle(.white)
@@ -460,7 +463,7 @@ struct HomeScreenView: View {
                 .tint(.MineralBlue.blueish3)
                 .onTapGesture {
                     withAnimation(.easeInOut) {
-                        isShouldShowEarnBanner = false
+                        isShouldShowStakeBanner = false
                     }
                 }
                 .frame(alignment: .top)
@@ -469,7 +472,7 @@ struct HomeScreenView: View {
             if !SettingsHelper.isIdentityConfigured() {
                 self.router?.showNotConfiguredAccountPopup()
             } else if let selectedAccount = viewModel.selectedAccount?.account as? AccountEntity {
-                navigationManager.navigate(to: .earn(selectedAccount))
+                navigationManager.navigate(to: .stake(selectedAccount))
             }
         }
         .padding(.horizontal, 16)
@@ -517,9 +520,9 @@ struct HomeScreenView: View {
                     navigationManager.navigate(to: .receive(account))
                 }
             }),
-            ActionItem(iconName: "Percent", label: "Earn", action: {
+            ActionItem(iconName: "Percent", label: "Stake", action: {
                 guard let selectedAccount = viewModel.selectedAccount?.account as? AccountEntity else { return }
-                navigationManager.navigate(to: .earn(selectedAccount))
+                navigationManager.navigate(to: .stake(selectedAccount))
             }),
             ActionItem(iconName: "activity", label: "Activity", action: {
                 if let account = viewModel.selectedAccount?.account as? AccountEntity {

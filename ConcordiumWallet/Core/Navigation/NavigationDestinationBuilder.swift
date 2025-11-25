@@ -136,21 +136,21 @@ struct NavigationDestinationBuilder: ViewModifier {
                                 notifyTabBarHidden(true)
                             }
                         
-                    case .earnMain(let account):
-                        EarnMainView(account: account)
+                    case .stakeMain(let account):
+                        StakeMainView(account: account)
                             .environmentObject(navigationManager)
-                            .modifier(NavigationViewModifier(title: "Earn") {
+                            .modifier(NavigationViewModifier(title: "Staking") {
                                 navigationManager.pop()
                             })
                             .onAppear {
                                 notifyTabBarHidden(true)
                             }
-                    case .earn(let account):
-                        showEarn(account: account)
-                    case .earnReadMode(let mode, let account):
-                        EarnReadMoreView(mode: mode, account: account)
+                    case .stake(let account):
+                        showStake(account: account)
+                    case .stakeReadMode(let mode, let account):
+                        StakeReadMoreView(mode: mode, account: account)
                             .environmentObject(navigationManager)
-                            .modifier(NavigationViewModifier(title: mode == .validator ? "learn.about.validation".localized : "learn.about.earning".localized) {
+                            .modifier(NavigationViewModifier(title: mode == .validator ? "learn.about.validation".localized : "learn.about.staking".localized) {
                                 navigationManager.pop()
                             })
                             .onAppear {
@@ -210,12 +210,12 @@ struct NavigationDestinationBuilder: ViewModifier {
                             .modifier(NavigationViewModifier(title: "Confirmation"))
                     case .updateValidatorMenu(let viewModel):
                         ValidatorUpdateMenu(viewModel: viewModel)
-                            .modifier(NavigationViewModifier(title: "earn.desc.baking.header".localized) {
+                            .modifier(NavigationViewModifier(title: "stake.desc.baking.header".localized) {
                                 navigationManager.pop()
                             })
                     case .delegationAmountInput(let viewModel):
                         DelegationAmountInputView(viewModel: viewModel)
-                            .modifier(NavigationViewModifier(title: "earn".localized) {
+                            .modifier(NavigationViewModifier(title: "stake".localized) {
                                 navigationManager.pop()
                             })
                             .onAppear { notifyTabBarHidden(true) }
@@ -228,7 +228,7 @@ struct NavigationDestinationBuilder: ViewModifier {
                     case .delegationRequestConfirmation(let viewModel):
                         DelegationSubmissionView(viewModel: viewModel)
                             .environmentObject(navigationManager)
-                            .modifier(NavigationViewModifier(title: "earn".localized) {
+                            .modifier(NavigationViewModifier(title: "stake".localized) {
                                 navigationManager.pop()
                             })
                             .onAppear { notifyTabBarHidden(true) }
@@ -252,7 +252,7 @@ struct NavigationDestinationBuilder: ViewModifier {
     }
     
     @ViewBuilder
-    func showEarn(account: AccountEntity) -> some View {
+    func showStake(account: AccountEntity) -> some View {
         
         let transfers = self.dependencyProvider.storageManager().getTransfers(for: account.address).filter { transfer in
             transfer.transferType.isDelegationTransfer
@@ -260,11 +260,11 @@ struct NavigationDestinationBuilder: ViewModifier {
         
         // Check if the account has a baker or delegation
         if account.baker == nil && account.delegation == nil && transfers.count == 0 {
-            // If no baker or delegation, show the main earn view
+            // If no baker or delegation, show the main stake view
             
-            EarnMainView(account: account)
+            StakeMainView(account: account)
                 .environmentObject(navigationManager)
-                .modifier(NavigationViewModifier(title: "Earn") {
+                .modifier(NavigationViewModifier(title: "Stake") {
                     navigationManager.pop()
                 })
                 .onAppear {
@@ -277,7 +277,7 @@ struct NavigationDestinationBuilder: ViewModifier {
             // If the account has a baker, show the validator flow
             ValidatorStatusView(viewModel: statusViewModel)
                 .environmentObject(navigationManager)
-                .modifier(NavigationViewModifier(title: "earn.desc.baking.header".localized) {
+                .modifier(NavigationViewModifier(title: "stake.desc.baking.header".localized) {
                     navigationManager.pop()
                 })
                 .onAppear {
@@ -289,7 +289,7 @@ struct NavigationDestinationBuilder: ViewModifier {
                                                             navigationManager: navigationManager)
             DelegationStatusView(viewModel: statusViewModel)
                 .environmentObject(navigationManager)
-                .modifier(NavigationViewModifier(title: "earn".localized) {
+                .modifier(NavigationViewModifier(title: "stake".localized) {
                     navigationManager.pop()
                 })
                 .onAppear {

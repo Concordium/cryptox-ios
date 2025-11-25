@@ -1,5 +1,5 @@
 //
-//  EarnReadMoreView.swift
+//  StakeReadMoreView.swift
 //  CryptoX
 //
 //  Created by Zhanna Komar on 06.02.2025.
@@ -8,13 +8,13 @@
 
 import SwiftUI
 
-enum EarnMode {
+enum StakeMode {
     case validator
     case delegation
 }
 
-struct EarnReadMoreView: View {
-    var mode: EarnMode
+struct StakeReadMoreView: View {
+    var mode: StakeMode
     var account: AccountDataType
     @EnvironmentObject var navigationManager: NavigationManager
 
@@ -35,7 +35,7 @@ struct EarnReadMoreView: View {
                             Image("info_gradient")
                                 .renderingMode(.template)
                                 .foregroundStyle(Color.Status.infoOrange)
-                            Text("warning.earn.note".localized)
+                            Text("warning.stake.note".localized)
                                 .font(.satoshi(size: 12, weight: .medium))
                                 .foregroundStyle(Color.MineralBlue.blueish2)
                         }
@@ -59,7 +59,7 @@ struct EarnReadMoreView: View {
                         )
                     navigationManager.navigate(to: .amountInput(viewModel))
                 } label: {
-                    Text("earn.start".localized)
+                    Text("stake.start".localized)
                         .font(Font.satoshi(size: 15, weight: .medium))
                         .padding(.horizontal, 24)
                         .frame(maxWidth: .infinity)
@@ -74,7 +74,7 @@ struct EarnReadMoreView: View {
                                                                    navigationManager: navigationManager)
                     navigationManager.navigate(to: .delegationAmountInput(viewModel))
                 } label: {
-                    Text("earn.start".localized)
+                    Text("stake.start".localized)
                         .font(Font.satoshi(size: 15, weight: .medium))
                         .padding(.horizontal, 24)
                         .frame(maxWidth: .infinity)

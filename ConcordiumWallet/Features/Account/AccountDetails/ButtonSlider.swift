@@ -12,7 +12,7 @@ private let size: CGFloat = 60.0
 
 struct ButtonSlider: View {
     var actionReceive: () -> Void
-    var actionEarn: () -> Void
+    var actionStake: () -> Void
     var onPlus: () -> Void
     
     @State var disabled: Bool = false
@@ -23,7 +23,7 @@ struct ButtonSlider: View {
             VerticalLine()
             ActionButton(imageName: "button_slider_receive", disabled: disabled, action: actionReceive)
             VerticalLine()
-            ActionButton(imageName: "button_slider_earn", disabled: disabled, action: actionEarn)
+            ActionButton(imageName: "button_slider_stake", disabled: disabled, action: actionStake)
         }
         .frame(maxWidth: .infinity, maxHeight: size)
         .background(Color.blackSecondary)
@@ -60,7 +60,7 @@ struct ButtonSlider_Previews: PreviewProvider {
     static var previews: some View {
         ButtonSlider(
             actionReceive: {
-            }, actionEarn: {
+            }, actionStake: {
             }, onPlus: {
             })
     }

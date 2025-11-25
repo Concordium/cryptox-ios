@@ -25,9 +25,9 @@ enum NavigationPaths: Hashable {
     case confirmTransaction(_ vm: TransferTokenViewModel)
     case transferSendingStatus(_ vm: TransferTokenConfirmViewModel)
     case addRecipient(mode: EditRecipientMode)
-    case earn(_ account: AccountEntity)
-    case earnMain(_ account: AccountEntity)
-    case earnReadMode(mode: EarnMode, account: AccountEntity)
+    case stake(_ account: AccountEntity)
+    case stakeMain(_ account: AccountEntity)
+    case stakeReadMode(mode: StakeMode, account: AccountEntity)
     // MARK: - Validator Flow
     case generateKey(ValidatorGenerateKeysViewModel)
     case metadataUrl(ValidatorMetadataViewModel)

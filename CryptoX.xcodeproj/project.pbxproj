@@ -1809,9 +1809,9 @@
 		15B2C4512EBA0E45004A1FA5 /* DismissBackupPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B2C4502EBA0E45004A1FA5 /* DismissBackupPopup.swift */; };
 		15B2C4522EBA0E45004A1FA5 /* DismissBackupPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B2C4502EBA0E45004A1FA5 /* DismissBackupPopup.swift */; };
 		15B2C4532EBA0E45004A1FA5 /* DismissBackupPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B2C4502EBA0E45004A1FA5 /* DismissBackupPopup.swift */; };
-		15B498D82D5E30F9001B4F65 /* EarnMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B498D72D5E30F9001B4F65 /* EarnMainView.swift */; };
-		15B498D92D5E30F9001B4F65 /* EarnMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B498D72D5E30F9001B4F65 /* EarnMainView.swift */; };
-		15B498DA2D5E30F9001B4F65 /* EarnMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B498D72D5E30F9001B4F65 /* EarnMainView.swift */; };
+		15B498D82D5E30F9001B4F65 /* StakeMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B498D72D5E30F9001B4F65 /* StakeMainView.swift */; };
+		15B498D92D5E30F9001B4F65 /* StakeMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B498D72D5E30F9001B4F65 /* StakeMainView.swift */; };
+		15B498DA2D5E30F9001B4F65 /* StakeMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B498D72D5E30F9001B4F65 /* StakeMainView.swift */; };
 		15B498DC2D5E3156001B4F65 /* EarnReadMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B498DB2D5E3156001B4F65 /* EarnReadMoreView.swift */; };
 		15B498DD2D5E3156001B4F65 /* EarnReadMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B498DB2D5E3156001B4F65 /* EarnReadMoreView.swift */; };
 		15B498DE2D5E3156001B4F65 /* EarnReadMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B498DB2D5E3156001B4F65 /* EarnReadMoreView.swift */; };
@@ -3167,7 +3167,7 @@
 		15B2C4482EB3A2FF004A1FA5 /* CarouselWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselWelcomeView.swift; sourceTree = "<group>"; };
 		15B2C44C2EB50B13004A1FA5 /* NewWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWelcomeView.swift; sourceTree = "<group>"; };
 		15B2C4502EBA0E45004A1FA5 /* DismissBackupPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissBackupPopup.swift; sourceTree = "<group>"; };
-		15B498D72D5E30F9001B4F65 /* EarnMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarnMainView.swift; sourceTree = "<group>"; };
+		15B498D72D5E30F9001B4F65 /* StakeMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeMainView.swift; sourceTree = "<group>"; };
 		15B498DB2D5E3156001B4F65 /* EarnReadMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarnReadMoreView.swift; sourceTree = "<group>"; };
 		15B527502D36666E005FA701 /* AddTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTokenView.swift; sourceTree = "<group>"; };
 		15BBDA652D80776100B8A36C /* DelegationAmountInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationAmountInputViewModel.swift; sourceTree = "<group>"; };
@@ -5149,7 +5149,7 @@
 			children = (
 				15BBDA5F2D8076D800B8A36C /* Delegation */,
 				15EAAC632D6335670046A677 /* Validator */,
-				15B498D72D5E30F9001B4F65 /* EarnMainView.swift */,
+				15B498D72D5E30F9001B4F65 /* StakeMainView.swift */,
 				15B498DB2D5E3156001B4F65 /* EarnReadMoreView.swift */,
 				153495612D9FE83800D65610 /* StakeStatusViewModelError.swift */,
 			);
@@ -7218,7 +7218,7 @@
 				08C1680A2BB7396200E61326 /* IDPIdentityRequest.swift in Sources */,
 				08C1680B2BB7396200E61326 /* ImportReceiptPresenter.swift in Sources */,
 				08C1680D2BB7396200E61326 /* WidgetAndLabelViewController.swift in Sources */,
-				15B498D82D5E30F9001B4F65 /* EarnMainView.swift in Sources */,
+				15B498D82D5E30F9001B4F65 /* StakeMainView.swift in Sources */,
 				08C1680E2BB7396200E61326 /* ShowErrorProtocol.swift in Sources */,
 				08C1680F2BB7396200E61326 /* IdentityReccoveryStatusView.swift in Sources */,
 				08C168112BB7396200E61326 /* AccountDetailsIdentityDataCellView.swift in Sources */,
@@ -7923,7 +7923,7 @@
 				08A0448C29FA987800DACE1F /* IDPIdentityRequest.swift in Sources */,
 				088FF2182A02A77200042957 /* ImportReceiptPresenter.swift in Sources */,
 				088FEF752A0270B000042957 /* WidgetAndLabelViewController.swift in Sources */,
-				15B498DA2D5E30F9001B4F65 /* EarnMainView.swift in Sources */,
+				15B498DA2D5E30F9001B4F65 /* StakeMainView.swift in Sources */,
 				7F85B86F246A9AB600ED09B8 /* ShowErrorProtocol.swift in Sources */,
 				088FF09A2A02840F00042957 /* IdentityReccoveryStatusView.swift in Sources */,
 				7F85B870246A9AB600ED09B8 /* AccountDetailsIdentityDataCellView.swift in Sources */,
@@ -8653,7 +8653,7 @@
 				088FEEEA2A026EB500042957 /* IdentityConfirmedViewController.swift in Sources */,
 				D5E29747276C8154000DB102 /* HashingHelper.swift in Sources */,
 				08A0455629FA99D100DACE1F /* PrivateIDObjectData.swift in Sources */,
-				15B498D92D5E30F9001B4F65 /* EarnMainView.swift in Sources */,
+				15B498D92D5E30F9001B4F65 /* StakeMainView.swift in Sources */,
 				088FEF4D2A0270AF00042957 /* WidgetAndLabelViewController.swift in Sources */,
 				088FF0942A02840E00042957 /* IdentityReccoveryStatusView.swift in Sources */,
 				D589F32F2794B678003F2FBB /* MobileWallet.swift in Sources */,
