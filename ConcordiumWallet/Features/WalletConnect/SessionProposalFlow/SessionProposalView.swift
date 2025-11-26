@@ -141,6 +141,8 @@ struct SessionProposalView: View {
     @StateObject var viewModel: SessionProposalViewModel
     
     @State var isPickerPresented = false
+    @State var showSuccessSheet = false
+    @State var successSiteName: String?
     
     var body: some View {
         ZStack {
@@ -239,11 +241,34 @@ struct SessionProposalView: View {
                         
                         Button {
                             Task(priority: .userInitiated) {
-                                await viewModel.approveSessionRequest { url in
-                                    dismiss()
-                                    if let url, let redirectURL = URL(string: url) {
-                                        DispatchQueue.main.async {
-                                            UIApplication.shared.open(redirectURL)
+                                await viewModel.approveSessionRequest { redirectURLString in
+                                    DispatchQueue.main.async {
+                                        // Only show popup if we have a redirect URL and can't open it
+                                        if let redirectURLString = redirectURLString, !redirectURLString.isEmpty,
+                                           let redirectURL = URL(string: redirectURLString) {
+                                            // Check if we can open the URL
+                                            if UIApplication.shared.canOpenURL(redirectURL) {
+                                                // Try to open in Safari/browser
+                                                UIApplication.shared.open(redirectURL) { success in
+                                                    DispatchQueue.main.async {
+                                                        if success {
+                                                            // Successfully opened, just dismiss
+                                                            dismiss()
+                                                        } else {
+                                                            // Opening failed, show success popup
+                                                            successSiteName = extractDomain(from: redirectURLString)
+                                                            showSuccessSheet = true
+                                                        }
+                                                    }
+                                                }
+                                            } else {
+                                                // Can't open URL, show success popup
+                                                successSiteName = extractDomain(from: redirectURLString)
+                                                showSuccessSheet = true
+                                            }
+                                        } else {
+                                            // No redirect URL, just dismiss without popup
+                                            dismiss()
                                         }
                                     }
                                 }
@@ -285,6 +310,20 @@ struct SessionProposalView: View {
             }
             .listStyle(.plain)
         }
+        .sheet(isPresented: $showSuccessSheet) {
+            VerificationSuccessSheet(siteName: successSiteName) {
+                dismiss()
+            }
+        }
+    }
+    
+    private func extractDomain(from urlString: String) -> String? {
+        guard let url = URL(string: urlString),
+              let host = url.host else {
+            return nil
+        }
+        // Remove www. prefix if present
+        return host.replacingOccurrences(of: "www.", with: "")
     }
     
     private func sessionProposalView(namespaces: ProposalNamespace) -> some View {
@@ -350,3 +389,58 @@ struct SessionProposalView: View {
 }
 
 extension AccountEntity: Identifiable {}
+
+struct VerificationSuccessSheet: View {
+    let siteName: String?
+    let onDismiss: () -> Void
+    
+    var body: some View {
+        VStack(spacing: 16) {
+            Image("circled-check-done-large")
+            .padding(.top, 40)
+
+            
+            VStack {
+                Text("Verification Successful")
+                    .font(.satoshi(size: 24, weight: .semibold))
+                    .foregroundColor(.white)
+
+                if let siteName = siteName {
+                    Text("You can return to \(siteName).")
+                        .font(.satoshi(size: 15, weight: .regular))
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.center)
+                } else {
+                    Text("You can return to the site.")
+                        .font(.satoshi(size: 15, weight: .regular))
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.center)
+                }
+            }
+            
+            Spacer(minLength: 8)
+            
+            // Done button
+            Button(action: {
+                onDismiss()
+            }) {
+                Text("Done")
+                    .font(.satoshi(size: 17, weight: .semibold))
+                    .foregroundColor(.black)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 16)
+                    .background(Color.white)
+                    .clipShape(.capsule)
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 8)
+            .padding(.bottom, 40)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(24)
+//        .fixedSize(horizontal: false, vertical: true)
+        .background(Color.blackSecondary)
+        .presentationDetents([.height(280)])
+        .presentationDragIndicator(.visible)
+    }
+}
