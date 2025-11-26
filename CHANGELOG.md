@@ -1,12 +1,14 @@
 # Changelog
 
 ## [Unreleased]
-- Onboarding flow UI updates
-- Update WC to check for optional namespaces when approving session
-- Automatically save seed phrase when onboarding.
-- Made FCA compliance text changes
-- Fixed issue when error message wasn't showing when user has insufficient funds and Amount is locked
-- Fixed issue when user stuck on Confirmation Screen when lacking CCDs to pay transaction fee
+### Updates:
+- Updated Onboarding UI and UX
+- Seed phrase is now saved automatically in the new Onboarding flow, with backup remaining optional
+- WalletConnect now validates optional namespaces
+- FCA compliance text updated across the app
+### Fixed:
+- Fixed missing error message for insufficient funds during staking cooldown
+- Fixed users getting stuck on the Confirmation Screen when lacking CCD for fees
 
 ## [Released 3.3.11]
 - fix PLT value formatter
