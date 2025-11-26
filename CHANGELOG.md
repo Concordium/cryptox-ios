@@ -4,6 +4,9 @@
 - Onboarding flow UI updates
 - Update WC to check for optional namespaces when approving session
 - Automatically save seed phrase when onboarding.
+- Made FCA compliance text changes
+- Fixed issue when error message wasn't showing when user has insufficient funds and Amount is locked
+- Fixed issue when user stuck on Confirmation Screen when lacking CCDs to pay transaction fee
 
 ## [Released 3.3.11]
 - fix PLT value formatter
