@@ -58,6 +58,10 @@ final class SessionProposalViewModel: ObservableObject {
         Array(Set(proposalNamespaces.flatMap { $0.value.methods }))
     }
     
+    private var allowedProposalMethods: [String] {
+        proposalMethods.filter { allowedRequestMethods.contains($0) }
+    }
+    
     private var proposalEvents: [String] {
         Array(Set(proposalNamespaces.flatMap { $0.value.events }))
     }
@@ -77,12 +81,13 @@ final class SessionProposalViewModel: ObservableObject {
         }
         
         let isCorrectChain = proposalChains.map(\.absoluteString).contains(currentChain)
-        let isCorrectMethods: Bool = Set(allowedRequestMethods).isSuperset(of: Set(proposalMethods))
+        let isCorrectMethods: Bool = !allowedProposalMethods.isEmpty
 
         logger.debugLog("""
             wc: session proposal
             chains: \(proposalChains)
             methods: \(proposalMethods.joined(separator: ", "))
+            allowed methods: \(allowedProposalMethods.joined(separator: ", "))
         
             isCorrectChain: \(isCorrectChain)
             isCorrectMethods: \(isCorrectMethods)
@@ -111,7 +116,7 @@ final class SessionProposalViewModel: ObservableObject {
             let sessionNamespaces = try AutoNamespaces.build(
                 sessionProposal: sessionProposal,
                 chains: proposalChains,
-                methods: proposalMethods,
+                methods: allowedProposalMethods,
                 events: proposalEvents,
                 accounts: supportedAccounts
             )
