@@ -50,20 +50,55 @@ final class SessionProposalViewModel: ObservableObject {
         return combined
     }
     
+    // Find the namespace that contains the currentChain
+    private var currentChainNamespace: (key: String, namespace: ProposalNamespace)? {
+        for (key, namespace) in proposalNamespaces {
+            if let chains = namespace.chains,
+               chains.contains(where: { $0.absoluteString == currentChain }) {
+                return (key, namespace)
+            }
+        }
+        return nil
+    }
+    
+    // Chains from the current chain namespace only
     private var proposalChains: [Blockchain] {
-        Array(Set(proposalNamespaces.compactMap { $0.value.chains }.flatMap { $0 }))
+        guard let namespace = currentChainNamespace?.namespace,
+              let chains = namespace.chains else {
+            return []
+        }
+        return Array(chains)
     }
     
+    // Only the current chain for approval
+    private var currentChainBlockchain: Blockchain? {
+        proposalChains.first(where: { $0.absoluteString == currentChain })
+    }
+    
+    // Methods from the current chain namespace only
     private var proposalMethods: [String] {
-        Array(Set(proposalNamespaces.flatMap { $0.value.methods }))
+        guard let namespace = currentChainNamespace?.namespace else {
+            return []
+        }
+        return Array(namespace.methods)
     }
     
+    // Filtered methods that are in allowedRequestMethods
     private var allowedProposalMethods: [String] {
         proposalMethods.filter { allowedRequestMethods.contains($0) }
     }
     
+    // Events from the current chain namespace only
     private var proposalEvents: [String] {
-        Array(Set(proposalNamespaces.flatMap { $0.value.events }))
+        guard let namespace = currentChainNamespace?.namespace else {
+            return []
+        }
+        return Array(namespace.events)
+    }
+    
+    // Expose current chain namespace for UI display
+    var currentChainNamespaceForDisplay: ProposalNamespace? {
+        currentChainNamespace?.namespace
     }
     
     init(sessionProposal: Session.Proposal, wallet: MobileWalletProtocol, storageManager: StorageManagerProtocol, redirectURL: String? = nil) {
@@ -80,12 +115,16 @@ final class SessionProposalViewModel: ObservableObject {
             self.selectedAccount = allAccounts.first
         }
         
-        let isCorrectChain = proposalChains.map(\.absoluteString).contains(currentChain)
-        let isCorrectMethods: Bool = !allowedProposalMethods.isEmpty
+        let isCorrectChain = currentChainNamespace != nil
+        // All methods must be in allowedRequestMethods (no unknown methods allowed)
+        // Methods can be less than allowedRequestMethods, but cannot include unknown ones
+        let isCorrectMethods: Bool = proposalMethods.allSatisfy { allowedRequestMethods.contains($0) }
 
         logger.debugLog("""
             wc: session proposal
-            chains: \(proposalChains)
+            currentChain: \(currentChain)
+            found namespace: \(currentChainNamespace?.key ?? "none")
+            chains: \(proposalChains.map(\.absoluteString))
             methods: \(proposalMethods.joined(separator: ", "))
             allowed methods: \(allowedProposalMethods.joined(separator: ", "))
         
@@ -109,13 +148,18 @@ final class SessionProposalViewModel: ObservableObject {
     
     @MainActor
     func approveSessionRequest(_ completion: ((_ url: String?) -> Void)?) async {
-        let supportedAccounts: [Account] = proposalChains.map { Account(blockchain: $0, address: selectedAccount?.address ?? "")! }        
+        guard let currentChainBlockchain = currentChainBlockchain else {
+            logger.debugLog("wc: Cannot approve - currentChain not found")
+            return
+        }
+        
+        let supportedAccounts: [Account] = [Account(blockchain: currentChainBlockchain, address: selectedAccount?.address ?? "")!]
         let finalRedirectURL = redirectURL ?? sessionProposal.proposer.redirect?.universal
 
         do {
             let sessionNamespaces = try AutoNamespaces.build(
                 sessionProposal: sessionProposal,
-                chains: proposalChains,
+                chains: [currentChainBlockchain],
                 methods: allowedProposalMethods,
                 events: proposalEvents,
                 accounts: supportedAccounts
@@ -196,10 +240,8 @@ struct SessionProposalView: View {
                         })
                         
                         ScrollView {
-                            ForEach(viewModel.proposalNamespaces.keys.sorted(), id: \.self) { chain in
-                                if let namespaces = viewModel.proposalNamespaces[chain] {
-                                    sessionProposalView(namespaces: namespaces)
-                                }
+                            if let namespaces = viewModel.currentChainNamespaceForDisplay {
+                                sessionProposalView(namespaces: namespaces)
                             }
                         }
                         .frame(height: 250)
