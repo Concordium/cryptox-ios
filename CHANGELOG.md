@@ -8,7 +8,7 @@
 - Fixed WalletConnect session proposal validation incorrectly rejecting proposals with mixed allowed/disallowed methods
 - Fixed transaction details UI showing raw JSON instead of readable formatted data
 
-## [Released 4.2.0]
+## [Released 3.4.1]
 ### Updates:
 - Updated Onboarding UI and UX
 - Seed phrase is now saved automatically in the new Onboarding flow, with backup remaining optional
