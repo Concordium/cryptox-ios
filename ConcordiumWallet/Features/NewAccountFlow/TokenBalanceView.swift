@@ -45,7 +45,7 @@ struct TokenBalanceView: View {
                         .padding(.horizontal, 18)
                     accountActionButtonsSection()
                     if case .ccd = token, selectedAccount.delegation != nil {
-                        earnStatusView()
+                        stakeStatusView()
                             .padding(.horizontal, 18)
                     }
                     TokenDetailsView(
@@ -174,7 +174,7 @@ struct TokenBalanceView: View {
                     
                     if viewModel.hasStaked, let stakedValue = viewModel.stakedValue {
                         HStack {
-                            Text("Earning")
+                            Text("Staking")
                                 .font(.satoshi(size: 12, weight: .medium))
                                 .foregroundStyle(Color.MineralBlue.blueish2)
                             Spacer()
@@ -288,11 +288,11 @@ struct TokenBalanceView: View {
                 path.append(.buy)
             })
             actionItems.insert(buyAction, at: 0)
-            let earnAction = ActionItem(iconName: "Percent", label: "Earn", action: {
+            let stakeAction = ActionItem(iconName: "Percent", label: "Stake", action: {
                 guard let account = viewModel.account as? AccountEntity else { return }
-                path.append(.earn(account))
+                path.append(.stake(account))
             })
-            actionItems.insert(earnAction, at: 3)
+            actionItems.insert(stakeAction, at: 3)
             let activityAction = ActionItem(iconName: "activity", label: "Activity", action: {
                 if let account = selectedAccount as? AccountEntity {
                     path.append(.activity(account))
@@ -303,11 +303,11 @@ struct TokenBalanceView: View {
         return actionItems
     }
     
-    private func earnStatusView() -> some View {
+    private func stakeStatusView() -> some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 8) {
                 Image("Percent")
-                Text("earning".localized)
+                Text("staking".localized)
                     .font(.satoshi(size: 16, weight: .bold))
                     .foregroundStyle(.white)
             }

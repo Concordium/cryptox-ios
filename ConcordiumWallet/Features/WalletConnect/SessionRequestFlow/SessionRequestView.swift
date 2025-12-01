@@ -204,14 +204,19 @@ struct SessionRequestView: View {
     }
     
     private func authRequestView() -> some View {
-        VStack(alignment: .leading) {
-            VStack(alignment: .leading) {
-                Text("Message")
-                    .font(.satoshi(size: 14, weight: .medium))
-                    .foregroundColor(Color.greySecondary)
-                
-                VStack(spacing: 0) {
-                    ScrollView {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Transaction Details")
+                .font(.satoshi(size: 14, weight: .medium))
+                .foregroundColor(Color.greySecondary)
+            
+            ScrollView {
+                VStack(spacing: 12) {
+                    if let formattedDetails = viewModel.formattedTransactionDetails {
+                        ForEach(formattedDetails, id: \.label) { detail in
+                            transactionDetailRow(label: detail.label, value: detail.value, isAddress: detail.isAddress)
+                        }
+                    } else {
+                        // Fallback to original message display if formatting fails
                         VStack(alignment: .leading, spacing: 8) {
                             let lines = viewModel.message.components(separatedBy: "\n")
                             ForEach(Array(lines.enumerated()), id: \.offset) { index, line in
@@ -222,7 +227,6 @@ struct SessionRequestView: View {
                                         .font(.satoshi(size: 13, weight: .medium))
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                 } else {
-                                    // Empty line for spacing
                                     Text("")
                                         .frame(height: 4)
                                 }
@@ -230,18 +234,67 @@ struct SessionRequestView: View {
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .frame(height: 250)
                 }
-                .background(Color.clear)
             }
-            .background(.clear)
+            .frame(maxHeight: 250)
         }
-        .clipped()
         .frame(maxWidth: .infinity)
         .padding(16)
         .overlay(
             RoundedCorner(radius: 24, corners: .allCorners)
                 .stroke(.white.opacity(0.3), lineWidth: 2)
         )
+    }
+    
+    private func transactionDetailRow(label: String, value: String, isAddress: Bool) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(label)
+                .font(.satoshi(size: 12, weight: .medium))
+                .foregroundColor(Color.greySecondary)
+            
+            if isAddress {
+                // Show full address with copy option
+                HStack {
+                    Text(value)
+                        .font(.satoshi(size: 13, weight: .regular))
+                        .foregroundColor(.white)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.8)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        UIPasteboard.general.string = value
+                    }) {
+                        Image(systemName: "doc.on.doc")
+                            .font(.system(size: 12))
+                            .foregroundColor(.white.opacity(0.6))
+                    }
+                }
+            } else {
+                // For messages, allow more lines and scrolling
+                if label == "Message" {
+                    ScrollView {
+                        Text(value)
+                            .font(.satoshi(size: 13, weight: .regular))
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                            .multilineTextAlignment(.trailing)
+                    }
+                    .frame(maxHeight: 100)
+                } else {
+                    Text(value)
+                        .font(.satoshi(size: 14, weight: .semibold))
+                        .foregroundColor(.white)
+                        .lineLimit(3)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .multilineTextAlignment(.leading)
+                }
+            }
+        }
+        .padding(.vertical, 8)
+        .padding(.horizontal, 12)
+        .background(Color.grey3.opacity(0.3))
+        .cornerRadius(12)
     }
 }

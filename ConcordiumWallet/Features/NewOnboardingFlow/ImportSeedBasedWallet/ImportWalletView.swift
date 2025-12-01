@@ -44,6 +44,8 @@ struct ImportWalletView: View {
                     NavigationLink(
                         destination: ImportWalletSeedPhraseView(viewModel: ImportWalletSeedPhraseViewModel.init(recoveryService: defaultProvider.recoveryPhraseService(), onValidPhrase: { phrase in
                             self.recoveryPhrase = phrase
+                            UserDefaults.standard.set(true, forKey:"isWalletRestored")
+                            UserDefaults.standard.set(false, forKey: "isShouldShowSeedphraseBackupBanner")
                         })),
                         tag: Flow.recoverPhraseInput,
                         selection: $flow) { EmptyView() }
@@ -51,6 +53,8 @@ struct ImportWalletView: View {
                     NavigationLink(
                         destination: ImportWalletPrivateKeyView(viewModel: ImportWalletPrivateKeyViewModel.init(recoveryService: defaultProvider.recoveryPhraseService(), onValidPrivateKey: { key in
                             self.walletPrivateKey = key
+                            UserDefaults.standard.set(true, forKey:"isWalletRestored")
+                            UserDefaults.standard.set(false, forKey: "isShouldShowSeedphraseBackupBanner")
                         })),
                         tag: Flow.recoverWithWalletKey,
                         selection: $flow) { EmptyView() }
@@ -62,18 +66,6 @@ struct ImportWalletView: View {
             }
             .padding(.horizontal, 16)
             .modifier(AppBackgroundModifier())
-            .overlay(alignment: .topTrailing) {
-                Button(action: { dismiss() }, label: {
-                    Image(systemName: "xmark")
-                        .font(.callout)
-                        .frame(width: 35, height: 35)
-                        .foregroundStyle(Color.primary)
-                        .background(.ultraThinMaterial, in: .circle)
-                        .contentShape(.circle)
-                })
-                .padding(.top, 12)
-                .padding(.trailing, 15)
-            }
             .fullScreenCover(item: $recoveryPhrase) { phrase in
                 RecoverAccountsView(viewModel: .init(phrase: phrase, seedString: nil, defaultProvider: defaultProvider, onAccountInported: onAccountInported))
             }

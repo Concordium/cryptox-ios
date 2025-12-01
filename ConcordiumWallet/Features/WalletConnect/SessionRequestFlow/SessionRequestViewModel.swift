@@ -1,6 +1,13 @@
 import Foundation
 import Combine
 import ReownWalletKit
+import Concordium
+
+struct TransactionDetail {
+    let label: String
+    let value: String
+    let isAddress: Bool
+}
 
 final class SessionRequestViewModel: ObservableObject {
     @Published var account: AccountEntity?
@@ -17,6 +24,24 @@ final class SessionRequestViewModel: ObservableObject {
     
     @Published var pltTokenBalance: String?
     @Published var pltValidationError: String?
+    
+    var formattedTransactionDetails: [TransactionDetail]? {
+        guard let requestType = requestType else { return nil }
+        
+        switch requestType {
+        case .simpleTransfer(let params):
+            return formatSimpleTransfer(params: params)
+        case .signAndSend(let params):
+            return formatContractUpdate(params: params)
+        case .signMessage(let payload):
+            return formatSignMessage(payload: payload)
+        case .tokenUpdate(let params):
+            return formatTokenUpdate(params: params)
+        case .verifiablePresentation:
+            // VerifiablePresentation has its own custom view (VerifiablePresentationRequestParamsView)
+            return nil
+        }
+    }
 
     private let sessionRequest: Request
     private var cancellables = [AnyCancellable]()
@@ -142,5 +167,194 @@ final class SessionRequestViewModel: ObservableObject {
         } catch {
             self.error = .generic("Can't reject this transaction. Try again later.")
         }
+    }
+    
+    // MARK: - Formatting Helpers
+    
+    private func formatSimpleTransfer(params: SimpleTransferRequestParams) -> [TransactionDetail] {
+        var details: [TransactionDetail] = []
+        
+        // Type
+        details.append(TransactionDetail(
+            label: "Type",
+            value: "Transfer",
+            isAddress: false
+        ))
+        
+        // Amount
+        if let amount = Int(params.payload.amount) {
+            let formattedAmount = TokenFormatter.formatCCD(microCCD: amount, fractionDigits: 2)
+            details.append(TransactionDetail(
+                label: "Amount",
+                value: "\(formattedAmount) CCD",
+                isAddress: false
+            ))
+        } else {
+            details.append(TransactionDetail(
+                label: "Amount",
+                value: params.payload.amount,
+                isAddress: false
+            ))
+        }
+        
+        // From Address
+        details.append(TransactionDetail(
+            label: "From",
+            value: params.sender,
+            isAddress: true
+        ))
+        
+        // To Address
+        details.append(TransactionDetail(
+            label: "To",
+            value: params.payload.toAddress,
+            isAddress: true
+        ))
+        
+        return details
+    }
+    
+    private func formatContractUpdate(params: ContractUpdateRequestParams) -> [TransactionDetail] {
+        var details: [TransactionDetail] = []
+        
+        // Type
+        let typeString = params.type.rawValue.capitalized
+        details.append(TransactionDetail(
+            label: "Type",
+            value: typeString,
+            isAddress: false
+        ))
+        
+        // Amount
+        if let amount = Int(params.payload.amount) {
+            let formattedAmount = TokenFormatter.formatCCD(microCCD: amount, fractionDigits: 2)
+            details.append(TransactionDetail(
+                label: "Amount",
+                value: "\(formattedAmount) CCD",
+                isAddress: false
+            ))
+        } else {
+            details.append(TransactionDetail(
+                label: "Amount",
+                value: params.payload.amount,
+                isAddress: false
+            ))
+        }
+        
+        // From Address
+        details.append(TransactionDetail(
+            label: "From",
+            value: params.sender,
+            isAddress: true
+        ))
+        
+        // Contract Address
+        let contractAddress = "\(params.payload.address.index ?? 0),\(params.payload.address.subindex ?? 0)"
+        details.append(TransactionDetail(
+            label: "Contract",
+            value: contractAddress,
+            isAddress: false
+        ))
+        
+        // Receive Name
+        if !params.payload.receiveName.isEmpty {
+            details.append(TransactionDetail(
+                label: "Function",
+                value: params.payload.receiveName,
+                isAddress: false
+            ))
+        }
+        
+        return details
+    }
+    
+    private func formatSignMessage(payload: SignMessagePayload) -> [TransactionDetail] {
+        var details: [TransactionDetail] = []
+        
+        // Type
+        details.append(TransactionDetail(
+            label: "Type",
+            value: "Sign Message",
+            isAddress: false
+        ))
+        
+        // Message - show in a scrollable view if long
+        let messageText = payload.message.isEmpty ? "Empty message" : payload.message
+        details.append(TransactionDetail(
+            label: "Message",
+            value: messageText,
+            isAddress: false
+        ))
+        
+        return details
+    }
+    
+    private func formatTokenUpdate(params: TokenUpdateRequestParams) -> [TransactionDetail] {
+        var details: [TransactionDetail] = []
+        
+        // Type
+        details.append(TransactionDetail(
+            label: "Type",
+            value: "PLT Token Transfer",
+            isAddress: false
+        ))
+        
+        // Token ID
+        details.append(TransactionDetail(
+            label: "Token",
+            value: params.payload.tokenId,
+            isAddress: false
+        ))
+        
+        // Try to parse operations to get transfer details
+        do {
+            let operations = try params.parseOperations()
+            if let firstOperation = operations.first,
+               case .transfer(let transferPayload) = firstOperation {
+                // Amount
+                let formattedAmount = TokenFormatter.formatPLTTokenWithDecimals(
+                    String(transferPayload.amount.value),
+                    decimals: transferPayload.amount.decimals
+                )
+                details.append(TransactionDetail(
+                    label: "Amount",
+                    value: formattedAmount,
+                    isAddress: false
+                ))
+                
+                // To Address
+                let receiverData = transferPayload.receiver.data
+                if let receiverAddress = try? AccountAddress(Data(receiverData)) {
+                    details.append(TransactionDetail(
+                        label: "To",
+                        value: receiverAddress.base58Check,
+                        isAddress: true
+                    ))
+                }
+                
+                // Memo (if present)
+                if let memo = transferPayload.memo,
+                   memo.content.isEmpty == false,
+                   let memoString = memo.asString() {
+                    details.append(TransactionDetail(
+                        label: "Memo",
+                        value: memoString,
+                        isAddress: false
+                    ))
+                }
+            }
+        } catch {
+            // If parsing fails, just show basic info
+            logger.debug("Failed to parse token update operations: \(error)")
+        }
+        
+        // From Address
+        details.append(TransactionDetail(
+            label: "From",
+            value: params.sender,
+            isAddress: true
+        ))
+        
+        return details
     }
 }

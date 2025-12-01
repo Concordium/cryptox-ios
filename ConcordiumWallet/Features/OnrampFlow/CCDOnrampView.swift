@@ -120,10 +120,8 @@ struct CCDOnrampView: View {
             Text("ccd_onramp_list_footer_title".localized)
                 .font(.satoshi(size: 24, weight: .medium))
                 .foregroundColor(Color(red: 0.92, green: 0.94, blue: 0.94))
-            Text("ccd_onramp_list_footer_subtitle".localized)
-                .multilineTextAlignment(.leading)
-                .font(.satoshi(size: 14, weight: .regular))
-                .foregroundColor(Color(red: 0.8, green: 0.84, blue: 0.84))
+            
+            TextWithLink(textBeforeLink: "ccd_onramp_list_footer_subtitle".localized.localized, textAfterLink: nil)
         }
     }
     

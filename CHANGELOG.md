@@ -1,7 +1,22 @@
 # Changelog
 
 ## [Unreleased]
-- Update WC to check for optional namespaces when approving session
+### Updates:
+- WalletConnect session proposal now correctly validates and filters namespaces by current chain
+- Transaction details in WalletConnect sign screen now display formatted, user-friendly information instead of raw JSON
+### Fixed:
+- Fixed WalletConnect session proposal validation incorrectly rejecting proposals with mixed allowed/disallowed methods
+- Fixed transaction details UI showing raw JSON instead of readable formatted data
+
+## [Released 3.4.1]
+### Updates:
+- Updated Onboarding UI and UX
+- Seed phrase is now saved automatically in the new Onboarding flow, with backup remaining optional
+- WalletConnect now validates optional namespaces
+- FCA compliance text updated across the app
+### Fixed:
+- Fixed missing error message for insufficient funds during staking cooldown
+- Fixed users getting stuck on the Confirmation Screen when lacking CCD for fees
 
 ## [Released 3.3.11]
 - fix PLT value formatter

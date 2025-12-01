@@ -12,6 +12,7 @@ import MnemonicSwift
 
 protocol SeedMobileWalletProtocol {
     var hasSetupRecoveryPhrase: Bool { get }
+    var isRecoveredWallet: Bool { get }
     var isMnemonicPhraseSaved: Bool { get }
     
     func getSeed(with pwHash: String) -> Seed?
@@ -67,6 +68,10 @@ class SeedMobileWallet: SeedMobileWalletProtocol {
         keychain.hasValue(key: seedKey)
     }
     
+    var isRecoveredWallet: Bool {
+        UserDefaults.bool(forKey: "isWalletRestored")
+    }
+    
     var isMnemonicPhraseSaved: Bool {
         keychain.hasValue(key: recoveryPhraseKey)
     }
@@ -95,7 +100,6 @@ class SeedMobileWallet: SeedMobileWalletProtocol {
     
     func getSeed(withDelegate requestPasswordDelegate: RequestPasswordDelegate) async throws -> Seed {
         let pwHash = try await requestPasswordDelegate.requestUserPassword(keychain: keychain)
-        
         let seedValue = try self.keychain.getValue(for: seedKey, securedByPassword: pwHash).get()
         
         return Seed(value: seedValue)

@@ -109,5 +109,6 @@ struct DelegationTransactionStatusView: View {
             .animation(.easeInOut(duration: 1),
                        value: viewModel.isTransactionExecuting)
         }
+        .opacity(viewModel.getTransactionViewModel() != nil ? 1 : 0)
     }
 }
