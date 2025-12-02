@@ -255,6 +255,10 @@ extension AccountsMainViewModel {
 extension AccountsMainViewModel {
     // MARK: - Equatable
     static func == (lhs: AccountsMainViewModel, rhs: AccountsMainViewModel) -> Bool {
+        guard lhs.accounts.allSatisfy({ !$0.isObjectInvalidated() }),
+              rhs.accounts.allSatisfy({ !$0.isObjectInvalidated() }) else {
+            return false
+        }
         return lhs.accounts.map(\.address) == rhs.accounts.map(\.address) &&
         lhs.accounts.map(\.name) == rhs.accounts.map(\.name) &&
         lhs.accounts.map(\.forecastBalance) == rhs.accounts.map(\.forecastBalance) &&

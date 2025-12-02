@@ -524,6 +524,7 @@ extension AppCoordinator: MoreCoordinatorDelegate {
         UserDefaults.standard.set(false, forKey:"isWalletRestored")
         UserDefaults.standard.set(false, forKey: "showConfettiAnimation")
         UserDefaults.standard.set(true, forKey: "isShouldShowSeedphraseBackupBanner")
+        UserDefaults.standard.set(true, forKey: "isShouldShowOnrampMessage")
         UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController = navigationController
         start()
     }

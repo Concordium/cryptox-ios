@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UserNotifications
 
 // MARK: - NotificationTokenService
 
@@ -77,6 +78,18 @@ final class NotificationTokenService {
             storeNewPLTtoken(from: userInfo, completion: completion)
         default:
             break
+        }
+    }
+
+    func areNotificationsAllowed() async -> Bool {
+        let settings = await UNUserNotificationCenter.current().notificationSettings()
+        switch settings.authorizationStatus {
+        case .authorized, .provisional, .ephemeral:
+            return true
+        case .denied, .notDetermined:
+            return false
+        @unknown default:
+            return false
         }
     }
 
