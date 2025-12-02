@@ -26,18 +26,16 @@ struct HomeScreenView: View {
     @State private var activeAccountViewModel: AccountDetailViewModel?
     @State var showTooltip: Bool = false
     @State private var showManageTokenList: Bool = false
-    @State private var isNewTokenAdded: Bool = false
     @State private var previousState: AccountsMainViewState?
-    @State var onRampFlowShown = false
-    @State private var selectedPage = 0
     @State private var isCreatingAccount = false
     @State private var hasShownAnimationKey = "showConfettiAnimation"
     @State var isShowPasscodeViewShown = false
     @State private var shouldShowDismissBackupPopup = false
     @State var phrase: [String]?
     @State private var selectedActionId: Int?
-    @State private var hasAppearedForTheFirstTime: Bool = false
     @State private var confettiPlayToken = 0
+    @State private var hasUserMadeBackup = false
+    @State private var isAllowNotificationsPopupVisible = false
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowOnrampMessage") private var isShouldShowOnrampMessage = true
     @AppStorage("isShouldShowStakeBanner") private var isShouldShowStakeBanner = true
@@ -134,13 +132,19 @@ struct HomeScreenView: View {
                     }
                 }
             }
+            .task {
+                await updateNotificationState()
+            }
             .overlay(alignment: .center) {
-                if !UIApplication.shared.isRegisteredForRemoteNotifications && isShouldShowAllowNotificationsView {
-                    AllowNotificationsPopup(isVisible: $isShouldShowAllowNotificationsView)
+                if isAllowNotificationsPopupVisible {
+                    AllowNotificationsPopup(isVisible: $isAllowNotificationsPopupVisible)
                 }
             }
             .onChange(of: viewModel.selectedAccount) { _ in
                 changeAccountDetailViewModel()
+            }
+            .onChange(of: hasUserMadeBackup) { newValue in
+                isUserMakeBackup = newValue
             }
             .onAppear {
                 returnToHome()
@@ -258,7 +262,7 @@ struct HomeScreenView: View {
                 
                 // Seedphrase backup reminder banner
                 if viewModel.accounts.count >= 1 {
-                    if !isUserMakeBackup && isShouldShowSeedphraseBackupBanner
+                    if !hasUserMadeBackup && isShouldShowSeedphraseBackupBanner
                         && identitiesService.mobileWallet.hasSetupRecoveryPhrase
                         && !dependencyProvider.seedMobileWallet().isRecoveredWallet {
                         SeedphraseBackupBannerView(
@@ -273,7 +277,7 @@ struct HomeScreenView: View {
                             }
                         )
                     } else if viewModel.selectedAccount?.account?.forecastBalance == 0,
-                               isShouldShowOnrampMessage && (!isShouldShowSeedphraseBackupBanner || isUserMakeBackup) {
+                               isShouldShowOnrampMessage && (!isShouldShowSeedphraseBackupBanner || hasUserMadeBackup) {
                         OnrampView
                     } else if viewModel.selectedAccount?.account?.delegation == nil && isShouldShowStakeBanner {
                         stakeView
@@ -612,7 +616,7 @@ extension HomeScreenView {
                     if identitiesService.mobileWallet.hasSetupRecoveryPhrase {
                         self.phrase = phrase
                         // Mark backup as completed and hide banner
-                        isUserMakeBackup = true
+                        hasUserMadeBackup = true
                         isShouldShowSeedphraseBackupBanner = false
                         Task { await viewModel.reload() }
                     }
@@ -627,6 +631,17 @@ extension HomeScreenView {
                 self.navigationManager.reset()
             }
         }
+    }
+    
+    @MainActor
+    private func updateNotificationState() async {
+        let allowed = await NotificationTokenService().areNotificationsAllowed()
+        let registeredForRemote = UIApplication.shared.isRegisteredForRemoteNotifications
+
+        isAllowNotificationsPopupVisible =
+            !registeredForRemote &&
+            isShouldShowAllowNotificationsView &&
+            !allowed
     }
 }
 
