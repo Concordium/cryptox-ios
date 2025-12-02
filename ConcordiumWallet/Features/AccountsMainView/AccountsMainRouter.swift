@@ -146,7 +146,7 @@ extension AccountsMainRouter {
     }
     
     func showBackupSeedPhraseFlow(pwHash: String, identitiesService: SeedIdentitiesService, completion: @escaping ([String]) -> Void) {
-        let view =  RevealSeedPhraseView(viewModel: .init(identitiesService: identitiesService, isBackup: false, pwHash: pwHash, onBackedUp: { phrase in
+        let view =  RevealSeedPhraseView(viewModel: .init(identitiesService: identitiesService, isBackup: true, pwHash: pwHash, onBackedUp: { phrase in
             DispatchQueue.main.async { [weak self] in
                 self?.navigationController.dismiss(animated: true, completion: nil)
                 // Mark that user has backed up their seedphrase
