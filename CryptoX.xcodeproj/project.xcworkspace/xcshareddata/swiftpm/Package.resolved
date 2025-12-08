@@ -1,5 +1,5 @@
 {
-  "originHash" : "5ecb6eeacf8e8c94a013def01415cf44d2807ef6efc1e8c8747fdbd994a59327",
+  "originHash" : "7080f425a3588a0775e828d6c9a013b0fa656494c47e2f4b638b21ce34a12981",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -249,8 +249,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/reown-com/reown-swift",
       "state" : {
-        "revision" : "b51cc1d267b64a682e5bdb95960be4132b4e5e78",
-        "version" : "1.1.1"
+        "revision" : "eb3e428165b8e807386dc535fb1d7da193599a5c",
+        "version" : "2.0.0"
       }
     },
     {
@@ -465,8 +465,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/MobileWalletProtocol/wallet-mobile-sdk",
       "state" : {
-        "revision" : "4aa89e682f8d7ab1515d85d0797f0d25306bb56a",
-        "version" : "1.0.5"
+        "revision" : "4293df51d3500b8e876ca4bf0d7548adf097569a",
+        "version" : "1.1.2"
+      }
+    },
+    {
+      "identity" : "yttrium",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/reown-com/yttrium",
+      "state" : {
+        "revision" : "3c8222684e5164af98027494226071d720e6e1d1",
+        "version" : "0.9.75"
       }
     }
   ],
