@@ -6308,6 +6308,7 @@
 				505D4E022EBE2B0A00B0C24C /* Concordium */,
 				501730412EE6FE0E004D4484 /* WalletConnect */,
 				50789DC82EE7065800ECC8F4 /* ReownWalletKit */,
+
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
