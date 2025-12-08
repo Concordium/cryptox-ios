@@ -1992,6 +1992,9 @@
 		507629662BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
 		507629672BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
 		507629682BF2040B00B4D390 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 507629652BF2040B00B4D390 /* CHANGELOG.md */; };
+		50789DC52EE7064D00ECC8F4 /* ReownWalletKit in Frameworks */ = {isa = PBXBuildFile; productRef = 50789DC42EE7064D00ECC8F4 /* ReownWalletKit */; };
+		50789DC72EE7065200ECC8F4 /* ReownWalletKit in Frameworks */ = {isa = PBXBuildFile; productRef = 50789DC62EE7065200ECC8F4 /* ReownWalletKit */; };
+		50789DC92EE7065800ECC8F4 /* ReownWalletKit in Frameworks */ = {isa = PBXBuildFile; productRef = 50789DC82EE7065800ECC8F4 /* ReownWalletKit */; };
 		508E00C42E0C1AFE004DA300 /* ConcordiumClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508E00C32E0C1AFE004DA300 /* ConcordiumClient.swift */; };
 		508E00C52E0C1AFE004DA300 /* ConcordiumClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508E00C32E0C1AFE004DA300 /* ConcordiumClient.swift */; };
 		508E00C62E0C1AFE004DA300 /* ConcordiumClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508E00C32E0C1AFE004DA300 /* ConcordiumClient.swift */; };
@@ -3566,6 +3569,7 @@
 				505D4E072EBE2B2300B0C24C /* Concordium in Frameworks */,
 				08C169152BB7396200E61326 /* JDStatusBarNotification in Frameworks */,
 				08C169172BB7396200E61326 /* SDWebImageSVGCoder in Frameworks */,
+				50789DC52EE7064D00ECC8F4 /* ReownWalletKit in Frameworks */,
 				50E0D1652D2ECDDD00853594 /* Starscream in Frameworks */,
 				158A351C2E156D0300BDCFDE /* Lottie in Frameworks */,
 				5032DC782E9E356A0051F548 /* SwiftCBOR in Frameworks */,
@@ -3595,6 +3599,7 @@
 				50E0D1692D35466100853594 /* Starscream in Frameworks */,
 				505D4E052EBE2B1500B0C24C /* Concordium in Frameworks */,
 				509A56392CB43540005EA908 /* RealmSwift in Frameworks */,
+				50789DC72EE7065200ECC8F4 /* ReownWalletKit in Frameworks */,
 				15339E712DB8FF2E003D64D1 /* FirebaseAnalytics in Frameworks */,
 				08A0444729FA906200DACE1F /* Kingfisher in Frameworks */,
 				08A0441C29FA888600DACE1F /* MnemonicSwift in Frameworks */,
@@ -3625,6 +3630,7 @@
 				505D4E032EBE2B0A00B0C24C /* Concordium in Frameworks */,
 				C99CFF6E243EFD7E0045B8E6 /* WebKit.framework in Frameworks */,
 				5075414F2DD3C5DC000D9445 /* MobileWalletLib in Frameworks */,
+				50789DC92EE7065800ECC8F4 /* ReownWalletKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6210,6 +6216,7 @@
 				5032DC772E9E356A0051F548 /* SwiftCBOR */,
 				505D4E062EBE2B2300B0C24C /* Concordium */,
 				505D52652EE6DB2400B0C24C /* WalletConnect */,
+				50789DC42EE7064D00ECC8F4 /* ReownWalletKit */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 08C169C22BB7396200E61326 /* ProdTestNet.app */;
@@ -6255,6 +6262,7 @@
 				5032DC752E9E35460051F548 /* SwiftCBOR */,
 				505D4E042EBE2B1500B0C24C /* Concordium */,
 				5017303F2EE6FE07004D4484 /* WalletConnect */,
+				50789DC62EE7065200ECC8F4 /* ReownWalletKit */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
@@ -6299,6 +6307,7 @@
 				158A35252E1685B300BDCFDE /* Lottie */,
 				505D4E022EBE2B0A00B0C24C /* Concordium */,
 				501730412EE6FE0E004D4484 /* WalletConnect */,
+				50789DC82EE7065800ECC8F4 /* ReownWalletKit */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
@@ -9760,6 +9769,21 @@
 		507541502DD3C5E0000D9445 /* MobileWalletLib */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MobileWalletLib;
+		};
+		50789DC42EE7064D00ECC8F4 /* ReownWalletKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 505D52642EE6DB2400B0C24C /* XCRemoteSwiftPackageReference "reown-swift" */;
+			productName = ReownWalletKit;
+		};
+		50789DC62EE7065200ECC8F4 /* ReownWalletKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 505D52642EE6DB2400B0C24C /* XCRemoteSwiftPackageReference "reown-swift" */;
+			productName = ReownWalletKit;
+		};
+		50789DC82EE7065800ECC8F4 /* ReownWalletKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 505D52642EE6DB2400B0C24C /* XCRemoteSwiftPackageReference "reown-swift" */;
+			productName = ReownWalletKit;
 		};
 		509A56282CB40A10005EA908 /* Base58Swift */ = {
 			isa = XCSwiftPackageProductDependency;
