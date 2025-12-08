@@ -1961,6 +1961,8 @@
 		5003673C2E5489F700EE5970 /* TokenStateEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366F92E5489F700EE5970 /* TokenStateEntity+CoreDataProperties.swift */; };
 		5003673D2E5489F700EE5970 /* TotalSupplyEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366FA2E5489F700EE5970 /* TotalSupplyEntity+CoreDataClass.swift */; };
 		5003673E2E5489F700EE5970 /* TotalSupplyEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500366FB2E5489F700EE5970 /* TotalSupplyEntity+CoreDataProperties.swift */; };
+		501730402EE6FE07004D4484 /* WalletConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 5017303F2EE6FE07004D4484 /* WalletConnect */; };
+		501730422EE6FE0E004D4484 /* WalletConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 501730412EE6FE0E004D4484 /* WalletConnect */; };
 		50268F942E267D3400D46E02 /* SessionRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50268F932E267D3400D46E02 /* SessionRequestType.swift */; };
 		50268F952E267D3400D46E02 /* SessionRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50268F932E267D3400D46E02 /* SessionRequestType.swift */; };
 		50268F962E267D3400D46E02 /* SessionRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50268F932E267D3400D46E02 /* SessionRequestType.swift */; };
@@ -3587,6 +3589,7 @@
 				158A35A52E1BC4ED00BDCFDE /* CoreData.framework in Frameworks */,
 				5059C9B52C00CF1200E40307 /* SDWebImageSwiftUI in Frameworks */,
 				089FF0EC2A4F4D01007AB1CF /* JDStatusBarNotification in Frameworks */,
+				501730402EE6FE07004D4484 /* WalletConnect in Frameworks */,
 				083505072A9F4F14000D5175 /* SDWebImageSVGCoder in Frameworks */,
 				158A35242E1685AC00BDCFDE /* Lottie in Frameworks */,
 				50E0D1692D35466100853594 /* Starscream in Frameworks */,
@@ -3606,6 +3609,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				501730422EE6FE0E004D4484 /* WalletConnect in Frameworks */,
 				509A56412CB43568005EA908 /* FirebaseMessaging in Frameworks */,
 				158A35A62E1BC4F400BDCFDE /* CoreData.framework in Frameworks */,
 				5059C9B72C00CF1700E40307 /* SDWebImageSwiftUI in Frameworks */,
@@ -6250,6 +6254,7 @@
 				158A35232E1685AC00BDCFDE /* Lottie */,
 				5032DC752E9E35460051F548 /* SwiftCBOR */,
 				505D4E042EBE2B1500B0C24C /* Concordium */,
+				5017303F2EE6FE07004D4484 /* WalletConnect */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
@@ -6293,6 +6298,7 @@
 				5075414E2DD3C5DC000D9445 /* MobileWalletLib */,
 				158A35252E1685B300BDCFDE /* Lottie */,
 				505D4E022EBE2B0A00B0C24C /* Concordium */,
+				501730412EE6FE0E004D4484 /* WalletConnect */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
@@ -9688,6 +9694,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 158A351A2E156D0300BDCFDE /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		5017303F2EE6FE07004D4484 /* WalletConnect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 505D52642EE6DB2400B0C24C /* XCRemoteSwiftPackageReference "reown-swift" */;
+			productName = WalletConnect;
+		};
+		501730412EE6FE0E004D4484 /* WalletConnect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 505D52642EE6DB2400B0C24C /* XCRemoteSwiftPackageReference "reown-swift" */;
+			productName = WalletConnect;
 		};
 		5032DC752E9E35460051F548 /* SwiftCBOR */ = {
 			isa = XCSwiftPackageProductDependency;
