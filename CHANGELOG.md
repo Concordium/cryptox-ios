@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 ### Updates:
+- Bump Reown to 2.0.0
+
+## [Released 3.4.2]
+### Updates:
 - WalletConnect session proposal now correctly validates and filters namespaces by current chain
 - Transaction details in WalletConnect sign screen now display formatted, user-friendly information instead of raw JSON
 ### Fixed:
