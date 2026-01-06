@@ -14,6 +14,7 @@ import Concordium
 
 final class TokenUpdateRequestModel: SessionRequestDataProvidable {
     @Published var title: String = "Sign PLT Transfer"
+    @Published var subtitle: String? = "Transfer"
     @Published var tokenBalance: String?
     @Published var validationError: String?
     @Published var isTokenValid: Bool = false

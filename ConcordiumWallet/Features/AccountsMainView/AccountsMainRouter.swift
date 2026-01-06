@@ -283,7 +283,14 @@ extension AccountsMainRouter: WalletConnectServiceProtocol {
                     concordiumClient: self.dependencyProvider.concordiumClient(),
                     identitiesService: self.dependencyProvider.seedIdentitiesService(),
                     redirectURL: redirectURL
-                )
+                ),
+                onSuccess: { type, redirectURL  in
+                    let verificationSuccessVC = ClearSceneViewController(content: VerificationSuccessfulView(siteName: redirectURL ?? "", type: type))
+                    verificationSuccessVC.modalPresentationStyle = .overFullScreen
+                    verificationSuccessVC.view.backgroundColor = .clear
+                    verificationSuccessVC.additionalSafeAreaInsets = .zero
+                    self.navigationController.present(verificationSuccessVC, animated: true)
+                }
             )
         )
         self.navigationController.present(viewController, animated: true)

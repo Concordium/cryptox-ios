@@ -10,6 +10,7 @@ import SwiftUI
 
 struct WCAccountCell: View {
     var account: AccountEntity
+    var shouldShowBalance: Bool = false
     
     var body: some View {
         ZStack {
@@ -18,52 +19,47 @@ struct WCAccountCell: View {
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
                         HStack {
-                            Text(account.identity?.nickname ?? "")
-                                .foregroundColor(Color.deepBlue)
-                                .font(.system(size: 16, weight: .semibold, design: .rounded))
+                            Text(account.name ?? "")
+                                .foregroundColor(.blackMain)
+                                .font(.system(size: 16, weight: .bold))
                                 .multilineTextAlignment(.leading)
                             Text(account.displayName)
-                                .foregroundColor(Color.blackAditional)
-                                .font(.system(size: 16, weight: .semibold, design: .rounded))
+                                .foregroundColor(.deepBlue)
+                                .font(.system(size: 16, weight: .regular))
                                 .multilineTextAlignment(.leading)
                         }
-                        
-                        HStack(alignment: .top) {
-                            Text(GTU(intValue: account.totalForecastBalance).displayValue())
-                                .foregroundColor(Color.deepBlue)
-                                .font(.system(size: 30, weight: .bold, design: .rounded))
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.7)
-                            .multilineTextAlignment(.leading)
-                            Text("CCD")
-                                .foregroundStyle(Color.black)
-                                .padding(.horizontal, 5)
-                                .padding(.vertical, 2)
-                                .background(Color.ccdBackground)
-                                .clipShape(Capsule())
+                        if let identity = account.identity?.nickname {
+                            Text(identity)
+                                .font(.satoshi(size: 16, weight: .regular))
+                                .foregroundColor(.blackMain)
+                                .multilineTextAlignment(.leading)
                         }
                     }
                     Spacer()
                 }
                 .frame(maxWidth: .infinity)
                 
-                HStack {
-                    Text("accounts.overview.atdisposal".localized)
-                        .foregroundColor(Color.deepBlue)
-                        .font(.system(size: 14, weight: .medium, design: .rounded))
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                    Text(GTU(intValue: account.forecastAtDisposalBalance).displayValueWithCCDStroke())
-                        .foregroundColor(Color.deepBlue)
-                        .font(.system(size: 14, weight: .medium, design: .rounded))
-                        .multilineTextAlignment(.leading)
+                if shouldShowBalance {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Balance: \(balanceDisplayValue(account.forecastBalance)) CCD")
+                            .font(.satoshi(size: 16, weight: .bold))
+                            .foregroundStyle(.blackMain)
+                        Text("At Disposal: \(balanceDisplayValue(account.atDisposalBalance)) CCD")
+                            .font(.satoshi(size: 16, weight: .regular))
+                            .foregroundStyle(.blackMain)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
-            .padding(20)
+            .padding(24)
             .background(Color.clear)
         }
-        .frame(height: 160)
         .clipShape(RoundedCorner(radius: 24, corners: .allCorners))
+    }
+    
+    func balanceDisplayValue(_ balance: Int?) -> String {
+        let gtuValue = GTU(intValue: balance)
+        return gtuValue?.displayValueWithTwoNumbersAfterDecimalPoint() ?? "0.00"
     }
 }
 

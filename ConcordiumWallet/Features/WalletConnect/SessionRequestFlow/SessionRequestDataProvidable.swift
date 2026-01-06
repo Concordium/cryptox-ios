@@ -12,6 +12,7 @@ import ReownWalletKit
 
 protocol SessionRequestDataProvidable {
     var title: String { get }
+    var subtitle: String? { get }
     
     func checkAllSatisfy() async throws -> Bool
     func approveRequest() async throws

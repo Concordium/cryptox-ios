@@ -12,10 +12,10 @@ struct StatementCardView: View {
     let items: [VerifiableStatementListCellModel]
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 16) {
             Text(title)
-                .font(.headline)
-                .foregroundStyle(.secondary)
+                .foregroundColor(.greyMain)
+                .font(.satoshi(size: 14, weight: .medium))
 
             VStack(spacing: 12) {
                 ForEach(items, id: \.self) { item in

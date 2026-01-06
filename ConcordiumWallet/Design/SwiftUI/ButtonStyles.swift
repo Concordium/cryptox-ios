@@ -40,6 +40,33 @@ struct CapsuleStyle: ButtonStyle {
     }
 }
 
+struct DeclineButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundColor(.white)
+            .font(.satoshi(size: 14, weight: .medium))
+            .padding(.vertical, 16)
+            .padding(.horizontal, 24)
+            .background(.semanticSurfaceSecondary)
+            .clipShape(Capsule())
+    }
+}
+
+struct AllowButtonStyle: ButtonStyle {
+    let disabled: Bool
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .frame(maxWidth: .infinity)
+            .foregroundColor(.black)
+            .font(.satoshi(size: 14, weight: .medium))
+            .padding(.vertical, 16)
+            .padding(.horizontal, 24)
+            .background(disabled ? .white.opacity(0.7) : .white)
+            .clipShape(Capsule())
+    }
+}
+
 extension Button {
     func applyStandardButtonStyle(
         disabled: Bool = false,
