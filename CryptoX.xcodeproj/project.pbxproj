@@ -1683,6 +1683,9 @@
 		155EE23D2D7B4955005EF86E /* KeyboardAvoidingPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE23C2D7B4955005EF86E /* KeyboardAvoidingPadding.swift */; };
 		155EE23E2D7B4955005EF86E /* KeyboardAvoidingPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE23C2D7B4955005EF86E /* KeyboardAvoidingPadding.swift */; };
 		155EE23F2D7B4955005EF86E /* KeyboardAvoidingPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE23C2D7B4955005EF86E /* KeyboardAvoidingPadding.swift */; };
+		156D11902F0D1628001A15CB /* VerificationSuccessfulView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156D118F2F0D1628001A15CB /* VerificationSuccessfulView.swift */; };
+		156D11912F0D1628001A15CB /* VerificationSuccessfulView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156D118F2F0D1628001A15CB /* VerificationSuccessfulView.swift */; };
+		156D11922F0D1628001A15CB /* VerificationSuccessfulView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156D118F2F0D1628001A15CB /* VerificationSuccessfulView.swift */; };
 		1575862E2CA2CA4D00205A6E /* IdentifiableString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1575862D2CA2CA4D00205A6E /* IdentifiableString.swift */; };
 		1575862F2CA2CA4D00205A6E /* IdentifiableString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1575862D2CA2CA4D00205A6E /* IdentifiableString.swift */; };
 		157586302CA2CA4D00205A6E /* IdentifiableString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1575862D2CA2CA4D00205A6E /* IdentifiableString.swift */; };
@@ -3128,6 +3131,7 @@
 		1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsPopup.swift; sourceTree = "<group>"; };
 		155EE1F02D7B3BFC005EF86E /* AlertModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModifier.swift; sourceTree = "<group>"; };
 		155EE23C2D7B4955005EF86E /* KeyboardAvoidingPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAvoidingPadding.swift; sourceTree = "<group>"; };
+		156D118F2F0D1628001A15CB /* VerificationSuccessfulView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationSuccessfulView.swift; sourceTree = "<group>"; };
 		1575862D2CA2CA4D00205A6E /* IdentifiableString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableString.swift; sourceTree = "<group>"; };
 		157586312CA43E5500205A6E /* CooldownEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CooldownEntity.swift; sourceTree = "<group>"; };
 		157586352CA441DC00205A6E /* AccountCooldown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCooldown.swift; sourceTree = "<group>"; };
@@ -4678,6 +4682,7 @@
 				508E014F2E1BE4ED004DA300 /* ID25 */,
 				08E472A52BCEE84F004F0088 /* DataModels */,
 				089B34412A17D69400F3CD90 /* SessionRequestView.swift */,
+				156D118F2F0D1628001A15CB /* VerificationSuccessfulView.swift */,
 				08C169CE2BC00C5F00E61326 /* SessionRequestViewModel.swift */,
 				08E472B22BCEFAA4004F0088 /* IncomeRequestValidator.swift */,
 				08E472B62BCEFB53004F0088 /* SessionRequestDataType.swift */,
@@ -6943,6 +6948,7 @@
 				08C167122BB7396200E61326 /* ExportTransactionLogView.swift in Sources */,
 				08DB5E832BC6C32F00C29663 /* BakerPoolReceiptType.swift in Sources */,
 				08C167142BB7396200E61326 /* NFTItemsStatusView.swift in Sources */,
+				156D11912F0D1628001A15CB /* VerificationSuccessfulView.swift in Sources */,
 				08C167152BB7396200E61326 /* ServicesProvider.swift in Sources */,
 				08C167162BB7396200E61326 /* String+Mnemonics.swift in Sources */,
 				08C167172BB7396200E61326 /* NFTErrorStatusView.swift in Sources */,
@@ -7694,6 +7700,7 @@
 				08A0449629FA987800DACE1F /* IDRequestV1.swift in Sources */,
 				08A0449029FA987800DACE1F /* RecoveryIdentityResponse.swift in Sources */,
 				088FEFE52A0271C000042957 /* CreateSeedIdentityViewModel.swift in Sources */,
+				156D11902F0D1628001A15CB /* VerificationSuccessfulView.swift in Sources */,
 				08C169C72BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */,
 				08E472A82BCEE85C004F0088 /* SignMessageRequestModel.swift in Sources */,
 				08E472B42BCEFAA4004F0088 /* IncomeRequestValidator.swift in Sources */,
@@ -8421,6 +8428,7 @@
 				08A0447429FA987700DACE1F /* RecoveryIdentityResponse.swift in Sources */,
 				644BB67425DFB4220086ED48 /* main.swift in Sources */,
 				08A0454329FA99D100DACE1F /* AttributeList.swift in Sources */,
+				156D11922F0D1628001A15CB /* VerificationSuccessfulView.swift in Sources */,
 				D589F3172794B678003F2FBB /* ErrorMapper.swift in Sources */,
 				08C169C62BBFE1C900E61326 /* AnyPublisher+Extentions.swift in Sources */,
 				08E472A72BCEE85C004F0088 /* SignMessageRequestModel.swift in Sources */,

@@ -12,6 +12,7 @@ import ReownWalletKit
 
 final class TransferUpdateRequestModel: SessionRequestDataProvidable {
     @Published var title: String = "Sign Transaction"
+    @Published var subtitle: String? = "Transfer Update"
     
     private let transactionsService: TransactionsServiceProtocol
     private let mobileWallet: MobileWalletProtocol

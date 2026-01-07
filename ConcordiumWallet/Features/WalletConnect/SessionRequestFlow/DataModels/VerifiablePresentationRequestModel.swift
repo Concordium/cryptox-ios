@@ -31,7 +31,8 @@ enum VerifiableStatementError {
 }
 
 final class VerifiablePresentationRequestModel: ObservableObject, SessionRequestDataProvidable, VerifiableStatementsPresentation {
-    @Published var title: String = "Proof Request"
+    @Published var title: String = "Anonymous Verification request"
+    @Published var subtitle: String? = "Age Verification"
     @Published var credentialStatements: [WalletConnectRequestVerifiablePresentationParam.CredentialStatement]
     @Published var error: VerifiableStatementError?
 

@@ -24,8 +24,9 @@ final class SessionRequestViewModel: ObservableObject {
     
     @Published var pltTokenBalance: String?
     @Published var pltValidationError: String?
+    @Published var iconName: String = ""
     
-    var formattedTransactionDetails: [TransactionDetail]? {
+    var formattedTransactionDetails: (type: String, details: [TransactionDetail])? {
         guard let requestType = requestType else { return nil }
         
         switch requestType {
@@ -80,7 +81,11 @@ final class SessionRequestViewModel: ObservableObject {
                         identitiesService: identitiesService
                     )
                     self.title = self.requestModel?.title ?? "Sign Transaction"
-                    
+                    if case .verifiablePresentation = type {
+                        self.iconName = "identity-scan"
+                    } else {
+                        self.iconName = "wallet-coin"
+                    }
                     // Update message with formatted payload for tokenUpdate requests
                     if case .tokenUpdate = type,
                        let tokenUpdateModel = self.requestModel as? TokenUpdateRequestModel {
@@ -171,16 +176,9 @@ final class SessionRequestViewModel: ObservableObject {
     
     // MARK: - Formatting Helpers
     
-    private func formatSimpleTransfer(params: SimpleTransferRequestParams) -> [TransactionDetail] {
+    private func formatSimpleTransfer(params: SimpleTransferRequestParams) -> (type: String, [TransactionDetail]) {
         var details: [TransactionDetail] = []
-        
-        // Type
-        details.append(TransactionDetail(
-            label: "Type",
-            value: "Transfer",
-            isAddress: false
-        ))
-        
+
         // Amount
         if let amount = Int(params.payload.amount) {
             let formattedAmount = TokenFormatter.formatCCD(microCCD: amount, fractionDigits: 2)
@@ -197,33 +195,22 @@ final class SessionRequestViewModel: ObservableObject {
             ))
         }
         
-        // From Address
-        details.append(TransactionDetail(
-            label: "From",
-            value: params.sender,
-            isAddress: true
-        ))
-        
         // To Address
+        let address = params.payload.toAddress
         details.append(TransactionDetail(
-            label: "To",
-            value: params.payload.toAddress,
+            label: "Recipient",
+            value: address.prefix(4) + "..." + address.suffix(4),
             isAddress: true
         ))
         
-        return details
+        return ("Transfer", details)
     }
     
-    private func formatContractUpdate(params: ContractUpdateRequestParams) -> [TransactionDetail] {
+    private func formatContractUpdate(params: ContractUpdateRequestParams) -> (type: String, [TransactionDetail]) {
         var details: [TransactionDetail] = []
         
         // Type
         let typeString = params.type.rawValue.capitalized
-        details.append(TransactionDetail(
-            label: "Type",
-            value: typeString,
-            isAddress: false
-        ))
         
         // Amount
         if let amount = Int(params.payload.amount) {
@@ -265,18 +252,11 @@ final class SessionRequestViewModel: ObservableObject {
             ))
         }
         
-        return details
+        return (typeString, details)
     }
     
-    private func formatSignMessage(payload: SignMessagePayload) -> [TransactionDetail] {
+    private func formatSignMessage(payload: SignMessagePayload) -> (type: String, [TransactionDetail]) {
         var details: [TransactionDetail] = []
-        
-        // Type
-        details.append(TransactionDetail(
-            label: "Type",
-            value: "Sign Message",
-            isAddress: false
-        ))
         
         // Message - show in a scrollable view if long
         let messageText = payload.message.isEmpty ? "Empty message" : payload.message
@@ -286,18 +266,11 @@ final class SessionRequestViewModel: ObservableObject {
             isAddress: false
         ))
         
-        return details
+        return ("Sign Message", details)
     }
     
-    private func formatTokenUpdate(params: TokenUpdateRequestParams) -> [TransactionDetail] {
+    private func formatTokenUpdate(params: TokenUpdateRequestParams) -> (type: String, [TransactionDetail]) {
         var details: [TransactionDetail] = []
-        
-        // Type
-        details.append(TransactionDetail(
-            label: "Type",
-            value: "PLT Token Transfer",
-            isAddress: false
-        ))
         
         // Token ID
         details.append(TransactionDetail(
@@ -355,6 +328,6 @@ final class SessionRequestViewModel: ObservableObject {
             isAddress: true
         ))
         
-        return details
+        return ("PLT Token Transfer", details)
     }
 }

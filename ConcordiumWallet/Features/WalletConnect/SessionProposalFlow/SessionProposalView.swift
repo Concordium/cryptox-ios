@@ -190,7 +190,8 @@ struct SessionProposalView: View {
     @StateObject var viewModel: SessionProposalViewModel
     
     @State var isPickerPresented = false
-    
+    @State private var isAdvancedVisible = false
+
     var body: some View {
         ZStack {
             Color.clear
@@ -199,18 +200,23 @@ struct SessionProposalView: View {
                 Spacer()
                     .padding(.bottom, 16)
                 
-                VStack(alignment: .leading) {
-                    CryptoImage(url: viewModel.sessionProposal.proposer.icons.compactMap(\.toURL).first, size: .medium)
+                VStack(alignment: .leading, spacing: 24) {
+                    Image("connect")
+                        .padding(8)
                         .aspectRatio(contentMode: .fit)
+                        .background(.blackMain)
+                        .cornerRadius(12)
+                        .padding(.bottom, -16)
                     Text("Connect to \(viewModel.sessionProposal.proposer.name)?")
                         .foregroundColor(.white)
-                        .font(.satoshi(size: 28, weight: .semibold))
+                        .font(.satoshi(size: 28, weight: .bold))
+                        .multilineTextAlignment(.leading)
                     
                     Text(viewModel.sessionProposal.proposer.description)
-                        .foregroundColor(.gray)
-                        .font(.satoshi(size: 13, weight: .regular))
+                        .foregroundColor(.greyMain)
+                        .font(.satoshi(size: 14, weight: .medium))
                     
-                    VStack {
+                    VStack(spacing: 14) {
                         Button(action: {
                             isPickerPresented = true
                         }, label: {
@@ -239,13 +245,35 @@ struct SessionProposalView: View {
                             }
                         })
                         
-                        ScrollView {
-                            if let namespaces = viewModel.currentChainNamespaceForDisplay {
-                                sessionProposalView(namespaces: namespaces)
+                        VStack(alignment: .leading, spacing: 16) {
+                            Button {
+                                withAnimation(.easeInOut) {
+                                    isAdvancedVisible.toggle()
+                                }
+                            } label: {
+                                HStack(spacing: 8) {
+                                    Text("Advanced")
+                                        .font(.satoshi(size: 14, weight: .medium))
+                                        .foregroundStyle(.greyMain)
+                                    Image(systemName: isAdvancedVisible ? "chevron.up" : "chevron.down")
+                                        .renderingMode(.template)
+                                        .foregroundStyle(.greyMain)
+                                }
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+
+                            if isAdvancedVisible {
+                                ScrollView {
+                                    if let namespaces = viewModel.currentChainNamespaceForDisplay {
+                                        sessionProposalView(namespaces: namespaces)
+                                    }
+                                }
+                                .frame(height: 250)
+                                .padding(.top, 12)
+                                .transition(.move(edge: .bottom).combined(with: .opacity))
                             }
                         }
-                        .frame(height: 250)
-                        .padding(.top, 12)
+                        .animation(.easeInOut, value: isAdvancedVisible)
                     }
                     .overlay {
                         if let error = viewModel.error {
@@ -266,7 +294,7 @@ struct SessionProposalView: View {
                         }
                     }
                     
-                    HStack(spacing: 20) {
+                    HStack(spacing: 24) {
                         Button {
                             Task(priority: .userInitiated) {
                                 await viewModel.rejectSessionRequest { dismiss() }
@@ -274,15 +302,8 @@ struct SessionProposalView: View {
                         } label: {
                             Text("Decline")
                                 .frame(maxWidth: .infinity)
-                                .foregroundColor(.white)
-                                .font(.satoshi(size: 17, weight: .semibold))
-                                .padding(.vertical, 11)
-                                .background(Color.clear)
-                                .overlay(
-                                    Capsule(style: .circular)
-                                        .stroke(.white, lineWidth: 2)
-                                )
                         }
+                        .buttonStyle(DeclineButtonStyle())
                         
                         Button {
                             Task(priority: .userInitiated) {
@@ -298,12 +319,8 @@ struct SessionProposalView: View {
                         } label: {
                             Text("Allow")
                                 .frame(maxWidth: .infinity)
-                                .foregroundColor(.black)
-                                .font(.satoshi(size: 17, weight: .semibold))
-                                .padding(.vertical, 11)
-                                .background(viewModel.selectedAccount == nil ? .white.opacity(0.7) : .white)
-                                .clipShape(Capsule())
                         }
+                        .buttonStyle(AllowButtonStyle(disabled: viewModel.selectedAccount == nil))
                         .opacity(viewModel.isAllowButtonDisabled ? 0.7 : 1.0)
                         .disabled(viewModel.isAllowButtonDisabled)
                     }
@@ -311,7 +328,7 @@ struct SessionProposalView: View {
                     .padding(.bottom, 24)
                 }
                 .padding(20)
-                .background(Color.blackSecondary)
+                .background(.surfaceTertiary)
                 .cornerRadius(34)
                 .padding(.horizontal, 10)
             }
@@ -336,62 +353,61 @@ struct SessionProposalView: View {
     
     private func sessionProposalView(namespaces: ProposalNamespace) -> some View {
         VStack {
-            VStack(alignment: .leading) {
+            VStack(spacing: 0) {
                 TagsView(items: Array(namespaces.chains ?? [])) {
                     Text($0.absoluteString.uppercased())
                         .font(.satoshi(size: 14, weight: .medium))
                         .foregroundColor(Color.greySecondary)
+                        .multilineTextAlignment(.leading)
+                        .padding(.bottom, 20)
+                }
+                HStack {
+                    Text("Methods")
+                        .foregroundColor(.white)
+                        .font(.satoshi(size: 14, weight: .medium))
+                    Spacer()
                 }
                 
-                VStack(spacing: 0) {
-                    HStack {
-                        Text("Methods")
-                            .foregroundColor(.white)
-                            .font(.satoshi(size: 14, weight: .medium))
-                        Spacer()
-                    }
-                    
-                    TagsView(items: Array(namespaces.methods)) {
-                        Text($0)
-                            .foregroundColor(Color.init(hex: 0x9EF2EB))
-                            .font(.satoshi(size: 15, weight: .medium))
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 3)
-                            .background(Color.init(hex: 0x9EF2EB, alpha: 0.12))
-                            .clipShape(Capsule())
-                    }
-                    
-                    if !namespaces.events.isEmpty {
-                        VStack(spacing: 0) {
-                            HStack {
-                                Text("Events")
-                                    .foregroundColor(.white)
-                                    .font(.satoshi(size: 14, weight: .medium))
-                                
-                                Spacer()
-                            }
+                TagsView(items: Array(namespaces.methods)) {
+                    Text($0)
+                        .foregroundColor(Color.init(hex: 0x9EF2EB))
+                        .font(.satoshi(size: 15, weight: .medium))
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background(Color.init(hex: 0x9EF2EB, alpha: 0.12))
+                        .clipShape(Capsule())
+                }
+                
+                if !namespaces.events.isEmpty {
+                    VStack(spacing: 0) {
+                        HStack {
+                            Text("Events")
+                                .foregroundColor(.white)
+                                .font(.satoshi(size: 14, weight: .medium))
                             
-                            TagsView(items: Array(namespaces.events)) {
-                                Text($0)
-                                    .foregroundColor(Color.init(hex: 0x9EF2EB))
-                                    .font(.satoshi(size: 15, weight: .medium))
-                                    .padding(.horizontal, 8)
-                                    .padding(.vertical, 3)
-                                    .background(Color.init(hex: 0x9EF2EB, alpha: 0.12))
-                                    .clipShape(Capsule())
-                            }
+                            Spacer()
+                        }
+                        
+                        TagsView(items: Array(namespaces.events)) {
+                            Text($0)
+                                .foregroundColor(Color.init(hex: 0x9EF2EB))
+                                .font(.satoshi(size: 15, weight: .medium))
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 3)
+                                .background(Color.init(hex: 0x9EF2EB, alpha: 0.12))
+                                .clipShape(Capsule())
                         }
                     }
                 }
-                .padding(16)
-                .overlay(
-                    RoundedCorner(radius: 24, corners: .allCorners)
-                        .stroke(.white.opacity(0.3), lineWidth: 2)
-                )
             }
-            .background(.thinMaterial)
-            .cornerRadius(25, corners: .allCorners)
+            .padding(20)
+            .overlay(
+                RoundedCorner(radius: 24, corners: .allCorners)
+                    .stroke(.white.opacity(0.3), lineWidth: 2)
+            )
         }
+        .background(.clear)
+        .cornerRadius(25, corners: .allCorners)
         .padding(.bottom, 15)
     }
 }

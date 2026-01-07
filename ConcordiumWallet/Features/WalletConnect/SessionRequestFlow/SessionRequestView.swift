@@ -10,116 +10,106 @@ import SwiftUI
 
 struct SessionRequestView: View {
     @StateObject var viewModel: SessionRequestViewModel
-    
+    var onSuccess: ((String, String?) -> Void)
+    private var shouldShowBalanceSection: Bool {
+        if case .verifiablePresentation = viewModel.requestType {
+            return false
+        } else {
+            return true
+        }
+    }
     @SwiftUI.Environment(\.dismiss) var dismiss
     
     var body: some View {
         ZStack {
             Color.clear
             
-            VStack(spacing: 8) {
-                Spacer()
+            VStack(alignment: .leading, spacing: 8) {
+                Image(viewModel.iconName)
+                    .padding(8)
+                    .aspectRatio(contentMode: .fit)
+                    .background(.blackMain)
+                    .cornerRadius(12)
+                Text(viewModel.title)
+                    .foregroundColor(.white)
+                    .font(.satoshi(size: 28, weight: .semibold))
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
-                VStack(spacing: 8) {
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(viewModel.title)
-                                .foregroundColor(.white)
-                                .font(.satoshi(size: 28, weight: .semibold))
-                            Text(viewModel.method)
-                                .foregroundColor(.white.opacity(0.3))
-                                .font(.satoshi(size: 13, weight: .regular))
-                        }
-                        .padding(.top, 10)
-                        Spacer()
+                if let subtitle = viewModel.requestModel?.subtitle {
+                    Text(subtitle)
+                        .foregroundColor(.greyMain)
+                        .font(.satoshi(size: 14, weight: .medium))
+                }
+                VStack(spacing: 24) {
+                    if let account = viewModel.account {
+                        WCAccountCell(account: account, shouldShowBalance: shouldShowBalanceSection)
+                            .frame(height: shouldShowBalanceSection ? 116 : 52)
+                            .padding(.bottom, 16)
+                            .padding(.top, 30)
                     }
                     
-                    VStack(spacing: 8) {
-                        if let account = viewModel.account {
-                            Divider()
-                                .padding(.top, 12)
-                                .padding(.bottom, 12)
-                                .padding(.horizontal, -18)
-                            
-                            WCAccountCell(account: account)
-                                .padding(.bottom, 16)
-                        }
-                        
-                        if viewModel.requestType != nil,
-                           case .tokenUpdate = viewModel.requestType! {
-                            pltTokenBalanceView()
-                        }
-                        
-                        if let error = viewModel.error {
-                            errorMessageView(error: error)
-                        }
-                        
+                    if viewModel.requestType != nil,
+                       case .tokenUpdate = viewModel.requestType! {
+                        pltTokenBalanceView()
+                    }
+                    
+                    if let error = viewModel.error {
+                        errorMessageView(error: error)
+                    }
+                    
+                    if viewModel.requestType != nil {
                         switch viewModel.requestType {
-                            case .signMessage, .simpleTransfer, .signAndSend, .tokenUpdate:
-                                if viewModel.message != "[:]" {
-                                    authRequestView()
-                                }
-                            case .verifiablePresentation:
-                                if let requestModel = viewModel.requestModel as? VerifiablePresentationRequestModel {
-                                    VerifiablePresentationRequestParamsView(viewModel: requestModel)
-                                } else {
-                                    EmptyView()
-                                }
-                            case .none:
-                                EmptyView()
+                        case .signMessage, .simpleTransfer, .signAndSend, .tokenUpdate:
+                            if viewModel.message != "[:]" {
+                                authRequestView()
+                            }
+                        case .verifiablePresentation:
+                            if let requestModel = viewModel.requestModel as? VerifiablePresentationRequestModel {
+                                VerifiablePresentationRequestParamsView(viewModel: requestModel)
+                            }
+                        case .none:
+                            EmptyView()
                         }
                     }
-                    .frame(minHeight: 100)
-                    
-                    HStack(spacing: 20) {
-                        Button {
-                            Task(priority: .userInitiated) { await
-                                viewModel.rejectRequest { dismiss() }
-                            }
-                        } label: {
-                            Text("Decline")
-                                .frame(maxWidth: .infinity)
-                                .foregroundColor(.white)
-                                .font(.satoshi(size: 17, weight: .semibold))
-                                .padding(.vertical, 11)
-                                .background(Color.clear)
-                                .overlay(
-                                    Capsule(style: .circular)
-                                        .stroke(.white, lineWidth: 2)
-                                )
+                }
+                
+                HStack(spacing: 20) {
+                    Button {
+                        Task(priority: .userInitiated) { await
+                            viewModel.rejectRequest { dismiss() }
                         }
-                        
-                        Button {
-                            Task(priority: .userInitiated) { await
-                                viewModel.approveRequest { redirectURL in
-                                    dismiss()
-                                    if let redirectURL, let url = URL(string: redirectURL) {
-                                        DispatchQueue.main.async {
-                                            UIApplication.shared.open(url)
-                                        }
+                    } label: {
+                        Text("Decline")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(DeclineButtonStyle())
+                    
+                    Button {
+                        Task(priority: .userInitiated) { await
+                            viewModel.approveRequest { redirectURL in
+                                dismiss()
+                                onSuccess(viewModel.requestModel?.subtitle ?? "Verification", redirectURL)
+                                if let redirectURL, let url = URL(string: redirectURL) {
+                                    DispatchQueue.main.async {
+                                        UIApplication.shared.open(url)
                                     }
                                 }
                             }
-                        } label: {
-                            Text("Sign")
-                                .frame(maxWidth: .infinity)
-                                .foregroundColor(.black)
-                                .font(.satoshi(size: 17, weight: .semibold))
-                                .padding(.vertical, 11)
-                                .background(viewModel.account == nil ? .white.opacity(0.7) : .white)
-                                .clipShape(Capsule())
                         }
-                        .disabled(viewModel.account == nil || !viewModel.isSignButtonEnabled || viewModel.pltValidationError != nil)
+                    } label: {
+                        Text("Sign")
+                            .frame(maxWidth: .infinity)
                     }
-                    .padding(.top, 25)
-                    .padding(.bottom, 24)
+                    .buttonStyle(AllowButtonStyle(disabled: viewModel.account == nil))
+                    .disabled(viewModel.account == nil || !viewModel.isSignButtonEnabled || viewModel.pltValidationError != nil)
                 }
-                .padding(20)
-                .background(Color.blackSecondary)
-                .cornerRadius(34)
-                .padding(.horizontal, 10)
+                .padding(.top, 25)
+                .padding(.bottom, 24)
             }
-            .background(.clear)
+            .padding(16)
+            .background(.surfaceTertiary)
+            .cornerRadius(34)
+            .frame(maxHeight: .infinity, alignment: .bottom)
         }
         .edgesIgnoringSafeArea(.all)
         .onDisappear {
@@ -205,45 +195,32 @@ struct SessionRequestView: View {
     
     private func authRequestView() -> some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Transaction Details")
-                .font(.satoshi(size: 14, weight: .medium))
-                .foregroundColor(Color.greySecondary)
-            
-            ScrollView {
-                VStack(spacing: 12) {
-                    if let formattedDetails = viewModel.formattedTransactionDetails {
-                        ForEach(formattedDetails, id: \.label) { detail in
-                            transactionDetailRow(label: detail.label, value: detail.value, isAddress: detail.isAddress)
-                        }
-                    } else {
-                        // Fallback to original message display if formatting fails
-                        VStack(alignment: .leading, spacing: 8) {
-                            let lines = viewModel.message.components(separatedBy: "\n")
-                            ForEach(Array(lines.enumerated()), id: \.offset) { index, line in
-                                if !line.trimmingCharacters(in: .whitespaces).isEmpty {
-                                    let content = (try? AttributedString(markdown: line)) ?? AttributedString(line)
-                                    Text(content)
-                                        .foregroundColor(.white)
-                                        .font(.satoshi(size: 13, weight: .medium))
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                } else {
-                                    Text("")
-                                        .frame(height: 4)
-                                }
+            if let formattedDetails = viewModel.formattedTransactionDetails {
+                Text(formattedDetails.type)
+                    .foregroundColor(.greyMain)
+                
+                ScrollView {
+                    VStack(spacing: 12) {
+                        ForEach(formattedDetails.details, id: \.label) { detail in
+                            HStack {
+                                Text(detail.label)
+                                    .foregroundStyle(.whiteMain)
+                                    .multilineTextAlignment(.leading)
+                                Spacer()
+                                Text(detail.value)
+                                    .foregroundStyle(.greyMain)
+                                    .multilineTextAlignment(.trailing)
                             }
+                            .frame(maxWidth: .infinity, alignment: .top)
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
+                .frame(maxHeight: 100)
             }
-            .frame(maxHeight: 250)
         }
+        .font(.satoshi(size: 14, weight: .medium))
         .frame(maxWidth: .infinity)
-        .padding(16)
-        .overlay(
-            RoundedCorner(radius: 24, corners: .allCorners)
-                .stroke(.white.opacity(0.3), lineWidth: 2)
-        )
+        .padding(.horizontal, 16)
     }
     
     private func transactionDetailRow(label: String, value: String, isAddress: Bool) -> some View {
