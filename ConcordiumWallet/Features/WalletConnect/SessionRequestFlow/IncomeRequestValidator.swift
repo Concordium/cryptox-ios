@@ -40,13 +40,13 @@ enum SessionRequstError: Error, Equatable {
 
 
 final class IncomeRequestValidator {
-    static var currentChain: String {
+    static var currentChain: [String] {
 #if TESTNET
-        "ccd:testnet"
+        ["ccd:testnet", "ccd:4221332d34e1694168c2a0c0b3fd0f27"]
 #elseif MAINNET
-        "ccd:mainnet"
+        ["ccd:mainnet", "ccd:9dd9ca4d19e9393877d2c44b70f89acb"]
 #else // Staging
-        "ccd:stagenet"
+        ["ccd:stagenet", "ccd:4221332d34e1694168c2a0c0b3fd0f27"]
 #endif
     }
     
@@ -66,7 +66,7 @@ final class IncomeRequestValidator {
         }
         
         // Ensure that app chain and requested chain is same
-        guard sessionRequest.chainId.absoluteString == currentChain else {
+        guard Self.currentChain.contains(sessionRequest.chainId.absoluteString) else {
             throw SessionRequstError.environmentMismatch(chain: sessionRequest.chainId.absoluteString)
         }
     
