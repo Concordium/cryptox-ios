@@ -1,5 +1,5 @@
 {
-  "originHash" : "72a981fe5a9a58e3571aa45d0dda6292bd28bafae57e69fdf6d5c734cc9836a6",
+  "originHash" : "100989be9862ed2e5f56ca191ea69e0476a6d91d7683d1142942eb7cd5112478",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -56,21 +56,12 @@
       }
     },
     {
-      "identity" : "concordium-swift-sdk",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Concordium/concordium-swift-sdk.git",
-      "state" : {
-        "revision" : "aeb83bf5d01a6a885d005edbd3c544f0d881a418",
-        "version" : "1.2.0"
-      }
-    },
-    {
       "identity" : "concordium-wallet-crypto-swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Concordium/concordium-wallet-crypto-swift.git",
       "state" : {
-        "revision" : "067a0288c7ed225ed47216c016ded0e1b43c8147",
-        "version" : "5.0.0"
+        "revision" : "bc347394bf75a085293a18cd6fb2129a3b130cb4",
+        "version" : "5.1.0"
       }
     },
     {
@@ -132,8 +123,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/grpc/grpc-swift.git",
       "state" : {
-        "revision" : "f857994e146f5146d702e9c31ac6f3c27d55d18a",
-        "version" : "1.27.0"
+        "revision" : "8f57f68b9d247fe3759fa9f18e1fe919911e6031",
+        "version" : "1.27.1"
       }
     },
     {
@@ -357,8 +348,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-log.git",
       "state" : {
-        "revision" : "b1fa4ef41fe21b13120c034854042d12c43f66b2",
-        "version" : "1.7.1"
+        "revision" : "2778fd4e5a12a8aaa30a3ee8285f4ce54c5f3181",
+        "version" : "1.9.1"
       }
     },
     {
@@ -366,8 +357,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-nio.git",
       "state" : {
-        "revision" : "663ddc80f2081c8f22e417cbac5f80270a93795e",
-        "version" : "2.91.0"
+        "revision" : "233f61bc2cfbb22d0edeb2594da27a20d2ce514e",
+        "version" : "2.93.0"
       }
     },
     {
@@ -438,8 +429,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-system.git",
       "state" : {
-        "revision" : "395a77f0aa927f0ff73941d7ac35f2b46d47c9db",
-        "version" : "1.6.3"
+        "revision" : "7c6ad0fc39d0763e0b699210e4124afd5041c5df",
+        "version" : "1.6.4"
       }
     },
     {

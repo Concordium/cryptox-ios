@@ -23,7 +23,8 @@ final class SessionProposalViewModel: ObservableObject {
     var allowedRequestMethods = [
         "sign_and_send_transaction",
         "sign_message",
-        "request_verifiable_presentation" // used for id2.5
+        "request_verifiable_presentation", // used for id2.5
+        "request_verifiable_presentation_v1"
     ]
     
     var currentChain: String {
