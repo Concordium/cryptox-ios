@@ -27,13 +27,13 @@ final class SessionProposalViewModel: ObservableObject {
         "request_verifiable_presentation_v1"
     ]
     
-    var currentChain: String {
+    var currentChain: [String] {
 #if TESTNET
-        "ccd:testnet"
+        ["ccd:testnet", "ccd:4221332d34e1694168c2a0c0b3fd0f27"]
 #elseif MAINNET
-        "ccd:mainnet"
+        ["ccd:mainnet", "ccd:9dd9ca4d19e9393877d2c44b70f89acb"]
 #else // Staging
-        "ccd:stagenet"
+        ["ccd:stagenet", "ccd:4221332d34e1694168c2a0c0b3fd0f27"]
 #endif
     }
     
@@ -55,7 +55,7 @@ final class SessionProposalViewModel: ObservableObject {
     private var currentChainNamespace: (key: String, namespace: ProposalNamespace)? {
         for (key, namespace) in proposalNamespaces {
             if let chains = namespace.chains,
-               chains.contains(where: { $0.absoluteString == currentChain }) {
+               chains.contains(where: { currentChain.contains($0.absoluteString) }) {
                 return (key, namespace)
             }
         }
@@ -73,7 +73,7 @@ final class SessionProposalViewModel: ObservableObject {
     
     // Only the current chain for approval
     private var currentChainBlockchain: Blockchain? {
-        proposalChains.first(where: { $0.absoluteString == currentChain })
+        proposalChains.first(where: { currentChain.contains($0.absoluteString) })
     }
     
     // Methods from the current chain namespace only
