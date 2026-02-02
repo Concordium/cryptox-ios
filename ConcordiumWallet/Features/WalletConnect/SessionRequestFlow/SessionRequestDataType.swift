@@ -9,6 +9,7 @@
 import Concordium
 import Foundation
 import ReownWalletKit
+import ConcordiumWalletCrypto
 
 enum SessionRequestDataType {
     case signMessage(SignMessagePayload)
@@ -16,10 +17,16 @@ enum SessionRequestDataType {
     case signAndSend(ContractUpdateRequestParams)
     case tokenUpdate(TokenUpdateRequestParams)
     case verifiablePresentation(WalletConnectRequestVerifiablePresentationParam)
+    case verifiablePresentationV1(RequestV1)
     
     init(sessionRequest: Request) throws {
+        // Validate that the method is supported before processing
+        guard WalletConnectConstants.isMethodSupported(sessionRequest.method) else {
+            throw SessionRequstError.invalidRequestMethod
+        }
+        
         switch sessionRequest.method {
-            case "request_verifiable_presentation":
+            case WalletConnectConstants.requestVerifiablePresentation:
                 do {
                     struct ParamsData: Codable {
                         let paramsJson: String
@@ -33,7 +40,37 @@ enum SessionRequestDataType {
                 } catch {
                     throw SessionRequstError.unSupportedRequestMethod
                 }
-            case "sign_message":
+            case WalletConnectConstants.requestVerifiablePresentationV1:
+                do {
+                    // For v1, params might be a JSON string (like v0) or direct object
+                    var jsonData: Data
+                    
+                    // Try to get paramsJson string first (like v0 format)
+                    if let paramsDict = sessionRequest.params.value as? [String: Any],
+                       let paramsJsonString = paramsDict["paramsJson"] as? String {
+                        guard let data = paramsJsonString.data(using: .utf8) else {
+                            throw SessionRequstError.unSupportedRequestMethod
+                        }
+                        jsonData = data
+                    } else if let paramsString = sessionRequest.params.value as? String {
+                        // Params might be a direct JSON string
+                        guard let data = paramsString.data(using: .utf8) else {
+                            throw SessionRequstError.unSupportedRequestMethod
+                        }
+                        jsonData = data
+                    } else {
+                        // Try direct object serialization
+                        jsonData = try JSONSerialization.data(withJSONObject: sessionRequest.params.value, options: [])
+                    }
+                    
+                    let (requestV1, transactionRef) = try RequestV1Decoder.decode(from: jsonData)
+                    // Store transactionRef in the requestV1 context if needed
+                    // For now, we'll pass it through - the model will extract it from the original JSON
+                    self = .verifiablePresentationV1(requestV1)
+                } catch {
+                    throw SessionRequstError.unSupportedRequestMethod
+                }
+            case WalletConnectConstants.signMessage:
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: sessionRequest.params.value, options: [])
                     let payload: SignMessagePayload = try JSONDecoder().decode(SignMessagePayload.self, from: jsonData)
@@ -41,7 +78,7 @@ enum SessionRequestDataType {
                 } catch {
                     throw SessionRequstError.unSupportedRequestMethod
                 }
-            case "sign_and_send_transaction":
+            case WalletConnectConstants.signAndSendTransaction:
                 do {
                     let contractType = try sessionRequest.params.get(SessionRequestType.self)
                     

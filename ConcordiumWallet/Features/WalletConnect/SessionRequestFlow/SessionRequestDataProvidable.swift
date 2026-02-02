@@ -82,6 +82,18 @@ final class SessionRequestDataModelProvider {
                     concordiumClient: concordiumClient,
                     identitiesService: identitiesService
                 )
+            case .verifiablePresentationV1(let requestV1):
+                return VerifiablePresentationV1RequestModel(
+                    requestV1: requestV1,
+                    account: account,
+                    sessionRequest: sessionRequest,
+                    transactionsService: transactionsService,
+                    mobileWallet: mobileWallet,
+                    passwordDelegate: passwordDelegate,
+                    storageManager: storageManager,
+                    concordiumClient: concordiumClient,
+                    identitiesService: identitiesService
+                )
         }
     }
 }

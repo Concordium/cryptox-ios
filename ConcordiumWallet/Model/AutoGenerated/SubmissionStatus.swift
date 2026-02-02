@@ -19,6 +19,7 @@ struct SubmissionStatus: Codable {
     let newSelfEncryptedAmount: String?
     let encryptedAmount: String?
     let aggregatedIndex: Int?
+    let registeredData: String?
 
     enum CodingKeys: String, CodingKey {
         case status = "status"
@@ -33,6 +34,7 @@ struct SubmissionStatus: Codable {
         case newSelfEncryptedAmount = "newSelfEncryptedAmount"
         case encryptedAmount = "encryptedAmount"
         case aggregatedIndex = "aggregatedIndex"
+        case registeredData = "registeredData"
     }
 }
 
@@ -66,7 +68,8 @@ extension SubmissionStatus {
         rejectReason: String?? = nil,
         newSelfEncryptedAmount: String?? = nil,
         encryptedAmount: String?? = nil,
-        aggregatedIndex: Int?? = nil
+        aggregatedIndex: Int?? = nil,
+        registeredData: String?? = nil
     ) -> SubmissionStatus {
         return SubmissionStatus(
             status: status ?? self.status,
@@ -80,7 +83,8 @@ extension SubmissionStatus {
             rejectReason: rejectReason ?? self.rejectReason,
             newSelfEncryptedAmount: newSelfEncryptedAmount ?? self.newSelfEncryptedAmount,
             encryptedAmount: encryptedAmount ?? self.encryptedAmount,
-            aggregatedIndex: aggregatedIndex ?? self.aggregatedIndex
+            aggregatedIndex: aggregatedIndex ?? self.aggregatedIndex,
+            registeredData: registeredData ?? self.registeredData
         )
     }
 

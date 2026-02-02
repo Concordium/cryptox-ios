@@ -20,12 +20,9 @@ final class SessionProposalViewModel: ObservableObject {
     @Published var isAllowButtonDisabled: Bool = true
     @Published var error: SessionProposalError?
     
-    var allowedRequestMethods = [
-        "sign_and_send_transaction",
-        "sign_message",
-        "request_verifiable_presentation", // used for id2.5
-        "request_verifiable_presentation_v1"
-    ]
+    var allowedRequestMethods: [String] {
+        WalletConnectConstants.allowedRequestMethods
+    }
     
     var currentChain: [String] {
 #if TESTNET
@@ -86,7 +83,7 @@ final class SessionProposalViewModel: ObservableObject {
     
     // Filtered methods that are in allowedRequestMethods
     private var allowedProposalMethods: [String] {
-        proposalMethods.filter { allowedRequestMethods.contains($0) }
+        proposalMethods.filter { WalletConnectConstants.isMethodSupported($0) }
     }
     
     // Events from the current chain namespace only
@@ -119,7 +116,7 @@ final class SessionProposalViewModel: ObservableObject {
         let isCorrectChain = currentChainNamespace != nil
         // All methods must be in allowedRequestMethods (no unknown methods allowed)
         // Methods can be less than allowedRequestMethods, but cannot include unknown ones
-        let isCorrectMethods: Bool = proposalMethods.allSatisfy { allowedRequestMethods.contains($0) }
+        let isCorrectMethods: Bool = proposalMethods.allSatisfy { WalletConnectConstants.isMethodSupported($0) }
 
         logger.debugLog("""
             wc: session proposal

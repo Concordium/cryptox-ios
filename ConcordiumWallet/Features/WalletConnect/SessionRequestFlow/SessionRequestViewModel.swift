@@ -38,7 +38,7 @@ final class SessionRequestViewModel: ObservableObject {
             return formatSignMessage(payload: payload)
         case .tokenUpdate(let params):
             return formatTokenUpdate(params: params)
-        case .verifiablePresentation:
+        case .verifiablePresentation, .verifiablePresentationV1:
             // VerifiablePresentation has its own custom view (VerifiablePresentationRequestParamsView)
             return nil
         }
@@ -82,6 +82,8 @@ final class SessionRequestViewModel: ObservableObject {
                     )
                     self.title = self.requestModel?.title ?? "Sign Transaction"
                     if case .verifiablePresentation = type {
+                        self.iconName = "identity-scan"
+                    } else if case .verifiablePresentationV1 = type {
                         self.iconName = "identity-scan"
                     } else {
                         self.iconName = "wallet-coin"

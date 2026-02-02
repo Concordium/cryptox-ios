@@ -1,5 +1,5 @@
 {
-  "originHash" : "100989be9862ed2e5f56ca191ea69e0476a6d91d7683d1142942eb7cd5112478",
+  "originHash" : "5ecb6eeacf8e8c94a013def01415cf44d2807ef6efc1e8c8747fdbd994a59327",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -56,12 +56,21 @@
       }
     },
     {
+      "identity" : "concordium-swift-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Concordium/concordium-swift-sdk.git",
+      "state" : {
+        "revision" : "83ce932262dd7154ea413f386d37bb4e98c09a8e",
+        "version" : "1.3.0"
+      }
+    },
+    {
       "identity" : "concordium-wallet-crypto-swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Concordium/concordium-wallet-crypto-swift.git",
       "state" : {
-        "revision" : "bc347394bf75a085293a18cd6fb2129a3b130cb4",
-        "version" : "5.1.0"
+        "revision" : "987892c494b44c799786a306b6be72cc6a1f6e69",
+        "version" : "5.1.1"
       }
     },
     {
@@ -357,8 +366,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-nio.git",
       "state" : {
-        "revision" : "233f61bc2cfbb22d0edeb2594da27a20d2ce514e",
-        "version" : "2.93.0"
+        "revision" : "5e72fc102906ebe75a3487595a653e6f43725552",
+        "version" : "2.94.0"
       }
     },
     {

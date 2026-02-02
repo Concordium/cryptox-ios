@@ -81,6 +81,11 @@ final class ConcordiumClient: ObservableObject {
     func getAccountInfo(address: String) async throws -> AccountInfo {
         try await nodeClient.info(account: AccountIdentifier.address(.init(base58Check: address)))
     }
+    
+    func getSubmissionStatus(transactionRef: String) async throws -> SubmissionStatusJSON {
+        let request = try walletProxy.getSubmissionStatus(transactionRef: transactionRef)
+        return try await request.send(session: URLSession.shared)
+    }
 }
 
 ///
