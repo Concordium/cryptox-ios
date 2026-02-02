@@ -59,7 +59,6 @@ final class VerifiablePresentationV1RequestModel: ObservableObject, SessionReque
         self.concordiumClient = concordiumClient
         self.identitiesService = identitiesService
         
-        // Extract original JSON from sessionRequest params for anchor verification
         var originalJSON: [String: Any] = [:]
         if let paramsValue = sessionRequest.params.value as? String,
            let jsonData = paramsValue.data(using: .utf8),
@@ -72,19 +71,14 @@ final class VerifiablePresentationV1RequestModel: ObservableObject, SessionReque
         }
         self.originalRequestJSON = originalJSON
         
-        // Set subtitle based on statements
         self.subtitle = generateSubtitle()
         
-        // Start loading anchor in background
-        // Note: All @Published property updates in loadAnchorData() are wrapped
-        // in await MainActor.run to ensure they happen on the main thread
         Task {
             await loadAnchorData()
         }
     }
     
     private func generateSubtitle() -> String {
-        // Generate subtitle based on the first statement type
         let statements = extractStatements()
         if let firstStatement = statements.first {
             switch firstStatement {
@@ -114,7 +108,6 @@ final class VerifiablePresentationV1RequestModel: ObservableObject, SessionReque
     
     @MainActor
     func checkAllSatisfy() async throws -> Bool {
-        // Wait for anchor to be loaded
         while isLoadingAnchor {
             try await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
         }
@@ -179,9 +172,8 @@ final class VerifiablePresentationV1RequestModel: ObservableObject, SessionReque
                 response: .response(AnyCodable(any: outerObject))
             )
         } catch {
-            LegacyLogger.error("VerifiablePresentationV1: approveRequest failed with error: \(error)")
             if let nsError = error as NSError? {
-                LegacyLogger.error("VerifiablePresentationV1: approveRequest NSError domain=\(nsError.domain) code=\(nsError.code) userInfo=\(nsError.userInfo)")
+                LegacyLogger.error("VerifiablePresentationV1: approveRequest failed \(nsError.domain) \(nsError.code)")
             }
             throw error
         }
@@ -213,7 +205,6 @@ final class VerifiablePresentationV1RequestModel: ObservableObject, SessionReque
     /// Extract all Realm data on main thread before async work
     @MainActor
     private func extractRealmData(subjectClaims: [SubjectClaims]) throws -> ExtractedRealmData {
-        LegacyLogger.debug("VerifiablePresentationV1: extractRealmData started")
         var identityData: ExtractedRealmData.IdentityData?
         var accountData: ExtractedRealmData.AccountData?
         
@@ -225,7 +216,6 @@ final class VerifiablePresentationV1RequestModel: ObservableObject, SessionReque
                       let ipInfo = identityProvider.ipInfo,
                       let arsInfosDict = identityProvider.arsInfos,
                       let seedIdentityObjectJSON = try identityEntity.seedIdentityObject?.json() else {
-                    LegacyLogger.error("VerifiablePresentationV1: extractRealmData missing identity data for account \(account.address)")
                     throw SessionRequstError.generic("Account has no identity or missing identity data")
                 }
                 
@@ -253,7 +243,6 @@ final class VerifiablePresentationV1RequestModel: ObservableObject, SessionReque
                 guard let identityEntity = account.identityEntity,
                       let ipIdentity = identityEntity.identityProvider?.ipInfo?.ipIdentity,
                       let identityObjectJSON = try identityEntity.seedIdentityObject?.json() else {
-                    LegacyLogger.error("VerifiablePresentationV1: extractRealmData missing account data for account \(account.address)")
                     throw SessionRequstError.generic("Account has no identity or missing identity data")
                 }
                 
@@ -266,9 +255,7 @@ final class VerifiablePresentationV1RequestModel: ObservableObject, SessionReque
             }
         }
         
-        let result = ExtractedRealmData(identityData: identityData, accountData: accountData)
-        LegacyLogger.debug("VerifiablePresentationV1: extractRealmData finished identityPresent=\(result.identityData != nil) accountPresent=\(result.accountData != nil)")
-        return result
+        return ExtractedRealmData(identityData: identityData, accountData: accountData)
     }
     
     private func createProofInputs(
@@ -284,10 +271,8 @@ final class VerifiablePresentationV1RequestModel: ObservableObject, SessionReque
             switch subjectClaim {
             case .identity(let identityClaims):
                 guard let identityData = extractedData.identityData else {
-                    LegacyLogger.error("VerifiablePresentationV1: createProofInputs missing identityData while handling identity claim")
                     throw SessionRequstError.generic("Missing identity data")
                 }
-                LegacyLogger.debug("VerifiablePresentationV1: createProofInputs building identity proof input for ipIdentity=\(identityData.ipIdentity) index=\(identityData.index) statements=\(identityClaims.statements.count)")
                 let proofInput = try await createIdentityProofInput(
                     identityClaims: identityClaims,
                     identityData: identityData,
@@ -297,10 +282,8 @@ final class VerifiablePresentationV1RequestModel: ObservableObject, SessionReque
                 
             case .account(let accountClaims):
                 guard let accountData = extractedData.accountData else {
-                    LegacyLogger.error("VerifiablePresentationV1: createProofInputs missing accountData while handling account claim")
                     throw SessionRequstError.generic("Missing account data")
                 }
-                LegacyLogger.debug("VerifiablePresentationV1: createProofInputs building account proof input for ipIdentity=\(accountData.ipIdentity) statements=\(accountClaims.statements.count)")
                 let proofInput = try await createAccountProofInput(
                     accountClaims: accountClaims,
                     accountData: accountData,
@@ -309,8 +292,6 @@ final class VerifiablePresentationV1RequestModel: ObservableObject, SessionReque
                 proofInputs.append(.account(account: proofInput))
             }
         }
-        
-        LegacyLogger.debug("VerifiablePresentationV1: createProofInputs finished, total inputs=\(proofInputs.count)")
         return proofInputs
     }
 
@@ -372,37 +353,29 @@ final class VerifiablePresentationV1RequestModel: ObservableObject, SessionReque
         identityData: ExtractedRealmData.IdentityData,
         walletSeed: WalletSeed
     ) async throws -> OwnedIdentityCredentialProofPrivateInputs {
-        LegacyLogger.debug("VerifiablePresentationV1: createIdentityProofInput started ipIdentity=\(identityData.ipIdentity) index=\(identityData.index) statements=\(identityClaims.statements.count)")
-        // Construct IPInfoResponseElement from extracted data
         let ipInfoResponseElement = IPInfoResponseElement(
             ipInfo: identityData.ipInfo,
             arsInfos: identityData.arsInfosDict,
             metadata: identityData.metadata
         )
         
-        // Convert to SDK types
         let ipInfoSDK = try convertToIdentityProviderInfo(ipInfo: ipInfoResponseElement)
         let arsInfos = try convertToArInfos(ipInfo: identityData.ipInfo, arsInfosDict: identityData.arsInfosDict)
         
-        // Decode identity object from extracted JSON
         guard let identityObjectData = identityData.seedIdentityObjectJSON.data(using: .utf8) else {
-            LegacyLogger.error("VerifiablePresentationV1: createIdentityProofInput failed to convert identity JSON to Data")
             throw SessionRequstError.generic("Failed to convert identity object JSON to data")
         }
         let identityObjectCrypto = try JSONDecoder().decode(Concordium.IdentityObject.self, from: identityObjectData)
         
-        // Get identity indices
         let identityIndexes = IdentitySeedIndexes(
             providerID: IdentityProviderID(identityData.ipIdentity),
             index: IdentityIndex(identityData.index)
         )
         
-        // Get idCredSec, prfKey, signatureBlindingRandomness from wallet
         let idCredSec = try walletSeed.credSec(identityIndexes: identityIndexes)
         let prfKey = try walletSeed.prfKey(identityIndexes: identityIndexes)
         let signatureBlindingRandomness = try walletSeed.signatureBlindingRandomness(identityIndexes: identityIndexes)
         
-        // Create IdObjectUseData
         let idObjectUseData = try createIdObjectUseData(
             idCredSec: idCredSec,
             prfKey: prfKey,
@@ -423,16 +396,12 @@ final class VerifiablePresentationV1RequestModel: ObservableObject, SessionReque
         accountData: ExtractedRealmData.AccountData,
         password: String
     ) async throws -> OwnedAccountCredentialProofPrivateInputs {
-        LegacyLogger.debug("VerifiablePresentationV1: createAccountProofInput started ipIdentity=\(accountData.ipIdentity) statements=\(accountClaims.statements.count)")
-        // Decode identity object from extracted JSON
         guard let identityObjectData = accountData.identityObjectJSON.data(using: .utf8) else {
-            LegacyLogger.error("VerifiablePresentationV1: createAccountProofInput failed to convert identity JSON to Data")
             throw SessionRequstError.generic("Failed to convert identity object JSON to data")
         }
         let identityObject = try JSONDecoder().decode(Concordium.IdentityObject.self, from: identityObjectData)
         let attributeValues = try convertToAttributeValues(identityObject: identityObject)
         
-        // Get attribute randomness from account's encrypted data
         let attributeRandomness = try await getAttributeRandomness(
             encryptedCommitmentsRandomnessKey: accountData.encryptedCommitmentsRandomnessKey,
             password: password
@@ -456,9 +425,7 @@ final class VerifiablePresentationV1RequestModel: ObservableObject, SessionReque
             
             switch contextLabel {
             case .blockHash:
-                // Convert block hash string to Bytes
                 guard let blockHashData = Data(hex: anchorBlockHash) else {
-                    LegacyLogger.debug("Failed to convert block hash to Data: \(anchorBlockHash)")
                     continue
                 }
                 providedContext.append(.blockHash(blockHash: Bytes(blockHashData)))
@@ -467,8 +434,7 @@ final class VerifiablePresentationV1RequestModel: ObservableObject, SessionReque
                 providedContext.append(.resourceId(resouceId: "(╬▔皿▔)╯📦 you're welcome"))
                 
             default:
-                // For other labels, we may need to extract from the given context or use defaults
-                LegacyLogger.debug("Unsupported requested context label: \(requestedLabel.label)")
+                break
             }
         }
         
@@ -479,7 +445,6 @@ final class VerifiablePresentationV1RequestModel: ObservableObject, SessionReque
     private func convertToContextProperty(_ labeled: LabeledContextProperty) -> ContextProperty {
         switch labeled {
         case .nonce(let nonce):
-            // Bytes is Data, use hexDescription extension
             return ContextProperty(label: "Nonce", context: nonce.hexDescription)
         case .paymentHash(let paymentHash):
             return ContextProperty(label: "PaymentHash", context: paymentHash.hexDescription)
@@ -555,27 +520,21 @@ final class VerifiablePresentationV1RequestModel: ObservableObject, SessionReque
     }
     
     private func convertToArInfos(ipInfo: IPInfo, arsInfosDict: [String: ArsInfo]) throws -> ArInfos {
-        // Convert [String: ArsInfo] to [UInt32: AnonymityRevokerInfo]
         var anonymityRevokers: [UInt32: AnonymityRevokerInfo] = [:]
         
         for (_, arsInfo) in arsInfosDict {
-            // Guard against invalid or zero identities, which break ArIdentity parsing in Rust.
             guard arsInfo.arIdentity > 0,
                   let arIdentity = UInt32(exactly: arsInfo.arIdentity) else {
-                LegacyLogger.debug("VerifiablePresentationV1: skipping AR with invalid identity \(arsInfo.arIdentity)")
                 continue
             }
                         
-            // Convert Description - iOS app uses "desc" field, crypto library uses "description"
             let description = ConcordiumWalletCrypto.Description(
                 name: arsInfo.arDescription.name,
                 url: arsInfo.arDescription.url,
                 description: arsInfo.arDescription.desc
             )
             
-            // Convert hex string to Bytes
             guard let publicKeyData = Data(hex: arsInfo.arPublicKey) else {
-                LegacyLogger.debug("Skipping AR with invalid public key hex: \(arsInfo.arPublicKey)")
                 continue
             }
             
@@ -597,16 +556,13 @@ final class VerifiablePresentationV1RequestModel: ObservableObject, SessionReque
         signatureBlindingRandomness: Data,
         identityObject: Concordium.IdentityObject
     ) throws -> IdObjectUseData {
-        // Create CredentialHolderInfo with idCredSec
         let credHolderInfo = CredentialHolderInfo(idCred: Bytes(idCredSec))
         
-        // Create AccCredentialInfo with CredentialHolderInfo and prfKey
         let accCredentialInfo = AccCredentialInfo(
             credHolderInfo: credHolderInfo,
             prfKey: Bytes(prfKey)
         )
         
-        // Create IdObjectUseData with AccCredentialInfo and signatureBlindingRandomness
         return IdObjectUseData(
             aci: accCredentialInfo,
             randomness: Bytes(signatureBlindingRandomness)
@@ -617,15 +573,10 @@ final class VerifiablePresentationV1RequestModel: ObservableObject, SessionReque
     private func convertToAttributeValues(identityObject: Concordium.IdentityObject) throws -> [AttributeTag: Web3IdAttribute] {
         var attributeValues: [AttributeTag: Web3IdAttribute] = [:]
         
-        // Extract chosen attributes from identity object
         let chosenAttributes = identityObject.attributeList.chosenAttributes
         
-        // Convert each attribute to Web3IdAttribute
-        // Note: chosenAttributes is already [AttributeTag: String], so key is already AttributeTag
         for (attributeTag, value) in chosenAttributes {
-            // Convert value to Web3IdAttribute
             if let stringValue = value as? String {
-                // Try to parse as ISO8601 date first
                 let formatter = ISO8601DateFormatter()
                 formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds, .withFullDate]
                 if let date = formatter.date(from: stringValue) {
@@ -645,25 +596,18 @@ final class VerifiablePresentationV1RequestModel: ObservableObject, SessionReque
         encryptedCommitmentsRandomnessKey: String?,
         password: String
     ) async throws -> [AttributeTag: Bytes] {
-        // Get commitments randomness from encrypted storage
         guard let commitmentsRandomnessKey = encryptedCommitmentsRandomnessKey else {
-            LegacyLogger.error("VerifiablePresentationV1: getAttributeRandomness missing encryptedCommitmentsRandomnessKey")
             throw SessionRequstError.generic("Account has no commitments randomness")
         }
         
-        LegacyLogger.debug("VerifiablePresentationV1: getAttributeRandomness decrypting with key=\(commitmentsRandomnessKey)")
-        // Decrypt commitments randomness
         let commitmentsRandomness = try storageManager.getCommitmentsRandomness(key: commitmentsRandomnessKey, pwHash: password).get()
         
-        // Convert attributesRand from [String: String] to [AttributeTag: Bytes]
         var attributeRandomness: [AttributeTag: Bytes] = [:]
         for (key, hexString) in commitmentsRandomness.attributesRand {
             guard let attributeTag = AttributeTag(key) else { continue }
             guard let randomnessData = Data(hex: hexString) else { continue }
             attributeRandomness[attributeTag] = Bytes(randomnessData)
         }
-        
-        LegacyLogger.debug("VerifiablePresentationV1: getAttributeRandomness finished, attributesRandCount=\(attributeRandomness.count)")
         return attributeRandomness
     }
     

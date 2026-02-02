@@ -88,7 +88,6 @@ extension VerifiablePresentationV1RequestModel {
         }
 
         guard let blockHash = status.blockHashes?.first else {
-            LegacyLogger.error("No block hash found in submission status")
             throw SessionRequstError.generic("No block hash found in submission status")
         }
 
