@@ -3,6 +3,7 @@
 ## [Unreleased]
 ### Updates:
 - Added ccd namespaces with genesis hash for WalletConnect.
+- UI update WC flow
 
 
 ## [Released 3.4.2]
