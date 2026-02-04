@@ -61,7 +61,7 @@ struct SessionRequestView: View {
                     
                     if viewModel.requestType != nil {
                         switch viewModel.requestType {
-                        case .signMessage, .simpleTransfer, .signAndSend, .tokenUpdate:
+                        case .signMessage, .simpleTransfer, .signAndSend, .tokenUpdate, .sponsoredTransaction:
                             if viewModel.message != "[:]" {
                                 authRequestView()
                             }
