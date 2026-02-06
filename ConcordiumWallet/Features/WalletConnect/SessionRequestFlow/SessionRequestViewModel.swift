@@ -25,6 +25,7 @@ final class SessionRequestViewModel: ObservableObject {
     @Published var pltTokenBalance: String?
     @Published var pltValidationError: String?
     @Published var iconName: String = ""
+    var sponsor: String?
     
     var formattedTransactionDetails: (type: String, details: [TransactionDetail])? {
         guard let requestType = requestType else { return nil }
@@ -339,28 +340,15 @@ final class SessionRequestViewModel: ObservableObject {
         
         // Decode header using SDK
         if let header = try? AccountTransactionHeaderV1.decode(from: params.header) {
-            // Sender
-            details.append(TransactionDetail(
-                label: "From",
-                value: header.sender.base58Check,
-                isAddress: true
-            ))
-            
-            // Sponsor (if present)
+            // Transaction fee is free (sponsored)
             if let sponsor = header.sponsor {
                 details.append(TransactionDetail(
-                    label: "Sponsor",
+                    label: "Transaction Fee",
                     value: sponsor.base58Check,
-                    isAddress: true
+                    isAddress: false
                 ))
+                self.sponsor = sponsor.base58Check
             }
-            
-            // Transaction fee is free (sponsored)
-            details.append(TransactionDetail(
-                label: "Transaction Fee",
-                value: "Free Transaction",
-                isAddress: false
-            ))
         }
         
         // Decode payload to show transaction details using SDK helper
@@ -395,7 +383,7 @@ final class SessionRequestViewModel: ObservableObject {
                     }
                 }
                 
-            case .updateContract(let amount, let address, let receiveName, let message):
+            case .updateContract(let amount, let address, let receiveName, _):
                 // Amount
                 let formattedAmount = TokenFormatter.formatCCD(microCCD: Int(amount.microCCD), fractionDigits: 2)
                 details.append(TransactionDetail(
@@ -435,6 +423,6 @@ final class SessionRequestViewModel: ObservableObject {
             }
         }
         
-        return ("Sponsored Transaction", details)
+        return ("", details)
     }
 }

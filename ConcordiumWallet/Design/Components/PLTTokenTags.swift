@@ -209,3 +209,48 @@ struct Flow: Layout {
         }
     }
 }
+
+struct InfoTag: View {
+    let title: String
+    let image: String?
+    
+    var onInfoTapped: () -> Void
+
+    var body: some View {
+        tagView
+    }
+    
+    @ViewBuilder
+    var tagView: some View {
+        HStack(alignment: .center, spacing: 4) {
+            if let image {
+                Image(image)
+                    .resizable()
+                    .renderingMode(.template)
+                    .foregroundStyle(Color.accentPrimary)
+                    .frame(width: 12, height: 12)
+            }
+            Text(title)
+                .font(.satoshi(size: 11, weight: .medium))
+                .foregroundStyle(Color.accentPrimary)
+                .lineLimit(1)
+                .fixedSize(horizontal: true, vertical: true)
+            Image("circled-question-mark")
+                .resizable()
+                .foregroundStyle(Color.accentPrimary)
+                .frame(width: 12, height: 13)
+                .onTapGesture {
+                    onInfoTapped()
+                }
+        }
+        .padding(.horizontal, 8)
+        .padding(.vertical, 6 )
+        .background(Color.surfaceTertiary)
+        .cornerRadius(9999)
+        .overlay(
+          RoundedRectangle(cornerRadius: 9999)
+            .inset(by: 0.5)
+            .stroke(Color.accentPrimary, lineWidth: 1)
+        )
+    }
+}

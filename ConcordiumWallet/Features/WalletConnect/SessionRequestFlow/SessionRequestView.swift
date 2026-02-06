@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SessionRequestView: View {
     @StateObject var viewModel: SessionRequestViewModel
+    @State private var showTooltip = false
     var onSuccess: ((String, String?) -> Void)
     private var shouldShowBalanceSection: Bool {
         if case .verifiablePresentation = viewModel.requestType {
@@ -18,6 +19,14 @@ struct SessionRequestView: View {
             return false
         } else {
             return true
+        }
+    }
+    
+    private var isSponsoredTransaction: Bool {
+        if case .sponsoredTransaction = viewModel.requestType {
+            return true
+        } else {
+            return false
         }
     }
     @SwiftUI.Environment(\.dismiss) var dismiss
@@ -94,7 +103,7 @@ struct SessionRequestView: View {
                             viewModel.rejectRequest { dismiss() }
                         }
                     } label: {
-                        Text("Decline")
+                        Text(isSponsoredTransaction ? "Reject" : "Decline")
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(DeclineButtonStyle())
@@ -112,7 +121,7 @@ struct SessionRequestView: View {
                             }
                         }
                     } label: {
-                        Text("Sign")
+                        Text(isSponsoredTransaction ? "Approve" : "Sign")
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(AllowButtonStyle(disabled: viewModel.account == nil))
@@ -228,10 +237,21 @@ struct SessionRequestView: View {
                                 Text(detail.label)
                                     .foregroundStyle(.whiteMain)
                                     .multilineTextAlignment(.leading)
+                                    .layoutPriority(1)
                                 Spacer()
-                                Text(detail.value)
-                                    .foregroundStyle(.greyMain)
-                                    .multilineTextAlignment(.trailing)
+                                if detail.label == "Transaction Fee", isSponsoredTransaction {
+                                    freeTransactionTag
+                                        .popover(isPresented: $showTooltip, attachmentAnchor: .rect(.bounds), arrowEdge: .bottom, content: {
+                                            InfoTooltipView
+                                                .frame(width: 250)
+                                                .presentationBackground(Color(red: 0.97, green: 0.96, blue: 0.96))
+                                                .presentationCompactAdaptation(.popover)
+                                        })
+                                } else {
+                                    Text(detail.value)
+                                        .foregroundStyle(.greyMain)
+                                        .multilineTextAlignment(.trailing)
+                                }
                             }
                             .frame(maxWidth: .infinity, alignment: .top)
                         }
@@ -332,5 +352,32 @@ struct SessionRequestView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.bottom, 8)
         }
+    }
+    
+    private var freeTransactionTag: some View {
+        InfoTag(title: "Free Transaction", image: nil) {
+            showTooltip = true
+        }
+    }
+    
+    private var InfoTooltipView: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text("Transaction cost covered by:")
+                .font(.satoshi(size: 14, weight: .medium))
+                .foregroundColor(.black)
+            
+            Text(viewModel.sponsor ?? "")
+                .font(.satoshi(size: 12, weight: .regular))
+                .foregroundColor(.black)
+                .lineLimit(nil)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(.horizontal, 12)
+        .padding(.top, 8)
+        .padding(.bottom, 12)
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color(red: 0.97, green: 0.96, blue: 0.96))
+        )
     }
 }
