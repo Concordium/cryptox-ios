@@ -28,4 +28,6 @@ enum TransactionDetailCell: Hashable {
     case blockHash(TransactionDetailItemViewModel)
     case details(TransactionDetailItemViewModel)
     case memo(TransactionDetailItemViewModel)
+    case sponsor(TransactionDetailItemViewModel)
+    case sponsorCost(TransactionDetailItemViewModel)
 }

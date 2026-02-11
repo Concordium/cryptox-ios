@@ -25,6 +25,7 @@ final class SessionRequestViewModel: ObservableObject {
     @Published var pltTokenBalance: String?
     @Published var pltValidationError: String?
     @Published var iconName: String = ""
+    var sponsor: String?
     
     var formattedTransactionDetails: (type: String, details: [TransactionDetail])? {
         guard let requestType = requestType else { return nil }
@@ -38,6 +39,8 @@ final class SessionRequestViewModel: ObservableObject {
             return formatSignMessage(payload: payload)
         case .tokenUpdate(let params):
             return formatTokenUpdate(params: params)
+        case .sponsoredTransaction(let params):
+            return formatSponsoredTransaction(params: params)
         case .verifiablePresentation, .verifiablePresentationV1:
             // VerifiablePresentation has its own custom view (VerifiablePresentationRequestParamsView)
             return nil
@@ -63,71 +66,67 @@ final class SessionRequestViewModel: ObservableObject {
         self.message = String(describing: sessionRequest.params.value)
         self.method = sessionRequest.method
 
-        Task {
-            await MainActor.run {
-                do {
-                    let (type, account) = try IncomeRequestValidator.validate(sessionRequest, storageManager: storageManager)
-                    self.account = account
-                    self.requestType = type
-                    self.requestModel = SessionRequestDataModelProvider.model(
-                        for: type,
-                        account: account,
-                        sessionRequest: sessionRequest,
-                        transactionsService: transactionsService,
-                        mobileWallet: mobileWallet,
-                        passwordDelegate: passwordDelegate,
-                        storageManager: storageManager,
-                        concordiumClient: concordiumClient,
-                        identitiesService: identitiesService
-                    )
-                    self.title = self.requestModel?.title ?? "Sign Transaction"
-                    if case .verifiablePresentation = type {
-                        self.iconName = "identity-scan"
-                    } else if case .verifiablePresentationV1 = type {
-                        self.iconName = "identity-scan"
-                    } else {
-                        self.iconName = "wallet-coin"
-                    }
-                    // Update message with formatted payload for tokenUpdate requests
-                    if case .tokenUpdate = type,
-                       let tokenUpdateModel = self.requestModel as? TokenUpdateRequestModel {
-                        self.message = tokenUpdateModel.getFormattedMessage()
-                        
-                        // Subscribe to token balance and validation error updates
-                        tokenUpdateModel.$tokenBalance
-                            .assign(to: \.pltTokenBalance, on: self)
-                            .store(in: &self.cancellables)
-                        
-                        tokenUpdateModel.$validationError
-                            .assign(to: \.pltValidationError, on: self)
-                            .store(in: &self.cancellables)
-                        
-                        // Subscribe to validation state to update button when validation completes
-                        // Validation runs automatically after balance is loaded in the model's init
-                        tokenUpdateModel.$isTokenValid
-                            .sink { [weak self] isValid in
-                                Task { @MainActor in
-                                    self?.isSignButtonEnabled = isValid
-                                }
-                            }
-                            .store(in: &self.cancellables)
-                    }
-                    
-                    // Run initial validation for all request types
-                    // For tokenUpdate, full validation will run after balance is loaded (in model's init)
-                    sheckAllSetUp()
-                } catch let err as SessionRequstError {
-                    self.error = err
-                    logger.debug("\(err.errorMessage)")
-                } catch {
-                    logger.debug("Unknown error: \(error)")
+        Task { @MainActor in
+            do {
+                let (type, account) = try IncomeRequestValidator.validate(sessionRequest, storageManager: storageManager)
+                self.account = account
+                self.requestType = type
+                self.requestModel = SessionRequestDataModelProvider.model(
+                    for: type,
+                    account: account,
+                    sessionRequest: sessionRequest,
+                    transactionsService: transactionsService,
+                    mobileWallet: mobileWallet,
+                    passwordDelegate: passwordDelegate,
+                    storageManager: storageManager,
+                    concordiumClient: concordiumClient,
+                    identitiesService: identitiesService
+                )
+                self.title = self.requestModel?.title ?? "Sign Transaction"
+                if case .verifiablePresentation = type {
+                    self.iconName = "identity-scan"
+                } else if case .verifiablePresentationV1 = type {
+                    self.iconName = "identity-scan"
+                } else {
+                    self.iconName = "wallet-coin"
                 }
+                // Update message with formatted payload for tokenUpdate requests
+                if case .tokenUpdate = type,
+                   let tokenUpdateModel = self.requestModel as? TokenUpdateRequestModel {
+                    self.message = tokenUpdateModel.getFormattedMessage()
+                    
+                    // Subscribe to token balance and validation error updates
+                    tokenUpdateModel.$tokenBalance
+                        .assign(to: \.pltTokenBalance, on: self)
+                        .store(in: &self.cancellables)
+                    
+                    tokenUpdateModel.$validationError
+                        .assign(to: \.pltValidationError, on: self)
+                        .store(in: &self.cancellables)
+                    
+                    // Subscribe to validation state to update button when validation completes
+                    // Validation runs automatically after balance is loaded in the model's init
+                    tokenUpdateModel.$isTokenValid
+                        .sink { [weak self] isValid in
+                            self?.isSignButtonEnabled = isValid
+                        }
+                        .store(in: &self.cancellables)
+                }
+                    
+                // Run initial validation for all request types
+                // For tokenUpdate, full validation will run after balance is loaded (in model's init)
+                sheckAllSetUp()
+            } catch let err as SessionRequstError {
+                self.error = err
+                logger.debug("\(err.errorMessage)")
+            } catch {
+                logger.debug("Unknown error: \(error)")
             }
         }
     }
 
     private func sheckAllSetUp() {
-        Task {
+        Task { @MainActor in
             guard let requestModel = self.requestModel else {
                 self.isSignButtonEnabled = true
                 return
@@ -156,6 +155,9 @@ final class SessionRequestViewModel: ObservableObject {
             if let verifiableModel = requestModel as? VerifiablePresentationRequestModel,
                let modelError = verifiableModel.error {
                 self.error = .generic(modelError.description)
+            } else if requestModel is SponsoredTransactionRequestModel {
+                // More specific error message for sponsored transactions
+                self.error = .generic("Failed to process sponsored transaction: \(error.localizedDescription)")
             } else {
                 self.error = .generic("Unable to fulfill the request. Please check your identity details.")
             }
@@ -331,5 +333,96 @@ final class SessionRequestViewModel: ObservableObject {
         ))
         
         return ("PLT Token Transfer", details)
+    }
+    
+    private func formatSponsoredTransaction(params: SponsoredTransactionRequestParams) -> (type: String, [TransactionDetail]) {
+        var details: [TransactionDetail] = []
+        
+        // Decode header using SDK
+        if let header = try? AccountTransactionHeaderV1.decode(from: params.header) {
+            // Transaction fee is free (sponsored)
+            if let sponsor = header.sponsor {
+                details.append(TransactionDetail(
+                    label: "Transaction Fee",
+                    value: sponsor.base58Check,
+                    isAddress: false
+                ))
+                self.sponsor = sponsor.base58Check
+            }
+        }
+        
+        // Decode payload to show transaction details using SDK helper
+        if let payload = try? AccountTransaction.decodePayload(from: params.payload) {
+            
+            switch payload {
+            case .transfer(let amount, let receiver, let memo):
+                // Amount
+                let formattedAmount = TokenFormatter.formatCCD(microCCD: Int(amount.microCCD), fractionDigits: 2)
+                details.append(TransactionDetail(
+                    label: "Amount",
+                    value: "\(formattedAmount) CCD",
+                    isAddress: false
+                ))
+                
+                // Recipient
+                details.append(TransactionDetail(
+                    label: "Recipient",
+                    value: receiver.base58Check,
+                    isAddress: true
+                ))
+                
+                // Memo (if present)
+                if let memo = memo, !memo.value.isEmpty {
+                    let memoString = memo.stringValue
+                    if !memoString.isEmpty {
+                        details.append(TransactionDetail(
+                            label: "Memo",
+                            value: memoString,
+                            isAddress: false
+                        ))
+                    }
+                }
+                
+            case .updateContract(let amount, let address, let receiveName, _):
+                // Amount
+                let formattedAmount = TokenFormatter.formatCCD(microCCD: Int(amount.microCCD), fractionDigits: 2)
+                details.append(TransactionDetail(
+                    label: "Amount",
+                    value: "\(formattedAmount) CCD",
+                    isAddress: false
+                ))
+                
+                // Contract
+                details.append(TransactionDetail(
+                    label: "Contract",
+                    value: "\(address.index),\(address.subindex)",
+                    isAddress: false
+                ))
+                
+                // Function
+                details.append(TransactionDetail(
+                    label: "Function",
+                    value: receiveName.description,
+                    isAddress: false
+                ))
+                
+            case .updatePLT(let tokenId, _):
+                details.append(TransactionDetail(
+                    label: "Token",
+                    value: tokenId,
+                    isAddress: false
+                ))
+                
+            default:
+                // For other types, just show basic info
+                details.append(TransactionDetail(
+                    label: "Transaction Type",
+                    value: String(describing: payload).components(separatedBy: "(").first ?? "Unknown",
+                    isAddress: false
+                ))
+            }
+        }
+        
+        return ("", details)
     }
 }

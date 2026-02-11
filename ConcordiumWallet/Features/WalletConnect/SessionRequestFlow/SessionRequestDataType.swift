@@ -18,15 +18,16 @@ enum SessionRequestDataType {
     case tokenUpdate(TokenUpdateRequestParams)
     case verifiablePresentation(WalletConnectRequestVerifiablePresentationParam)
     case verifiablePresentationV1(RequestV1)
+    case sponsoredTransaction(SponsoredTransactionRequestParams)
     
     init(sessionRequest: Request) throws {
         // Validate that the method is supported before processing
-        guard WalletConnectConstants.isMethodSupported(sessionRequest.method) else {
+        guard let method = WalletConnectConstants(method: sessionRequest.method) else {
             throw SessionRequstError.invalidRequestMethod
         }
         
-        switch sessionRequest.method {
-            case WalletConnectConstants.requestVerifiablePresentation:
+        switch method {
+            case .requestVerifiablePresentation:
                 do {
                     struct ParamsData: Codable {
                         let paramsJson: String
@@ -40,7 +41,7 @@ enum SessionRequestDataType {
                 } catch {
                     throw SessionRequstError.unSupportedRequestMethod
                 }
-            case WalletConnectConstants.requestVerifiablePresentationV1:
+            case .requestVerifiablePresentationV1:
                 do {
                     // For v1, params might be a JSON string (like v0) or direct object
                     var jsonData: Data
@@ -70,7 +71,7 @@ enum SessionRequestDataType {
                 } catch {
                     throw SessionRequstError.unSupportedRequestMethod
                 }
-            case WalletConnectConstants.signMessage:
+            case .signMessage:
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: sessionRequest.params.value, options: [])
                     let payload: SignMessagePayload = try JSONDecoder().decode(SignMessagePayload.self, from: jsonData)
@@ -78,7 +79,7 @@ enum SessionRequestDataType {
                 } catch {
                     throw SessionRequstError.unSupportedRequestMethod
                 }
-            case WalletConnectConstants.signAndSendTransaction:
+            case .signAndSendTransaction:
                 do {
                     let contractType = try sessionRequest.params.get(SessionRequestType.self)
                     
@@ -93,6 +94,13 @@ enum SessionRequestDataType {
                         let params = try sessionRequest.params.get(ContractUpdateRequestParams.self)
                         self = .signAndSend(params)
                     }
+                } catch {
+                    throw SessionRequstError.unSupportedRequestMethod
+                }
+            case .signAndSendSponsoredTransaction:
+                do {
+                    let params = try sessionRequest.params.get(SponsoredTransactionRequestParams.self)
+                    self = .sponsoredTransaction(params)
                 } catch {
                     throw SessionRequstError.unSupportedRequestMethod
                 }

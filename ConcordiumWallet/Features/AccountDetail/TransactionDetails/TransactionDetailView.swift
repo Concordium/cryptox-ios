@@ -58,7 +58,9 @@ struct TransactionDetailView: View {
                             .blockHash(let vm),
                             .transactionHash(let vm),
                             .details(let vm),
-                            .memo(let vm):
+                            .memo(let vm),
+                            .sponsor(let vm),
+                            .sponsorCost(let vm):
                         detailItemCell(vm: vm)
                     case .error(let errorText):
                         errorCell(errorText: errorText)
@@ -156,6 +158,7 @@ final class TransactionDetailViewModel: ObservableObject, Hashable, Equatable {
         cells.append(contentsOf: getOriginCell())
         cells.append(contentsOf: getFromAddressCell())
         cells.append(contentsOf: createToAddressCell())
+        cells.append(contentsOf: getSponsorCells())
         cells.append(contentsOf: getTransactionHashCell())
         cells.append(contentsOf: createBlockHashCell())
         cells.append(contentsOf: createDetailsCell())
@@ -232,6 +235,27 @@ final class TransactionDetailViewModel: ObservableObject, Hashable, Equatable {
             return [.blockHash(displayVM)]
         }
         return []
+    }
+    
+    private func getSponsorCells() -> [TransactionDetailCell] {
+        var cells: [TransactionDetailCell] = []
+        
+        // Add sponsor address if present
+        if let sponsorAddress = transaction.details.sponsorAddress {
+            let title = "accountDetails.sponsor".localized
+            let displayVM = TransactionDetailItemViewModel(title: title, displayValue: sponsorAddress)
+            cells.append(.sponsor(displayVM))
+        }
+        
+        // Add sponsor cost if present
+        if let sponsorCost = transaction.details.sponsorCost {
+            let title = "accountDetails.sponsorCost".localized
+            let displayValue = sponsorCost.displayValueWithCCDStroke()
+            let displayVM = TransactionDetailItemViewModel(title: title, displayValue: displayValue)
+            cells.append(.sponsorCost(displayVM))
+        }
+        
+        return cells
     }
     
     private func createDetailsCell() -> [TransactionDetailCell] {

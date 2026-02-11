@@ -45,7 +45,7 @@ final class WalletConnectService {
 #elseif MAINNET
         var groupIdentifier: String = "group.reown.mainnet"
 #else // Staging
-        var groupIdentifier: String = "group.reown.testnet"
+        var groupIdentifier: String = "group.reown-test"
 #endif
         
         Networking.configure(
