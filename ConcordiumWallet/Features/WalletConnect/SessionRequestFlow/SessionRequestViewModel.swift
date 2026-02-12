@@ -88,12 +88,10 @@ final class SessionRequestViewModel: ObservableObject {
                     } else {
                         self.iconName = "wallet-coin"
                     }
-                    // Update message with formatted payload for tokenUpdate requests
                     if case .tokenUpdate = type,
                        let tokenUpdateModel = self.requestModel as? TokenUpdateRequestModel {
                         self.message = tokenUpdateModel.getFormattedMessage()
                         
-                        // Subscribe to token balance and validation error updates
                         tokenUpdateModel.$tokenBalance
                             .assign(to: \.pltTokenBalance, on: self)
                             .store(in: &self.cancellables)
@@ -102,8 +100,6 @@ final class SessionRequestViewModel: ObservableObject {
                             .assign(to: \.pltValidationError, on: self)
                             .store(in: &self.cancellables)
                         
-                        // Subscribe to validation state to update button when validation completes
-                        // Validation runs automatically after balance is loaded in the model's init
                         tokenUpdateModel.$isTokenValid
                             .sink { [weak self] isValid in
                                 Task { @MainActor in
@@ -113,8 +109,19 @@ final class SessionRequestViewModel: ObservableObject {
                             .store(in: &self.cancellables)
                     }
                     
-                    // Run initial validation for all request types
-                    // For tokenUpdate, full validation will run after balance is loaded (in model's init)
+                    if case .verifiablePresentationV1 = type,
+                       let v1Model = self.requestModel as? VerifiablePresentationV1RequestModel {
+                        v1Model.$isLoadingAnchor
+                            .dropFirst()
+                            .filter { !$0 }
+                            .sink { [weak self] _ in
+                                Task { @MainActor in
+                                    self?.sheckAllSetUp()
+                                }
+                            }
+                            .store(in: &self.cancellables)
+                    }
+                    
                     sheckAllSetUp()
                 } catch let err as SessionRequstError {
                     self.error = err
@@ -127,7 +134,7 @@ final class SessionRequestViewModel: ObservableObject {
     }
 
     private func sheckAllSetUp() {
-        Task {
+        Task { @MainActor in
             guard let requestModel = self.requestModel else {
                 self.isSignButtonEnabled = true
                 return
@@ -155,6 +162,9 @@ final class SessionRequestViewModel: ObservableObject {
         } catch {
             if let verifiableModel = requestModel as? VerifiablePresentationRequestModel,
                let modelError = verifiableModel.error {
+                self.error = .generic(modelError.description)
+            } else if let v1Model = requestModel as? VerifiablePresentationV1RequestModel,
+                      let modelError = v1Model.error {
                 self.error = .generic(modelError.description)
             } else {
                 self.error = .generic("Unable to fulfill the request. Please check your identity details.")

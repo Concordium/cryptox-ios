@@ -22,6 +22,15 @@ struct SessionRequestView: View {
     }
     @SwiftUI.Environment(\.dismiss) var dismiss
     
+    private var isSignButtonDisabled: Bool {
+        var isV1Loading = false
+        if case .verifiablePresentationV1 = viewModel.requestType,
+           let v1Model = viewModel.requestModel as? VerifiablePresentationV1RequestModel {
+            isV1Loading = v1Model.isLoadingAnchor || v1Model.anchorLoadError != nil
+        }
+        return viewModel.account == nil || !viewModel.isSignButtonEnabled || viewModel.pltValidationError != nil || isV1Loading
+    }
+    
     var body: some View {
         ZStack {
             Color.clear
@@ -82,12 +91,6 @@ struct SessionRequestView: View {
                     }
                 }
                 
-                // Show anchor loading status for v1 requests
-                if case .verifiablePresentationV1 = viewModel.requestType,
-                   let v1Model = viewModel.requestModel as? VerifiablePresentationV1RequestModel {
-                    anchorLoadingStatusView(model: v1Model)
-                }
-                
                 HStack(spacing: 20) {
                     Button {
                         Task(priority: .userInitiated) { await
@@ -115,15 +118,9 @@ struct SessionRequestView: View {
                         Text("Sign")
                             .frame(maxWidth: .infinity)
                     }
-                    .buttonStyle(AllowButtonStyle(disabled: viewModel.account == nil))
-                    .disabled({
-                        var isV1Loading = false
-                        if case .verifiablePresentationV1 = viewModel.requestType,
-                           let v1Model = viewModel.requestModel as? VerifiablePresentationV1RequestModel {
-                            isV1Loading = v1Model.isLoadingAnchor || v1Model.anchorLoadError != nil
-                        }
-                        return viewModel.account == nil || !viewModel.isSignButtonEnabled || viewModel.pltValidationError != nil || isV1Loading
-                    }())
+                    .buttonStyle(AllowButtonStyle(disabled: isSignButtonDisabled))
+                    .opacity(isSignButtonDisabled ? 0.7 : 1.0)
+                    .disabled(isSignButtonDisabled)
                 }
                 .padding(.top, 25)
                 .padding(.bottom, 24)
@@ -295,42 +292,5 @@ struct SessionRequestView: View {
         .padding(.horizontal, 12)
         .background(Color.grey3.opacity(0.3))
         .cornerRadius(12)
-    }
-    
-    @ViewBuilder
-    private func anchorLoadingStatusView(model: VerifiablePresentationV1RequestModel) -> some View {
-        if model.isLoadingAnchor {
-            HStack(spacing: 12) {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                    .scaleEffect(0.8)
-                Text("Verifying request anchor...")
-                    .font(.satoshi(size: 13, weight: .medium))
-                    .foregroundColor(Color.greySecondary)
-            }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color.grey3.opacity(0.3))
-            .cornerRadius(12)
-            .padding(.bottom, 8)
-        } else if let error = model.anchorLoadError {
-            HStack(alignment: .top, spacing: 8) {
-                Image(systemName: "exclamationmark.triangle.fill")
-                    .foregroundColor(Pallette.error)
-                    .font(.system(size: 14))
-                    .padding(.top, 2)
-                Text("Failed to verify request anchor: \(error)")
-                    .font(.satoshi(size: 13, weight: .medium))
-                    .foregroundColor(Pallette.error)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
-            .background(Pallette.error.opacity(0.1))
-            .cornerRadius(12)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.bottom, 8)
-        }
     }
 }

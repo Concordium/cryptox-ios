@@ -96,7 +96,7 @@ extension VerifiablePresentationV1RequestModel {
              .attributeInRange,
              .attributeInSet,
              .attributeNotInSet:
-            let raw = attributes["\(attributeTag.rawValue)"] ?? ""
+            let raw = attributes[attributeTag.description] ?? ""
             return attributeTag.formattedValue(raw)
         }
     }
@@ -104,7 +104,7 @@ extension VerifiablePresentationV1RequestModel {
     static func isValidStatement(_ statement: AtomicStatementV1, account: AccountEntity) -> Bool {
         let attributes = account.identityEntity?.seedIdentityObject?.attributeList.chosenAttributes ?? [:]
         let attributeTag = getAttributeTag(from: statement)
-        let rawValue = attributes["\(attributeTag.rawValue)"] ?? ""
+        let rawValue = attributes[attributeTag.description] ?? ""
 
         switch statement {
         case .attributeValue:
@@ -120,7 +120,8 @@ extension VerifiablePresentationV1RequestModel {
                       let upperDate = Date.initWithFormat(with: upperStr) else {
                     return false
                 }
-                return (lowerDate...upperDate).contains(valueDate)
+                let isValid = (lowerDate...upperDate).contains(valueDate)
+                return isValid
             default:
                 let valueDecimal = Decimal(string: rawValue) ?? .zero
                 let lower = Decimal(string: lowerStr) ?? .zero
@@ -129,10 +130,12 @@ extension VerifiablePresentationV1RequestModel {
             }
         case .attributeInSet(let s):
             let setStrings = s.set.map { web3IdAttributeToString($0) }
-            return setStrings.contains(rawValue)
+            let isValid = setStrings.contains(rawValue)
+            return isValid
         case .attributeNotInSet(let s):
             let setStrings = s.set.map { web3IdAttributeToString($0) }
-            return !setStrings.contains(rawValue)
+            let isValid = !setStrings.contains(rawValue)
+            return isValid
         }
     }
 
