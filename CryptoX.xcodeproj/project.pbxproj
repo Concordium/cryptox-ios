@@ -1677,6 +1677,9 @@
 		1557CCA92C8AF779008ABF67 /* AllowNotificationsPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */; };
 		1557CCAA2C8AF779008ABF67 /* AllowNotificationsPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */; };
 		1557CCAB2C8AF779008ABF67 /* AllowNotificationsPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */; };
+		15598FF52F3DD665000A4E23 /* TransakService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15598FF42F3DD665000A4E23 /* TransakService.swift */; };
+		15598FF62F3DD665000A4E23 /* TransakService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15598FF42F3DD665000A4E23 /* TransakService.swift */; };
+		15598FF72F3DD665000A4E23 /* TransakService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15598FF42F3DD665000A4E23 /* TransakService.swift */; };
 		155EE1F12D7B3BFC005EF86E /* AlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE1F02D7B3BFC005EF86E /* AlertModifier.swift */; };
 		155EE1F22D7B3BFC005EF86E /* AlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE1F02D7B3BFC005EF86E /* AlertModifier.swift */; };
 		155EE1F32D7B3BFC005EF86E /* AlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155EE1F02D7B3BFC005EF86E /* AlertModifier.swift */; };
@@ -3156,6 +3159,7 @@
 		1557CC972C89BBD7008ABF67 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1557CC9A2C89BE26008ABF67 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1557CCA82C8AF779008ABF67 /* AllowNotificationsPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsPopup.swift; sourceTree = "<group>"; };
+		15598FF42F3DD665000A4E23 /* TransakService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransakService.swift; sourceTree = "<group>"; };
 		155EE1F02D7B3BFC005EF86E /* AlertModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModifier.swift; sourceTree = "<group>"; };
 		155EE23C2D7B4955005EF86E /* KeyboardAvoidingPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAvoidingPadding.swift; sourceTree = "<group>"; };
 		156D118F2F0D1628001A15CB /* VerificationSuccessfulView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationSuccessfulView.swift; sourceTree = "<group>"; };
@@ -5414,6 +5418,7 @@
 				509749D72C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift */,
 				509749DB2C3D25E800D28D6B /* OnrampAccountPicker.swift */,
 				15349A9F2DB2654700D65610 /* WertWidgetManager.swift */,
+				15598FF42F3DD665000A4E23 /* TransakService.swift */,
 			);
 			path = OnrampFlow;
 			sourceTree = "<group>";
@@ -7426,6 +7431,7 @@
 				08C168892BB7396200E61326 /* Details.swift in Sources */,
 				08C1688A2BB7396200E61326 /* AccountsPresenter.swift in Sources */,
 				08C1688B2BB7396200E61326 /* CommissionRange.swift in Sources */,
+				15598FF72F3DD665000A4E23 /* TransakService.swift in Sources */,
 				50A42F552F23F0E400ACB9CE /* VerifiablePresentationV1RequestModel.swift in Sources */,
 				08C1688C2BB7396200E61326 /* Optional+Ext.swift in Sources */,
 				08C1688F2BB7396200E61326 /* ApiConstants.swift in Sources */,
@@ -7802,6 +7808,7 @@
 				08A045FE29FA99D200DACE1F /* MakeCreateTransferRequest.swift in Sources */,
 				088FEC902A01606100042957 /* StyledLabel.swift in Sources */,
 				08A045F029FA99D200DACE1F /* AccountReleaseSchedule.swift in Sources */,
+				15598FF62F3DD665000A4E23 /* TransakService.swift in Sources */,
 				088FEF142A026F0100042957 /* IdentitiesCoordinator.swift in Sources */,
 				088FECE82A01622000042957 /* OnboardingCarouselWebContentViewController.swift in Sources */,
 				1517A0F42D5A0E2B0089619F /* ToastGradientView.swift in Sources */,
@@ -8539,6 +8546,7 @@
 				08A0458529FA99D100DACE1F /* GeneratedBakerKeys.swift in Sources */,
 				088FEF522A0270AF00042957 /* IdentityRevokersWidgetPresenter.swift in Sources */,
 				088FECDE2A01621F00042957 /* OnboardingCarouselWebContentViewController.swift in Sources */,
+				15598FF52F3DD665000A4E23 /* TransakService.swift in Sources */,
 				088FEF062A026F0000042957 /* IdentitiesCoordinator.swift in Sources */,
 				D589F4182794BC12003F2FBB /* ServicesProvider+prod.swift in Sources */,
 				088FEED72A026EAA00042957 /* IdentityProviderWebViewPresenter.swift in Sources */,
