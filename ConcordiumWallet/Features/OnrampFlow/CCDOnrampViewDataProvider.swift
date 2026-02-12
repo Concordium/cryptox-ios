@@ -16,10 +16,16 @@ final class CCDOnrampViewDataProvider {
         var id: String { title }
     }
     
+    enum LogoSource {
+        case remote
+        case local
+    }
+    
     struct DataProvider: Identifiable {
         let title: String
         let url: URL
-        let icon: URL
+        let icon: String
+        let logoSource: LogoSource
         var isPaymentProvider: Bool = false
         
         var id: String { url.absoluteString }
@@ -42,16 +48,19 @@ final class CCDOnrampViewDataProvider {
     static var swipelux: [DataProvider] {
         [
             banxa,
+            transak,
             DataProvider(
                 title: "Swipelux",
                 url: URL(string: "https://track.swipelux.com")!,
-                icon: URL(string: "https://assets-global.website-files.com/64f060f3fc95f9d2081781db/65e825be9290e43f9d1bc29b_52c3517d-1bb0-4705-a952-8f0d2746b4c5.jpg")!,
+                icon: "https://assets-global.website-files.com/64f060f3fc95f9d2081781db/65e825be9290e43f9d1bc29b_52c3517d-1bb0-4705-a952-8f0d2746b4c5.jpg",
+                logoSource: .remote,
                 isPaymentProvider: true
             ),
             DataProvider(
                 title: "Wert",
                 url: URL(string: "https://widget.wert.io/01HM0W8FTFG4TEBRB0JPM18G5W/widget/?commodity=CCD&network=concordium&commodity_id=ccd.simple.concordium")!,
-                icon: URL(string: "https://partner.wert.io/icons/apple-touch-icon.png")!,
+                icon: "https://partner.wert.io/icons/apple-touch-icon.png",
+                logoSource: .remote,
                 isPaymentProvider: true
             )
         ]
@@ -61,7 +70,8 @@ final class CCDOnrampViewDataProvider {
         DataProvider(
             title: "CCD Faucet",
             url: URL(string: "https://radiokot.github.io/ccd-faucet/")!,
-            icon: URL(string: "https://em-content.zobj.net/source/apple/391/smiling-face-with-sunglasses_1f60e.png")!,
+            icon: "https://em-content.zobj.net/source/apple/391/smiling-face-with-sunglasses_1f60e.png",
+            logoSource: .remote,
             isPaymentProvider: true
         )
     }
@@ -69,8 +79,18 @@ final class CCDOnrampViewDataProvider {
     static var banxa: DataProvider {
         DataProvider(title: "Banxa",
                      url: getBanxaBaseURL(),
-                     icon: URL(string: "https://cdn.prod.website-files.com/67d7fbcd510cf4a3a6267957/685a651d86ccc21ad06deb1b_banxa.jpg")!,
+                     icon: "https://cdn.prod.website-files.com/67d7fbcd510cf4a3a6267957/685a651d86ccc21ad06deb1b_banxa.jpg",
+                     logoSource: .remote,
                      isPaymentProvider: true)
+    }
+    
+    static var transak: DataProvider {
+        DataProvider(
+            title: "Transak",
+            url: URL(string: "https://global-stg.transak.com")!,
+            icon: "transak_logo",
+            logoSource: .local,
+            isPaymentProvider: true)
     }
     
     private static func generateSwipeluxURL(
@@ -108,6 +128,12 @@ final class CCDOnrampViewDataProvider {
             }
         } else if provider.title == "Banxa" {
             return generateBanxaURL(baseURL: provider.url, targetAddress: accountAddress)
+        } else if provider.title == "Transak" {
+            do {
+                return try await generateTransakURL(targetAddress: accountAddress)
+            } catch {
+                return provider.url
+            }
         }
         return provider.url
     }
@@ -131,5 +157,12 @@ final class CCDOnrampViewDataProvider {
         ]
         
         return components?.url ?? baseURL
+    }
+    
+    private static func generateTransakURL(
+        targetAddress: String
+    ) async throws -> URL {
+        let service = TransakService()
+        return try await service.fetchTransakURL(for: targetAddress)
     }
 }
