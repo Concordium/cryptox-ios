@@ -5,6 +5,17 @@
 
 import Foundation
 
+// MARK: - Sponsor
+struct Sponsor: Codable {
+    let cost: String?
+    let sponsor: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case cost = "cost"
+        case sponsor = "sponsor"
+    }
+}
+
 // MARK: - Transaction
 struct Transaction: Codable {
     let blockTime: Double?
@@ -18,6 +29,7 @@ struct Transaction: Codable {
     let total: String?
     let id: Int?
     let encrypted: Encrypted?
+    let sponsor: Sponsor?
 
     enum CodingKeys: String, CodingKey {
         case blockTime = "blockTime"
@@ -31,6 +43,7 @@ struct Transaction: Codable {
         case total = "total"
         case id = "id"
         case encrypted = "encrypted"
+        case sponsor = "sponsor"
     }
 }
 
@@ -63,7 +76,8 @@ extension Transaction {
         details: Details? = nil,
         total: String?? = nil,
         id: Int?? = nil,
-        encrypted: Encrypted?? = nil
+        encrypted: Encrypted?? = nil,
+        sponsor: Sponsor?? = nil
     ) -> Transaction {
         return Transaction(
             blockTime: blockTime ?? self.blockTime,
@@ -76,7 +90,8 @@ extension Transaction {
             details: details ?? self.details,
             total: total ?? self.total,
             id: id ?? self.id,
-            encrypted: encrypted ?? self.encrypted
+            encrypted: encrypted ?? self.encrypted,
+            sponsor: sponsor ?? self.sponsor
         )
     }
 

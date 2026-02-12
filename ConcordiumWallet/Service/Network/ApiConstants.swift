@@ -40,6 +40,7 @@ struct ApiConstants {
     static let accNonce =               proxyUrl.appendingPathComponent("v0/accNonce")
     static let accEncryptionKey =       proxyUrl.appendingPathComponent("v0/accEncryptionKey")
     static let submitTransfer =         proxyUrl.appendingPathComponent("v0/submitTransfer")
+    static let submitRawTransaction =   proxyUrl.appendingPathComponent("v0/submitRawTransaction")
     static let transferCost =           proxyUrl.appendingPathComponent("v0/transactionCost")
     static let accountBalance =         proxyUrl.appendingPathComponent("v2/accBalance")
     static let accountTransactions =    proxyUrl.appendingPathComponent("v3/accTransactions")

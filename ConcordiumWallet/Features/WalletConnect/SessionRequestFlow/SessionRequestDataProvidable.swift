@@ -94,6 +94,22 @@ final class SessionRequestDataModelProvider {
                     concordiumClient: concordiumClient,
                     identitiesService: identitiesService
                 )
+            case .sponsoredTransaction(let params):
+                // Get networkManager from transactionsService (it's a concrete class with networkManager property)
+                guard let transactionsServiceConcrete = transactionsService as? TransactionsService else {
+                    return nil
+                }
+                return SponsoredTransactionRequestModel(
+                    params: params,
+                    account: account,
+                    sessionRequest: sessionRequest,
+                    transactionsService: transactionsService,
+                    mobileWallet: mobileWallet,
+                    passwordDelegate: passwordDelegate,
+                    storageManager: storageManager,
+                    concordiumClient: concordiumClient,
+                    networkManager: transactionsServiceConcrete.networkManager
+                )
         }
     }
 }

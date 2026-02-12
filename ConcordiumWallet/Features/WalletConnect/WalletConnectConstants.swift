@@ -9,30 +9,35 @@
 import Foundation
 
 /// Centralized WalletConnect configuration constants
-enum WalletConnectConstants {
+enum WalletConnectConstants: String, CaseIterable {
     /// Method for signing and sending transactions
-    static let signAndSendTransaction = "sign_and_send_transaction"
+    case signAndSendTransaction = "sign_and_send_transaction"
     
     /// Method for signing messages
-    static let signMessage = "sign_message"
+    case signMessage = "sign_message"
     
     /// Method for requesting verifiable presentations (ID2.5)
-    static let requestVerifiablePresentation = "request_verifiable_presentation"
+    case requestVerifiablePresentation = "request_verifiable_presentation"
     
     /// Method for requesting verifiable presentations v1 (auditable ZK proofs)
-    static let requestVerifiablePresentationV1 = "request_verifiable_presentation_v1"
+    case requestVerifiablePresentationV1 = "request_verifiable_presentation_v1"
     
-    /// All supported WalletConnect request methods
-    static let allowedRequestMethods: [String] = [
-        signAndSendTransaction,
-        signMessage,
-        requestVerifiablePresentation,
-        requestVerifiablePresentationV1
-    ]
+    /// Sponsored Transactions
+    case signAndSendSponsoredTransaction = "sign_and_send_sponsored_transaction"
+    
+    /// All supported WalletConnect request methods as strings
+    static var allowedRequestMethods: [String] {
+        allCases.map(\.rawValue)
+    }
     
     /// Check if a method is supported
     static func isMethodSupported(_ method: String) -> Bool {
-        allowedRequestMethods.contains(method)
+        allCases.contains { $0.rawValue == method }
+    }
+    
+    /// Initialize from a string method name
+    init?(method: String) {
+        self.init(rawValue: method)
     }
 }
 

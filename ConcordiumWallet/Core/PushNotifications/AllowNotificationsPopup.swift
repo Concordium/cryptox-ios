@@ -10,7 +10,8 @@ import SwiftUI
 
 struct AllowNotificationsPopup: View {
     @Binding var isVisible: Bool
-    
+    @AppStorage("isShouldShowAllowNotificationsView") private var isShouldShowAllowNotificationsView = true
+
     var body: some View {
         PopupContainer(icon: "icon_notification",
                        title: "Don't miss a thing",
@@ -50,6 +51,7 @@ struct AllowNotificationsPopup: View {
             Button {
                 DispatchQueue.main.async {
                     isVisible = false
+                    isShouldShowAllowNotificationsView = false
                 }
             } label: {
                 Text("Not now")

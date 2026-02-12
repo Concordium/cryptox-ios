@@ -36,6 +36,8 @@ struct TransactionDetailsViewModel {
     var details: [String]?
     var tokenID: String?
     var tokenTransferAmount: TransferAmount?
+    var sponsorAddress: String?
+    var sponsorCost: GTU?
 }
 
 private struct AddressDisplay {
@@ -164,6 +166,16 @@ extension TransactionDetailsViewModel {
         
         let toAddressName: String? = recipientListLookup(details.transferDestination)
         
+        // Extract sponsor information
+        let sponsorAddress = transaction.sponsor?.sponsor
+        let sponsorCost: GTU? = {
+            if let sponsorCostString = transaction.sponsor?.cost,
+               let sponsorCostInt = Int(sponsorCostString) {
+                return GTU(intValue: sponsorCostInt)
+            }
+            return nil
+        }()
+        
         self.init(rejectReason: details.rejectReason,
                   origin: (originAddress),
                   fromAddressName: fromAddressName,
@@ -174,7 +186,9 @@ extension TransactionDetailsViewModel {
                   blockHashes: [transaction.blockHash],
                   details: transactionEvents,
                   tokenID: details.tokenID,
-                  tokenTransferAmount: details.tokenTransferAmount)
+                  tokenTransferAmount: details.tokenTransferAmount,
+                  sponsorAddress: sponsorAddress,
+                  sponsorCost: sponsorCost)
     }
     
     init(localTransferData transfer: TransferDataType,
@@ -189,7 +203,11 @@ extension TransactionDetailsViewModel {
                   toAddressValue: transfer.toAddress,
                   transactionHash: submissionStatus?.transactionHash,
                   blockHashes: submissionStatus?.blockHashes,
-                  details: nil)
+                  details: nil,
+                  tokenID: nil,
+                  tokenTransferAmount: nil,
+                  sponsorAddress: nil,
+                  sponsorCost: nil)
     }
 }
 
@@ -214,6 +232,8 @@ extension TransactionDetailsViewModel: Hashable {
         hasher.combine(transactionHash.hashValue)
         hasher.combine(blockHashes.hashValue)
         hasher.combine(details.hashValue)
+        hasher.combine(sponsorAddress.hashValue)
+        hasher.combine(sponsorCost?.intValue.hashValue ?? 0)
     }
     
     public static func == (lhs: TransactionDetailsViewModel, rhs: TransactionDetailsViewModel) -> Bool {
@@ -225,7 +245,9 @@ extension TransactionDetailsViewModel: Hashable {
         lhs.toAddressValue == rhs.toAddressValue &&
         lhs.transactionHash == rhs.transactionHash &&
         lhs.blockHashes == rhs.blockHashes &&
-        lhs.details == rhs.details
+        lhs.details == rhs.details &&
+        lhs.sponsorAddress == rhs.sponsorAddress &&
+        lhs.sponsorCost?.intValue == rhs.sponsorCost?.intValue
     }
 }
 

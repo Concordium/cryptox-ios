@@ -312,6 +312,8 @@ process on-chain.";
 "accountDetails.blockHash" = "Block Hash";
 "accountDetails.details" = "Details";
 "accountDetails.toAddress" = "To Address: ";
+"accountDetails.sponsor" = "Sponsor";
+"accountDetails.sponsorCost" = "Sponsor Cost";
 "accountDetails.readonly" = "This account is imported without keys, and is read only";
 "accountDetails.memo" = "Memo";
 

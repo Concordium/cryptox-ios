@@ -18,6 +18,8 @@ final class TransactionListViewModel: ObservableObject {
     var memo: Memo?
     var sender: String?
     var pltAmount: String?
+    var sponsorCost: String?
+    var isSponsored: Bool = false
     
     var showCostAsEstimate = false
     var isFailed: Bool = false
@@ -43,7 +45,14 @@ final class TransactionListViewModel: ObservableObject {
             break
         }
         self.amount = tx.amount?.displayValueWithCCDStroke()
-        if let cost = tx.cost, cost.intValue != 0 {
+        
+        // Check if transaction is sponsored
+        if let sponsorCost = tx.details.sponsorCost {
+            self.isSponsored = true
+            self.sponsorCost = "sponsored (fee: \(sponsorCost.displayValueWithCCDStroke()))"
+            // For sponsored transactions, cost is 0, so show sponsor info instead
+            self.cost = "Free Transaction"
+        } else if let cost = tx.cost, cost.intValue != 0 {
             self.cost = "with fee " + cost.displayValueWithCCDStroke()
         }
         
@@ -109,6 +118,11 @@ struct TransactionListView: View {
                         Text(cost)
                             .foregroundColor(Color.MineralBlue.blueish3.opacity(0.5))
                             .font(.satoshi(size: 12, weight: .medium))
+                    }
+                    if let sponsorCost = viewModel.sponsorCost {
+                        Text(sponsorCost)
+                            .foregroundColor(Color.MineralBlue.blueish2.opacity(0.7))
+                            .font(.satoshi(size: 11, weight: .medium))
                     }
                 }
                 
