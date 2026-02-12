@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 ### Updates:
+- Added new onramp provider
+
+## [Released 3.4.4]
+### Updates:
 - Added ccd namespaces with genesis hash for WalletConnect.
 - UI update WC flow
 
