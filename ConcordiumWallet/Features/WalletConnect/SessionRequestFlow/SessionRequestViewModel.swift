@@ -112,6 +112,20 @@ final class SessionRequestViewModel: ObservableObject {
                         }
                         .store(in: &self.cancellables)
                 }
+                
+                // Subscribe to anchor loading state for v1 requests to re-run validation when anchor loads
+                if case .verifiablePresentationV1 = type,
+                   let v1Model = self.requestModel as? VerifiablePresentationV1RequestModel {
+                    v1Model.$isLoadingAnchor
+                        .dropFirst()
+                        .filter { !$0 }
+                        .sink { [weak self] _ in
+                            Task { @MainActor in
+                                self?.sheckAllSetUp()
+                            }
+                        }
+                        .store(in: &self.cancellables)
+                }
                     
                 // Run initial validation for all request types
                 // For tokenUpdate, full validation will run after balance is loaded (in model's init)
@@ -154,6 +168,9 @@ final class SessionRequestViewModel: ObservableObject {
         } catch {
             if let verifiableModel = requestModel as? VerifiablePresentationRequestModel,
                let modelError = verifiableModel.error {
+                self.error = .generic(modelError.description)
+            } else if let v1Model = requestModel as? VerifiablePresentationV1RequestModel,
+                      let modelError = v1Model.error {
                 self.error = .generic(modelError.description)
             } else if requestModel is SponsoredTransactionRequestModel {
                 // More specific error message for sponsored transactions

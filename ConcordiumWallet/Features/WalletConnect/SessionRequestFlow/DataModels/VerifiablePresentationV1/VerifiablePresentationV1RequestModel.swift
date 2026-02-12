@@ -108,15 +108,10 @@ final class VerifiablePresentationV1RequestModel: ObservableObject, SessionReque
     
     @MainActor
     func checkAllSatisfy() async throws -> Bool {
-        while isLoadingAnchor {
-            try await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
-        }
-        
-        if anchorLoadError != nil {
-            return false
-        }
-        
-        return true
+        // Validate all statements against identity attributes
+        // Note: Anchor data is not needed for validation, only for proof generation in approveRequest()
+        let statements = extractStatements()
+        return statements.allSatisfy { Self.isValidStatement($0, account: account) }
     }
     
     @MainActor
