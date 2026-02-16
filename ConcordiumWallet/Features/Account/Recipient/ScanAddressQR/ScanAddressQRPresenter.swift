@@ -29,6 +29,8 @@ public enum QRScannerOutput {
 protocol ScanAddressQRViewProtocol: AnyObject {
     func showQrValid()
     func showQrInvalid()
+    func restartScanner()
+    func dismissScanner()
 }
 
 // MARK: -
@@ -72,26 +74,57 @@ class ScanAddressQRPresenter: ScanAddressQRPresenterProtocol {
         let qrValid = wallet.check(accountAddress: address)
         if qrValid {
             view?.showQrValid()
+            (view as? ScanAddressQRViewController)?.stopScanner()
             self.delegate?.scanAddressQr(didScan: .address(address))
             self.closure?(.address(address))
         } else if let url = URL(string: address), let scheme = url.scheme, scheme == "airdrop" {
             view?.showQrValid()
+            (view as? ScanAddressQRViewController)?.stopScanner()
             self.delegate?.scanAddressQr(didScan: .airdrop(address))
             self.closure?(.airdrop(address))
         } else if address.hasPrefix("wc:") {
             view?.showQrValid()
             self.delegate?.scanAddressQr(didScan: .walletConnectV2(address))
             self.closure?(.walletConnectV2(address))
+        } else if let walletConnectURI = extractWalletConnectURI(from: address) {
+            view?.showQrValid()
+            self.delegate?.scanAddressQr(didScan: .walletConnectV2(walletConnectURI))
+            self.closure?(.walletConnectV2(walletConnectURI))
         } else if let url = URL(string: address), UIApplication.shared.canOpenURL(url) {
             view?.showQrValid()
+            (view as? ScanAddressQRViewController)?.stopScanner()
             self.delegate?.scanAddressQr(didScan: .connectURL(address))
             self.closure?(.connectURL(address))
         } else {
             if lastSaveErrorDisplayedString != address {
                 self.lastSaveErrorDisplayedString = address
                 view?.showQrInvalid()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
+                    self?.view?.dismissScanner()
+                }
             }
         }
+    }
+    
+    private func extractWalletConnectURI(from address: String) -> String? {
+        guard let url = URL(string: address),
+              let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+              let queryItems = components.queryItems else {
+            return nil
+        }
+        
+        if let uriItem = queryItems.first(where: { $0.name == "uri" }),
+           let uriValue = uriItem.value {
+            if uriValue.hasPrefix("wc:") {
+                return uriValue
+            }
+            if let decodedURI = uriValue.removingPercentEncoding,
+               decodedURI.hasPrefix("wc:") {
+                return decodedURI
+            }
+        }
+        
+        return nil
     }
 }
 

@@ -73,17 +73,23 @@ final class WalletConnectService {
             .store(in: &publishers)
     }
     
-    public func pair(_ address: String) async {
+    public func pair(_ address: String) async -> Result<Void, Error> {
         redirectURL = extractRedirectFromURL(address)
         LegacyLogger.debug("wc: `pair` - URL: \(address), Redirect: \(redirectURL ?? "nil")")
         
-        guard let uri = WalletConnectURI(string: address) else { return }
+        guard let uri = WalletConnectURI(string: address) else {
+            let error = NSError(domain: "WalletConnectService", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid WalletConnect URI"])
+            LegacyLogger.debug("wc: `pair` error -- Invalid URI")
+            return .failure(error)
+        }
         
         do {
             try await Pair.instance.pair(uri: uri)
+            return .success(())
         } catch {
             LegacyLogger.debug("wc: `pair` error -- \(error.localizedDescription)")
             
+            // Clean up any existing pairing with the same topic
             if let pairing = Pair.instance.getPairings().first(where: { $0.topic == uri.topic }) {
                 do {
                     try await Pair.instance.disconnect(topic: pairing.topic)
@@ -92,6 +98,8 @@ final class WalletConnectService {
                     LegacyLogger.debug("wc: `disconnectPairing` error -- \(error.localizedDescription)")
                 }
             }
+            
+            return .failure(error)
         }
     }
     

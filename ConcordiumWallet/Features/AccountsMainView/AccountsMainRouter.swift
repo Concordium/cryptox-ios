@@ -197,22 +197,23 @@ extension AccountsMainRouter: ScanAddressQRPresenterDelegate {
     }
     
     func scanAddressQr(didScan output: QRScannerOutput) {
-        navigationController.popViewController(animated: true)
         switch output {
         case let .address(address):
+            navigationController.popViewController(animated: true)
             navigationController.dismiss(animated: true)
-            
-    
             
             if let account = self.selectedAccount() {
                 self.navigationManager.navigate(to: .send(account, tokenType: CXTokenType.ccd, to: address))
             }
             case .airdrop(let string):
+                navigationController.popViewController(animated: true)
                 scanAddressQr(didScanAddress: string)
             case .connectURL(let string):
+                navigationController.popViewController(animated: true)
                 scanAddressQr(didScanAddress: string)
             case .walletConnectV2(let address):
-                self.showWalletConnectFlow(address)
+                let scannerVC = navigationController.topViewController as? ScanAddressQRViewController
+                self.showWalletConnectFlow(address, scannerViewController: scannerVC)
         }
     }
     
@@ -259,14 +260,66 @@ extension AccountsMainRouter: ScanAddressQRPresenterDelegate {
 
 extension AccountsMainRouter {
     public func handlWCDeeplinkConnect(_ url: URL) {
-        Task {
-            await self.walletConnectService.pair(url.absoluteString)
+        Task { @MainActor in
+            let result = await self.walletConnectService.pair(url.absoluteString)
+            switch result {
+            case .success:
+                break
+            case .failure(let error):
+                self.showWalletConnectError(error, scannerViewController: nil)
+            }
         }
     }
     
-    private func showWalletConnectFlow(_ address: String) {
-        Task {
-            await self.walletConnectService.pair(address)
+    private func showWalletConnectFlow(_ address: String, scannerViewController: ScanAddressQRViewController? = nil) {
+        Task { @MainActor in
+            let result = await self.walletConnectService.pair(address)
+            switch result {
+            case .success:
+                if let scannerViewController = scannerViewController,
+                   scannerViewController.isViewLoaded && scannerViewController.view.window != nil {
+                    navigationController.popViewController(animated: true)
+                }
+            case .failure(let error):
+                showWalletConnectError(error, scannerViewController: scannerViewController)
+            }
+        }
+    }
+    
+    private func showWalletConnectError(_ error: Error, scannerViewController: ScanAddressQRViewController?) {
+        let errorMessage: String
+        let errorDescription = error.localizedDescription.lowercased()
+        
+        if errorDescription.contains("expired") {
+            errorMessage = "The WalletConnect pairing URI has expired. Please scan a new QR code."
+        } else if errorDescription.contains("json") || errorDescription.contains("decoding") || errorDescription.contains("data") {
+            errorMessage = "Invalid WalletConnect data. Please try scanning the QR code again."
+        } else if errorDescription.contains("invalid") {
+            errorMessage = "Invalid WalletConnect URI. Please scan a valid QR code."
+        } else {
+            errorMessage = "Failed to connect to WalletConnect. Please try again."
+        }
+        
+        DispatchQueue.main.async { [weak self, weak scannerViewController] in
+            guard let self = self else { return }
+            
+            let alert = UIAlertController(
+                title: "Connection Error",
+                message: errorMessage,
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+                if let scannerViewController = scannerViewController {
+                    scannerViewController.dismissScanner()
+                } else {
+                    self?.navigationController.dismiss(animated: true)
+                }
+            })
+            
+            if let topViewController = self.navigationController.topViewController,
+               !topViewController.isBeingPresented && !topViewController.isBeingDismissed {
+                self.navigationController.present(alert, animated: true)
+            }
         }
     }
 }

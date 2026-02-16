@@ -122,11 +122,12 @@ class ScanAddressQRViewController: BaseViewController, Storyboarded, ShowToast {
 extension ScanAddressQRViewController: AVCaptureMetadataOutputObjectsDelegate {
 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-//        captureSession.stopRunning()
-
+        guard captureSession.isRunning else { return }
+        
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
+            
             captureSession.stopRunning()
             found(code: stringValue)
         }
@@ -145,14 +146,45 @@ extension ScanAddressQRViewController: ScanAddressQRViewProtocol {
         scanGuide.tintColor = .red
         showToast(withMessage: "scanQr.invalidQr".localized)
         
-        if captureSession?.isRunning == false {
-            DispatchQueue.global().async { [weak self] in
-                self?.captureSession.startRunning()
-            }
-        }
-        
         UIView.animate(withDuration: 0.3, delay: 1.0, animations: {
             self.scanGuide.tintColor = .white
         })
+    }
+    
+    func stopScanner() {
+        guard let captureSession = captureSession else { return }
+        DispatchQueue.global(qos: .userInitiated).async {
+            if captureSession.isRunning {
+                captureSession.stopRunning()
+            }
+        }
+    }
+    
+    func restartScanner() {
+        guard let captureSession = captureSession,
+              isViewLoaded,
+              view.window != nil else { return }
+        
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self, let captureSession = self.captureSession else { return }
+            
+            if !captureSession.isRunning {
+                captureSession.startRunning()
+            }
+        }
+    }
+    
+    func dismissScanner() {
+        stopScanner()
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            if self.presentingViewController != nil {
+                self.dismiss(animated: true, completion: nil)
+            } else if let navigationController = self.navigationController, navigationController.viewControllers.count > 1 {
+                navigationController.popViewController(animated: true)
+            } else if let navigationController = self.navigationController {
+                navigationController.dismiss(animated: true, completion: nil)
+            }
+        }
     }
 }
