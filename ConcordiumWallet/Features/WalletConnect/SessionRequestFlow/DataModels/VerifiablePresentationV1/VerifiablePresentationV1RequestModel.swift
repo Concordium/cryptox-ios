@@ -71,6 +71,11 @@ final class VerifiablePresentationV1RequestModel: ObservableObject, SessionReque
         }
         self.originalRequestJSON = originalJSON
         
+        // Validate that the account's identity matches the request's issuer requirements
+        if !validateAccountIdentityMatchesRequest(account: account) {
+            self.error = .invalidIdentity
+        }
+        
         self.subtitle = generateSubtitle()
         
         Task {
@@ -108,10 +113,108 @@ final class VerifiablePresentationV1RequestModel: ObservableObject, SessionReque
     
     @MainActor
     func checkAllSatisfy() async throws -> Bool {
+        // Validate that the account's identity matches the request's issuer requirements
+        guard validateAccountIdentityMatchesRequest(account: account) else {
+            return false
+        }
+        
         // Validate all statements against identity attributes
         // Note: Anchor data is not needed for validation, only for proof generation in approveRequest()
         let statements = extractStatements()
         return statements.allSatisfy { Self.isValidStatement($0, account: account) }
+    }
+    
+    /// Validates that the account's identity matches one of the requested issuers in the subject claims
+    func validateAccountIdentityMatchesRequest(account: AccountEntity) -> Bool {
+        guard let accountIdentityIP = account.identityEntity?.identityProvider?.ipInfo?.ipIdentity else {
+            return false
+        }
+        
+        // Check original JSON for all issuers (may have multiple issuers per subject claim)
+        guard let subjectClaimsArray = originalRequestJSON["subjectClaims"] as? [[String: Any]] else {
+            // Fallback to decoded request if original JSON is not available
+            return validateAgainstDecodedRequest(accountIdentityIP: accountIdentityIP)
+        }
+        
+        // Check each subject claim in the original JSON
+        for (index, claimDict) in subjectClaimsArray.enumerated() {
+            guard index < requestV1.subjectClaims.count else { continue }
+            
+            // Extract all issuers from the original JSON
+            let requestedIssuers: [UInt32]
+            if let issuersArray = claimDict["issuers"] as? [Any] {
+                // Multiple issuers in array
+                requestedIssuers = issuersArray.compactMap { issuerValue -> UInt32? in
+                    if let issuerString = issuerValue as? String {
+                        // DID format: "did:ccd:testnet:idp:0"
+                        if issuerString.hasPrefix("did:ccd:"), let idpPart = issuerString.split(separator: ":").last, let idpUInt = UInt32(idpPart) {
+                            return idpUInt
+                        } else if let issuerUInt = UInt32(issuerString) {
+                            return issuerUInt
+                        }
+                    } else if let issuerInt = issuerValue as? UInt32 {
+                        return issuerInt
+                    } else if let issuerNum = issuerValue as? NSNumber {
+                        return issuerNum.uint32Value
+                    }
+                    return nil
+                }
+            } else if let issuerValue = claimDict["issuer"] {
+                // Single issuer
+                let issuer: UInt32?
+                if let issuerString = issuerValue as? String {
+                    if issuerString.hasPrefix("did:ccd:"), let idpPart = issuerString.split(separator: ":").last, let idpUInt = UInt32(idpPart) {
+                        issuer = idpUInt
+                    } else if let issuerUInt = UInt32(issuerString) {
+                        issuer = issuerUInt
+                    } else {
+                        issuer = nil
+                    }
+                } else if let issuerInt = issuerValue as? UInt32 {
+                    issuer = issuerInt
+                } else if let issuerNum = issuerValue as? NSNumber {
+                    issuer = issuerNum.uint32Value
+                } else {
+                    issuer = nil
+                }
+                requestedIssuers = issuer.map { [$0] } ?? []
+            } else {
+                // Fallback to decoded request for this claim
+                let subjectClaim = requestV1.subjectClaims[index]
+                switch subjectClaim {
+                case .identity(let identityClaims):
+                    // identityClaims.issuer is already a UInt32
+                    requestedIssuers = [identityClaims.issuer]
+                case .account(let accountClaims):
+                    requestedIssuers = [accountClaims.issuer]
+                }
+            }
+            
+            if requestedIssuers.contains(UInt32(accountIdentityIP)) {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
+    /// Fallback validation using decoded request (when original JSON is not available)
+    private func validateAgainstDecodedRequest(accountIdentityIP: Int) -> Bool {
+        for subjectClaim in requestV1.subjectClaims {
+            let requestedIssuers: [UInt32]
+            switch subjectClaim {
+            case .identity(let identityClaims):
+                // identityClaims.issuer is already a UInt32
+                requestedIssuers = [identityClaims.issuer]
+            case .account(let accountClaims):
+                requestedIssuers = [accountClaims.issuer]
+            }
+            
+            if requestedIssuers.contains(UInt32(accountIdentityIP)) {
+                return true
+            }
+        }
+        return false
     }
     
     @MainActor

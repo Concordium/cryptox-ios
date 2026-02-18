@@ -88,7 +88,12 @@ extension VerifiablePresentationV1RequestModel {
     }
 
     static func valueData(for statement: AtomicStatementV1, account: AccountEntity) -> String? {
-        let attributes = account.identityEntity?.seedIdentityObject?.attributeList.chosenAttributes ?? [:]
+        // Ensure we have a valid identity before accessing attributes
+        guard let identityEntity = account.identityEntity,
+              let seedIdentityObject = identityEntity.seedIdentityObject else {
+            return nil
+        }
+        let attributes = seedIdentityObject.attributeList.chosenAttributes
         let attributeTag = getAttributeTag(from: statement)
 
         switch statement {
@@ -102,7 +107,12 @@ extension VerifiablePresentationV1RequestModel {
     }
 
     static func isValidStatement(_ statement: AtomicStatementV1, account: AccountEntity) -> Bool {
-        let attributes = account.identityEntity?.seedIdentityObject?.attributeList.chosenAttributes ?? [:]
+        // Ensure we have a valid identity before accessing attributes
+        guard let identityEntity = account.identityEntity,
+              let seedIdentityObject = identityEntity.seedIdentityObject else {
+            return false
+        }
+        let attributes = seedIdentityObject.attributeList.chosenAttributes
         let attributeTag = getAttributeTag(from: statement)
         let rawValue = attributes[attributeTag.description] ?? ""
 
@@ -120,6 +130,8 @@ extension VerifiablePresentationV1RequestModel {
                       let upperDate = Date.initWithFormat(with: upperStr) else {
                     return false
                 }
+                // Strict validation: the date must be within the specified range
+                // For age verification, this ensures under-age identities are rejected
                 let isValid = (lowerDate...upperDate).contains(valueDate)
                 return isValid
             default:
