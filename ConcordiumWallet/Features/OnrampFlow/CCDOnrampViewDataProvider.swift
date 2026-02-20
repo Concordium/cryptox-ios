@@ -85,8 +85,14 @@ final class CCDOnrampViewDataProvider {
     }
     
     static var transak: DataProvider {
-        DataProvider(
-            title: "Transak",
+        let title: String
+#if MAINNET
+        title = "Transak"
+#else
+        title = "Transak Testnet"
+#endif
+        return DataProvider(
+            title: title,
             url: URL(string: "https://global-stg.transak.com")!,
             icon: "transak_logo",
             logoSource: .local,
