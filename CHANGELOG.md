@@ -3,6 +3,9 @@
 ## [Unreleased]
 ### Updates:
 - Added new onramp provider
+- Added support for sponsored transactions
+- Updated Swift SDK
+- Added support of auditable ID credential-based ZK proofs
 
 ## [Released 3.4.4]
 ### Updates:
