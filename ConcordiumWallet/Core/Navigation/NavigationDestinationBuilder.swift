@@ -52,8 +52,7 @@ struct NavigationDestinationBuilder: ViewModifier {
                             EmptyView()
                         }
                     case .send(let account, let tokenType, let address):
-                        SendTokenView(path: $navigationManager.path,
-                                      viewModel: .init(
+                        SendTokenView(viewModel: .init(
                                         tokenType: tokenType,
                                         account: account,
                                         dependencyProvider: dependencyProvider,

@@ -11,7 +11,7 @@ import BigInt
 import Combine
 
 struct SendTokenView: View {
-    @Binding var path: [NavigationPaths]
+     @State var path: [NavigationPaths] = []
     
     @StateObject var viewModel: TransferTokenViewModel
     @StateObject var addMemoViewModel = AddMemoViewModel()
