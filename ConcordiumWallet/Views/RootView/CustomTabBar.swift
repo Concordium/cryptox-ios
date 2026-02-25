@@ -32,9 +32,36 @@ struct CustomTabBar: View {
         } label: {
 
             VStack(spacing: 4) {
+                ZStack {
+                    if isSelected {
+                        Capsule()
+                            .fill(
+                                EllipticalGradient(
+                                    stops: [
+                                        .init(color: Color(red: 0.62, green: 0.95, blue: 0.92), location: 0),
+                                        .init(color: Color(red: 0.93, green: 0.85, blue: 0.75), location: 1),
+                                        .init(color: Color(red: 0.64, green: 0.6, blue: 0.89), location: 1.5)
+                                    ],
+                                    center: UnitPoint(x: 0, y: 0)
+                                )
+                            )
+                            .opacity(0.16)
+                            .frame(width: 52, height: 36)
+                    }
 
-                Image(image)
-                    .renderingMode(.template)
+                    Image(image)
+                        .renderingMode(.template)
+                        .padding(8)
+                        .if(isSelected) { view in
+                            view
+                                .modifier(ToolbarGradientStyleModifier())
+                        }
+                        .foregroundStyle(
+                            isSelected
+                            ? .clear
+                            : Color.semanticContentSecondary
+                        )
+                }
 
                 Text(title)
                     .font(.satoshi(size: 12, weight: .regular))
