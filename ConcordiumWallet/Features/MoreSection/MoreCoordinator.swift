@@ -13,10 +13,13 @@ protocol MoreCoordinatorDelegate: IdentitiesCoordinatorDelegate {
     func showRevealSeedPrase()
     func showExportWalletPrivateKey()
 }
+protocol ConfigureAccountAlertDelegate: AnyObject {
+    func showConfigureAccountAlert()
+}
 
 @MainActor
 class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
-    typealias DependencyProvider = MoreFlowCoordinatorDependencyProvider & IdentitiesFlowCoordinatorDependencyProvider & NFTFlowCoordinatorDependencyProvider
+    typealias DependencyProvider = MoreFlowCoordinatorDependencyProvider & IdentitiesFlowCoordinatorDependencyProvider
     
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
@@ -32,7 +35,7 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
     private var cancellables: [AnyCancellable] = []
     
     init(navigationController: UINavigationController,
-         dependencyProvider: DependencyProvider & LoginDependencyProvider & WalletAndStorageDependencyProvider & NFTFlowCoordinatorDependencyProvider,
+         dependencyProvider: DependencyProvider & LoginDependencyProvider & WalletAndStorageDependencyProvider,
          parentCoordinator: MoreCoordinatorDelegate
     ) {
         self.mobileWallet = dependencyProvider.mobileWallet()
@@ -227,10 +230,10 @@ extension MoreCoordinator: MoreMenuPresenterDelegate {
 
 extension MoreCoordinator {
     func userSelectedNft() {
-        let collectionsCoordinator = CollectionsCoordinator(navigationController: navigationController,
-                                                            dependencyProvider: dependencyProvider)
-        collectionsCoordinator.configureAccountAlertDelegate = configureAccountAlertDelegate
-        collectionsCoordinator.start()
+//        let collectionsCoordinator = CollectionsCoordinator(navigationController: navigationController,
+//                                                            dependencyProvider: dependencyProvider)
+//        collectionsCoordinator.configureAccountAlertDelegate = configureAccountAlertDelegate
+//        collectionsCoordinator.start()
     }
 }
 

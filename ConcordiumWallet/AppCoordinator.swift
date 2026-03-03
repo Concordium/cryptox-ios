@@ -165,31 +165,22 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     }
     
     func showMainTabbar() {
-        let accountsCoordinator = AccountsCoordinator(
-            navigationController: CXNavigationController(),
-            dependencyProvider: defaultProvider,
-            appSettingsDelegate: self,
-            walletConnectService: walletConnectService
-        )
-        self.accountsCoordinator = accountsCoordinator
-        
-        let moreCoordinator = MoreCoordinator(navigationController: CXNavigationController(),
-                                              dependencyProvider: defaultProvider,
-                                              parentCoordinator: self
-        )
-        
-        let tabBarController = MainTabBarController(accountsCoordinator: accountsCoordinator,
-                                                    moreCoordinator: moreCoordinator,
-                                                    accountsMainRouter: .init(dependencyProvider: defaultProvider, walletConnectService: walletConnectService)
-                                )
-        self.navigationController.setNavigationBarHidden(true, animated: false)
-        self.navigationController.view.setFadeAnimation()
-        self.navigationController.pushViewController(tabBarController, animated: false)
-        
-        self.notificationNavigationDelegate = tabBarController
+
+        let router = AppRouter()
+
+        let mainView = MainTabView(dependencyProvider: defaultProvider)
+            .environmentObject(router)
+
+        let hosting = UIHostingController(rootView: mainView)
+        hosting.navigationController?.setNavigationBarHidden(true, animated: false)
+
+        let window = UIApplication.shared.windows.first { $0.isKeyWindow }
+        window?.rootViewController = hosting
+        window?.makeKeyAndVisible()
+
         self.isMainFlowActive = true
-        self.handleOpenURLActionIfNeeded()
-        
+        self.notificationNavigationDelegate = nil
+
         self.defaultCIS2TokenManager.initializeDefaultValues()
     }
 

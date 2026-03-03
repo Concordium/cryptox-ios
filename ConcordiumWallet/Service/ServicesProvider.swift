@@ -45,10 +45,6 @@ protocol LoginDependencyProvider: WalletAndStorageDependencyProvider {
     func seedAccountsService() -> SeedAccountsService
 }
 
-protocol NFTFlowCoordinatorDependencyProvider: WalletAndStorageDependencyProvider {
-    func nftService() -> NFTService
-}
-
 protocol ImportDependencyProvider {
     func importService() -> ImportService
     func keychainWrapper() -> KeychainWrapperProtocol
@@ -144,13 +140,6 @@ extension ServicesProvider: MoreFlowCoordinatorDependencyProvider {
 extension ServicesProvider: ImportDependencyProvider {
     func importService() -> ImportService {
         ImportService(storageManager: _storageManager, accountsService: accountsService(), mobileWallet: mobileWallet())
-    }
-}
-
-
-extension ServicesProvider: NFTFlowCoordinatorDependencyProvider {
-    func nftService() -> NFTService {
-        NFTService(mobileWallet: _mobileWallet, networkManager: _networkManager, storageManager: _storageManager)
     }
 }
 
