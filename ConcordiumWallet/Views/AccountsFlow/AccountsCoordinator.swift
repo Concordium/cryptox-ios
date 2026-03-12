@@ -133,7 +133,9 @@ class AccountsCoordinator: Coordinator {
 
 extension AccountsCoordinator: AccountsPresenterDelegate {
     func scanQR() {
-        let vc = ScanAddressQRFactory.create(with: ScanAddressQRPresenter(wallet: dependencyProvider.mobileWallet(), delegate: self))
+        let vc = ScanAddressQRFactory.create(wallet: dependencyProvider.mobileWallet(), onResult: { [weak self] output in
+            self?.handleScanResult(output)
+        })
         vc.hidesBottomBarWhenPushed = true
         navigationController.pushViewController(vc, animated: true)
     }
@@ -259,26 +261,28 @@ extension AccountsCoordinator: SeedIdentitiesCoordinatorDelegate {
 }
 
 
-extension AccountsCoordinator: ScanAddressQRPresenterDelegate {
+extension AccountsCoordinator {
     func showScanAddressQR() {
-        let vc = ScanAddressQRFactory.create(with: ScanAddressQRPresenter(wallet: dependencyProvider.mobileWallet(), delegate: self))
+        let vc = ScanAddressQRFactory.create(wallet: dependencyProvider.mobileWallet(), onResult: { [weak self] output in
+            self?.handleScanResult(output)
+        })
         vc.hidesBottomBarWhenPushed = true
         navigationController.pushViewController(vc, animated: true)
     }
-    
-    func scanAddressQr(didScan output: QRScannerOutput) {
+
+    func handleScanResult(_ output: QRScannerOutput) {
         switch output {
-            case .address:
-                navigationController.popViewController(animated: true)
-            case .airdrop(let string):
-                navigationController.popViewController(animated: true)
-                scanAddressQr(didScanAddress: string)
-            case .connectURL(let string):
-                navigationController.popViewController(animated: true)
-                scanAddressQr(didScanAddress: string)
-            case .walletConnectV2(let address):
-                let scannerVC = navigationController.topViewController as? ScanAddressQRViewController
-                self.showWalletConnectFlow(address, scannerViewController: scannerVC)
+        case .address:
+            navigationController.popViewController(animated: true)
+        case .airdrop(let string):
+            navigationController.popViewController(animated: true)
+            scanAddressQr(didScanAddress: string)
+        case .connectURL(let string):
+            navigationController.popViewController(animated: true)
+            scanAddressQr(didScanAddress: string)
+        case .walletConnectV2(let address):
+            let scannerVC = navigationController.topViewController as? ScanAddressQRScannerDismissible
+            showWalletConnectFlow(address, scannerViewController: scannerVC)
         }
     }
     
@@ -326,13 +330,14 @@ import SwiftUI
 import ReownWalletKit
 
 extension AccountsCoordinator {
-    func showWalletConnectFlow(_ address: String, scannerViewController: ScanAddressQRViewController? = nil) {
+    func showWalletConnectFlow(_ address: String, scannerViewController: ScanAddressQRScannerDismissible? = nil) {
         Task { @MainActor in
             let result = await self.walletConnectService.pair(address)
             switch result {
             case .success:
                 if let scannerViewController = scannerViewController,
-                   scannerViewController.isViewLoaded && scannerViewController.view.window != nil {
+                   (scannerViewController as? UIViewController)?.isViewLoaded == true,
+                   (scannerViewController as? UIViewController)?.view.window != nil {
                     navigationController.popViewController(animated: true)
                 }
             case .failure(let error):
@@ -341,7 +346,7 @@ extension AccountsCoordinator {
         }
     }
     
-    private func showWalletConnectError(_ error: Error, scannerViewController: ScanAddressQRViewController?) {
+    private func showWalletConnectError(_ error: Error, scannerViewController: ScanAddressQRScannerDismissible?) {
         let errorMessage: String
         let errorDescription = error.localizedDescription.lowercased()
         

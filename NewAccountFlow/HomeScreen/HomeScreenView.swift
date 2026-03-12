@@ -36,6 +36,7 @@ struct HomeScreenView: View {
     @State var phrase: [String]?
     @State private var selectedActionId: Int?
     @State private var hasAppearedForTheFirstTime: Bool = false
+    @State private var isShowingScanQR = false
     
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowOnrampMessage") private var isShouldShowOnrampMessage = true
@@ -74,6 +75,15 @@ struct HomeScreenView: View {
             .fullScreenCover(isPresented: $isShowPasscodeViewShown, content: {
                 passcodeView
             })
+            .fullScreenCover(isPresented: $isShowingScanQR) {
+                ScanAddressQRViewWithResult(
+                    onResult: { output in
+                        isShowingScanQR = false
+                        router?.handleScanResult(output)
+                    },
+                    onDismiss: { isShowingScanQR = false }
+                )
+            }
             .onChange(of: showManageTokenList) { newValue in
                 if showManageTokenList {
                     navigationManager.navigate(to: .manageTokens(viewModel))
@@ -133,7 +143,7 @@ struct HomeScreenView: View {
                     Image("ico_scan")
                         .onTapGesture {
                             if SettingsHelper.isIdentityConfigured() {
-                                self.router?.showScanQRFlow()
+                                isShowingScanQR = true
                                 Tracker.trackContentInteraction(name: "Accounts", interaction: .clicked, piece: "Scan QR")
                             } else {
                                 self.router?.showNotConfiguredAccountPopup()
