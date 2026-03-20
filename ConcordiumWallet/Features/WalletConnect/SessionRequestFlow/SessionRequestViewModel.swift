@@ -24,6 +24,7 @@ final class SessionRequestViewModel: ObservableObject {
     
     @Published var pltTokenBalance: String?
     @Published var pltValidationError: String?
+    @Published var sponsoredTxAmount: CCD?
     @Published var iconName: String = ""
     var sponsor: String?
     
@@ -429,7 +430,39 @@ final class SessionRequestViewModel: ObservableObject {
                     value: tokenId,
                     isAddress: false
                 ))
+                    sponsoredTxAmount = data.capital
+                }
+
+                let formattedAmount = TokenFormatter.formatCCD(microCCD: Int(data.capital?.microCCD ?? 0), fractionDigits: 2)
+
                 
+                // Target
+                let target = data.delegationTarget == .passive ? "Passive delegation" : "Validator pool"
+                details.append(TransactionDetail(label: "Target", value: target, isAddress: false))
+                
+                // Amount
+                details.append(TransactionDetail(label: "Amount", value: formattedAmount, isAddress: false))
+                
+                // Delegation
+                if let delegationAmount = account?.delegation?.stakedAmount {
+                    let formattedDelegationAmount = TokenFormatter.formatCCD(microCCD: Int(delegationAmount), fractionDigits: 2)
+                    details.append(TransactionDetail(label: "Delegation", value: formattedDelegationAmount, isAddress: false))
+                }
+                
+                // Delegation Cooldown
+                if let isInCooldown = account?.delegation?.isInCooldown, isInCooldown {
+                    let dependencyProvider = ServicesProvider.defaultProvider()
+                    let chainParams = dependencyProvider.storageManager().getChainParams()
+                    let cooldown = chainParams?.delegatorCooldown
+                    if let cooldown {
+                        let cooldownDays = cooldown == 1 ? "1 day" : "\(cooldown) days"
+                        details.append(TransactionDetail(label: "Delegation Cooldown", value: cooldownDays, isAddress: false))
+                    }
+                }
+                
+                // Rewards
+                let reward = (data.restakeEarnings ?? false) ? "Added to delegation amount" : "At disposal"
+                details.append(TransactionDetail(label: "Rewards", value: reward, isAddress: false))
             default:
                 // For other types, just show basic info
                 details.append(TransactionDetail(

@@ -80,6 +80,9 @@ struct SessionRequestView: View {
                     if viewModel.requestType != nil {
                         switch viewModel.requestType {
                         case .signMessage, .simpleTransfer, .signAndSend, .tokenUpdate, .sponsoredTransaction:
+                            if case .sponsoredTransaction = viewModel.requestType, let amount = viewModel.sponsoredTxAmount, Int(amount.microCCD) < viewModel.account?.delegation?.stakedAmount ?? 0 {
+                                delegationCooldownView
+                            }
                             if viewModel.message != "[:]" {
                                 authRequestView()
                             }
@@ -219,6 +222,28 @@ struct SessionRequestView: View {
             }
         }
         .padding(.bottom, 8)
+    }
+    
+    private var delegationCooldownView: some View {
+        HStack(alignment: .center, spacing: 12) {
+            Image("circled-warning-exclamation")
+            .frame(width: 24, height: 24)
+            
+            Text("Reducing your stake is subject to a cooldown period, in which the stake cannot be spent or transferred")
+                .font(.satoshi(size: 15, weight: .regular))
+                .foregroundColor(.yellowBackupWarning)
+            .frame(maxWidth: .infinity, alignment: .topLeading)
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color.warningTertiary)
+        .cornerRadius(12)
+        .overlay(
+        RoundedRectangle(cornerRadius: 12)
+        .inset(by: 0.5)
+        .stroke(Color.warningSecondary, lineWidth: 1)
+        )
     }
     
     private func authRequestView() -> some View {
