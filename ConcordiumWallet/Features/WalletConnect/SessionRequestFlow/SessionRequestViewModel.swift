@@ -430,6 +430,8 @@ final class SessionRequestViewModel: ObservableObject {
                     value: tokenId,
                     isAddress: false
                 ))
+            case .configureDelegation(let data):
+                Task { @MainActor in
                     sponsoredTxAmount = data.capital
                 }
 
