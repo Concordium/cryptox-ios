@@ -99,10 +99,10 @@ final class TransferTokenRouter: ObservableObject {
 
 extension TransferTokenRouter {
     func showQrAddressPicker(_ onPicked: @escaping (String) -> Void) {
-        let vc = ScanAddressQRFactory.create(with: ScanAddressQRPresenter(wallet: dependencyProvider.mobileWallet(), closure: { [weak self] output in
+        let vc = ScanAddressQRFactory.create(wallet: dependencyProvider.mobileWallet(), onResult: { [weak self] output in
             onPicked(output.address)
             self?.navigationController.popViewController(animated: true)
-        }))
+        })
         DispatchQueue.main.async { [weak self] in
             self?.navigationController.pushViewController(vc, animated: true)
         }

@@ -9,41 +9,7 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <scenes>
-        <!--Scan AddressQR View Controller-->
-        <scene sceneID="sIY-hp-knw">
-            <objects>
-                <viewController storyboardIdentifier="ScanAddressQRViewController" id="CrP-7c-VlD" customClass="ScanAddressQRViewController" customModule="ProdMainNet" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="UeT-JM-3HM">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="qr_overlay" translatesAutoresizingMaskIntoConstraints="NO" id="TwV-cd-41o">
-                                <rect key="frame" x="30" y="271" width="354" height="354"/>
-                                <color key="tintColor" name="primary"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="TwV-cd-41o" secondAttribute="height" multiplier="1:1" id="418-aH-GZe"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="hoy-7R-0pf"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="hoy-7R-0pf" firstAttribute="trailing" secondItem="TwV-cd-41o" secondAttribute="trailing" constant="30" id="4D1-Ra-zNn"/>
-                            <constraint firstItem="TwV-cd-41o" firstAttribute="centerY" secondItem="UeT-JM-3HM" secondAttribute="centerY" id="5Jl-VS-wU1"/>
-                            <constraint firstItem="TwV-cd-41o" firstAttribute="leading" secondItem="hoy-7R-0pf" secondAttribute="leading" constant="30" id="5YJ-TQ-14n"/>
-                            <constraint firstItem="TwV-cd-41o" firstAttribute="centerX" secondItem="UeT-JM-3HM" secondAttribute="centerX" id="eoz-Xd-3RX"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="scanGuide" destination="TwV-cd-41o" id="qp6-5A-zP0"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rQo-c5-DqK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="8874" y="-85"/>
-        </scene>
-    </scenes>
+    <scenes/>
     <resources>
         <image name="qr_overlay" width="315" height="315"/>
         <namedColor name="primary">

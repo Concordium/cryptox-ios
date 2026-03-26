@@ -475,10 +475,6 @@
 		088FF2242A02A89800042957 /* ImportStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF2202A02A89500042957 /* ImportStatusCell.swift */; };
 		088FF2272A02A89900042957 /* ImportStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 088FF21F2A02A89500042957 /* ImportStatusCell.xib */; };
 		088FF2282A02A89900042957 /* ImportStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF2202A02A89500042957 /* ImportStatusCell.swift */; };
-		088FF24A2A02A9A100042957 /* ScanAddressQRPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF2332A02A98C00042957 /* ScanAddressQRPresenter.swift */; };
-		088FF24B2A02A9A100042957 /* ScanAddressQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF2322A02A98B00042957 /* ScanAddressQRViewController.swift */; };
-		088FF24E2A02A9A200042957 /* ScanAddressQRPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF2332A02A98C00042957 /* ScanAddressQRPresenter.swift */; };
-		088FF24F2A02A9A200042957 /* ScanAddressQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF2322A02A98B00042957 /* ScanAddressQRViewController.swift */; };
 		088FF27A2A02B0A400042957 /* Collections+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF2782A02B0A300042957 /* Collections+Extensions.swift */; };
 		088FF27C2A02B0A400042957 /* Collections+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF2782A02B0A300042957 /* Collections+Extensions.swift */; };
 		088FF2802A02BDF000042957 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088FF27D2A02BDEC00042957 /* Onboarding.storyboard */; };
@@ -1279,8 +1275,6 @@
 		08C168B32BB7396200E61326 /* SupportMailProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E29754276C8D0F000DB102 /* SupportMailProtocol.swift */; };
 		08C168B42BB7396200E61326 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A044DF29FA99C600DACE1F /* Transaction.swift */; };
 		08C168B72BB7396200E61326 /* Data+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B470FD278DC1A200781EE8 /* Data+Additions.swift */; };
-		08C168B82BB7396200E61326 /* ScanAddressQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF2322A02A98B00042957 /* ScanAddressQRViewController.swift */; };
-		08C168B92BB7396200E61326 /* ScanAddressQRPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF2332A02A98C00042957 /* ScanAddressQRPresenter.swift */; };
 		08C168BA2BB7396200E61326 /* ExportPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1A62A02A67D00042957 /* ExportPresenter.swift */; };
 		08C168BB2BB7396200E61326 /* UpdatePasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1DD2A02A73100042957 /* UpdatePasswordPresenter.swift */; };
 		08C168BC2BB7396200E61326 /* PageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FEE6C2A025A5300042957 /* PageViewModel.swift */; };
@@ -2043,6 +2037,18 @@
 		508E01632E1BE760004DA300 /* Date+Ent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508E01622E1BE760004DA300 /* Date+Ent.swift */; };
 		508E01642E1BE760004DA300 /* Date+Ent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508E01622E1BE760004DA300 /* Date+Ent.swift */; };
 		508E01652E1BE760004DA300 /* Date+Ent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508E01622E1BE760004DA300 /* Date+Ent.swift */; };
+		508FA3562F597D8F002B4F4D /* ScanAddressQRHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508FA3502F597D8F002B4F4D /* ScanAddressQRHostingController.swift */; };
+		508FA3572F597D8F002B4F4D /* ScanAddressQRPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508FA3512F597D8F002B4F4D /* ScanAddressQRPresenter.swift */; };
+		508FA3582F597D8F002B4F4D /* ScanAddressQRSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508FA3522F597D8F002B4F4D /* ScanAddressQRSwiftUIView.swift */; };
+		508FA3592F597D8F002B4F4D /* ScanAddressQRViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508FA3532F597D8F002B4F4D /* ScanAddressQRViewModel.swift */; };
+		508FA35B2F597D8F002B4F4D /* ScanAddressQRHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508FA3502F597D8F002B4F4D /* ScanAddressQRHostingController.swift */; };
+		508FA35C2F597D8F002B4F4D /* ScanAddressQRPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508FA3512F597D8F002B4F4D /* ScanAddressQRPresenter.swift */; };
+		508FA35D2F597D8F002B4F4D /* ScanAddressQRSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508FA3522F597D8F002B4F4D /* ScanAddressQRSwiftUIView.swift */; };
+		508FA35E2F597D8F002B4F4D /* ScanAddressQRViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508FA3532F597D8F002B4F4D /* ScanAddressQRViewModel.swift */; };
+		508FA3602F597D8F002B4F4D /* ScanAddressQRHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508FA3502F597D8F002B4F4D /* ScanAddressQRHostingController.swift */; };
+		508FA3612F597D8F002B4F4D /* ScanAddressQRPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508FA3512F597D8F002B4F4D /* ScanAddressQRPresenter.swift */; };
+		508FA3622F597D8F002B4F4D /* ScanAddressQRSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508FA3522F597D8F002B4F4D /* ScanAddressQRSwiftUIView.swift */; };
+		508FA3632F597D8F002B4F4D /* ScanAddressQRViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508FA3532F597D8F002B4F4D /* ScanAddressQRViewModel.swift */; };
 		509749D02C3C0D4E00D28D6B /* CCDOnrampView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749CF2C3C0D4E00D28D6B /* CCDOnrampView.swift */; };
 		509749D12C3C0D4E00D28D6B /* CCDOnrampView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749CF2C3C0D4E00D28D6B /* CCDOnrampView.swift */; };
 		509749D22C3C0D4E00D28D6B /* CCDOnrampView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749CF2C3C0D4E00D28D6B /* CCDOnrampView.swift */; };
@@ -2918,8 +2924,6 @@
 		088FF2192A02A78300042957 /* More.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = More.storyboard; sourceTree = "<group>"; };
 		088FF21F2A02A89500042957 /* ImportStatusCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportStatusCell.xib; sourceTree = "<group>"; };
 		088FF2202A02A89500042957 /* ImportStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportStatusCell.swift; sourceTree = "<group>"; };
-		088FF2322A02A98B00042957 /* ScanAddressQRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanAddressQRViewController.swift; sourceTree = "<group>"; };
-		088FF2332A02A98C00042957 /* ScanAddressQRPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanAddressQRPresenter.swift; sourceTree = "<group>"; };
 		088FF26F2A02ADB100042957 /* SendFund.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SendFund.storyboard; sourceTree = "<group>"; };
 		088FF2782A02B0A300042957 /* Collections+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collections+Extensions.swift"; sourceTree = "<group>"; };
 		088FF27D2A02BDEC00042957 /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
@@ -3289,6 +3293,10 @@
 		508E015A2E1BE691004DA300 /* AtomicIdentityStatement+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AtomicIdentityStatement+Ext.swift"; sourceTree = "<group>"; };
 		508E015E2E1BE6EA004DA300 /* VerifiableJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifiableJSON.swift; sourceTree = "<group>"; };
 		508E01622E1BE760004DA300 /* Date+Ent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ent.swift"; sourceTree = "<group>"; };
+		508FA3502F597D8F002B4F4D /* ScanAddressQRHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanAddressQRHostingController.swift; sourceTree = "<group>"; };
+		508FA3512F597D8F002B4F4D /* ScanAddressQRPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanAddressQRPresenter.swift; sourceTree = "<group>"; };
+		508FA3522F597D8F002B4F4D /* ScanAddressQRSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanAddressQRSwiftUIView.swift; sourceTree = "<group>"; };
+		508FA3532F597D8F002B4F4D /* ScanAddressQRViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanAddressQRViewModel.swift; sourceTree = "<group>"; };
 		509749CF2C3C0D4E00D28D6B /* CCDOnrampView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCDOnrampView.swift; sourceTree = "<group>"; };
 		509749D32C3C241B00D28D6B /* ProviderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderView.swift; sourceTree = "<group>"; };
 		509749D72C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCDOnrampViewDataProvider.swift; sourceTree = "<group>"; };
@@ -3914,6 +3922,7 @@
 		088FEC682A01483D00042957 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				508FA3692F597E5A002B4F4D /* QRScanner */,
 				15AE01AC2E3652E500B9322D /* PLTTokenSupport */,
 				15B498D62D5E30EE001B4F65 /* NewStake */,
 				509749DF2C3E862500D28D6B /* NewsFeed */,
@@ -4613,7 +4622,6 @@
 		088FF2292A02A93700042957 /* Recipient */ = {
 			isa = PBXGroup;
 			children = (
-				088FF2312A02A98200042957 /* ScanAddressQR */,
 				088FF22A2A02A96100042957 /* SelectRecepient */,
 			);
 			path = Recipient;
@@ -4626,15 +4634,6 @@
 				1580EE6C2D4A8CA60051C55D /* RecipientViewModel.swift */,
 			);
 			path = SelectRecepient;
-			sourceTree = "<group>";
-		};
-		088FF2312A02A98200042957 /* ScanAddressQR */ = {
-			isa = PBXGroup;
-			children = (
-				088FF2332A02A98C00042957 /* ScanAddressQRPresenter.swift */,
-				088FF2322A02A98B00042957 /* ScanAddressQRViewController.swift */,
-			);
-			path = ScanAddressQR;
 			sourceTree = "<group>";
 		};
 		088FF2502A02ACBD00042957 /* SendFunds */ = {
@@ -5408,6 +5407,17 @@
 				508E014B2E1BE220004DA300 /* VerifiableProofView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		508FA3692F597E5A002B4F4D /* QRScanner */ = {
+			isa = PBXGroup;
+			children = (
+				508FA3502F597D8F002B4F4D /* ScanAddressQRHostingController.swift */,
+				508FA3512F597D8F002B4F4D /* ScanAddressQRPresenter.swift */,
+				508FA3522F597D8F002B4F4D /* ScanAddressQRSwiftUIView.swift */,
+				508FA3532F597D8F002B4F4D /* ScanAddressQRViewModel.swift */,
+			);
+			path = QRScanner;
 			sourceTree = "<group>";
 		};
 		509749CE2C3C0D2B00D28D6B /* OnrampFlow */ = {
@@ -7285,6 +7295,10 @@
 				509A56352CB42EFF005EA908 /* AppSettings.swift in Sources */,
 				08C167FC2BB7396200E61326 /* Reusable.swift in Sources */,
 				08C167FD2BB7396200E61326 /* SeedAccountsService.swift in Sources */,
+				508FA3562F597D8F002B4F4D /* ScanAddressQRHostingController.swift in Sources */,
+				508FA3572F597D8F002B4F4D /* ScanAddressQRPresenter.swift in Sources */,
+				508FA3582F597D8F002B4F4D /* ScanAddressQRSwiftUIView.swift in Sources */,
+				508FA3592F597D8F002B4F4D /* ScanAddressQRViewModel.swift in Sources */,
 				08C167FE2BB7396200E61326 /* AppSettingsService.swift in Sources */,
 				08C167FF2BB7396200E61326 /* TransferTokenConfirmViewModel.swift in Sources */,
 				08C168012BB7396200E61326 /* RecoveryPhraseCoordinator.swift in Sources */,
@@ -7472,8 +7486,6 @@
 				08C168B32BB7396200E61326 /* SupportMailProtocol.swift in Sources */,
 				08C168B42BB7396200E61326 /* Transaction.swift in Sources */,
 				08C168B72BB7396200E61326 /* Data+Additions.swift in Sources */,
-				08C168B82BB7396200E61326 /* ScanAddressQRViewController.swift in Sources */,
-				08C168B92BB7396200E61326 /* ScanAddressQRPresenter.swift in Sources */,
 				08C168BA2BB7396200E61326 /* ExportPresenter.swift in Sources */,
 				08DB5E222BC6C2BA00C29663 /* DelegationDataHandler.swift in Sources */,
 				08C168BB2BB7396200E61326 /* UpdatePasswordPresenter.swift in Sources */,
@@ -8168,6 +8180,10 @@
 				088FF27C2A02B0A400042957 /* Collections+Extensions.swift in Sources */,
 				08A045DE29FA99D200DACE1F /* Details.swift in Sources */,
 				08B16F002A01185E002E6B33 /* AccountsPresenter.swift in Sources */,
+				508FA3602F597D8F002B4F4D /* ScanAddressQRHostingController.swift in Sources */,
+				508FA3612F597D8F002B4F4D /* ScanAddressQRPresenter.swift in Sources */,
+				508FA3622F597D8F002B4F4D /* ScanAddressQRSwiftUIView.swift in Sources */,
+				508FA3632F597D8F002B4F4D /* ScanAddressQRViewModel.swift in Sources */,
 				08A0461729FA99D300DACE1F /* CommissionRange.swift in Sources */,
 				08520A562B45B5DC008DC851 /* Optional+Ext.swift in Sources */,
 				D589F3212794B678003F2FBB /* ApiConstants.swift in Sources */,
@@ -8207,8 +8223,6 @@
 				D5E29758276C8D0F000DB102 /* SupportMailProtocol.swift in Sources */,
 				08A0461E29FA99D300DACE1F /* Transaction.swift in Sources */,
 				D5B47101278DC1A200781EE8 /* Data+Additions.swift in Sources */,
-				088FF24F2A02A9A200042957 /* ScanAddressQRViewController.swift in Sources */,
-				088FF24E2A02A9A200042957 /* ScanAddressQRPresenter.swift in Sources */,
 				088FF1CA2A02A70800042957 /* ExportPresenter.swift in Sources */,
 				50A42F5E2F23F56000ACB9CE /* VerifiablePresentationV1RequestParamsView.swift in Sources */,
 				08DB5E252BC6C2BB00C29663 /* DelegationDataHandler.swift in Sources */,
@@ -8906,6 +8920,10 @@
 				08A0462E29FAA4E800DACE1F /* ExportedAccountPrivateKeys.swift in Sources */,
 				08A0454629FA99D100DACE1F /* Details.swift in Sources */,
 				08520A552B45B5DC008DC851 /* Optional+Ext.swift in Sources */,
+				508FA35B2F597D8F002B4F4D /* ScanAddressQRHostingController.swift in Sources */,
+				508FA35C2F597D8F002B4F4D /* ScanAddressQRPresenter.swift in Sources */,
+				508FA35D2F597D8F002B4F4D /* ScanAddressQRSwiftUIView.swift in Sources */,
+				508FA35E2F597D8F002B4F4D /* ScanAddressQRViewModel.swift in Sources */,
 				088FF1B32A02A70200042957 /* MoreCoordinator.swift in Sources */,
 				08B16EFE2A01185E002E6B33 /* AccountsPresenter.swift in Sources */,
 				08A0457F29FA99D100DACE1F /* CommissionRange.swift in Sources */,
@@ -8944,8 +8962,6 @@
 				19C2E17E671E62F0C6925443 /* AccountTransactionsLoadingCellView.swift in Sources */,
 				08A0456F29FA99D100DACE1F /* PoolInfo.swift in Sources */,
 				08A0458629FA99D100DACE1F /* Transaction.swift in Sources */,
-				088FF24B2A02A9A100042957 /* ScanAddressQRViewController.swift in Sources */,
-				088FF24A2A02A9A100042957 /* ScanAddressQRPresenter.swift in Sources */,
 				088FF1C02A02A70700042957 /* ExportPresenter.swift in Sources */,
 				08DB5E1F2BC6C2B900C29663 /* DelegationDataHandler.swift in Sources */,
 				50A42F5D2F23F56000ACB9CE /* VerifiablePresentationV1RequestParamsView.swift in Sources */,

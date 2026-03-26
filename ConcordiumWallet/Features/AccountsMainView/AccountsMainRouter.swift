@@ -15,11 +15,12 @@ protocol AccountsMainViewDelegate: AnyObject {
     func showCreateIdentityFlow()
     func showBackupSeedPhraseFlow(pwHash: String, identitiesService: SeedIdentitiesService, completion: @escaping ([String]) -> Void)
     func showCreateAccountFlow()
-    func showScanQRFlow()
     func showExportFlow()
     func showNotConfiguredAccountPopup()
     func createAccountFromOnboarding(isCreatingAccount: Binding<Bool>)
     func showSettings(_ account: AccountDataType)
+    /// Handle QR scan result (address, airdrop, connect URL, WalletConnect). Called from SwiftUI scanner sheet.
+    func handleScanResult(_ output: QRScannerOutput)
 }
 
 extension AccountsMainRouter: AccountsMainViewDelegate {}
@@ -99,15 +100,7 @@ final class AccountsMainRouter: ObservableObject {
         vc.hidesBottomBarWhenPushed = true
         navigationController.pushViewController(vc, animated: true)
     }
-}
 
-extension AccountsMainRouter {
-    func showScanQRFlow() {
-        let vc = ScanAddressQRFactory.create(with: ScanAddressQRPresenter(wallet: dependencyProvider.mobileWallet(), delegate: self))
-        vc.hidesBottomBarWhenPushed = true
-        navigationController.present(vc, animated: true)
-    }
-    
     @MainActor
     func showCreateAccountFlow() {
         if FeatureFlag.enabledFlags.contains(.recoveryCode) && !dependencyProvider.mobileWallet().isLegacyAccount() {
@@ -185,61 +178,46 @@ extension AccountsMainRouter: CreateNewIdentityDelegate {
     }
 }
 
-extension AccountsMainRouter: ScanAddressQRPresenterDelegate {
-    
+extension AccountsMainRouter {
     private func selectedAccount() -> AccountEntity? {
-        let accounts = self.dependencyProvider.storageManager().getAccounts()
+        let accounts = dependencyProvider.storageManager().getAccounts()
         if let lastSelectedAccountAddress = AppSettings.lastSelectedAccountAddress {
-            return accounts.first(where: {$0.address == lastSelectedAccountAddress}) as? AccountEntity
-        } else {
-            return accounts.first as? AccountEntity
+            return accounts.first(where: { $0.address == lastSelectedAccountAddress }) as? AccountEntity
         }
+        return accounts.first as? AccountEntity
     }
-    
-    func scanAddressQr(didScan output: QRScannerOutput) {
+
+    func handleScanResult(_ output: QRScannerOutput) {
         switch output {
         case let .address(address):
-            navigationController.popViewController(animated: true)
-            navigationController.dismiss(animated: true)
-            
-            if let account = self.selectedAccount() {
-                self.navigationManager.navigate(to: .send(account, tokenType: CXTokenType.ccd, to: address))
+            if let account = selectedAccount() {
+                navigationManager.navigate(to: .send(account, tokenType: CXTokenType.ccd, to: address))
             }
-            case .airdrop(let string):
-                navigationController.popViewController(animated: true)
-                scanAddressQr(didScanAddress: string)
-            case .connectURL(let string):
-                navigationController.popViewController(animated: true)
-                scanAddressQr(didScanAddress: string)
-            case .walletConnectV2(let address):
-                let scannerVC = navigationController.topViewController as? ScanAddressQRViewController
-                self.showWalletConnectFlow(address, scannerViewController: scannerVC)
+        case .airdrop(let string), .connectURL(let string):
+            handleScanAddressURL(string)
+        case .walletConnectV2(let uri):
+            Task { @MainActor in
+                let result = await walletConnectService.pair(uri)
+                switch result {
+                case .success:
+                    break
+                case .failure(let error):
+                    showWalletConnectError(error)
+                }
+            }
         }
     }
-    
-    /*
-     "https://cwb.stage.spaceseven.cloud/condition/465063159330244033/XPt1SBqta9hULKWvq8EkhFc2yjSlKgU42w594WR$8nUPgN1iMZ4JFZRJmR9$Vh4@MEcZ94T@oEFJPcClIjeMfL2j@opc@bzZfOZ6hGqMhG25Ik0w4juitXYzkAl2rOPy"
-     */
-    
-    func scanAddressQr(didScanAddress address: String) {
-        
-        let url = URL(string: address)
-        guard let requestUrl = url else { fatalError() }
+
+    private func handleScanAddressURL(_ address: String) {
+        guard let requestUrl = URL(string: address) else { return }
         var request = URLRequest(url: requestUrl)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            
-            if let error = error {
-                return
-            }
-            guard let data = data else {return}
-            
+        let task = URLSession.shared.dataTask(with: request) { [weak self] data, _, _ in
+            guard let self = self, let data = data else { return }
             do {
                 let dataResponse = try JSONDecoder().decode(QRDataResponse.self, from: data)
-                let t = try JSONSerialization.jsonObject(with: data, options: [])
-                
                 DispatchQueue.main.async {
                     let vc = ConnectionRequestVC.instantiate(fromStoryboard: "QRConnect") { coder in
                         return ConnectionRequestVC(coder: coder)
@@ -250,46 +228,26 @@ extension AccountsMainRouter: ScanAddressQRPresenterDelegate {
                     vc.modalPresentationStyle = .overFullScreen
                     self.navigationController.present(vc, animated: true)
                 }
-            } catch let jsonErr {
-                print(jsonErr)
-            }
+            } catch { }
         }
         task.resume()
     }
-}
 
-extension AccountsMainRouter {
     public func handlWCDeeplinkConnect(_ url: URL) {
         Task { @MainActor in
-            let result = await self.walletConnectService.pair(url.absoluteString)
+            let result = await walletConnectService.pair(url.absoluteString)
             switch result {
             case .success:
                 break
             case .failure(let error):
-                self.showWalletConnectError(error, scannerViewController: nil)
+                showWalletConnectError(error)
             }
         }
     }
-    
-    private func showWalletConnectFlow(_ address: String, scannerViewController: ScanAddressQRViewController? = nil) {
-        Task { @MainActor in
-            let result = await self.walletConnectService.pair(address)
-            switch result {
-            case .success:
-                if let scannerViewController = scannerViewController,
-                   scannerViewController.isViewLoaded && scannerViewController.view.window != nil {
-                    navigationController.popViewController(animated: true)
-                }
-            case .failure(let error):
-                showWalletConnectError(error, scannerViewController: scannerViewController)
-            }
-        }
-    }
-    
-    private func showWalletConnectError(_ error: Error, scannerViewController: ScanAddressQRViewController?) {
+
+    private func showWalletConnectError(_ error: Error) {
         let errorMessage: String
         let errorDescription = error.localizedDescription.lowercased()
-        
         if errorDescription.contains("expired") {
             errorMessage = "The WalletConnect pairing URI has expired. Please scan a new QR code."
         } else if errorDescription.contains("json") || errorDescription.contains("decoding") || errorDescription.contains("data") {
@@ -299,25 +257,12 @@ extension AccountsMainRouter {
         } else {
             errorMessage = "Failed to connect to WalletConnect. Please try again."
         }
-        
-        DispatchQueue.main.async { [weak self, weak scannerViewController] in
+        DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            
-            let alert = UIAlertController(
-                title: "Connection Error",
-                message: errorMessage,
-                preferredStyle: .alert
-            )
-            alert.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] _ in
-                if let scannerViewController = scannerViewController {
-                    scannerViewController.dismissScanner()
-                } else {
-                    self?.navigationController.dismiss(animated: true)
-                }
-            })
-            
-            if let topViewController = self.navigationController.topViewController,
-               !topViewController.isBeingPresented && !topViewController.isBeingDismissed {
+            let alert = UIAlertController(title: "Connection Error", message: errorMessage, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            if let top = self.navigationController.topViewController,
+               !top.isBeingPresented && !top.isBeingDismissed {
                 self.navigationController.present(alert, animated: true)
             }
         }

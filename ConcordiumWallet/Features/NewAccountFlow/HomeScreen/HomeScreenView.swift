@@ -36,6 +36,7 @@ struct HomeScreenView: View {
     @State private var confettiPlayToken = 0
     @State private var hasUserMadeBackup = false
     @State private var isAllowNotificationsPopupVisible = false
+    @State private var isShowingScanQR = false
     @AppStorage("isUserMakeBackup") private var isUserMakeBackup = false
     @AppStorage("isShouldShowOnrampMessage") private var isShouldShowOnrampMessage = true
     @AppStorage("isShouldShowStakeBanner") private var isShouldShowStakeBanner = true
@@ -101,6 +102,15 @@ struct HomeScreenView: View {
             .fullScreenCover(isPresented: $isShowPasscodeViewShown, content: {
                 passcodeView
             })
+            .fullScreenCover(isPresented: $isShowingScanQR) {
+                ScanAddressQRViewWithResult(
+                    onResult: { output in
+                        isShowingScanQR = false
+                        router?.handleScanResult(output)
+                    },
+                    onDismiss: { isShowingScanQR = false }
+                )
+            }
             .onChange(of: showManageTokenList) { newValue in
                 if showManageTokenList {
                     navigationManager.navigate(to: .manageTokens(viewModel))
@@ -176,7 +186,7 @@ struct HomeScreenView: View {
                     Image("ico_scan")
                         .onTapGesture {
                             if SettingsHelper.isIdentityConfigured() {
-                                self.router?.showScanQRFlow()
+                                isShowingScanQR = true
                             } else {
                                 self.router?.showNotConfiguredAccountPopup()
                             }
