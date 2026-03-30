@@ -1,6 +1,11 @@
 # Changelog
 
-## [Unreleased]
+## [Unreleased 3.5.1]
+### Updates:
+- Added suppport for configure delegation and smart contract sponsored transactions
+- Refactored WalletConnect & QR Code Scanner Flow 
+
+## [Released 3.5.0]
 ### Updates:
 - Added new onramp provider
 - Added support for sponsored transactions
