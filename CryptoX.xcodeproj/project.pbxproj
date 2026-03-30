@@ -9148,7 +9148,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.5.0;
+				MARKETING_VERSION = 3.5.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9181,7 +9181,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.5.0;
+				MARKETING_VERSION = 3.5.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.cryptox.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9215,7 +9215,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.5.0;
+				MARKETING_VERSION = 3.5.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pioneeringtechventures.cryptox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9248,7 +9248,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.5.0;
+				MARKETING_VERSION = 3.5.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pioneeringtechventures.cryptox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
