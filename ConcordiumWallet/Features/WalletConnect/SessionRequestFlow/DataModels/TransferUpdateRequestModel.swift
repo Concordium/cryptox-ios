@@ -84,19 +84,37 @@ final class TransferUpdateRequestModel: SessionRequestDataProvidable {
         }
 
         let chainParameters = try await transactionsService.getChainParameters().async()
-        let energy = calculateContractUpdateEnergy(params: params)
-        let cost = calculateMicroCcdCost(energy: energy, chainParameters: chainParameters)
+        let energy = try calculateContractUpdateEnergy(params: params)
+        let cost = try calculateMicroCcdCost(energy: energy, chainParameters: chainParameters)
         return TransferCost(energy: energy, cost: cost.toString())
     }
 
-    private func calculateContractUpdateEnergy(params: ContractUpdateRequestParams) -> Int {
+    private func calculateContractUpdateEnergy(params: ContractUpdateRequestParams) throws -> Int {
+        guard params.payload.maxContractExecutionEnergy >= 0 else {
+            throw SessionRequstError.generic("Invalid max contract execution energy")
+        }
+
         let signatureCount = 1
+        // Account transaction header: account address (32), nonce (8), energy (8), payload size (4), expiry (8).
         let accountTransactionHeaderSize = 32 + 8 + 8 + 4 + 8
+        // Update contract payload: amount (8), contract address (16), receive name size (2), parameter size (2).
         let payloadSize = 8 + 16 + 2 + byteCount(hex: params.payload.message) + 2 + params.payload.receiveName.utf8.count
-        return 100 * signatureCount + accountTransactionHeaderSize + payloadSize + params.payload.maxContractExecutionEnergy
+        // Base energy formula: A * signatures + B * (header size + payload size) + contract execution energy.
+        // Protocol constants A = 100 and B = 1.
+        let signatureEnergy = try checkedMultiply(100, signatureCount)
+        let verificationEnergy = try checkedAdd(signatureEnergy, accountTransactionHeaderSize)
+        let transactionEnergy = try checkedAdd(verificationEnergy, payloadSize)
+        return try checkedAdd(transactionEnergy, params.payload.maxContractExecutionEnergy)
     }
 
-    private func calculateMicroCcdCost(energy: Int, chainParameters: ChainParametersResponse) -> Int {
+    private func calculateMicroCcdCost(energy: Int, chainParameters: ChainParametersResponse) throws -> Int {
+        guard energy >= 0 else {
+            throw SessionRequstError.generic("Invalid transaction energy")
+        }
+        guard chainParameters.euroPerEnergy.denominator > 0, chainParameters.microGTUPerEuro.denominator > 0 else {
+            throw SessionRequstError.generic("Invalid chain parameter denominator")
+        }
+
         let numerator = Decimal(energy)
             * Decimal(chainParameters.euroPerEnergy.numerator)
             * Decimal(chainParameters.microGTUPerEuro.numerator)
@@ -111,7 +129,27 @@ final class TransferUpdateRequestModel: SessionRequestDataProvidable {
             raiseOnUnderflow: false,
             raiseOnDivideByZero: false
         ))
+        guard roundedCost.doubleValue.isFinite,
+              roundedCost.compare(NSDecimalNumber(value: Int.max)) != .orderedDescending else {
+            throw SessionRequstError.generic("Transaction cost exceeds supported range")
+        }
         return roundedCost.intValue
+    }
+
+    private func checkedAdd(_ lhs: Int, _ rhs: Int) throws -> Int {
+        let result = lhs.addingReportingOverflow(rhs)
+        guard !result.overflow else {
+            throw SessionRequstError.generic("Transaction energy exceeds supported range")
+        }
+        return result.partialValue
+    }
+
+    private func checkedMultiply(_ lhs: Int, _ rhs: Int) throws -> Int {
+        let result = lhs.multipliedReportingOverflow(by: rhs)
+        guard !result.overflow else {
+            throw SessionRequstError.generic("Transaction energy exceeds supported range")
+        }
+        return result.partialValue
     }
 
     private func byteCount(hex: String) -> Int {
