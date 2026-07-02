@@ -9670,7 +9670,7 @@
 			repositoryURL = "https://github.com/Concordium/concordium-swift-sdk.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.4.0;
+				minimumVersion = 1.4.1;
 			};
 		};
 		5032DC742E9E35460051F548 /* XCRemoteSwiftPackageReference "SwiftCBOR" */ = {

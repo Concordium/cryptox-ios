@@ -1,6 +1,10 @@
 # Changelog
 
-## [Unreleased 3.5.1]
+## Unreleased
+- Change contract update cost calculation to local computation instead of relying on the wallet proxy.
+
+## [Released 3.5.1]
+
 ### Updates:
 - Added suppport for configure delegation and smart contract sponsored transactions
 - Refactored WalletConnect & QR Code Scanner Flow 
