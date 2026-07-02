@@ -1,6 +1,10 @@
 # Changelog
 
-## [Unreleased 3.5.1]
+## [Unreleased]
+### Fixed:
+- Fixed wallet import being blocked by an incorrect Terms & Conditions acceptance prompt after the user had already accepted it
+
+## [Released 3.5.1]
 ### Updates:
 - Added suppport for configure delegation and smart contract sponsored transactions
 - Refactored WalletConnect & QR Code Scanner Flow 
