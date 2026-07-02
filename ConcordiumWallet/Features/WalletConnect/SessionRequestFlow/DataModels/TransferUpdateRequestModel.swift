@@ -48,7 +48,8 @@ final class TransferUpdateRequestModel: SessionRequestDataProvidable {
     @MainActor
     func approveRequest() async throws {
         let params = try sessionRequest.params.get(ContractUpdateRequestParams.self)
-        let transfer = getTransfer(for: params)
+        let txCost = try await getLocalContractUpdateCost(params: params)
+        let transfer = getTransfer(for: params, energy: txCost.energy)
         let result = try await createAndPerform(params: params, account: account, transfer: transfer).singleOutput()
         try await Sign.instance.respond(
             topic: sessionRequest.topic,
@@ -60,24 +61,10 @@ final class TransferUpdateRequestModel: SessionRequestDataProvidable {
     
     @MainActor
     func checkBalance(account: AccountEntity, params: ContractUpdateRequestParams) async throws -> Bool {
-        let transfer = self.getTransfer(for: params)
-        let txCost = try await transactionsService.getTransferCost(
-            transferType: transfer.transferType.toWalletProxyTransferType(),
-            costParameters: params.costParameters()
-        ).async()
-        let nrgCCDAmount = self.getNrgCCDAmount(
-            nrgLimit: params.payload.maxContractExecutionEnergy,
-            cost: txCost.cost.floatValue,
-            energy: txCost.energy.string.floatValue
-        )
-        
+        let txCost = try await getLocalContractUpdateCost(params: params)
         let amount = Int(params.payload.amount) ?? 0
-        let ccdAmount =  GTU(intValue: amount)
-        let ccdNetworkComission = GTU(displayValue: nrgCCDAmount.toString())
-        let ccdTotalAmount = GTU(intValue: ccdAmount.intValue + ccdNetworkComission.intValue)
-        let ccdTotalBalance = GTU(intValue: account.forecastBalance)
-        
-        return ccdTotalBalance.intValue > ccdTotalAmount.intValue
+        let transactionCost = Int(txCost.cost) ?? 0
+        return account.forecastBalance > amount + transactionCost
     }
     
     @MainActor
@@ -91,13 +78,48 @@ final class TransferUpdateRequestModel: SessionRequestDataProvidable {
             .eraseToAnyPublisher()
     }
     
-    private func getNrgCCDAmount(nrgLimit: Int, cost: Float, energy: Float) -> Int {
-        let _nrgLimit = Float(nrgLimit)
-        let nrgCCDAmount = Float(_nrgLimit * (cost / energy) / 1000000.0)
-        return Int(ceil(nrgCCDAmount))
+    private func getLocalContractUpdateCost(params: ContractUpdateRequestParams) async throws -> TransferCost {
+        guard let transactionsService = transactionsService as? TransactionsService else {
+            throw SessionRequstError.generic("Unsupported transaction service")
+        }
+
+        let chainParameters = try await transactionsService.getChainParameters().async()
+        let energy = calculateContractUpdateEnergy(params: params)
+        let cost = calculateMicroCcdCost(energy: energy, chainParameters: chainParameters)
+        return TransferCost(energy: energy, cost: cost.toString())
+    }
+
+    private func calculateContractUpdateEnergy(params: ContractUpdateRequestParams) -> Int {
+        let signatureCount = 1
+        let accountTransactionHeaderSize = 32 + 8 + 8 + 4 + 8
+        let payloadSize = 8 + 16 + 2 + byteCount(hex: params.payload.message) + 2 + params.payload.receiveName.utf8.count
+        return 100 * signatureCount + accountTransactionHeaderSize + payloadSize + params.payload.maxContractExecutionEnergy
+    }
+
+    private func calculateMicroCcdCost(energy: Int, chainParameters: ChainParametersResponse) -> Int {
+        let numerator = Decimal(energy)
+            * Decimal(chainParameters.euroPerEnergy.numerator)
+            * Decimal(chainParameters.microGTUPerEuro.numerator)
+        let denominator = Decimal(chainParameters.euroPerEnergy.denominator)
+            * Decimal(chainParameters.microGTUPerEuro.denominator)
+        let decimalCost = NSDecimalNumber(decimal: numerator / denominator)
+        let roundedCost = decimalCost.rounding(accordingToBehavior: NSDecimalNumberHandler(
+            roundingMode: .up,
+            scale: 0,
+            raiseOnExactness: false,
+            raiseOnOverflow: false,
+            raiseOnUnderflow: false,
+            raiseOnDivideByZero: false
+        ))
+        return roundedCost.intValue
+    }
+
+    private func byteCount(hex: String) -> Int {
+        let hexString = hex.hasPrefix("0x") ? String(hex.dropFirst(2)) : hex
+        return (hexString.utf8.count + 1) / 2
     }
     
-    private func getTransfer(for params: ContractUpdateRequestParams) -> any TransferDataType {
+    private func getTransfer(for params: ContractUpdateRequestParams, energy: Int) -> any TransferDataType {
         var transfer = TransferDataTypeFactory.create()
         transfer.transferType = params.type
         transfer.amount = params.payload.amount
@@ -105,7 +127,7 @@ final class TransferUpdateRequestModel: SessionRequestDataProvidable {
         transfer.from = params.sender
         transfer.toAddress = params.sender
         transfer.expiry = Date().addingTimeInterval(10 * 60)
-        transfer.energy = params.payload.maxContractExecutionEnergy
+        transfer.energy = energy
         transfer.receiveName = params.payload.receiveName
         transfer.params = params.payload.message
         transfer.contractAddressObject = ContractAddressObject()
