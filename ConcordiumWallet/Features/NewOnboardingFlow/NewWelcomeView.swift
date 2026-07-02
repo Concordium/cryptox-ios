@@ -49,6 +49,12 @@ struct NewWelcomeView: View {
         .padding(.horizontal, 16)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .modifier(AppBackgroundModifier())
+        .onAppear {
+            isChecked = isAcceptedPrivacy
+        }
+        .onChange(of: isChecked) { newValue in
+            isAcceptedPrivacy = newValue
+        }
     }
     
     private func numberView(num: Int) -> some View {

@@ -1,10 +1,11 @@
 # Changelog
 
-## Unreleased
+## [Unreleased]
+### Fixed:
 - Change contract update cost calculation to local computation instead of relying on the wallet proxy.
+- Fixed wallet import being blocked by an incorrect Terms & Conditions acceptance prompt after the user had already accepted it
 
 ## [Released 3.5.1]
-
 ### Updates:
 - Added suppport for configure delegation and smart contract sponsored transactions
 - Refactored WalletConnect & QR Code Scanner Flow 
