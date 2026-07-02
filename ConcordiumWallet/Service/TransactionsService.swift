@@ -54,6 +54,11 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
         let request = ResourceRequest(url: ApiConstants.transferCost, parameters: params)
         return networkManager.load(request)
     }
+
+    func getChainParameters() -> AnyPublisher<ChainParametersResponse, Error> {
+        let request = ResourceRequest(url: ApiConstants.chainParameters)
+        return networkManager.load(request)
+    }
     
     func performTransfer(_ pTransfer: TransferDataType,
                          from account: AccountDataType,
