@@ -9582,7 +9582,7 @@
 			repositoryURL = "https://github.com/realm/realm-swift";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.54.0;
+				minimumVersion = 20.0.0;
 			};
 		};
 		08A0441429FA887000DACE1F /* XCRemoteSwiftPackageReference "MnemonicSwift" */ = {
