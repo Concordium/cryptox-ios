@@ -1,6 +1,10 @@
 # Changelog
 
-## [Unreleased 3.5.2]
+## [Unreleased 3.5.3]
+### Fixed:
+- Rectify issue where accepting T&Cs was not persisted, continuing to block wallet import.
+
+## [Released 3.5.2]
 ### Fixed:
 - Change contract update cost calculation to local computation instead of relying on the wallet proxy.
 - Fixed wallet import being blocked by an incorrect Terms & Conditions acceptance prompt after the user had already accepted it
@@ -8,7 +12,7 @@
 ## [Released 3.5.1]
 ### Updates:
 - Added suppport for configure delegation and smart contract sponsored transactions
-- Refactored WalletConnect & QR Code Scanner Flow 
+- Refactored WalletConnect & QR Code Scanner Flow
 
 ## [Released 3.5.0]
 ### Updates:
@@ -21,7 +25,6 @@
 ### Updates:
 - Added ccd namespaces with genesis hash for WalletConnect.
 - UI update WC flow
-
 
 ## [Released 3.4.2]
 ### Updates:
@@ -200,7 +203,7 @@
 
 ### Removed
 - Removed Shielding functionalty
-- Removed old-legacy `Send Assets` flow 
+- Removed old-legacy `Send Assets` flow
 
 ### Added
 - Add Mainnet, Stagenet and Testnet schemas
@@ -209,13 +212,13 @@
 - Ability to see full details of a WalletConnect transaction to sign
 - Validation of metadata checksum when adding CIS-2 tokens
 - Display of balance/ownership when adding CIS-2 tokens
-- Wallet Connect, add `sign message` functionality 
+- Wallet Connect, add `sign message` functionality
 - Add new Unshield Assets flow
 - Add CCD onramp flow
 - Add News Tab
 - Add Expport/Import Wallet Private key
 - Add Push Notifications for incoming transactions both ccd and CIS2Token
-- Support for Protocol 7 – reducing validation/delegation stake no longer locks the whole amount 
+- Support for Protocol 7 – reducing validation/delegation stake no longer locks the whole amount
 
 ### Fixed
 - An issue where signing a text message through WalletConnect did not work
@@ -231,7 +234,7 @@
 
 ### Changed
 - Baker/baking renamed to Validator/validating
-- Removed all `anon*` references 
+- Removed all `anon*` references
 - WalletConnect session proposals are now rejected if the namespace or methods are not supported, or if the wallet contains no accounts.
 - WalletConnect transaction signing request now shows the receiver
 (either smart contract or an account) and amount of CCD to send (not including CIS-2 tokens)
