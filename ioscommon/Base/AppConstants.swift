@@ -37,7 +37,6 @@ struct AppConstants {
             return url
         }()
     }
-    static let rssFeedURL = URL(string: "https://concordium-new.webflow.io/cryptox-news-articles/rss.xml")!
     
     struct Notifications {
         static let baseUrl: String  = {

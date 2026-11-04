@@ -2061,12 +2061,6 @@
 		509749DC2C3D25E800D28D6B /* OnrampAccountPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749DB2C3D25E800D28D6B /* OnrampAccountPicker.swift */; };
 		509749DD2C3D25E800D28D6B /* OnrampAccountPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749DB2C3D25E800D28D6B /* OnrampAccountPicker.swift */; };
 		509749DE2C3D25E800D28D6B /* OnrampAccountPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749DB2C3D25E800D28D6B /* OnrampAccountPicker.swift */; };
-		509749E12C3E863B00D28D6B /* NewsFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749E02C3E863B00D28D6B /* NewsFeed.swift */; };
-		509749E22C3E863B00D28D6B /* NewsFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749E02C3E863B00D28D6B /* NewsFeed.swift */; };
-		509749E32C3E863B00D28D6B /* NewsFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749E02C3E863B00D28D6B /* NewsFeed.swift */; };
-		509749E52C3E886C00D28D6B /* RSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749E42C3E886C00D28D6B /* RSSFeed.swift */; };
-		509749E62C3E886C00D28D6B /* RSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749E42C3E886C00D28D6B /* RSSFeed.swift */; };
-		509749E72C3E886C00D28D6B /* RSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749E42C3E886C00D28D6B /* RSSFeed.swift */; };
 		509A56292CB40A10005EA908 /* Base58Swift in Frameworks */ = {isa = PBXBuildFile; productRef = 509A56282CB40A10005EA908 /* Base58Swift */; };
 		509A56312CB40BF7005EA908 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 509A56302CB40BF7005EA908 /* RealmSwift */; };
 		509A56322CB40BF7005EA908 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 509A56302CB40BF7005EA908 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -3301,8 +3295,6 @@
 		509749D32C3C241B00D28D6B /* ProviderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderView.swift; sourceTree = "<group>"; };
 		509749D72C3C255E00D28D6B /* CCDOnrampViewDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCDOnrampViewDataProvider.swift; sourceTree = "<group>"; };
 		509749DB2C3D25E800D28D6B /* OnrampAccountPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnrampAccountPicker.swift; sourceTree = "<group>"; };
-		509749E02C3E863B00D28D6B /* NewsFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeed.swift; sourceTree = "<group>"; };
-		509749E42C3E886C00D28D6B /* RSSFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeed.swift; sourceTree = "<group>"; };
 		509A56332CB42EFF005EA908 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		50A42F4F2F23EF1E00ACB9CE /* WalletConnectConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectConstants.swift; sourceTree = "<group>"; };
 		50A42F532F23F0E400ACB9CE /* VerifiablePresentationV1RequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifiablePresentationV1RequestModel.swift; sourceTree = "<group>"; };
@@ -3925,7 +3917,6 @@
 				508FA3692F597E5A002B4F4D /* QRScanner */,
 				15AE01AC2E3652E500B9322D /* PLTTokenSupport */,
 				15B498D62D5E30EE001B4F65 /* NewStake */,
-				509749DF2C3E862500D28D6B /* NewsFeed */,
 				509749CE2C3C0D2B00D28D6B /* OnrampFlow */,
 				08A6BD922B3088DA00869317 /* NewOnboardingFlow */,
 				08AB08E12A696B9900C226F3 /* DefaultAccountCIS2Token */,
@@ -5431,15 +5422,6 @@
 				15598FF42F3DD665000A4E23 /* TransakService.swift */,
 			);
 			path = OnrampFlow;
-			sourceTree = "<group>";
-		};
-		509749DF2C3E862500D28D6B /* NewsFeed */ = {
-			isa = PBXGroup;
-			children = (
-				509749E02C3E863B00D28D6B /* NewsFeed.swift */,
-				509749E42C3E886C00D28D6B /* RSSFeed.swift */,
-			);
-			path = NewsFeed;
 			sourceTree = "<group>";
 		};
 		509A56342CB42EFF005EA908 /* Settings */ = {
@@ -7100,7 +7082,6 @@
 				08C167622BB7396200E61326 /* RecoveryPhraseGettingStartedViewModel.swift in Sources */,
 				15184CEF2CB0056C00DAE03A /* CooldownCardView.swift in Sources */,
 				153495682D9FEA0F00D65610 /* ValidatorPoolStatus.swift in Sources */,
-				509749E32C3E863B00D28D6B /* NewsFeed.swift in Sources */,
 				08C167632BB7396200E61326 /* SubmitSeedAccountPresenter.swift in Sources */,
 				08C167642BB7396200E61326 /* WarningDisplayer.swift in Sources */,
 				08C167652BB7396200E61326 /* SelectIdentityProviderViewModel.swift in Sources */,
@@ -7546,7 +7527,6 @@
 				08C168EC2BB7396200E61326 /* View.swift in Sources */,
 				08C168EE2BB7396200E61326 /* QRTransactionView.swift in Sources */,
 				08C168EF2BB7396200E61326 /* UserDefaults+Helper.swift in Sources */,
-				509749E72C3E886C00D28D6B /* RSSFeed.swift in Sources */,
 				08C168F02BB7396200E61326 /* Model+Transaction.swift in Sources */,
 				08C168F12BB7396200E61326 /* EncryptionMetadata.swift in Sources */,
 				08C168F22BB7396200E61326 /* RecoveryPhraseSetupCompletePresenter.swift in Sources */,
@@ -7837,7 +7817,6 @@
 				088FF1262A0284F600042957 /* RecoveryPhraseGettingStartedViewModel.swift in Sources */,
 				15184CEE2CB0056C00DAE03A /* CooldownCardView.swift in Sources */,
 				153495662D9FEA0F00D65610 /* ValidatorPoolStatus.swift in Sources */,
-				509749E22C3E863B00D28D6B /* NewsFeed.swift in Sources */,
 				088FEFBF2A02717E00042957 /* SubmitSeedAccountPresenter.swift in Sources */,
 				08B16F0B2A0118E1002E6B33 /* WarningDisplayer.swift in Sources */,
 				088FEFF32A0271D500042957 /* SelectIdentityProviderViewModel.swift in Sources */,
@@ -8286,7 +8265,6 @@
 				D5B393EB27197A960094A9F5 /* QRTransactionView.swift in Sources */,
 				158A35212E1684E500BDCFDE /* LottiePlayer.swift in Sources */,
 				088FF15F2A02895A00042957 /* UserDefaults+Helper.swift in Sources */,
-				509749E62C3E886C00D28D6B /* RSSFeed.swift in Sources */,
 				D589F3402794B7DD003F2FBB /* Model+Transaction.swift in Sources */,
 				D589F1F92794B5ED003F2FBB /* EncryptionMetadata.swift in Sources */,
 				088FF0F32A0284A700042957 /* RecoveryPhraseSetupCompletePresenter.swift in Sources */,
@@ -8577,7 +8555,6 @@
 				088FEFB92A02717D00042957 /* SubmitSeedAccountPresenter.swift in Sources */,
 				153495672D9FEA0F00D65610 /* ValidatorPoolStatus.swift in Sources */,
 				15184CED2CB0056C00DAE03A /* CooldownCardView.swift in Sources */,
-				509749E12C3E863B00D28D6B /* NewsFeed.swift in Sources */,
 				088FF0C62A02846600042957 /* RecoveryPhraseRecoverIntroPresenter.swift in Sources */,
 				088FF1202A0284F500042957 /* RecoveryPhraseGettingStartedViewModel.swift in Sources */,
 				1580E97A2D43C5700051C55D /* ShakeViewModifier.swift in Sources */,
@@ -9026,7 +9003,6 @@
 				D589F33E2794B7DD003F2FBB /* Model+Transaction.swift in Sources */,
 				158A35222E1684E500BDCFDE /* LottiePlayer.swift in Sources */,
 				088FF15D2A02895A00042957 /* UserDefaults+Helper.swift in Sources */,
-				509749E52C3E886C00D28D6B /* RSSFeed.swift in Sources */,
 				D589F1F72794B5ED003F2FBB /* EncryptionMetadata.swift in Sources */,
 				D5E2974C276C8C19000DB102 /* AppConstants.swift in Sources */,
 				088FF0ED2A0284A600042957 /* RecoveryPhraseSetupCompletePresenter.swift in Sources */,

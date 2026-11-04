@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased 3.5.2]
+## [Unreleased]
+
+### Removed:
+- Removed the Discover news feed tab.
+
+## [Released 3.5.2]
+
 ### Fixed:
 - Change contract update cost calculation to local computation instead of relying on the wallet proxy.
 - Fixed wallet import being blocked by an incorrect Terms & Conditions acceptance prompt after the user had already accepted it

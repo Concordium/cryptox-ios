@@ -46,15 +46,7 @@ class MainTabBarController: BaseTabBarController {
         accountsMainRouter.configureAccountAlertDelegate = self
         moreCoordinator.configureAccountAlertDelegate = self
         moreCoordinator.start()
-        let newsFeedController = SceneViewController(content: NewsFeed())
-        newsFeedController.tabBarItem = UITabBarItem(
-            title: nil,
-            image: UIImage(named: "tab_item_news"),
-            tag: 5
-        )
-        newsFeedController.tabBarItem.selectedImage = UIImage(named: "tab_item_news_selected")?.withRenderingMode(.alwaysOriginal)
-        newsFeedController.extendedLayoutIncludesOpaqueBars = false
-        viewControllers = [accountsMainRouter.rootScene(), newsFeedController, moreCoordinator.navigationController]
+        viewControllers = [accountsMainRouter.rootScene(), moreCoordinator.navigationController]
         hideKeyboardWhenTappedAround()
         transactionNotificationService.delegate = self
         NotificationCenter.default.addObserver(forName: .hideTabBar, object: nil, queue: .main) { [weak self] notification in
