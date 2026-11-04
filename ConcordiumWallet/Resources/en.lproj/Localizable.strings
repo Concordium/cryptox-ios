@@ -1517,7 +1517,7 @@ Remember to restart your node with the validator keys.";
 "cis2.title" = "CIS-2 Tokens";
 "cis2.description" = "CIS-2 (Concordium Implementation Standard 2) is the standard interface for both fungible and non-fungible tokens implemented in a smart contract. The interface provides functions for transferring token ownership, allowing other addresses to transfer tokens and for querying token balances, operators and token metadata. It allows for off-chain applications to track token balances and the location of token metadata using logged events.";
 
-"smart.money.title" = "Smart Money Starts Here";
+"verified.agents.title" = "Verified Humans. Verified Agents. One Protocol.";
 "carousel.sec1.headline" = "Your Data. Your Rules.";
 "carousel.sec1.subheadline" = "Verify your access, without exposing your identity.";
 "carousel.sec2.headline" = "Speed Matters";

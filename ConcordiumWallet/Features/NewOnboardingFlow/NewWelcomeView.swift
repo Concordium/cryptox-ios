@@ -20,7 +20,8 @@ struct NewWelcomeView: View {
                 .resizable()
                 .frame(width: 64, height: 64)
             
-            Text("smart.money.title".localized)
+            Text("verified.agents.title".localized)
+                .multilineTextAlignment(.center)
                 .font(.satoshi(size: 24, weight: .medium))
                 .foregroundStyle(.semanticContentPrimary)
                 .padding(.bottom, 8)
