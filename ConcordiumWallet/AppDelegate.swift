@@ -12,50 +12,13 @@ import FirebaseMessaging
 import FirebaseCore
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    var window: UIWindow?
+    weak var window: UIWindow?
     var appCoordinator: AppCoordinator = AppCoordinator(/*walletConnectService: WalletConnectService()*/)
     let transactionNotificationService = TransactionNotificationService()
     
     let gcmMessageIDKey = "gcm.message_id"
 
-    private lazy var backgroundWindow: UIWindow = {
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = LaunchScreenFactory.create()
-        window.windowLevel = .alert
-        return window
-    }()
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        window = UIWindow(frame: UIScreen.main.bounds)
-
-        window?.rootViewController = appCoordinator.navigationController
-        window?.makeKeyAndVisible()
-        
-        // Warn if device is jail broken.
-        if  let url = launchOptions?[.url] as? URL, let scheme = url.scheme, scheme.localizedCaseInsensitiveCompare("tcwb") == .orderedSame, let view = url.host {
-            
-            var parameters: [String: String] = [:]
-            URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.forEach {
-                parameters[$0.name] = $0.value
-            }
-            
-            if let url = parameters["uri"] {
-                appCoordinator.mode = .deepLink(url: url)
-            }
-            
-            self.appCoordinator.start()
-            
-        } else if UIDevice.current.isJailBroken {
-            let ac = UIAlertController(title: "Warning", message: "error", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "errorAlert.okButton".localized, style: .default) { (_) in
-                self.appCoordinator.start()
-            }
-            ac.addAction(okAction)
-            appCoordinator.navigationController.present(ac, animated: true)
-        } else {
-            appCoordinator.start()
-        }
-        
         // Listen for application timeout.
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.receivedApplicationTimeout),
@@ -97,8 +60,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return false
     }
 
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        logger.debugLog("application:openUrl: \(url)")
+    func handleOpenURL(_ url: URL) {
+        logger.debugLog("openUrl: \(url)")
 
         
         if url.absoluteString.starts(with: ApiConstants.notabeneCallback) {
@@ -121,17 +84,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             appCoordinator.importWallet(from: url)
         }
         // Removed the fallback else case to prevent handling regular deep links as file imports
-        
-        return true
-    }
-    
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        backgroundWindow.isHidden = false
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        backgroundWindow.isHidden = true
-
     }
 }
 
@@ -170,8 +122,13 @@ extension UIViewController {
 }
 
 extension UIApplication {
+    /// The content window of this single-window app, excluding the privacy overlay.
+    var appWindow: UIWindow? {
+        (delegate as? AppDelegate)?.window
+    }
+
     func topMostViewController() -> UIViewController? {
-        return self.keyWindow?.rootViewController?.topMostViewController()
+        return appWindow?.rootViewController?.topMostViewController()
     }
 }
 

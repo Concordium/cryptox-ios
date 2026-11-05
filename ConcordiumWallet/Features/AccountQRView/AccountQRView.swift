@@ -102,7 +102,7 @@ struct AccountQRView: View {
     
     func actionSheet() {
         let activityVC = UIActivityViewController(activityItems: [account.address as Any], applicationActivities: nil)
-        UIApplication.shared.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
+        UIApplication.shared.appWindow?.rootViewController?.present(activityVC, animated: true, completion: nil)
     }
 }
 

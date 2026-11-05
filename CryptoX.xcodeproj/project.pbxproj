@@ -874,6 +874,9 @@
 		08C166C72BB7396200E61326 /* ResourceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D589F30A2794B678003F2FBB /* ResourceRequest.swift */; };
 		08C166C82BB7396200E61326 /* StandardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068DC81523F2E899001B2975 /* StandardButton.swift */; };
 		08C166C92BB7396200E61326 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A6C23EADB1200F1FC04 /* AppDelegate.swift */; };
+		A3C12E012F10000100000001 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C12E002F10000100000001 /* SceneDelegate.swift */; };
+		A3C12E022F10000100000001 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C12E002F10000100000001 /* SceneDelegate.swift */; };
+		A3C12E032F10000100000001 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C12E002F10000100000001 /* SceneDelegate.swift */; };
 		08C166CA2BB7396200E61326 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088FF1F12A02A74600042957 /* AboutViewController.swift */; };
 		08C166CB2BB7396200E61326 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA8F3B4241BAC9400479F83 /* AppCoordinator.swift */; };
 		08C166CC2BB7396200E61326 /* HapticFeedbackHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F3BC6F278E5FF0008DC894 /* HapticFeedbackHelper.swift */; };
@@ -3331,6 +3334,7 @@
 		7FD435FD249A2D34002D2AC3 /* icon-44-58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-44-58.png"; sourceTree = "<group>"; };
 		7FF07A6923EADB1200F1FC04 /* StagingNet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StagingNet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF07A6C23EADB1200F1FC04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A3C12E002F10000100000001 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		7FF07A7523EADB1400F1FC04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7FF07A7F23EADB1500F1FC04 /* CryptoXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptoXTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF07A8523EADB1500F1FC04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -5591,6 +5595,7 @@
 				507629692BF2293400B4D390 /* LegacyWalletConnect */,
 				7FF07AE323EAE09B00F1FC04 /* Views */,
 				7FF07A6C23EADB1200F1FC04 /* AppDelegate.swift */,
+				A3C12E002F10000100000001 /* SceneDelegate.swift */,
 				D5B87CD927A2EC2F00F27819 /* LaunchScreenViewController.swift */,
 				7FA8F3B4241BAC9400479F83 /* AppCoordinator.swift */,
 				644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */,
@@ -6923,6 +6928,7 @@
 				08C166C72BB7396200E61326 /* ResourceRequest.swift in Sources */,
 				08C166C82BB7396200E61326 /* StandardButton.swift in Sources */,
 				08C166C92BB7396200E61326 /* AppDelegate.swift in Sources */,
+				A3C12E012F10000100000001 /* SceneDelegate.swift in Sources */,
 				08C166CA2BB7396200E61326 /* AboutViewController.swift in Sources */,
 				08C166CB2BB7396200E61326 /* AppCoordinator.swift in Sources */,
 				08C169D12BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */,
@@ -7663,6 +7669,7 @@
 				D589F31D2794B678003F2FBB /* ResourceRequest.swift in Sources */,
 				7F85B7F0246A9AB600ED09B8 /* StandardButton.swift in Sources */,
 				7F85B7F2246A9AB600ED09B8 /* AppDelegate.swift in Sources */,
+				A3C12E022F10000100000001 /* SceneDelegate.swift in Sources */,
 				088FF1FF2A02A76C00042957 /* AboutViewController.swift in Sources */,
 				7F85B7F4246A9AB600ED09B8 /* AppCoordinator.swift in Sources */,
 				08C169D02BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */,
@@ -8402,6 +8409,7 @@
 				0893CC462A66D36C00A10F73 /* Logger.swift in Sources */,
 				068DC81623F2E899001B2975 /* StandardButton.swift in Sources */,
 				7FF07A6D23EADB1200F1FC04 /* AppDelegate.swift in Sources */,
+				A3C12E032F10000100000001 /* SceneDelegate.swift in Sources */,
 				7FA8F3B5241BAC9400479F83 /* AppCoordinator.swift in Sources */,
 				088FF1FB2A02A76C00042957 /* AboutViewController.swift in Sources */,
 				08C169CF2BC00C5F00E61326 /* SessionRequestViewModel.swift in Sources */,

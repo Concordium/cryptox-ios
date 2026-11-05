@@ -230,7 +230,7 @@ extension WebSocketService: WebSocketDecodingStrategyDeledate {
             presentWalletConnection(connectionData: connectionData)
         case .nft(let srvData):
             DispatchQueue.main.async { [weak self] in
-                if var topController = UIApplication.shared.keyWindow?.rootViewController  {
+                if var topController = UIApplication.shared.appWindow?.rootViewController  {
                     
                     let vc = ExternalPaymentVC.instantiate(fromStoryboard: "QRConnect") { coder in
                         return ExternalPaymentVC(coder: coder)
@@ -263,7 +263,7 @@ extension WebSocketService: WebSocketDecodingStrategyDeledate {
 
 extension WebSocketService {
     private func showSignTransactionFlow(_ data: SimpleTransferObject) {
-        guard let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController else { return }
+        guard let navigationController = UIApplication.shared.appWindow?.rootViewController as? UINavigationController else { return }
         guard let dependencyProvider = dependencyProvider else { return }
         guard let account = dependencyProvider.storageManager().getAccounts().first(where: { $0.address == data.data.from }) else { return }
         
@@ -279,7 +279,7 @@ extension WebSocketService {
     func presentWalletConnection(connectionData: QRDataResponse?) {
         
         DispatchQueue.main.async { [weak self] in
-            if var topController = UIApplication.shared.keyWindow?.rootViewController  {
+            if var topController = UIApplication.shared.appWindow?.rootViewController  {
                 let vc = ConnectionRequestVC.instantiate(fromStoryboard: "QRConnect") { coder in
                     return ConnectionRequestVC(coder: coder)
                 }
@@ -299,7 +299,7 @@ extension WebSocketService {
         DispatchQueue.main.async { [weak self] in
             let account = self?.dependencyProvider?.storageManager().getAccounts().first{ $0.address == model.data.from }
             
-            if let topController = UIApplication.shared.keyWindow?.rootViewController  {
+            if let topController = UIApplication.shared.appWindow?.rootViewController  {
                 if let account = account {
                     self?.presentTransactionController(with: model, connectionData: connectionData, in: topController)
                 } else {
