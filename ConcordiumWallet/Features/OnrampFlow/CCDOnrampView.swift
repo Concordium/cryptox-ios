@@ -65,7 +65,7 @@ struct CCDOnrampView: View {
                             Text("List of supported exchanges can be found at")
                                 .font(.satoshi(size: 12, weight: .regular))
                               .foregroundColor(Color(red: 0.84, green: 0.89, blue: 0.94))
-                            + Text(" concordium.com/ccd-wallet")
+                            + Text(" concordium.com/ccd-token")
                                 .underline()
                                 .font(.satoshi(size: 12, weight: .regular))
                                 .foregroundColor(Color(red: 0.84, green: 0.89, blue: 0.94))
