@@ -172,11 +172,13 @@ struct HomeScreenView: View {
                             Image(getDotImageIndex() == 1 ? "Dot1" : "dot\(getDotImageIndex())")
                             Text("\(viewModel.selectedAccount?.account?.displayName ?? "")")
                                 .font(.satoshi(size: 15, weight: .medium))
+                                .fixedSize()
                             Image("CaretUpDown")
                                 .resizable()
                                 .frame(width: 16, height: 16)
                                 .tint(.greyAdditional)
                         }
+                        .padding(.horizontal, 8)
                         .onTapGesture {
                             navigationManager.navigate(to: .accountsOverview(viewModel))
                         }
