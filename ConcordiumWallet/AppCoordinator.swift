@@ -37,6 +37,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     enum AppStartOpenURLAction {
         case none
         case openWalletConnect(URL)
+        case openDeepLink(String)
         case openTransactionDetailsFromNotification([AnyHashable: Any])
     }
     
@@ -61,6 +62,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     }
     
     func start() {
+        isMainFlowActive = false
         if isNewAppInstall() {
             clearAppDataFromPreviousInstall()
         }
@@ -291,7 +293,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     func logout() {
         self.isMainFlowActive = false
         
-        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        let keyWindow = UIApplication.shared.appWindow
         if var topController = keyWindow?.rootViewController {
             while let presentedViewController = topController.presentedViewController {
                 topController = presentedViewController
@@ -305,7 +307,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     }
     
     func resetFlow() {
-        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        let keyWindow = UIApplication.shared.appWindow
         if var topController = keyWindow?.rootViewController {
             while let presentedViewController = topController.presentedViewController {
                 topController = presentedViewController
@@ -379,6 +381,10 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     
     
     func handle(_ url: String) {
+        guard isMainFlowActive else {
+            appStartOpenURLAction = .openDeepLink(url)
+            return
+        }
         scanAddressQr(didScanAddress: url)
     }
 }
@@ -557,7 +563,7 @@ extension AppCoordinator: MoreCoordinatorDelegate {
         UserDefaults.standard.set(false, forKey: "showConfettiAnimation")
         UserDefaults.standard.set(true, forKey: "isShouldShowSeedphraseBackupBanner")
         UserDefaults.standard.set(true, forKey: "isShouldShowOnrampMessage")
-        UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController = navigationController
+        UIApplication.shared.appWindow?.rootViewController = navigationController
         start()
     }
 }
@@ -626,6 +632,9 @@ extension AppCoordinator {
             case .openWalletConnect(let url):
                 logger.debugLog("openWalletConnect -- \(url.absoluteString)")
                 self.openWCConnect(url)
+                self.appStartOpenURLAction = .none
+            case .openDeepLink(let url):
+                self.handle(url)
                 self.appStartOpenURLAction = .none
             case .openTransactionDetailsFromNotification(let userInfo):
                 logger.debugLog("openTransactionDetailsFromNotification")

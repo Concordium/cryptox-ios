@@ -66,15 +66,15 @@ struct ImportWalletView: View {
             }
             .padding(.horizontal, 16)
             .modifier(AppBackgroundModifier())
-            .fullScreenCover(item: $recoveryPhrase) { phrase in
-                RecoverAccountsView(viewModel: .init(phrase: phrase, seedString: nil, defaultProvider: defaultProvider, onAccountInported: onAccountInported))
-            }
-            .fullScreenCover(isPresented: $isLegacyImportInfoShown) {
-                ImportLegacyWalletInfo()
-            }
-            .fullScreenCover(item: $walletPrivateKey) { key in
-                RecoverAccountsView(viewModel: .init(phrase: nil, seedString: key, defaultProvider: defaultProvider, onAccountInported: onAccountInported))
-            }
+        }
+        .fullScreenCover(item: $recoveryPhrase) { phrase in
+            RecoverAccountsView(viewModel: .init(phrase: phrase, seedString: nil, defaultProvider: defaultProvider, onAccountInported: onAccountInported))
+        }
+        .fullScreenCover(isPresented: $isLegacyImportInfoShown) {
+            ImportLegacyWalletInfo()
+        }
+        .fullScreenCover(item: $walletPrivateKey) { key in
+            RecoverAccountsView(viewModel: .init(phrase: nil, seedString: key, defaultProvider: defaultProvider, onAccountInported: onAccountInported))
         }
     }
     
