@@ -68,7 +68,16 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         AppSettings.hasRunBefore = true
         
         legacyLogoutMigration()
+        acceptedPrivacyMigration()
         showLogin()
+    }
+
+    /// Builds between the shortened onboarding flow and CRE-880 never persisted `isAcceptedPrivacy`,
+    /// even though the welcome screen requires accepting the terms before a wallet can be created or restored.
+    /// A user with a passcode has therefore already accepted, so mark it as such to unblock wallet import.
+    private func acceptedPrivacyMigration() {
+        guard !isAcceptedPrivacy, defaultProvider.keychainWrapper().passwordCreated() else { return }
+        isAcceptedPrivacy = true
     }
     
     private func isNewAppInstall() -> Bool {
@@ -194,12 +203,14 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     }
 
     func importWallet(from url: URL) {
-        guard UserDefaults.standard.bool(forKey: "isAcceptedPrivacy") else {
-            showErrorAlert(ViewError.simpleError(localizedReason: "import.not.accepted.privacy".localized))
+        guard isAcceptedPrivacy else {
+            showAcceptPrivacyAlert { [weak self] in
+                self?.isAcceptedPrivacy = true
+                self?.importWallet(from: url)
+            }
             return
         }
 
-        
         guard defaultProvider.keychainWrapper().passwordCreated() else {
             navigationController.dismiss(animated: true)
 
@@ -230,6 +241,27 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
            childCoordinators.append(importCoordinator)
        }
     
+    private func showAcceptPrivacyAlert(onAccept: @escaping () -> Void) {
+        let alert = UIAlertController(
+            title: nil,
+            message: "import.not.accepted.privacy".localized,
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "import.accept.privacy.accept".localized, style: .default) { _ in
+            onAccept()
+        })
+        alert.addAction(UIAlertAction(title: "new_onb_terms".localized, style: .default) { _ in
+            guard let url = URL(string: AppConstants.TermsAndConditions.url) else { return }
+            UIApplication.shared.open(url)
+        })
+        alert.addAction(UIAlertAction(title: "new_onb_privacy".localized, style: .default) { _ in
+            guard let url = URL(string: "https://www.concordium.com/legal/privacy-policy") else { return }
+            UIApplication.shared.open(url)
+        })
+        alert.addAction(UIAlertAction(title: "errorAlert.cancelButton".localized, style: .cancel))
+        (navigationController.presentedViewController ?? navigationController).present(alert, animated: true)
+    }
+
     func showInitialIdentityCreation() {
         if FeatureFlag.enabledFlags.contains(.recoveryCode) {
             if defaultProvider.seedMobileWallet().hasSetupRecoveryPhrase {
