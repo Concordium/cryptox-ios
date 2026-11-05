@@ -1,8 +1,13 @@
 # Changelog
 
+## [Unreleased]
+
 ## [Unreleased 3.5.3]
 ### Fixed:
 - Rectify issue where accepting T&Cs was not persisted, continuing to block wallet import.
+
+### Removed:
+- Removed the Discover news feed tab.
 
 ## [Released 3.5.2]
 ### Fixed:
